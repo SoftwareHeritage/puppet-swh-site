@@ -10,7 +10,7 @@ class profile::base {
 
   $packages = union(
     hiera('packages::base_packages'),
-    hiera('packages::extra_packages'),
+    hiera('packages::extra_packages')
   )
 
   package { $packages:
