@@ -23,6 +23,10 @@ users::base_users:
     shell: /bin/bash
     groups:
       - swhdev
+    authorized_keys:
+      zack@aquarium:
+      type: ssh-rsa
+      key: AAAAB3NzaC1yc2EAAAABIwAAAgEAwHDrj8B6DeStBwz0sLeH+gbmnyqDqS2s+slGpkSdXaKMjQRS50YWU0oOSYkZcg1RoL7G85XE7t9JhHiumHC649k0lsdcS4h8nQBVsYKfpLkJy4bm0ru2mTkwrK4j165yZ3n5ygYPwi+IGfgYIz0bmN3LNrFM60H7VGYe7UouvFpvA+wIqURU7rX3K+ZNdWVkO4CAGoHs3mS/M88HfsADvS3jotRuoC43FTbcSaIw0/riaTyBTcy/N2Q7Muag6dGSwwuFRsp3uBX4jLre0+bf/jrqLWECY2KAlottfKePsOtQe8vy7Hj7xURwf8AJQ3lVTG1vPC4df8c7c09aTlyUH1sHN5gO7ZO3QU9wpQQFsp5jfoSSZzRGSw8HjsJaTKvl6Kte6VvtBKsUOTjxxuvfdRQXiPsmP+eLgtNDWnIo84mdhnlbeTOS85E5CfLHEh6dSbV2P1Gv/ZSFfkCGghmAbSQa01lRAXmFM+JHtEe+sUdbnZ2aQuM4OLuq8trXBs4lA8rvzxReot/zohFLX1Ys+dRKT2G64RzfYIOUaFGG2ZYSA5lT6jvSM2OGXpzlavJjz+Q9BydnCRVVRu2aCRWj0farOvJR4rRGdF7fj1XYJWNwoCzAaJAaiuC7Zl+zwbeZfDmImVR5/OZE0mfDPGcgiGdQiR7YvMYolytpXjtS0zc=
   olasd:
     uid: 1001
     full_name: Nicolas Dandrimont
