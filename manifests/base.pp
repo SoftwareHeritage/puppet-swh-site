@@ -31,6 +31,14 @@ class profile::base {
       groups  => $data['groups'],
       require => Group[$data['groups']],
     }
+
+    file { "/home/$name":
+      ensure  => 'directory',
+      mode    => '0644',
+      owner   => $name,
+      group   => $name,
+      require => User[$name],
+    }
   }
 
   $groups = merge(

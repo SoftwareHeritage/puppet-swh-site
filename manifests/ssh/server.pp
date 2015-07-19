@@ -17,7 +17,10 @@ class profile::ssh::server {
         ensure  => directory,
         owner   => $name,
         mode    => '0600',
-        require => User[$name],
+        require => [
+          User[$name],
+          File["/home/$name"],
+        ],
       }
 
       each($data['authorized_keys']) |$nick, $key| {
