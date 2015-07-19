@@ -21,14 +21,20 @@ users::base_users:
     uid: 1000
     full_name: Stefano Zacchiroli
     shell: /bin/bash
+    groups:
+      - swhdev
   olasd:
     uid: 1001
     full_name: Nicolas Dandrimont
     shell: /bin/bash
+    groups:
+      - swhdev
   ardumont:
     uid: 1003
     full_name: Antoine R. Dumont
     shell: /bin/bash
+    groups:
+      - swhdev
   swhworker:
     uid: 1004
     full_name: SWH Worker Acccount
@@ -39,9 +45,5 @@ users::extra_users: {}
 groups::base_groups:
   swhdev:
     gid: 1002
-    members:
-      - zack
-      - olasd
-      - ardumont
 
 groups::extra_groups: {}
