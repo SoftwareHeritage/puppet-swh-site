@@ -14,7 +14,7 @@ class profile::ssh::server {
   $users.each |$name, $data| {
     if $data['authorized_keys'] {
       $data['authorized_keys'].each |$nick, $key| {
-        ssh_authorized_key { "$user $nick":
+        ssh_authorized_key { "$name $nick":
           ensure  => 'present',
           user    => $name,
           key     => $key['key'],
