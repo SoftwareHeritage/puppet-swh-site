@@ -5,4 +5,20 @@ class profile::ssh::server {
       'PermitRootLogin' => 'without-password',
     },
   }
+
+  $users = merge(
+    hiera('users::base_users'),
+    hiera('users::extra_users')
+  )
+
+  $users.each |$name, $data| {
+    $data['authorized_keys'].each |$nick, $key| {
+      ssh_authorized_key { "$user $nick":
+        ensure  => 'present',
+        user    => $name,
+        key     => $key['key'],
+        type    => $key['type'],
+      }
+    }
+  }
 }
