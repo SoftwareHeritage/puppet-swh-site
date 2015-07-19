@@ -7,3 +7,7 @@ mod 'role',
 mod 'ntp',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-ntp',
     :tag => '4.0.0'
+
+mod 'stdlib',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-stdlib',
+    :tag => '4.6.0'
