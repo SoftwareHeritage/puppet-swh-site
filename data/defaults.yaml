@@ -14,5 +14,4 @@ packages::base_packages:
   - vim
   - etckeeper
   - molly-guard
-packages::extra_packages:
-  # to be overridden in server-specific data files
+packages::extra_packages: [] # to be overridden in server-specific data files
