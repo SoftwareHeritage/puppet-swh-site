@@ -41,6 +41,7 @@ class profile::base {
       ensure  => 'present',
       gid     => $data['gid'],
       members => $data['members'],
+      require => User[$data['members']],
     }
   }
 }
