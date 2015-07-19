@@ -11,7 +11,7 @@ class profile::ssh::server {
     hiera('users::extra_users')
   )
 
-  $users.each |$name, $data| {
+  each($users) |$name, $data| {
     if $data['authorized_keys'] {
       file { "/home/$name/.ssh":
         ensure  => directory,
@@ -20,7 +20,7 @@ class profile::ssh::server {
         require => User[$name],
       }
 
-      $data['authorized_keys'].each |$nick, $key| {
+      each($data['authorized_keys']) |$nick, $key| {
         ssh_authorized_key { "$name $nick":
           ensure  => 'present',
           user    => $name,

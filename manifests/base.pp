@@ -22,7 +22,7 @@ class profile::base {
     hiera('users::extra_users')
   )
 
-  $users.each |$name, $data| {
+  each($users) |$name, $data| {
     user { $name:
       ensure  => 'present',
       uid     => $data['uid'],
@@ -38,7 +38,7 @@ class profile::base {
     hiera('groups::extra_groups')
   )
 
-  $groups.each |$name, $data| {
+  each($groups) |$name, $data| {
     group { $name:
       ensure  => 'present',
       gid     => $data['gid'],
