@@ -11,3 +11,7 @@ mod 'ntp',
 mod 'stdlib',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-stdlib',
     :tag => '4.6.0'
+
+mod 'locales',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-locales',
+    :tag => 'v2.2.2'
