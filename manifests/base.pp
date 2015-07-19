@@ -33,7 +33,7 @@ class profile::base {
 
   $groups = merge(
     hiera('groups::base_groups'),
-    hiers('groups::extra_groups')
+    hiera('groups::extra_groups')
   )
 
   $groups.each |$name, $data| {
