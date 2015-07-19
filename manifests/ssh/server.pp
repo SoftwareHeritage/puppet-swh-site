@@ -1,8 +1,8 @@
 class profile::ssh::server {
-  class { '::ssh':
+  class { '::ssh::server':
     storeconfigs_enabled => false,
-    server_options       => {
-      PermitRootLogin => 'without-password',
+    options       => {
+      'PermitRootLogin' => 'without-password',
     },
   }
 }
