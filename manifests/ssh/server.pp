@@ -14,11 +14,19 @@ class profile::ssh::server {
   $users.each |$name, $data| {
     if $data['authorized_keys'] {
       $data['authorized_keys'].each |$nick, $key| {
+        file { "/home/$name/.ssh":
+          ensure  => directory,
+          owner   => $name,
+          mode    => '0600',
+          require => User[$name],
+        }
+
         ssh_authorized_key { "$name $nick":
           ensure  => 'present',
           user    => $name,
           key     => $key['key'],
           type    => $key['type'],
+          require => File["/home/$name/.ssh"],
         }
       }
     }
