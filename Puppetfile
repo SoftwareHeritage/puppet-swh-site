@@ -22,4 +22,4 @@ mod 'locales',
 
 mod 'ssh',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-ssh',
-    :tag => 'v2.8.1'
+    :ref => 'empty-string-fix'
