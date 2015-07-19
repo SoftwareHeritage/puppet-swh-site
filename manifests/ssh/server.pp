@@ -16,6 +16,7 @@ class profile::ssh::server {
       file { "/home/$name/.ssh":
         ensure  => directory,
         owner   => $name,
+        group   => $name,
         mode    => '0600',
         require => [
           User[$name],
