@@ -1,0 +1,4 @@
+---
+ntp::servers:
+  - sesi-ntp1.inria.fr
+  - sesi-ntp2.inria.fr

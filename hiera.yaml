@@ -1,0 +1,8 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: "%{::settings::modulepath}/../data"
+:hierarchy:
+  - "private/%{::hostname}"
+  - defaults
