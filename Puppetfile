@@ -12,6 +12,10 @@ mod 'stdlib',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-stdlib',
     :tag => '4.6.0'
 
+mod 'concat',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-concat',
+    :tag => '2.0.1'
+
 mod 'locales',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-locales',
     :tag => 'v2.2.2'
