@@ -28,6 +28,8 @@ class profile::base {
       uid     => $data['uid'],
       comment => $data['full_name'],
       shell   => $data['shell'],
+      groups  => $data['groups'],
+      require => Group[$data['groups']],
     }
   }
 
@@ -40,8 +42,6 @@ class profile::base {
     group { $name:
       ensure  => 'present',
       gid     => $data['gid'],
-      members => $data['members'],
-      require => User[$data['members']],
     }
   }
 }
