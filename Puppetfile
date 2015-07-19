@@ -15,3 +15,7 @@ mod 'stdlib',
 mod 'locales',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-locales',
     :tag => 'v2.2.2'
+
+mod 'ssh',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-ssh',
+    :tag => 'v2.8.1'
