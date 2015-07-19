@@ -2,3 +2,11 @@
 ntp::servers:
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
+locales:
+  default_locale:
+    C.UTF-8
+  installed_locales:
+    - C.UTF-8
+    - en_US.UTF-8
+    - fr_FR.UTF-8
+    - it_IT.UTF-8
