@@ -23,3 +23,7 @@ mod 'locales',
 mod 'ssh',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-ssh',
     :ref => 'empty-string-fix'
+
+mod 'debnet',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/trepasi-debnet',
+    :tag => 'v1.4.3'
