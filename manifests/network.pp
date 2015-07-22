@@ -13,12 +13,12 @@ class profile::network {
       $ups = [
               "ip rule add from ${data['address']} table private",
               "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
-              "ip route flush table",
+              "ip route flush cache",
       ]
       $downs = [
               "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
               "ip rule del from ${data['address']} table private",
-              "ip route flush table",
+              "ip route flush cache",
       ]
     } else {
       $ups = []
