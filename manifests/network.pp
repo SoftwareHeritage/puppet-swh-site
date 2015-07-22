@@ -20,9 +20,11 @@ class profile::network {
               "ip rule del from ${data['address']} table private",
               "ip route flush cache",
       ]
+      $gateway = undef
     } else {
       $ups = []
       $downs = []
+      $gateway = $data['gateway']
     }
 
 
@@ -30,7 +32,7 @@ class profile::network {
       method  => 'static',
       address => $data['address'],
       netmask => $data['netmask'],
-      gateway => $data['gateway'],
+      gateway => $gateway,
       ups     => $ups,
       downs   => $downs,
     }
