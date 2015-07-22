@@ -1,0 +1,9 @@
+networks:
+  private:
+    address: 192.168.100.27
+    netmask: 24
+    gateway: 192.168.100.1
+  public:
+    address: 128.93.193.27
+    netmask: 24
+    gateway: 128.93.193.254
