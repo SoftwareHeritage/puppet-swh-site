@@ -1,9 +1,11 @@
 networks:
   private:
+    interface: eth1
     address: 192.168.100.21
     netmask: 24
     gateway: 192.168.100.1
-  public:
+  default:
+    interface: eth0
     address: 128.93.193.21
     netmask: 24
     gateway: 128.93.193.254
