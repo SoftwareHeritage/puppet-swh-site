@@ -4,5 +4,7 @@
 :yaml:
   :datadir: "%{::settings::modulepath}/../data"
 :hierarchy:
-  - "private/%{::hostname}"
+  - "private/hostname/%{::hostname}"
+  - "private/defaults"
+  - "hostname/%{::hostname}"
   - defaults
