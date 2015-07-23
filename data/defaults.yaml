@@ -17,6 +17,15 @@ packages::base_packages:
 packages::extra_packages: [] # to be overridden in server-specific data files
 
 users::base_users:
+  root:
+    uid: 0
+    full_name:
+    shell: /bin/bash
+    groups: []
+    authorized_keys:
+      root@louvre:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDMLEWHlUQldlvZs5rg0y42lRNAfOhD+6pmO8a73DzpJWHTqvAlfteLpU78IPjSacB4dO5ish1E/1RX/HC+Bt8p2v4RBqbCnVLx2w+Hx4ahWu6qbeTVmTz+U++1SQrHnL08fSlhT0OekCw0lRZM2sQq21FZi6+vul97Ecikag4Xaw6Qfumylu94pM3t05uzTUlKk1+6VMCjhT8dlSe8VS8OirVQpE/OqYtTMAWtQaMXGHPCsqDdYRAKzkJ8GjH7ydZmX5VCRyqS0RvPKAlcJfLCs5HBtv0u5rbeGtiHhuzhj/j3YgS/6NJOC2mUfcetcDOMPLnhkKpnF0vUAzTsJ7aR
   zack:
     uid: 1000
     full_name: Stefano Zacchiroli
