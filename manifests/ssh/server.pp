@@ -12,15 +12,21 @@ class profile::ssh::server {
   )
 
   each($users) |$name, $data| {
+    if $name == 'root' {
+      $home = '/root'
+    } else {
+      $home = "/home/$name"
+    }
+
     if $data['authorized_keys'] {
-      file { "/home/$name/.ssh":
+      file { "$home/.ssh":
         ensure  => directory,
         owner   => $name,
         group   => $name,
         mode    => '0600',
         require => [
           User[$name],
-          File["/home/$name"],
+          File["$home"],
         ],
       }
 
@@ -30,9 +36,11 @@ class profile::ssh::server {
           user    => $name,
           key     => $key['key'],
           type    => $key['type'],
-          require => File["/home/$name/.ssh"],
+          require => File["$home/.ssh"],
         }
       }
     }
   }
+
+
 }
