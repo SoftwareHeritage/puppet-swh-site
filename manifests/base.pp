@@ -25,8 +25,10 @@ class profile::base {
   each($users) |$name, $data| {
     if $name == 'root' {
       $home = '/root'
+      $mode = '0600'
     } else {
       $home = "/home/$name"
+      $mode = '0644'
     }
 
     user { $name:
@@ -40,7 +42,7 @@ class profile::base {
 
     file { $home:
       ensure  => 'directory',
-      mode    => '0644',
+      mode    => $mode,
       owner   => $name,
       group   => $name,
       require => User[$name],
