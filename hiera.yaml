@@ -8,3 +8,4 @@
   - "private/defaults"
   - "hostname/%{::fqdn}"
   - defaults
+:merge_behavior: deeper
