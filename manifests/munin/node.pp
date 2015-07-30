@@ -6,4 +6,10 @@ class profile::munin::node {
     allow   => $munin_node_allow,
     address => ip_for_network('192.168.100.0/24')
   }
+
+  if $::osfamily == 'debian' {
+    munin::plugin { 'apt_all':
+      ensure => link,
+    }
+  }
 }
