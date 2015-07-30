@@ -2,7 +2,7 @@
 :backends:
   - yaml
 :yaml:
-  :datadir: "%{::settings::modulepath}/../data"
+  :datadir: "%{::settings::environmentpath}/%{::environment}/data"
 :hierarchy:
   - "private/hostname/%{::fqdn}"
   - "private/defaults"
