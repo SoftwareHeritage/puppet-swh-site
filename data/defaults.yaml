@@ -69,3 +69,5 @@ munin::node::allow:
   - 192.168.100.29
 
 munin::master::hostname: munin.internal.softwareheritage.org
+
+puppet::master::hostname: pergamon.internal.softwareheritage.org
