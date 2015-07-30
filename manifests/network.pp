@@ -1,3 +1,6 @@
+# Network configuration for Software Heritage servers
+#
+# Supports one private and one public interface
 class profile::network {
   debnet::iface::loopback { 'lo': }
 
@@ -13,12 +16,12 @@ class profile::network {
       $ups = [
               "ip rule add from ${data['address']} table private",
               "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
-              "ip route flush cache",
+              'ip route flush cache',
       ]
       $downs = [
               "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
               "ip rule del from ${data['address']} table private",
-              "ip route flush cache",
+              'ip route flush cache',
       ]
       $gateway = undef
     } else {

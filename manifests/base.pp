@@ -1,3 +1,4 @@
+# Base configuration for Software Heritage servers
 class profile::base {
   class { '::ntp':
     servers => hiera('ntp::servers'),
@@ -27,7 +28,7 @@ class profile::base {
       $home = '/root'
       $mode = '0600'
     } else {
-      $home = "/home/$name"
+      $home = "/home/${name}"
       $mode = '0644'
     }
 
@@ -56,8 +57,8 @@ class profile::base {
 
   each($groups) |$name, $data| {
     group { $name:
-      ensure  => 'present',
-      gid     => $data['gid'],
+      ensure => 'present',
+      gid    => $data['gid'],
     }
   }
 }
