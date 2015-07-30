@@ -1,6 +1,8 @@
 # Munin master class
 class profile::munin::master {
-  include ::munin::master
+  class { '::munin::master':
+    extra_config => 'cgiurl_graph',
+  }
 
   $master_hostname = hiera('munin::master::hostname')
 
@@ -31,7 +33,6 @@ class profile::munin::master {
       {
         comment      => 'Images',
         rewrite_rule => [
-          '^/munin-cgi/munin-cgi-graph/(.*) /usr/lib/munin/cgi/munin-cgi-graph/$1 [L]',
           '^/(.*) /usr/lib/munin/cgi/munin-cgi-graph/$1 [L]',
         ],
       },
