@@ -4,6 +4,10 @@ mod 'profile',
 mod 'role',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/swh-role'
 
+mod 'apache',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-apache',
+    :tag => '1.5.0'
+
 mod 'ntp',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-ntp',
     :tag => '4.0.0'
