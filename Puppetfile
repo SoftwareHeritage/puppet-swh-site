@@ -35,3 +35,7 @@ mod 'debnet',
 mod 'munin',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/ssm-munin',
     :tag => '0.0.9'
+
+mod 'puppet',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/theforeman-puppet',
+    :tag => '4.0.1'
