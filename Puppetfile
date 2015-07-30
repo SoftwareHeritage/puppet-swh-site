@@ -27,3 +27,7 @@ mod 'ssh',
 mod 'debnet',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/trepasi-debnet',
     :tag => 'v1.4.3'
+
+mod 'munin',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/ssm-munin',
+    :tag => '0.0.9'
