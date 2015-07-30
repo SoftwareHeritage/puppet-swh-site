@@ -1,7 +1,7 @@
 # Munin master class
 class profile::munin::master {
   class { '::munin::master':
-    extra_config => 'cgiurl_graph',
+    extra_config => ['cgiurl_graph'],
   }
 
   $master_hostname = hiera('munin::master::hostname')
