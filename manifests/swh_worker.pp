@@ -3,4 +3,5 @@ class role::swh_worker {
   include profile::ssh::server
   include profile::network
   include profile::munin::node
+  include profile::puppet::agent
 }
