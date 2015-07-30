@@ -30,7 +30,10 @@ class profile::munin::master {
       },
       {
         comment      => 'Images',
-        rewrite_rule => ['^/(.*) /usr/lib/munin/cgi/munin-cgi-graph/$1 [L]'],
+        rewrite_rule => [
+          '^/munin-cgi/munin-cgi-graph/(.*) /usr/lib/munin/cgi/munin-cgi-graph/$1 [L]',
+          '^/(.*) /usr/lib/munin/cgi/munin-cgi-graph/$1 [L]',
+        ],
       },
     ],
     directories => [
