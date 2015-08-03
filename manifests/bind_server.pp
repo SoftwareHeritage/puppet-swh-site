@@ -65,7 +65,7 @@ class profile::bind_server {
         resource_record { "${rr}+PTR":
           type    => 'PTR',
           record  => $ptr,
-          data    => inline_template('<%= @merged_data[:record] -%>.'),
+          data    => "${merged_data['record']}.",
           keyfile => '/etc/bind/keys/local-update',
         }
       }
