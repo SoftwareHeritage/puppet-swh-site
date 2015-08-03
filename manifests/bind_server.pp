@@ -1,4 +1,4 @@
-class profile::bind {
+class profile::bind_server {
 
   $forwarders = hiera('bind::forwarders')
   $zones = hiera('bind::zones')
