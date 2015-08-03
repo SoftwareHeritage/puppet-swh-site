@@ -63,9 +63,9 @@ class profile::bind_server {
       $ptr_domain = join(values_at(split($ptr, '[.]'), '1-5'), '.')
       if member($zone_names, $ptr_domain) {
         resource_record { "${rr}+PTR":
-          type    => "PTR",
+          type    => 'PTR',
           record  => $ptr,
-          data    => "${merged_data['record']}.",
+          data    => inline_template('<%= @merged_data[:record] -%>.'),
           keyfile => '/etc/bind/keys/local-update',
         }
       }
