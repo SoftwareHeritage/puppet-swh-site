@@ -75,6 +75,11 @@ puppet::master::hostname: pergamon.internal.softwareheritage.org
 bind::zones:
   internal.softwareheritage.org:
     domain: internal.softwareheritage.org
+  100.168.192.in-addr.arpa:
+    domain: 100.168.192.in-addr.arpa
+  101.168.192.in-addr.arpa:
+    domain: 100.168.192.in-addr.arpa
+
 bind::zones::default_data:
   zone_type: master
   dynamic: true
@@ -97,31 +102,71 @@ bind::resource_records:
     type: NS
     record: internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+  100/NS:
+    type: NS
+    record: 101.168.192.in-addr.arpa
+    data: pergamon.internal.softwareheritage.org.
+  101/NS:
+    type: NS
+    record: 101.168.192.in-addr.arpa
+    data: pergamon.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
     data: 192.168.101.6
+  zack/PTR:
+    record: 6.101.168.192.in-addr.arpa
+    type: PTR
+    data: zack.internal.softwareheritage.org
   olasd/A:
     record: olasd.internal.softwareheritage.org
     data: 192.168.101.10
+  olasd/PTR:
+    record: 10.101.168.192.in-addr.arpa
+    type: PTR
+    data: olasd.internal.softwareheritage.org
   ardumont/A:
     record: ardumont.internal.softwareheritage.org
     data: 192.168.101.14
+  ardumont/PTR:
+    record: 14.101.168.192.in-addr.arpa
+    type: PTR
+    data: ardumont.internal.softwareheritage.org
   awork01/A:
     record: awork01.internal.softwareheritage.org
     data: 192.168.101.18
+  awork01/PTR:
+    record: 18.101.168.192.in-addr.arpa
+    type: PTR
+    data: awork01.internal.softwareheritage.org
   awork02/A:
     record: awork02.internal.softwareheritage.org
     data: 192.168.101.22
+  awork02/PTR:
+    record: 22.101.168.192.in-addr.arpa
+    type: PTR
+    data: awork02.internal.softwareheritage.org
   awork03/A:
     record: awork03.internal.softwareheritage.org
     data: 192.168.101.26
+  awork03/PTR:
+    record: 26.101.168.192.in-addr.arpa
+    type: PTR
+    data: awork03.internal.softwareheritage.org
   awork04/A:
     record: awork04.internal.softwareheritage.org
     data: 192.168.101.30
+  awork04/PTR:
+    record: 30.101.168.192.in-addr.arpa
+    type: PTR
+    data: awork04.internal.softwareheritage.org
   awork05/A:
     record: awork05.internal.softwareheritage.org
     data: 192.168.101.34
+  awork05/PTR:
+    record: 34.101.168.192.in-addr.arpa
+    type: PTR
+    data: awork05.internal.softwareheritage.org
 
 bind::resource_records::default_data:
   type: A
