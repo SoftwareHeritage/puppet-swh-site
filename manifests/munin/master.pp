@@ -6,6 +6,7 @@ class profile::munin::master {
 
   $master_hostname = hiera('munin::master::hostname')
 
+  include ::apache
   include ::apache::mod::rewrite
   include ::apache::mod::fcgid
 
