@@ -18,6 +18,10 @@ class profile::bind_server {
     match_clients => $clients,
   }
 
+  bind::key { 'local-update':
+    secret_bits => 512,
+  }
+
   each($zones) |$zone, $data| {
     $merged_data = merge($default_zone_data, $data)
     bind::zone { $zone:
@@ -26,7 +30,10 @@ class profile::bind_server {
       dynamic         => $merged_data['dynamic'],
       masters         => $merged_data['masters'],
       transfer_source => $merged_data['transfer_source'],
-      allow_updates   => $merged_data['allow_updates'],
+      allow_updates   => union(
+        any2array($merged_data['allow_updates']),
+        ['key local-update'],
+      ),
       update_policies => $merged_data['update_policies'],
       allow_transfers => $merged_data['allow_transfers'],
       dnssec          => $merged_data['dnssec'],
@@ -43,9 +50,10 @@ class profile::bind_server {
   each($resource_records) |$rr, $data| {
     $merged_data = merge($default_rr_data, $data)
     resource_record { $rr:
-      type   => $merged_data['type'],
-      record => $merged_data['record'],
-      data   => $merged_data['data'],
+      type    => $merged_data['type'],
+      record  => $merged_data['record'],
+      data    => $merged_data['data'],
+      keyname => 'local-update'
     }
   }
 
