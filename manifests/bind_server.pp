@@ -73,4 +73,6 @@ class profile::bind_server {
   }
 
   Resource_Record <<| |>>
+
+  Bind::Zone <| |> -> Resource_Record <| |>
 }
