@@ -16,6 +16,10 @@ mod 'ntp',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-ntp',
     :tag => '4.0.0'
 
+mod 'module_data',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/ripienaar-module_data',
+    :tag => '0.0.4'
+
 mod 'stdlib',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-stdlib',
     :tag => '4.6.0'

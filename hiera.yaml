@@ -1,6 +1,7 @@
 ---
 :backends:
   - yaml
+  - module_data
 :yaml:
   :datadir: "%{::settings::environmentpath}/%{::environment}/data"
 :hierarchy:
