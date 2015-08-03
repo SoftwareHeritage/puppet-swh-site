@@ -61,4 +61,29 @@ class profile::base {
       gid    => $data['gid'],
     }
   }
+
+  $bind_autogenerate = hiera('bind::autogenerate')
+  $bind_key = hiera('bind::update_key')
+
+  each($bind_autogenerate) |$net, $zone| {
+    if has_ip_network($net) {
+      $ipaddr = ip_for_network($net)
+      $reverse = reverse_ipv4($ipaddr)
+      $fqdn = "${::hostname}.${zone}"
+
+      @@resource_record { "${::hostname}/${zone}/A":
+        type    => 'A',
+        record  => $fqdn,
+        data    => $ipaddr,
+        keyfile => "/etc/bind/keys/${bind_key}",
+      }
+
+      @@resource_record { "${::hostname}/${zone}/PTR":
+        type    => 'PTR',
+        record  => $reverse,
+        data    => "${fqdn}.",
+        keyfile => "/etc/bind/keys/${bind_key}",
+      }
+    }
+  }
 }

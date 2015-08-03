@@ -6,6 +6,7 @@ class profile::bind_server {
   $clients = hiera('bind::clients')
   $resource_records = hiera('bind::resource_records')
   $default_rr_data = hiera('bind::resource_records::default_data')
+  $update_key = hiera('bind::update_key')
   $zone_names = keys($zones)
 
   class { '::bind':
@@ -19,7 +20,7 @@ class profile::bind_server {
     match_clients => $clients,
   }
 
-  bind::key { 'local-update':
+  bind::key { $update_key:
     secret_bits => 512,
   }
 
@@ -33,7 +34,7 @@ class profile::bind_server {
       transfer_source => $merged_data['transfer_source'],
       allow_updates   => union(
         any2array($merged_data['allow_updates']),
-        ['key local-update'],
+        ["key ${update_key}"],
       ),
       update_policies => $merged_data['update_policies'],
       allow_transfers => $merged_data['allow_transfers'],
@@ -54,7 +55,7 @@ class profile::bind_server {
       type    => $merged_data['type'],
       record  => $merged_data['record'],
       data    => $merged_data['data'],
-      keyfile => '/etc/bind/keys/local-update'
+      keyfile => "/etc/bind/keys/${update_key}",
     }
 
     # Generate PTR record from A record
@@ -66,7 +67,7 @@ class profile::bind_server {
           type    => 'PTR',
           record  => $ptr,
           data    => "${merged_data['record']}.",
-          keyfile => '/etc/bind/keys/local-update',
+          keyfile => "/etc/bind/keys/${update_key}",
         }
       }
     }
