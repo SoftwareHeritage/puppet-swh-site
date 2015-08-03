@@ -45,4 +45,13 @@ class profile::munin::master {
         'sethandler' => 'fcgid-script' },
     ],
   }
+
+  $bind_key = hiera('bind::update_key')
+
+  @@resource_record { 'munin/CNAME':
+    record  => $master_hostname,
+    type    => 'CNAME',
+    data    => $::hostname,
+    keyfile => "/etc/bind/keys/${bind_key}",
+  }
 }
