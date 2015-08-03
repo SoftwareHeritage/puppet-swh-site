@@ -78,7 +78,7 @@ bind::zones:
   100.168.192.in-addr.arpa:
     domain: 100.168.192.in-addr.arpa
   101.168.192.in-addr.arpa:
-    domain: 100.168.192.in-addr.arpa
+    domain: 101.168.192.in-addr.arpa
 
 bind::zones::default_data:
   zone_type: master
