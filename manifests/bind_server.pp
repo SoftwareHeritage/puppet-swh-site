@@ -53,7 +53,7 @@ class profile::bind_server {
       type    => $merged_data['type'],
       record  => $merged_data['record'],
       data    => $merged_data['data'],
-      keyname => 'local-update'
+      keyfile => '/etc/bind/keys/local-update'
     }
   }
 
