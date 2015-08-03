@@ -72,6 +72,8 @@ munin::master::hostname: munin.internal.softwareheritage.org
 
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 
+bind::update_key: local-update
+
 bind::zones:
   internal.softwareheritage.org:
     domain: internal.softwareheritage.org
@@ -142,8 +144,12 @@ bind::resource_records::default_data:
 bind::forwarders:
   - 193.51.196.130
   - 193.51.196.131
+
 bind::clients:
   - 192.168.100.0/24
   - 192.168.101.0/24
   - 127.0.0.0/8
   - '::1/128'
+
+bind::autogenerate:
+  '192.168.100.0/24': internal.softwareheritage.org
