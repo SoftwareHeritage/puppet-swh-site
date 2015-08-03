@@ -93,10 +93,36 @@ bind::zones::default_data:
   source: ''
 
 bind::resource_records:
-  internal.swh.org NS:
+  internal/NS:
     type: NS
     record: internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+# VPN hosts
+  zack/A:
+    record: zack.internal.softwareheritage.org
+    data: 192.168.101.6
+  olasd/A:
+    record: olasd.internal.softwareheritage.org
+    data: 192.168.101.10
+  ardumont/A:
+    record: ardumont.internal.softwareheritage.org
+    data: 192.168.101.14
+  awork01/A:
+    record: awork01.internal.softwareheritage.org
+    data: 192.168.101.18
+  awork02/A:
+    record: awork02.internal.softwareheritage.org
+    data: 192.168.101.22
+  awork03/A:
+    record: awork03.internal.softwareheritage.org
+    data: 192.168.101.26
+  awork04/A:
+    record: awork04.internal.softwareheritage.org
+    data: 192.168.101.30
+  awork05/A:
+    record: awork05.internal.softwareheritage.org
+    data: 192.168.101.34
+
 bind::resource_records::default_data:
   type: A
 
