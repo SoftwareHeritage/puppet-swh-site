@@ -6,6 +6,7 @@ class profile::bind_server {
   $clients = hiera('bind::clients')
   $resource_records = hiera('bind::resource_records')
   $default_rr_data = hiera('bind::resource_records::default_data')
+  $zone_names = keys($zones)
 
   class { '::bind':
     forwarders => $forwarders,
@@ -14,7 +15,7 @@ class profile::bind_server {
 
   bind::view { 'private':
     recursion     => true,
-    zones         => keys($zones),
+    zones         => $zone_names,
     match_clients => $clients,
   }
 
@@ -54,6 +55,20 @@ class profile::bind_server {
       record  => $merged_data['record'],
       data    => $merged_data['data'],
       keyfile => '/etc/bind/keys/local-update'
+    }
+
+    # Generate PTR record from A record
+    if $merged_data['type'] == 'A' {
+      $ptr = reverse_ipv4($merged_data['data'])
+      $ptr_domain = join(values_at(split($ptr, '[.]'), '1-5'), '.')
+      if member($zone_names, $ptr_domain) {
+        resource_record { "${rr}+PTR":
+          type    => "PTR",
+          record  => $ptr,
+          data    => $merged_data["record"],
+          keyfile => '/etc/bind/keys/local-update',
+        }
+      }
     }
   }
 
