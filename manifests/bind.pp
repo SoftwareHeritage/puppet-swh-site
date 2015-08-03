@@ -7,7 +7,7 @@ class profile::bind {
   $resource_records = hiera('bind::resource_records')
   $default_rr_data = hiera('bind::resource_records::default_data')
 
-  class { 'bind':
+  class { '::bind':
     forwarders => $forwarders,
     dnssec     => true,
   }
