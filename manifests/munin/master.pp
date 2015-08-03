@@ -5,6 +5,8 @@ class profile::munin::master {
   }
 
   $master_hostname = hiera('munin::master::hostname')
+  $master_hostname_domain = join(delete_at(split($master_hostname, '[.]'), 0), '.')
+  $master_hostname_target = "${::hostname}.${master_hostname_domain}."
 
   include ::apache
   include ::apache::mod::rewrite
@@ -51,7 +53,7 @@ class profile::munin::master {
   @@resource_record { 'munin/CNAME':
     record  => $master_hostname,
     type    => 'CNAME',
-    data    => $::hostname,
+    data    => $master_hostname_target,
     keyfile => "/etc/bind/keys/${bind_key}",
   }
 }
