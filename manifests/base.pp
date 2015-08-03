@@ -66,8 +66,8 @@ class profile::base {
   $bind_key = hiera('bind::update_key')
 
   each($bind_autogenerate) |$net, $zone| {
-    if has_ip_network($net) {
-      $ipaddr = ip_for_network($net)
+    $ipaddr = ip_for_network($net)
+    if $ipaddr {
       $reverse = reverse_ipv4($ipaddr)
       $fqdn = "${::hostname}.${zone}"
 
