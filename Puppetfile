@@ -4,6 +4,10 @@ mod 'profile',
 mod 'role',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/swh-role'
 
+mod 'bind',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/inkblot-bind',
+    :tag => '4.2.2'
+
 mod 'apache',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-apache',
     :tag => '1.5.0'
