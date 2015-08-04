@@ -53,4 +53,8 @@ class profile::munin::plugins::postgresql {
   munin::plugin { 'postgres_xlog':
     ensure => link,
   }
+
+  package { 'libdbd-pg-perl':
+    ensure => 'present',
+  } -> Munin::Plugin <| |>
 }
