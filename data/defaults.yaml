@@ -70,6 +70,11 @@ munin::node::allow:
 
 munin::master::hostname: munin.internal.softwareheritage.org
 
+munin::plugins::rabbitmq::messages_warn: 1800000
+munin::plugins::rabbitmq::messages_crit: 2000000
+munin::plugins::rabbitmq::queue_memory_warn: 1073741824 # 1GB
+munin::plugins::rabbitmq::queue_memory_crit: 2147483648 # 2GB
+
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 
 bind::update_key: local-update
