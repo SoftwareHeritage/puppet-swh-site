@@ -6,4 +6,5 @@ class role::swh_sysadmin {
   include profile::puppet::master
   include profile::apache::simple_server
   include profile::bind_server
+  include profile::munin::plugins::postgresql
 }
