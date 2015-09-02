@@ -39,6 +39,10 @@ mod 'ssh',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-ssh',
     :ref => 'empty-string-fix'
 
+mod 'sudo',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/saz-sudo',
+    :ref => 'v3.1.0'
+
 mod 'debnet',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/trepasi-debnet',
     :tag => 'v1.4.3'
