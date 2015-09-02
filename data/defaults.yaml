@@ -33,6 +33,7 @@ users::base_users:
     shell: /bin/bash
     groups:
       - swhdev
+      - sudo
     authorized_keys:
       zack@aquarium:
         type: ssh-rsa
@@ -43,6 +44,7 @@ users::base_users:
     shell: /bin/bash
     groups:
       - swhdev
+      - sudo
     authorized_keys:
       nicolasd@darboux:
         type: ssh-rsa
@@ -53,6 +55,7 @@ users::base_users:
     shell: /bin/bash
     groups:
       - swhdev
+      - sudo
   swhworker:
     uid: 1004
     full_name: SWH Worker Acccount
@@ -63,6 +66,8 @@ users::extra_users: {}
 groups::base_groups:
   swhdev:
     gid: 1002
+  sudo:
+    gid: 27 # assigned from base-files
 
 groups::extra_groups: {}
 
