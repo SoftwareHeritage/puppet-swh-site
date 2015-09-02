@@ -171,8 +171,8 @@ dar::backup::exclude:
  - dev
  - proc
  - run
- - srv/backup
- - srv/remote-backup
+ - srv/backups
+ - srv/remote-backups
  - srv/storage
  - sys
  - tmp
