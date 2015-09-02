@@ -182,10 +182,6 @@ dar::backup::exclude:
  - var/tmp
 dar::backup::options:
  - -zbzip2
- - -X
- - '.*'
- - -X
- - '~.*'
 
 dar::cron::hour: 0
 dar::cron::minute: fqdn_rand
