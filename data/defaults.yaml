@@ -162,3 +162,28 @@ bind::clients:
 
 bind::autogenerate:
   '192.168.100.0/24': internal.softwareheritage.org
+
+dar::backup::storage: /srv/backups
+dar::backup::num_backups: 1
+dar::backup::base: /
+dar::backup::select: [] # empty list = full backup
+dar::backup::exclude:
+ - dev
+ - proc
+ - srv/backup
+ - srv/remote-backup
+ - sys
+ - tmp
+ - var/cache/apt/archives
+ - var/tmp
+dar::backup::options:
+ - -zbzip2
+ - -X
+ - .*
+ - ~.*
+
+dar::cron::hour: 14
+dar::cron::minute: 25
+dar::cron::month: *
+dar::cron::monthday: *
+dar::cron::weekday: *
