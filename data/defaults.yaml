@@ -173,6 +173,7 @@ dar::backup::exclude:
  - run
  - srv/backups
  - srv/remote-backups
+ - srv/softwareheritage/postgres
  - srv/storage
  - sys
  - tmp
