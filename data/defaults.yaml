@@ -192,3 +192,10 @@ dar::cron::minute: fqdn_rand
 dar::cron::month: '*'
 dar::cron::monthday: '*'
 dar::cron::weekday: '*'
+
+dar_server::backup::storage: /srv/remote-backups
+dar_server::cron::hour: '0-4'
+dar_server::cron::minute: '*/10'
+dar_server::cron::month: '*'
+dar_server::cron::monthday: '*'
+dar_server::cron::weekday: '*'
