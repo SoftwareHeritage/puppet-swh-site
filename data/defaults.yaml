@@ -186,8 +186,8 @@ dar::backup::options:
  - -X
  - '~.*'
 
-dar::cron::hour: 2
-dar::cron::minute: %{fqdn_rand(60, 'backup')}
+dar::cron::hour: 0
+dar::cron::minute: fqdn_rand
 dar::cron::month: '*'
 dar::cron::monthday: '*'
 dar::cron::weekday: '*'
