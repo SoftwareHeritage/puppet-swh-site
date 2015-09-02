@@ -179,11 +179,12 @@ dar::backup::exclude:
 dar::backup::options:
  - -zbzip2
  - -X
- - .*
- - ~.*
+ - '.*'
+ - -X
+ - '~.*'
 
 dar::cron::hour: 14
 dar::cron::minute: 25
-dar::cron::month: *
-dar::cron::monthday: *
-dar::cron::weekday: *
+dar::cron::month: '*'
+dar::cron::monthday: '*'
+dar::cron::weekday: '*'
