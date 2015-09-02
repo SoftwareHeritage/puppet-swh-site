@@ -49,4 +49,16 @@ class profile::dar::client {
     monthday         => $monthday,
     weekday          => $weekday,
   }
+
+  # Export a remote backup to the backup server
+  @@dar::remote_backup { "${::hostname}.${::hostname}":
+    remote_backup_storage => hiera('dar::backup::storage'),
+    remote_backup_name    => $::hostname,
+    local_backup_storage  => hiera('dar_server::backup::storage'),
+    hour                  => hiera('dar_server::cron::hour'),
+    minute                => hiera('dar_server::cron::minute'),
+    month                 => hiera('dar_server::cron::month'),
+    monthday              => hiera('dar_server::cron::monthday'),
+    weekday               => hiera('dar_server::cron::weekday'),
+  }
 }
