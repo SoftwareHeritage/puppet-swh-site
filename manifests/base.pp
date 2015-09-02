@@ -62,6 +62,17 @@ class profile::base {
     }
   }
 
+  class { '::sudo':
+    config_file_replace => false,
+    purge               => false,
+  }
+
+  ::sudo::conf { 'local-env':
+    ensure   => present,
+    content  => 'Defaults        env_keep += "GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL"',
+    priority => 10,
+  }
+
   $bind_autogenerate = hiera('bind::autogenerate')
   $bind_key = hiera('bind::update_key')
 
