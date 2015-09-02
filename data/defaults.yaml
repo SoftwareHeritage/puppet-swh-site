@@ -170,11 +170,14 @@ dar::backup::select: [] # empty list = full backup
 dar::backup::exclude:
  - dev
  - proc
+ - run
  - srv/backup
  - srv/remote-backup
+ - srv/storage
  - sys
  - tmp
- - var/cache/apt/archives
+ - var/cache
+ - var/run
  - var/tmp
 dar::backup::options:
  - -zbzip2
