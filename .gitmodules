@@ -1,3 +1,0 @@
-[submodule "data/private"]
-	path = data/private
-	url = git@git.softwareheritage.org:swh/sysadm/puppet/private/swh-private-data
