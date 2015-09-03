@@ -19,7 +19,13 @@ GIT_REPOS_TO_MERGE+=(
 for environmentdir in $PUPPET_ENV_PATH/*; do
     cd $environmentdir
     for dest in ${!GIT_REPOS_TO_MERGE[@]}; do
-	/usr/bin/git clone ${GIT_REPOS_TO_MERGE[${dest}]} $dest
+	if [ -d $dest/.git ]; then
+	    cd $dest
+	    /usr/bin/git pull
+	    cd $environmentdir
+	else
+	    /usr/bin/git clone ${GIT_REPOS_TO_MERGE[${dest}]} $dest
+	fi
     done
     cd ..
 done
