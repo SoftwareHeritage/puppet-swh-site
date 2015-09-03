@@ -8,10 +8,7 @@ class profile::ssh::server {
     },
   }
 
-  $users = merge(
-    hiera('users::base_users'),
-    hiera('users::extra_users')
-  )
+  $users = hiera_hash('users')
 
   each($users) |$name, $data| {
     if $name == 'root' {
