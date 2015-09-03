@@ -10,14 +10,13 @@ locales::installed_locales:
   - fr_FR.UTF-8 UTF-8
   - it_IT.UTF-8 UTF-8
 
-packages::base_packages:
+packages:
   - vim
   - etckeeper
   - molly-guard
   - moreutils
-packages::extra_packages: [] # to be overridden in server-specific data files
 
-users::base_users:
+users:
   root:
     uid: 0
     full_name:
@@ -61,15 +60,11 @@ users::base_users:
     full_name: SWH Worker Acccount
     shell: /bin/bash
 
-users::extra_users: {}
-
-groups::base_groups:
+groups:
   swhdev:
     gid: 1002
   sudo:
     gid: 27 # assigned from base-files
-
-groups::extra_groups: {}
 
 munin::node::allow:
   - 192.168.100.29
