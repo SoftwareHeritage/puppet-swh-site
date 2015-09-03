@@ -33,12 +33,13 @@ class profile::base {
     }
 
     user { $name:
-      ensure  => 'present',
-      uid     => $data['uid'],
-      comment => $data['full_name'],
-      shell   => $data['shell'],
-      groups  => $data['groups'],
-      require => Group[$data['groups']],
+      ensure   => 'present',
+      uid      => $data['uid'],
+      comment  => $data['full_name'],
+      shell    => $data['shell'],
+      groups   => $data['groups'],
+      password => $data['password'],
+      require  => Group[$data['groups']],
     }
 
     file { $home:
