@@ -21,6 +21,7 @@ for environmentdir in $PUPPET_ENV_PATH/*; do
     for dest in ${!GIT_REPOS_TO_MERGE[@]}; do
 	if [ -d $dest/.git ]; then
 	    cd $dest
+            /usr/bin/git reset --hard HEAD
 	    /usr/bin/git pull
 	    cd $environmentdir
 	else
