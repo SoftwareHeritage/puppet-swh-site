@@ -9,19 +9,13 @@ class profile::base {
     locales        => hiera('locales::installed_locales'),
   }
 
-  $packages = union(
-    hiera('packages::base_packages'),
-    hiera('packages::extra_packages')
-  )
+  $packages = hiera_array('packages')
 
   package { $packages:
     ensure => present,
   }
 
-  $users = merge(
-    hiera('users::base_users'),
-    hiera('users::extra_users')
-  )
+  $users = hiera_hash('users')
 
   each($users) |$name, $data| {
     if $name == 'root' {
@@ -51,10 +45,7 @@ class profile::base {
     }
   }
 
-  $groups = merge(
-    hiera('groups::base_groups'),
-    hiera('groups::extra_groups')
-  )
+  $groups = hiera_hash('groups')
 
   each($groups) |$name, $data| {
     group { $name:
@@ -74,7 +65,7 @@ class profile::base {
     priority => 10,
   }
 
-  $bind_autogenerate = hiera('bind::autogenerate')
+  $bind_autogenerate = hiera_hash('bind::autogenerate')
   $bind_key = hiera('bind::update_key')
 
   each($bind_autogenerate) |$net, $zone| {
