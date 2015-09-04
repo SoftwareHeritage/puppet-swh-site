@@ -4,6 +4,10 @@ class profile::base {
     servers => hiera('ntp::servers'),
   }
 
+  class { '::postfix':
+    relayhost => hiera('smtp::relayhost'),
+  }
+
   class { '::locales':
     default_locale => hiera('locales::default_locale'),
     locales        => hiera('locales::installed_locales'),
