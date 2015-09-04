@@ -7,6 +7,9 @@ mod 'role',
 mod 'dar',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/swh-dar'
 
+mod 'postfix',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/postfix/swh-postfix'
+
 mod 'bind',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/inkblot-bind',
     :tag => '4.2.2'
