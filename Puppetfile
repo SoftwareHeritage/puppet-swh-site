@@ -8,7 +8,7 @@ mod 'dar',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/swh-dar'
 
 mod 'postfix',
-    :git => 'git@git.softwareheritage.org:swh/sysadm/postfix/swh-postfix'
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/swh-postfix'
 
 mod 'bind',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/inkblot-bind',
