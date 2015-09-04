@@ -24,7 +24,7 @@ mod 'concat',
 
 mod 'debconf_package',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/rlenglet-debconf_package',
-    :tag => 'v0.1.1'
+    :ref => 'fix-metadata'
 
 mod 'debnet',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/trepasi-debnet',
