@@ -3,7 +3,7 @@ ntp::servers:
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
 
-smtp::relayhost: [smtp.inria.fr]
+smtp::relayhost: '[smtp.inria.fr]'
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
