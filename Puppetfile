@@ -54,3 +54,7 @@ mod 'munin',
 mod 'puppet',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/theforeman-puppet',
     :tag => '4.0.1'
+
+mod 'debconf_package',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/rlenglet-debconf_package',
+    :tag => 'v0.1.1'
