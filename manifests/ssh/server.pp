@@ -17,18 +17,18 @@ class profile::ssh::server {
       $home = "/home/${name}"
     }
 
-    if $data['authorized_keys'] {
-      file { "${home}/.ssh":
-        ensure  => directory,
-        owner   => $name,
-        group   => $name,
-        mode    => '0600',
-        require => [
-          User[$name],
-          File[$home],
-        ],
-      }
+    file { "${home}/.ssh":
+      ensure  => directory,
+      owner   => $name,
+      group   => $name,
+      mode    => '0600',
+      require => [
+        User[$name],
+        File[$home],
+      ],
+    }
 
+    if $data['authorized_keys'] {
       each($data['authorized_keys']) |$nick, $key| {
         ssh_authorized_key { "${name} ${nick}":
           ensure  => 'present',
