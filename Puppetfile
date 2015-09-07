@@ -42,6 +42,10 @@ mod 'munin',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/ssm-munin',
     :tag => '0.0.9'
 
+mod 'mysql',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-mysql',
+    :tag => '3.6.0'
+
 mod 'ntp',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-ntp',
     :tag => '4.0.0'
