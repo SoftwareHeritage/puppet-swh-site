@@ -42,10 +42,7 @@ class profile::phabricator {
 
   include ::apache
 
-  ::apache::mod {[
-    'proxy_fcgi',
-    'rewrite',
-  ]: }
+  ::apache::mod {'proxy_fcgi':}
 
   ::apache::vhost {"${phabricator_vhost_name} non-ssl":
     servername      => $phabricator_vhost_name,
