@@ -3,9 +3,14 @@ class profile::phabricator {
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
+
   $phabricator_db_max_allowed_packet = hiera('phabricator::mysql::conf::max_allowed_packet')
   $phabricator_db_sql_mode = hiera('phabricator::mysql::conf::sql_mode')
   $phabricator_db_ft_stopword_file = hiera('phabricator::mysql::conf::ft_stopword_file')
+  $phabricator_db_ft_min_word_len = hiera('phabricator::mysql::conf::ft_min_word_len')
+  $phabricator_db_ft_boolean_syntax = hiera('phabricator::mysql::conf::ft_boolean_syntax')
+  $phabricator_db_innodb_buffer_pool_size = hiera('phabricator::mysql::conf::innodb_buffer_pool_size')
+
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
   $phabricator_max_size = hiera('phabricator::php::max_file_size')
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
@@ -16,9 +21,12 @@ class profile::phabricator {
   class {'::mysql::server':
     override_options => {
       mysqld => {
-        max_allowed_packet => $phabricator_db_max_allowed_packet,
-        sql_mode           => $phabricator_db_sql_mode,
-        ft_stopword_file   => $phabricator_db_ft_stopword_file,
+        max_allowed_packet      => $phabricator_db_max_allowed_packet,
+        sql_mode                => $phabricator_db_sql_mode,
+        ft_stopword_file        => $phabricator_db_ft_stopword_file,
+        ft_min_word_len         => $phabricator_db_ft_min_word_len,
+        ft_boolean_syntax       => $phabricator_db_ft_boolean_syntax,
+        innodb_buffer_pool_size => $phabricator_db_innodb_buffer_pool_size,
       }
     }
   }
