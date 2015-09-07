@@ -13,6 +13,6 @@ class profile::phabricator {
     user     => $phabricator_db_user,
     password => $phabricator_db_password,
     host     => 'localhost',
-    grant    => ['ALL PRIVILEGES'],
+    grant    => ['ALL'],
   }
 }
