@@ -4,6 +4,7 @@ class profile::phabricator {
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
+  $phabricator_max_size = hiera('phabricator::php::max_file_size')
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
 
@@ -28,8 +29,12 @@ class profile::phabricator {
   ::php::ini {'/etc/php5/cli/php.ini':}
 
   ::php::fpm::conf {'phabricator':
-    listen => $phabricator_fpm_listen,
-    user   => 'www-data',
+    listen    => $phabricator_fpm_listen,
+    user      => 'www-data',
+    php_value => {
+      post_max_size       => $phabricator_max_size,
+      upload_max_filesize => $phabricator_max_size,
+    },
   }
 
   ::php::module {[
