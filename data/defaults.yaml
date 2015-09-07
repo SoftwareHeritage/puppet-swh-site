@@ -34,6 +34,7 @@ users:
     shell: /bin/bash
     groups:
       - swhdev
+      - swhstorage
       - sudo
     authorized_keys:
       zack@aquarium:
@@ -45,6 +46,7 @@ users:
     shell: /bin/bash
     groups:
       - swhdev
+      - swhstorage
       - sudo
     authorized_keys:
       nicolasd@darboux:
@@ -56,6 +58,7 @@ users:
     shell: /bin/bash
     groups:
       - swhdev
+      - swhstorage
       - sudo
     authorized_keys:
       eniotna.t@gmail.com:
