@@ -222,3 +222,6 @@ phabricator::mysql::database: phabricator
 phabricator::mysql::username: phabricator
 
 phabricator::php::fpm_listen: 127.0.0.1:9001
+
+phabricator::vhost::name: forge.softwareheritage.org
+phabricator::vhost::docroot: /srv/phabricator/phabricator/webroot
