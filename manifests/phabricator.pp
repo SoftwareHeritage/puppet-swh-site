@@ -20,6 +20,8 @@ class profile::phabricator {
   include ::php::cli
   include ::php::fpm::daemon
 
+  ::php::ini {'/etc/php5/cli/php.ini':}
+
   ::php::fpm::conf {'phabricator':
     listen => $phabricator_fpm_listen,
     user   => 'www-data',
