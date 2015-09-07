@@ -19,7 +19,7 @@ class profile::phabricator {
 
   include ::php::cli
 
-  ::php::fpm::daemon {
+  class {'::php::fpm::daemon':
     log_owner    => 'www-data',
     log_group    => 'adm',
     log_dir_mode => '0750',
