@@ -42,7 +42,12 @@ class profile::phabricator {
   ]:
   }
 
-  ::apache::vhost {"$phabricator_vhost_name non-ssl":
+  ::apache::mod {[
+    'proxy_fcgi',
+    'rewrite',
+  ]: }
+
+  ::apache::vhost {"${phabricator_vhost_name} non-ssl":
     servername      => $phabricator_vhost_name,
     port            => '80',
     docroot         => $phabricator_vhost_docroot,
@@ -50,11 +55,19 @@ class profile::phabricator {
     redirect_dest   => "https://${phabricator_vhost_name}/",
   }
 
-  ::apache::vhost {"$phabricator_vhost_name ssl":
-    servername => $phabricator_vhost_name,
-    port       => '443',
-    ssl        => true,
-    docroot    => $phabricator_vhost_docroot,
+  ::apache::vhost {"${phabricator_vhost_name} ssl":
+    servername       => $phabricator_vhost_name,
+    port             => '443',
+    ssl              => true,
+    docroot          => $phabricator_vhost_docroot,
+    proxy_pass_match => {
+      path => '/(.*\.php(/.*)?)$',
+      url  => "fcgi://${phabricator_fpm_listen}/${phabricator_vhost_docroot}/\$1",
+    },
+    rewrites         => [
+      { rewrite_rule => '^/rsrc/(.*)   -                      [L,QSA]' },
+      { rewrite_rule => '^/favicon.ico -                      [L,QSA]' },
+      { rewrite_rule => '^(.*)$        /index.php?__path__=$1 [B,L,QSA]' },
+    ],
   }
-
 }
