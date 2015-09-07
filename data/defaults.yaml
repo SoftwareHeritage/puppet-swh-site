@@ -220,3 +220,5 @@ worker::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EY
 
 phabricator::mysql::database: phabricator
 phabricator::mysql::username: phabricator
+
+phabricator::php::fpm_listen: 127.0.0.1:9001

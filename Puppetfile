@@ -50,6 +50,10 @@ mod 'ntp',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/puppetlabs-ntp',
     :tag => '4.0.0'
 
+mod 'php',
+    :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/thias-php',
+    :tag => '1.1.1'
+
 mod 'puppet',
     :git => 'git@git.softwareheritage.org:swh/sysadm/puppet/theforeman-puppet',
     :tag => '4.0.1'
