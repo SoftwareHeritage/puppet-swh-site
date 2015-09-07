@@ -226,7 +226,7 @@ phabricator::mysql::username: phabricator
 phabricator::mysql::conf::max_allowed_packet: 33554432
 phabricator::mysql::conf::sql_mode: STRICT_ALL_TABLES
 phabricator::mysql::conf::ft_stopword_file: "%{hiera('phabricator::basepath')}/phabricator/resources/sql/stopwords.txt"
-phabricator::mysql::conf::ft_min_word_length: 3
+phabricator::mysql::conf::ft_min_word_len: 3
 phabricator::mysql::conf::ft_boolean_syntax: ' |-><()~*:""&^'
 phabricator::mysql::conf::innodb_buffer_pool_size: 800M
 
