@@ -29,9 +29,9 @@ class profile::phabricator {
   ::php::ini {'/etc/php5/cli/php.ini':}
 
   ::php::fpm::conf {'phabricator':
-    listen    => $phabricator_fpm_listen,
-    user      => 'www-data',
-    php_value => {
+    listen          => $phabricator_fpm_listen,
+    user            => 'www-data',
+    php_admin_value => {
       post_max_size       => $phabricator_max_size,
       upload_max_filesize => $phabricator_max_size,
     },
