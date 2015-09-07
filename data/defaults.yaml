@@ -232,6 +232,7 @@ phabricator::mysql::conf::innodb_buffer_pool_size: 800M
 
 phabricator::php::fpm_listen: 127.0.0.1:9001
 phabricator::php::max_file_size: 128M
+phabricator::php::opcache_validate_timestamps: 0
 
 phabricator::vhost::name: forge.softwareheritage.org
 phabricator::vhost::docroot: "%{hiera('phabricator::basepath')}/phabricator/webroot"
