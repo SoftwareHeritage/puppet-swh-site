@@ -18,7 +18,12 @@ class profile::phabricator {
   }
 
   include ::php::cli
-  include ::php::fpm::daemon
+
+  ::php::fpm::daemon {
+    log_owner    => 'www-data',
+    log_group    => 'adm',
+    log_dir_mode => '0750',
+  }
 
   ::php::ini {'/etc/php5/cli/php.ini':}
 
