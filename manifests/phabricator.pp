@@ -14,7 +14,7 @@ class profile::phabricator {
   include ::mysql::client
 
   class {'::mysql::server':
-    override_options = {
+    override_options => {
       mysqld => {
         max_allowed_packet => $phabricator_db_max_allowed_packet,
         sql_mode           => $phabricator_db_sql_mode,
