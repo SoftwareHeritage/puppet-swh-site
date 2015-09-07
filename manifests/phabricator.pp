@@ -89,4 +89,8 @@ class profile::phabricator {
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
   }
+
+  package {'python3-pygments':
+    ensure => installed,
+  }
 }
