@@ -61,10 +61,16 @@ users:
     uid: 1004
     full_name: SWH Worker Acccount
     shell: /bin/bash
+  swhstorage:
+    uid: 1005
+    full_name: SWH Storage Account
+    shell: /bin/bash
 
 groups:
   swhdev:
     gid: 1002
+  swhstorage:
+    gid: 1005
   sudo:
     gid: 27 # assigned from base-files
 
