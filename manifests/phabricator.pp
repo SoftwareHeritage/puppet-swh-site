@@ -1,16 +1,14 @@
 # Setup an instance of phabricator
 class profile::phabricator {
-  include ::apache
-
-  include ::mysql::server
-  include ::mysql::client
-
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
+
+  include ::mysql::server
+  include ::mysql::client
 
   ::mysql::db {$phabricator_db_name:
     user     => $phabricator_db_user,
@@ -41,6 +39,8 @@ class profile::phabricator {
     'apcu',
   ]:
   }
+
+  include ::apache
 
   ::apache::mod {[
     'proxy_fcgi',
