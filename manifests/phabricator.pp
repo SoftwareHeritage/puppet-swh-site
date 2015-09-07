@@ -13,6 +13,8 @@ class profile::phabricator {
 
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
   $phabricator_max_size = hiera('phabricator::php::max_file_size')
+  $phabricator_opcache_validate_timestamps = hiera('phabricator::php::opcache_validate_timestamps')
+
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
 
@@ -52,8 +54,9 @@ class profile::phabricator {
     listen          => $phabricator_fpm_listen,
     user            => 'www-data',
     php_admin_value => {
-      post_max_size       => $phabricator_max_size,
-      upload_max_filesize => $phabricator_max_size,
+      post_max_size                 => $phabricator_max_size,
+      upload_max_filesize           => $phabricator_max_size,
+      'opcache.validate_timestamps' => $phabricator_opcache_validate_timestamps,
     },
   }
 
