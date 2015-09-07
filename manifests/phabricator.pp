@@ -3,13 +3,25 @@ class profile::phabricator {
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
+  $phabricator_db_max_allowed_packet = hiera('phabricator::mysql::conf::max_allowed_packet')
+  $phabricator_db_sql_mode = hiera('phabricator::mysql::conf::sql_mode')
+  $phabricator_db_ft_stopword_file = hiera('phabricator::mysql::conf::ft_stopword_file')
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
   $phabricator_max_size = hiera('phabricator::php::max_file_size')
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
 
-  include ::mysql::server
   include ::mysql::client
+
+  class {'::mysql::server':
+    override_options = {
+      mysqld => {
+        max_allowed_packet => $phabricator_db_max_allowed_packet,
+        sql_mode           => $phabricator_db_sql_mode,
+        ft_stopword_file   => $phabricator_db_ft_stopword_file,
+      }
+    }
+  }
 
   ::mysql::db {$phabricator_db_name:
     user     => $phabricator_db_user,
