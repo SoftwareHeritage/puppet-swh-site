@@ -4,7 +4,7 @@ class profile::phabricator {
   $phabricator_user = hiera('phabricator::user')
 
   $phabricator_db_root_password = hiera('phabricator::mysql::root_password')
-  $phabricator_db_name = hiera('phabricator::mysql::database')
+  $phabricator_db_basename = hiera('phabricator::mysql::database_prefix')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
 
@@ -40,11 +40,15 @@ class profile::phabricator {
     }
   }
 
-  ::mysql::db {$phabricator_db_name:
-    user     => $phabricator_db_user,
-    password => $phabricator_db_password,
-    host     => 'localhost',
-    grant    => ['ALL'],
+  mysql_user {"${phabricator_db_user}@localhost":
+    ensure        => present,
+    password_hash => mysql_password($phabricator_db_password),
+  }
+
+  mysql_grant {"${phabricator_db_user}@localhost/`${phabricator_db_basename}_%`.*":
+    user       => "${phabricator_db_user}@localhost",
+    privileges => ['ALL'],
+    table      => "`${phabricator_db_basename}_%`.*"
   }
 
   include ::php::cli
