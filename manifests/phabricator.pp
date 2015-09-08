@@ -2,6 +2,7 @@
 class profile::phabricator {
   $phabricator_basepath = hiera('phabricator::basepath')
   $phabricator_user = hiera('phabricator::user')
+  $phabricator_vcs_user = hiera('phabricator::vcs_user')
 
   $phabricator_db_root_password = hiera('phabricator::mysql::root_password')
   $phabricator_db_basename = hiera('phabricator::mysql::database_prefix')
@@ -23,6 +24,15 @@ class profile::phabricator {
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
   $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
+
+  user {[
+    $phabricator_user,
+    $phabricator_vcs_user,
+  ]:
+    ensure => present,
+    system => true,
+    shell  => '/bin/bash',
+  }
 
   include ::mysql::client
 
