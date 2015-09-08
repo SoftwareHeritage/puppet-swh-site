@@ -45,12 +45,12 @@ class profile::phabricator {
     require => File['/usr/local/bin/git-http-backend'],
   }
 
-  file {'/usr/local/bin/git-http-backend':
+  file {'/usr/bin/git-http-backend':
     ensure => link,
     target => '/usr/lib/git-core/git-http-backend',
   }
 
-  file {'/usr/local/bin/phabricator-ssh-hook.sh':
+  file {'/usr/bin/phabricator-ssh-hook.sh':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
