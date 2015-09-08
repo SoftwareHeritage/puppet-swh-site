@@ -97,6 +97,8 @@ class profile::phabricator {
     ],
     directories => [
       { path           => $phabricator_vhost_docroot,
+        auth_type      => 'Basic',
+        auth_name      => 'Software Heritage development',
         auth_user_file => $phabricator_vhost_basic_auth_file,
         auth_require   => 'valid-user',
       },
@@ -107,7 +109,7 @@ class profile::phabricator {
   file {$phabricator_vhost_basic_auth_file:
     ensure  => present,
     owner   => 'root',
-    group   => 'root',
+    group   => 'www-data',
     mode    => '0640',
     content => $phabricator_vhost_basic_auth_content,
   }
