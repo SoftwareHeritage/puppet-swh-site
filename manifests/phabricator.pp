@@ -93,7 +93,7 @@ class profile::phabricator {
     ],
   }
 
-  package {'python3-pygments':
+  package {'python-pygments':
     ensure => installed,
   }
 }
