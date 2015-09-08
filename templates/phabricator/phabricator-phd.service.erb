@@ -4,7 +4,7 @@
 
 [Unit]
 Description=Phabricator Daemons
-After=network.target
+After=network.target mysql.service
 Before=apache2.service
 
 [Service]
