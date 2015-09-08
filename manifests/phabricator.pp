@@ -68,7 +68,7 @@ class profile::phabricator {
   }
 
   $phabricator_ssh_hook = '/usr/bin/phabricator-ssh-hook.sh'
-  $phabricator_ssh_config = '/etc/sshd/ssh_config.phabricator'
+  $phabricator_ssh_config = '/etc/ssh/ssh_config.phabricator'
 
   file {$phabricator_ssh_hook:
     ensure  => present,
