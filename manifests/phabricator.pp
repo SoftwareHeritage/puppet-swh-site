@@ -73,7 +73,7 @@ class profile::phabricator {
 
   ::apache::mod {'proxy_fcgi':}
 
-  ::apache::vhost {"${phabricator_vhost_name} non-ssl":
+  ::apache::vhost {"${phabricator_vhost_name}_non-ssl":
     servername      => $phabricator_vhost_name,
     port            => '80',
     docroot         => $phabricator_vhost_docroot,
@@ -81,7 +81,7 @@ class profile::phabricator {
     redirect_dest   => "https://${phabricator_vhost_name}/",
   }
 
-  ::apache::vhost {"${phabricator_vhost_name} ssl":
+  ::apache::vhost {"${phabricator_vhost_name}_ssl":
     servername => $phabricator_vhost_name,
     port       => '443',
     ssl        => true,
