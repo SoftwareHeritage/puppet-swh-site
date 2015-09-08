@@ -40,15 +40,18 @@ class profile::phabricator {
     }
   }
 
-  mysql_user {"${phabricator_db_user}@localhost":
+  $mysql_username = "${phabricator_db_user}@localhost"
+  $mysql_tables = "`${phabricator_db_basename}_%`.*"
+
+  mysql_user {$mysql_username:
     ensure        => present,
     password_hash => mysql_password($phabricator_db_password),
   }
 
-  mysql_grant {"${phabricator_db_user}@localhost/`${phabricator_db_basename}_%`.*":
-    user       => "${phabricator_db_user}@localhost",
+  mysql_grant {"${mysql_username}/${mysql_tables}":
+    user       => $mysql_username,
+    table      => $mysql_tables,
     privileges => ['ALL'],
-    table      => "`${phabricator_db_basename}_%`.*"
   }
 
   include ::php::cli
