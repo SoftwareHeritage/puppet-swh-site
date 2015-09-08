@@ -220,6 +220,7 @@ worker::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EY
 
 phabricator::basepath: /srv/phabricator
 phabricator::user: phabricator
+phabricator::vcs_user: git
 
 phabricator::mysql::database_prefix: phabricator
 phabricator::mysql::username: phabricator
