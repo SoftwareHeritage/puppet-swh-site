@@ -35,12 +35,19 @@ class profile::phabricator {
   }
 
   ::sudo::conf {'phabricator-ssh':
-    ensure => present,
+    ensure  => present,
     content => "${phabricator_vcs_user} ALL=(${phabricator_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg",
   }
+
   ::sudo::conf {'phabricator-http':
-    ensure => present,
-    content => "www-data ALL=(${phabricator_user}) SETENV: NOPASSWD: /usr/bin/git-http-backend, /usr/bin/hg",
+    ensure  => present,
+    content => "www-data ALL=(${phabricator_user}) SETENV: NOPASSWD: /usr/local/bin/git-http-backend, /usr/bin/hg",
+    require => File['/usr/local/bin/git-http-backend'],
+  }
+
+  file {'/usr/local/bin/git-http-backend':
+    ensure => link,
+    target => '/usr/lib/git-core/git-http-backend',
   }
 
   include ::mysql::client
