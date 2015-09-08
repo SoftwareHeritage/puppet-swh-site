@@ -41,7 +41,7 @@ class profile::phabricator {
   }
 
   $mysql_username = "${phabricator_db_user}@localhost"
-  $mysql_tables = "`${phabricator_db_basename}_%`.*"
+  $mysql_tables = "${phabricator_db_basename}_%.*"
 
   mysql_user {$mysql_username:
     ensure        => present,
