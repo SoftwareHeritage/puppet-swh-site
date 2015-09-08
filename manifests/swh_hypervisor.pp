@@ -1,7 +1,3 @@
-class role::swh_hypervisor {
-  include profile::base
-  include profile::ssh::server
-  include profile::munin::node
-  include profile::dar::client
+class role::swh_hypervisor inherits role::swh_server {
   include profile::dar::server
 }

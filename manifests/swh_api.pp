@@ -1,9 +1,4 @@
-class role::swh_api {
-  include profile::base
-  include profile::ssh::server
-  include profile::munin::node
-  include profile::dar::client
-
+class role::swh_api inherits role::swh_server {
   include profile::munin::plugins::rabbitmq
   include profile::worker::deploy_key
 }
