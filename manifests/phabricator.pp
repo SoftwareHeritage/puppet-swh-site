@@ -124,7 +124,7 @@ class profile::phabricator {
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => template('phabricator/phabricator-phd.service.erb'),
+    content => template('profile/phabricator/phabricator-phd.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
   }
 
