@@ -129,7 +129,8 @@ class profile::phabricator {
   }
 
   exec {'systemd-daemon-reload':
-    command     => '/usr/bin/systemctl daemon-reload',
+    path        => '/sbin:/usr/sbin:/bin:/usr/bin',
+    command     => 'systemctl daemon-reload',
     refreshonly => true,
   }
 
