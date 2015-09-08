@@ -50,7 +50,7 @@ class profile::phabricator {
     target => '/usr/lib/git-core/git-http-backend',
   }
 
-  file {'/usr/libexec/phabricator-ssh-hook.sh':
+  file {'/usr/local/bin/phabricator-ssh-hook.sh':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
