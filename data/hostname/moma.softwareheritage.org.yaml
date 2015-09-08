@@ -11,3 +11,15 @@ users:
 worker::deploy::users:
   - swhstorage
   - swhworker
+
+networks:
+  private:
+    interface: eth1
+    address: 192.168.100.31
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
+  default:
+    interface: eth0
+    address: 128.93.193.31
+    netmask: 255.255.255.0
+    gateway: 128.93.193.254
