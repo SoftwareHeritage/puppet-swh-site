@@ -3,6 +3,7 @@ class profile::phabricator {
   $phabricator_basepath = hiera('phabricator::basepath')
   $phabricator_user = hiera('phabricator::user')
 
+  $phabricator_db_root_password = hiera('phabricator::mysql::root_password')
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
@@ -26,6 +27,7 @@ class profile::phabricator {
   include ::mysql::client
 
   class {'::mysql::server':
+    root_password    => $phabricator_db_root_password,
     override_options => {
       mysqld => {
         max_allowed_packet      => $phabricator_db_max_allowed_packet,
