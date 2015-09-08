@@ -32,7 +32,7 @@ class profile::phabricator {
 
   $homedir_modes = {
     $phabricator_user     => '0644',
-    $phabricator_vcs_user => '0600',
+    $phabricator_vcs_user => '0640',
   }
 
   each([$phabricator_user, $phabricator_vcs_user]) |$name| {
@@ -46,7 +46,7 @@ class profile::phabricator {
     file {$homedirs[$name]:
       ensure => directory,
       owner  => $name,
-      group  => 'www-data',
+      group  => $name,
       mode   => $homedir_modes[$name],
     }
   }
