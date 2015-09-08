@@ -1,4 +1,4 @@
-AuthorizedKeysCommand /usr/bin/phabricator-ssh-hook.sh
+AuthorizedKeysCommand <%= @phabricator_ssh_hook %>
 AuthorizedKeysCommandUser <%= @phabricator_vcs_user %>
 AllowUsers <%= @phabricator_vcs_user %>
 

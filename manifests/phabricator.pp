@@ -67,7 +67,10 @@ class profile::phabricator {
     target => '/usr/lib/git-core/git-http-backend',
   }
 
-  file {'/usr/bin/phabricator-ssh-hook.sh':
+  $phabricator_ssh_hook = '/usr/bin/phabricator-ssh-hook.sh'
+  $phabricator_ssh_config = '/etc/sshd/ssh_config.phabricator'
+
+  file {$phabricator_ssh_hook:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -75,13 +78,13 @@ class profile::phabricator {
     content => template('profile/phabricator/phabricator-ssh-hook.sh.erb'),
   }
 
-  file {'/etc/ssh/sshd_config.phabricator':
+  file {$phabricator_ssh_config:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
     content => template('profile/phabricator/sshd_config.phabricator.erb'),
-    require => File['/usr/bin/phabricator-ssh-hook.sh'],
+    require => File[$phabricator_ssh_hook],
   }
 
   file {'/etc/systemd/system/phabricator-sshd.service':
@@ -91,7 +94,7 @@ class profile::phabricator {
     mode    => '0640',
     content => template('profile/phabricator/phabricator-sshd.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
-    require => File['/etc/sshd_config.phabricator'],
+    require => File[$phabricator_ssh_config],
   }
 
   service {'phabricator-sshd':
