@@ -8,12 +8,12 @@ After=network.target
 Before=apache2.service
 
 [Service]
-User=<% @phabricator_user %>
-Group=<% @phabricator_user %>
+User=<%= @phabricator_user %>
+Group=<%= @phabricator_user %>
 Type=oneshot
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
-ExecStart=<% @phabricator_basepath -%>/phabricator/bin/phd start
-ExecStart=<% @phabricator_basepath -%>/phabricator/bin/phd stop
+ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/phd start
+ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/phd stop
 RemainAfterExit=yes
 
 [Install]
