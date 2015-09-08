@@ -1,5 +1,7 @@
 # Setup an instance of phabricator
 class profile::phabricator {
+  $phabricator_basepath = hiera('phabricator::basepath')
+
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
   $phabricator_db_password = hiera('phabricator::mysql::password')
@@ -17,6 +19,8 @@ class profile::phabricator {
 
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
+  $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
+  $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
 
   include ::mysql::client
 
@@ -82,15 +86,30 @@ class profile::phabricator {
   }
 
   ::apache::vhost {"${phabricator_vhost_name}_ssl":
-    servername => $phabricator_vhost_name,
-    port       => '443',
-    ssl        => true,
-    docroot    => $phabricator_vhost_docroot,
-    rewrites   => [
+    servername  => $phabricator_vhost_name,
+    port        => '443',
+    ssl         => true,
+    docroot     => $phabricator_vhost_docroot,
+    rewrites    => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
+    directories => [
+      { path           => $phabricator_vhost_docroot,
+        auth_user_file => $phabricator_vhost_basic_auth_file,
+        auth_require   => 'valid-user',
+      },
+    ],
+    require     => File[$phabricator_vhost_basic_auth_file],
+  }
+
+  file {$phabricator_vhost_basic_auth_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => $phabricator_vhost_basic_auth_content,
   }
 
   package {'python-pygments':
