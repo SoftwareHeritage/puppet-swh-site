@@ -96,7 +96,8 @@ class profile::phabricator {
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
     directories => [
-      { path           => $phabricator_vhost_docroot,
+      { path           => '/',
+        provider       => 'location',
         auth_type      => 'Basic',
         auth_name      => 'Software Heritage development',
         auth_user_file => $phabricator_vhost_basic_auth_file,
