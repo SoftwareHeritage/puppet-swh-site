@@ -136,7 +136,10 @@ class profile::phabricator {
   service {'phabricator-phd':
     ensure  => 'running',
     enable  => true,
-    require => File['/etc/systemd/system/phabricator-phd.service'],
+    require => [
+      File['/etc/systemd/system/phabricator-phd.service'],
+      Exec['systemd-daemon-reload'],
+    ],
   }
 
   package {'python-pygments':
