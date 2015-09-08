@@ -1,6 +1,3 @@
-class role::swh_server {
-  include profile::base
-  include profile::ssh::server
-  include profile::munin::node
+class role::swh_server inherits role::swh_base {
   include profile::dar::client
 }
