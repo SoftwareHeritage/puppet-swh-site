@@ -1,10 +1,13 @@
 # Configure the SSH server
 
 class profile::ssh::server {
+  $sshd_port = hiera('ssh::port')
+
   class { '::ssh::server':
     storeconfigs_enabled => false,
     options              => {
       'PermitRootLogin' => 'without-password',
+      'Port'            => $sshd_port,
     },
   }
 
