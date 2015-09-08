@@ -52,6 +52,7 @@ class profile::phabricator {
     user       => $mysql_username,
     table      => $mysql_tables,
     privileges => ['ALL'],
+    require    => Mysql_user[$mysql_username],
   }
 
   include ::php::cli
