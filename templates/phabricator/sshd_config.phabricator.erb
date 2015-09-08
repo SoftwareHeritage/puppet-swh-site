@@ -1,0 +1,18 @@
+AuthorizedKeysCommand /usr/bin/phabricator-ssh-hook.sh
+AuthorizedKeysCommandUser <%= @phabricator_vcs_user %>
+AllowUsers <%= @phabricator_vcs_user %>
+
+# You may need to tweak these options, but mostly they just turn off everything
+# dangerous.
+
+Port 22
+Protocol 2
+PermitRootLogin no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PrintMotd no
+PrintLastLog no
+PasswordAuthentication no
+AuthorizedKeysFile none
+
+PidFile /var/run/sshd-phabricator.pid

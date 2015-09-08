@@ -72,7 +72,35 @@ class profile::phabricator {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('profile/phabricator/phabricator-ssh-hook.sh.erb')
+    content => template('profile/phabricator/phabricator-ssh-hook.sh.erb'),
+  }
+
+  file {'/etc/ssh/sshd_config.phabricator':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+    content => template('profile/phabricator/sshd_config.phabricator.erb'),
+    require => File['/usr/bin/phabricator-ssh-hook.sh'],
+  }
+
+  file {'/etc/systemd/system/phabricator-sshd.service':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('profile/phabricator/phabricator-sshd.service.erb'),
+    notify  => Exec['systemd-daemon-reload'],
+    require => File['/etc/sshd_config.phabricator'],
+  }
+
+  service {'phabricator-sshd':
+    ensure  => 'running',
+    enable  => true,
+    require => [
+      File['/etc/systemd/system/phabricator-sshd.service'],
+      Exec['systemd-daemon-reload'],
+    ],
   }
 
   include ::mysql::client
