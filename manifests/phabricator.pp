@@ -50,6 +50,14 @@ class profile::phabricator {
     target => '/usr/lib/git-core/git-http-backend',
   }
 
+  file {'/usr/libexec/phabricator-ssh-hook.sh':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('profile/phabricator/phabricator-ssh-hook.sh.erb')
+  }
+
   include ::mysql::client
 
   class {'::mysql::server':
