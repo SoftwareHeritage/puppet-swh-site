@@ -1,6 +1,7 @@
 # Setup an instance of phabricator
 class profile::phabricator {
   $phabricator_basepath = hiera('phabricator::basepath')
+  $phabricator_user = hiera('phabricator::user')
 
   $phabricator_db_name = hiera('phabricator::mysql::database')
   $phabricator_db_user = hiera('phabricator::mysql::username')
@@ -113,6 +114,29 @@ class profile::phabricator {
     group   => 'www-data',
     mode    => '0640',
     content => $phabricator_vhost_basic_auth_content,
+  }
+
+  # Uses:
+    # $phabricator_basepath
+    # $phabricator_user
+  file {'/etc/systemd/system/phabricator-phd.service':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('phabricator/phabricator-phd.service.erb'),
+    notify  => Exec['systemd-daemon-reload'],
+  }
+
+  exec {'systemd-daemon-reload':
+    command     => '/usr/bin/systemctl daemon-reload',
+    refreshonly => true,
+  }
+
+  service {'phabricator-phd':
+    ensure  => 'running',
+    enable  => true,
+    require => File['/etc/systemd/system/phabricator-phd.service'],
   }
 
   package {'python-pygments':
