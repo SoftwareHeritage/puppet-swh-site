@@ -238,3 +238,5 @@ phabricator::php::opcache_validate_timestamps: 0
 
 phabricator::vhost::name: forge.softwareheritage.org
 phabricator::vhost::docroot: "%{hiera('phabricator::basepath')}/phabricator/webroot"
+
+ssh::port: 22
