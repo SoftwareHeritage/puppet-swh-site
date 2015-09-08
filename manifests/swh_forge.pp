@@ -4,5 +4,7 @@ class role::swh_forge {
   include profile::munin::node
   include profile::dar::client
 
+  include profile::network
+
   include profile::phabricator
 }
