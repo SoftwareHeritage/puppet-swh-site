@@ -25,13 +25,30 @@ class profile::phabricator {
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
   $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
 
-  user {[
-    $phabricator_user,
-    $phabricator_vcs_user,
-  ]:
-    ensure => present,
-    system => true,
-    shell  => '/bin/bash',
+  $homedirs = {
+    $phabricator_user     => $phabricator_basepath,
+    $phabricator_vcs_user => "${phabricator_basepath}/vcshome",
+  }
+
+  $homedir_modes = {
+    $phabricator_user     => '0644',
+    $phabricator_vcs_user => '0600',
+  }
+
+  each([$phabricator_user, $phabricator_vcs_user]) |$name| {
+    user {$name:
+      ensure => present,
+      system => true,
+      shell  => '/bin/bash',
+      home   => $homedirs[$name],
+    }
+
+    file {$homedirs[$name]:
+      ensure => directory,
+      owner  => $name,
+      group  => 'www-data',
+      mode   => $homedir_modes[$name],
+    }
   }
 
   ::sudo::conf {'phabricator-ssh':
