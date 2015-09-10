@@ -11,7 +11,7 @@ PUPPET_ENV_PATH=/etc/puppet/environments
 declare -A GIT_REPOS_TO_MERGE
 
 GIT_REPOS_TO_MERGE+=(
-    ["data/private"]="git@git.softwareheritage.org:swh/sysadm/puppet/private/swh-private-data"
+    ["data/private"]="git@forge.softwareheritage.org:/diffusion/SPPRIV/swh-private-data.git"
 )
 
 /usr/bin/r10k deploy environment -p "$@"
