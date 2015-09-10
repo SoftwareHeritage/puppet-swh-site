@@ -13,10 +13,12 @@ locales::installed_locales:
   - it_IT.UTF-8 UTF-8
 
 packages:
-  - vim
   - etckeeper
+  - htop
   - molly-guard
   - moreutils
+  - ncdu
+  - vim
 
 users:
   root:
