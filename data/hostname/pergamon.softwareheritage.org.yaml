@@ -9,3 +9,7 @@ networks:
     address: 128.93.193.29
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+
+# For now the puppetmaster vhost is not puppet-managed
+apache::purge_configs: false
+apache::purge_vhost_dir: false
