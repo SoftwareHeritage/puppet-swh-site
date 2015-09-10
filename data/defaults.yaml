@@ -136,6 +136,10 @@ bind::resource_records:
     type: NS
     record: 101.168.192.in-addr.arpa
     data: pergamon.internal.softwareheritage.org.
+  db/CNAME:
+    type: CNAME
+    record: db.internal.softwareheritage.org
+    data: prado.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
