@@ -11,4 +11,4 @@ networks:
     gateway: 128.93.193.254
 
 dar::backup::select:
-  - /home
+  - home
