@@ -30,3 +30,5 @@ for environmentdir in $PUPPET_ENV_PATH/*; do
     done
     cd ..
 done
+
+cp $PUPPET_ENV_PATH/production/deploy.sh /usr/local/bin
