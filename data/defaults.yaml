@@ -37,6 +37,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhdeploy
       - sudo
     authorized_keys:
       zack@aquarium:
@@ -49,6 +50,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhdeploy
       - sudo
     authorized_keys:
       nicolasd@darboux:
@@ -61,6 +63,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhdeploy
       - sudo
     authorized_keys:
       eniotna.t@gmail.com:
@@ -73,16 +76,22 @@ users:
     uid: 1004
     full_name: SWH Worker Acccount
     shell: /bin/bash
+    groups:
+      - swhdeploy
   swhstorage:
     uid: 1005
     full_name: SWH Storage Account
     shell: /bin/bash
+    groups:
+      - swhdeploy
 
 groups:
   swhdev:
     gid: 1002
   swhstorage:
     gid: 1005
+  swhdeploy:
+    gid: 1006
   sudo:
     gid: 27 # assigned from base-files
 
@@ -221,8 +230,7 @@ dar_server::cron::month: '*'
 dar_server::cron::monthday: '*'
 dar_server::cron::weekday: '*'
 
-worker::deploy::users:
-  - swhworker
+worker::deploy::group: swhdeploy
 worker::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
 
 phabricator::basepath: /srv/phabricator
@@ -247,3 +255,5 @@ phabricator::vhost::name: forge.softwareheritage.org
 phabricator::vhost::docroot: "%{hiera('phabricator::basepath')}/phabricator/webroot"
 
 ssh::port: 22
+
+swh::base_directory: /etc/softwareheritage
