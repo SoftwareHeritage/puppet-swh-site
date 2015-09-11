@@ -92,6 +92,8 @@ groups:
     gid: 1005
   swhdeploy:
     gid: 1006
+  swhbackup:
+    gid: 1007
   sudo:
     gid: 27 # assigned from base-files
 
