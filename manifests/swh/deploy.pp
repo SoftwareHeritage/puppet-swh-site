@@ -16,7 +16,7 @@ class profile::swh::deploy {
 
   file {"${deploy_directory}/id_rsa":
     ensure  => present,
-    content => hiera('worker::deploy::private_key'),
+    content => hiera('swh::deploy::private_key'),
     owner   => 'root',
     group   => $deploy_group,
     mode    => '0640',
@@ -28,7 +28,7 @@ class profile::swh::deploy {
 
   file {"${deploy_directory}/id_rsa.pub":
     ensure  => present,
-    content => hiera('worker::deploy::public_key'),
+    content => hiera('swh::deploy::public_key'),
     owner   => 'root',
     group   => $deploy_group,
     mode    => '0640',
