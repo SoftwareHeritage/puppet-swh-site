@@ -2,7 +2,7 @@
 
 class profile::swh::deploy {
   $deploy_group = hiera('swh::deploy::group')
-  $deploy_directory = hiera('swh::deploy::dirctory')
+  $deploy_directory = hiera('swh::deploy::directory')
 
   file {$deploy_directory:
     ensure  => directory,
