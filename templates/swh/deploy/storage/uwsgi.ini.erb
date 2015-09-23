@@ -1,0 +1,13 @@
+# UWSGI configuration for swh.storage.api
+# Managed by puppet - changes will be overwritten
+[uwsgi]
+plugin = python3
+
+protocol = fastcgi
+socket = 127.0.0.1:<%= @uwsgi_port %>
+
+uid = <%= @user %>
+gid = <%= @user %>
+
+module = swh.storage.api
+callable = run_from_webserver
