@@ -48,6 +48,7 @@ class profile::swh::deploy::storage {
     group   => $group,
     mode    => '0640',
     content => template('profile/swh/deploy/storage/storage.ini.erb'),
+    notify  => Service['uwsgi'],
   }
 
   file {$uwsgi_config:
@@ -60,6 +61,7 @@ class profile::swh::deploy::storage {
     require => [
       Package[$uwsgi_packages],
       Package[$swh_packages],
+      File[$conf_file],
     ],
   }
 
