@@ -38,6 +38,7 @@ class profile::swh::deploy::storage {
   ::apache::vhost {'swhstorage':
     ip         => '127.0.0.1',
     port       => $apache_port,
+    docroot    => '/var/www/html',
     proxy_pass => [
       {
         'path'   => '/',
