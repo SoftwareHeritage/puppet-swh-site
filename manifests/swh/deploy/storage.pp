@@ -36,13 +36,17 @@ class profile::swh::deploy::storage {
   ::apache::mod {'proxy_fcgi':}
 
   ::apache::vhost {'swhstorage':
-    ip         => '127.0.0.1',
-    port       => $apache_port,
-    docroot    => '/var/www/html',
-    proxy_pass => [
+    ip            => '127.0.0.1',
+    servername    => 'localhost',
+    serveraliases => [
+      '127.0.0.1',
+    ],
+    port          => $apache_port,
+    docroot       => '/var/www/html',
+    proxy_pass    => [
       {
-        'path'   => '/',
-        'url'    => "fcgi://127.0.0.1:${uwsgi_port}",
+        'path' => '/',
+        'url'  => "fcgi://127.0.0.1:${uwsgi_port}",
       },
     ]
   }
