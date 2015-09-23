@@ -43,9 +43,6 @@ class profile::swh::deploy::storage {
       {
         'path'   => '/',
         'url'    => "fcgi://127.0.0.1:${uwsgi_port}",
-        'params' => {
-          'enablereuse' => 'on',
-        },
       },
     ]
   }
