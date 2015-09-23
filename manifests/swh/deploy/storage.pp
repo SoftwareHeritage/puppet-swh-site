@@ -32,7 +32,7 @@ class profile::swh::deploy::storage {
 
   package {$swh_packages:
     ensure  => latest,
-    require => Apt::Repo['softwareheritage'],
+    require => Apt::Source['softwareheritage'],
   }
 
   file {$conf_directory:
