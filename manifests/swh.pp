@@ -21,7 +21,7 @@ class profile::swh {
     comment        => 'Software Heritage specific package repository',
     location       => $swh_mirror_location,
     release        => $::lsbdistcodename,
-    repos          => 'main'
+    repos          => 'main',
     allow_unsigned => true,
   }
 
