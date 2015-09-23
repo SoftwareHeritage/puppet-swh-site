@@ -84,6 +84,7 @@ users:
     shell: /bin/bash
     groups:
       - swhdeploy
+      - swhstorage
 
 groups:
   swhdev:
@@ -269,3 +270,13 @@ swh::debian_mirror::location: "http://%{hiera('swh::debian_mirror::hostname')}/"
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
 swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
+
+swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
+swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.ini"
+swh::deploy::storage::user: swhstorage
+swh::deploy::storage::group: swhstorage
+swh::deploy::storage::db::host: db
+swh::deploy::storage::db::user: swhstorage
+swh::deploy::storage::db::dbname: gitimport
+swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
+swh::deploy::storage::uwsgi::port: 5002
