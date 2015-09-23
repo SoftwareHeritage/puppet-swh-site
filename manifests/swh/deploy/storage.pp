@@ -18,6 +18,8 @@ class profile::swh::deploy::storage {
   $uwsgi_packages = ['uwsgi', 'uwsgi-plugin-python3']
   $uwsgi_port = hiera('swh::deploy::storage::uwsgi::port')
 
+  $apache_port = hiera('swh::deploy::storage::apache::port')
+
   package {$uwsgi_packages:
     ensure => installed,
   }
@@ -29,6 +31,23 @@ class profile::swh::deploy::storage {
   }
 
   include ::apache
+  include ::apache::mod::proxy
+
+  ::apache::mod {'proxy_fcgi':}
+
+  ::apache::vhost {'swhstorage':
+    ip         => '127.0.0.1',
+    port       => $apache_port,
+    proxy_pass => [
+      {
+        'path'   => '/',
+        'url'    => "fcgi://127.0.0.1:${uwsgi_port}",
+        'params' => {
+          'enablereuse' => 'on',
+        },
+      },
+    ]
+  }
 
   package {$swh_packages:
     ensure  => latest,
