@@ -15,7 +15,7 @@ class profile::swh::deploy::storage {
 
   $uwsgi_config = '/etc/uwsgi/apps-available/swh-storage.ini'
   $uwsgi_link = '/etc/uwsgi/apps-enabled/swh-storage.ini'
-  $uswgi_packages = ['uwsgi', 'uwsgi-plugin-python3']
+  $uwsgi_packages = ['uwsgi', 'uwsgi-plugin-python3']
   $uwsgi_port = hiera('swh::deploy::storage::uwsgi::port')
 
   package {$uwsgi_packages:
