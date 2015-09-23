@@ -1,3 +1,5 @@
+# Deployment of the swh.storage.api server
+
 class profile::swh::deploy::storage {
   $conf_directory = hiera('swh::deploy::storage::conf_directory')
   $conf_file = hiera('swh::deploy::storage::conf_file')
@@ -41,16 +43,16 @@ class profile::swh::deploy::storage {
   }
 
   file {$conf_file:
-    ensure => present,
-    owner  => root,
-    group  => $group,
-    mode   => '0640',
+    ensure   => present,
+    owner    => 'root',
+    group    => $group,
+    mode     => '0640',
     contents => template('profile/swh/deploy/storage/storage.ini.erb'),
   }
 
   file {$uwsgi_config:
     ensure   => present,
-    owner    => 'root'
+    owner    => 'root',
     group    => 'root',
     mode     => '0644',
     contents => template('profile/swh/deploy/storage/uwsgi.ini.erb'),
