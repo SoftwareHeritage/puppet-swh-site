@@ -10,6 +10,10 @@ mod 'dar',
 mod 'postfix',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPFIX/swh-postfix.git'
 
+mod 'apt',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
+    :tag => '2.1.1'
+
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
     :tag => '4.2.2'
