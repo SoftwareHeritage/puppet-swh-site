@@ -43,21 +43,21 @@ class profile::swh::deploy::storage {
   }
 
   file {$conf_file:
-    ensure   => present,
-    owner    => 'root',
-    group    => $group,
-    mode     => '0640',
-    contents => template('profile/swh/deploy/storage/storage.ini.erb'),
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => template('profile/swh/deploy/storage/storage.ini.erb'),
   }
 
   file {$uwsgi_config:
-    ensure   => present,
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0644',
-    contents => template('profile/swh/deploy/storage/uwsgi.ini.erb'),
-    notify   => Service['uwsgi'],
-    require  => [
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/swh/deploy/storage/uwsgi.ini.erb'),
+    notify  => Service['uwsgi'],
+    require => [
       Package[$uwsgi_packages],
       Package[$swh_packages],
     ],
