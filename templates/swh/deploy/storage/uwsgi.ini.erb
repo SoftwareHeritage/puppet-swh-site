@@ -3,8 +3,8 @@
 [uwsgi]
 plugin = python3
 
-protocol = fastcgi
-socket = 127.0.0.1:<%= @uwsgi_port %>
+protocol = <%= @uwsgi_protocol %>
+socket = <%= @uwsgi_listen_address %>
 
 uid = <%= @user %>
 gid = <%= @user %>
