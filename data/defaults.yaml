@@ -279,5 +279,5 @@ swh::deploy::storage::db::host: db
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: gitimport
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
-swh::deploy::storage::uwsgi::port: 5002
-swh::deploy::storage::apache::port: 5001
+swh::deploy::storage::uwsgi::listen: 127.0.0.1:5002
+swh::deploy::storage::uwsgi::protocol: http
