@@ -25,6 +25,8 @@ class profile::phabricator {
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
   $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
 
+  include profile::swh::systemd
+
   $homedirs = {
     $phabricator_user     => $phabricator_basepath,
     $phabricator_vcs_user => "${phabricator_basepath}/vcshome",
@@ -218,12 +220,6 @@ class profile::phabricator {
     mode    => '0640',
     content => template('profile/phabricator/phabricator-phd.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
-  }
-
-  exec {'systemd-daemon-reload':
-    path        => '/sbin:/usr/sbin:/bin:/usr/bin',
-    command     => 'systemctl daemon-reload',
-    refreshonly => true,
   }
 
   service {'phabricator-phd':
