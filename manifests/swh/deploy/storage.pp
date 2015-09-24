@@ -19,6 +19,11 @@ class profile::swh::deploy::storage {
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::storage::uwsgi::protocol')
 
+  $systemd_service_dir = '/etc/systemd/system/uwsgi.service.d'
+  $systemd_service_file = "${systemd_service_dir}/setrlimit.conf"
+
+  include profile::swh::systemd
+
   package {$uwsgi_packages:
     ensure => installed,
   }
@@ -26,7 +31,11 @@ class profile::swh::deploy::storage {
   service {'uwsgi':
     ensure  => running,
     enable  => true,
-    require => File[$uwsgi_link],
+    require => [
+      Package[$uwsgi_packages],
+      File[$uwsgi_link],
+      Exec['systemd-daemon-reload'],
+    ]
   }
 
   package {$swh_packages:
@@ -67,5 +76,25 @@ class profile::swh::deploy::storage {
   file {$uwsgi_link:
     ensure => link,
     target => $uwsgi_config,
+  }
+
+  file {$systemd_service_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file {$systemd_service_file:
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/swh/deploy/storage/systemd-setrlimit.conf.erb'),
+    require => File[$systemd_service_dir],
+    notify  => [
+      Service['uwsgi'],
+      Exec['systemd-daemon-reload'],
+    ]
   }
 }
