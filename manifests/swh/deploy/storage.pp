@@ -41,6 +41,7 @@ class profile::swh::deploy::storage {
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
+    notify  => Service['uwsgi'],
   }
 
   file {$conf_directory:
