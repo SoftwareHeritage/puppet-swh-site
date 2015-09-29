@@ -9,5 +9,5 @@ socket = <%= @uwsgi_listen_address %>
 uid = <%= @user %>
 gid = <%= @user %>
 
-module = swh.storage.api
+module = swh.storage.api.server
 callable = run_from_webserver
