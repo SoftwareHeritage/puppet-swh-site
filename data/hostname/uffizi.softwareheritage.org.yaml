@@ -1,2 +1,3 @@
 # Deploy the storage server as a public resource
 swh::deploy::storage::uwsgi::listen: 0.0.0.0:5002
+swh::deploy::storage::uwsgi::workers: 16
