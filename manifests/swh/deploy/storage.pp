@@ -18,6 +18,7 @@ class profile::swh::deploy::storage {
   $uwsgi_packages = ['uwsgi', 'uwsgi-plugin-python3']
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::storage::uwsgi::protocol')
+  $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
 
   $systemd_service_dir = '/etc/systemd/system/uwsgi.service.d'
   $systemd_service_file = "${systemd_service_dir}/setrlimit.conf"

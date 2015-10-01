@@ -6,6 +6,8 @@ plugin = python3
 protocol = <%= @uwsgi_protocol %>
 socket = <%= @uwsgi_listen_address %>
 
+workers = <%= @uwsgi_workers %>
+
 uid = <%= @user %>
 gid = <%= @user %>
 
