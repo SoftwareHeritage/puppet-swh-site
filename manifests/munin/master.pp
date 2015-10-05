@@ -1,12 +1,12 @@
 # Munin master class
 class profile::munin::master {
-  class { '::munin::master':
-    extra_config => ['cgiurl_graph'],
-  }
-
   $master_hostname = hiera('munin::master::hostname')
   $master_hostname_domain = join(delete_at(split($master_hostname, '[.]'), 0), '.')
   $master_hostname_target = "${::hostname}.${master_hostname_domain}."
+
+  class { '::munin::master':
+    extra_config => ["cgiurl_graph http://$master_hostname"],
+  }
 
   include ::apache
   include ::apache::mod::rewrite
