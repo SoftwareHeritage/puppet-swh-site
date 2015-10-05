@@ -8,11 +8,17 @@ class profile::base {
     relayhost => hiera('smtp::relayhost'),
   }
 
+  exec {'newaliases':
+    path        => ['/usr/bin', '/usr/sbin'],
+    refreshonly => true,
+  }
+
   $mail_aliases = hiera_hash('smtp::mail_aliases')
   each($mail_aliases) |$alias, $recipients| {
     mailalias {$alias:
       ensure    => present,
       recipient => $recipients,
+      notify    => Exec['newaliases'],
     }
   }
 
