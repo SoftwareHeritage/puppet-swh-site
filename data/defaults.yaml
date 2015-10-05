@@ -282,3 +282,6 @@ swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
 swh::deploy::storage::uwsgi::listen: 127.0.0.1:5002
 swh::deploy::storage::uwsgi::protocol: http
 swh::deploy::storage::uwsgi::workers: 4
+swh::deploy::storage::uwsgi::max_requests: 32
+swh::deploy::storage::uwsgi::max_requests_delta: 4
+swh::deploy::storage::uwsgi::reload_mercy: 3600
