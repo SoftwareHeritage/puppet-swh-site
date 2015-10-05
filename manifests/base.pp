@@ -8,6 +8,14 @@ class profile::base {
     relayhost => hiera('smtp::relayhost'),
   }
 
+  $mail_aliases = hiera_hash('smtp::mail_aliases')
+  each($mail_aliases) |$alias, $recipients| {
+    mailalias {$alias:
+      ensure    => present,
+      recipient => $recipients,
+    }
+  }
+
   class { '::locales':
     default_locale => hiera('locales::default_locale'),
     locales        => hiera('locales::installed_locales'),
