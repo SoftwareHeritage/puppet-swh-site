@@ -119,6 +119,16 @@ groups:
 munin::node::allow:
   - 192.168.100.29
 
+munin::node::plugins::enable:
+  - apt
+  - postfix_mailvolume
+  - postfix_mailqueue
+
+munin::node::plugins::disable:
+  - apt_all
+  - exim_mailstats
+  - exim_mailqueue
+
 munin::master::hostname: munin.internal.softwareheritage.org
 
 munin::plugins::rabbitmq::messages_warn: 1800000
