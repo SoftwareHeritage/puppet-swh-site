@@ -8,8 +8,11 @@ class profile::munin::node {
   }
 
   if $::osfamily == 'debian' {
-    munin::plugin { 'apt_all':
+    munin::plugin { 'apt':
       ensure => link,
+    }
+    munin::plugin { 'apt_all':
+      ensure => absent,
     }
   }
 }
