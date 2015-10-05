@@ -4,6 +4,24 @@ ntp::servers:
   - sesi-ntp2.inria.fr
 
 smtp::relayhost: '[smtp.inria.fr]'
+smtp::mail_aliases:
+  root:
+    - olasd
+    - zack
+  zack:
+    - zack@upsilon.cc
+  ardumont:
+    - antoine.romain.dumont@gmail.com
+  olasd:
+    - nicolas+swhinfra@dandrimont.eu
+  swhworker:
+    - zack
+    - olasd
+    - ardumont
+  swhstorage:
+    - root
+  postgres:
+    - root
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
