@@ -19,6 +19,9 @@ class profile::swh::deploy::storage {
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::storage::uwsgi::protocol')
   $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
+  $uwsgi_max_requests = hiera('swh::deploy::storage::uwsgi::max_requests')
+  $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
+  $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
 
   $systemd_service_dir = '/etc/systemd/system/uwsgi.service.d'
   $systemd_service_file = "${systemd_service_dir}/setrlimit.conf"

@@ -8,6 +8,11 @@ socket = <%= @uwsgi_listen_address %>
 
 workers = <%= @uwsgi_workers %>
 
+max-requests = <%= @uwsgi_max_requests %>
+max-requests-delta = <%= @uwsgi_max_requests_delta %>
+worker-reload-mercy = <%= @uwsgi_reload_mercy %>
+reload-mercy = <%= @uwsgi_reload_mercy %>
+
 uid = <%= @user %>
 gid = <%= @user %>
 
