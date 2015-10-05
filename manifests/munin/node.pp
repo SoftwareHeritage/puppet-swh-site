@@ -8,6 +8,7 @@ class profile::munin::node {
     allow        => $munin_node_allow,
     address      => ip_for_network('192.168.100.0/24'),
     masterconfig => [
+      '',
       '# The apt plugin doesn\'t graph by default. Let\'s make it.',
       'apt.graph yes',
       'apt.graph_category system',
