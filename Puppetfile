@@ -10,6 +10,9 @@ mod 'dar',
 mod 'postfix',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPFIX/swh-postfix.git'
 
+mod 'systemd',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPSYSD/swh-systemd.git'
+
 mod 'apt',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
     :tag => '2.1.1'
