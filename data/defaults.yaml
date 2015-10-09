@@ -52,7 +52,7 @@ users:
   zack:
     uid: 1000
     full_name: Stefano Zacchiroli
-    shell: /bin/bash
+    shell: /usr/bin/zsh
     groups:
       - swhdev
       - swhstorage
