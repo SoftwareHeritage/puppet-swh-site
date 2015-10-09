@@ -1,5 +1,5 @@
 smtp::relay_destinations:
-  forge.softwareheritage.org: smtp:[tate.internal.softwareheritage.org]
+  "%{hiera('phabricator::vhost::name')}": smtp:[tate.internal.softwareheritage.org]
 
 networks:
   private:

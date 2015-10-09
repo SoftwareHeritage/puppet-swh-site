@@ -1,5 +1,5 @@
 smtp::virtual_aliases:
-  '@forge.softwareheritage.org': "%{hiera('phabricator::user')}"
+  "@%{hiera('phabricator::vhost::name')}": "%{hiera('phabricator::user')}"
 smtp::mail_aliases:
   "%{hiera('phabricator::user')}": "\"| %{hiera('phabricator::basepath')}/phabricator/scripts/mail/mail_handler.php\""
 
