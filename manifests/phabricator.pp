@@ -160,10 +160,11 @@ class profile::phabricator {
   }
 
   ::php::module {[
-    'mysql',
+    'apcu',
     'curl',
     'gd',
-    'apcu',
+    'mailparse',
+    'mysql',
   ]:
   }
 
