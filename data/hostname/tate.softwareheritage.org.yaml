@@ -1,5 +1,7 @@
-smtp::mydestinations:
-  - forge.softwareheritage.org
+smtp::virtual_aliases:
+  '@forge.softwareheritage.org': "%{hiera('phabricator::user')}"
+smtp::mail_aliases:
+  "%{hiera('phabricator::user')}": "\"| %{hiera('phabricator::basepath')}/phabricator/scripts/mail/mail_handler.php\""
 
 ssh::port: 2222
 

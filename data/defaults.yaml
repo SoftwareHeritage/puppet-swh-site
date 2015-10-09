@@ -7,6 +7,7 @@ smtp::relayhost: '[smtp.inria.fr]'
 smtp::mydestinations:
   - "%{::fqdn}"
 smtp::relay_destinations: {}
+smtp::virtual_aliases: {}
 smtp::mail_aliases:
   root:
     - olasd
