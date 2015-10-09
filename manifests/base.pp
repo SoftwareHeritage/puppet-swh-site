@@ -8,6 +8,7 @@ class profile::base {
     relayhost          => hiera('smtp::relayhost'),
     destinations       => hiera_array('smtp::mydestinations'),
     relay_destinations => hiera_hash('smtp::relay_destinations'),
+    virtual_aliases    => hiera_hash('smtp::virtual_aliases'),
   }
 
   exec {'newaliases':
