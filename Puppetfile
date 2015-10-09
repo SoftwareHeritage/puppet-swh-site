@@ -13,6 +13,9 @@ mod 'postfix',
 mod 'systemd',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSYSD/swh-systemd.git'
 
+mod 'uwsgi',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPUWSGI/swh-uwsgi.git'
+
 mod 'apt',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
     :tag => '2.1.1'
