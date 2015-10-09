@@ -4,6 +4,9 @@ ntp::servers:
   - sesi-ntp2.inria.fr
 
 smtp::relayhost: '[smtp.inria.fr]'
+smtp::mydestinations:
+  - "%{::fqdn}"
+smtp::relay_destinations: {}
 smtp::mail_aliases:
   root:
     - olasd

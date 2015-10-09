@@ -1,3 +1,6 @@
+smtp::relay_destinations:
+  forge.softwareheritage.org: smtp:[tate.internal.softwareheritage.org]
+
 networks:
   private:
     interface: eth1

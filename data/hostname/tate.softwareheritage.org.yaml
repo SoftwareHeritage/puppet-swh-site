@@ -1,3 +1,6 @@
+smtp::mydestinations:
+  - forge.softwareheritage.org
+
 ssh::port: 2222
 
 networks:
