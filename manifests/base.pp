@@ -6,8 +6,8 @@ class profile::base {
 
   class { '::postfix':
     relayhost          => hiera('smtp::relayhost'),
-    destinations       => hiera_array('smtp::mydestinations')
-    relay_destinations => hiera_hash('smtp::relay_destinations')
+    destinations       => hiera_array('smtp::mydestinations'),
+    relay_destinations => hiera_hash('smtp::relay_destinations'),
   }
 
   exec {'newaliases':
