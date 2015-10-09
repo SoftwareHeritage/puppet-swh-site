@@ -13,9 +13,6 @@ class profile::swh::deploy::storage {
 
   $swh_packages = ['python3-swh.storage']
 
-  $uwsgi_config = '/etc/uwsgi/apps-available/swh-storage.ini'
-  $uwsgi_link = '/etc/uwsgi/apps-enabled/swh-storage.ini'
-  $uwsgi_packages = ['uwsgi', 'uwsgi-plugin-python3']
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::storage::uwsgi::protocol')
   $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
@@ -23,24 +20,7 @@ class profile::swh::deploy::storage {
   $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
   $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
 
-  $systemd_service_dir = '/etc/systemd/system/uwsgi.service.d'
-  $systemd_service_file = "${systemd_service_dir}/setrlimit.conf"
-
-  include profile::swh::systemd
-
-  package {$uwsgi_packages:
-    ensure => installed,
-  }
-
-  service {'uwsgi':
-    ensure  => running,
-    enable  => true,
-    require => [
-      Package[$uwsgi_packages],
-      File[$uwsgi_link],
-      Exec['systemd-daemon-reload'],
-    ]
-  }
+  include ::uwsgi
 
   package {$swh_packages:
     ensure  => latest,
@@ -64,42 +44,21 @@ class profile::swh::deploy::storage {
     notify  => Service['uwsgi'],
   }
 
-  file {$uwsgi_config:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/swh/deploy/storage/uwsgi.ini.erb'),
-    notify  => Service['uwsgi'],
-    require => [
-      Package[$uwsgi_packages],
-      Package[$swh_packages],
-      File[$conf_file],
-    ],
-  }
-
-  file {$uwsgi_link:
-    ensure => link,
-    target => $uwsgi_config,
-  }
-
-  file {$systemd_service_dir:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  file {$systemd_service_file:
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/swh/deploy/storage/systemd-setrlimit.conf.erb'),
-    require => File[$systemd_service_dir],
-    notify  => [
-      Service['uwsgi'],
-      Exec['systemd-daemon-reload'],
-    ]
+  ::uwsgi::site {'swh-storage':
+    ensure   => present,
+    settings => {
+      plugin              => 'python3',
+      protocol            => $uwsgi_protocol,
+      socket              => $uwsgi_listen_address,
+      workers             => $uwsgi_workers,
+      max_requests        => $uwsgi_max_requests,
+      max_requests_delta  => $uwsgi_max_requests_delta,
+      worker_reload_mercy => $uwsgi_reload_mercy,
+      reload_mercy        => $uwsgi_reload_mercy,
+      uid                 => $user,
+      gid                 => $user,
+      module              => 'swh.storage.api.server',
+      callable            => 'run_from_webserver',
+    }
   }
 }

@@ -25,7 +25,7 @@ class profile::phabricator {
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
   $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
 
-  include profile::swh::systemd
+  include ::systemd
 
   $homedirs = {
     $phabricator_user     => $phabricator_basepath,
