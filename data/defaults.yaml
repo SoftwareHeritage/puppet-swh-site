@@ -37,6 +37,7 @@ packages:
   - moreutils
   - ncdu
   - vim
+  - zsh
 
 users:
   root:
