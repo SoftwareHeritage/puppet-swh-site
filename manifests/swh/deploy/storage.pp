@@ -57,6 +57,7 @@ class profile::swh::deploy::storage {
       reload_mercy        => $uwsgi_reload_mercy,
       uid                 => $user,
       gid                 => $user,
+      umask               => '022',
       module              => 'swh.storage.api.server',
       callable            => 'run_from_webserver',
     }
