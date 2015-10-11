@@ -45,7 +45,7 @@ class profile::swh::deploy::storage {
   }
 
   ::uwsgi::site {'swh-storage':
-    ensure   => present,
+    ensure   => enabled,
     settings => {
       plugin              => 'python3',
       protocol            => $uwsgi_protocol,
