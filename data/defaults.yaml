@@ -318,3 +318,13 @@ swh::deploy::storage::uwsgi::workers: 4
 swh::deploy::storage::uwsgi::max_requests: 32
 swh::deploy::storage::uwsgi::max_requests_delta: 4
 swh::deploy::storage::uwsgi::reload_mercy: 3600
+
+apache::server_tokens: Prod
+apache::server_signature: Off
+apache::trace_enable: Off
+apache::ssl_protocol:
+  - all
+  - -SSLv2
+  - -SSLv3
+apache::ssl_honorcipherorder: On
+apache::ssl_cipher: EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!ECDSA:CAMELLIA256-SHA:AES256-SHA:CAMELLIA128-SHA:AES128-SHA
