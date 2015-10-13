@@ -3,12 +3,14 @@
 class profile::swh {
   $swh_base_directory = hiera('swh::base_directory')
   $swh_conf_directory = hiera('swh::conf_directory')
+  $swh_log_directory = hiera('swh::log_directory')
 
   $swh_mirror_location = hiera('swh::debian_mirror::location')
 
   file {[
     $swh_base_directory,
     $swh_conf_directory,
+    $swh_log_directory,
   ]:
     ensure => directory,
     owner  => 'root',
