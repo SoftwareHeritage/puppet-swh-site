@@ -312,6 +312,7 @@ ssh::port: 22
 
 swh::base_directory: /srv/softwareheritage
 swh::conf_directory: /etc/softwareheritage
+swh::log_directory: /var/log/softwareheritage
 
 swh::debian_mirror::hostname: debian.internal.softwareheritage.org
 swh::debian_mirror::basepath: "%{hiera('swh::base_directory')}/repository"
