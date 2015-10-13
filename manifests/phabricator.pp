@@ -24,6 +24,10 @@ class profile::phabricator {
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
   $phabricator_vhost_basic_auth_content = hiera('phabricator::vhost::basic_auth_content')
+  $phabricator_vhost_ssl_protocol = hiera('phabricator::vhost::ssl_protocol')
+  $phabricator_vhost_ssl_honorcipherorder = hiera('phabricator::vhost::ssl_honorcipherorder')
+  $phabricator_vhost_ssl_cipher = hiera('phabricator::vhost::ssl_cipher')
+  $phabricator_vhost_hsts_header = hiera('phabricator::vhost::hsts_header')
 
   include ::systemd
 
@@ -182,16 +186,20 @@ class profile::phabricator {
   }
 
   ::apache::vhost {"${phabricator_vhost_name}_ssl":
-    servername  => $phabricator_vhost_name,
-    port        => '443',
-    ssl         => true,
-    docroot     => $phabricator_vhost_docroot,
-    rewrites    => [
+    servername           => $phabricator_vhost_name,
+    port                 => '443',
+    ssl                  => true,
+    ssl_protocol         => $phabricator_vhost_ssl_protocol,
+    ssl_honorcipherorder => $phabricator_vhost_ssl_honorcipherorder,
+    ssl_cipher           => $phabricator_vhost_ssl_cipher,
+    headers              => [$phabricator_vhost_hsts_header],
+    docroot              => $phabricator_vhost_docroot,
+    rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
-    directories => [
+    directories          => [
       { path           => '/',
         provider       => 'location',
         auth_type      => 'Basic',
@@ -200,7 +208,7 @@ class profile::phabricator {
         auth_require   => 'valid-user',
       },
     ],
-    require     => File[$phabricator_vhost_basic_auth_file],
+    require              => File[$phabricator_vhost_basic_auth_file],
   }
 
   file {$phabricator_vhost_basic_auth_file:
