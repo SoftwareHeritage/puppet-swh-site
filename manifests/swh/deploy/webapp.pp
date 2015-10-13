@@ -30,7 +30,10 @@ class profile::swh::deploy::webapp {
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['uwsgi'],
+    notify  => [
+      Service['uwsgi'],
+      Exec['update-static'],
+    ],
   }
 
   file {[$conf_directory, $conf_log_dir]:
@@ -38,6 +41,13 @@ class profile::swh::deploy::webapp {
     owner  => 'root',
     group  => $group,
     mode   => '0750',
+  }
+
+  file {$vhost_docroot:
+    ensure => directory,
+    owner  => 'root',
+    group  => $group,
+    mode   => '0755',
   }
 
   file {$conf_file:
@@ -66,5 +76,45 @@ class profile::swh::deploy::webapp {
       module              => 'swh.web.ui.main',
       callable            => 'run_from_webserver',
     }
+  }
+
+  exec {'update-static':
+    path        => ['/bin', '/usr/bin'],
+    command     => "rsync -az --delete /usr/lib/python3/dist-packages/swh/web/ui/static/ ${vhost_docroot}/static/",
+    refreshonly => true,
+    require     => [
+      File[$vhost_docroot],
+      Package[$swh_packages],
+    ],
+  }
+
+  include ::apache
+  include ::apache::mod::proxy
+
+  ::apache::mod {'proxy_fcgi':}
+
+  ::apache::vhost {"${vhost_name}_non-ssl":
+    servername      => $vhost_name,
+    port            => '80',
+    docroot         => $vhost_docroot,
+    redirect_status => 'permanent',
+    redirect_dest   => "https://${vhost_name}/",
+  }
+
+  ::apache::vhost {"${vhost_name}_ssl":
+    servername           => $vhost_name,
+    port                 => '443',
+    ssl                  => true,
+    ssl_protocol         => $vhost_ssl_protocol,
+    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+    ssl_cipher           => $vhost_ssl_cipher,
+    docroot              => $vhost_docroot,
+    rewrites             => [
+      {
+        rewrite_cond => ['%{REQUEST_FILENAME} !-f', '%{REQUEST_FILENAME} !-d'],
+        rewrite_rule => "^(.*)$ fcgi://${uwsgi_listen_address}\$1 [B,L,P,QSA]",
+      },
+    ],
+    require              => Exec['update-static'],
   }
 }
