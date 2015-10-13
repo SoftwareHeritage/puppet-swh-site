@@ -108,6 +108,11 @@ users:
     groups:
       - swhdeploy
       - swhstorage
+  swhwebapp:
+    uid: 1006
+    full_name: SWH Web App Account
+    shell: /bin/bash
+    groups: []
 
 groups:
   swhdev:
@@ -336,3 +341,23 @@ swh::deploy::storage::uwsgi::workers: 4
 swh::deploy::storage::uwsgi::max_requests: 32
 swh::deploy::storage::uwsgi::max_requests_delta: 4
 swh::deploy::storage::uwsgi::reload_mercy: 3600
+
+swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
+swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.ini"
+swh::deploy::webapp::user: swhwebapp
+swh::deploy::webapp::group: swhwebapp
+swh::deploy::webapp::conf::storage_class: remote_storage
+swh::deploy::webapp::conf::storage_args: http://uffizi.internal.softwareheritage.org:5002/
+swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
+swh::deploy::webapp::uwsgi::listen: 127.0.0.1:5003
+swh::deploy::webapp::uwsgi::protocol: fastcgi
+swh::deploy::webapp::uwsgi::workers: 4
+swh::deploy::webapp::uwsgi::max_requests: 32
+swh::deploy::webapp::uwsgi::max_requests_delta: 4
+swh::deploy::webapp::uwsgi::reload_mercy: 3600
+swh::deploy::webapp::vhost::name: base.softwareheritage.org
+swh::deploy::webapp::vhost::docroot: "/var/www/%{hiera('swh::deploy::webapp::vhost::name')}"
+swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
