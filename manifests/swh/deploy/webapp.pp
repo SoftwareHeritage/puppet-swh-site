@@ -21,6 +21,8 @@ class profile::swh::deploy::webapp {
 
   $vhost_name = hiera('swh::deploy::webapp::vhost::name')
   $vhost_docroot = hiera('swh::deploy::webapp::vhost::docroot')
+  $vhost_basic_auth_file = "${conf_directory}/http_auth"
+  $vhost_basic_auth_content = hiera('swh::deploy::webapp::vhost::basic_auth_content')
   $vhost_ssl_protocol = hiera('swh::deploy::webapp::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = hiera('swh::deploy::webapp::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = hiera('swh::deploy::webapp::vhost::ssl_cipher')
@@ -40,7 +42,7 @@ class profile::swh::deploy::webapp {
     ensure => directory,
     owner  => 'root',
     group  => $group,
-    mode   => '0750',
+    mode   => '0755',
   }
 
   file {$conf_log_dir:
@@ -127,6 +129,29 @@ class profile::swh::deploy::webapp {
         url  => "uwsgi://${uwsgi_listen_address}/",
       },
     ],
-    require              => Exec['update-static'],
+    directories          => [
+      { path           => '/',
+        provider       => 'location',
+        auth_type      => 'Basic',
+        auth_name      => 'Software Heritage development',
+        auth_user_file => $vhost_basic_auth_file,
+        auth_require   => 'valid-user',
+      },
+      { path     => "${vhost_docroot}/static",
+        options  => ['-Indexes'],
+      },
+    ],
+    require              => [
+      File[$vhost_basic_auth_file],
+      Exec['update-static'],
+    ],
+  }
+
+  file {$vhost_basic_auth_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'www-data',
+    mode    => '0640',
+    content => $vhost_basic_auth_content,
   }
 }
