@@ -112,7 +112,7 @@ class profile::swh::deploy::webapp {
     rewrites             => [
       {
         rewrite_cond => ['%{REQUEST_FILENAME} !-f', '%{REQUEST_FILENAME} !-d'],
-        rewrite_rule => "^(.*)$ fcgi://${uwsgi_listen_address}\$1 [B,L,P,QSA]",
+        rewrite_rule => "^(.*)$ fcgi://${uwsgi_listen_address}/\$1 [B,L,P,QSA]",
       },
     ],
     require              => Exec['update-static'],
