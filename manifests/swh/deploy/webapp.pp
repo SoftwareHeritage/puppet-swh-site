@@ -36,11 +36,18 @@ class profile::swh::deploy::webapp {
     ],
   }
 
-  file {[$conf_directory, $conf_log_dir]:
+  file {$conf_directory:
     ensure => directory,
     owner  => 'root',
     group  => $group,
     mode   => '0750',
+  }
+
+  file {$conf_log_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => $group,
+    mode   => '0770',
   }
 
   file {$vhost_docroot:
