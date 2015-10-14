@@ -116,12 +116,13 @@ class profile::swh::deploy::webapp {
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
     ssl_cipher           => $vhost_ssl_cipher,
     docroot              => $vhost_docroot,
-    aliases              => [
-      { alias => '/static',
-        path  => "${vhost_docroot}/static",
-      },
-    ],
     proxy_pass           => [
+      { path => '/static',
+        url  => '!',
+      },
+      { path => '/favicon.ico',
+        url  => '!',
+      },
       { path => '/',
         url  => "uwsgi://${uwsgi_listen_address}/",
       },
