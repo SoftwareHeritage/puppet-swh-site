@@ -1,0 +1,10 @@
+# Software Heritage logrotate configuration
+# Managed by puppet. Changes will be overwritten.
+
+<%= @swh_log_directory %>/*.log {
+    weekly
+    missingok
+    rotate 5
+    compress
+    notifempty
+}

@@ -5,6 +5,8 @@ class profile::swh {
   $swh_conf_directory = hiera('swh::conf_directory')
   $swh_log_directory = hiera('swh::log_directory')
 
+  $swh_logrotate_conf = '/etc/logrotate/softwareheritage'
+
   $swh_mirror_location = hiera('swh::debian_mirror::location')
 
   file {[
@@ -16,6 +18,14 @@ class profile::swh {
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
+  }
+
+  file {$swh_logrotate_conf:
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/swh/logrotate.conf.erb'),
   }
 
   include ::apt
