@@ -91,7 +91,7 @@ class profile::swh::deploy::webapp {
   include ::apache
   include ::apache::mod::proxy
 
-  ::apache::mod {'proxy_fcgi':}
+  ::apache::mod {'proxy_uwsgi':}
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
@@ -109,10 +109,14 @@ class profile::swh::deploy::webapp {
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
     ssl_cipher           => $vhost_ssl_cipher,
     docroot              => $vhost_docroot,
-    rewrites             => [
-      {
-        rewrite_cond => ['%{REQUEST_FILENAME} !-f', '%{REQUEST_FILENAME} !-d'],
-        rewrite_rule => "^(.*)$ fcgi://${uwsgi_listen_address}/\$1 [B,L,P,QSA]",
+    aliases              => [
+      { alias => '/static',
+        path  => "${vhost_docroot}/static",
+      },
+    ],
+    proxy_pass           => [
+      { path => '/',
+        url  => "uwsgi://${uwsgi_listen_address}/",
       },
     ],
     require              => Exec['update-static'],
