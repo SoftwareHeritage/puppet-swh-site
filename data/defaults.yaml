@@ -113,6 +113,11 @@ users:
     full_name: SWH Web App Account
     shell: /bin/bash
     groups: []
+  swhbackup:
+    uid: 1007
+    full_name: SWH Backup Account
+    shell: /bin/bash
+    groups: []
 
 groups:
   swhdev:
