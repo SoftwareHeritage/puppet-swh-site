@@ -5,7 +5,7 @@ class profile::swh {
   $swh_conf_directory = hiera('swh::conf_directory')
   $swh_log_directory = hiera('swh::log_directory')
 
-  $swh_logrotate_conf = '/etc/logrotate/softwareheritage'
+  $swh_logrotate_conf = '/etc/logrotate.d/softwareheritage'
 
   $swh_mirror_location = hiera('swh::debian_mirror::location')
 
