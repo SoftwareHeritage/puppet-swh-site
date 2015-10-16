@@ -352,7 +352,7 @@ swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}
 swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
 swh::deploy::webapp::conf::storage_class: remote_storage
-swh::deploy::webapp::conf::storage_args: http://uffizi.internal.softwareheritage.org:5002/
+swh::deploy::webapp::conf::storage_args: http://127.0.0.1:5002/
 swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
 swh::deploy::webapp::uwsgi::listen: 127.0.0.1:5003
 swh::deploy::webapp::uwsgi::protocol: uwsgi
