@@ -172,6 +172,7 @@ class profile::phabricator {
   ]:
   }
 
+  include ::profile::ssl
   include ::apache
   include ::apache::mod::proxy
 
@@ -192,6 +193,9 @@ class profile::phabricator {
     ssl_protocol         => $phabricator_vhost_ssl_protocol,
     ssl_honorcipherorder => $phabricator_vhost_ssl_honorcipherorder,
     ssl_cipher           => $phabricator_vhost_ssl_cipher,
+    ssl_cert             => $::profile::ssl::certificate_paths['star.softwareheritage.org'],
+    ssl_ca               => $::profile::ssl::ca_paths['star.softwareheritage.org'],
+    ssl_key              => $::profile::ssl::private_key_paths['star.softwareheritage.org'],
     headers              => [$phabricator_vhost_hsts_header],
     docroot              => $phabricator_vhost_docroot,
     rewrites             => [
