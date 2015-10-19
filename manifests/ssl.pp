@@ -5,9 +5,12 @@ class profile::ssl {
 
   $ssl_certificates = hiera_hash('ssl')
 
-  $certificate_paths = {}
-  $ca_paths = {}
-  $private_key_paths = {}
+  $cert_domains = keys($ssl_certificates)
+
+  # Generate {'foo' => "${public_dir}/foo.crt"} from ['foo']
+  $certificate_paths = hash(flatten(zip($cert_domains, prefix(suffix($cert_domains, '.crt'), "${public_dir}/"))))
+  $ca_paths = hash(flatten(zip($cert_domains, prefix(suffix($cert_domains, '.ca'), "${public_dir}/"))))
+  $private_key_paths = hash(flatten(zip($cert_domains, prefix(suffix($cert_domains, '.key'), "${private_dir}/"))))
 
   file {$public_dir:
     ensure => 'directory',
@@ -24,10 +27,6 @@ class profile::ssl {
   }
 
   each($ssl_certificates) |$domain, $data| {
-    $certificate_paths[$domain] = "${public_dir}/${domain}.crt"
-    $ca_paths[$domain] = "${public_dir}/${domain}.ca"
-    $private_key_paths[$domain] = "${private_dir}/${domain}.key"
-
     file {$certificate_paths[$domain]:
       ensure  => present,
       owner   => 'root',
