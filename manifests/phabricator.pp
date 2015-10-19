@@ -186,6 +186,8 @@ class profile::phabricator {
     redirect_dest   => "https://${phabricator_vhost_name}/",
   }
 
+  $ssl_cert_name = 'star_softwareheritage_org'
+
   ::apache::vhost {"${phabricator_vhost_name}_ssl":
     servername           => $phabricator_vhost_name,
     port                 => '443',
@@ -193,9 +195,9 @@ class profile::phabricator {
     ssl_protocol         => $phabricator_vhost_ssl_protocol,
     ssl_honorcipherorder => $phabricator_vhost_ssl_honorcipherorder,
     ssl_cipher           => $phabricator_vhost_ssl_cipher,
-    ssl_cert             => $::profile::ssl::certificate_paths['star.softwareheritage.org'],
-    ssl_ca               => $::profile::ssl::ca_paths['star.softwareheritage.org'],
-    ssl_key              => $::profile::ssl::private_key_paths['star.softwareheritage.org'],
+    ssl_cert             => $::profile::ssl::certificate_paths[$ssl_cert_name],
+    ssl_ca               => $::profile::ssl::ca_paths[$ssl_cert_name],
+    ssl_key              => $::profile::ssl::private_key_paths[$ssl_cert_name],
     headers              => [$phabricator_vhost_hsts_header],
     docroot              => $phabricator_vhost_docroot,
     rewrites             => [
@@ -214,9 +216,9 @@ class profile::phabricator {
     ],
     require              => [
         File[$phabricator_vhost_basic_auth_file],
-        File[$::profile::ssl::certificate_paths['star.softwareheritage.org']],
-        File[$::profile::ssl::ca_paths['star.softwareheritage.org']],
-        File[$::profile::ssl::private_key_paths['star.softwareheritage.org']],
+        File[$::profile::ssl::certificate_paths[$ssl_cert_name]],
+        File[$::profile::ssl::ca_paths[$ssl_cert_name]],
+        File[$::profile::ssl::private_key_paths[$ssl_cert_name]],
     ],
   }
 
