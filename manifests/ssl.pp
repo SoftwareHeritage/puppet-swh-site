@@ -40,7 +40,7 @@ class profile::ssl {
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => $data['ca'],
+      content => $data['ca_bundle'],
     }
 
     file {$private_key_paths[$domain]:
