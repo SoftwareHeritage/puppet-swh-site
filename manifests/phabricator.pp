@@ -212,7 +212,12 @@ class profile::phabricator {
         auth_require   => 'valid-user',
       },
     ],
-    require              => File[$phabricator_vhost_basic_auth_file],
+    require              => [
+        File[$phabricator_vhost_basic_auth_file],
+        File[$::profile::ssl::certificate_paths['star.softwareheritage.org']],
+        File[$::profile::ssl::ca_paths['star.softwareheritage.org']],
+        File[$::profile::ssl::private_key_paths['star.softwareheritage.org']],
+    ],
   }
 
   file {$phabricator_vhost_basic_auth_file:
