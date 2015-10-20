@@ -502,9 +502,9 @@ swh::deploy::webapp::uwsgi::workers: 4
 swh::deploy::webapp::uwsgi::max_requests: 32
 swh::deploy::webapp::uwsgi::max_requests_delta: 4
 swh::deploy::webapp::uwsgi::reload_mercy: 3600
-swh::deploy::webapp::vhost::name: base.softwareheritage.org
+swh::deploy::webapp::vhost::name: archive.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
-  - archive.softwareheritage.org
+  - base.softwareheritage.org
 swh::deploy::webapp::vhost::docroot: "/var/www/%{hiera('swh::deploy::webapp::vhost::name')}"
 swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
