@@ -149,7 +149,7 @@ class profile::swh::deploy::webapp {
       { path     => '/api',
         provider => 'location',
         allow    => 'from all',
-        satify   => 'Any',
+        satisfy  => 'Any',
       },
       { path     => "${vhost_docroot}/static",
         options  => ['-Indexes'],
