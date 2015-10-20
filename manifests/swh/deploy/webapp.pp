@@ -20,6 +20,7 @@ class profile::swh::deploy::webapp {
   $swh_packages = ['python3-swh.web.ui']
 
   $vhost_name = hiera('swh::deploy::webapp::vhost::name')
+  $vhost_aliases = hiera('swh::deploy::webapp::vhost::aliases')
   $vhost_docroot = hiera('swh::deploy::webapp::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   $vhost_basic_auth_content = hiera('swh::deploy::webapp::vhost::basic_auth_content')
@@ -105,6 +106,7 @@ class profile::swh::deploy::webapp {
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
+    serveraliases   => $vhost_aliases,
     port            => '80',
     docroot         => $vhost_docroot,
     redirect_status => 'permanent',
@@ -118,6 +120,7 @@ class profile::swh::deploy::webapp {
 
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
+    serveraliases        => $vhost_aliases,
     port                 => '443',
     ssl                  => true,
     ssl_protocol         => $vhost_ssl_protocol,
