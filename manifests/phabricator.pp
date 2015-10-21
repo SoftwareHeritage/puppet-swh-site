@@ -145,11 +145,7 @@ class profile::phabricator {
 
   include ::php::cli
 
-  class {'::php::fpm::daemon':
-    log_owner    => 'www-data',
-    log_group    => 'adm',
-    log_dir_mode => '0750',
-  }
+  include ::php::fpm::daemon
 
   ::php::ini {'/etc/php5/cli/php.ini':}
 
@@ -175,8 +171,7 @@ class profile::phabricator {
   include ::profile::ssl
   include ::apache
   include ::apache::mod::proxy
-
-  ::apache::mod {'proxy_fcgi':}
+  include ::profile::apache::mod_proxy_fcgi
 
   ::apache::vhost {"${phabricator_vhost_name}_non-ssl":
     servername      => $phabricator_vhost_name,
