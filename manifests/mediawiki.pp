@@ -26,19 +26,11 @@ class profile::mediawiki {
 
   include ::mysql::client
 
-  $mysql_username = "${mediawiki_db_user}@localhost"
-  $mysql_tables = "${mediawiki_db_basename}.*"
-
-  mysql_user {$mysql_username:
-    ensure        => present,
-    password_hash => mysql_password($mediawiki_db_password),
-  }
-
-  mysql_grant {"${mysql_username}/${mysql_tables}":
-    user       => $mysql_username,
-    table      => $mysql_tables,
-    privileges => ['ALL'],
-    require    => Mysql_user[$mysql_username],
+  ::mysql::db {$mediawiki_db_basename:
+    user     => $mediawiki_db_username,
+    password => $mediawiki_db_password,
+    host     => 'localhost',
+    grant    => ['ALL'],
   }
 
   include ::php::fpm::daemon
