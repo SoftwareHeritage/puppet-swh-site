@@ -78,12 +78,10 @@ class profile::mediawiki {
     ssl_key              => $ssl_key,
     headers              => [$mediawiki_vhost_hsts_header],
     docroot              => $mediawiki_vhost_docroot,
-    rewrites             => [
-      { rewrite_rule => '^/config/(.*) - [L,QSA]' },
-      { rewrite_rule => '^/images/(.*) - [L,QSA]' },
-      { rewrite_rule => '^/upload/(.*) - [L,QSA]' },
-      { rewrite_rule => '^/favicon.ico - [L,QSA]' },
-      { rewrite_rule => "^(.*)$ fcgi://${mediawiki_fpm_listen}${mediawiki_vhost_docroot}/\$1 [B,L,P]" },
+    proxy_pass_match     => [
+      { path => '^/(.*\.php(/.*)?)$',
+        url  => "fcgi://${mediawiki_fpm_listen}${mediawiki_vhost_docroot}/\$1",
+      },
     ],
     directories          => [
       { path           => '/',
