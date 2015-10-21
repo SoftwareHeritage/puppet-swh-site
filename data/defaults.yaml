@@ -155,6 +155,11 @@ puppet::master::hostname: pergamon.internal.softwareheritage.org
 
 strict_transport_security::max_age: 15768000
 
+# Those variables get picked up by 'include ::php::fpm::daemon'
+php::fpm::daemon::log_owner: www-data
+php::fpm::daemon::log_group: adm
+php::fpm::daemon::log_dir_mode: '0750'
+
 # Those variables get picked up by 'include ::apache'
 apache::server_tokens: 'Prod'
 apache::server_signature: 'Off'
