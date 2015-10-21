@@ -1,7 +1,7 @@
 # Deployment of mediawiki for the Software Heritage intranet
 class profile::mediawiki {
   $mediawiki_db_user = hiera('mediawiki::mysql::username')
-  $mediawiki_db_baename = hiera('mediawiki::mysql::dbname')
+  $mediawiki_db_basename = hiera('mediawiki::mysql::dbname')
   $mediawiki_db_password = hiera('mediawiki::mysql::password')
 
   $mediawiki_fpm_listen = hiera('mediawiki::php::fpm_listen')
