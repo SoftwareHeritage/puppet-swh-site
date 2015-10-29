@@ -14,7 +14,6 @@ class profile::swh::deploy::storage {
   $swh_packages = ['python3-swh.storage']
 
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
-  $uwsgi_protocol = hiera('swh::deploy::storage::uwsgi::protocol')
   $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
   $uwsgi_max_requests = hiera('swh::deploy::storage::uwsgi::max_requests')
   $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
@@ -48,8 +47,9 @@ class profile::swh::deploy::storage {
     ensure   => enabled,
     settings => {
       plugin              => 'python3',
-      protocol            => $uwsgi_protocol,
-      socket              => $uwsgi_listen_address,
+      protocol            => 'http',
+      http                => $uwsgi_listen_address,
+      keep-alive          => '1',
       workers             => $uwsgi_workers,
       max_requests        => $uwsgi_max_requests,
       max_requests_delta  => $uwsgi_max_requests_delta,
