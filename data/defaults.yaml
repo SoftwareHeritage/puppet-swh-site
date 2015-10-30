@@ -504,6 +504,9 @@ swh::deploy::storage::uwsgi::workers: 4
 swh::deploy::storage::uwsgi::max_requests: 32
 swh::deploy::storage::uwsgi::max_requests_delta: 4
 swh::deploy::storage::uwsgi::reload_mercy: 3600
+swh::deploy::storage::uwsgi::http_workers: 1
+swh::deploy::storage::uwsgi::http_keepalive: 1
+swh::deploy::storage::uwsgi::http_timeout: 100000
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.ini"
