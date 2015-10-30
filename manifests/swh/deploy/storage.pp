@@ -15,6 +15,9 @@ class profile::swh::deploy::storage {
 
   $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
   $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
+  $uwsgi_http_workers = hiera('swh::deploy::storage::uwsgi::http_workers')
+  $uwsgi_http_keepalive = hiera('swh::deploy::storage::uwsgi::http_keepalive')
+  $uwsgi_http_timeout = hiera('swh::deploy::storage::uwsgi::http_timeout')
   $uwsgi_max_requests = hiera('swh::deploy::storage::uwsgi::max_requests')
   $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
   $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
@@ -47,9 +50,10 @@ class profile::swh::deploy::storage {
     ensure   => enabled,
     settings => {
       plugin              => 'python3',
-      protocol            => 'http',
       http                => $uwsgi_listen_address,
-      keep-alive          => '1',
+      http_workers        => $uwsgi_http_workers,
+      http_keepalive      => $uwsgi_http_keepalive,
+      http_timeout        => $uwsgi_http_timeout,
       workers             => $uwsgi_workers,
       max_requests        => $uwsgi_max_requests,
       max_requests_delta  => $uwsgi_max_requests_delta,
