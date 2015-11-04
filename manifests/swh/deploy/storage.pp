@@ -50,10 +50,6 @@ class profile::swh::deploy::storage {
     ensure   => enabled,
     settings => {
       plugin              => 'python3',
-      http                => $uwsgi_listen_address,
-      http_workers        => $uwsgi_http_workers,
-      http_keepalive      => $uwsgi_http_keepalive,
-      http_timeout        => $uwsgi_http_timeout,
       workers             => $uwsgi_workers,
       max_requests        => $uwsgi_max_requests,
       max_requests_delta  => $uwsgi_max_requests_delta,
@@ -64,6 +60,20 @@ class profile::swh::deploy::storage {
       umask               => '022',
       module              => 'swh.storage.api.server',
       callable            => 'run_from_webserver',
+    }
+  }
+
+  ::uwsgi::site {'swh-storage-http':
+    ensure => enabled,
+    settings => {
+      workers        => 0,
+      http           => $uwsgi_listen_address,
+      http_workers   => $uwsgi_http_workers,
+      http_keepalive => $uwsgi_http_keepalive,
+      http_timeout   => $uwsgi_http_timeout,
+      http_to        => '/var/run/uwsgi/app/swh-storage/socket',
+      uid            => $user,
+      gid            => $user,
     }
   }
 }
