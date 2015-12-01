@@ -18,6 +18,10 @@ node 'prado.softwareheritage.org' {
   include role::swh_database
 }
 
+node 'banco.softwareheritage.org' {
+  include role::swh_backup
+}
+
 node 'uffizi.softwareheritage.org' {
   include role::swh_storage
 }
