@@ -361,6 +361,10 @@ bind::resource_records:
     type: CNAME
     record: debian.internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+  backup/CNAME:
+    type: CNAME
+    record: backup.internal.softwareheritage.org
+    data: banco.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
@@ -389,6 +393,9 @@ bind::resource_records:
   awork05/A:
     record: awork05.internal.softwareheritage.org
     data: 192.168.101.34
+  banco/A:
+    record: banco.internal.softwareheritage.org
+    data: 192.168.101.46
 
 bind::resource_records::default_data:
   type: A
