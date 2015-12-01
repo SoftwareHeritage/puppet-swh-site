@@ -128,6 +128,8 @@ groups:
     gid: 1006
   swhbackup:
     gid: 1007
+  swhwebapp:
+    gid: 1008
   sudo:
     gid: 27 # assigned from base-files
 
