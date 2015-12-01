@@ -4,8 +4,12 @@ ntp::servers:
   - sesi-ntp2.inria.fr
 
 smtp::relayhost: '[smtp.inria.fr]'
-smtp::mydestinations:
+smtp::mydestination:
   - "%{::fqdn}"
+smtp::mynetworks:
+  - 127.0.0.0/8
+  - "[::ffff:127.0.0.0]/10"
+  - "[::1]/128"
 smtp::relay_destinations: {}
 smtp::virtual_aliases: {}
 smtp::mail_aliases:
