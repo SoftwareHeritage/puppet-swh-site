@@ -1,12 +1,13 @@
 # Munin node class
 class profile::munin::node {
   $munin_node_allow = hiera('munin::node::allow')
+  $munin_node_network = hiera('munin::node::network')
   $munin_node_plugins_disable = hiera_array('munin::node::plugins::disable')
   $munin_node_plugins_enable = hiera_array('munin::node::plugins::enable')
 
   class { '::munin::node':
     allow        => $munin_node_allow,
-    address      => ip_for_network('192.168.100.0/24'),
+    address      => ip_for_network($munin_node_network),
     masterconfig => [
       '',
       '# The apt plugin doesn\'t graph by default. Let\'s make it.',
