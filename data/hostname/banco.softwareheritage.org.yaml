@@ -7,3 +7,5 @@ smtp::mynetworks:
 
 dar::backup::exclude:
   - srv/barman
+
+munin::node::network: 192.168.101.0/24

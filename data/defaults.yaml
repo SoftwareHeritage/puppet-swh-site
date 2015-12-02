@@ -140,6 +140,8 @@ groups:
 munin::node::allow:
   - 192.168.100.29
 
+munin::node::network: 192.168.100.0/24
+
 munin::node::plugins::enable:
   - apt
   - postfix_mailvolume
