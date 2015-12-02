@@ -41,7 +41,7 @@ class profile::dar::client {
     keep_backups     => hiera('dar::backup::num_backups'),
     backup_base      => hiera('dar::backup::base'),
     backup_selection => hiera('dar::backup::select'),
-    backup_exclusion => hiera('dar::backup::exclude'),
+    backup_exclusion => hiera_array('dar::backup::exclude'),
     backup_options   => hiera('dar::backup::options'),
     hour             => $hour,
     minute           => $minute,
