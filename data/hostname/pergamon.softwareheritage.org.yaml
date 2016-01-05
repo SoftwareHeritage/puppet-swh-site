@@ -16,3 +16,6 @@ networks:
 # For now the puppetmaster vhost is not puppet-managed
 apache::purge_configs: false
 apache::purge_vhost_dir: false
+
+# Set apache MPM to prefork
+apache::mpm_module: prefork
