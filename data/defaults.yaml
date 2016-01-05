@@ -373,6 +373,10 @@ bind::resource_records:
     type: CNAME
     record: backup.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
+  icinga/CNAME:
+    type: CNAME
+    record: icinga.internal.softwareheritage.org
+    data: pergamon.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
