@@ -14,14 +14,16 @@ class profile::network {
         path   => '/etc/iproute2/rt_tables',
       }
       $ups = [
-              "ip rule add from ${data['address']} table private",
-              "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
-              'ip route flush cache',
+        "up ip route add 192.168.101.0/24 via ${data['gateway']}",
+        "ip rule add from ${data['address']} table private",
+        "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
+        'ip route flush cache',
       ]
       $downs = [
-              "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
-              "ip rule del from ${data['address']} table private",
-              'ip route flush cache',
+        "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
+        "ip rule del from ${data['address']} table private",
+        "ip route del 192.168.101.0/24 via ${data['gateway']}",
+        'ip route flush cache',
       ]
       $gateway = undef
     } else {
