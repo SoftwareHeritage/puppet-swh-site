@@ -101,6 +101,7 @@ class profile::swh::deploy::webapp {
   include ::profile::ssl
   include ::apache
   include ::apache::mod::proxy
+  include ::apache::mod::headers
 
   ::apache::mod {'proxy_uwsgi':}
 
@@ -153,6 +154,7 @@ class profile::swh::deploy::webapp {
         provider => 'location',
         allow    => 'from all',
         satisfy  => 'Any',
+        headers  => ['add Access-Control-Allow-Origin "*"'],
       },
       { path     => "${vhost_docroot}/static",
         options  => ['-Indexes'],
