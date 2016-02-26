@@ -102,7 +102,7 @@ class profile::phabricator {
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0640',
+    mode    => '0644',
     content => template('profile/phabricator/phabricator-sshd.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
     require => File[$phabricator_ssh_config],
@@ -246,7 +246,7 @@ class profile::phabricator {
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0640',
+    mode    => '0644',
     content => template('profile/phabricator/phabricator-phd.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
   }
