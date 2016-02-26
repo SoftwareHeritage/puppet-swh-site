@@ -22,7 +22,7 @@ mod 'apt',
 
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
-    :tag => '4.2.2'
+    :tag => '5.1.2'
 
 mod 'apache',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPA/puppetlabs-apache.git',
