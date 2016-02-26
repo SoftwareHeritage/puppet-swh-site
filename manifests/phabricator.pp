@@ -23,6 +23,8 @@ class profile::phabricator {
   $phabricator_max_size = hiera('phabricator::php::max_file_size')
   $phabricator_opcache_validate_timestamps = hiera('phabricator::php::opcache_validate_timestamps')
 
+  $phabricator_notification_listen = hiera('phabricator::notification::listen')
+
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
   $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
@@ -207,6 +209,7 @@ class profile::phabricator {
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
+      { rewrite_rule => "^/ws/(.*) ws://${phabricator_notification_listen}/\$1 [L,P]" },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
     directories          => [
