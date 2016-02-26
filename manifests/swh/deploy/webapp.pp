@@ -156,8 +156,8 @@ class profile::swh::deploy::webapp {
         satisfy  => 'Any',
         headers  => ['add Access-Control-Allow-Origin "*"'],
       },
-      { path     => "${vhost_docroot}/static",
-        options  => ['-Indexes'],
+      { path    => "${vhost_docroot}/static",
+        options => ['-Indexes'],
       },
     ],
     require              => [
