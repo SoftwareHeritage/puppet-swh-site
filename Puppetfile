@@ -18,7 +18,7 @@ mod 'uwsgi',
 
 mod 'apt',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
-    :tag => '2.1.1'
+    :tag => '2.2.1'
 
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
