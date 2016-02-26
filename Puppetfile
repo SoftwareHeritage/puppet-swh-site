@@ -30,7 +30,7 @@ mod 'apache',
 
 mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
-    :tag => '2.0.1'
+    :tag => '2.1.0'
 
 mod 'debconf_package',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBP/rlenglet-debconf_package.git',
