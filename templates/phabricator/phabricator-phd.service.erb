@@ -4,8 +4,8 @@
 
 [Unit]
 Description=Phabricator Daemons
-After=network.target mysql.service
-Before=apache2.service
+Requires=network.target mysql.service apache2.service
+After=network.target mysql.service apache2.service
 
 [Service]
 User=<%= @phabricator_user %>
