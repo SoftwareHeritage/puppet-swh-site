@@ -26,7 +26,7 @@ mod 'bind',
 
 mod 'apache',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPA/puppetlabs-apache.git',
-    :tag => '1.5.0'
+    :tag => '1.8.1'
 
 mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
