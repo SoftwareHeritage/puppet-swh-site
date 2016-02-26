@@ -50,7 +50,7 @@ mod 'module_data',
 
 mod 'munin',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMUN/ssm-munin.git',
-    :tag => '0.0.9'
+    :tag => '0.1.0'
 
 mod 'mysql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMY/puppetlabs-mysql.git',
