@@ -181,6 +181,8 @@ class profile::phabricator {
   include ::apache::mod::proxy
   include ::profile::apache::mod_proxy_fcgi
 
+  ::apache::mod {'proxy_wstunnel':}
+
   ::apache::vhost {"${phabricator_vhost_name}_non-ssl":
     servername      => $phabricator_vhost_name,
     port            => '80',
@@ -209,7 +211,7 @@ class profile::phabricator {
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
-      { rewrite_rule => "^/ws/(.*) ws://${phabricator_notification_listen}/\$1 [L,P]" },
+      { rewrite_rule => "^/ws/(.*)$ ws://${phabricator_notification_listen}/\$1 [L,P]" },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
     directories          => [
