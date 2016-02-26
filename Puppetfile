@@ -54,7 +54,7 @@ mod 'munin',
 
 mod 'mysql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMY/puppetlabs-mysql.git',
-    :tag => '3.6.0'
+    :tag => '3.6.2'
 
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
