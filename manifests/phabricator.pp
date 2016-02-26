@@ -24,6 +24,8 @@ class profile::phabricator {
   $phabricator_opcache_validate_timestamps = hiera('phabricator::php::opcache_validate_timestamps')
 
   $phabricator_notification_listen = hiera('phabricator::notification::listen')
+  $phabricator_notification_client_host = hiera('phabricator::notification::client_host')
+  $phabricator_notification_client_port = hiera('phabricator::notification::client_port')
 
   $phabricator_vhost_name = hiera('phabricator::vhost::name')
   $phabricator_vhost_docroot = hiera('phabricator::vhost::docroot')
@@ -259,6 +261,28 @@ class profile::phabricator {
       Exec['systemd-daemon-reload'],
     ],
   }
+
+  # Uses:
+    # $phabricator_basepath
+    # $phabricator_user
+    # $phabricator_notification_*
+    file {'/etc/systemd/system/phabricator-aphlict.service':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('profile/phabricator/phabricator-aphlict.service.erb'),
+      notify  => Exec['systemd-daemon-reload'],
+    }
+
+    service {'phabricator-aphlict':
+      ensure  => 'running',
+      enable  => true,
+      require => [
+        File['/etc/systemd/system/phabricator-aphlict.service'],
+        Exec['systemd-daemon-reload'],
+      ],
+    }
 
   package {'python-pygments':
     ensure => installed,
