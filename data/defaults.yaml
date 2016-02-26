@@ -465,8 +465,8 @@ phabricator::vcs_user: git
 
 phabricator::notification::client_host: 127.0.0.1
 phabricator::notification::client_port: 22280
-phabricator::notification::server_host: 127.0.0.1
-phabricator::notification::server_port: 22281
+phabricator::notification::admin_host: 127.0.0.1
+phabricator::notification::admin_port: 22281
 phabricator::notification::listen: "%{hiera('phabricator::notification::client_host')}:%{hiera('phabricator::notification::client_port')}"
 
 phabricator::mysql::database_prefix: phabricator
