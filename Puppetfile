@@ -62,7 +62,7 @@ mod 'ntp',
 
 mod 'php',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPHP/thias-php.git',
-    :tag => '1.1.1'
+    :tag => '1.2.0'
 
 mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
