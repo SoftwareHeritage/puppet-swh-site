@@ -15,6 +15,9 @@ class profile::phabricator {
   $phabricator_db_ft_min_word_len = hiera('phabricator::mysql::conf::ft_min_word_len')
   $phabricator_db_ft_boolean_syntax = hiera('phabricator::mysql::conf::ft_boolean_syntax')
   $phabricator_db_innodb_buffer_pool_size = hiera('phabricator::mysql::conf::innodb_buffer_pool_size')
+  $phabricator_db_innodb_file_per_table = hiera('phabricator::mysql::conf::innodb_file_per_table')
+  $phabricator_db_innodb_flush_method = hiera('phabricator::mysql::conf::innodb_flush_method')
+  $phabricator_db_innodb_log_file_size = hiera('phabricator::mysql::conf::innodb_log_file_size')
 
   $phabricator_fpm_listen = hiera('phabricator::php::fpm_listen')
   $phabricator_max_size = hiera('phabricator::php::max_file_size')
@@ -124,6 +127,9 @@ class profile::phabricator {
         ft_min_word_len         => $phabricator_db_ft_min_word_len,
         ft_boolean_syntax       => $phabricator_db_ft_boolean_syntax,
         innodb_buffer_pool_size => $phabricator_db_innodb_buffer_pool_size,
+        innodb_file_per_table   => $phabricator_db_innodb_file_per_table,
+        innodb_flush_method     => $phabricator_db_innodb_flush_method,
+        innodb_log_file_size    => $phabricator_db_innodb_log_file_size,
       }
     }
   }
