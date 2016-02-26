@@ -58,7 +58,7 @@ mod 'mysql',
 
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
-    :tag => '4.0.0'
+    :tag => '4.1.2'
 
 mod 'php',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPHP/thias-php.git',
