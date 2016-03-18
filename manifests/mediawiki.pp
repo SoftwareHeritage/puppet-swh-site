@@ -15,7 +15,8 @@ class profile::mediawiki {
   $mediawiki_vhost_ssl_cipher = hiera('mediawiki::vhost::ssl_cipher')
   $mediawiki_vhost_hsts_header = hiera('mediawiki::vhost::hsts_header')
 
-  $mediawiki_config = '/etc/mediawiki/LocalSettings.php'
+  $mediawiki_config = "/etc/mediawiki/LocalSettings_${mediawiki_vhost_name}.php"
+  $mediawiki_config_meta = "/etc/mediawiki/LocalSettings.php"
   $mediawiki_config_secret_key = hiera('mediawiki::conf::secret_key')
   $mediawiki_config_upgrade_key = hiera('mediawiki::conf::upgrade_key')
 
@@ -103,6 +104,7 @@ class profile::mediawiki {
     require              => [
       File[$mediawiki_vhost_basic_auth_file],
       File[$mediawiki_config],
+      File[$mediawiki_config_meta],
       File[$ssl_cert],
       File[$ssl_ca],
       File[$ssl_key],
@@ -117,12 +119,23 @@ class profile::mediawiki {
     content => $mediawiki_vhost_basic_auth_content,
   }
 
+  file {$mediawiki_config_meta:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'www-data',
+    mode    => '0640',
+    # TODO actually use this to generate a proper vhost dispatcher config file
+    # XXX currently LocalSettings.php should be hand maintained when modifying vhosts
+    # content => template('profile/mediawiki/LocalSettings.php.erb'),
+    require => Package['mediawiki'],
+  }
+
   file {$mediawiki_config:
     ensure  => present,
     owner   => 'root',
     group   => 'www-data',
     mode    => '0640',
-    content => template('profile/mediawiki/LocalSettings.php.erb'),
+    content => template('profile/mediawiki/LocalSettings_vhost.php.erb'),
     require => Package['mediawiki'],
     notify  => Service['php5-fpm'],
   }
