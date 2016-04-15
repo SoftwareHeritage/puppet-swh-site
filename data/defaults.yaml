@@ -412,12 +412,14 @@ bind::resource_records:
     record: petit-palais.internal.softwareheritage.org
     data: 192.168.101.58
   petitpalais/CNAME:
+    type: CNAME
     record: petitpalais.internal.softwareheritage.org
     data: petit-palais.internal.softwareheritage.org.
   grand-palais/A:
     record: grand-palais.internal.softwareheritage.org
     data: 192.168.101.62
   grandpalais/CNAME:
+    type: CNAME
     record: grandpalais.internal.softwareheritage.org
     data: grand-palais.internal.softwareheritage.org.
 
