@@ -78,4 +78,4 @@ mod 'stdlib',
 
 mod 'sudo',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSUDO/saz-sudo.git',
-    :tag => 'v3.1.0'
+    :ref => 'fix-stretch'
