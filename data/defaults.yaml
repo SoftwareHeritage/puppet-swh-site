@@ -47,6 +47,9 @@ packages:
   - vim
   - zsh
 
+packages::desktop:
+  - gnome
+
 users:
   root:
     uid: 0
