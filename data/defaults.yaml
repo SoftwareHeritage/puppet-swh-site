@@ -49,6 +49,8 @@ packages:
 
 packages::desktop:
   - gnome
+  - postgresql
+  - emacs
 
 users:
   root:
