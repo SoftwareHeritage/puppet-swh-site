@@ -408,6 +408,18 @@ bind::resource_records:
   banco/A:
     record: banco.internal.softwareheritage.org
     data: 192.168.101.46
+  petit-palais/A:
+    record: petit-palais.internal.softwareheritage.org
+    data: 192.168.101.58
+  petitpalais/CNAME:
+    record: petitpalais.internal.softwareheritage.org
+    data: petit-palais.internal.softwareheritage.org.
+  grand-palais/A:
+    record: grand-palais.internal.softwareheritage.org
+    data: 192.168.101.62
+  grandpalais/CNAME:
+    record: grandpalais.internal.softwareheritage.org
+    data: grand-palais.internal.softwareheritage.org.
 
 bind::resource_records::default_data:
   type: A
