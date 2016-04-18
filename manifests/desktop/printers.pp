@@ -1,7 +1,7 @@
 class profile::desktop::printers {
   $printers = hiera_hash('desktop::printers')
   $default_printer = hiera('desktop::printers::default')
-  $cups_usernames = hiers_hash('desktop::printers::cups_usernames')
+  $cups_usernames = hiera_hash('desktop::printers::cups_usernames')
 
   $ppd_dir = hiera('desktop::printers::ppd_dir')
   $ppd_file = "${ppd_dir}/MFP.ppd"
