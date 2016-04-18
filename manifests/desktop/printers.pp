@@ -78,4 +78,9 @@ class profile::desktop::printers {
       File[$ppd_dir],
     ],
   }
+
+  service {'cups-browsed':
+    ensure  => stopped,
+    enabled => false,
+  }
 }
