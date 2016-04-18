@@ -7,7 +7,9 @@ class profile::desktop::printers {
   $ppd_file = "${ppd_dir}/MFP.ppd"
   $ppd_auth_filter = "${ppd_dir}/MFP_auth_filter"
 
-  include ::cups
+  class {'::cups':
+    default_printer => $default_printer,
+  }
 
   each($printers) |$printer, $params| {
     printer {$printer:
@@ -19,11 +21,6 @@ class profile::desktop::printers {
       shared      => false,
       require     => File[$params['ppd']]
     }
-  }
-
-  printer_defaults {$default_printer:
-    ensure  => present,
-    require => Printer[$default_printer],
   }
 
   each ($cups_usernames) |$user, $cups_user| {
