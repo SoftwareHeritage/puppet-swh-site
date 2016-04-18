@@ -46,11 +46,13 @@ packages:
   - ncdu
   - vim
   - zsh
+  - git
 
 packages::desktop:
   - gnome
   - postgresql
   - emacs
+  - myrepos
 
 users:
   root:
