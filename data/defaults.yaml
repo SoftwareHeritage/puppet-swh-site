@@ -583,11 +583,15 @@ desktop::printers:
     description: Impression couleur
     location: Partout
     ppd: "%{hiera('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
+    ppd_options:
+      ColorType: Color
   MFP:
     uri: lpd://print.paris.inria.fr/MFP-pro
     description: Impression Noir et Blanc
     location: Partout
     ppd: "%{hiera('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
+    ppd_options:
+      ColorType: Mono
 
 desktop::printers::default: MFP
 desktop::printers::ppd_dir: /usr/share/ppd/softwareheritage
