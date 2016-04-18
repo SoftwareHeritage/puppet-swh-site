@@ -4,4 +4,6 @@ class profile::desktop {
   package { $packages:
     ensure => present,
   }
+
+  include ::profile::desktop::printers
 }
