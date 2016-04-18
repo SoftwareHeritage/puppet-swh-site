@@ -21,7 +21,7 @@ class profile::desktop::printers {
     }
   }
 
-  default_printer {$default_printer:
+  printer_defaults {$default_printer:
     ensure  => present,
     require => Printer[$default_printer],
   }
