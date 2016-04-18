@@ -32,6 +32,10 @@ mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
     :tag => '2.1.0'
 
+mod 'cups',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPCUPS/mosen-cups.git',
+    :ref => 'master'
+
 mod 'debconf_package',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBP/rlenglet-debconf_package.git',
     :ref => 'fix-metadata'
