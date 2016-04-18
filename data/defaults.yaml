@@ -22,6 +22,10 @@ smtp::mail_aliases:
     - antoine.romain.dumont@gmail.com
   olasd:
     - nicolas+swhinfra@dandrimont.eu
+  qcampos:
+    - qcampos@etud.u-pem.fr
+  jbertran:
+    - j.debalanda@gmail.com
   swhworker:
     - zack
     - olasd
@@ -129,6 +133,18 @@ users:
     full_name: SWH Backup Account
     shell: /bin/bash
     groups: []
+  jbertran:
+    uid: 2001
+    full_name: Jordi Bertran de Balanda
+    shell: /bin/bash
+    groups:
+      - swhdev
+  qcampos:
+    uid: 2002
+    full_name: Quentin Campos
+    shell: /bin/bash
+    groups:
+      - swhdev
 
 groups:
   swhdev:
