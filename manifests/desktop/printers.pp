@@ -77,7 +77,7 @@ class profile::desktop::printers {
   }
 
   service {'cups-browsed':
-    ensure  => stopped,
-    enabled => false,
+    ensure => stopped,
+    enable => false,
   }
 }
