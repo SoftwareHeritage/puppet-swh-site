@@ -598,3 +598,4 @@ desktop::printers::ppd_dir: /usr/share/ppd/softwareheritage
 
 desktop::printers::cups_usernames:
   olasd: ndandrim
+  zack: zacchiro
