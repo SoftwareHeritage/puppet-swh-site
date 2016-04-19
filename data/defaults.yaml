@@ -54,9 +54,38 @@ packages:
 
 packages::desktop:
   - gnome
-  - postgresql
   - emacs
   - myrepos
+
+packages::devel::python:
+  - graphviz
+  - make
+  - python3-arrow
+  - python3-blinker
+  - python3-celery
+  - python3-cffi
+  - python3-dateutil
+  - python3-flake8
+  - python3-flask
+  - python3-flask-api
+  - python3-msgpack
+  - python3-nose
+  - python3-psycopg2
+  - python3-pygit2
+  - python3-requests
+  - python3-retrying
+  - python3-vcversioner
+
+packages::devel::postgres:
+  - apgdiff
+  - barman
+  - check-postgres
+  - postgresql
+  - postgresql-client
+  - postgresql-contrib
+  - postgresql-doc
+  - postgresql-plpython3-9.5
+  - postgresql-server-dev-9.5
 
 users:
   root:
