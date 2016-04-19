@@ -57,6 +57,9 @@ packages::desktop:
   - emacs
   - myrepos
 
+packages::devel:
+  - arcanist
+
 packages::devel::python:
   - graphviz
   - make
