@@ -85,6 +85,7 @@ packages::devel::postgres:
   - barman
   - check-postgres
   - postgresql
+  - postgresql-autodoc
   - postgresql-client
   - postgresql-contrib
   - postgresql-doc
