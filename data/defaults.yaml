@@ -60,6 +60,10 @@ packages::desktop:
 packages::devel:
   - arcanist
 
+packages::devel::debian:
+  - devscripts
+  - dpkg-dev
+
 packages::devel::python:
   - graphviz
   - make
