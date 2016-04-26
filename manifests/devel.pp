@@ -6,6 +6,7 @@ class profile::devel {
     ensure => present,
   }
 
+  include ::profile::devel::debian
   include ::profile::devel::postgres
   include ::profile::devel::python
 }
