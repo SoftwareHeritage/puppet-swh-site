@@ -14,4 +14,13 @@ class profile::puppet::master {
     pluginsync                  => true,
     puppetmaster                => $puppetmaster,
   }
+
+  file { '/usr/local/sbin/swh-puppet-master-deploy':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('profile/puppet/swh-puppet-master-deploy.sh.erb'),
+  }
+
 }
