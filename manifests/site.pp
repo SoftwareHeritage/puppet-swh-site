@@ -42,4 +42,5 @@ node
 
 node default {
   include role::swh_server
+  include profile::puppet::agent
 }
