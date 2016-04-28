@@ -75,6 +75,7 @@ packages::devel::python:
   - python3-flake8
   - python3-flask
   - python3-flask-api
+  - python3-flask-testing
   - python3-msgpack
   - python3-nose
   - python3-psycopg2
