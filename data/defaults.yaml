@@ -54,6 +54,7 @@ packages:
 
 packages::desktop:
   - gnome
+  - chromium
   - emacs
   - myrepos
 
