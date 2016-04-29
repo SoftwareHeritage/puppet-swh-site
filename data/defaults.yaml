@@ -59,6 +59,7 @@ packages::desktop:
 
 packages::devel:
   - arcanist
+  - gitk
 
 packages::devel::debian:
   - devscripts
