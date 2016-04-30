@@ -65,8 +65,6 @@ packages::devel:
   - gitg
   - gitk
   - ltrace
-  - manpages-posix
-  - manpages-posix-dev
   - perl-doc
   - strace
 
