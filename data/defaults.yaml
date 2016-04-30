@@ -60,7 +60,15 @@ packages::desktop:
 
 packages::devel:
   - arcanist
+  - elpa-magit
+  - git-email
+  - gitg
   - gitk
+  - ltrace
+  - manpages-posix
+  - manpages-posix-dev
+  - perl-doc
+  - strace
 
 packages::devel::debian:
   - devscripts
