@@ -87,6 +87,12 @@ class profile::base {
     priority => 10,
   }
 
+  ::sudo::conf { 'local-deploy':
+    ensure   => present,
+    content  => '%swhdeploy  ALL = NOPASSWD: /usr/local/sbin/swh-puppet-master-deploy, /usr/local/sbin/swh-puppet-test, /usr/local/sbin/swh-puppet-apply',
+    priority => 20,
+  }
+
   $bind_autogenerate = hiera_hash('bind::autogenerate')
   $bind_key = hiera('bind::update_key')
 
