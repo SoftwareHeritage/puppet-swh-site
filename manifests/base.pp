@@ -89,7 +89,7 @@ class profile::base {
 
   ::sudo::conf { 'local-deploy':
     ensure   => present,
-    content  => '%swhdeploy  ALL = NOPASSWD: /usr/local/sbin/swh-puppet-master-deploy, /usr/local/sbin/swh-puppet-test, /usr/local/sbin/swh-puppet-apply',
+    content  => '%swhdeploy  ALL = NOPASSWD: /usr/local/sbin/swh-puppet-master-deploy, /usr/local/sbin/swh-puppet-test, /usr/local/sbin/swh-puppet-apply, /usr/bin/apt-get update',
     priority => 20,
   }
 
