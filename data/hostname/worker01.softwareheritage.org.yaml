@@ -11,5 +11,4 @@ networks:
     gateway: 128.93.193.254
 
 # temporary for testing swh-loader-dir before going live
-swh::deploy::storage::db::dbname: softwareheritage-test-dir
-swh::deploy::storage::directory: /srv/storage/space/test-dir
+swh::deploy::storage::db::dbname: softwareheritage-test-svn
