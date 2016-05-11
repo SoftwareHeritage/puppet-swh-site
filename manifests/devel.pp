@@ -9,4 +9,5 @@ class profile::devel {
   include ::profile::devel::debian
   include ::profile::devel::postgres
   include ::profile::devel::python
+  include ::profile::devel::broker
 }
