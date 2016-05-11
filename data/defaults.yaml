@@ -73,6 +73,8 @@ packages::devel:
 packages::devel::debian:
   - devscripts
   - dpkg-dev
+  - sbuild
+  - reprepro
 
 packages::devel::python:
   - graphviz
