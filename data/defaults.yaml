@@ -95,6 +95,9 @@ packages::devel::python:
   - python3-sphinx
   - python3-vcversioner
 
+packages::devel::broker:
+  - rabbitmq-server
+
 packages::devel::postgres:
   - apgdiff
   - barman
