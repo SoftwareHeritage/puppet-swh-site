@@ -57,6 +57,8 @@ packages::desktop:
   - chromium
   - emacs
   - myrepos
+  - curl
+  - tmux
 
 packages::devel:
   - arcanist
