@@ -131,6 +131,7 @@ users:
       - swhstorage
       - swhdeploy
       - sudo
+      - gitorious
     authorized_keys:
       zack-software-heritage:
         type: ssh-rsa
@@ -144,6 +145,7 @@ users:
       - swhstorage
       - swhdeploy
       - sudo
+      - gitorious
     authorized_keys:
       nicolasd@darboux:
         type: ssh-rsa
@@ -157,6 +159,7 @@ users:
       - swhstorage
       - swhdeploy
       - sudo
+      - gitorious
     authorized_keys:
       eniotna.t@gmail.com:
         type: ssh-rsa
