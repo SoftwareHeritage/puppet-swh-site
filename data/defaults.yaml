@@ -96,6 +96,7 @@ packages::devel::python:
   - python3-retrying
   - python3-sphinx
   - python3-vcversioner
+  - python3-click
 
 packages::devel::broker:
   - rabbitmq-server
