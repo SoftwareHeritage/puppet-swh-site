@@ -170,6 +170,7 @@ users:
     shell: /bin/bash
     groups:
       - swhdeploy
+      - gitorious
   swhstorage:
     uid: 1005
     full_name: SWH Storage Account
@@ -199,6 +200,12 @@ users:
     shell: /bin/bash
     groups:
       - swhdev
+  gitorious:
+    uid: 5000
+    full_name: Gitorious System User
+    shell: /bin/false
+    groups:
+      - gitorious
 
 groups:
   swhdev:
@@ -213,6 +220,8 @@ groups:
     gid: 1008
   sudo:
     gid: 27 # assigned from base-files
+  gitorious:
+    gid: 5000
 
 munin::node::allow:
   - 192.168.100.29
