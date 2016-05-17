@@ -59,6 +59,7 @@ packages::desktop:
   - myrepos
   - curl
   - tmux
+  - tree
 
 packages::devel:
   - arcanist
