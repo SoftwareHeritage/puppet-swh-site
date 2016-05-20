@@ -20,6 +20,8 @@ node 'prado.softwareheritage.org' {
 
 node 'banco.softwareheritage.org' {
   include role::swh_backup
+  # Uncomment when ready
+  # include role::swh_objstorage
 }
 
 node 'uffizi.softwareheritage.org' {
@@ -34,10 +36,13 @@ node /worker\d+\.softwareheritage\.org/ {
   include role::swh_worker
 }
 
-node
-  'petit-palais.softwareheritage.org',
-  'grand-palais.softwareheritage.org' {
+node 'petit-palais.softwareheritage.org' {
   include role::swh_desktop
+}
+
+node 'grand-palais.softwareheritage.org' {
+  include role::swh_desktop
+  include role::swh_objstorage
 }
 
 node default {
