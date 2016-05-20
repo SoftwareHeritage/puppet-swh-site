@@ -643,6 +643,21 @@ swh::deploy::storage::uwsgi::http_workers: 1
 swh::deploy::storage::uwsgi::http_keepalive: 1
 swh::deploy::storage::uwsgi::http_timeout: 100000
 
+swh::deploy::objstorage::conf_directory: "%{hiera('swh::deploy::storage::conf_directory')}"
+swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.ini"
+swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
+swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
+swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::objstorage::depth: 3
+swh::deploy::objstorage::uwsgi::listen: 127.0.0.1:5003
+swh::deploy::objstorage::uwsgi::workers: "%{hiera('swh::deploy::storage::uwsgi::workers')}"
+swh::deploy::objstorage::uwsgi::max_requests: "%{hiera('swh::deploy::storage::uwsgi::max_requests')}"
+swh::deploy::objstorage::uwsgi::max_requests_delta: "%{hiera('swh::deploy::storage::uwsgi::max_requests_delta')}"
+swh::deploy::objstorage::uwsgi::reload_mercy: "%{hiera('swh::deploy::storage::uwsgi::reload_mercy')}"
+swh::deploy::objstorage::uwsgi::http_workers: "%{hiera('swh::deploy::storage::uwsgi::http_workers')}"
+swh::deploy::objstorage::uwsgi::http_keepalive: "%{hiera('swh::deploy::storage::uwsgi::http_keepalive')}"
+swh::deploy::objstorage::uwsgi::http_timeout: "%{hiera('swh::deploy::storage::uwsgi::http_timeout')}"
+
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.ini"
 swh::deploy::webapp::user: swhwebapp
