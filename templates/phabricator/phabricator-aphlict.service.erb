@@ -13,7 +13,7 @@ User=<%= @phabricator_user %>
 Group=<%= @phabricator_user %>
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
-ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start --client-port <%= @phabricator_notification_client_port -%> --client-host <%= @phabricator_notification_client_host %>
+ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start
 ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/aphlict stop
 
 [Install]
