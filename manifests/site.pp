@@ -26,6 +26,10 @@ node 'uffizi.softwareheritage.org' {
   include role::swh_storage
 }
 
+node 'getty.softwareheritage.org' {
+  include role::swh_eventlog
+}
+
 node 'worker08.softwareheritage.org' {
   include role::swh_miracle_worker
 }
