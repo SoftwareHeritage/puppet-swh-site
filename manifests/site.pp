@@ -20,8 +20,6 @@ node 'prado.softwareheritage.org' {
 
 node 'banco.softwareheritage.org' {
   include role::swh_backup
-  # Uncomment when ready
-  # include role::swh_objstorage
 }
 
 node 'uffizi.softwareheritage.org' {
