@@ -35,7 +35,7 @@ class profile::mediawiki {
       vhost_docroot              => $mediawiki_vhost_docroot,
       vhost_aliases              => $data['aliases'],
       vhost_fpm_root             => $mediawiki_fpm_root,
-      vhost_basic_auth           => $basic_auth_content,
+      vhost_basic_auth           => $data['basic_auth_content'],
       vhost_ssl_protocol         => $mediawiki_vhost_ssl_protocol,
       vhost_ssl_honorcipherorder => $mediawiki_vhost_ssl_honorcipherorder,
       vhost_ssl_cipher           => $mediawiki_vhost_ssl_cipher,
