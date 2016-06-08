@@ -31,7 +31,7 @@ class profile::mediawiki {
     $upgrade_key = $data['upgrade_key']
     $basic_auth_content = $data['basic_auth']
 
-    ::mediawiki::instance { $mediawiki_vhost_name:
+    ::mediawiki::instance { $name:
       vhost_docroot              => $mediawiki_vhost_docroot,
       vhost_aliases              => $data['aliases'],
       vhost_fpm_root             => $mediawiki_fpm_root,
