@@ -45,7 +45,7 @@ class profile::mediawiki {
       vhost_ssl_hsts_header      => $mediawiki_vhost_hsts_header,
       db_host                    => 'localhost',
       db_basename                => $data['mysql']['dbname'],
-      db_user                    => $data['mysql']['user'],
+      db_user                    => $data['mysql']['username'],
       db_password                => $data['mysql']['password'],
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
