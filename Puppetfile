@@ -7,6 +7,9 @@ mod 'role',
 mod 'dar',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDAR/swh-dar.git'
 
+mod 'mediawiki',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPMW/swh-mediawiki.git'
+
 mod 'postfix',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPFIX/swh-postfix.git'
 
