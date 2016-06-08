@@ -33,6 +33,7 @@ class profile::mediawiki {
 
     ::mediawiki::instance { $mediawiki_vhost_name:
       vhost_docroot              => $mediawiki_vhost_docroot,
+      vhost_aliases              => $data['aliases'],
       vhost_fpm_root             => $mediawiki_fpm_root,
       vhost_basic_auth           => $basic_auth_content,
       vhost_ssl_protocol         => $mediawiki_vhost_ssl_protocol,
