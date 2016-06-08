@@ -600,12 +600,21 @@ phabricator::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder
 phabricator::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 phabricator::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
-mediawiki::mysql::dbname: mediawiki
-mediawiki::mysql::username: mediawiki
-
 mediawiki::php::fpm_listen: 127.0.0.1:9002
 
-mediawiki::vhost::name: intranet.softwareheritage.org
+mediawiki::vhosts:
+  intranet.softwareheritage.org:
+    mysql:
+      username: mediawiki
+      dbname: mediawiki
+    aliases: []
+  wiki.softwareheritage.org:
+    mysql:
+      username: mediawiki_wg
+      dbname: mediawiki_wg
+    aliases:
+      - wg.softwareheritage.org
+
 mediawiki::vhost::docroot: /var/lib/mediawiki
 mediawiki::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 mediawiki::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
