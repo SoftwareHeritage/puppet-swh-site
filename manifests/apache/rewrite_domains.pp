@@ -9,8 +9,8 @@ class profile::apache::rewrite_domains {
   $ssl_cipher = hiera('apache::ssl_cipher')
   $hsts_header = hiera('apache::hsts_header')
 
-  $redirect_domains = hiera_hash('apache::redirect_domains')
-  each($redirect_domains) |$name, $data| {
+  $rewrite_domains = hiera_hash('apache::rewrite_domains')
+  each($rewrite_domains) |$name, $data| {
     $ssl_cert_name = $data['ssl_cert_name']
 
     $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
