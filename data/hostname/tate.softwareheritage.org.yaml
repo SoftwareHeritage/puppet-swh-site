@@ -16,3 +16,7 @@ networks:
     address: 128.93.193.30
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+
+apache::redirect_domains:
+  wg.softwareheritage.org:
+    "^.*$": "https://wiki.softwareheritage.org/index.php?title=Working_groups"

@@ -612,8 +612,7 @@ mediawiki::vhosts:
     mysql:
       username: mediawiki_wg
       dbname: mediawiki_wg
-    aliases:
-      - wg.softwareheritage.org
+    aliases: []
 
 mediawiki::vhost::docroot: /var/lib/mediawiki
 mediawiki::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
