@@ -710,3 +710,7 @@ desktop::printers::ppd_dir: /usr/share/ppd/softwareheritage
 desktop::printers::cups_usernames:
   olasd: ndandrim
   zack: zacchiro
+
+zookeeper::hosts:
+  getty.internal.softwareheritage.org: 1
+zookeeper::data_dir: /var/lib/zookeeper
