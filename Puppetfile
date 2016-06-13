@@ -47,6 +47,10 @@ mod 'debnet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBN/trepasi-debnet.git',
     :tag => 'v1.4.3'
 
+mod 'kafka',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
+    :ref => '0be877447057ee8f84f11f1d13e5b37495418790'
+
 mod 'locales',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPLOC/saz-locales.git',
     :tag => 'v2.2.2'
@@ -86,3 +90,8 @@ mod 'stdlib',
 mod 'sudo',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSUDO/saz-sudo.git',
     :ref => 'fix-stretch'
+
+mod 'zookeeper',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPZK/wikimedia-zookeeper.git',
+    :ref => 'd46635af73771aa47f450dff39d383f1bd54ea45'
+
