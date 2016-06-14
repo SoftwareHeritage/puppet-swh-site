@@ -14,7 +14,7 @@ node 'moma.softwareheritage.org' {
   include role::swh_api
 }
 
-node 'prado.softwareheritage.org' {
+node /^prado.(internal.)?softwareheritage.org$/ {
   include role::swh_database
 }
 
@@ -22,11 +22,11 @@ node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
 
-node 'uffizi.softwareheritage.org' {
+node /^uffizi.(internal.)?softwareheritage.org$/ {
   include role::swh_storage
 }
 
-node 'getty.softwareheritage.org' {
+node /^getty.(internal.)?softwareheritage.org$/ {
   include role::swh_eventlog
 }
 
@@ -34,7 +34,7 @@ node 'worker08.softwareheritage.org' {
   include role::swh_miracle_worker
 }
 
-node /worker\d+\.softwareheritage\.org/ {
+node /^worker\d+\.softwareheritage\.org$/ {
   include role::swh_worker
 }
 
