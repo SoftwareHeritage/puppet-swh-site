@@ -712,7 +712,7 @@ desktop::printers::cups_usernames:
   zack: zacchiro
 
 zookeeper::hosts:
-  getty.internal.softwareheritage.org: 1
+  getty.internal.softwareheritage.org: '1'
 zookeeper::data_dir: /var/lib/zookeeper
 
 kafka::log_dirs:
