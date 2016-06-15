@@ -28,6 +28,17 @@ class profile::swh::deploy::webapp {
   $vhost_ssl_honorcipherorder = hiera('swh::deploy::webapp::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = hiera('swh::deploy::webapp::vhost::ssl_cipher')
 
+  $open_endpoints = hiera_array('swh::deploy::webapp::open_endpoints')
+
+  $endpoint_directories = $open_endpoints.map |$endpoint| {
+    { path     => $endpoint,
+      provider => 'location',
+      allow    => 'from all',
+      satisfy  => 'Any',
+      headers  => ['add Access-Control-Allow-Origin "*"'],
+    }
+  }
+
   include ::uwsgi
 
   package {$swh_packages:
@@ -150,16 +161,10 @@ class profile::swh::deploy::webapp {
         auth_user_file => $vhost_basic_auth_file,
         auth_require   => 'valid-user',
       },
-      { path     => '/api',
-        provider => 'location',
-        allow    => 'from all',
-        satisfy  => 'Any',
-        headers  => ['add Access-Control-Allow-Origin "*"'],
-      },
       { path    => "${vhost_docroot}/static",
         options => ['-Indexes'],
       },
-    ],
+    ] + $endpoint_directories,
     require              => [
       File[$vhost_basic_auth_file],
       File[$ssl_cert],
