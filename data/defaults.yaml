@@ -689,7 +689,7 @@ swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::open_endpoints:
   - /flask-api/
-  - /api/1/counters/
+  - /api/1/stat/counters/
   - /api/1/search/
 
 desktop::printers:
