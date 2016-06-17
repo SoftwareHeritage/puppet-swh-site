@@ -51,6 +51,7 @@ packages:
   - vim
   - zsh
   - git
+  - python3
 
 packages::desktop:
   - gnome
