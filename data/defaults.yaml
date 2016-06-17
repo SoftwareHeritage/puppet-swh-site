@@ -728,3 +728,10 @@ kafka::brokers:
 kafka::zookeeper::hosts:
   - getty.internal.softwareheritage.org:2181
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
+
+stats_export::vhost::name: stats.export.softwareheritage.org
+stats_export::vhost::docroot: "/var/www/%{hiera('stats_export::vhost::name')}"
+stats_export::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+stats_export::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
