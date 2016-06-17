@@ -7,6 +7,8 @@ class profile::munin::stats_export {
   $vhost_ssl_cipher = hiera('stats_export::vhost::ssl_cipher')
   $vhost_hsts_header = hiera('stats_export::vhost::hsts_header')
 
+  $export_file = "${vhost_docroot}/history_counters.json"
+
   $packages = ['python3-click']
 
   package {$packages:
@@ -22,11 +24,26 @@ class profile::munin::stats_export {
     require => Package[$packages],
   }
 
+  cron {'stats_export':
+    ensure   => present,
+    user     => 'www-data',
+    command  => "/usr/local/bin/export-rrd > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
+    hour     => fqdn_rand(24, 'stats_export_hour'),
+    minute   => fqdn_rand(60, 'stats_export_minute'),
+    month    => '*',
+    monthday => '*',
+    weekday  => '*',
+    require  => [
+      File['/usr/local/bin/export-rrd'],
+      File[$vhost_docroot],
+    ],
+  }
+
   file {$vhost_docroot:
     ensure  => directory,
-    owner   => 'munin',
+    owner   => 'www-data',
     group   => 'www-data',
-    mode    => '2755',
+    mode    => '0755',
   }
 
   include ::profile::ssl
