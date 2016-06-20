@@ -57,7 +57,7 @@ class profile::munin::stats_export {
     redirect_dest   => "https://${vhost_name}/",
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
+  $ssl_cert_name = 'stats_export_softwareheritage_org'
   $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
   $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
