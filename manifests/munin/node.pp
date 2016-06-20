@@ -30,4 +30,12 @@ class profile::munin::node {
   munin::plugin { $munin_node_plugins_disable:
     ensure => absent,
   }
+
+  file_line { 'disable munin-node cron mail':
+    ensure  => present,
+    path    => '/etc/cron.d/munin-node',
+    line    => 'MAILTO=""',
+    match   => '^MAILTO=',
+    require => Package['munin-node'],
+  }
 }
