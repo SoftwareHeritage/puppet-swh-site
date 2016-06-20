@@ -452,7 +452,7 @@ ssl:
       UnamhLXOIr+/Z9B+voB080qZZUn8DqFxP7og8au9IYKP5zLqTxTKayYX3qSXl+QT
       NpzEGsZavMjzG7fNmQ8bTnEimThnqLbLAcgqWMmy/LBFRvabwHan4w==
       -----END CERTIFICATE-----
-    ca_bundle:
+    ca_bundle: |
       -----BEGIN CERTIFICATE-----
       MIIE+zCCA+OgAwIBAgIQCHC8xa8/25Wakctq7u/kZTANBgkqhkiG9w0BAQsFADBl
       MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
