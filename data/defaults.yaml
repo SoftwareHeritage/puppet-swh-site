@@ -617,6 +617,7 @@ dar::backup::exclude:
  - srv/remote-backups
  - srv/softwareheritage/objects
  - srv/softwareheritage/postgres
+ - srv/softwareheritage/postgres-hdd
  - srv/storage
  - sys
  - tmp
