@@ -216,17 +216,7 @@ class profile::phabricator {
       { rewrite_rule => "^/ws/(.*)$ ws://${phabricator_notification_listen}/\$1 [L,P]" },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
-    directories          => [
-      { path           => '/',
-        provider       => 'location',
-        auth_type      => 'Basic',
-        auth_name      => 'Software Heritage development',
-        auth_user_file => $phabricator_vhost_basic_auth_file,
-        auth_require   => 'valid-user',
-      },
-    ],
     require              => [
-        File[$phabricator_vhost_basic_auth_file],
         File[$ssl_cert],
         File[$ssl_ca],
         File[$ssl_key],
@@ -234,11 +224,7 @@ class profile::phabricator {
   }
 
   file {$phabricator_vhost_basic_auth_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'www-data',
-    mode    => '0640',
-    content => $phabricator_vhost_basic_auth_content,
+    ensure  => absent,
   }
 
   # Uses:
