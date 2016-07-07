@@ -1,4 +1,4 @@
-# Deployment of the swh.storage.objstorage.api server
+# Deployment of the swh.objstorage.api server
 
 class profile::swh::deploy::objstorage {
   $conf_directory = hiera('swh::deploy::objstorage::conf_directory')
@@ -7,9 +7,9 @@ class profile::swh::deploy::objstorage {
   $group = hiera('swh::deploy::objstorage::group')
 
   $directory = hiera('swh::deploy::objstorage::directory')
-  $depth = hiera('swh::deploy::objstorage::depth')
+  $depth = hiera('swh::deploy::objstorage::slicing')
 
-  $swh_packages = ['python3-swh.storage']
+  $swh_packages = ['python3-swh.objstorage']
 
   $uwsgi_listen_address = hiera('swh::deploy::objstorage::uwsgi::listen')
   $uwsgi_workers = hiera('swh::deploy::objstorage::uwsgi::workers')
@@ -56,7 +56,7 @@ class profile::swh::deploy::objstorage {
       uid                 => $user,
       gid                 => $user,
       umask               => '022',
-      module              => 'swh.storage.objstorage.api.server',
+      module              => 'swh.objstorage.api.server',
       callable            => 'run_from_webserver',
     }
   }
