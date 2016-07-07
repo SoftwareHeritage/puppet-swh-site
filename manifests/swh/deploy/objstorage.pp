@@ -7,7 +7,7 @@ class profile::swh::deploy::objstorage {
   $group = hiera('swh::deploy::objstorage::group')
 
   $directory = hiera('swh::deploy::objstorage::directory')
-  $depth = hiera('swh::deploy::objstorage::slicing')
+  $slicing = hiera('swh::deploy::objstorage::slicing')
 
   $swh_packages = ['python3-swh.objstorage']
 
