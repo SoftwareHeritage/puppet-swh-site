@@ -738,6 +738,20 @@ swh::deploy::objstorage::uwsgi::http_workers: "%{hiera('swh::deploy::storage::uw
 swh::deploy::objstorage::uwsgi::http_keepalive: "%{hiera('swh::deploy::storage::uwsgi::http_keepalive')}"
 swh::deploy::objstorage::uwsgi::http_timeout: "%{hiera('swh::deploy::storage::uwsgi::http_timeout')}"
 
+swh::deploy::storage::archiver::conf_directory: "%{hiera('swh::deploy::storage::conf_directory')}"
+swh::deploy::storage::archiver::conf_file: "%{hiera('swh::deploy::storage::archiver::conf_directory')}/archiver.ini"
+swh::deploy::storage::archiver::user: "%{hiera('swh::deploy::storage::user')}"
+swh::deploy::storage::archiver::group: "%{hiera('swh::deploy::storage::group')}"
+swh::deploy::storage::archiver::objstorage_path: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::storage::archiver::batch_max_size: 10000
+swh::deploy::storage::archiver::archival_max_age: 3600
+swh::deploy::storage::archiver::retention_policy: 2
+swh::deploy::storage::archiver::db::host: "%{hiera('swh::deploy::storage::db::host')}"
+swh::deploy::storage::archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
+swh::deploy::storage::archiver::db::dbname: "%{hiera('swh::deploy::storage::db::dbname')}"
+swh::deploy::storage::archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::storage::archiver::log::file: "%{hiera('swh::log_directory')}/archiver.log"
+
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.ini"
 swh::deploy::webapp::user: swhwebapp
