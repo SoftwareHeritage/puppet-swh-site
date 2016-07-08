@@ -738,7 +738,7 @@ swh::deploy::objstorage::uwsgi::http_workers: "%{hiera('swh::deploy::storage::uw
 swh::deploy::objstorage::uwsgi::http_keepalive: "%{hiera('swh::deploy::storage::uwsgi::http_keepalive')}"
 swh::deploy::objstorage::uwsgi::http_timeout: "%{hiera('swh::deploy::storage::uwsgi::http_timeout')}"
 
-swh::deploy::storage_archiver::conf_directory: "%{hiera('swh::deploy::storage::conf_directory')}"
+swh::deploy::storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::storage_archiver::conf_file: "%{hiera('swh::deploy::storage_archiver::conf_directory')}/archiver.ini"
 swh::deploy::storage_archiver::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::storage_archiver::group: "%{hiera('swh::deploy::storage::group')}"
