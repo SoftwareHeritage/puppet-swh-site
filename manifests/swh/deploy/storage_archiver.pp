@@ -3,22 +3,22 @@
 # Cron not installed since we need to run one synchronous batch first
 # to catch up
 
-class profile::swh::deploy::storage::archiver {
-  $conf_directory = hiera('swh::deploy::storage::archiver::conf_directory')
-  $conf_file = hiera('swh::deploy::storage::archiver::conf_file')
-  $user = hiera('swh::deploy::storage::archiver::user')
-  $group = hiera('swh::deploy::storage::archiver::group')
+class profile::swh::deploy::storage_archiver {
+  $conf_directory = hiera('swh::deploy::storage_archiver::conf_directory')
+  $conf_file = hiera('swh::deploy::storage_archiver::conf_file')
+  $user = hiera('swh::deploy::storage_archiver::user')
+  $group = hiera('swh::deploy::storage_archiver::group')
 
-  $objstorage_path = hiera('swh::deploy::storage::archiver::objstorage_path')
-  $batch_max_size = hiera('swh::deploy::storage::archiver::batch_max_size')
-  $archival_max_age = hiera('swh::deploy::storage::archiver::archival_max_age')
-  $retention_policy = hiera('swh::deploy::storage::archiver::retention_policy')
-  $db_host = hiera('swh::deploy::storage::archiver::db::host')
-  $db_user = hiera('swh::deploy::storage::archiver::db::user')
-  $db_dbname = hiera('swh::deploy::storage::archiver::db::dbname')
-  $db_password = hiera('swh::deploy::storage::archiver::db::password')
+  $objstorage_path = hiera('swh::deploy::storage_archiver::objstorage_path')
+  $batch_max_size = hiera('swh::deploy::storage_archiver::batch_max_size')
+  $archival_max_age = hiera('swh::deploy::storage_archiver::archival_max_age')
+  $retention_policy = hiera('swh::deploy::storage_archiver::retention_policy')
+  $db_host = hiera('swh::deploy::storage_archiver::db::host')
+  $db_user = hiera('swh::deploy::storage_archiver::db::user')
+  $db_dbname = hiera('swh::deploy::storage_archiver::db::dbname')
+  $db_password = hiera('swh::deploy::storage_archiver::db::password')
 
-  $log_file = hiera('swh::deploy::storage::archiver::log::file')
+  $log_file = hiera('swh::deploy::storage_archiver::log::file')
 
   $swh_packages = ['python3-swh.storage']
 
