@@ -723,7 +723,7 @@ swh::deploy::storage::uwsgi::http_workers: 1
 swh::deploy::storage::uwsgi::http_keepalive: 1
 swh::deploy::storage::uwsgi::http_timeout: 100000
 
-swh::deploy::objstorage::conf_directory: "%{hiera('swh::deploy::storage::conf_directory')}"
+swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.ini"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
