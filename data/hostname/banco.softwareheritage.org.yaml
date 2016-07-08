@@ -12,3 +12,6 @@ munin::node::network: 192.168.101.0/24
 
 smtp::mail_aliases:
   barman: root
+
+# open objstorage api
+swh::deploy::objstorage::uwsgi::listen: 0.0.0.0:5003
