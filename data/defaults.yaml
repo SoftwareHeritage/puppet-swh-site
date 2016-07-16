@@ -34,6 +34,8 @@ smtp::mail_aliases:
     - root
   postgres:
     - root
+  rdicosmo:
+    - roberto@dicosmo.org
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -135,6 +137,7 @@ users:
       - swhdeploy
       - sudo
       - gitorious
+      - swhteam
     authorized_keys:
       zack-software-heritage:
         type: ssh-rsa
@@ -149,6 +152,7 @@ users:
       - swhdeploy
       - sudo
       - gitorious
+      - swhteam
     authorized_keys:
       nicolasd@darboux:
         type: ssh-rsa
@@ -163,6 +167,7 @@ users:
       - swhdeploy
       - sudo
       - gitorious
+      - swhteam
     authorized_keys:
       eniotna.t@gmail.com:
         type: ssh-rsa
@@ -194,6 +199,16 @@ users:
     full_name: SWH Backup Account
     shell: /bin/bash
     groups: []
+  rdicosmo:
+    uid: 1008
+    full_name: Roberto Di Cosmo
+    shell: /bin/bash
+    groups:
+      - swhteam
+    authorized_keys:
+      dicosmo@voyager:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQC5aS/3Cps2Ru9EW+nIF9Z9o6/xq1thwtCgpIjSPgcrm2BVisj6xbD5OOapS3U6BpLKjWZG8sMGBCsJJ3S1cP0s2I+xHFToqCcbfOxIe/tq/UgTtxGJ0+TfUKNoD+QJjIKnjyC+HVEQm5bSm8mJv0vptj4On8yNopytSGuLcFHHnMB2t+IOkHnTW7n3emhh3SZKAcpI1h7WvPqsqBobMFDMeqvGeHaH2AM2OSoUi7AY+MmcVL0Je6QtJqpz60QI5dvaM4AsobC12AZSJKXnuqQTY6nJy4r9jPRK8RUqo5PuAAsNtlxf5xA4s1LrDR5PxBDpYz47Pq2LHtI9Hgf/SFB3IqZeBKqquMI1xThRBwP307/vOtTiwJr4ZKcpOH+SbU7Tnde4n8siM719QZM8VITtrbwm/VBiEwvhGC/23npX4S55W7Et/l9gmeP3Q+lSw50vBuQhBSn7BzedPM1CqbTN/zqM8TCDUtPVIo+6b2s5ao/Vcq9vBXm5bP0xZeNsqsCl05zpCShudKpT6AlMGAaRTd6NUHHsf4D1JjNx3v42R3vQr6OgHELVMGECuyPs3zWHOS/P6AdD0yJTSOMaklRh2HGN8uj0+aQ7RhnrkYqRfhN+6UkrTANuxdb44AGdLmBAKIYglVrAJe+DEji/LzJdZ22baAWg4ar/WikpFJtxkw==
   jbertran:
     uid: 2001
     full_name: Jordi Bertran de Balanda
@@ -224,6 +239,8 @@ groups:
     gid: 1007
   swhwebapp:
     gid: 1008
+  swhteam:
+    gid: 1009
   sudo:
     gid: 27 # assigned from base-files
   gitorious:
