@@ -776,11 +776,15 @@ swh::deploy::storage_archiver::objstorage_path: "%{hiera('swh::deploy::storage::
 swh::deploy::storage_archiver::batch_max_size: 10000
 swh::deploy::storage_archiver::archival_max_age: 3600
 swh::deploy::storage_archiver::retention_policy: 2
-swh::deploy::storage_archiver::db::host: "%{hiera('swh::deploy::storage::db::host')}"
-swh::deploy::storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
-swh::deploy::storage_archiver::db::dbname: "%{hiera('swh::deploy::storage::db::dbname')}"
-swh::deploy::storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
 swh::deploy::storage_archiver::log::file: "%{hiera('swh::log_directory')}/archiver.log"
+swh::deploy::storage_archiver::db::host: db
+swh::deploy::storage_archiver::db::dbname: softwareheritage-archiver
+swh::deploy::storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
+swh::deploy::storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::storage_archiver::db::host_storage: "%{hiera('swh::deploy::storage::db::host')}"
+swh::deploy::storage_archiver::db::dbname_storage: "%{hiera('swh::deploy::storage::db::dbname')}"
+swh::deploy::storage_archiver::db::user_storage: "%{hiera('swh::deploy::storage::db::user')}"
+swh::deploy::storage_archiver::db::password_storage: "%{hiera('swh::deploy::storage::db::password')}"
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.ini"
