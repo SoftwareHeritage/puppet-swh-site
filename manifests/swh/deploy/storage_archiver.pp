@@ -13,10 +13,16 @@ class profile::swh::deploy::storage_archiver {
   $batch_max_size = hiera('swh::deploy::storage_archiver::batch_max_size')
   $archival_max_age = hiera('swh::deploy::storage_archiver::archival_max_age')
   $retention_policy = hiera('swh::deploy::storage_archiver::retention_policy')
+  # archiver db info
   $db_host = hiera('swh::deploy::storage_archiver::db::host')
   $db_user = hiera('swh::deploy::storage_archiver::db::user')
   $db_dbname = hiera('swh::deploy::storage_archiver::db::dbname')
   $db_password = hiera('swh::deploy::storage_archiver::db::password')
+  # storage db info
+  $db_host_storage = hiera('swh::deploy::storage_archiver::db::host_storage')
+  $db_user_storage = hiera('swh::deploy::storage_archiver::db::user_storage')
+  $db_dbname_storage = hiera('swh::deploy::storage_archiver::db::dbname_storage')
+  $db_password_storage = hiera('swh::deploy::storage_archiver::db::password_storage')
 
   $log_file = hiera('swh::deploy::storage_archiver::log::file')
 
