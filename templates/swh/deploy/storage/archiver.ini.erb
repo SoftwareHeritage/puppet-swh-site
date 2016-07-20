@@ -2,9 +2,16 @@
 # File managed by puppet - modifications will be overwritten
 
 [main]
+objstorage_type = <%= @objstorage_type %>
+
+# the following 2 entries are only used if obstorage_type is 'local_storage'
 objstorage_path = <%= @objstorage_path %>
+objstorage_slicing = <%= @objstorage_slicing %>
+
+# the following entry is only used if objstorage_type is remote_storage
+objstorage_url = <%= @objstorage_url %>
+
 batch_max_size = <%= @batch_max_size %>
 archival_max_age = <%= @archival_max_age %>
 retention_policy = <%= @retention_policy %>
 dbconn = host=<%= @db_host %> user=<%= @db_user %> dbname=<%= @db_dbname %> password=<%= @db_password %>
-dbconn_storage = host=<%= @db_host_storage %> user=<%= @db_user_storage %> dbname=<%= @db_dbname_storage %> password=<%= @db_password_storage %>

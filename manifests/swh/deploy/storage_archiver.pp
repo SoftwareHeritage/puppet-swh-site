@@ -9,7 +9,11 @@ class profile::swh::deploy::storage_archiver {
   $user = hiera('swh::deploy::storage_archiver::user')
   $group = hiera('swh::deploy::storage_archiver::group')
 
+  $objstorage_type = hiera('swh::deploy::storage_archiver::objstorage_type')
   $objstorage_path = hiera('swh::deploy::storage_archiver::objstorage_path')
+  $objstorage_slicing = hiera('swh::deploy::storage_archiver::objstorage_slicing')
+  $objstorage_url = hiera('swh::deploy::storage_archiver::objstorage_url')
+
   $batch_max_size = hiera('swh::deploy::storage_archiver::batch_max_size')
   $archival_max_age = hiera('swh::deploy::storage_archiver::archival_max_age')
   $retention_policy = hiera('swh::deploy::storage_archiver::retention_policy')
@@ -18,11 +22,6 @@ class profile::swh::deploy::storage_archiver {
   $db_user = hiera('swh::deploy::storage_archiver::db::user')
   $db_dbname = hiera('swh::deploy::storage_archiver::db::dbname')
   $db_password = hiera('swh::deploy::storage_archiver::db::password')
-  # storage db info
-  $db_host_storage = hiera('swh::deploy::storage_archiver::db::host_storage')
-  $db_user_storage = hiera('swh::deploy::storage_archiver::db::user_storage')
-  $db_dbname_storage = hiera('swh::deploy::storage_archiver::db::dbname_storage')
-  $db_password_storage = hiera('swh::deploy::storage_archiver::db::password_storage')
 
   $log_file = hiera('swh::deploy::storage_archiver::log::file')
 
