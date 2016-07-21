@@ -706,7 +706,7 @@ mediawiki::php::fpm_listen: 127.0.0.1:9002
 
 mediawiki::vhosts:
   intranet.softwareheritage.org:
-    swh_logo: /images/b/b2/swh-intranet-logo.png
+    swh_logo: /images/9/99/Swh-intranet-logo.png
     mysql:
       username: mediawiki
       dbname: mediawiki
