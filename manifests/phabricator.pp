@@ -179,7 +179,7 @@ class profile::phabricator {
   }
 
   include ::profile::ssl
-  include ::apache
+  include ::profile::apache::common
   include ::apache::mod::proxy
   include ::profile::apache::mod_proxy_fcgi
 

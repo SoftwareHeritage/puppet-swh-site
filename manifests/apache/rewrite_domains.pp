@@ -1,6 +1,6 @@
 # Simple apache domain rewriting
 class profile::apache::rewrite_domains {
-  include ::apache
+  include ::profile::apache::common
 
   include ::profile::ssl
 

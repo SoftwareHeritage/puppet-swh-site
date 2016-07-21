@@ -46,8 +46,8 @@ class profile::munin::stats_export {
     mode    => '0755',
   }
 
+  include ::profile::apache::common
   include ::profile::ssl
-  include ::apache
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,

@@ -8,7 +8,7 @@ class profile::munin::master {
     extra_config => ["cgiurl_graph http://$master_hostname"],
   }
 
-  include ::apache
+  include ::profile::apache::common
   include ::apache::mod::rewrite
   include ::apache::mod::fcgid
 

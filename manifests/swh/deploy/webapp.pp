@@ -110,7 +110,7 @@ class profile::swh::deploy::webapp {
   }
 
   include ::profile::ssl
-  include ::apache
+  include ::profile::apache::common
   include ::apache::mod::proxy
   include ::apache::mod::headers
 
