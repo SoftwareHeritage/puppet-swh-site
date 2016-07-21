@@ -49,6 +49,7 @@ class profile::mediawiki {
       db_password                => $data['mysql']['password'],
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
+      swh_logo                   => $data['swh_logo'],
     }
   }
 }
