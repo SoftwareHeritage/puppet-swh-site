@@ -780,7 +780,7 @@ swh::deploy::storage_archiver::objstorage_slicing: "%{hiera('swh::deploy::objsto
 # in case of objstorage_type is 'remote_storage' for example
 # swh::deploy::storage_archiver::objstorage_type: remote_storage
 swh::deploy::storage_archiver::objstorage_url: http://uffizi:5002
-swh::deploy::storage_archiver::batch_max_size: 10000
+swh::deploy::storage_archiver::batch_max_size: 1000
 swh::deploy::storage_archiver::archival_max_age: 3600
 swh::deploy::storage_archiver::retention_policy: 2
 swh::deploy::storage_archiver::log::file: "%{hiera('swh::log_directory')}/archiver.log"
