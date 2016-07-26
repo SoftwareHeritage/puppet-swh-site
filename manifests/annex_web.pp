@@ -47,6 +47,12 @@ class profile::annex_web {
     ],
   }
 
+  file {"${annex_vhost_docroot}/public":
+    ensure  => link,
+    taget   => "../annexroot/public",
+    require => File[$annex_vhost_docroot],
+  }
+
   file {$annex_vhost_basic_auth_file:
     ensure  => present,
     owner   => 'root',
