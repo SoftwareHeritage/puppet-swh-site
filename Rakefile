@@ -8,8 +8,9 @@ PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
 
 desc "Validate manifests, templates, and ruby files"
 task :validate do
+  parser_flag = Puppet.version.start_with?('3.') ? '--parser=future' : ''
   Dir['manifests/**/*.pp'].each do |manifest|
-    sh "puppet parser validate --parser=future --noop #{manifest}"
+    sh "puppet parser validate #{parser_flag} --noop #{manifest}"
   end
   Dir['spec/**/*.rb','lib/**/*.rb'].each do |ruby_file|
     sh "ruby -c #{ruby_file}" unless ruby_file =~ /spec\/fixtures/
