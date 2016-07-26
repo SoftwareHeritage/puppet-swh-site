@@ -49,7 +49,7 @@ class profile::annex_web {
 
   file {"${annex_vhost_docroot}/public":
     ensure  => link,
-    taget   => "../annexroot/public",
+    target  => "../annexroot/public",
     require => File[$annex_vhost_docroot],
   }
 
