@@ -724,6 +724,14 @@ mediawiki::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')
 mediawiki::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 mediawiki::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
+annex::basepath: /srv/softwareheritage/annex
+annex::vhost::name: annex.softwareheritage.org
+annex::vhost::docroot: "%{hiera('annex::basepath')}/webroot"
+annex::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+annex::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+annex::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
 ssh::port: 22
 
 swh::base_directory: /srv/softwareheritage
