@@ -43,6 +43,7 @@ class profile::annex_web {
     directories          => [{
                              'path'     => $annex_vhost_docroot,
                              'require'  => 'all granted',
+                             'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
                              },
                              {  # hide (annex) .git directory
                              'path'     => '.*/\.git/?$',
