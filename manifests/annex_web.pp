@@ -21,6 +21,11 @@ class profile::annex_web {
     docroot         => $annex_vhost_docroot,
     redirect_status => 'permanent',
     redirect_dest   => "https://${annex_vhost_name}/",
+    directories     => [{  # hide (annex) .git directory
+                        'path'     => '.*/\.git/?$',
+                        'provider' => 'directorymatch',
+                        'deny'     => 'from all',
+                        }],
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
