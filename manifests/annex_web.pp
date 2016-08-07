@@ -21,15 +21,6 @@ class profile::annex_web {
     docroot         => $annex_vhost_docroot,
     redirect_status => 'permanent',
     redirect_dest   => "https://${annex_vhost_name}/",
-    directories     => [{
-                        'path'     => $annex_vhost_docroot,
-                        'require'  => 'all granted',
-                        },
-                        {  # hide (annex) .git directory
-                        'path'     => '.*/\.git/?$',
-                        'provider' => 'directorymatch',
-                        'require'  => 'all denied',
-                        }],
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
@@ -49,6 +40,15 @@ class profile::annex_web {
     ssl_key              => $ssl_key,
     headers              => [$annex_vhost_hsts_header],
     docroot              => $annex_vhost_docroot,
+    directories          => [{
+                             'path'     => $annex_vhost_docroot,
+                             'require'  => 'all granted',
+                             },
+                             {  # hide (annex) .git directory
+                             'path'     => '.*/\.git/?$',
+                             'provider' => 'directorymatch',
+                             'require'  => 'all denied',
+                             }],
     require              => [
         File[$ssl_cert],
         File[$ssl_ca],
