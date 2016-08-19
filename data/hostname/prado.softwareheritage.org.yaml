@@ -1,0 +1,3 @@
+dar::backup::exclude:
+  - srv/softwareheritage/postgres
+  - srv/softwareheritage/postgres-hdd
