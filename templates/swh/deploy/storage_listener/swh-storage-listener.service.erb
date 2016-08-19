@@ -1,0 +1,18 @@
+# Storage Listener unit file
+# Managed by puppet class profile::swh::deploy::storage_listener
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage storage listener
+Requires=network.target kafka.service
+After=network.target kafka.service
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=python3 -m swh.storage.listener
+Restart=Always
+
+[Install]
+WantedBy=multi-user.target
