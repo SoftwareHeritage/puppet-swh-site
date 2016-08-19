@@ -3,7 +3,7 @@ class profile::swh::deploy::scheduler {
   $conf_file = hiera('swh::deploy::scheduler::conf_file')
   $user = hiera('swh::deploy::scheduler::user')
   $group = hiera('swh::deploy::scheduler::group')
-  $db_host = hiera('swh::deploy::scheduler::database')
+  $database = hiera('swh::deploy::scheduler::database')
 
   include ::systemd
 
