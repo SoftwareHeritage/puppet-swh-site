@@ -137,6 +137,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhscheduler
       - swhdeploy
       - sudo
       - gitorious
@@ -152,6 +153,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhscheduler
       - swhdeploy
       - sudo
       - gitorious
@@ -167,6 +169,7 @@ users:
     groups:
       - swhdev
       - swhstorage
+      - swhscheduler
       - swhdeploy
       - sudo
       - gitorious
@@ -222,6 +225,12 @@ users:
       swhteamannex@louvre:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDL/Ef9kktq/QkJ0lohan8ObQ3o7hMf7EOQPjO+u7UhIMjBNufJnaftQRGIA6N1/wEsDvxxNNz75/oJECJHgZs2OOTJJPsKfYeybmSBocSa/sn6IKK7/b/qlwHJlSGWPGVgbtfP0KexlSAKAmKZuJyqjES5igTLV5w4wTjvUUen9QyefuUehnCX3MJhTpoyixp7icXE80aNMaCPwHZppKb/28sNlPX3MbSONGM45wSFRXNuj0mAAjrgojkhAqFNnI9oKNAt9mDcw1hV0n86VvrDhEbMCJP/z58ecn376BgyXQ8zNUPIr2g0SrSPUNjfxZHfJ0XYpF7624wOMOmZE3fsQzZh+FeMF0IFRPvcG34RaelV9dXiy+/q45oqwbMF464gFSbyt++4jpgqHdsARM4zR//jBhyLvFXR+GaKC3hFENno5W5Raff4XE5rzN/q9jVJBNfvfuEPWrapyM3A/ePeuK3SyNJwyIx+bOEQXsRdxEWKszTeJO2SLPWtCrKrC+G4/HktQSQOj5S9a+N6HoKD8E889eBEYoeZGPIuzMot4cuUlyPt3P99z4oRIaeC6XwUCvZCD2DaTAkQWQMsmOn+soaeZ1zBHbsCBbV0mBMRx7K4Vjs62vhSelryQAXW+cBgd6+f5XBjOnNhHQhsNsDfYP4Kmztn58faQV2TzGG5ow==
+  swhscheduler:
+    uid: 1010
+    full_name: SWH Scheduler Account
+    shell: /bin/bash
+    groups:
+      - swhscheduler
   jbertran:
     uid: 2001
     full_name: Jordi Bertran de Balanda
@@ -254,6 +263,8 @@ groups:
     gid: 1008
   swhteam:
     gid: 1009
+  swhscheduler:
+    gid: 1010
   sudo:
     gid: 27 # assigned from base-files
   gitorious:
