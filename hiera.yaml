@@ -5,8 +5,8 @@
 :yaml:
   :datadir: "%{::settings::environmentpath}/%{::environment}/data"
 :hierarchy:
-  - "private/hostname/%{::certname}"
+  - "private/hostname/%{::fqdn}"
   - "private/defaults"
-  - "hostname/%{::certname}"
+  - "hostname/%{::fqdn}"
   - defaults
 :merge_behavior: deeper
