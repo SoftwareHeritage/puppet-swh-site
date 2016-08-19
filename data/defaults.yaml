@@ -842,6 +842,16 @@ swh::deploy::webapp::open_endpoints:
   - /api/1/stat/counters/
   - /api/1/search/
 
+swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
+swh::deploy::scheduler::user: swhscheduler
+swh::deploy::scheduler::group: swhscheduler
+swh::deploy::scheduler::db::host: db
+swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
+swh::deploy::scheduler::db::user: swhscheduler
+# swh::deploy::scheduler::db::password in private data
+swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+
+
 desktop::printers:
   MFP_C:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
