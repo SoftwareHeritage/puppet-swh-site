@@ -1,9 +1,9 @@
 # Deployment of swh-scheduler related utilities
 class profile::swh::deploy::scheduler {
   $conf_file = hiera('swh::deploy::scheduler::conf_file')
-  $user = hiera('swh::deploy::storage::user')
-  $group = hiera('swh::deploy::storage::group')
-  $db_host = hiera('swh::deploy::storage::database')
+  $user = hiera('swh::deploy::scheduler::user')
+  $group = hiera('swh::deploy::scheduler::group')
+  $db_host = hiera('swh::deploy::scheduler::database')
 
   include ::systemd
 
