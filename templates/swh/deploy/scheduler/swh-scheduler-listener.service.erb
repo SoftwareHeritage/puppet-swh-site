@@ -1,0 +1,18 @@
+# Scheduler Listener unit file
+# Managed by puppet class profile::swh::deploy::scheduler
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage scheduler listener
+Requires=network.target rabbitmq-server.service
+After=network.target rabbitmq-server.service
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/python3 -m swh.scheduler.listener
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
