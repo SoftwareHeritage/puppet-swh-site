@@ -17,7 +17,7 @@ class profile::swh::deploy::storage_listener {
 
   package {'python3-swh.storage.listener':
     ensure => latest,
-    notify => Service['swh-storage-listener'],
+    notify => Service[$service_name],
   }
 
   file {$conf_directory:
