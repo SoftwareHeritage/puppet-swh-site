@@ -763,6 +763,16 @@ swh::deploy::storage::uwsgi::http_workers: 1
 swh::deploy::storage::uwsgi::http_keepalive: 1
 swh::deploy::storage::uwsgi::http_timeout: 100000
 
+swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
+swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
+swh::deploy::storage_listener::user: swhstorage
+swh::deploy::storage_listener::group: swhstorage
+swh::deploy::storage_listener::database: host=db user=guest dbname=softwareheritage
+swh::deploy::storage_listener::topic_prefix: swh.tmp_journal.new
+swh::deploy::storage_listener::kafka_brokers:
+  - getty.internal.softwareheritage.org
+swh::deploy::storage_listener::poll_timeout: 10
+
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.ini"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
