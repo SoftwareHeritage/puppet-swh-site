@@ -1,7 +1,7 @@
 # Deployment of the swh.objstorage.api server
 
 class profile::swh::deploy::objstorage_log_checker {
-  $conf_directory = hiera('swh::deploy::objstore_log_checker::conf_directory')
+  $conf_directory = hiera('swh::deploy::objstorage_log_checker::conf_directory')
   $conf_file = hiera('swh::deploy::objstorage_log_checker::conf_file')
   $user = hiera('swh::deploy::objstorage_log_checker::user')
   $group = hiera('swh::deploy::objstorage_log_checker::group')
