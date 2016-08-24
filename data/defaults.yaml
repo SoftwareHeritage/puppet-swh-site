@@ -850,8 +850,7 @@ swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::open_endpoints:
   - /flask-api/
   - /api/1/stat/counters/
-  - /api/1/search/
-  - /api/1/search/content/
+  - /api/1/content/search/
 
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
 swh::deploy::scheduler::user: swhscheduler
