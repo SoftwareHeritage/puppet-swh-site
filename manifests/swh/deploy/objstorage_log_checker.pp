@@ -1,17 +1,17 @@
 # Deployment of the swh.objstorage.api server
 
-class profile::swh::deploy::objstorage::log_checker {
-  $conf_directory = hiera('swh::deploy::objstorage::log_checker::conf_directory')
-  $conf_file = hiera('swh::deploy::objstorage::log_checker::conf_file')
-  $user = hiera('swh::deploy::objstorage::log_checker::user')
-  $group = hiera('swh::deploy::objstorage::log_checker::group')
+class profile::swh::deploy::objstorage_log_checker {
+  $conf_directory = hiera('swh::deploy::objstore_log_checker::conf_directory')
+  $conf_file = hiera('swh::deploy::objstorage_log_checker::conf_file')
+  $user = hiera('swh::deploy::objstorage_log_checker::user')
+  $group = hiera('swh::deploy::objstorage_log_checker::group')
 
   # configuration file
-  $directory = hiera('swh::deploy::objstorage::log_checker::directory')
-  $slicing = hiera('swh::deploy::objstorage::log_checker::slicing')
-  $checker_class = hiera('swh::deploy::objstorage::log_checker::class')
-  $batch_size = hiera('swh::deploy::objstorage::log_checker::batch_size')
-  $log_tag = hiera('swh::deploy::objstorage::log_checker::log_tag')
+  $directory = hiera('swh::deploy::objstorage_log_checker::directory')
+  $slicing = hiera('swh::deploy::objstorage_log_checker::slicing')
+  $checker_class = hiera('swh::deploy::objstorage_log_checker::class')
+  $batch_size = hiera('swh::deploy::objstorage_log_checker::batch_size')
+  $log_tag = hiera('swh::deploy::objstorage_log_checker::log_tag')
 
   $swh_packages = ['python3-swh.objstorage']
 
