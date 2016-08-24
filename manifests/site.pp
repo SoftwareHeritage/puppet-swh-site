@@ -39,11 +39,15 @@ node /^worker\d+\.softwareheritage\.org$/ {
 }
 
 node
-  'petit-palais.softwareheritage.org',
-  'grand-palais.softwareheritage.org'{
+  'petit-palais.softwareheritage.org' {
   include role::swh_desktop
 }
 
+node
+  'grand-palais.softwareheritage.org' {
+    include role::swh_desktop
+    include profile::swh::deploy::objstorage::log_checker
+}
 node default {
   include role::swh_server
   include profile::puppet::agent
