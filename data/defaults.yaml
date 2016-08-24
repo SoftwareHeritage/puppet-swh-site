@@ -797,15 +797,15 @@ swh::deploy::objstorage::uwsgi::http_workers: "%{hiera('swh::deploy::storage::uw
 swh::deploy::objstorage::uwsgi::http_keepalive: "%{hiera('swh::deploy::storage::uwsgi::http_keepalive')}"
 swh::deploy::objstorage::uwsgi::http_timeout: "%{hiera('swh::deploy::storage::uwsgi::http_timeout')}"
 
-swh::deploy::objstore_log_checker::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
-swh::deploy::objstore_log_checker::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage_log_checker.yml"
-swh::deploy::objstore_log_checker::user: "%{hiera('swh::deploy::storage::user')}"
-swh::deploy::objstore_log_checker::group: "%{hiera('swh::deploy::storage::group')}"
-swh::deploy::objstore_log_checker::directory: "%{hiera('swh::deploy::objstorage::directory')}"
-swh::deploy::objstore_log_checker::slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-swh::deploy::objstore_log_checker::class: pathslicing
-swh::deploy::objstore_log_checker::batch_size: 1000
-swh::deploy::objstore_log_checker::log_tag: objstorage.checker.log
+swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
+swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage_log_checker.yml"
+swh::deploy::objstorage_log_checker::user: "%{hiera('swh::deploy::storage::user')}"
+swh::deploy::objstorage_log_checker::group: "%{hiera('swh::deploy::storage::group')}"
+swh::deploy::objstorage_log_checker::directory: "%{hiera('swh::deploy::objstorage::directory')}"
+swh::deploy::objstorage_log_checker::slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+swh::deploy::objstorage_log_checker::class: pathslicing
+swh::deploy::objstorage_log_checker::batch_size: 1000
+swh::deploy::objstorage_log_checker::log_tag: objstorage.checker.log
 
 swh::deploy::storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::storage_archiver::conf_file: "%{hiera('swh::deploy::storage_archiver::conf_directory')}/archiver.ini"
