@@ -28,7 +28,6 @@ class profile::swh::deploy::objstorage_log_checker {
     group   => $group,
     mode    => '0640',
     content => template('profile/swh/deploy/storage/objstorage_log_checker.erb'),
-    notify  => Service['uwsgi'],
   }
 
   include ::systemd
