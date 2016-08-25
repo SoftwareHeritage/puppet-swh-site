@@ -4,8 +4,9 @@ Description=ObjStorage Content Log Checker
 After=network.target
 
 [Service]
-ExecStart=python3 -m swh.objstorage.checker log --daemon
-ExecReload=/bin/kill -HUP $MAINPID
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=/usr/bin/python3 -m swh.objstorage.checker log --daemon
 KillMode=process
 Restart=on-failure
 
