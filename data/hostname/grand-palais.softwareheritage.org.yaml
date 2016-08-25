@@ -1,5 +1,5 @@
 swh::deploy::objstorage_log_checker::conf_directory: /home/qcampos/.config/swh
-swh::deploy::objstorage_log_checker::conf_file: /home/qcampos/.config/swh/objstorage_log_checker.yml
+swh::deploy::objstorage_log_checker::conf_file: /home/qcampos/.config/swh/objstorage/log_checker.yml
 swh::deploy::objstorage_log_checker::user: qcampos
 swh::deploy::objstorage_log_checker::group: swhdev
 swh::deploy::objstorage_log_checker::directory: /home/qcampos/storage/objects

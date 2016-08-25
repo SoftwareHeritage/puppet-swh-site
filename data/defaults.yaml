@@ -798,7 +798,7 @@ swh::deploy::objstorage::uwsgi::http_keepalive: "%{hiera('swh::deploy::storage::
 swh::deploy::objstorage::uwsgi::http_timeout: "%{hiera('swh::deploy::storage::uwsgi::http_timeout')}"
 
 swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
-swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage_log_checker.yml"
+swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/log_checker.yml"
 swh::deploy::objstorage_log_checker::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::objstorage_log_checker::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::objstorage_log_checker::directory: "%{hiera('swh::deploy::objstorage::directory')}"
