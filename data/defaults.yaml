@@ -835,6 +835,7 @@ swh::deploy::objstorage_archive_notifier_checker::slicing: "%{hiera('swh::deploy
 swh::deploy::objstorage_archive_notifier_checker::class: pathslicing
 swh::deploy::objstorage_archive_notifier_checker::batch_size: 1000
 swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
+swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
 swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::storage_archiver::db::host')}"
 swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::storage_archiver::db::dbname')}"
 swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::storage_archiver::db::user')}"
