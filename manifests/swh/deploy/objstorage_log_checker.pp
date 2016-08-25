@@ -13,7 +13,12 @@ class profile::swh::deploy::objstorage_log_checker {
   $batch_size = hiera('swh::deploy::objstorage_log_checker::batch_size')
   $log_tag = hiera('swh::deploy::objstorage_log_checker::log_tag')
 
-  $swh_packages = ['python3-swh.objstorage']
+  $swh_packages = ['python3-swh.objstorage.checker']
+
+  package {$swh_packages:
+    ensure  => latest,
+    require => Apt::Source['softwareheritage'],
+  }
 
   file {$conf_directory:
     ensure => directory,
@@ -39,7 +44,10 @@ class profile::swh::deploy::objstorage_log_checker {
     mode    => '0644',
     content => template('profile/swh/deploy/storage/objstorage_log_checker.service.erb'),
     notify  => Exec['systemd-daemon-reload'],
-    require => File[$conf_file],
+    require => [
+      File[$conf_file],
+      Package[$swh_packages],
+    ]
   }
 
 }
