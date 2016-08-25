@@ -1,4 +1,4 @@
-# Deployment of the swh.objstorage.api server
+# Deployment of the swh.objstorage.checker.LogContentChecker
 
 class profile::swh::deploy::objstorage_log_checker {
   $conf_directory = hiera('swh::deploy::objstorage_log_checker::conf_directory')
