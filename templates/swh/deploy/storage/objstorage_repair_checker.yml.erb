@@ -1,0 +1,20 @@
+# swh.objstorage.checker.RepairContentChecker configuration file
+# File managed by puppet - modifications will be overwritten
+
+storage:
+  cls: <%= @checker_class %>
+  args:
+    root: <%= @directory %>
+    slicing: <%= @slicing %>
+
+batch_size: <%= @batch_size %>
+log_tag: <%= @log_tag %>
+backup_storages:
+  banco:
+    cls: remote
+    args:
+      base_url: http://banco:5003/
+  uffizi:
+    cls: remote
+    args:
+      base_url: http://uffizi:5002/
