@@ -46,7 +46,7 @@ node
 node
   'grand-palais.softwareheritage.org' {
     include role::swh_desktop
-    include profile::swh::deploy::objstorage_log_checker
+    include profile::swh::deploy::objstorage_archive_notifier_checker
 }
 node default {
   include role::swh_server
