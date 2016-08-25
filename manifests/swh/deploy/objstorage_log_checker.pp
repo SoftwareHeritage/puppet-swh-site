@@ -27,7 +27,7 @@ class profile::swh::deploy::objstorage_log_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/objstorage_log_checker.erb'),
+    content => template('profile/swh/deploy/storage/objstorage_log_checker.yml.erb'),
   }
 
   include ::systemd
