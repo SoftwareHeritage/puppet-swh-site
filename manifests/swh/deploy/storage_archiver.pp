@@ -25,6 +25,13 @@ class profile::swh::deploy::storage_archiver {
 
   $log_file = hiera('swh::deploy::storage_archiver::log::file')
 
+  $swh_packages = ['python3-swh.storage.archiver']
+
+  package {$swh_packages:
+    ensure  => latest,
+    require => Apt::Source['softwareheritage'],
+  }
+
   file {$conf_directory:
     ensure => directory,
     owner  => 'root',
@@ -39,7 +46,8 @@ class profile::swh::deploy::storage_archiver {
     mode    => '0640',
     content => template('profile/swh/deploy/storage/archiver.ini.erb'),
     require => [
-      File[$conf_directory]
+      File[$conf_directory],
+      Package[$swh_packages],
     ]
   }
 
