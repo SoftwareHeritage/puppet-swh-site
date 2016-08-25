@@ -12,6 +12,7 @@ class profile::swh::deploy::objstorage_archive_notifier_checker {
   $checker_class = hiera('swh::deploy::objstorage_archive_notifier_checker::class')
   $batch_size = hiera('swh::deploy::objstorage_archive_notifier_checker::batch_size')
   $log_tag = hiera('swh::deploy::objstorage_archive_notifier_checker::log_tag')
+  $storage_name = hiera('swh::deploy::objstorage_archive_notifier_checker::storage_name')
 
   $db_host = hiera('swh::deploy::objstorage_archive_notifier_checker::db::host')
   $db_dbname = hiera('swh::deploy::objstorage_archive_notifier_checker::db::dbname')
