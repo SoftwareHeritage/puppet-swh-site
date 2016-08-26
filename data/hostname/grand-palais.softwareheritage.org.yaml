@@ -2,6 +2,7 @@ swh::deploy::objstorage_archive_notifier_checker::conf_directory: /home/qcampos/
 swh::deploy::objstorage_archive_notifier_checker::user: qcampos
 swh::deploy::objstorage_archive_notifier_checker::group: swhdev
 swh::deploy::objstorage_archive_notifier_checker::directory: /home/qcampos/storage/objects
+swh::deploy::objstorage_archive_notifier_checker::storage_name: grandpalais
 swh::deploy::objstorage_archive_notifier_checker::db::host: localhost
 swh::deploy::objstorage_archive_notifier_checker::db::dbname: softwareheritage-archiver-dev
 swh::deploy::objstorage_archive_notifier_checker::db::user: qcampos
