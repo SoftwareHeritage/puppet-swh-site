@@ -1,4 +1,0 @@
-swh::deploy::objstorage_repair_checker::conf_directory: /home/qcampos/.config/swh/objstorage
-swh::deploy::objstorage_repair_checker::user: qcampos
-swh::deploy::objstorage_repair_checker::group: swhdev
-swh::deploy::objstorage_repair_checker::directory: /home/qcampos/storage/objects
