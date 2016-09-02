@@ -163,7 +163,6 @@ class profile::swh::deploy::webapp {
       File[$ssl_cert],
       File[$ssl_ca],
       File[$ssl_key],
-      Exec['update-static'],
     ],
   }
 
