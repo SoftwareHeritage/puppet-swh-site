@@ -18,6 +18,7 @@ class profile::swh::deploy::webapp {
   $uwsgi_reload_mercy = hiera('swh::deploy::webapp::uwsgi::reload_mercy')
 
   $swh_packages = ['python3-swh.web.ui']
+  $static_dir = '/usr/lib/python3/dist-packages/swh/web/ui/static'
 
   $vhost_name = hiera('swh::deploy::webapp::vhost::name')
   $vhost_aliases = hiera('swh::deploy::webapp::vhost::aliases')
@@ -44,10 +45,7 @@ class profile::swh::deploy::webapp {
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => [
-      Service['uwsgi'],
-      Exec['update-static'],
-    ],
+    notify  => Service['uwsgi'],
   }
 
   file {$conf_directory:
@@ -97,16 +95,6 @@ class profile::swh::deploy::webapp {
       module              => 'swh.web.ui.main',
       callable            => 'run_from_webserver',
     }
-  }
-
-  exec {'update-static':
-    path        => ['/bin', '/usr/bin'],
-    command     => "rsync -az --delete /usr/lib/python3/dist-packages/swh/web/ui/static/ ${vhost_docroot}/static/",
-    refreshonly => true,
-    require     => [
-      File[$vhost_docroot],
-      Package[$swh_packages],
-    ],
   }
 
   include ::profile::ssl
@@ -161,10 +149,15 @@ class profile::swh::deploy::webapp {
         auth_user_file => $vhost_basic_auth_file,
         auth_require   => 'valid-user',
       },
-      { path    => "${vhost_docroot}/static",
+      { path    => $static_dir,
         options => ['-Indexes'],
       },
     ] + $endpoint_directories,
+    aliases              => [
+      { alias => '/static',
+        path  => $static_dir,
+      },
+    ],
     require              => [
       File[$vhost_basic_auth_file],
       File[$ssl_cert],
