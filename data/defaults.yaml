@@ -597,21 +597,6 @@ bind::resource_records:
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
-  awork01/A:
-    record: awork01.internal.softwareheritage.org
-    data: 192.168.101.18
-  awork02/A:
-    record: awork02.internal.softwareheritage.org
-    data: 192.168.101.22
-  awork03/A:
-    record: awork03.internal.softwareheritage.org
-    data: 192.168.101.26
-  awork04/A:
-    record: awork04.internal.softwareheritage.org
-    data: 192.168.101.30
-  awork05/A:
-    record: awork05.internal.softwareheritage.org
-    data: 192.168.101.34
   banco/A:
     record: banco.internal.softwareheritage.org
     data: 192.168.101.46
@@ -629,6 +614,10 @@ bind::resource_records:
     type: CNAME
     record: grandpalais.internal.softwareheritage.org
     data: grand-palais.internal.softwareheritage.org.
+  worker01-euwest/A:
+    type: A
+    record: worker01.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.4
 
 bind::resource_records::default_data:
   type: A
