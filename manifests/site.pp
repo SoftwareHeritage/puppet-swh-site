@@ -31,11 +31,15 @@ node /^getty.(internal.)?softwareheritage.org$/ {
 }
 
 node 'worker08.softwareheritage.org' {
-  include role::swh_miracle_worker
+  include role::swh_worker_inria_miracle
 }
 
 node /^worker\d+\.softwareheritage\.org$/ {
-  include role::swh_worker
+  include role::swh_worker_inria
+}
+
+node /^worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
+  include role::swh_worker_azure
 }
 
 node
