@@ -618,6 +618,34 @@ bind::resource_records:
     type: A
     record: worker01.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.4
+  worker02-euwest/A:
+    type: A
+    record: worker02.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.5
+  worker03-euwest/A:
+    type: A
+    record: worker03.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.6
+  worker04-euwest/A:
+    type: A
+    record: worker04.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.7
+  worker05-euwest/A:
+    type: A
+    record: worker05.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.8
+  worker06-euwest/A:
+    type: A
+    record: worker06.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.9
+  worker07-euwest/A:
+    type: A
+    record: worker07.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.10
+  worker08-euwest/A:
+    type: A
+    record: worker08.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.11
 
 bind::resource_records::default_data:
   type: A
