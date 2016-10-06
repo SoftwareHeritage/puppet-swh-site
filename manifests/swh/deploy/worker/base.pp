@@ -3,7 +3,9 @@ class profile::swh::deploy::worker::base {
   include ::systemd
 
   $systemd_template_unit_name = 'swh-worker@.service'
+  $systemd_template_unit_file = "/etc/systemd/system/${systemd_template_unit_name}"
   $systemd_unit_name = 'swh-worker.service'
+  $systemd_unit_file = "/etc/systemd/system/${systemd_unit_name}"
   $systemd_generator = '/lib/systemd/system-generators/swh-worker-generator'
   $config_directory = '/etc/softwareheritage/worker'
 
@@ -11,7 +13,7 @@ class profile::swh::deploy::worker::base {
     ensure => installed,
   }
 
-  file {"/etc/systemd/system/${systemd_template_unit_name}":
+  file {$systemd_template_unit_file:
     ensure => 'present',
     owner  => 'root',
     group  => 'root',
@@ -20,7 +22,7 @@ class profile::swh::deploy::worker::base {
     notify => Exec['systemd-daemon-reload'],
   }
 
-  file {"/etc/systemd/system/${systemd_unit_name}":
+  file {$systemd_unit_file:
     ensure => 'present',
     owner  => 'root',
     group  => 'root',
@@ -46,7 +48,13 @@ class profile::swh::deploy::worker::base {
   }
 
   service {'swh-worker':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
+    require => [
+      Exec['systemd-daemon-reload'],
+      File[$systemd_template_unit_file],
+      File[$systemd_unit_file],
+      File[$systemd_generator],
+    ],
   }
 }
