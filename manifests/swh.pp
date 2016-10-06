@@ -3,6 +3,8 @@
 class profile::swh {
   $swh_base_directory = hiera('swh::base_directory')
   $swh_conf_directory = hiera('swh::conf_directory')
+  $swh_global_conf_file = hiera('swh::global_conf::file')
+  $swh_global_conf_contents = hiera('swh::global_conf::contents')
   $swh_log_directory = hiera('swh::log_directory')
 
   $swh_logrotate_conf = '/etc/logrotate.d/softwareheritage'
@@ -18,6 +20,14 @@ class profile::swh {
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
+  }
+
+  file {$swh_global_conf_file:
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => $swh_global_conf_contents,
   }
 
   file {$swh_logrotate_conf:
