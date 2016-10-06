@@ -909,6 +909,9 @@ swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 
+swh::deploy::worker::instances:
+  - swh_loader_git
+
 swh::deploy::worker::swh_loader_git::concurrency: 6
 swh::deploy::worker::swh_loader_git::loglevel: info
 # Contains a password: in private data
