@@ -45,7 +45,7 @@ class profile::swh {
     release        => $::lsbdistcodename,
     repos          => 'main',
     allow_unsigned => true,
-  }
+  } ~> Exec['apt_update'] -> Package <||>
 
   include profile::swh::deploy
 }
