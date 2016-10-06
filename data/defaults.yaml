@@ -909,6 +909,14 @@ swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 
+swh::deploy::worker::swh_loader_git::concurrency: 6
+swh::deploy::worker::swh_loader_git::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_git::config:
+  storage_class: remote_storage
+  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  pack_storage_base: /srv/storage/space/data/packfiles
 
 desktop::printers:
   MFP_C:
