@@ -15,6 +15,7 @@ class profile::base {
   exec {'newaliases':
     path        => ['/usr/bin', '/usr/sbin'],
     refreshonly => true,
+    require     => Package['postfix'],
   }
 
   $mail_aliases = hiera_hash('smtp::mail_aliases')
@@ -35,7 +36,7 @@ class profile::base {
 
   package { $packages:
     ensure => present,
-  }
+  } -> User <||>
 
   $users = hiera_hash('users')
 
