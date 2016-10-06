@@ -36,7 +36,7 @@ class profile::base {
 
   package { $packages:
     ensure => present,
-  } -> User <||>
+  }
 
   $users = hiera_hash('users')
 
@@ -57,6 +57,10 @@ class profile::base {
       groups   => $data['groups'],
       password => $data['password'],
       require  => Group[$data['groups']],
+    }
+
+    if ($data['shell'] == '/bin/zsh') {
+      Package['zsh'] -> User[$name]
     }
 
     file { $home:
