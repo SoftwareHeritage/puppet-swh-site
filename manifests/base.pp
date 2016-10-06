@@ -59,7 +59,7 @@ class profile::base {
       require  => Group[$data['groups']],
     }
 
-    if ($data['shell'] == '/bin/zsh') {
+    if ($data['shell'] == '/usr/bin/zsh') {
       Package['zsh'] -> User[$name]
     }
 
