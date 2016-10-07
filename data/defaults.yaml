@@ -165,7 +165,7 @@ users:
   ardumont:
     uid: 1003
     full_name: Antoine R. Dumont
-    shell: /bin/bash
+    shell: /usr/bin/zsh
     groups:
       - swhdev
       - swhstorage
