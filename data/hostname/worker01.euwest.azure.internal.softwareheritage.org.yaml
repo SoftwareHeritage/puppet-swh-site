@@ -1,0 +1,4 @@
+swh::deploy::worker::instances:
+  - swh_indexer_orchestrator
+  - swh_indexer_content_mimetype
+  - swh_indexer_content_language
