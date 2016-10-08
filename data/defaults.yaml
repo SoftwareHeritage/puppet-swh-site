@@ -921,6 +921,223 @@ swh::deploy::worker::swh_loader_git::config:
   storage_args: http://uffizi.internal.softwareheritage.org:5002/
   pack_storage_base: /srv/storage/space/data/packfiles
 
+swh::azure_objstorage::config:
+  cls: multiplexer
+  args:
+    objstorages:
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 0euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 0
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 1euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 1
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 2euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 2
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 3euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 3
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 4euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 4
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 5euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 5
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 6euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 6
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 7euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 7
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 8euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: 8
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: 9euwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
+              container_name: contents
+        filters_conf:
+          - type: prefix
+            prefix: 9
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: aeuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: a
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: beuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: b
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: ceuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: c
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: deuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: d
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: eeuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: e
+      - cls: filtered
+        args:
+          storage_conf:
+            cls: azure-storage
+            args:
+              account_name: feuwestswh
+              api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
+              container_name: contents
+          filters_conf:
+            - type: prefix
+              prefix: f
+
+
+swh::deploy::worker::swh_indexer::orchestrator::concurrency: 1
+swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
+swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_indexer::orchestrator::config:
+  indexers:
+    - mimetype
+    - language
+
+swh::deploy::worker::swh_indexer::base::concurrency: 3
+swh::deploy::worker::swh_indexer::base::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+# objstorage configuration from swh::azure_objstorage::config is merged in the manifest
+swh::deploy::worker::swh_indexer::base::config:
+  storage:
+    cls: remote_storage
+    args: http://uffizi.internal.softwareheritage.org:5002/
+
+swh::deploy::worker::swh_indexer::mimetype::concurrency: "%hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
+swh::deploy::worker::swh_indexer::mimetype::loglevel: "%hiera('swh::deploy::worker::swh_indexer::base::log_level')}"
+# Contains a password: in private data
+swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+# objstorage configuration from swh::azure_objstorage::config is merged in the manifest
+swh::deploy::worker::swh_indexer::mimetype::config:
+  storage:
+    cls: remote_storage
+    args: http://uffizi.internal.softwareheritage.org:5002/
+  workdir: /tmp/swh/indexer.mimetype/
+
+swh::deploy::worker::swh_indexer::language::concurrency: "%hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
+swh::deploy::worker::swh_indexer::language::loglevel: "%hiera('swh::deploy::worker::swh_indexer::base::log_level')}"
+# Contains a password: in private data
+swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_indexer::language::config: "%{hiera('swh::deploy::worker::swh_indexer::base::config')}"
+
 desktop::printers:
   MFP_C:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
