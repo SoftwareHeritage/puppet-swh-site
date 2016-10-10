@@ -54,6 +54,7 @@ packages:
   - zsh
   - git
   - python3
+  - tmux
 
 packages::desktop:
   - gnome
@@ -61,7 +62,6 @@ packages::desktop:
   - emacs
   - myrepos
   - curl
-  - tmux
   - tree
 
 packages::devel:
