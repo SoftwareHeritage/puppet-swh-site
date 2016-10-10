@@ -16,7 +16,7 @@ for conf in /etc/softwareheritage/worker/*.ini; do
 	test -e "$conf" || continue
 	base=$(basename $conf)
 	instancename=$(basename $base .ini)
-	ln -s "$swhworkerservice" "$wantdir/uwsgi@$instancename.service"
+	ln -s "$swhworkerservice" "$wantdir/swh-worker@$instancename.service"
 done
 
 exit 0
