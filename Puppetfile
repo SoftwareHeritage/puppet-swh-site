@@ -33,7 +33,7 @@ mod 'apache',
 
 mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
-    :ref => '2.1.0'
+    :ref => '2.2.0'
 
 mod 'cups',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCUPS/mosen-cups.git',
