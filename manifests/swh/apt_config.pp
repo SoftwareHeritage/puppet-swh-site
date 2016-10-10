@@ -3,6 +3,10 @@
 class profile::swh::apt_config {
   include ::apt
 
+  class {'::apt::backports':
+    pin => 100,
+  }
+
   $swh_mirror_location = hiera('swh::debian_mirror::location')
   ::apt::source {'softwareheritage':
     comment        => 'Software Heritage specific package repository',
@@ -10,8 +14,9 @@ class profile::swh::apt_config {
     release        => $::lsbdistcodename,
     repos          => 'main',
     allow_unsigned => true,
+    notify_update  => true,
   }
 
-  Apt::Source <||> ~> Exec['apt_update'] -> Package <| provider == 'apt' |>
+  Class['apt::update'] -> Package <| provider == 'apt' |>
 
 }
