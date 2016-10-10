@@ -1,8 +1,9 @@
 # Worker deployment
 class profile::swh::deploy::worker {
-  $instances = hiera_array('swh::deploy::worker::instances')
+  $instances = hiera('swh::deploy::worker::instances')
 
-  if ('swh_loader_git' in $instances) {
-    include ::profile::swh::deploy::worker::swh_loader_git
+  each($instances) |$instance| {
+    $classname = "::profile::swh::deploy::worker::${instance}"
+    include $classname
   }
 }
