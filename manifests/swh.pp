@@ -9,8 +9,6 @@ class profile::swh {
 
   $swh_logrotate_conf = '/etc/logrotate.d/softwareheritage'
 
-  $swh_mirror_location = hiera('swh::debian_mirror::location')
-
   file {[
     $swh_base_directory,
     $swh_conf_directory,
@@ -38,14 +36,6 @@ class profile::swh {
     content => template('profile/swh/logrotate.conf.erb'),
   }
 
-  include ::apt
-  ::apt::source {'softwareheritage':
-    comment        => 'Software Heritage specific package repository',
-    location       => $swh_mirror_location,
-    release        => $::lsbdistcodename,
-    repos          => 'main',
-    allow_unsigned => true,
-  } ~> Exec['apt_update'] -> Package <||>
-
   include profile::swh::deploy
+  include profile::swh::apt_config
 }
