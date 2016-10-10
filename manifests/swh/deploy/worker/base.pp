@@ -41,10 +41,12 @@ class profile::swh::deploy::worker::base {
   }
 
   file {$config_directory:
-    ensure => 'directory',
-    owner  => 'swhworker',
-    group  => 'swhworker',
-    mode   => '0644',
+    ensure  => 'directory',
+    owner   => 'swhworker',
+    group   => 'swhworker',
+    mode    => '0644',
+    purge   => true,
+    recurse => true,
   }
 
   service {'swh-worker':
