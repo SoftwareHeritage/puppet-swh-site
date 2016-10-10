@@ -1122,7 +1122,7 @@ swh::deploy::worker::swh_indexer::base::config:
     args: http://uffizi.internal.softwareheritage.org:5002/
 
 swh::deploy::worker::swh_indexer::mimetype::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
-swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::log_level')}"
+swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
@@ -1133,7 +1133,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   workdir: /tmp/swh/indexer.mimetype/
 
 swh::deploy::worker::swh_indexer::language::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
-swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::log_level')}"
+swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::language::config: "%{hiera('swh::deploy::worker::swh_indexer::base::config')}"
