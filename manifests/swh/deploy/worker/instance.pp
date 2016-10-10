@@ -13,7 +13,8 @@ define profile::swh::deploy::worker::instance (
   include ::profile::swh::deploy::worker::base
   include ::systemd
 
-  $service_name = "swh-worker@${instance_name}.service"
+  $service_basename = "swh-worker@${instance_name}"
+  $service_name = "${service_basename}.service"
   $systemd_dir = "/etc/systemd/system/${service_name}.d"
   $systemd_snippet = "${systemd_dir}/parameters.conf"
   $config_directory = '/etc/softwareheritage/worker'
@@ -38,6 +39,10 @@ define profile::swh::deploy::worker::instance (
         group   => 'root',
         mode    => '0644',
         content => template('profile/swh/deploy/worker/parameters.conf.erb'),
+        notify => [
+          Exec['systemd-daemon-reload'],
+          Service[$service_basename],
+        ]
       }
 
       # Uses variables
@@ -53,6 +58,14 @@ define profile::swh::deploy::worker::instance (
         content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
       }
 
+      service {$service_basename:
+        ensure => running,
+        require => [
+          File[$instance_config],
+          File[$systemd_snippet],
+        ],
+      }
+
     }
     default: {
       file {[
@@ -60,6 +73,10 @@ define profile::swh::deploy::worker::instance (
         $instance_config,
       ]:
         ensure => absent,
+      }
+
+      service {$service_basename:
+        ensure => stopped,
       }
     }
   }
