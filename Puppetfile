@@ -21,7 +21,7 @@ mod 'uwsgi',
 
 mod 'apt',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
-    :ref => '2.3.0'
+    :ref => 'hotfix-628'
 
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
