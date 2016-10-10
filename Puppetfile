@@ -21,19 +21,19 @@ mod 'uwsgi',
 
 mod 'apt',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPT/puppetlabs-apt.git',
-    :tag => '2.3.0'
+    :ref => '2.3.0'
 
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
-    :tag => '5.1.2'
+    :ref => '5.1.2'
 
 mod 'apache',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPA/puppetlabs-apache.git',
-    :tag => '1.8.1'
+    :ref => '1.8.1'
 
 mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
-    :tag => '2.1.0'
+    :ref => '2.1.0'
 
 mod 'cups',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCUPS/mosen-cups.git',
@@ -45,7 +45,7 @@ mod 'debconf_package',
 
 mod 'debnet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBN/trepasi-debnet.git',
-    :tag => 'v1.4.3'
+    :ref => 'v1.4.3'
 
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
@@ -53,31 +53,31 @@ mod 'kafka',
 
 mod 'locales',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPLOC/saz-locales.git',
-    :tag => 'v2.2.2'
+    :ref => 'v2.2.2'
 
 mod 'module_data',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMOD/ripienaar-module_data.git',
-    :tag => '0.0.4'
+    :ref => '0.0.4'
 
 mod 'munin',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMUN/ssm-munin.git',
-    :tag => '0.1.0'
+    :ref => '0.1.0'
 
 mod 'mysql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMY/puppetlabs-mysql.git',
-    :tag => '3.6.2'
+    :ref => '3.6.2'
 
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
-    :tag => '4.2.0'
+    :ref => '4.2.0'
 
 mod 'php',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPHP/thias-php.git',
-    :tag => '1.2.0'
+    :ref => '1.2.0'
 
 mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
-    :tag => '4.0.1'
+    :ref => '4.0.1'
 
 mod 'ssh',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSSH/saz-ssh.git',
@@ -85,7 +85,7 @@ mod 'ssh',
 
 mod 'stdlib',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSTD/puppetlabs-stdlib.git',
-    :tag => '4.12.0'
+    :ref => '4.12.0'
 
 mod 'sudo',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSUDO/saz-sudo.git',
