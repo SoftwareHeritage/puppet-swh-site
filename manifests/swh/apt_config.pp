@@ -3,10 +3,6 @@
 class profile::swh::apt_config {
   include ::apt
 
-  class {'::apt::backports':
-    pin => 100,
-  }
-
   $swh_mirror_location = hiera('swh::debian_mirror::location')
   ::apt::source {'softwareheritage':
     comment        => 'Software Heritage specific package repository',
