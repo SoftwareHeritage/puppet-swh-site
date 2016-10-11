@@ -907,7 +907,6 @@ swh::deploy::worker::swh_loader_git::config:
 
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
-
 swh::deploy::worker::swh_storage_archiver::archival_max_age: 3600
 swh::deploy::worker::swh_storage_archiver::retention_policy: 2
 swh::deploy::worker::swh_storage_archiver::batch_max_size: 1000
@@ -915,6 +914,16 @@ swh::deploy::worker::swh_storage_archiver::db::host: db
 swh::deploy::worker::swh_storage_archiver::db::dbname: softwareheritage-archiver
 swh::deploy::worker::swh_storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
 swh::deploy::worker::swh_storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::worker::swh_storage_archiver::storages:
+  - host: uffizi
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::storage::directory')}"
+      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  - host: banco
+    cls: remote
+    args:
+      base_url: http://banco.internal.softwareheritage.org:5003/
 
 swh::deploy::worker::swh_storage_archiver::concurrency: 10
 swh::deploy::worker::swh_storage_archiver::loglevel: info
@@ -925,16 +934,18 @@ swh::deploy::worker::swh_storage_archiver::config:
   retention_policy: "%{hiera('swh::deploy::worker::swh_storage_archiver::retention_policy')}"
   batch_max_size: "%{hiera('swh::deploy::worker::swh_storage_archiver::batch_max_size')}"
   dbconn: host="%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')}" user="%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}"  dbname="%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')}" password="%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
-  storages:
-    - host: uffizi
-      cls: pathslicing
-      args:
-        root: "%{hiera('swh::deploy::storage::directory')}"
-        slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-    - host: banco
-      cls: remote
-      args:
-        base_url: http://banco.internal.softwareheritage.org:5003/
+
+swh::deploy::worker::swh_storage_archiver_azure::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker-to-backend.yml"
+swh::deploy::worker::swh_storage_archiver_azure::concurrency: 10
+swh::deploy::worker::swh_storage_archiver_azure::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_storage_archiver_azure::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_storage_archiver_azure::config:
+  batch_max_size: "%{hiera('swh::deploy::worker::swh_storage_archiver::batch_max_size')}"
+  source: uffizi
+  destination: azure
+  force_copy: false
+  dbconn: host="%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')}" user="%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}"  dbname="%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')}" password="%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
 
 swh::azure_objstorage::config:
   cls: multiplexer
