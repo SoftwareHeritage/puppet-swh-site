@@ -97,5 +97,5 @@ mod 'sudo',
 
 mod 'zookeeper',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPZK/wikimedia-zookeeper.git',
-    :ref => 'd46635af73771aa47f450dff39d383f1bd54ea45'
+    :ref => 'fix-jessie-backports'
 
