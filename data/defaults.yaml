@@ -764,9 +764,15 @@ swh::global_conf::contents: |
   [main]
   log_db = host=db dbname=softwareheritage-log user=guest
 
-swh::debian_mirror::hostname: debian.internal.softwareheritage.org
-swh::debian_mirror::basepath: "%{hiera('swh::base_directory')}/repository"
-swh::debian_mirror::location: "http://%{hiera('swh::debian_mirror::hostname')}/"
+swh::apt_config::swh_repository::hostname: debian.internal.softwareheritage.org
+swh::apt_config::swh_repository::basepath: "%{hiera('swh::base_directory')}/repository"
+swh::apt_config::swh_repository: "http://%{hiera('swh::apt_config::swh_repository::hostname')}/"
+
+swh::apt_config::debian_mirror::hostname: deb.debian.org
+swh::apt_config::debian_mirror: "http://%{hiera('swh::apt_config::debian_mirror::hostname')}/debian/"
+
+swh::apt_config::debian_security_mirror::hostname: "%{hiera('swh::apt_config::debian_mirror::hostname')}"
+swh::apt_config::debian_security_mirror: "http://%{hiera('swh::apt_config::debian_mirror::hostname')}/debian-security/"
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
