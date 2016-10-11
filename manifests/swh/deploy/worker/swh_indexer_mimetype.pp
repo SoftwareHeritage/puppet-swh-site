@@ -33,7 +33,8 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
-    group   => 'swhworker',
+    group   => 'swhdev',
+    # Contains passwords
     mode    => '0640',
     content => inline_template('<%= @merged_config.to_yaml %>'),
   }
