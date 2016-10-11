@@ -45,7 +45,11 @@ mod 'debconf_package',
 
 mod 'debnet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBN/trepasi-debnet.git',
-    :ref => 'v1.4.3'
+    :ref => 'v1.5.2'
+
+mod 'extlib'
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPEXTL/puppet-extlib.git'
+    :ref => 'v0.11.3'
 
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
@@ -65,7 +69,7 @@ mod 'munin',
 
 mod 'mysql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMY/puppetlabs-mysql.git',
-    :ref => '3.6.2'
+    :ref => '3.9.0'
 
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
@@ -77,11 +81,11 @@ mod 'php',
 
 mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
-    :ref => '4.0.1'
+    :ref => '6.0.0'
 
 mod 'ssh',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSSH/saz-ssh.git',
-    :ref => 'empty-string-fix'
+    :ref => 'v2.9.1'
 
 mod 'stdlib',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSTD/puppetlabs-stdlib.git',
