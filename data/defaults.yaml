@@ -1035,9 +1035,9 @@ swh::azure_objstorage::config:
               account_name: 9euwestswh
               api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
               container_name: contents
-        filters_conf:
-          - type: prefix
-            prefix: 9
+          filters_conf:
+            - type: prefix
+              prefix: 9
       - cls: filtered
         args:
           storage_conf:
@@ -1122,7 +1122,8 @@ swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::work
 swh::deploy::worker::swh_indexer::base::config:
   storage:
     cls: remote_storage
-    args: http://uffizi.internal.softwareheritage.org:5002/
+    args:
+      - http://uffizi.internal.softwareheritage.org:5002/
 
 swh::deploy::worker::swh_indexer::mimetype::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
 swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1132,7 +1133,8 @@ swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::
 swh::deploy::worker::swh_indexer::mimetype::config:
   storage:
     cls: remote_storage
-    args: http://uffizi.internal.softwareheritage.org:5002/
+    args:
+      - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.mimetype/
 
 swh::deploy::worker::swh_indexer::language::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
