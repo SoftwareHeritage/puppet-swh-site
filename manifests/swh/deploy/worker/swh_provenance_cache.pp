@@ -6,7 +6,7 @@ class profile::swh::deploy::worker::swh_provenance_cache {
   $loglevel = hiera('swh::deploy::worker::swh_provenance_cache::loglevel')
   $task_broker = hiera('swh::deploy::worker::swh_provenance_cache::task_broker')
 
-  $config_file = '/etc/softwareheritage/storage/provenance-cache.yml'
+  $config_file = '/etc/softwareheritage/storage/provenance_cache.yml'
   $config = hiera('swh::deploy::worker::swh_provenance_cache::config')
 
   $task_modules = ['swh.storage.provenance.tasks']
