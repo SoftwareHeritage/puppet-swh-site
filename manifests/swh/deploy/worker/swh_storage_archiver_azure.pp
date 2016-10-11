@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_storage_archiver_azure {
     'swh::deploy::worker::swh_storage_archiver::storages')
   $objstorage_azure_config = hiera('swh::azure_objstorage::config')
 
-  $objstorages_config = storages_config_list + [
+  $objstorages_config = $storages_config_list + [
     merge({"host" => "azure"}, $objstorage_azure_config)
   ]
 
