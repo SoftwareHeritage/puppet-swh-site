@@ -25,7 +25,7 @@ mod 'apt',
 
 mod 'bind',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPBIND/inkblot-bind.git',
-    :ref => '5.1.2'
+    :ref => '6.0.1'
 
 mod 'apache',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPAPA/puppetlabs-apache.git',
