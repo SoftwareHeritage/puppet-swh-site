@@ -42,7 +42,7 @@ define profile::swh::deploy::worker::instance (
         notify => [
           Exec['systemd-daemon-reload'],
           Service[$service_basename],
-        ]
+        ],
       }
 
       # Uses variables
