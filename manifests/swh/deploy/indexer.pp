@@ -11,10 +11,10 @@ class profile::swh::deploy::indexer {
   $packages = ['python3-swh.indexer']
 
   file {$config_directory:
-    ensure  => 'directory',
-    owner   => 'swhworker',
-    group   => 'swhworker',
-    mode    => '0755',
+    ensure => 'directory',
+    owner  => 'swhworker',
+    group  => 'swhworker',
+    mode   => '0755',
   }
 
   file {$config_file:
