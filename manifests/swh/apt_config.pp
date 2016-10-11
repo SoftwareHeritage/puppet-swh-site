@@ -44,6 +44,6 @@ class profile::swh::apt_config {
     allow_unsigned => true,
   }
 
-  Class['apt::update'] -> Package <| provider == 'apt' |>
+  Class['apt::update'] -> Package <||>
 
 }
