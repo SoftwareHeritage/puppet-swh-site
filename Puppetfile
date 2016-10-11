@@ -47,8 +47,8 @@ mod 'debnet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBN/trepasi-debnet.git',
     :ref => 'v1.5.2'
 
-mod 'extlib'
-    :git => 'git@forge.softwareheritage.org:/diffusion/SPEXTL/puppet-extlib.git'
+mod 'extlib',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPEXTL/puppet-extlib.git',
     :ref => 'v0.11.3'
 
 mod 'kafka',
