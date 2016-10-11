@@ -1,3 +1,7 @@
 # Deploy the storage server as a public resource
 swh::deploy::storage::uwsgi::listen: 0.0.0.0:5002
 swh::deploy::storage::uwsgi::workers: 32
+
+swh::deploy::worker::instances:
+  - swh_storage_archiver
+  - swh_storage_archiver_azure
