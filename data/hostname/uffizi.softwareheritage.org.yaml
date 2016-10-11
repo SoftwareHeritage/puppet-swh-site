@@ -5,3 +5,4 @@ swh::deploy::storage::uwsgi::workers: 32
 swh::deploy::worker::instances:
   - swh_storage_archiver
   - swh_storage_archiver_azure
+  - swh_provenance_cache
