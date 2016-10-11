@@ -13,6 +13,7 @@ Group=<%= @group %>
 Type=simple
 ExecStart=/usr/bin/python3 -m swh.storage.listener
 Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
