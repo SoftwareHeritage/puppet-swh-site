@@ -22,7 +22,8 @@ class profile::swh::deploy::indexer {
   file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
-    group   => 'swhworker',
+    group   => 'swhdev',
+    # Contains passwords
     mode    => '0640',
     content => inline_template('<%= @merged_config.to_yaml %>'),
   }
