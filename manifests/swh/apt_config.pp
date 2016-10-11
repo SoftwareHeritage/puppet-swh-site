@@ -34,6 +34,7 @@ class profile::swh::apt_config {
   class {'::apt::backports':
     pin      => 100,
     location => $debian_mirror,
+    repos    => 'main',
   }
 
   $swh_repository = hiera('swh::apt_config::swh_repository')
