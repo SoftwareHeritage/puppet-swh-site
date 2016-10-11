@@ -231,12 +231,12 @@ users:
     uid: 2001
     full_name: Jordi Bertran de Balanda
     shell: /bin/false
-    password: !
+    password: "!"
   qcampos:
     uid: 2002
     full_name: Quentin Campos
     shell: /bin/false
-    password: !
+    password: "!"
   gitorious:
     uid: 5000
     full_name: Gitorious System User
