@@ -43,7 +43,7 @@ class profile::swh::deploy::worker::base {
   file {$config_directory:
     ensure  => 'directory',
     owner   => 'swhworker',
-    group   => 'swhworker',
+    group   => 'swhdev',
     mode    => '0644',
     purge   => true,
     recurse => true,

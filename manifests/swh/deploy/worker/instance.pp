@@ -53,7 +53,8 @@ define profile::swh::deploy::worker::instance (
       file {$instance_config:
         ensure  => present,
         owner   => 'swhworker',
-        group   => 'swhworker',
+        group   => 'swhdev',
+        # contains a password for the broker
         mode    => '0640',
         content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
       }
