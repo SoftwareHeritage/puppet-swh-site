@@ -25,6 +25,7 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
     task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::indexer'],
+      Class['profile::swh::deploy::objstorage_cloud'],
       File[$config_file],
     ],
   }

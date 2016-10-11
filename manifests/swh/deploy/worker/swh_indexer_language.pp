@@ -19,6 +19,7 @@ class profile::swh::deploy::worker::swh_indexer_language {
     task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::indexer'],
+      Class['profile::swh::deploy::objstorage_cloud'],
     ],
   }
 }
