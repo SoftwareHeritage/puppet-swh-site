@@ -910,10 +910,12 @@ swh::deploy::worker::swh_provenance_cache::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_provenance_cache::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_provenance_cache::config:
-  # swh.provenance.cache configuration file
-  # File managed by puppet - modifications will be overwritten
-  storage_class: local_storage
-  storage_args: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}, %{hiera('swh::deploy::storage::directory')}"
+  storage:
+    cls: local_storage
+    args:
+      - "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      - "%{hiera('swh::deploy::storage::directory')}"
+  revision_packet_size: 100
 
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
