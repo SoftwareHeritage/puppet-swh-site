@@ -1,6 +1,8 @@
 # Base class for the indexer manifests
 class profile::swh::deploy::indexer {
 
+  include ::profile::swh::deploy::objstorage_cloud
+
   $config_directory = '/etc/softwareheritage/indexer'
   $config_file = "${config_directory}/base.yml"
   $config = hiera('swh::deploy::worker::swh_indexer::base::config')
