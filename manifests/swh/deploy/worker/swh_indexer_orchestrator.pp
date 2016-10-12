@@ -12,7 +12,7 @@ class profile::swh::deploy::worker::swh_indexer_orchestrator {
   $config = hiera('swh::deploy::worker::swh_indexer::orchestrator::config')
 
   $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_orchestrator']
+  $task_queues = ['swh_indexer_orchestrator_content_all']
 
   ::profile::swh::deploy::worker::instance {'swh_indexer_orchestrator':
     ensure       => present,
