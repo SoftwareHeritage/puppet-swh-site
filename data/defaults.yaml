@@ -1147,7 +1147,7 @@ swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::depl
 swh::deploy::worker::swh_indexer::orchestrator::config:
   indexers:
     - mimetype
-    - language
+  check_presence: false
 
 swh::deploy::worker::swh_indexer::base::concurrency: 3
 swh::deploy::worker::swh_indexer::base::loglevel: info
