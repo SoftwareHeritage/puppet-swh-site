@@ -34,7 +34,7 @@ class profile::swh::deploy::storage {
     ensure => directory,
     owner  => 'root',
     group  => $group,
-    mode   => '0750',
+    mode   => '0755',
   }
 
   file {$conf_file:
