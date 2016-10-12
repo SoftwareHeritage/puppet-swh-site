@@ -1149,6 +1149,14 @@ swh::deploy::worker::swh_indexer::orchestrator::config:
     - mimetype
   check_presence: false
 
+swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 1
+swh::deploy::worker::swh_indexer::orchestrator_text::loglevel: info
+swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_indexer::orchestrator_text::config:
+  indexers:
+    - language
+  check_presence: false
+
 swh::deploy::worker::swh_indexer::base::concurrency: 3
 swh::deploy::worker::swh_indexer::base::loglevel: info
 # Contains a password: in private data
