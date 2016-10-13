@@ -23,7 +23,7 @@ class profile::swh::deploy::worker::swh_storage_archiver_azure {
   })
 
   $task_modules = ['swh.storage.archiver.tasks']
-  $task_queues = ['swh_storage_archiver_worker_to_backend']
+  $task_queues = ['swh_storage_archive_worker_to_backend']
 
   ::profile::swh::deploy::worker::instance {'swh_storage_archiver_azure':
     ensure       => present,

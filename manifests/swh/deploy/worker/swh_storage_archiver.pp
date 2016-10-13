@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_storage_archiver {
   $merged_config = merge($config, {'storages' => $storages_config})
 
   $task_modules = ['swh.storage.archiver.tasks']
-  $task_queues = ['swh_storage_archiver_worker']
+  $task_queues = ['swh_storage_archive_worker']
 
   ::profile::swh::deploy::worker::instance {'swh_storage_archiver':
     ensure       => present,
