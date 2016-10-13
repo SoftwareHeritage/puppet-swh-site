@@ -1,6 +1,7 @@
 # Deployment for swh-storage-archiver-azure
 class profile::swh::deploy::worker::swh_storage_archiver_azure {
   include ::profile::swh::deploy::archiver
+  include ::profile::swh::deploy::indexer
 
   $concurrency = hiera('swh::deploy::worker::swh_storage_archiver_azure::concurrency')
   $loglevel = hiera('swh::deploy::worker::swh_storage_archiver_azure::loglevel')
@@ -22,7 +23,7 @@ class profile::swh::deploy::worker::swh_storage_archiver_azure {
     'storages' => $objstorages_config
   })
 
-  $task_modules = ['swh.storage.archiver.tasks']
+  $task_modules = ['swh.storage.archiver.tasks', 'swh.indexer.tasks']
   $task_queues = ['swh_storage_archive_worker_to_backend']
 
   ::profile::swh::deploy::worker::instance {'swh_storage_archiver_azure':
