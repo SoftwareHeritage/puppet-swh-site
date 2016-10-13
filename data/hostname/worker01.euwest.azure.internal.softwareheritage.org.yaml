@@ -1,4 +1,5 @@
 swh::deploy::worker::instances:
   - swh_indexer_orchestrator
+  - swh_indexer_orchestrator_text
   - swh_indexer_mimetype
   - swh_indexer_language
