@@ -958,6 +958,9 @@ swh::deploy::worker::swh_storage_archiver_azure::config:
   destination: azure
   force_copy: false
   dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+  next_task:
+    queue: swh.indexer.tasks.SWHOrchestratorAllContentsTask
+    batch_size: 10
 
 swh::azure_objstorage::config:
   cls: multiplexer
