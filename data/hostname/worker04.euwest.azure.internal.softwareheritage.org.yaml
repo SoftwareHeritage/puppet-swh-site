@@ -1,3 +1,4 @@
 swh::deploy::worker::instances:
   - swh_loader_git
+  - swh_indexer_orchestrator_text
   - swh_indexer_language
