@@ -1144,7 +1144,7 @@ swh::azure_objstorage::config:
               prefix: f
 
 
-swh::deploy::worker::swh_indexer::orchestrator::concurrency: 1
+swh::deploy::worker::swh_indexer::orchestrator::concurrency: 4
 swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
 swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::orchestrator::config:
@@ -1152,7 +1152,7 @@ swh::deploy::worker::swh_indexer::orchestrator::config:
     - mimetype
   check_presence: false
 
-swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 1
+swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 4
 swh::deploy::worker::swh_indexer::orchestrator_text::loglevel: info
 swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
@@ -1160,7 +1160,7 @@ swh::deploy::worker::swh_indexer::orchestrator_text::config:
     - language
   check_presence: false
 
-swh::deploy::worker::swh_indexer::base::concurrency: 3
+swh::deploy::worker::swh_indexer::base::concurrency: 4
 swh::deploy::worker::swh_indexer::base::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
