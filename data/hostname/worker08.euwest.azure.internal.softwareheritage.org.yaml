@@ -1,0 +1,9 @@
+swh::deploy::worker::instances:
+  - swh_loader_git
+  - swh_indexer_orchestrator
+  - swh_indexer_orchestrator_text
+  - swh_indexer_language
+
+swh::deploy::worker::swh_indexer::base::concurrency: 2
+swh::deploy::worker::swh_indexer::mimetype::concurrency: 2
+swh::deploy::worker::swh_indexer::language::concurrency: 2
