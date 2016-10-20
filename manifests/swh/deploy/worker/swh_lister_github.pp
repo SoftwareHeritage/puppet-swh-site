@@ -5,7 +5,7 @@ class profile::swh::deploy::worker::swh_lister_github {
   $task_broker = hiera('swh::deploy::worker::swh_lister_github::task_broker')
 
   $config_file = '/etc/softwareheritage/lister-github.yml'
-  $config = hiera('swh::deploy::worker::swh_lister_github::config')
+  $config = hiera_hash('swh::deploy::worker::swh_lister_github::config')
 
   $task_modules = ['swh.lister.github.tasks']
   $task_queues = ['swh_lister_github_incremental', 'swh_lister_github_full']
