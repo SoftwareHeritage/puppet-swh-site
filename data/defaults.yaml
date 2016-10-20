@@ -929,7 +929,7 @@ swh::deploy::worker::swh_lister_github::config:
   storage_args:
     - http://uffizi.internal.softwareheritage.org:5002/
   scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
-  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password'}@%{hiera('swh::deploy::worker::swh_lister_github::db::host'}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname'}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
   # credentials in private data
 
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
