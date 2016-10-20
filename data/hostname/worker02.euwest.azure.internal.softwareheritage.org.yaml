@@ -2,3 +2,10 @@ swh::deploy::worker::instances:
   - swh_loader_git
   - swh_indexer_orchestrator_text
   - swh_indexer_language
+  - swh_indexer_ctags
+
+swh::deploy::worker::swh_indexer::orchestrator_text::config:
+  indexers:
+    - language
+    - ctags
+  check_presence: false
