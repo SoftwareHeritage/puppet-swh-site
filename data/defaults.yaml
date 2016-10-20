@@ -916,6 +916,22 @@ swh::deploy::worker::swh_provenance_cache::config:
       - http://uffizi.internal.softwareheritage.org:5002/
   revision_packet_size: 100
 
+swh::deploy::worker::swh_lister_github::concurrency: 6
+swh::deploy::worker::swh_lister_github::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_lister_github::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_lister_github::db::host: db
+swh::deploy::worker::swh_lister_github::db::dbname: lister-github
+swh::deploy::worker::swh_lister_github::db::user: lister-github
+#swh::deploy::worker::swh_lister_github::db::password in private data
+swh::deploy::worker::swh_lister_github::config:
+  storage_class: remote_storage
+  storage_args:
+    - http://uffizi.internal.softwareheritage.org:5002/
+  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password'}@%{hiera('swh::deploy::worker::swh_lister_github::db::host'}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname'}"
+  # credentials in private data
+
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
 swh::deploy::worker::swh_storage_archiver::archival_max_age: 3600
