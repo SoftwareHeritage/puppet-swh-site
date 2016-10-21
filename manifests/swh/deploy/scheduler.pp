@@ -5,6 +5,10 @@ class profile::swh::deploy::scheduler {
   $group = hiera('swh::deploy::scheduler::group')
   $database = hiera('swh::deploy::scheduler::database')
 
+  $task_broker = hiera('swh::deploy::scheduler::task_broker')
+  $task_packages = hiera('swh::deploy::scheduler::task_packages')
+  $task_modules = hiera('swh::deploy::scheduler::task_modules')
+
   include ::systemd
 
   $listener_service_name = 'swh-scheduler-listener'
@@ -15,10 +19,17 @@ class profile::swh::deploy::scheduler {
   $runner_service_file = "/etc/systemd/system/${runner_service_name}.service"
   $runner_service_template = "profile/swh/deploy/scheduler/${runner_service_name}.service.erb"
 
+  $worker_conf_file = '/etc/softwareheritage/worker.ini'
+
   $services = [$listener_service_name, $runner_service_name]
 
   package {'python3-swh.scheduler':
-    ensure => latest,
+    ensure => installed,
+    notify => Service[$services],
+  }
+
+  package {$task_packages:
+    ensure => installed,
     notify => Service[$services],
   }
 
@@ -32,6 +43,19 @@ class profile::swh::deploy::scheduler {
     mode    => '0640',
     content => template('profile/swh/deploy/scheduler/scheduler.ini.erb'),
     notify  => Service[$services],
+  }
+
+  # Template uses variables
+  #  - $task_broker
+  #  - $task_modules
+  #
+  file {$worker_conf_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => template('profile/swh/deploy/scheduler/worker.ini.erb'),
+    notify  => Service[$runner_service_name],
   }
 
   # Template uses variables
