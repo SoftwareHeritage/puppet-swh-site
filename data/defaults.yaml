@@ -1186,6 +1186,7 @@ swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh:
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
     - language
+    - ctags
   check_presence: false
 
 swh::deploy::worker::swh_indexer::base::concurrency: 4
