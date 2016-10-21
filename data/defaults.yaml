@@ -1227,7 +1227,7 @@ swh::deploy::worker::swh_indexer::ctags::config:
     args:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.ctags/
-  ctags: /usr/bin/ctags
+  ctags: /usr/local/bin/ctags
   languages:
     abap: ''
     abnf: ''
