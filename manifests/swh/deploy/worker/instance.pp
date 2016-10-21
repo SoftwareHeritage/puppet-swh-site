@@ -4,7 +4,7 @@ define profile::swh::deploy::worker::instance (
   $task_broker = '',
   $task_modules = [],
   $task_queues = [],
-  $task_soft_time_limit = '',
+  $task_soft_time_limit = 0,
   $concurrency = 10,
   $loglevel = 'info',
   $max_tasks_per_child = 5,
