@@ -21,17 +21,18 @@ class profile::swh::deploy::scheduler {
 
   $worker_conf_file = '/etc/softwareheritage/worker.ini'
 
+  $packages = ['python3-swh.scheduler']
   $services = [$listener_service_name, $runner_service_name]
 
-  package {'python3-swh.scheduler':
+  package {$packages:
     ensure => installed,
     notify => Service[$services],
   }
 
   package {$task_packages:
     ensure => installed,
-    notify => Service[$services],
-  }
+    notify => Service[$runner_service_name],
+    }
 
   # Template uses variables
   #  - $database
@@ -90,8 +91,26 @@ class profile::swh::deploy::scheduler {
     ],
   }
 
-  service {$services:
-    ensure => running,
-    enable => true,
+  service {$runner_service_name:
+    ensure  => running,
+    enable  => true,
+    require => [
+      Package[$packages],
+      Package[$task_packages],
+      File[$conf_file],
+      File[$worker_conf_file],
+      File[$runner_service_file],
+    ],
+  }
+
+  service {$listener_service_name:
+    ensure  => running,
+    enable  => true,
+    require => [
+      Package[$packages],
+      File[$conf_file],
+      File[$worker_conf_file],
+      File[$listener_service_file],
+    ],
   }
 }
