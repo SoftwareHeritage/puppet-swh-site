@@ -906,6 +906,7 @@ swh::deploy::scheduler::task_modules:
 
 swh::deploy::worker::instances:
   - swh_loader_git
+  - swh_lister_github
 
 swh::deploy::worker::swh_loader_git::concurrency: 6
 swh::deploy::worker::swh_loader_git::loglevel: info
@@ -927,8 +928,8 @@ swh::deploy::worker::swh_provenance_cache::config:
       - http://uffizi.internal.softwareheritage.org:5002/
   revision_packet_size: 100
 
-swh::deploy::worker::swh_lister_github::concurrency: 6
-swh::deploy::worker::swh_lister_github::loglevel: info
+swh::deploy::worker::swh_lister_github::concurrency: 1
+swh::deploy::worker::swh_lister_github::loglevel: warn
 # Contains a password: in private data
 swh::deploy::worker::swh_lister_github::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_lister_github::db::host: db
