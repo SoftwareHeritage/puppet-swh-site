@@ -892,6 +892,17 @@ swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+# swh::deploy::scheduler::task_broker in private data
+swh::deploy::scheduler::task_packages:
+  - python3-swh.loader.git
+  - python3-swh.loader.dir
+  - python3-swh.loader.tar
+  - python3-swh.lister.github
+swh::deploy::scheduler::task_modules:
+  - swh.loader.git.tasks
+  - swh.loader.dir.tasks
+  - swh.loader.tar.tasks
+  - swh.lister.github.tasks
 
 swh::deploy::worker::instances:
   - swh_loader_git
