@@ -1,7 +1,7 @@
 # Deployment for swh-reader-git
 class profile::swh::deploy::worker::swh_reader_git {
   include ::profile::swh::deploy::loader
-  include ::profile::swh::deploy::worker::swh_storage_archiver_azure;;
+  include ::profile::swh::deploy::worker::swh_storage_archiver_azure
 
   $concurrency = hiera('swh::deploy::worker::swh_reader_git::concurrency')
   $loglevel = hiera('swh::deploy::worker::swh_reader_git::loglevel')
