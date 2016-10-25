@@ -917,6 +917,26 @@ swh::deploy::worker::swh_loader_git::config:
   storage_args: http://uffizi.internal.softwareheritage.org:5002/
   pack_storage_base: /srv/storage/space/data/packfiles
 
+swh::deploy::worker::swh_reader_git::concurrency: 6
+swh::deploy::worker::swh_reader_git::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_reader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_reader_git::config:
+  storage_class: remote_storage
+  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  send_contents: False
+  send_directories: False
+  send_revisions: False
+  send_releases: False
+  send_occurrences: False
+  pack_size_bytes: 274877906944
+  pack_storage_base: ''
+  next_task:
+    queue: 'swh.storage.archiver.tasks.SWHArchiverToBackendTask'
+    batch_size: 100
+    destination: azure
+    pack_storage_base: ''
+
 swh::deploy::worker::swh_provenance_cache::concurrency: 1
 swh::deploy::worker::swh_provenance_cache::loglevel: info
 # Contains a password: in private data
