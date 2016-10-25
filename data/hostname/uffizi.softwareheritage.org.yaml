@@ -6,3 +6,4 @@ swh::deploy::worker::instances:
   - swh_storage_archiver
   - swh_storage_archiver_azure
   - swh_provenance_cache
+  - swh_reader_git
