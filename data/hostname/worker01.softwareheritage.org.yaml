@@ -17,3 +17,5 @@ swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
   - swh_reader_git
+
+swh::deploy::worker::swh_storage_archiver_azure::concurrency: 1
