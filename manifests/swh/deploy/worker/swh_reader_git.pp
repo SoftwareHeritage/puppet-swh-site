@@ -1,6 +1,6 @@
 # Deployment for swh-reader-git
 class profile::swh::deploy::worker::swh_reader_git {
-  include ::profile::swh::deploy::loader
+  include ::profile::swh::deploy::base_loader_git
   include ::profile::swh::deploy::worker::swh_storage_archiver_azure
 
   $concurrency = hiera('swh::deploy::worker::swh_reader_git::concurrency')
@@ -13,12 +13,6 @@ class profile::swh::deploy::worker::swh_reader_git {
   $task_modules = ['swh.loader.git.tasks']
   $task_queues = ['swh_reader_git']
 
-  $packages = ['python3-swh.loader.git']
-
-  package {$packages:
-    ensure => 'installed',
-  }
-
   ::profile::swh::deploy::worker::instance {'swh_reader_git':
     ensure       => present,
     concurrency  => $concurrency,
@@ -27,7 +21,8 @@ class profile::swh::deploy::worker::swh_reader_git {
     task_modules => $task_modules,
     task_queues  => $task_queues,
     require      => [
-      Package[$packages],
+      Class['profile::swh::deploy::base_loader_git'],
+      Class['profile::swh::deploy::worker::swh_storage_archiver_azure'],
       File[$config_file],
     ],
   }

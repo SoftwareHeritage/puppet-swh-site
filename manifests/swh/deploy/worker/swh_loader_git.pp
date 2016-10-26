@@ -1,7 +1,6 @@
 # Deployment for swh-loader-git
 class profile::swh::deploy::worker::swh_loader_git {
-
-  include ::profile::swh::deploy::loader
+  include ::profile::swh::deploy::base_loader_git
 
   $concurrency = hiera('swh::deploy::worker::swh_loader_git::concurrency')
   $loglevel = hiera('swh::deploy::worker::swh_loader_git::loglevel')
@@ -13,12 +12,6 @@ class profile::swh::deploy::worker::swh_loader_git {
   $task_modules = ['swh.loader.git.tasks']
   $task_queues = ['swh_loader_git']
 
-  $packages = ['python3-swh.loader.git']
-
-  package {$packages:
-    ensure => 'installed',
-  }
-
   ::profile::swh::deploy::worker::instance {'swh_loader_git':
     ensure       => present,
     concurrency  => $concurrency,
@@ -27,7 +20,7 @@ class profile::swh::deploy::worker::swh_loader_git {
     task_modules => $task_modules,
     task_queues  => $task_queues,
     require      => [
-      Package[$packages],
+      Class['profile::swh::deploy::base_loader_git'],
       File[$config_file],
     ],
   }
