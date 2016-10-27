@@ -1238,7 +1238,7 @@ swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::wor
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::language::config: "%{hiera('swh::deploy::worker::swh_indexer::base::config')}"
 
-swh::deploy::worker::swh_indexer::ctags::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
+swh::deploy::worker::swh_indexer::ctags::concurrency: 2
 swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::ctags::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
