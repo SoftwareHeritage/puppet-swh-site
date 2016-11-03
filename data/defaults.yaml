@@ -1209,7 +1209,7 @@ swh::deploy::worker::swh_indexer::orchestrator_text::config:
     - ctags
   check_presence: false
 
-swh::deploy::worker::swh_indexer::base::concurrency: 4
+swh::deploy::worker::swh_indexer::base::concurrency: 2
 swh::deploy::worker::swh_indexer::base::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
@@ -1220,7 +1220,7 @@ swh::deploy::worker::swh_indexer::base::config:
     args:
       - http://uffizi.internal.softwareheritage.org:5002/
 
-swh::deploy::worker::swh_indexer::mimetype::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
+swh::deploy::worker::swh_indexer::mimetype::concurrency: 4
 swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
