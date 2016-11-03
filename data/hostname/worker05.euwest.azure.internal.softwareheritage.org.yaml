@@ -2,3 +2,6 @@ swh::deploy::worker::instances:
   - swh_loader_git
   - swh_indexer_orchestrator
   - swh_indexer_mimetype
+  - swh_indexer_language
+  - swh_indexer_ctags
+
