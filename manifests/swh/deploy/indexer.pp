@@ -29,6 +29,6 @@ class profile::swh::deploy::indexer {
   }
 
   package {$packages:
-    ensure => 'installed',
+    ensure => 'latest',
   }
 }
