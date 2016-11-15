@@ -1,4 +1,4 @@
-# Deployment for swh-indexer-fossology_license
+# Deployment for swh-indexer-fossology-license
 
 class profile::swh::deploy::worker::swh_indexer_fossology_license {
   include ::profile::swh::deploy::indexer
