@@ -1233,7 +1233,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.mimetype/
 
-swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
+swh::deploy::worker::swh_indexer::fossology_license::concurrency: 1
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
