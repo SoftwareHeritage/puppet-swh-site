@@ -1207,6 +1207,7 @@ swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
     - language
     - ctags
+    - fossology_license
   check_presence: false
 
 swh::deploy::worker::swh_indexer::base::concurrency: 2
@@ -1231,6 +1232,22 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     args:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.mimetype/
+
+swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
+swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+# Contains a password: in private data
+swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+# objstorage configuration from swh::azure_objstorage::config is merged in the manifest
+swh::deploy::worker::swh_indexer::fossology_license::config:
+  storage:
+    cls: remote_storage
+    args:
+      - http://uffizi.internal.softwareheritage.org:5002/
+  workdir: /tmp/swh/indexer.fossology.license/
+  tool:
+    cli: /usr/bin/nomossa
+    name: nomos
+    version: 3.1.0rc2-31-ga2cbb8c
 
 swh::deploy::worker::swh_indexer::language::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
