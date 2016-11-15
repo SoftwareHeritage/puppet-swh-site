@@ -5,3 +5,5 @@ swh::deploy::worker::instances:
   - swh_indexer_language
   - swh_indexer_ctags
   - swh_indexer_fossology_license
+
+swh::deploy::worker::swh_loader_git::concurrency: 2
