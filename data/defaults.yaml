@@ -915,7 +915,8 @@ swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker:
 swh::deploy::worker::swh_loader_git::config:
   storage_class: remote_storage
   storage_args: http://uffizi.internal.softwareheritage.org:5002/
-  pack_storage_base: /srv/storage/space/data/packfiles
+  save_data: true
+  save_data_path: /srv/storage/space/data/sharded_packfiles
 
 swh::deploy::worker::swh_reader_git::concurrency: 6
 swh::deploy::worker::swh_reader_git::loglevel: info
