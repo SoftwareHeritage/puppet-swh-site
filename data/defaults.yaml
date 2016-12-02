@@ -1233,6 +1233,10 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     args:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.mimetype/
+  tool:
+    name: file
+    version: 5.22
+    command: file
 
 swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1246,15 +1250,23 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.fossology.license/
   tool:
-    cli: /usr/bin/nomossa
     name: nomos
     version: 3.1.0rc2-31-ga2cbb8c
+    command: /usr/bin/nomossa
 
-swh::deploy::worker::swh_indexer::language::concurrency: "%{hiera('swh::deploy::worker::swh_indexer::base::concurrency')}"
+swh::deploy::worker::swh_indexer::language::concurrency: 2
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::language::config: "%{hiera('swh::deploy::worker::swh_indexer::base::config')}"
+  storage:
+    cls: remote_storage
+    args:
+      - http://uffizi.internal.softwareheritage.org:5002/
+  workdir: /tmp/swh/indexer.fossology.language/
+  tool:
+    name: pygments
+    version: 2.0.1+dfsg-1.1+deb8u1
 
 swh::deploy::worker::swh_indexer::ctags::concurrency: 2
 swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1267,7 +1279,10 @@ swh::deploy::worker::swh_indexer::ctags::config:
     args:
       - http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.ctags/
-  ctags: /usr/bin/ctags
+  tool:
+    name: universal-ctags
+    version: ~git7859817b
+    command: /usr/bin/ctags
   languages:
     abap: ''
     abnf: ''
