@@ -1,4 +1,6 @@
-node 'louvre.softwareheritage.org' {
+node
+  'louvre.softwareheritage.org',
+  'beaubourg.softwareheritage.org' {
   include role::swh_hypervisor
 }
 
