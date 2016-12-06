@@ -1,6 +1,8 @@
-node
-  'louvre.softwareheritage.org',
-  'beaubourg.softwareheritage.org' {
+node 'louvre.softwareheritage.org' {
+  include role::swh_hypervisor_master
+}
+
+node 'beaubourg.softwareheritage.org' {
   include role::swh_hypervisor
 }
 
