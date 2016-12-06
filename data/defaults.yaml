@@ -570,6 +570,12 @@ bind::resource_records:
     type: CNAME
     record: backup.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
+  banco/A:
+    record: banco.internal.softwareheritage.org
+    data: 192.168.100.18
+  beaubourg/A:
+    record: beaubourg.internal.softwareheritage.org
+    data: 192.168.100.32
   icinga/CNAME:
     type: CNAME
     record: icinga.internal.softwareheritage.org
@@ -591,9 +597,6 @@ bind::resource_records:
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
-  banco/A:
-    record: banco.internal.softwareheritage.org
-    data: 192.168.101.46
   petit-palais/A:
     record: petit-palais.internal.softwareheritage.org
     data: 192.168.101.58
