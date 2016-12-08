@@ -921,6 +921,26 @@ swh::deploy::worker::swh_loader_git::config:
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
 
+swh::deploy::worker::swh_loader_svn::concurrency: 1
+swh::deploy::worker::swh_loader_svn::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_svn::config:
+  storage_class: remote_storage
+  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  send_contents: true
+  send_directories: true
+  send_revisions: true
+  send_releases: true
+  send_occurrences: true
+  content_packet_size: 1000
+  content_packet_block_size_bytes: 104857600
+  content_packet_size_bytes: 1073741824
+  directory_packet_size: 250
+  revision_packet_size: 100
+  release_packet_size: 100
+  occurrence_packet_size: 100
+
 swh::deploy::worker::swh_reader_git::concurrency: 6
 swh::deploy::worker::swh_reader_git::loglevel: info
 # Contains a password: in private data
