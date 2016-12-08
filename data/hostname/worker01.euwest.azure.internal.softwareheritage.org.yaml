@@ -8,11 +8,11 @@ swh::deploy::worker::instances:
 
 # testing swh-loader-svn
 swh::deploy::storage::db::dbname: softwareheritage-test-svn
-swh::deploy::storage::storage_base: /srv/swh/objects/
+swh::deploy::storage::directory: /srv/swh/objects/
 
 swh::deploy::worker::swh_loader_svn::config:
   storage_class: remote_storage
-  storage_args: http://127.0.0.1:5002
+  storage_args: http://127.0.0.1:5002/
   send_contents: true
   send_directories: true
   send_revisions: true
