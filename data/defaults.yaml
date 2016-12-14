@@ -940,6 +940,7 @@ swh::deploy::worker::swh_loader_svn::config:
   revision_packet_size: 100
   release_packet_size: 100
   occurrence_packet_size: 100
+  check_revision: 1000
 
 swh::deploy::worker::swh_reader_git::concurrency: 6
 swh::deploy::worker::swh_reader_git::loglevel: info
