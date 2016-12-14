@@ -10,6 +10,7 @@ swh::deploy::worker::instances:
 swh::deploy::storage::db::dbname: softwareheritage-test-svn
 swh::deploy::storage::directory: /srv/swh/objects/
 
+swh::deploy::worker::swh_loader_svn::loglevel: debug
 swh::deploy::worker::swh_loader_svn::config:
   storage_class: remote_storage
   storage_args: http://127.0.0.1:5002/
