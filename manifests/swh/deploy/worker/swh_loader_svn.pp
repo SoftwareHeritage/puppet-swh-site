@@ -8,7 +8,7 @@ class profile::swh::deploy::worker::swh_loader_svn {
   $config = hiera('swh::deploy::worker::swh_loader_svn::config')
 
   $task_modules = ['swh.loader.svn.tasks']
-  $task_queues = ['swh_loader_svn']
+  $task_queues = ['swh_loader_svn', 'swh_mount_and_load_loader_svn']
 
   $packages = ['python3-swh.loader.svn']
 
