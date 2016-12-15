@@ -8,7 +8,6 @@ swh::deploy::worker::instances:
 
 # testing swh-loader-svn
 swh::deploy::storage::db::dbname: softwareheritage-test-svn
-swh::deploy::storage::directory: /srv/swh/objects/
 
 swh::deploy::worker::swh_loader_svn::loglevel: debug
 swh::deploy::worker::swh_loader_svn::config:
