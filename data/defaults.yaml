@@ -916,8 +916,10 @@ swh::deploy::worker::swh_loader_git::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git::config:
-  storage_class: remote_storage
-  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
 
@@ -926,8 +928,10 @@ swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_svn::config:
-  storage_class: remote_storage
-  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
   send_contents: true
   send_directories: true
   send_revisions: true
@@ -947,8 +951,10 @@ swh::deploy::worker::swh_reader_git::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_reader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_reader_git::config:
-  storage_class: remote_storage
-  storage_args: http://uffizi.internal.softwareheritage.org:5002/
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
   send_contents: False
   send_directories: False
   send_revisions: False
@@ -968,9 +974,9 @@ swh::deploy::worker::swh_provenance_cache::loglevel: info
 swh::deploy::worker::swh_provenance_cache::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_provenance_cache::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
   revision_packet_size: 100
 
 swh::deploy::worker::swh_lister_github::concurrency: 1
@@ -982,9 +988,10 @@ swh::deploy::worker::swh_lister_github::db::dbname: lister-github
 swh::deploy::worker::swh_lister_github::db::user: lister-github
 #swh::deploy::worker::swh_lister_github::db::password in private data
 swh::deploy::worker::swh_lister_github::config:
-  storage_class: remote_storage
-  storage_args:
-    - http://uffizi.internal.softwareheritage.org:5002/
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
   scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
   # credentials in private data
@@ -1242,9 +1249,9 @@ swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::work
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::swh_indexer::base::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
 
 swh::deploy::worker::swh_indexer::mimetype::concurrency: 2
 swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1253,9 +1260,9 @@ swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::swh_indexer::mimetype::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.mimetype/
   tool:
     name: file
@@ -1269,9 +1276,9 @@ swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh:
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::swh_indexer::fossology_license::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.fossology.license/
   tool:
     name: nomos
@@ -1284,9 +1291,9 @@ swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::wor
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::language::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.language/
   tool:
     name: pygments
@@ -1299,9 +1306,9 @@ swh::deploy::worker::swh_indexer::ctags::task_broker: "%{hiera('swh::deploy::wor
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::swh_indexer::ctags::config:
   storage:
-    cls: remote_storage
+    cls: remote
     args:
-      - http://uffizi.internal.softwareheritage.org:5002/
+      url: http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.ctags/
   tool:
     name: universal-ctags
