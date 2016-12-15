@@ -14,5 +14,29 @@ swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
   - swh_reader_git
+  - swh_loader_svn
 
 swh::deploy::worker::swh_storage_archiver_azure::concurrency: 1
+
+#### loader-svn testing
+swh::deploy::storage::db::dbname: softwareheritage-test-svn
+
+swh::deploy::worker::swh_loader_svn::loglevel: debug
+swh::deploy::worker::swh_loader_svn::config:
+  storage:
+    cls: remote
+    args:
+      url: http://127.0.0.1:5002/
+  send_contents: true
+  send_directories: true
+  send_revisions: true
+  send_releases: true
+  send_occurrences: true
+  content_packet_size: 1000
+  content_packet_block_size_bytes: 104857600
+  content_packet_size_bytes: 1073741824
+  directory_packet_size: 250
+  revision_packet_size: 100
+  release_packet_size: 100
+  occurrence_packet_size: 100
+  check_revision: 1000
