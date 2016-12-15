@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_loader_svn {
   $packages = ['python3-swh.loader.svn']
 
   package {$packages:
-    ensure => 'installed',
+    ensure => 'latest',
   }
 
   ::profile::swh::deploy::worker::instance {'swh_loader_svn':
