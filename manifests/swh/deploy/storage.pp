@@ -5,11 +5,6 @@ class profile::swh::deploy::storage {
   $conf_file = hiera('swh::deploy::storage::conf_file')
   $user = hiera('swh::deploy::storage::user')
   $group = hiera('swh::deploy::storage::group')
-  $db_host = hiera('swh::deploy::storage::db::host')
-  $db_user = hiera('swh::deploy::storage::db::user')
-  $db_dbname = hiera('swh::deploy::storage::db::dbname')
-  $db_password = hiera('swh::deploy::storage::db::password')
-  $directory = hiera('swh::deploy::storage::directory')
 
   $swh_packages = ['python3-swh.storage']
 
@@ -21,6 +16,8 @@ class profile::swh::deploy::storage {
   $uwsgi_max_requests = hiera('swh::deploy::storage::uwsgi::max_requests')
   $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
   $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
+
+  $storage_config = hiera('swh::deploy::storage::config')
 
   include ::uwsgi
 
@@ -42,7 +39,7 @@ class profile::swh::deploy::storage {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/storage.ini.erb'),
+    content => inline_template('<%= @storage_config.to_yaml %>'),
     notify  => Service['uwsgi'],
   }
 
