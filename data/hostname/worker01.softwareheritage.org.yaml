@@ -20,6 +20,13 @@ swh::deploy::worker::swh_storage_archiver_azure::concurrency: 1
 
 #### loader-svn testing
 swh::deploy::storage::db::dbname: softwareheritage-test-svn
+swh::deploy::storage::config:
+  storage:
+    args:
+      objstorage:
+        cls: remote
+        args:
+          url: "http://uffizi.internal.softwareheritage.org:5003/"
 
 swh::deploy::worker::swh_loader_svn::loglevel: debug
 swh::deploy::worker::swh_loader_svn::config:
