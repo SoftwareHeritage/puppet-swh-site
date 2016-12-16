@@ -807,7 +807,9 @@ swh::deploy::storage::config:
       db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
         cls: pathslicing
-        root: "%{hiera('swh::deploy::storage::directory')}"
+        args:
+          root: "%{hiera('swh::deploy::storage::directory')}"
+          slicing: "0:2/2:4/4:6"
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
