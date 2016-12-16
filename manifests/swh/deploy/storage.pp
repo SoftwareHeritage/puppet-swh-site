@@ -17,7 +17,7 @@ class profile::swh::deploy::storage {
   $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
   $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
 
-  $storage_config = hiera_hash('swh::deploy::storage::config')
+  $storage_config = hiera('swh::deploy::storage::config')
 
   include ::uwsgi
 
