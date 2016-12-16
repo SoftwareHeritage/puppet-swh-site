@@ -71,7 +71,7 @@ class profile::swh::deploy::webapp {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/webapp/webapp.ini.erb'),
+    content => inline_template('<%= @webapp_config.to_yaml %>'),
     notify  => Service['uwsgi'],
   }
 
