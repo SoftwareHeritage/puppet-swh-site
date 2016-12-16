@@ -25,7 +25,6 @@ class profile::swh::deploy::objstorage {
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['uwsgi'],
   }
 
   file {$conf_directory:
@@ -41,7 +40,6 @@ class profile::swh::deploy::objstorage {
     group   => $group,
     mode    => '0640',
     content => template('profile/swh/deploy/storage/objstorage.ini.erb'),
-    notify  => Service['uwsgi'],
   }
 
   ::uwsgi::site {'swh-objstorage':
