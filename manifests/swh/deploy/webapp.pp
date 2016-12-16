@@ -6,6 +6,7 @@ class profile::swh::deploy::webapp {
   $group = hiera('swh::deploy::webapp::group')
 
   $webapp_config = hiera('swh::deploy::webapp::config')
+  $conf_log_dir = hiera('swh::deploy::webapp::conf::log_dir')
 
   $uwsgi_listen_address = hiera('swh::deploy::webapp::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::webapp::uwsgi::protocol')
