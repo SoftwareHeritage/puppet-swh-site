@@ -804,10 +804,10 @@ swh::deploy::storage::config:
   storage:
     cls: local
     args:
-      db: host="{hiera('swh::deploy::storage::db::host')}" user="{hiera('swh::deploy::storage::db::user')}" dbname="{hiera('swh::deploy::storage::db::dbname')}" password="{hiera('swh::deploy::storage::db::password')}"
+      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
         cls: pathslicing
-        root: "{hiera('swh::deploy::storage::directory')}"
+        root: "%{hiera('swh::deploy::storage::directory')}"
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
