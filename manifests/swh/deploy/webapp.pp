@@ -5,10 +5,7 @@ class profile::swh::deploy::webapp {
   $user = hiera('swh::deploy::webapp::user')
   $group = hiera('swh::deploy::webapp::group')
 
-  $conf_storage_class = hiera('swh::deploy::webapp::conf::storage_class')
-  $conf_storage_args = hiera('swh::deploy::webapp::conf::storage_args')
-  $conf_log_dir = hiera('swh::deploy::webapp::conf::log_dir')
-  $conf_secret_key = hiera('swh::deploy::webapp::conf::secret_key')
+  $webapp_config = hiera('swh::deploy::webapp::config')
 
   $uwsgi_listen_address = hiera('swh::deploy::webapp::uwsgi::listen')
   $uwsgi_protocol = hiera('swh::deploy::webapp::uwsgi::protocol')
