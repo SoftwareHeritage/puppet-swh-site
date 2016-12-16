@@ -893,7 +893,7 @@ swh::deploy::webapp::config:
     cls: remote
     args:
       url: http://127.0.0.1:5002/
-  log_dir: "${hiera('swh::deploy::webapp::conf::log_dir')}"
+  log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
 swh::deploy::webapp::open_endpoints:
   - /flask-api/
