@@ -9,3 +9,35 @@ networks:
     address: 128.93.193.23
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+
+#### loader-svn testing
+swh::deploy::storage::db::dbname: softwareheritage-test-svn
+swh::deploy::storage::config:
+  storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      objstorage:
+        cls: remote
+        args:
+          url: "http://uffizi.internal.softwareheritage.org:5003/"
+
+swh::deploy::worker::swh_loader_svn::loglevel: debug
+swh::deploy::worker::swh_loader_svn::config:
+  storage:
+    cls: remote
+    args:
+      url: http://127.0.0.1:5002/
+  send_contents: true
+  send_directories: true
+  send_revisions: true
+  send_releases: true
+  send_occurrences: true
+  content_packet_size: 1000
+  content_packet_block_size_bytes: 104857600
+  content_packet_size_bytes: 1073741824
+  directory_packet_size: 250
+  revision_packet_size: 100
+  release_packet_size: 100
+  occurrence_packet_size: 100
+  check_revision: 50
