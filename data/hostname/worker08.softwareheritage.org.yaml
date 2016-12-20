@@ -13,6 +13,11 @@ networks:
 dar::backup::select:
   - home
 
+swh::deploy::worker::instances:
+  - swh_loader_git
+  - swh_lister_github
+  - swh_loader_svn
+
 #### loader-svn testing
 swh::deploy::storage::db::dbname: softwareheritage-test-svn
 swh::deploy::storage::config:
