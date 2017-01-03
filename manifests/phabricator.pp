@@ -216,6 +216,9 @@ class profile::phabricator {
       { rewrite_rule => "^/ws/(.*)$ ws://${phabricator_notification_listen}/\$1 [L,P]" },
       { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
+    setenvif             => [
+      "Authorization \"(.*)\" HTTP_AUTHORIZATION=\$1",
+    ],
     require              => [
         File[$ssl_cert],
         File[$ssl_ca],
