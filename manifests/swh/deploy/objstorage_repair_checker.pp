@@ -6,12 +6,7 @@ class profile::swh::deploy::objstorage_repair_checker {
   $user = hiera('swh::deploy::objstorage_repair_checker::user')
   $group = hiera('swh::deploy::objstorage_repair_checker::group')
 
-  # configuration file
-  $directory = hiera('swh::deploy::objstorage_repair_checker::directory')
-  $slicing = hiera('swh::deploy::objstorage_repair_checker::slicing')
-  $checker_class = hiera('swh::deploy::objstorage_repair_checker::class')
-  $batch_size = hiera('swh::deploy::objstorage_repair_checker::batch_size')
-  $log_tag = hiera('swh::deploy::objstorage_repair_checker::log_tag')
+  $repair_checker_config = hiera('swh::deploy::objstorage_repair_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 
@@ -32,7 +27,7 @@ class profile::swh::deploy::objstorage_repair_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/objstorage_repair_checker.yml.erb'),
+    content => inline_template('<%= @repair_checker_config.to_yaml %>'),
   }
 
   include ::systemd
