@@ -6,8 +6,7 @@ class profile::swh::deploy::objstorage {
   $user = hiera('swh::deploy::objstorage::user')
   $group = hiera('swh::deploy::objstorage::group')
 
-  $directory = hiera('swh::deploy::objstorage::directory')
-  $slicing = hiera('swh::deploy::objstorage::slicing')
+  $objstorage_config = hiera('swh::deploy::objstorage::config')
 
   $swh_packages = ['python3-swh.objstorage']
 
@@ -39,7 +38,7 @@ class profile::swh::deploy::objstorage {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/objstorage.ini.erb'),
+    content => inline_template('<%= @objstorage_config.to_yaml %>'),
   }
 
   ::uwsgi::site {'swh-objstorage':
