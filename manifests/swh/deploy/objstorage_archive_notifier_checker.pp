@@ -7,17 +7,7 @@ class profile::swh::deploy::objstorage_archive_notifier_checker {
   $group = hiera('swh::deploy::objstorage_archive_notifier_checker::group')
 
   # configuration file
-  $directory = hiera('swh::deploy::objstorage_archive_notifier_checker::directory')
-  $slicing = hiera('swh::deploy::objstorage_archive_notifier_checker::slicing')
-  $checker_class = hiera('swh::deploy::objstorage_archive_notifier_checker::class')
-  $batch_size = hiera('swh::deploy::objstorage_archive_notifier_checker::batch_size')
-  $log_tag = hiera('swh::deploy::objstorage_archive_notifier_checker::log_tag')
-  $storage_name = hiera('swh::deploy::objstorage_archive_notifier_checker::storage_name')
-
-  $db_host = hiera('swh::deploy::objstorage_archive_notifier_checker::db::host')
-  $db_dbname = hiera('swh::deploy::objstorage_archive_notifier_checker::db::dbname')
-  $db_user = hiera('swh::deploy::objstorage_archive_notifier_checker::db::user')
-  $db_password = hiera('swh::deploy::objstorage_archive_notifier_checker::db::password')
+  $archive_notifier_config = hiera('swh::deploy::objstorage_archive_notifier_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 
@@ -38,7 +28,7 @@ class profile::swh::deploy::objstorage_archive_notifier_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/objstorage_archive_notifier_checker.yml.erb'),
+    content => inline_template('<%= @archive_notifier_config.to_yaml %>'),
   }
 
   include ::systemd
