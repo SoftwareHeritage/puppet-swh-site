@@ -7,11 +7,7 @@ class profile::swh::deploy::objstorage_log_checker {
   $group = hiera('swh::deploy::objstorage_log_checker::group')
 
   # configuration file
-  $directory = hiera('swh::deploy::objstorage_log_checker::directory')
-  $slicing = hiera('swh::deploy::objstorage_log_checker::slicing')
-  $checker_class = hiera('swh::deploy::objstorage_log_checker::class')
-  $batch_size = hiera('swh::deploy::objstorage_log_checker::batch_size')
-  $log_tag = hiera('swh::deploy::objstorage_log_checker::log_tag')
+  $log_checker_config = hiera('swh::deploy::objstorage_log_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 
@@ -32,7 +28,7 @@ class profile::swh::deploy::objstorage_log_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/storage/objstorage_log_checker.yml.erb'),
+    content => inline_template('<%= @log_checker_config.to_yaml %>'),
   }
 
   include ::systemd
