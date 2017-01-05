@@ -1058,7 +1058,7 @@ swh::deploy::worker::swh_storage_archiver::storages:
   - host: banco
     cls: remote
     args:
-      base_url: http://banco.internal.softwareheritage.org:5003/
+      url: http://banco.internal.softwareheritage.org:5003/
 
 swh::deploy::worker::swh_storage_archiver::concurrency: 10
 swh::deploy::worker::swh_storage_archiver::loglevel: info
