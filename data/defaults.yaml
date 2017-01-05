@@ -822,7 +822,7 @@ swh::deploy::storage_listener::kafka_brokers:
 swh::deploy::storage_listener::poll_timeout: 10
 
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
-swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.ini"
+swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
