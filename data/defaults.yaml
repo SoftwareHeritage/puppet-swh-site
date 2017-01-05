@@ -882,16 +882,23 @@ swh::deploy::objstorage_archive_notifier_checker::conf_directory: "%{hiera('swh:
 swh::deploy::objstorage_archive_notifier_checker::conf_file: "%{hiera('swh::deploy::objstorage_archive_notifier_checker::conf_directory')}/archive_notifier_checker.yml"
 swh::deploy::objstorage_archive_notifier_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
 swh::deploy::objstorage_archive_notifier_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_archive_notifier_checker::directory: "%{hiera('swh::deploy::objstorage::directory')}"
-swh::deploy::objstorage_archive_notifier_checker::slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-swh::deploy::objstorage_archive_notifier_checker::class: pathslicing
-swh::deploy::objstorage_archive_notifier_checker::batch_size: 1000
 swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
 swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
 swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')}"
 swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')}"
 swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}"
 swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+swh::deploy::objstorage_archive_notifier_checker::config:
+  storage:
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::objstorage::directory')}"
+      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  batch_size: 1000
+  log_tag: objstorage.checker.archive_notifier
+  storage_name: this-must-be-overriden-on-a-per-host-basis
+  dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.yml"
