@@ -846,11 +846,15 @@ swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::deploy::objs
 swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
 swh::deploy::objstorage_log_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
 swh::deploy::objstorage_log_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_log_checker::directory: "%{hiera('swh::deploy::objstorage::directory')}"
-swh::deploy::objstorage_log_checker::slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-swh::deploy::objstorage_log_checker::class: pathslicing
-swh::deploy::objstorage_log_checker::batch_size: 1000
-swh::deploy::objstorage_log_checker::log_tag: objstorage.checker.log
+swh::deploy::objstorage_log_checker:config:
+  storage:
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::objstorage::directory')}"
+      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  batch_size: 1000
+  log_tag: objstorage.checker.log
+
 
 swh::deploy::objstorage_repair_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
 swh::deploy::objstorage_repair_checker::conf_file: "%{hiera('swh::deploy::objstorage_repair_checker::conf_directory')}/repair_checker.yml"
