@@ -1804,6 +1804,7 @@ stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 postgresql::apt_config::pgdg::mirror: 'http://apt.postgresql.org/pub/repos/apt/'
+postgresql::apt_config::pgdg::keyid: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 postgresql::apt_config::pgdg::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v1
@@ -1873,6 +1874,7 @@ postgresql::apt_config::pgdg::key: |
   -----END PGP PUBLIC KEY BLOCK-----
 
 postgresql::apt_config::pglogical::mirror: 'http://packages.2ndquadrant.com/pglogical/apt/'
+postgresql::apt_config::pglogical::keyid: 855AF5C7B897656417FA73D65D941908AA7A6805
 postgresql::apt_config::pglogical::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v1.4.12 (GNU/Linux)
