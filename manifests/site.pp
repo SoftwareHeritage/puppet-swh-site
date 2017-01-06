@@ -18,7 +18,7 @@ node 'moma.softwareheritage.org' {
   include role::swh_api
 }
 
-node /^prado.(internal.)?softwareheritage.org$/ {
+node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
   include role::swh_database
 }
 
