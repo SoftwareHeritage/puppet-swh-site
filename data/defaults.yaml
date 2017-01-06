@@ -1802,3 +1802,118 @@ stats_export::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 stats_export::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+postgresql::apt_config::pgdg::mirror: 'http://apt.postgresql.org/pub/repos/apt/'
+postgresql::apt_config::pgdg::key: |
+  -----BEGIN PGP PUBLIC KEY BLOCK-----
+  Version: GnuPG v1
+  
+  mQINBE6XR8IBEACVdDKT2HEH1IyHzXkb4nIWAY7echjRxo7MTcj4vbXAyBKOfjja
+  UrBEJWHN6fjKJXOYWXHLIYg0hOGeW9qcSiaa1/rYIbOzjfGfhE4x0Y+NJHS1db0V
+  G6GUj3qXaeyqIJGS2z7m0Thy4Lgr/LpZlZ78Nf1fliSzBlMo1sV7PpP/7zUO+aA4
+  bKa8Rio3weMXQOZgclzgeSdqtwKnyKTQdXY5MkH1QXyFIk1nTfWwyqpJjHlgtwMi
+  c2cxjqG5nnV9rIYlTTjYG6RBglq0SmzF/raBnF4Lwjxq4qRqvRllBXdFu5+2pMfC
+  IZ10HPRdqDCTN60DUix+BTzBUT30NzaLhZbOMT5RvQtvTVgWpeIn20i2NrPWNCUh
+  hj490dKDLpK/v+A5/i8zPvN4c6MkDHi1FZfaoz3863dylUBR3Ip26oM0hHXf4/2U
+  A/oA4pCl2W0hc4aNtozjKHkVjRx5Q8/hVYu+39csFWxo6YSB/KgIEw+0W8DiTII3
+  RQj/OlD68ZDmGLyQPiJvaEtY9fDrcSpI0Esm0i4sjkNbuuh0Cvwwwqo5EF1zfkVj
+  Tqz2REYQGMJGc5LUbIpk5sMHo1HWV038TWxlDRwtOdzw08zQA6BeWe9FOokRPeR2
+  AqhyaJJwOZJodKZ76S+LDwFkTLzEKnYPCzkoRwLrEdNt1M7wQBThnC5z6wARAQAB
+  tBxQb3N0Z3JlU1FMIERlYmlhbiBSZXBvc2l0b3J5iQI9BBMBCAAnAhsDBQsJCAcD
+  BRUKCQgLBRYCAwEAAh4BAheABQJS6RUZBQkOhCctAAoJEH/MfUaszEz4zmQP/2ad
+  HtuaXL5Xu3C3NGLha/aQb9iSJC8z5vN55HMCpsWlmslCBuEr+qR+oZvPkvwh0Io/
+  8hQl/qN54DMNifRwVL2n2eG52yNERie9BrAMK2kNFZZCH4OxlMN0876BmDuNq2U6
+  7vUtCv+pxT+g9R1LvlPgLCTjS3m+qMqUICJ310BMT2cpYlJx3YqXouFkdWBVurI0
+  pGU/+QtydcJALz5eZbzlbYSPWbOm2ZSS2cLrCsVNFDOAbYLtUn955yXB5s4rIscE
+  vTzBxPgID1iBknnPzdu2tCpk07yJleiupxI1yXstCtvhGCbiAbGFDaKzhgcAxSIX
+  0ZPahpaYLdCkcoLlfgD+ar4K8veSK2LazrhO99O0onRG0p7zuXszXphO4E/WdbTO
+  yDD35qCqYeAX6TaB+2l4kIdVqPgoXT/doWVLUK2NjZtd3JpMWI0OGYDFn2DAvgwP
+  xqKEoGTOYuoWKssnwLlA/ZMETegak27gFAKfoQlmHjeA/PLC2KRYd6Wg2DSifhn+
+  2MouoE4XFfeekVBQx98rOQ5NLwy/TYlsHXm1n0RW86ETN3chj/PPWjsi80t5oepx
+  82azRoVu95LJUkHpPLYyqwfueoVzp2+B2hJU2Rg7w+cJq64TfeJG8hrc93MnSKIb
+  zTvXfdPtvYdHhhA2LYu4+5mh5ASlAMJXD7zIOZt2iEYEEBEIAAYFAk6XSO4ACgkQ
+  xa93SlhRC1qmjwCg9U7U+XN7Gc/dhY/eymJqmzUGT/gAn0guvoX75Y+BsZlI6dWn
+  qaFU6N8HiQIcBBABCAAGBQJOl0kLAAoJEExaa6sS0qeuBfEP/3AnLrcKx+dFKERX
+  o4NBCGWr+i1CnowupKS3rm2xLbmiB969szG5TxnOIvnjECqPz6skK3HkV3jTZaju
+  v3sR6M2ItpnrncWuiLnYcCSDp9TEMpCWzTEgtrBlKdVuTNTeRGILeIcvqoZX5w+u
+  i0eBvvbeRbHEyUsvOEnYjrqoAjqUJj5FUZtR1+V9fnZp8zDgpOSxx0LomnFdKnhj
+  uyXAQlRCA6/roVNR9ruRjxTR5ubteZ9ubTsVYr2/eMYOjQ46LhAgR+3Alblu/WHB
+  MR/9F9//RuOa43R5Sjx9TiFCYol+Ozk8XRt3QGweEH51YkSYY3oRbHBb2Fkql6N6
+  YFqlLBL7/aiWnNmRDEs/cdpo9HpFsbjOv4RlsSXQfvvfOayHpT5nO1UQFzoyMVpJ
+  615zwmQDJT5Qy7uvr2eQYRV9AXt8t/H+xjQsRZCc5YVmeAo91qIzI/tA2gtXik49
+  6yeziZbfUvcZzuzjjxFExss4DSAwMgorvBeIbiz2k2qXukbqcTjB2XqAlZasd6Ll
+  nLXpQdqDV3McYkP/MvttWh3w+J/woiBcA7yEI5e3YJk97uS6+ssbqLEd0CcdT+qz
+  +Waw0z/ZIU99Lfh2Qm77OT6vr//Zulw5ovjZVO2boRIcve7S97gQ4KC+G/+QaRS+
+  VPZ67j5UMxqtT/Y4+NHcQGgwF/1iiQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
+  AwEAAh4BAheABQJQeSssBQkDwxbfAAoJEH/MfUaszEz4bgkP/0AI0UgDgkNNqplA
+  IpE/pkwem2jgGpJGKurh2xDu6j2ZL+BPzPhzyCeMHZwTXkkI373TXGQQP8dIa+RD
+  HAZ3iijw4+ISdKWpziEUJjUk04UMPTlN+dYJt2EHLQDD0VLtX0yQC/wLmVEH/REp
+  oclbVjZR/+ehwX2IxOIlXmkZJDSycl975FnSUjMAvyzty8P9DN0fIrQ7Ju+BfMOM
+  TnUkOdp0kRUYez7pxbURJfkM0NxAP1geACI91aISBpFg3zxQs1d3MmUIhJ4wHvYB
+  uaR7Fx1FkLAxWddre/OCYJBsjucE9uqc04rgKVjN5P/VfqNxyUoB+YZ+8Lk4t03p
+  RBcD9XzcyOYlFLWXbcWxTn1jJ2QMqRIWi5lzZIOMw5B+OK9LLPX0dAwIFGr9WtuV
+  J2zp+D4CBEMtn4Byh8EaQsttHeqAkpZoMlrEeNBDz2L7RquPQNmiuom15nb7xU/k
+  7PGfqtkpBaaGBV9tJkdp7BdH27dZXx+uT+uHbpMXkRrXliHjWpAw+NGwADh/Pjmq
+  ExlQSdgAiXy1TTOdzxKH7WrwMFGDK0fddKr8GH3f+Oq4eOoNRa6/UhTCmBPbryCS
+  IA7EAd0Aae9YaLlOB+eTORg/F1EWLPm34kKSRtae3gfHuY2cdUmoDVnOF8C9hc0P
+  bL65G4NWPt+fW7lIj+0+kF19s2PviQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
+  AwEAAh4BAheABQJRKm2VBQkINsBBAAoJEH/MfUaszEz4RTEP/1sQHyjHaUiAPaCA
+  v8jw/3SaWP/g8qLjpY6ROjLnDMvwKwRAoxUwcIv4/TWDOMpwJN+CJIbjXsXNYvf9
+  OX+UTOvq4iwi4ADrAAw2xw+Jomc6EsYla+hkN2FzGzhpXfZFfUsuphjY3FKL+4hX
+  H+R8ucNwIz3yrkfc17MMn8yFNWFzm4omU9/JeeaafwUoLxlULL2zY7H3+QmxCl0u
+  6t8VvlszdEFhemLHzVYRY0Ro/ISrR78CnANNsMIy3i11U5uvdeWVCoWV1BXNLzOD
+  4+BIDbMB/Do8PQCWiliSGZi8lvmj/sKbumMFQonMQWOfQswTtqTyQ3yhUM1LaxK5
+  PYq13rggi3rA8oq8SYb/KNCQL5pzACji4TRVK0kNpvtxJxe84X8+9IB1vhBvF/Ji
+  /xDd/3VDNPY+k1a47cON0S8Qc8DA3mq4hRfcgvuWy7ZxoMY7AfSJOhleb9+PzRBB
+  n9agYgMxZg1RUWZazQ5KuoJqbxpwOYVFja/stItNS4xsmi0lh2I4MNlBEDqnFLUx
+  SvTDc22c3uJlWhzBM/f2jH19uUeqm4jaggob3iJvJmK+Q7Ns3WcfhuWwCnc1+58d
+  iFAMRUCRBPeFS0qd56QGk1r97B6+3UfLUslCfaaA8IMOFvQSHJwDO87xWGyxeRTY
+  IIP9up4xwgje9LB7fMxsSkCDTHOk
+  =s3DI
+  -----END PGP PUBLIC KEY BLOCK-----
+
+postgresql::apt_config::pglogical::mirror: 'http://packages.2ndquadrant.com/pglogical/apt/'
+postgresql::apt_config::pglogical::key: |
+  -----BEGIN PGP PUBLIC KEY BLOCK-----
+  Version: GnuPG v1.4.12 (GNU/Linux)
+  
+  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
+  =2rpV
+  -----END PGP PUBLIC KEY BLOCK-----
+
