@@ -16,6 +16,7 @@ smtp::mail_aliases:
   root:
     - olasd
     - zack
+    - ardumont
   zack:
     - zack@upsilon.cc
   ardumont:
