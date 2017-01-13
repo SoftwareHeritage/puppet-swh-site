@@ -929,7 +929,7 @@ swh::deploy::webapp::config:
 swh::deploy::webapp::open_endpoints:
   - /flask-api/
   - /api/1/stat/counters/
-  - /api/1/content/search/
+  - /api/1/content/known/
 
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
 swh::deploy::scheduler::user: swhscheduler
