@@ -926,6 +926,18 @@ swh::deploy::webapp::config:
       url: http://127.0.0.1:5002/
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
+  limiter:
+    global_limits:
+      - 1000 per hour
+      - 60 per minute
+    headers_enabled: true
+    strategy: moving-window
+    storage_uri: 'memory://'
+    storage_options: {}
+    in_memory_fallback:
+      - 100 per hour
+      - 10 per minute
+
 swh::deploy::webapp::open_endpoints:
   - /flask-api/
   - /api/1/stat/counters/
