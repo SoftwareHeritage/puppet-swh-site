@@ -83,6 +83,10 @@ mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
     :ref => '6.0.0'
 
+mod 'redis',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPREDIS/arioch-redis.git',
+    :ref => '1.2.4'
+
 mod 'ssh',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSSH/saz-ssh.git',
     :ref => 'v2.9.1'
