@@ -919,6 +919,7 @@ swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+swh::deploy::webapp::redis: "redis://:%{hiera('redis::server::password')}@%{hiera('redis::server::bind')}:%{hiera('redis::server::port')}"
 swh::deploy::webapp::config:
   storage:
     cls: remote
@@ -932,7 +933,7 @@ swh::deploy::webapp::config:
       - 60 per minute
     headers_enabled: true
     strategy: moving-window
-    storage_uri: 'memory://'
+    storage_uri: "%{hiera('swh::deploy::webapp::redis')}"
     storage_options: {}
     in_memory_fallback:
       - 100 per hour
@@ -1931,3 +1932,6 @@ postgresql::apt_config::pglogical::key: |
   =2rpV
   -----END PGP PUBLIC KEY BLOCK-----
 
+redis::server::bind: 127.0.0.1
+redis::server::port: 6379
+# redis::server::password in private data
