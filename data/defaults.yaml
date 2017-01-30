@@ -585,6 +585,10 @@ bind::resource_records:
     type: CNAME
     record: faitout.internal.softwareheritage.org
     data: prado.internal.softwareheritage.org.
+  rabbitmq/CNAME:
+    type: CNAME
+    record: rabbitmq.internal.softwareheritage.org
+    data: moma.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
