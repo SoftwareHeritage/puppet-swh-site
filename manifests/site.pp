@@ -18,6 +18,10 @@ node 'moma.softwareheritage.org' {
   include role::swh_api
 }
 
+node 'saatchi.internal.softwareheritage.org' {
+  include role::swh_scheduler
+}
+
 node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
   include role::swh_database
 }
