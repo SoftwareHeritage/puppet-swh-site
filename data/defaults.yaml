@@ -956,7 +956,8 @@ swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
-# swh::deploy::scheduler::task_broker in private data
+# swh::deploy::scheduler::task_broker::password in private data
+swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::scheduler::task_packages:
   - python3-swh.loader.git
   - python3-swh.loader.dir
@@ -968,13 +969,14 @@ swh::deploy::scheduler::task_modules:
   - swh.loader.tar.tasks
   - swh.lister.github.tasks
 
+# swh::deploy::worker::task_broker::password in private data
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
 
 swh::deploy::worker::swh_loader_git::concurrency: 6
 swh::deploy::worker::swh_loader_git::loglevel: info
-# Contains a password: in private data
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git::config:
   storage:
