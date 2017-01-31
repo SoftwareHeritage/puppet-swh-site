@@ -588,7 +588,7 @@ bind::resource_records:
   rabbitmq/CNAME:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
-    data: moma.internal.softwareheritage.org.
+    data: saatchi.internal.softwareheritage.org.
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
