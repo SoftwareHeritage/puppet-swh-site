@@ -794,6 +794,7 @@ swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory'
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
 swh::deploy::storage::db::host: db
+swh::deploy::storage::db::port: 5432
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
@@ -809,7 +810,7 @@ swh::deploy::storage::config:
   storage:
     cls: local
     args:
-      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
         cls: remote
         args:
