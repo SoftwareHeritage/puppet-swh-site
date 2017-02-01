@@ -27,14 +27,15 @@ class profile::swh::deploy::webapp {
   $vhost_ssl_honorcipherorder = hiera('swh::deploy::webapp::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = hiera('swh::deploy::webapp::vhost::ssl_cipher')
 
-  $open_endpoints = hiera_array('swh::deploy::webapp::open_endpoints')
+  $locked_endpoints = hiera_array('swh::deploy::webapp::locked_endpoints')
 
-  $endpoint_directories = $open_endpoints.map |$endpoint| {
-    { path     => $endpoint,
-      provider => 'location',
-      allow    => 'from all',
-      satisfy  => 'Any',
-      headers  => ['add Access-Control-Allow-Origin "*"'],
+  $endpoint_directories = $locked_endpoints.map |$endpoint| {
+    { path           => $endpoint,
+      provider       => 'location',
+      auth_type      => 'Basic',
+      auth_name      => 'Software Heritage development',
+      auth_user_file => $vhost_basic_auth_file,
+      auth_require   => 'valid-user',
     }
   }
 
@@ -143,12 +144,11 @@ class profile::swh::deploy::webapp {
       },
     ],
     directories          => [
-      { path           => '/',
-        provider       => 'location',
-        auth_type      => 'Basic',
-        auth_name      => 'Software Heritage development',
-        auth_user_file => $vhost_basic_auth_file,
-        auth_require   => 'valid-user',
+      { path     => '/api',
+        provider => 'location',
+        allow    => 'from all',
+        satisfy  => 'Any',
+        headers  => ['add Access-Control-Allow-Origin "*"'],
       },
       { path    => $static_dir,
         options => ['-Indexes'],
