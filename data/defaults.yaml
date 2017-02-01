@@ -944,10 +944,14 @@ swh::deploy::webapp::config:
       - 100 per hour
       - 10 per minute
 
-swh::deploy::webapp::open_endpoints:
-  - /flask-api/
-  - /api/1/stat/counters/
-  - /api/1/content/known/
+swh::deploy::webapp::locked_endpoints:
+  - /browse/
+  - /api/1/content/[^/]+/symbol/
+  - /api/1/content/[^/]+/raw/
+  - /api/1/entity/
+  - /api/1/provenance/
+  - /api/1/revision/origin/.*/directory/
+  - /api/1/revision/[^/]+/raw/
 
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
 swh::deploy::scheduler::user: swhscheduler
