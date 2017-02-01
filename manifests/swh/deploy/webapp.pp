@@ -132,6 +132,9 @@ class profile::swh::deploy::webapp {
       { path => '/static',
         url  => '!',
       },
+      { path => '/robots.txt',
+        url  => '!',
+      },
       { path => '/favicon.ico',
         url  => '!',
       },
@@ -154,6 +157,9 @@ class profile::swh::deploy::webapp {
     aliases              => [
       { alias => '/static',
         path  => $static_dir,
+      },
+      { alias => '/robots.txt',
+        path  => "${static_dir}/robots.txt",
       },
     ],
     require              => [
