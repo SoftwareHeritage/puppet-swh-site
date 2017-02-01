@@ -30,8 +30,8 @@ class profile::swh::deploy::webapp {
   $locked_endpoints = hiera_array('swh::deploy::webapp::locked_endpoints')
 
   $endpoint_directories = $locked_endpoints.map |$endpoint| {
-    { path           => $endpoint,
-      provider       => 'location',
+    { path           => "^${endpoint}",
+      provider       => 'locationmatch',
       auth_type      => 'Basic',
       auth_name      => 'Software Heritage development',
       auth_user_file => $vhost_basic_auth_file,
