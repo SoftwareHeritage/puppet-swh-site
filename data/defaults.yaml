@@ -934,15 +934,15 @@ swh::deploy::webapp::config:
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   limiter:
     global_limits:
-      - 1000000 per hour
-      - 60000 per minute
+      - 120 per hour
+      - 2 per second
     headers_enabled: true
     strategy: moving-window
     storage_uri: "%{hiera('swh::deploy::webapp::redis')}"
     storage_options: {}
     in_memory_fallback:
-      - 100 per hour
-      - 10 per minute
+      - 120 per hour
+      - 2 per second
 
 swh::deploy::webapp::locked_endpoints:
   - /browse/
