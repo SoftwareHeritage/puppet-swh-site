@@ -23,6 +23,8 @@ smtp::mail_aliases:
     - antoine.romain.dumont@gmail.com
   olasd:
     - nicolas+swhinfra@dandrimont.eu
+  fiendish:
+    - patcherton.fixesthings@gmail.com
   swhworker:
     - zack
     - olasd
@@ -244,6 +246,18 @@ users:
     shell: /bin/false
     groups:
       - gitorious
+  fiendish:
+    uid: 1011
+    full_name: Avi Kelman
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhstorage
+      - swhteam
+    authorized_keys:
+      avi@Temperance:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAAEAQCi9FEAQZ+WvvuVKjm5EJRgW1xwKfQwndBtZhJ8qqFVpHCl25tQW4ndfHVdr1BJmXVbAKlfsZs/hYBQq6JbTaxHZKGyajNZfuXOQ71CR2pn0XytpcMyt8l893BLOriTLhKoKXNwzjdCY7LmhNWDqR0GHm8C1d6fI7oYG+0PiTQr8cJ8wYvdVH5qrhzKMLJmGIbSOkQxCFYUjpXLk53fsAVyUMTn5SV9CTfMLCQ4nh2IXbbOVC3sIShNINzhNhkRTbHMHmo4Ujmn2jC6qtk3lawCTmrXNn7/mRgfrSkt5fSisSFM1xZ17wBG+zxQbnK00zcTHfDdxBmmsES5lWIndM4CqUwGgBtGGvrHsNS12XTsmvM4FA2DSiiKVLhTTQnG4B0CUcZFJn+dLDk+9IRN2uDbOY7Sg6653cJWYAeZq4YXtmhccCgtz82I5CtPYTMMZJqlHjvcGl9euafKPC196MPcWPXGNsidP/g3BZNncZE/4RgnbQChqiS4juXLB3KtIH6C50g1GZq/azrvZFlzU0Z9kzK99Vw0xPFIfi5wobWEq0JS31BHsd+NIVgm/riZIheb3hi3jyS2+Awm00aLwjEtS+x31xn99WZg2fRp8xpbbiZwMn5QlxarDWV6afySlWRe+iUdRtM2PGMBwSosQcrvKe/rOD27c/Sa5dWPvrrVsKBEATpFcy5XnNEcPxAbYGx0IY4CulVe0EYVH8jSoRhUQn4O41N8St3cmJPFGBfUP5v7/QdXhR8m+6yZKlaFTzdz0ZEcmc/TaCBxxBywuNPiLHZtIBJVuUPGAZC0eidmYK7iva2/a4lhuDXA5mVYm6lQzjdv+mUGqjkEzQ23LCMg3tA+6ewTZwJzoUTTXosgLqVhJ4KchJTbGYdvG7IRQmmyTzRwHkqJej2e+xgdPPY2BFBl3WA+dEle6gMR7FB54ubIrCdJfb5hwVaGlcK3s4KpXapAjHP7jndsPKVSPP8Ax0fqPiCOw3wTIyQGV+ZfLf7PjqpTAQn7a1QA6CUG47p9HqofEqrrQEDyC9vRan7NeD5IVQq7dpgGwx4zEDnR1m2hfuoXzDRM4Vd+uNhC0WotkGJatKZeaoHx8P9VE8zhir2Py71AxellhfvGuzxPJ4XNDRjAenMmSbVURyLFpt6iA2bFeolCCb7qVodKORvquFRQEXTlkAxRj7OiMDzniRfZbtGER9zkXGp9+Sw3gz+igxND5KAzJgt2ubpChF1KyxKEu1QCeZ3n+1pIdeTSZT0rFSnZNYdb/UuIlKgICqxU0sutXIZqY1k5QSFWVNjA60QuWLMDW5CrhouGdFEBCksKDKiJinhcHXiDx93LJYzG2CVPTuW+gka0ZyfS18pN
 
 groups:
   swhdev:
