@@ -24,6 +24,8 @@ class profile::desktop::printers {
     }
   }
 
+  Printer[$default_printer] -> Exec['default_printer']
+
   each ($cups_usernames) |$user, $cups_user| {
     file {"/home/${user}/.cups":
       ensure => directory,
