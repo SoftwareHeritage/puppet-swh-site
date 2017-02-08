@@ -38,10 +38,15 @@ class profile::swh::apt_config {
   }
 
   $swh_repository = hiera('swh::apt_config::swh_repository')
+  $swh_release = $::lsbdistcodename ? {
+    'stretch' => 'sid',
+    default   => $::lsbdistcodename,
+  }
+
   ::apt::source {'softwareheritage':
     comment        => 'Software Heritage specific package repository',
     location       => $swh_repository,
-    release        => $::lsbdistcodename,
+    release        => $swh_release,
     repos          => 'main',
     allow_unsigned => true,
   }
