@@ -31,10 +31,12 @@ class profile::swh::apt_config {
     repos    => 'main',
   }
 
-  class {'::apt::backports':
-    pin      => 100,
-    location => $debian_mirror,
-    repos    => 'main',
+  if $::lsbdistcodename == 'jessie' {
+    class {'::apt::backports':
+      pin      => 100,
+      location => $debian_mirror,
+      repos    => 'main',
+    }
   }
 
   $swh_repository = hiera('swh::apt_config::swh_repository')
