@@ -47,10 +47,11 @@ class profile::desktop::printers {
   }
 
   file {$ppd_dir:
-    ensure => directory,
-    owner  => root,
-    group  => root,
-    mode   => '0644',
+    ensure  => directory,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    require => Package['cups'],
   }
 
   # Template uses $ppd_auth_filter
