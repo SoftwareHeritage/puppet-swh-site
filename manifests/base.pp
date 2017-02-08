@@ -39,6 +39,14 @@ class profile::base {
   }
 
   $users = hiera_hash('users')
+  $groups = hiera_hash('groups')
+
+  each($groups) |$name, $data| {
+    group { $name:
+      ensure => 'present',
+      gid    => $data['gid'],
+    }
+  }
 
   each($users) |$name, $data| {
     if $name == 'root' {
@@ -63,21 +71,16 @@ class profile::base {
       Package['zsh'] -> User[$name]
     }
 
+    if (has_key($groups, $name)) {
+      Group[$name] -> User[$name]
+    }
+
     file { $home:
       ensure  => 'directory',
       mode    => $mode,
       owner   => $name,
       group   => $name,
       require => User[$name],
-    }
-  }
-
-  $groups = hiera_hash('groups')
-
-  each($groups) |$name, $data| {
-    group { $name:
-      ensure => 'present',
-      gid    => $data['gid'],
     }
   }
 
