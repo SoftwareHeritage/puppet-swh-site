@@ -20,7 +20,7 @@ class profile::desktop::printers {
       location    => $params['location'],
       ppd_options => $params['ppd_options'],
       shared      => false,
-      require     => File[$params['ppd']]
+      require     => File[$params['ppd']],
     }
   }
 
