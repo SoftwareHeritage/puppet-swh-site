@@ -8,5 +8,6 @@ class profile::devel::postgres {
   file { '/etc/postgresql-common/pg_service.conf':
     ensure  => file,
     content => template('profile/postgres/pg_service.conf.erb'),
+    require => Package[$packages],
   }
 }
