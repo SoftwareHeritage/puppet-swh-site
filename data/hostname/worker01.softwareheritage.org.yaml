@@ -15,3 +15,4 @@ swh::deploy::worker::instances:
   - swh_lister_github
   - swh_reader_git
   - swh_loader_svn
+  - swh_loader_git_disk
