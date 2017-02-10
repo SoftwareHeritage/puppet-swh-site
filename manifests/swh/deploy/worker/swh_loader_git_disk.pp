@@ -1,18 +1,18 @@
-# Deployment for swh-loader-git (remote)
-class profile::swh::deploy::worker::swh_loader_git {
+# Deployment for swh-loader-git (disk)
+class profile::swh::deploy::worker::swh_loader_git_disk {
   include ::profile::swh::deploy::base_loader_git
 
-  $concurrency = hiera('swh::deploy::worker::swh_loader_git::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_git::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_git::task_broker')
+  $concurrency = hiera('swh::deploy::worker::swh_loader_git_disk::concurrency')
+  $loglevel = hiera('swh::deploy::worker::swh_loader_git_disk::loglevel')
+  $task_broker = hiera('swh::deploy::worker::swh_loader_git_disk::task_broker')
 
-  $config_file = '/etc/softwareheritage/loader/git-updater.yml'
-  $config = hiera('swh::deploy::worker::swh_loader_git::config')
+  $config_file = '/etc/softwareheritage/loader/git-loader.yml'
+  $config = hiera('swh::deploy::worker::swh_loader_git_disk::config')
 
   $task_modules = ['swh.loader.git.tasks']
-  $task_queues = ['swh_loader_git']
+  $task_queues = ['swh_loader_git', 'swh_loader_git_express']
 
-  ::profile::swh::deploy::worker::instance {'swh_loader_git':
+  ::profile::swh::deploy::worker::instance {'swh_loader_git_disk':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
