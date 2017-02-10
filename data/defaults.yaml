@@ -989,6 +989,7 @@ swh::deploy::scheduler::task_modules:
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
   - swh_loader_git
+  - swh_loader_git_disk
   - swh_lister_github
 
 swh::deploy::worker::swh_loader_git::concurrency: 6
@@ -1001,6 +1002,15 @@ swh::deploy::worker::swh_loader_git::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
+
+swh::deploy::worker::swh_loader_git_disk::concurrency: 2
+swh::deploy::worker::swh_loader_git_disk::loglevel: info
+swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_git_disk::config:
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::loglevel: info
