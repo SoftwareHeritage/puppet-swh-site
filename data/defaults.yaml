@@ -64,6 +64,9 @@ packages::desktop:
   - myrepos
   - curl
   - tree
+  - screen
+  - weechat
+  - weechat-scripts
 
 packages::devel:
   - arcanist
