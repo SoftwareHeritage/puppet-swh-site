@@ -1008,7 +1008,6 @@ swh::deploy::scheduler::task_modules:
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
   - swh_loader_git
-  - swh_loader_git_disk
   - swh_lister_github
 
 swh::deploy::worker::swh_loader_git::concurrency: 6
