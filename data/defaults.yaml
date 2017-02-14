@@ -13,28 +13,28 @@ smtp::mynetworks:
 smtp::relay_destinations: {}
 smtp::virtual_aliases: {}
 smtp::mail_aliases:
-  root:
-    - olasd
-    - zack
-    - ardumont
-  zack:
-    - zack@upsilon.cc
   ardumont:
     - antoine.romain.dumont@gmail.com
-  olasd:
-    - nicolas+swhinfra@dandrimont.eu
   fiendish:
     - patcherton.fixesthings@gmail.com
-  swhworker:
-    - zack
-    - olasd
-    - ardumont
-  swhstorage:
-    - root
+  olasd:
+    - nicolas+swhinfra@dandrimont.eu
   postgres:
     - root
   rdicosmo:
     - roberto@dicosmo.org
+  root:
+    - olasd
+    - zack
+    - ardumont
+  swhstorage:
+    - root
+  swhworker:
+    - zack
+    - olasd
+    - ardumont
+  zack:
+    - zack@upsilon.cc
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
