@@ -29,6 +29,8 @@ smtp::mail_aliases:
     - olasd
     - zack
     - ardumont
+  seirl:
+    - antoine.pietri1@gmail.com
   swhstorage:
     - root
   swhworker:
@@ -276,6 +278,18 @@ users:
       morane.gg@gmail.com:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDm8kH1pP+4ENKmpkTCkL2ashxxnOFVndGrcvfX05lV1hOo2NdItpdoR9txIgFEs3d7v73mtH4nWciUyaK7FIByrtvsR2TIhdVgEcb0Xai8viV+sDMTndpiNlWNilbfxm0K70tgpG4BeSWRJy8cPxnCR9CWoB2Vo9Df7lDKz1LXDgfY4VLJd69ahf1DPFUDjpWIEQdPFX2ZyGUYM+0yPXIoyYW/qreDt1JkYZXXVbRAV8j44/TVgTRYJLgYb9ThW6WzlGM1S4uP7GQdAuROCcspqW3ahV/UmV4Z9SM6S34NN182KvM0Ve7uxAPQz+IdWOgZTK0pvd+hfjHKbLSTA6I3
+  seirl:
+    uid: 1013
+    full_name: Antoine Pietri
+    shell: /usr/bin/zsh
+    groups:
+      - swhdev
+      - swhstorage
+      - swhteam
+    authorized_keys:
+      seirl:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E
 
 groups:
   swhdev:
