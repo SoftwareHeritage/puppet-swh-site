@@ -10,7 +10,7 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
   $config = hiera('swh::deploy::worker::swh_loader_git_disk::config')
 
   $task_modules = ['swh.loader.git.tasks']
-  $task_queues = ['swh_loader_git_express']
+  $task_queues = ['swh_loader_git_express', 'swh_loader_git_archive']
 
   ::profile::swh::deploy::worker::instance {'swh_loader_git_disk':
     ensure       => present,
