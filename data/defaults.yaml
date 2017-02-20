@@ -69,6 +69,9 @@ packages::desktop:
   - screen
   - weechat
   - weechat-scripts
+  - rxvt-unicode-256color
+  - mosh
+  - i3
 
 packages::devel:
   - arcanist
