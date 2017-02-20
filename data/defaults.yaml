@@ -1860,10 +1860,11 @@ desktop::printers::default: MFP
 desktop::printers::ppd_dir: /usr/share/ppd/softwareheritage
 
 desktop::printers::cups_usernames:
-  olasd: ndandrim
-  zack: zacchiro
-  seirl: apietri
   ardumont: andumont
+  morane: mgruenpe
+  olasd: ndandrim
+  seirl: apietri
+  zack: zacchiro
 
 zookeeper::hosts:
   getty.internal.softwareheritage.org: '1'
@@ -1890,7 +1891,7 @@ postgresql::apt_config::pgdg::keyid: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 postgresql::apt_config::pgdg::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v1
-  
+
   mQINBE6XR8IBEACVdDKT2HEH1IyHzXkb4nIWAY7echjRxo7MTcj4vbXAyBKOfjja
   UrBEJWHN6fjKJXOYWXHLIYg0hOGeW9qcSiaa1/rYIbOzjfGfhE4x0Y+NJHS1db0V
   G6GUj3qXaeyqIJGS2z7m0Thy4Lgr/LpZlZ78Nf1fliSzBlMo1sV7PpP/7zUO+aA4
@@ -1960,7 +1961,7 @@ postgresql::apt_config::pglogical::keyid: 855AF5C7B897656417FA73D65D941908AA7A68
 postgresql::apt_config::pglogical::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v1.4.12 (GNU/Linux)
-  
+
   mQENBFUQs34BCADT3W0Nnf0E0/2LGU4Afzg4dAViJqqhOLBwuWUS6Np+ZqCK6beY
   E46KS/CowwBmca9stm5oJbcpz2WCNxnb6OGlgxQnYEaVl4z6bDRDJ3BdiIbcjdYM
   cutJupmZbrlvfnf30AcQXc6RCZ/x/53CDuCXyrO7djkBkoolJFQbzfy0HcRnNRVp
