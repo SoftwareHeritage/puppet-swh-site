@@ -1859,6 +1859,8 @@ desktop::printers::ppd_dir: /usr/share/ppd/softwareheritage
 desktop::printers::cups_usernames:
   olasd: ndandrim
   zack: zacchiro
+  seirl: apietri
+  ardumont: andumont
 
 zookeeper::hosts:
   getty.internal.softwareheritage.org: '1'
