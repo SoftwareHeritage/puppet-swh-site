@@ -1044,15 +1044,6 @@ swh::deploy::worker::swh_loader_git_disk::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
 
-swh::deploy::worker::swh_loader_git_archive::concurrency: 1
-swh::deploy::worker::swh_loader_git_archive::loglevel: info
-swh::deploy::worker::swh_loader_git_archive::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_git_archive::config:
-  storage:
-    cls: remote
-    args:
-      url: http://uffizi.internal.softwareheritage.org:5002/
-
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
