@@ -72,6 +72,11 @@ packages::desktop:
   - rxvt-unicode-256color
   - mosh
   - i3
+  - ii
+  - ruby-dev
+  - vim-nox
+  - scrot
+  - libx11-dev
 
 packages::devel:
   - arcanist
@@ -115,6 +120,9 @@ packages::devel::python:
   - python3-libcloud
   - python3-azure-storage
   - python3-flask-limiter
+  - python3-venv
+  - python3-wheel
+  - python3-dev
 
 packages::devel::broker:
   - rabbitmq-server
@@ -129,6 +137,7 @@ packages::devel::postgres:
   - postgresql-contrib
   - postgresql-doc
   - postgresql-plpython3-9.6
+  - libpq-dev
 
 users:
   root:
