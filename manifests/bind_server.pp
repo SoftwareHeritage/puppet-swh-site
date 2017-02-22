@@ -1,6 +1,6 @@
 class profile::bind_server {
 
-  $forwarders = hiera('bind::forwarders')
+  $forwarders = hiera('dns::forwarders')
   $zones = hiera('bind::zones')
   $default_zone_data = hiera('bind::zones::default_data')
   $clients = hiera('bind::clients')
