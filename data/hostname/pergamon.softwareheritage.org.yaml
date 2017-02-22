@@ -1,3 +1,5 @@
+dns::local_cache: false
+
 smtp::relay_destinations:
   "%{hiera('phabricator::vhost::name')}": smtp:[tate.internal.softwareheritage.org]
 
