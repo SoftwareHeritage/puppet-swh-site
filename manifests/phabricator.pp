@@ -210,6 +210,8 @@ class profile::phabricator {
     ssl_key              => $ssl_key,
     headers              => [$phabricator_vhost_hsts_header],
     docroot              => $phabricator_vhost_docroot,
+    docroot_owner        => $phabricator_user,
+    docroot_group        => $phabricator_user,
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
