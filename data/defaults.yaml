@@ -1,5 +1,7 @@
 ---
 dns::local_cache: true
+dns::nameservers:
+  - 127.0.0.1
 dns::search_domains:
   - internal.softwareheritage.org
   - softwareheritage.org
