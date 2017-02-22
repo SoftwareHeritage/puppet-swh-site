@@ -738,10 +738,6 @@ bind::resource_records:
 bind::resource_records::default_data:
   type: A
 
-bind::forwarders:
-  - 193.51.196.130
-  - 193.51.196.131
-
 bind::clients:
   - 192.168.100.0/24
   - 192.168.101.0/24
