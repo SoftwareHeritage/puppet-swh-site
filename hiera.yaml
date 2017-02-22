@@ -6,7 +6,9 @@
   :datadir: "%{::settings::environmentpath}/%{::environment}/data"
 :hierarchy:
   - "private/hostname/%{::fqdn}"
+  - "private/location/%{::location}"
   - "private/defaults"
   - "hostname/%{::fqdn}"
+  - "location/%{::location}"
   - defaults
 :merge_behavior: deeper

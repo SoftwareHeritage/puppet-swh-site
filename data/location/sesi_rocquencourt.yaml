@@ -1,0 +1,11 @@
+---
+dns::forwarders:
+  - 193.51.196.130
+  - 193.51.196.131
+
+ntp::servers:
+  - sesi-ntp1.inria.fr
+  - sesi-ntp2.inria.fr
+
+smtp::relayhost: '[smtp.inria.fr]'
+
