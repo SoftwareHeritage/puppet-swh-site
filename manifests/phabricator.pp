@@ -189,6 +189,8 @@ class profile::phabricator {
     servername      => $phabricator_vhost_name,
     port            => '80',
     docroot         => $phabricator_vhost_docroot,
+    docroot_owner   => $phabricator_user,
+    docroot_group   => $phabricator_user,
     redirect_status => 'permanent',
     redirect_dest   => "https://${phabricator_vhost_name}/",
   }
