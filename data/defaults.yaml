@@ -310,6 +310,14 @@ users:
         key: AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E
 
 groups:
+  zack:
+    gid: 1000
+  olasd:
+    gid: 1001
+  ardumont:
+    gid: 1003
+  swhworker:
+    gid: 1004
   swhdev:
     gid: 1002
   swhstorage:
