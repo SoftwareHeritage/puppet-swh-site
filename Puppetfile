@@ -87,6 +87,10 @@ mod 'redis',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPREDIS/arioch-redis.git',
     :ref => '1.2.4'
 
+mod 'resolv_conf',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPRESO/saz-resolv_conf.git',
+    :ref => 'v3.1.0'
+
 mod 'ssh',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSSH/saz-ssh.git',
     :ref => 'v2.9.1'
