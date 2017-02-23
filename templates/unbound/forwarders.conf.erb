@@ -6,7 +6,7 @@ forward-zone:
 
 <% @forward_zones.each do |zone, forwarders| -%>
 forward-zone:
-    name: "<%= zone %>."
+    name: "<%= zone %>"
 <% forwarders.each do |forwarder| -%>
     forward-addr: <%= forwarder %>
 <% end -%>
