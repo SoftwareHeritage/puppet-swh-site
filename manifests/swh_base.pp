@@ -6,4 +6,6 @@ class role::swh_base {
   include profile::munin::node
 
   include profile::swh
+
+  Class['profile::unbound'] -> Class['profile::resolv_conf']
 }
