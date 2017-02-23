@@ -51,6 +51,10 @@ mod 'extlib',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPEXTL/puppet-extlib.git',
     :ref => 'v0.11.3'
 
+mod 'icinga2',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPICI/icinga-icinga2.git',
+    :ref => 'v1.1.0'
+
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
     :ref => '0be877447057ee8f84f11f1d13e5b37495418790'
