@@ -1,5 +1,7 @@
 class profile::bind_server {
 
+  include ::profile::resolv_conf
+
   $forwarders = hiera('dns::forwarders')
   $zones = hiera('bind::zones')
   $default_zone_data = hiera('bind::zones::default_data')
@@ -13,6 +15,8 @@ class profile::bind_server {
     forwarders => $forwarders,
     dnssec     => true,
   }
+
+  Service['bind'] -> File['/etc/resolv.conf']
 
   bind::view { 'private':
     recursion     => true,

@@ -7,6 +7,8 @@ class profile::unbound {
   $forwarders_file = '/etc/unbound/unbound.conf.d/forwarders.conf'
 
   if $has_local_cache {
+    include ::profile::resolv_conf
+
     $forwarders = hiera('dns::forwarders')
     $forward_zones = hiera('dns::forward_zones')
 
@@ -21,7 +23,7 @@ class profile::unbound {
         Package[$package],
         File[$forwarders_file],
       ]
-    }
+    } -> File['/etc/resolv.conf']
 
     # uses variables $forwarders, $forward_zones
     file {'/etc/unbound/unbound.conf.d/forwarders.conf':
