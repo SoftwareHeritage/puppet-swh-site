@@ -15,7 +15,7 @@ class profile::unbound {
     }
 
     service {$service:
-      ensure  => started,
+      ensure  => running,
       enable  => true,
       require => [
         Package[$package],
@@ -28,6 +28,7 @@ class profile::unbound {
       ensure  => present,
       owner   => 'root',
       group   => 'root',
+      mode    => '0644',
       content => template('profile/unbound/forwarders.conf.erb'),
       require => Package[$package],
       notify  => Service[$service],
