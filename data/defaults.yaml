@@ -2076,9 +2076,9 @@ icinga2::zonename: master
 icinga2::zones:
   master:
     endpoints:
-      - 'pergamon.internal.softwareheritage.org'
+      - 'pergamon.softwareheritage.org'
 icinga2::endpoints:
-  pergamon.internal.softwareheritage.org: {}
+  pergamon.softwareheritage.org: {}
 
 redis::server::bind: 127.0.0.1
 redis::server::port: 6379
