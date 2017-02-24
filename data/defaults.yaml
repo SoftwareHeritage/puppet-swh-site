@@ -2074,11 +2074,23 @@ icinga2::apt_config::key: |
 
 icinga2::zonename: master
 icinga2::zones:
-  master:
+  ZoneName:
     endpoints:
-      - 'pergamon.softwareheritage.org'
+      - NodeName
+    parent: "%{hiera('icinga2::zonename')}"
+  "%{hiera('icinga2::zonename')}":
+    endpoints:
+      - pergamon.softwareheritage.org
+
 icinga2::endpoints:
-  pergamon.softwareheritage.org: {}
+  NodeName: {}
+  pergamon.softwareheritage.org:
+    host: 192.168.100.29
+
+icinga2::accept_config: true
+icinga2::features:
+  - checker
+  - mainlog
 
 redis::server::bind: 127.0.0.1
 redis::server::port: 6379
