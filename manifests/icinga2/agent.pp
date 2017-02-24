@@ -1,9 +1,9 @@
 # Icinga2 agent configuration
 class profile::icinga2::agent {
-  $zones = hiera('icinga2::zones')
-  $endpoints = hiera('icinga2::endpoints')
-  $accept_config = hiera('icinga2::accept_config')
   $features = hiera('icinga2::features')
+  $icinga2_network = hiera('icinga2::network')
+  $parent_zone = hiera('icinga2::parent_zone')
+  $parent_endpoints = hiera('icinga2::parent_endpoints')
 
   include profile::icinga2::apt_config
 
@@ -12,11 +12,35 @@ class profile::icinga2::agent {
     features => $features,
   }
 
-  class { 'icinga2::feature::api':
-    accept_config   => $accept_config,
+  class { '::icinga2::feature::api':
+    accept_config   => true,
     accept_commands => true,
-    endpoints       => $endpoints,
-    zones           => $zones,
+    endpoints       => {},
+    zones           => {
+      ZoneName => {
+        endpoints => ['NodeName'],
+        parent    => $parent_zone,
+      },
+    },
+  }
+
+  create_resources('::icinga2::object::endpoint', $parent_endpoints)
+  ::icinga2::object::zone {$parent_zone:
+    endpoints => $parent_endpoints,
+  }
+
+  @@::icinga2::object::endpoint {$::fqdn:
+    target => "/etc/icinga2/zones.d/${::fqdn}.conf",
+  }
+
+  @@::icinga2::object::zone {$::fqdn:
+    endpoints => [$::fqdn],
+    target    => "/etc/icinga2/zones.d/${::fqdn}.conf",
+  }
+
+  @@::icinga2::object::host {$::fqdn:
+    address => ip_for_network($icinga2_network),
+    target  => "/etc/icinga2/zones.d/${::fqdn}.conf",
   }
 
   icinga2::object::zone { 'global-templates':
