@@ -26,7 +26,7 @@ class profile::icinga2::agent {
 
   create_resources('::icinga2::object::endpoint', $parent_endpoints)
   ::icinga2::object::zone {$parent_zone:
-    endpoints => $parent_endpoints,
+    endpoints => keys($parent_endpoints),
   }
 
   @@::icinga2::object::endpoint {$::fqdn:
