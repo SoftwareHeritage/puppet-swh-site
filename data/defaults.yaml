@@ -97,6 +97,9 @@ packages::desktop:
   - scrot
   - libx11-dev
   - autojump
+  - ethtool
+  - net-tools
+  - tcpdump
 
 packages::devel:
   - arcanist
