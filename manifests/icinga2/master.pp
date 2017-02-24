@@ -23,7 +23,7 @@ class profile::icinga2::master {
   }
 
   @@::icinga2::object::zone {$zonename:
-    endpoints => [$::fqdn],
+    endpoints => [$::fqdn, $::fqdn],
     target    => "/etc/icinga2/zones.d/${::fqdn}.conf",
   }
 

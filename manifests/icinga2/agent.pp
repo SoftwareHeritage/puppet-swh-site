@@ -33,7 +33,7 @@ class profile::icinga2::agent {
   }
 
   @@::icinga2::object::zone {$::fqdn:
-    endpoints => [$::fqdn],
+    endpoints => [$::fqdn, $::fqdn],
     parent    => $parent_zone,
     target    => "/etc/icinga2/zones.d/${::fqdn}.conf",
   }
