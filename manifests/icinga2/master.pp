@@ -16,8 +16,6 @@ class profile::icinga2::master {
 
   class { '::icinga2::feature::api':
     accept_commands => true,
-    endpoints       => {},
-    zones           => {},
   }
 
   @@::icinga2::object::endpoint {$::fqdn:

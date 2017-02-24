@@ -15,7 +15,6 @@ class profile::icinga2::agent {
   class { '::icinga2::feature::api':
     accept_config   => true,
     accept_commands => true,
-    endpoints       => {},
     zones           => {
       'ZoneName' => {
         endpoints => ['NodeName'],
