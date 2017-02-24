@@ -17,7 +17,7 @@ class profile::icinga2::agent {
     accept_commands => true,
     endpoints       => {},
     zones           => {
-      ZoneName => {
+      'ZoneName' => {
         endpoints => ['NodeName'],
         parent    => $parent_zone,
       },
