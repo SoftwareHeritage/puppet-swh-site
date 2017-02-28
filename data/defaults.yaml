@@ -911,6 +911,27 @@ swh::deploy::storage_listener::kafka_brokers:
   - getty.internal.softwareheritage.org
 swh::deploy::storage_listener::poll_timeout: 10
 
+swh::deploy::journal_publisher::conf_directory: "%{hiera('swh::conf_directory')}/journal"
+swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal_publisher::conf_directory')}/publisher.yml"
+swh::deploy::journal_publisher::user: swhstorage
+swh::deploy::journal_publisher::group: swhstorage
+swh::deploy::journal_publisher::config:
+  brokers:
+    - getty.internal.softwareheritage.org
+  temporary_prefix: swh.tmp_journal.new
+  final_prefix: swh.journal.test_publisher
+  consumer_id: swh.journal.publisher.test
+  publisher_id: swh.journal.publisher.test
+  object_types:
+    - content
+    - revision
+    - release
+  max_messages: 1000
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
+
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
