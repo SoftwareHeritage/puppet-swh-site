@@ -932,6 +932,21 @@ swh::deploy::journal_publisher::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
 
+swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/content_updater.yml"
+swh::deploy::archiver_content_updater::user: swhstorage
+swh::deploy::archiver_content_updater::group: swhstorage
+swh::deploy::archiver_content_updater::config:
+  brokers:
+    - getty.internal.softwareheritage.org
+  auto_offset_reset: earliest
+  topic_prefix: swh.journal.test_publisher
+  consumer_identifier: swh.journal.archiver.content.updater
+  object_types:
+    - content
+  archiver_storage_conn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+  sources_present:
+    - uffizi
+
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
