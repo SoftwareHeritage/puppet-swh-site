@@ -987,7 +987,10 @@ swh::deploy::objstorage_archive_notifier_checker::config:
   batch_size: 1000
   log_tag: objstorage.checker.archive_notifier
   storage_name: this-must-be-overriden-on-a-per-host-basis
-  dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+  archiver_storage:
+    cls: db
+    args:
+      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
 
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
@@ -1184,7 +1187,10 @@ swh::deploy::worker::swh_storage_archiver::config:
   archival_max_age: "%{hiera('swh::deploy::worker::swh_storage_archiver::archival_max_age')}"
   retention_policy: "%{hiera('swh::deploy::worker::swh_storage_archiver::retention_policy')}"
   batch_max_size: "%{hiera('swh::deploy::worker::swh_storage_archiver::batch_max_size')}"
-  dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+  archiver_storage:
+    cls: db
+    args:
+      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
 
 
 swh::deploy::worker::swh_storage_archiver_azure::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker-to-backend.yml"
@@ -1197,7 +1203,10 @@ swh::deploy::worker::swh_storage_archiver_azure::config:
   source: uffizi
   destination: azure
   force_copy: false
-  dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+  archiver_storage:
+    cls: db
+    args:
+      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
   next_task:
     queue: swh.indexer.tasks.SWHOrchestratorAllContentsTask
     batch_size: 10
