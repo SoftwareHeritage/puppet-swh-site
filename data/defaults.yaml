@@ -1066,7 +1066,7 @@ swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
 
-swh::deploy::worker::swh_loader_git::concurrency: 6
+swh::deploy::worker::swh_loader_git::concurrency: 4
 swh::deploy::worker::swh_loader_git::loglevel: info
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git::config:
@@ -1076,6 +1076,7 @@ swh::deploy::worker::swh_loader_git::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
+  directory_packet_size: 100
 
 swh::deploy::worker::swh_loader_git_disk::concurrency: 1
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
