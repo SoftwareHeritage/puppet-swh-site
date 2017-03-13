@@ -68,38 +68,38 @@ locales::installed_locales:
 
 packages:
   - etckeeper
+  - git
   - htop
   - molly-guard
   - moreutils
   - ncdu
-  - vim
-  - zsh
-  - git
   - python3
   - tmux
+  - vim
+  - zsh
 
 packages::desktop:
-  - gnome
+  - autojump
   - chromium
-  - emacs
-  - myrepos
   - curl
-  - tree
-  - screen
-  - weechat
-  - weechat-scripts
-  - rxvt-unicode-256color
-  - mosh
+  - emacs
+  - ethtool
+  - gnome
   - i3
   - ii
-  - ruby-dev
-  - vim-nox
-  - scrot
   - libx11-dev
-  - autojump
-  - ethtool
+  - mosh
+  - myrepos
   - net-tools
+  - ruby-dev
+  - rxvt-unicode-256color
+  - screen
+  - scrot
   - tcpdump
+  - tree
+  - vim-nox
+  - weechat
+  - weechat-scripts
 
 packages::devel:
   - arcanist
@@ -114,21 +114,27 @@ packages::devel:
 packages::devel::debian:
   - devscripts
   - dpkg-dev
-  - sbuild
   - reprepro
+  - sbuild
 
 packages::devel::python:
   - graphviz
   - make
   - python3-arrow
+  - python3-azure-storage
   - python3-blinker
   - python3-celery
   - python3-cffi
+  - python3-click
   - python3-dateutil
+  - python3-dev
+  - python3-dulwich
   - python3-flake8
   - python3-flask
   - python3-flask-api
+  - python3-flask-limiter
   - python3-flask-testing
+  - python3-libcloud
   - python3-msgpack
   - python3-nose
   - python3-psycopg2
@@ -136,16 +142,10 @@ packages::devel::python:
   - python3-requests
   - python3-retrying
   - python3-sphinx
-  - python3-vcversioner
-  - python3-click
-  - python3-dulwich
   - python3-subvertpy
-  - python3-libcloud
-  - python3-azure-storage
-  - python3-flask-limiter
+  - python3-vcversioner
   - python3-venv
   - python3-wheel
-  - python3-dev
 
 packages::devel::broker:
   - rabbitmq-server
@@ -154,13 +154,13 @@ packages::devel::postgres:
   - apgdiff
   - barman
   - check-postgres
+  - libpq-dev
   - postgresql
   - postgresql-autodoc
   - postgresql-client
   - postgresql-contrib
   - postgresql-doc
   - postgresql-plpython3-9.6
-  - libpq-dev
 
 users:
   root:
