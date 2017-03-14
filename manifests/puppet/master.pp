@@ -2,6 +2,8 @@
 class profile::puppet::master {
   $puppetmaster = hiera('puppet::master::hostname')
 
+  include profile::puppet::apt_config
+
   class { '::puppet':
     server                      => true,
     server_parser               => 'future',

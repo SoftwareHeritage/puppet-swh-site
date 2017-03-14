@@ -2,6 +2,8 @@
 class profile::puppet::agent {
   $puppetmaster = hiera('puppet::master::hostname')
 
+  include profile::puppet::apt_config
+
   class { '::puppet':
     runmode      => 'none',
     pluginsync   => true,
