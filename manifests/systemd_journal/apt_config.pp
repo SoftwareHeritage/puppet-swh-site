@@ -18,9 +18,6 @@ class profile::systemd_journal::apt_config {
       codename    => 'jessie-backports',
       packages    => $pinned_packages,
       priority    => 990,
-    } ->
-    package {'systemd':
-      ensure => latest,
     }
   }
 }

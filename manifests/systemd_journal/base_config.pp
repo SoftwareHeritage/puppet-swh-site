@@ -12,6 +12,5 @@ class profile::systemd_journal::base_config {
     command     => 'systemd-tmpfiles --create --prefix /var/log/journal',
     path        => ['/sbin', '/usr/sbin'],
     refreshonly => true,
-    require     => Package['systemd'],
   }
 }
