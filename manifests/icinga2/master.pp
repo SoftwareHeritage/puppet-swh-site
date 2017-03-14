@@ -21,7 +21,7 @@ class profile::icinga2::master {
   }
 
   class {'::icinga2':
-    confd     => false,
+    confd     => true,
     features  => $features,
     constants => {
       'ZoneName' => $zonename,
