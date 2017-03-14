@@ -852,6 +852,7 @@ annex::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 ssh::port: 22
+ssh::permitrootlogin: without-password
 
 swh::base_directory: /srv/softwareheritage
 swh::conf_directory: /etc/softwareheritage
