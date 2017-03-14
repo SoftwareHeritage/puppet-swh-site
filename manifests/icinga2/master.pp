@@ -51,8 +51,6 @@ class profile::icinga2::master {
     target    => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
-  $icinga2_host_vars = hiera('icinga2::host::vars')
-
   @@::icinga2::object::host {$::fqdn:
     address       => ip_for_network($icinga2_network),
     display_name  => $::fqdn,
