@@ -1078,7 +1078,6 @@ swh::deploy::webapp::config:
 swh::deploy::webapp::locked_endpoints:
   - /browse/
   - /api/1/content/[^/]+/symbol/
-  - /api/1/content/[^/]+/raw/
   - /api/1/entity/
   - /api/1/provenance/
   - /api/1/revision/origin/.*/directory/
