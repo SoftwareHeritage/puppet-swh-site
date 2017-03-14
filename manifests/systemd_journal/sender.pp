@@ -10,6 +10,7 @@ class profile::systemd_journal::sender {
   $service = 'systemd-journal-upload'
   $dropin_dir = "/etc/systemd/system/${service}.service.d"
   $unbound_dropin = "${dropin_dir}/unbound.conf"
+  $restart_dropin = "${dropin_dir}/restart.conf"
 
   $keydir = '/etc/ssl/journal-upload'
   $server_key_file = "${keydir}/journal-upload.key"
@@ -25,7 +26,7 @@ class profile::systemd_journal::sender {
     enable  => true,
     require => [
       Package['systemd-journal-remote'],
-      File[$unbound_dropin],
+      File[$unbound_dropin, $restart_dropin],
       Exec['systemd-daemon-reload'],
     ],
   }
@@ -43,6 +44,15 @@ class profile::systemd_journal::sender {
     group   => 'root',
     mode    => '0644',
     content => "[Unit]\nAfter=unbound.service\n",
+    notify  => Exec['systemd-daemon-reload'],
+  }
+
+  file {$restart_dropin:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => "[Service]\nRestart=always\nRestartSec=1\n",
     notify  => Exec['systemd-daemon-reload'],
   }
 
