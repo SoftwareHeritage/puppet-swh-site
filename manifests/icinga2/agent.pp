@@ -7,8 +7,6 @@ class profile::icinga2::agent {
   $parent_zone = hiera('icinga2::parent_zone')
   $parent_endpoints = hiera('icinga2::parent_endpoints')
 
-  include profile::icinga2::apt_config
-
   class {'::icinga2':
     confd    => false,
     features => $features,

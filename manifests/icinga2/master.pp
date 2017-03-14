@@ -10,7 +10,6 @@ class profile::icinga2::master {
   $icinga2_db_password = hiera('icinga2::master::db::password')
   $icinga2_db_database = hiera('icinga2::master::db::database')
 
-  include profile::icinga2::apt_config
   include profile::icinga2::objects
 
   include ::postgresql::server
