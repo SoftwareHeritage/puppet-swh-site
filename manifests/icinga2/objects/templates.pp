@@ -6,7 +6,7 @@ class profile::icinga2::objects::templates {
     check_interval     => '1m',
     retry_interval     => '30s',
     check_command      => 'hostalive',
-    target             => '/etc/icinga/conf.d/templates.conf',
+    target             => '/etc/icinga2/conf.d/templates.conf',
   }
 
   ::icinga2::object::service {'generic-service':
@@ -14,12 +14,12 @@ class profile::icinga2::objects::templates {
     max_check_attempts => 5,
     check_interval     => '1m',
     retry_interval     => '30s',
-    target             => '/etc/icinga/conf.d/templates.conf',
+    target             => '/etc/icinga2/conf.d/templates.conf',
   }
 
   ::icinga2::object::user {'generic-user':
     template => true,
-    target   => '/etc/icinga/conf.d/templates.conf',
+    target   => '/etc/icinga2/conf.d/templates.conf',
   }
 
   ::icinga2::object::notification {'mail-host-notification':
@@ -31,7 +31,7 @@ class profile::icinga2::objects::templates {
       'FlappingEnd', 'DowntimeStart', 'DowntimeEnd', 'DowntimeRemoved',
     ],
     period   => '24x7',
-    target   => '/etc/icinga/conf.d/templates.conf',
+    target   => '/etc/icinga2/conf.d/templates.conf',
   }
 
   ::icinga2::object::notification {'mail-service-notification':
@@ -43,6 +43,6 @@ class profile::icinga2::objects::templates {
       'FlappingEnd', 'DowntimeStart', 'DowntimeEnd', 'DowntimeRemoved',
     ],
     period   => '24x7',
-    target   => '/etc/icinga/conf.d/templates.conf',
+    target   => '/etc/icinga2/conf.d/templates.conf',
   }
 }
