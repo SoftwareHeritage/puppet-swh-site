@@ -4,8 +4,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::munin::master
   include profile::munin::stats_export
 
-  include profile::icinga2::master
-
   #include profile::puppet::agent
   #include profile::puppet::master
   include profile::apache::simple_server
