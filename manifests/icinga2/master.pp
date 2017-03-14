@@ -39,17 +39,17 @@ class profile::icinga2::master {
   }
 
   @@::icinga2::object::endpoint {$::fqdn:
-    target => "/etc/icinga2/zones.d/${::fqdn}.conf",
+    target => "/etc/icinga2/conf.d/${::fqdn}.conf",
   }
 
   @@::icinga2::object::zone {$zonename:
     endpoints => [$::fqdn],
-    target    => "/etc/icinga2/zones.d/${::fqdn}.conf",
+    target    => "/etc/icinga2/conf.d/${::fqdn}.conf",
   }
 
   @@::icinga2::object::host {$::fqdn:
     address => ip_for_network($icinga2_network),
-    target  => "/etc/icinga2/zones.d/${::fqdn}.conf",
+    target  => "/etc/icinga2/conf.d/${::fqdn}.conf",
   }
 
   ::Icinga2::Object::Host <<| |>>
