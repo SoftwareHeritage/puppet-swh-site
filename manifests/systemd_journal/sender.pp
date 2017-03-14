@@ -20,7 +20,7 @@ class profile::systemd_journal::sender {
     ensure => installed,
   }
 
-  service {'systemd-journal-upload':
+  service {$service:
     ensure  => running,
     enable  => true,
     require => [

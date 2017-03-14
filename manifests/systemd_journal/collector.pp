@@ -1,6 +1,6 @@
 # Configure a server to collect journal files sent by remote systems
 class profile::systemd_journal::collector {
-  $service = 'systemd-journal-remote'
+  $service = 'systemd-journal-remote.socket'
 
   $config_file = '/etc/systemd/system/journal-remote.conf'
 
@@ -13,7 +13,7 @@ class profile::systemd_journal::collector {
     ensure => installed,
   }
 
-  service {'systemd-journal-upload':
+  service {$service:
     ensure  => running,
     enable  => true,
     require => [
