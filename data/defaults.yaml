@@ -177,6 +177,7 @@ users:
     full_name: Stefano Zacchiroli
     shell: /usr/bin/zsh
     groups:
+      - adm
       - swhdev
       - swhstorage
       - swhscheduler
@@ -193,6 +194,7 @@ users:
     full_name: Nicolas Dandrimont
     shell: /bin/bash
     groups:
+      - adm
       - swhdev
       - swhstorage
       - swhscheduler
@@ -209,6 +211,7 @@ users:
     full_name: Antoine R. Dumont
     shell: /usr/bin/zsh
     groups:
+      - adm
       - swhdev
       - swhstorage
       - swhscheduler
@@ -327,6 +330,8 @@ users:
         key: AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E
 
 groups:
+  adm:
+    gid: 4 # assigned from base-files
   zack:
     gid: 1000
   olasd:
