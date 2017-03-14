@@ -10,7 +10,7 @@ class profile::systemd_journal::base_config {
 
   exec {'systemd_journal-tmpdir':
     command     => 'systemd-tmpfiles --create --prefix /var/log/journal',
-    path        => ['/sbin', '/usr/sbin'],
+    path        => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
     refreshonly => true,
   }
 }
