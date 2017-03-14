@@ -2137,6 +2137,9 @@ icinga2::features:
   - checker
   - mainlog
 
+systemd_journal::role: sender
+systemd_journal::upload_url: https://pergamon.internal.softwareheritage.org:19532
+
 redis::server::bind: 127.0.0.1
 redis::server::port: 6379
 # redis::server::password in private data

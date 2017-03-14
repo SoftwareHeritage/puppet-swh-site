@@ -32,3 +32,5 @@ icinga2::features:
   - statusdata
   - compatlog
   - command
+
+systemd_journal::role: collector
