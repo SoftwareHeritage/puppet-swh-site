@@ -2127,6 +2127,8 @@ icinga2::apt_config::key: |
   -----END PGP PUBLIC KEY BLOCK-----
 
 
+icinga2::role: agent
+
 icinga2::master::zonename: master
 icinga2::master::db::username: icinga2
 # icinga2::master::db::password in private data
