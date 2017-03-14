@@ -2,6 +2,8 @@
 class profile::icinga2::agent {
   $features = hiera('icinga2::features')
   $icinga2_network = hiera('icinga2::network')
+  $icinga2_host_vars = hiera_hash('icinga2::host::vars')
+
   $parent_zone = hiera('icinga2::parent_zone')
   $parent_endpoints = hiera('icinga2::parent_endpoints')
 
@@ -39,8 +41,11 @@ class profile::icinga2::agent {
   }
 
   @@::icinga2::object::host {$::fqdn:
-    address => ip_for_network($icinga2_network),
-    target  => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    address       => ip_for_network($icinga2_network),
+    display_name  => $::fqdn,
+    check_command => 'hostalive',
+    vars          => $icinga2_host_vars,
+    target        => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 
   icinga2::object::zone { 'global-templates':

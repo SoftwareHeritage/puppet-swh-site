@@ -4,6 +4,8 @@ class profile::icinga2::master {
   $features = hiera('icinga2::features')
   $icinga2_network = hiera('icinga2::network')
 
+  $icinga2_host_vars = hiera_hash('icinga2::host::vars')
+
   $icinga2_db_username = hiera('icinga2::master::db::username')
   $icinga2_db_password = hiera('icinga2::master::db::password')
   $icinga2_db_database = hiera('icinga2::master::db::database')
@@ -49,9 +51,14 @@ class profile::icinga2::master {
     target    => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
+  $icinga2_host_vars = hiera('icinga2::host::vars')
+
   @@::icinga2::object::host {$::fqdn:
-    address => ip_for_network($icinga2_network),
-    target  => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    address       => ip_for_network($icinga2_network),
+    display_name  => $::fqdn,
+    check_command => 'hostalive',
+    vars          => $icinga2_host_vars,
+    target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
   ::Icinga2::Object::Host <<| |>>
