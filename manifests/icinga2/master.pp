@@ -24,11 +24,11 @@ class profile::icinga2::master {
     constants => {
       'ZoneName' => $zonename,
     },
-    zones     => {},
   }
 
   class { '::icinga2::feature::api':
     accept_commands => true,
+    zones           => {},
   }
 
   class { '::icinga2::feature::idopgsql':
