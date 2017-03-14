@@ -88,7 +88,7 @@ class profile::systemd_journal::sender {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('profile/systemd_journal/journal-remote.conf.erb'),
+    content => template('profile/systemd_journal/journal-upload.conf.erb'),
     require => [
       Package['systemd-journal-remote'],
       File[$server_key_file, $server_ca_file, $server_certificate_file],
