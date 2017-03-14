@@ -2,6 +2,7 @@
 class profile::systemd_journal::apt_config {
   if $::lsbdistcodename == 'jessie' {
     $pinned_packages = [
+      'apparmor',
       'ifupdown',
       'libapparmor1',
       'libseccomp2',
@@ -9,7 +10,7 @@ class profile::systemd_journal::apt_config {
       'libudev1',
       'systemd',
       'systemd-journal-remote',
-    'systemd-sysv',
+      'systemd-sysv',
       'udev',
     ]
 
