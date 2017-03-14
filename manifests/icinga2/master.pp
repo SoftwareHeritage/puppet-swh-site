@@ -74,9 +74,17 @@ class profile::icinga2::master {
     ensure => directory,
     owner  => 'nagios',
     group  => 'nagios',
-    mode   => '0750',
+    mode   => '0755',
     tag    => 'icinga2::config::file',
   }
 
-
+  file {'/etc/icinga2/conf.d':
+    ensure  => directory,
+    owner   => 'nagios',
+    group   => 'nagios',
+    mode    => '0755',
+    purge   => true,
+    recurse => true,
+    tag     => 'icinga2::config::file',
+  }
 }
