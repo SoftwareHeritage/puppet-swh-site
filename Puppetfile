@@ -57,7 +57,7 @@ mod 'icinga2',
 
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
-    :ref => '0be877447057ee8f84f11f1d13e5b37495418790'
+    :ref => 'fix-versioncmp'
 
 mod 'locales',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPLOC/saz-locales.git',
