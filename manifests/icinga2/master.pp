@@ -5,6 +5,7 @@ class profile::icinga2::master {
   $icinga2_network = hiera('icinga2::network')
 
   include profile::icinga2::apt_config
+  include profile::icinga2::objects
 
   class {'::icinga2':
     confd     => false,
