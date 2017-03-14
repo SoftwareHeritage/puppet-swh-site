@@ -83,6 +83,10 @@ mod 'php',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPHP/thias-php.git',
     :ref => '1.2.0'
 
+mod 'postgresql',
+    :git => 'git@forge.softwareheritage.org:/diffusion/SPPG/puppetlabs-postgresql.git',
+    :ref => '4.9.0'
+
 mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
     :ref => '6.0.0'
