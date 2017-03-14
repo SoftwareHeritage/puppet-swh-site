@@ -29,6 +29,7 @@ class profile::icinga2::master {
   class { '::icinga2::feature::api':
     accept_commands => true,
     zones           => {},
+    endpoints       => {},
   }
 
   class { '::icinga2::feature::idopgsql':
