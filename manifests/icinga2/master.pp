@@ -24,6 +24,7 @@ class profile::icinga2::master {
     constants => {
       'ZoneName' => $zonename,
     },
+    zones     => {},
   }
 
   class { '::icinga2::feature::api':
@@ -39,17 +40,17 @@ class profile::icinga2::master {
   }
 
   @@::icinga2::object::endpoint {$::fqdn:
-    target => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
   @@::icinga2::object::zone {$zonename:
     endpoints => [$::fqdn],
-    target    => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target    => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
   @@::icinga2::object::host {$::fqdn:
     address => ip_for_network($icinga2_network),
-    target  => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target  => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
   ::Icinga2::Object::Host <<| |>>
@@ -59,4 +60,17 @@ class profile::icinga2::master {
   ::icinga2::object::zone { 'global-templates':
     global => true,
   }
+
+  file {[
+    '/etc/icinga2/zones.d/global-templates',
+    "/etc/icinga2/zones.d/${zonename}",
+  ]:
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'nagios',
+    mode   => '0750',
+    tag    => 'icinga2::config::file',
+  }
+
+
 }

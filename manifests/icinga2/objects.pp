@@ -1,13 +1,5 @@
 # Icinga2 object definitions
 class profile::icinga2::objects {
-  file {'/etc/icinga2/zones.d/global-templates':
-    ensure => directory,
-    owner  => 'nagios',
-    group  => 'nagios',
-    mode   => '0750',
-    tag    => 'icinga2::config::file',
-  }
-
   ::icinga2::object::service { 'ping4':
     import        => ['generic-service'],
     apply         => true,

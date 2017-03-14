@@ -29,18 +29,18 @@ class profile::icinga2::agent {
   }
 
   @@::icinga2::object::endpoint {$::fqdn:
-    target => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 
   @@::icinga2::object::zone {$::fqdn:
     endpoints => [$::fqdn],
     parent    => $parent_zone,
-    target    => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 
   @@::icinga2::object::host {$::fqdn:
     address => ip_for_network($icinga2_network),
-    target  => "/etc/icinga2/conf.d/${::fqdn}.conf",
+    target  => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 
   icinga2::object::zone { 'global-templates':
