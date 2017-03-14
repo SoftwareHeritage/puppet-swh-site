@@ -37,7 +37,7 @@ class profile::icinga2::objects::templates {
   ::icinga2::object::notification {'mail-service-notification':
     template => true,
     command  => 'mail-service-notification',
-    states   => ['Ok', 'Warning', 'Critical', 'Unknown' ],
+    states   => ['OK', 'Warning', 'Critical', 'Unknown' ],
     types    => [
       'Problem', 'Acknowledgement', 'Recovery', 'Custom', 'FlappingStart',
       'FlappingEnd', 'DowntimeStart', 'DowntimeEnd', 'DowntimeRemoved',
