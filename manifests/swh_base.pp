@@ -5,6 +5,8 @@ class role::swh_base {
   include profile::systemd_journal
   include profile::resolv_conf
   include profile::munin::node
+  include profile::icinga2::agent
+
 
   include profile::swh
 }
