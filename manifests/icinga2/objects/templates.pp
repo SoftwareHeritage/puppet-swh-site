@@ -26,9 +26,10 @@ class profile::icinga2::objects::templates {
     template => true,
     command  => 'mail-host-notification',
     states   => ['Up', 'Down'],
-    types    => ['Problem', 'Acknowledgement', 'Recovery', 'Custom',
-                 'FlappingStart', 'FlappingEnd', 'DowntimeStart', 'DowntimeEnd',
-                 'DowntimeRemoved' ],
+    types    => [
+      'Problem', 'Acknowledgement', 'Recovery', 'Custom', 'FlappingStart',
+      'FlappingEnd', 'DowntimeStart', 'DowntimeEnd', 'DowntimeRemoved',
+    ],
     period   => '24x7',
     target   => '/etc/icinga/conf.d/templates.conf',
   }
@@ -37,9 +38,10 @@ class profile::icinga2::objects::templates {
     template => true,
     command  => 'mail-service-notification',
     states   => ['Ok', 'Warning', 'Critical', 'Unknown' ],
-    types    => ['Problem', 'Acknowledgement', 'Recovery', 'Custom',
-                 'FlappingStart', 'FlappingEnd', 'DowntimeStart', 'DowntimeEnd',
-                 'DowntimeRemoved' ],
+    types    => [
+      'Problem', 'Acknowledgement', 'Recovery', 'Custom', 'FlappingStart',
+      'FlappingEnd', 'DowntimeStart', 'DowntimeEnd', 'DowntimeRemoved',
+    ],
     period   => '24x7',
     target   => '/etc/icinga/conf.d/templates.conf',
   }
