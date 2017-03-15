@@ -1130,6 +1130,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
+  directory_packet_size: 100
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::loglevel: info
