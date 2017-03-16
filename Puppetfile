@@ -53,7 +53,7 @@ mod 'extlib',
 
 mod 'icinga2',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPICI/icinga-icinga2.git',
-    :ref => 'v1.1.0'
+    :ref => 'v1.2.0'
 
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
