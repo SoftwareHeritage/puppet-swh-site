@@ -29,4 +29,12 @@ class profile::icinga2::objects::common_checks {
     ignore           => ['host.vars.noagent'],
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
+
+  ::icinga2::object::service {'linux-ssh':
+    import        => ['generic-service'],
+    apply         => true,
+    check_command => 'ssh',
+    assign        => ['host.vars.os == Linux'],
+    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
 }
