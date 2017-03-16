@@ -4,9 +4,10 @@ class profile::icinga2::objects::static_checks {
   $checks_file = '/etc/icinga2/conf.d/static-checks.conf'
 
   ::icinga2::object::host {'www.softwareheritage.org':
-    import  => ['generic-host'],
-    address => 'www.softwareheritage.org',
-    target  => $checks_file,
+    import        => ['generic-host'],
+    check_command => 'hostalive4',
+    address       => 'www.softwareheritage.org',
+    target        => $checks_file,
   }
 
   ::icinga2::object::service {'Software Heritage Homepage':
