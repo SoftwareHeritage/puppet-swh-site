@@ -4,10 +4,35 @@ begin
   require 'filesystem'
 
 	Facter.add("mounts") do
-		ignorefs = ["NFS", "nfs", "nfs4", "nfsd", "afs", "binfmt_misc", "proc", "smbfs", 
-			    "autofs", "iso9660", "ncpfs", "coda", "devpts", "ftpfs", "devfs", 
-			    "mfs", "shfs", "sysfs", "cifs", "lustre_lite", "tmpfs", "usbfs", "udf",
-			    "fusectl", "fuse.snapshotfs", "rpc_pipefs", "devtmpfs"]
+		ignorefs = [
+      "NFS",
+      "afs",
+      "autofs",
+      "binfmt_misc",
+      "cifs",
+      "coda",
+      "devfs",
+      "devpts",
+      "devtmpfs",
+      "ftpfs",
+      "fuse.snapshotfs",
+      "fusectl",
+      "iso9660",
+      "lustre_lite",
+      "mfs",
+      "ncpfs",
+      "nfs",
+      "nfs4",
+      "nfsd",
+      "proc",
+      "rpc_pipefs",
+      "shfs",
+      "smbfs",
+      "sysfs",
+      "tmpfs",
+      "udf",
+      "usbfs",
+    ]
 		mountpoints = []
 		FileSystem.mounts.each do |m|
 			if ((not ignorefs.include?(m.fstype)) && (m.options !~ /bind/))
@@ -19,5 +44,5 @@ begin
 		end
 	end
 
-rescue Exception => e
+rescue Exception => _
 end
