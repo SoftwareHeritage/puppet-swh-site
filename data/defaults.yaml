@@ -74,6 +74,7 @@ packages:
   - moreutils
   - ncdu
   - python3
+  - ruby-filesystem
   - strace
   - tmux
   - vim
