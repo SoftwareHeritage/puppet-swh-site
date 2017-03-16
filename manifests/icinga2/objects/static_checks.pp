@@ -9,16 +9,16 @@ class profile::icinga2::objects::static_checks {
   }
 
   ::icinga2::object::service {'Software Heritage Homepage':
-    import    => ['generic-service'],
-    host_name => 'www.softwareheritage.org',
-    command   => 'http',
-    vars      => {
+    import        => ['generic-service'],
+    host_name     => 'www.softwareheritage.org',
+    check_command => 'http',
+    target        => $checks_file,
+    vars          => {
       http_vhost  => 'www.softwareheritage.org',
       http_uri    => '/',
       http_ssl    => true,
       http_sni    => true,
       http_string => '<title>Software Heritage</title>',
     },
-    target    => $checks_file,
   }
 }
