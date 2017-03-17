@@ -3,7 +3,7 @@ class profile::icinga2::objects::common_checks {
   ::icinga2::object::service {'ping4':
     import        => ['generic-service'],
     apply         => true,
-    check_command => 'ping',
+    check_command => 'ping4',
     assign        => ['host.address'],
     target        => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
