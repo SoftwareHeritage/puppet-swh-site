@@ -6,3 +6,6 @@ smtp::mynetworks:
 
 # needed for proxmox-ve
 ssh::permitrootlogin: "yes"
+
+dar::backup::exclude:
+  - srv/containers
