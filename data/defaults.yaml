@@ -926,7 +926,7 @@ swh::deploy::journal_publisher::config:
   brokers:
     - getty.internal.softwareheritage.org
   temporary_prefix: swh.tmp_journal.new
-  final_prefix: swh.journal.test_publisher
+  final_prefix: swh.journal.objects
   consumer_id: swh.journal.publisher.test
   publisher_id: swh.journal.publisher.test
   object_types:
@@ -946,7 +946,7 @@ swh::deploy::archiver_content_updater::config:
   brokers:
     - getty.internal.softwareheritage.org
   auto_offset_reset: earliest
-  topic_prefix: swh.journal.test_publisher
+  topic_prefix: swh.journal.objects
   consumer_identifier: swh.journal.archiver.content.updater
   object_types:
     - content
