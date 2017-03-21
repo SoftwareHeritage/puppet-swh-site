@@ -8,6 +8,8 @@ class profile::systemd_journal::apt_config {
       'libseccomp2',
       'libsystemd0',
       'libudev1',
+      'python-systemd',
+      'python3-systemd',
       'systemd',
       'systemd-journal-remote',
       'systemd-sysv',
