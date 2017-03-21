@@ -24,6 +24,7 @@ apache::mpm_module: prefork
 
 dar::backup::exclude:
   - srv/softwareheritage/annex/annexroot
+  - var/log
 
 icinga2::role: master
 
