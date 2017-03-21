@@ -70,11 +70,13 @@ class profile::icinga2::master {
     '/etc/icinga2/zones.d/global-templates',
     "/etc/icinga2/zones.d/${zonename}",
   ]:
-    ensure => directory,
-    owner  => 'nagios',
-    group  => 'nagios',
-    mode   => '0755',
-    tag    => 'icinga2::config::file',
+    ensure  => directory,
+    owner   => 'nagios',
+    group   => 'nagios',
+    mode    => '0755',
+    tag     => 'icinga2::config::file',
+    recurse => true,
+    purge   => true,
   }
 
   file {'/etc/icinga2/conf.d':
