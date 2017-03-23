@@ -1,19 +1,19 @@
-# Deployment of the swh.journal.publisher
+# Deployment of the swh.journal.checker
 
-class profile::swh::deploy::journal_publisher {
+class profile::swh::deploy::journal_simple_checker_producer {
   include ::profile::swh::deploy::journal
 
-  $conf_file = hiera('swh::deploy::journal_publisher::conf_file')
-  $user = hiera('swh::deploy::journal_publisher::user')
-  $group = hiera('swh::deploy::journal_publisher::group')
+  $conf_file = hiera('swh::deploy::journal_simple_checker_producer::conf_file')
+  $user = hiera('swh::deploy::journal_simple_checker_producer::user')
+  $group = hiera('swh::deploy::journal_simple_checker_producer::group')
 
-  $publisher_config = hiera('swh::deploy::journal_publisher::config')
+  $checker_config = hiera(
+    'swh::deploy::journal_simple_checker_producer::config')
 
   include ::systemd
 
-  $service_name = 'swh-journal-publisher'
+  $service_name = 'swh-journal-simple-checker-producer'
   $service_file = "/etc/systemd/system/${service_name}.service"
-
 
   file {$conf_directory:
     ensure => directory,
@@ -28,7 +28,7 @@ class profile::swh::deploy::journal_publisher {
     group   => $group,
     mode    => '0640',
     require => File[$conf_directory],
-    content => inline_template('<%= @publisher_config.to_yaml %>'),
+    content => inline_template('<%= @checker_config.to_yaml %>'),
     notify  => Service[$service_name],
   }
 
@@ -41,7 +41,7 @@ class profile::swh::deploy::journal_publisher {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('profile/swh/deploy/journal/swh-journal-publisher.service.erb'),
+    content => template('profile/swh/deploy/journal/swh-journal-simple-checker-producer.service.erb'),
     require => Package[$package_name],
     notify  => [
       Exec['systemd-daemon-reload'],
