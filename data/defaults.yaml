@@ -918,7 +918,9 @@ swh::deploy::storage_listener::kafka_brokers:
   - getty.internal.softwareheritage.org
 swh::deploy::storage_listener::poll_timeout: 10
 
-swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal_publisher::conf_directory')}/publisher.yml"
+swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
+
+swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/publisher.yml"
 swh::deploy::journal_publisher::user: swhstorage
 swh::deploy::journal_publisher::group: swhstorage
 swh::deploy::journal_publisher::config:
