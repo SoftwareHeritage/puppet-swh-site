@@ -918,7 +918,6 @@ swh::deploy::storage_listener::kafka_brokers:
   - getty.internal.softwareheritage.org
 swh::deploy::storage_listener::poll_timeout: 10
 
-swh::deploy::journal_publisher::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal_publisher::conf_directory')}/publisher.yml"
 swh::deploy::journal_publisher::user: swhstorage
 swh::deploy::journal_publisher::group: swhstorage
@@ -927,8 +926,8 @@ swh::deploy::journal_publisher::config:
     - getty.internal.softwareheritage.org
   temporary_prefix: swh.tmp_journal.new
   final_prefix: swh.journal.objects
-  consumer_id: swh.journal.publisher.test
-  publisher_id: swh.journal.publisher.test
+  consumer_id: swh.journal.publisher
+  publisher_id: swh.journal.publisher
   object_types:
     - content
     - revision
