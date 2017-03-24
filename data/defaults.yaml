@@ -946,7 +946,7 @@ swh::deploy::archiver_content_updater::config:
     - getty.internal.softwareheritage.org
   auto_offset_reset: earliest
   topic_prefix: swh.journal.objects
-  consumer_identifier: swh.journal.archiver.content.updater
+  consumer_id: swh.journal.archiver.content.updater
   object_types:
     - content
   archiver_storage:
