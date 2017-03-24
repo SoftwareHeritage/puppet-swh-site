@@ -940,6 +940,22 @@ swh::deploy::journal_publisher::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
 
+swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
+swh::deploy::journal_simple_checker_producer::user: swhstorage
+swh::deploy::journal_simple_checker_producer::group: swhstorage
+swh::deploy::journal_simple_checker_producer::config:
+  brokers:
+    - getty.internal.softwareheritage.org
+  temporary_prefix: swh.tmp_journal.new
+  storage_dbconn: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+  object_types:
+    - content
+    - directory
+    - revision
+    - release
+    - origin
+    - origin_visit
+
 swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/content_updater.yml"
 swh::deploy::archiver_content_updater::user: swhstorage
 swh::deploy::archiver_content_updater::group: swhstorage
