@@ -3,3 +3,11 @@ dns::forwarders:
   - 128.93.77.234
 
 smtp::relayhost: '[smtp.inria.fr]'
+
+users:
+  seirl:
+    groups:
+      - sudo
+  morane:
+    groups:
+      - sudo
