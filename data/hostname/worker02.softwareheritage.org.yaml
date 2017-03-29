@@ -15,3 +15,15 @@ swh::deploy::worker::instances:
   - swh_lister_github
   - swh_loader_svn
   - swh_loader_git_disk
+  - swh_indexer_orchestrator
+  - swh_indexer_mimetype
+  - swh_indexer_language
+  - swh_indexer_ctags
+  - swh_indexer_fossology_license
+
+# hack to avoid deploying azure objstorage...
+swh::azure_objstorage::config:
+  cls: pathslicing
+  args:
+    root: "%{hiera('swh::deploy::objstorage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
