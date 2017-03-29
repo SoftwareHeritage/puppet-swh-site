@@ -3,6 +3,7 @@
 class profile::puppet::apt_config {
   if $::lsbdistcodename == 'jessie' {
     $pinned_packages = [
+      'facter',
       'puppet',
       'puppet-common',
       'puppetmaster-passenger',
