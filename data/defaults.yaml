@@ -680,6 +680,18 @@ bind::resource_records:
     type: CNAME
     record: faitout.internal.softwareheritage.org
     data: prado.internal.softwareheritage.org.
+  logstash/CNAME:
+    type: CNAME
+    record: logstash.internal.softwareheritage.org
+    data: banco.internal.softwareheritage.org.
+  elasticsearch-swh-log/CNAME:
+    type: CNAME
+    record: elasticsearch-swh-log.internal.softwareheritage.org
+    data: banco.internal.softwareheritage.org.
+  kibana/CNAME:
+    type: CNAME
+    record: kibana.internal.softwareheritage.org
+    data: banco.internal.softwareheritage.org.
   rabbitmq/CNAME:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
