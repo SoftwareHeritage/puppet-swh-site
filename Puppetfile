@@ -89,7 +89,7 @@ mod 'postgresql',
 
 mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
-    :ref => '6.0.0'
+    :ref => '7.1.1'
 
 mod 'redis',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPREDIS/arioch-redis.git',
