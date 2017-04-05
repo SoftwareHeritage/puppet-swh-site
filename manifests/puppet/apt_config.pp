@@ -4,11 +4,13 @@ class profile::puppet::apt_config {
   if $::lsbdistcodename == 'jessie' {
     $pinned_packages = [
       'facter',
+      'hiera',
       'puppet',
       'puppet-common',
-      'puppetmaster-passenger',
-      'puppetmaster-common',
       'puppetmaster',
+      'puppetmaster-common',
+      'puppetmaster-passenger',
+      'ruby-deep-merge',
     ]
 
     ::apt::pin {'puppet':
