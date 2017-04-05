@@ -27,7 +27,7 @@ class profile::swh::deploy::objstorage_repair_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template('<%= @repair_checker_config.to_yaml %>\n'),
+    content => inline_template("<%= @repair_checker_config.to_yaml %>\n"),
   }
 
   include ::systemd

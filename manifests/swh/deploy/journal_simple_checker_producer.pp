@@ -28,7 +28,7 @@ class profile::swh::deploy::journal_simple_checker_producer {
     group   => $group,
     mode    => '0640',
     require => File[$conf_directory],
-    content => inline_template('<%= @checker_config.to_yaml %>\n'),
+    content => inline_template("<%= @checker_config.to_yaml %>\n"),
     notify  => Service[$service_name],
   }
 

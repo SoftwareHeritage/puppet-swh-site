@@ -25,7 +25,7 @@ class profile::swh::deploy::indexer {
     group   => 'swhdev',
     # Contains passwords
     mode    => '0640',
-    content => inline_template('<%= @merged_config.to_yaml %>\n'),
+    content => inline_template("<%= @merged_config.to_yaml %>\n"),
   }
 
   package {$packages:

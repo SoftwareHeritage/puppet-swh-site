@@ -19,7 +19,7 @@ class profile::swh::deploy::archiver_content_updater {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template('<%= @content_updater_config.to_yaml %>\n'),
+    content => inline_template("<%= @content_updater_config.to_yaml %>\n"),
     notify  => Service[$service_name],
   }
 

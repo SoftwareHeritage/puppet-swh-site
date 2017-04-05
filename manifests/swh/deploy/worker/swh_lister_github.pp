@@ -35,6 +35,6 @@ class profile::swh::deploy::worker::swh_lister_github {
     owner   => 'swhworker',
     group   => 'swhdev',
     mode    => '0640',
-    content => inline_template('<%= @config.to_yaml %>\n'),
+    content => inline_template("<%= @config.to_yaml %>\n"),
   }
 }
