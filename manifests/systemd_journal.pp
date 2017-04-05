@@ -5,10 +5,4 @@ class profile::systemd_journal {
 
   include profile::systemd_journal::apt_config
   include profile::systemd_journal::base_config
-
-  case $role {
-    'collector': { include profile::systemd_journal::collector }
-    'sender':    { include profile::systemd_journal::sender }
-    default:     { fail("Unknown systemd_journal::role: ${role}") }
-  }
 }
