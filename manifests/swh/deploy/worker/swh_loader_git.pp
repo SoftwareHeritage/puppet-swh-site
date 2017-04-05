@@ -30,6 +30,6 @@ class profile::swh::deploy::worker::swh_loader_git {
     owner   => 'swhworker',
     group   => 'swhworker',
     mode    => '0644',
-    content => inline_template('<%= @config.to_yaml %>'),
+    content => inline_template('<%= @config.to_yaml %>\n'),
   }
 }

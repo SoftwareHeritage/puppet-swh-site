@@ -36,6 +36,6 @@ class profile::swh::deploy::worker::swh_indexer_language {
     group   => 'swhdev',
     # Contains passwords
     mode    => '0640',
-    content => inline_template('<%= @merged_config.to_yaml %>'),
+    content => inline_template('<%= @merged_config.to_yaml %>\n'),
   }
 }

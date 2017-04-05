@@ -28,7 +28,7 @@ class profile::swh::deploy::objstorage_archive_notifier_checker {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template('<%= @archive_notifier_config.to_yaml %>'),
+    content => inline_template('<%= @archive_notifier_config.to_yaml %>\n'),
   }
 
   include ::systemd

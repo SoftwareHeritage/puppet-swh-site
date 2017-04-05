@@ -39,7 +39,7 @@ class profile::swh::deploy::storage {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template('<%= @storage_config.to_yaml %>'),
+    content => inline_template('<%= @storage_config.to_yaml %>\n'),
     notify  => Service['uwsgi'],
   }
 

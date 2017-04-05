@@ -38,7 +38,7 @@ class profile::swh::deploy::objstorage {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template('<%= @objstorage_config.to_yaml %>'),
+    content => inline_template('<%= @objstorage_config.to_yaml %>\n'),
   }
 
   ::uwsgi::site {'swh-objstorage':

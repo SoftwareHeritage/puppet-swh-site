@@ -32,6 +32,6 @@ class profile::swh::deploy::worker::swh_indexer_orchestrator_text {
     owner   => 'swhworker',
     group   => 'swhworker',
     mode    => '0644',
-    content => inline_template('<%= @config.to_yaml %>'),
+    content => inline_template('<%= @config.to_yaml %>\n'),
   }
 }

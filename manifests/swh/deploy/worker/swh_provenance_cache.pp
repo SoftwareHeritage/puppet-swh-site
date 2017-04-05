@@ -40,6 +40,6 @@ class profile::swh::deploy::worker::swh_provenance_cache {
     group   => 'swhdev',
     # Contains password
     mode    => '0640',
-    content => inline_template('<%= @config.to_yaml %>'),
+    content => inline_template('<%= @config.to_yaml %>\n'),
   }
 }

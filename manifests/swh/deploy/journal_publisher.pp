@@ -28,7 +28,7 @@ class profile::swh::deploy::journal_publisher {
     group   => $group,
     mode    => '0640',
     require => File[$conf_directory],
-    content => inline_template('<%= @publisher_config.to_yaml %>'),
+    content => inline_template('<%= @publisher_config.to_yaml %>\n'),
     notify  => Service[$service_name],
   }
 
