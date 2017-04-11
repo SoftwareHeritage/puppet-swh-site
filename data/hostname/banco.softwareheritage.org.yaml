@@ -8,6 +8,7 @@ smtp::mynetworks:
 dar::backup::exclude:
   - srv/barman
   - srv/softwareheritage/annex
+  - srv/elasticsearch
 
 smtp::mail_aliases:
   barman: root
