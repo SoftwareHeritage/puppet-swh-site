@@ -2,10 +2,18 @@
 class profile::icinga2::agent {
   $features = hiera('icinga2::features')
   $icinga2_network = hiera('icinga2::network')
-  $icinga2_host_vars = hiera_hash('icinga2::host::vars')
+  $hiera_host_vars = hiera_hash('icinga2::host::vars')
 
   $parent_zone = hiera('icinga2::parent_zone')
   $parent_endpoints = hiera('icinga2::parent_endpoints')
+
+  $local_host_vars = {
+    disks => hash(flatten(
+      $::mounts.map |$mount| {
+        ["disk ${mount}", {disk_partitions => $mount}]
+      },
+    )),
+  }
 
   class {'::icinga2':
     confd    => false,
@@ -42,7 +50,7 @@ class profile::icinga2::agent {
     address       => ip_for_network($icinga2_network),
     display_name  => $::fqdn,
     check_command => 'hostalive',
-    vars          => $icinga2_host_vars,
+    vars          => deep_merge($local_host_vars, $hiera_host_vars),
     target        => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 
