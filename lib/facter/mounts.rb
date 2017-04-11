@@ -1,8 +1,4 @@
-# from https://anonscm.debian.org/git/mirror/dsa-puppet.git/tree/modules/debian-org/lib/facter/mounts.rb
-
 begin
-  require 'filesystem'
-
 	Facter.add("mounts") do
 		ignorefs = [
       "NFS",
@@ -16,7 +12,11 @@ begin
       "devfs",
       "devpts",
       "devtmpfs",
+      "efivarfs",
       "ftpfs",
+      "fuse",
+      "fuse.gvfsd-fuse",
+      "fuse.lxcfs",
       "fuse.snapshotfs",
       "fusectl",
       "hugetlbfs",
@@ -38,17 +38,22 @@ begin
       "tmpfs",
       "udf",
       "usbfs",
-    ]
+    ].uniq.sort.join(',')
+
 		mountpoints = []
-		FileSystem.mounts.each do |m|
-			if ((not ignorefs.include?(m.fstype)) && (m.options !~ /bind/))
-				mountpoints << m.mount
-			end
+
+    Facter::Util::Resolution.exec("findmnt --list --noheadings -o TARGET,SOURCE --invert --types #{ignorefs}").lines.each do |line|
+      mountpoint, source = line.chomp.split
+      # bind mounts
+      if not source.end_with?(']')
+				mountpoints << mountpoint
+      end
 		end
+
 		setcode do
-			mountpoints.uniq.sort.join(',')
+			mountpoints
 		end
-	end
+  end
 
 rescue Exception => _
 end
