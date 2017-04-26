@@ -1,0 +1,20 @@
+# Managed by puppet (class profile::systemd_journal::journalbeat), changes will be lost
+
+[Unit]
+Description=Send systemd journal messages to logstash
+After=unbound.service
+Requires=unbound.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=20s
+ExecStart=/usr/bin/journalbeat -e -c <% @configfile %>
+User=<% @user %>
+Group=systemd-journal
+ReadOnlyDirectories=/
+ReadWriteDirectories=-<% @homedir %>
+WorkingDirectory=<% @homedir %>
+
+[Install]
+WantedBy=multi-user.target
