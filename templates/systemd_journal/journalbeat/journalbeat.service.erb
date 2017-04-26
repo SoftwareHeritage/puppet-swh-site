@@ -9,12 +9,12 @@ Requires=unbound.service
 Type=simple
 Restart=always
 RestartSec=20s
-ExecStart=/usr/bin/journalbeat -e -c <% @configfile %>
-User=<% @user %>
+ExecStart=/usr/bin/journalbeat -e -c <%= @configfile %>
+User=<%= @user %>
 Group=systemd-journal
 ReadOnlyDirectories=/
-ReadWriteDirectories=-<% @homedir %>
-WorkingDirectory=<% @homedir %>
+ReadWriteDirectories=-<%= @homedir %>
+WorkingDirectory=<%= @homedir %>
 
 [Install]
 WantedBy=multi-user.target
