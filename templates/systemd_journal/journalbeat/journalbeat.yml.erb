@@ -241,7 +241,7 @@ output.logstash:
 # distribution (for example, the sample dashboards).
 # If not set by a CLI flag or in the configuration file, the default for the
 # home path is the location of the binary.
-path.home: /var/lib/journalbeat
+path.home: <%= @homedir %>
 
 # The configuration path for the beatname installation. This is the default
 # base path for configuration files, including the main YAML configuration file
