@@ -1514,6 +1514,21 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     version: 5.22
     command: file
 
+swh::deploy::worker::swh_indexer::rehash::concurrency: 4
+swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+# Contains a password: in private data
+swh::deploy::worker::swh_indexer::rehash::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_indexer::rehash::config:
+  storage:
+    cls: remote
+    args:
+      url: http://uffizi.internal.softwareheritage.org:5002/
+  objstorage: "%{hiera('swh::azure_objstorage::config')}"
+  compute_checksums:
+    - blake2s256
+  batch_size_retrieve_content: 10000
+  batch_size_update: 1000
+
 swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
