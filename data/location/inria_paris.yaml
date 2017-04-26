@@ -1,6 +1,7 @@
 ---
 dns::forwarders:
   - 128.93.77.234
+dns::forwarder_insecure: false
 
 smtp::relayhost: '[smtp.inria.fr]'
 

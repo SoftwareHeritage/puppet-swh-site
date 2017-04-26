@@ -1,3 +1,4 @@
 ---
 dns::forwarders:
   - 168.63.129.16
+dns::forwarder_insecure: false

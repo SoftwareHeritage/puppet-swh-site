@@ -2,6 +2,7 @@
 dns::forwarders:
   - 193.51.196.130
   - 193.51.196.131
+dns::forwarder_insecure: true
 
 ntp::servers:
   - sesi-ntp1.inria.fr
