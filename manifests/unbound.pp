@@ -56,7 +56,7 @@ class profile::unbound {
 
     file_line {'unbound root auto update':
       ensure  => present,
-      file    => '/etc/default/unbound',
+      path    => '/etc/default/unbound',
       match   => '^ROOT_TRUST_ANCHOR_UPDATE\=',
       line    => 'ROOT_TRUST_ANCHOR_UPDATE=false',
       require => Package[$package],
