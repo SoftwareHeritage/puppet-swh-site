@@ -11,6 +11,7 @@ class profile::unbound {
 
     $forwarders = hiera('dns::forwarders')
     $forward_zones = hiera('dns::forward_zones')
+    $insecure = hiera('dns::forwarder_insecure')
 
     package {$package:
       ensure => installed,
@@ -22,8 +23,10 @@ class profile::unbound {
       require => [
         Package[$package],
         File[$forwarders_file],
-      ]
-    } -> File['/etc/resolv.conf']
+      ],
+    }
+
+    Service[$service] -> File['/etc/resolv.conf']
 
     # uses variables $forwarders, $forward_zones
     file {'/etc/unbound/unbound.conf.d/forwarders.conf':
@@ -36,20 +39,30 @@ class profile::unbound {
       notify  => Service[$service],
     }
 
-    if $::location == 'sesi_rocquencourt' {
-      file {'/etc/unbound/unbound.conf.d/insecure.conf':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        source  => 'puppet:///modules/profile/unbound/insecure.conf',
-        require => Package[$package],
-        notify  => Service[$service],
-      }
-    } else {
-      file {'/etc/unbound/unbound.conf.d/insecure.conf':
-        ensure => absent,
-      }
+    $insecure_ensure = $insecure ? {
+      true    => present,
+      default => absent,
+    }
+
+    file {'/etc/unbound/unbound.conf.d/insecure.conf':
+      ensure  => $insecure_ensure,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      source  => 'puppet:///modules/profile/unbound/insecure.conf',
+      require => Package[$package],
+      notify  => Service[$service],
+    }
+
+    $root_auto_update = bool2str(!$insecure)
+
+    file_line {'unbound root auto update':
+      ensure  => present,
+      file    => '/etc/default/unbound',
+      match   => '^ROOT_TRUST_ANCHOR_UPDATE\=',
+      line    => "ROOT_TRUST_ANCHOR_UPDATE=${root_auto_update}",
+      require => Package[$package],
+      notify  => Service[$service],
     }
   }
 }
