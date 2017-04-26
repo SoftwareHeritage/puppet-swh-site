@@ -54,13 +54,11 @@ class profile::unbound {
       notify  => Service[$service],
     }
 
-    $root_auto_update = bool2str(!$insecure)
-
     file_line {'unbound root auto update':
       ensure  => present,
       file    => '/etc/default/unbound',
       match   => '^ROOT_TRUST_ANCHOR_UPDATE\=',
-      line    => "ROOT_TRUST_ANCHOR_UPDATE=${root_auto_update}",
+      line    => 'ROOT_TRUST_ANCHOR_UPDATE=false',
       require => Package[$package],
       notify  => Service[$service],
     }
