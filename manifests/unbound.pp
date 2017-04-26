@@ -35,5 +35,21 @@ class profile::unbound {
       require => Package[$package],
       notify  => Service[$service],
     }
+
+    if $::location == 'sesi_rocquencourt' {
+      file {'/etc/unbound/unbound.conf.d/insecure.conf':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        source  => 'puppet:///modules/profile/unbound/insecure.conf',
+        require => Package[$package],
+        notify  => Service[$service],
+      }
+    } else {
+      file {'/etc/unbound/unbound.conf.d/insecure.conf':
+        ensure => absent,
+      }
+    }
   }
 }
