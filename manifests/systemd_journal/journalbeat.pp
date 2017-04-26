@@ -36,7 +36,7 @@ class profile::systemd_journal::journalbeat {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('profile/systemd/journalbeat/journalbeat.service.erb'),
+    content => template('profile/systemd_journal/journalbeat/journalbeat.service.erb'),
     require => Package[$package],
     notify  => [
       Exec['systemd-daemon-reload'],
@@ -59,7 +59,7 @@ class profile::systemd_journal::journalbeat {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('profile/systemd/journalbeat/journalbeat.yml.erb'),
+    content => template('profile/systemd_journal/journalbeat/journalbeat.yml.erb'),
     notify  => [
       Exec['systemd-daemon-reload'],
       Service[$service],
