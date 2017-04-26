@@ -54,6 +54,14 @@ class profile::unbound {
       notify  => Service[$service],
     }
 
+    file {'/etc/default/unbound':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package[$package],
+    }
+
     file_line {'unbound root auto update':
       ensure  => present,
       path    => '/etc/default/unbound',
