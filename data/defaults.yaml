@@ -2188,6 +2188,8 @@ icinga2::host::vars:
 
 systemd_journal::role: sender
 systemd_journal::upload_url: https://pergamon.internal.softwareheritage.org:19532
+systemd_journal::logstash_hosts:
+  - 'logstash:5044'
 
 redis::server::bind: 127.0.0.1
 redis::server::port: 6379
