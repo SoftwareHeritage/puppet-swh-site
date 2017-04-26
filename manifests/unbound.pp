@@ -4,7 +4,10 @@ class profile::unbound {
 
   $package = 'unbound'
   $service = 'unbound'
-  $forwarders_file = '/etc/unbound/unbound.conf.d/forwarders.conf'
+  $conf_dir = '/etc/unbound/unbound.conf.d'
+  $forwarders_file = "${conf_dir}/forwarders.conf"
+  $insecure_file = "${conf_dir}/insecure.conf"
+  $auto_root_data = '/var/lib/unbound/root.key'
 
   if $has_local_cache {
     include ::profile::resolv_conf
@@ -16,6 +19,9 @@ class profile::unbound {
     package {$package:
       ensure => installed,
     }
+    package {'dns-root-data':
+      ensure => installed,
+    }
 
     service {$service:
       ensure  => running,
@@ -23,13 +29,14 @@ class profile::unbound {
       require => [
         Package[$package],
         File[$forwarders_file],
+        File[$auto_root_data],
       ],
     }
 
     Service[$service] -> File['/etc/resolv.conf']
 
     # uses variables $forwarders, $forward_zones
-    file {'/etc/unbound/unbound.conf.d/forwarders.conf':
+    file {$forwarders_file:
       ensure  => present,
       owner   => 'root',
       group   => 'root',
@@ -44,7 +51,7 @@ class profile::unbound {
       default => absent,
     }
 
-    file {'/etc/unbound/unbound.conf.d/insecure.conf':
+    file {$insecure_file:
       ensure  => $insecure_ensure,
       owner   => 'root',
       group   => 'root',
@@ -60,6 +67,19 @@ class profile::unbound {
       group   => 'root',
       mode    => '0644',
       require => Package[$package],
+    }
+
+    file {$auto_root_data:
+      ensure  => present,
+      owner   => 'unbound',
+      group   => 'unbound',
+      mode    => '0644',
+      replace => 'no',
+      source  => '/usr/share/dns/root.key',
+      require => [
+        Package[$package],
+        Package['dns-root-data'],
+      ],
     }
 
     file_line {'unbound root auto update':
