@@ -10,7 +10,7 @@ class profile::swh::deploy::worker::swh_indexer_rehash {
   $config_file = '/etc/softwareheritage/indexer/rehash.yml'
   $config = hiera('swh::deploy::worker::swh_indexer::rehash::config')
 
-  $objstorage_config = hiera('swh::deploy::worker::swh_indexer::rehash::objstorage')
+  $objstorage_config = hiera('swh::azure_objstorage::config')
   $merged_config = merge($config, {'objstorage' => $objstorage_config})
 
   $task_modules = ['swh.indexer.tasks']
