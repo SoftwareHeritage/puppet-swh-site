@@ -1525,7 +1525,7 @@ swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worke
 swh::deploy::worker::swh_indexer::rehash::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 # Should be in config below but it does not work as is (full config is
 # merged through the manifest)
-swh::deploy::worker::swh_indexer::rehash::objstorage: "%{alias('swh::azure_objstorage::config')}"
+swh::deploy::worker::swh_indexer::rehash::objstorage: "%{hiera('swh::azure_objstorage::config')}"
 swh::deploy::worker::swh_indexer::rehash::config:
   storage:
     cls: remote
