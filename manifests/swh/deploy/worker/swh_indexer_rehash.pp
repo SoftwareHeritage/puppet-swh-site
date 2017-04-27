@@ -10,6 +10,9 @@ class profile::swh::deploy::worker::swh_indexer_rehash {
   $config_file = '/etc/softwareheritage/indexer/rehash.yml'
   $config = hiera('swh::deploy::worker::swh_indexer::rehash::config')
 
+  $objstorage_config = hiera('swh::deploy::worker::swh_indexer::rehash::objstorage')
+  $merged_config = merge($config, {'objstorage' => $objstorage_config})
+
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_rehash']
 
@@ -33,6 +36,6 @@ class profile::swh::deploy::worker::swh_indexer_rehash {
     group   => 'swhdev',
     # Contains passwords
     mode    => '0640',
-    content => inline_template("<%= @config.to_yaml %>\n"),
+    content => inline_template("<%= @merged_config.to_yaml %>\n"),
   }
 }
