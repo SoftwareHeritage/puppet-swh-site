@@ -1,2 +1,2 @@
-swh::deploy::worker::instances: []
+swh::deploy::worker::instances:
   - swh_indexer_rehash
