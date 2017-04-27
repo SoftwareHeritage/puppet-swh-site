@@ -1523,7 +1523,7 @@ swh::deploy::worker::swh_indexer::rehash::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
-  objstorage: "%{hiera('swh::azure_objstorage::config')}"
+  objstorage: "%{alias('swh::azure_objstorage::config')}"
   compute_checksums:
     - blake2s256
   batch_size_retrieve_content: 10000
