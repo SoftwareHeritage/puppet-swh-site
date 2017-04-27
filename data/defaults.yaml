@@ -1287,6 +1287,11 @@ swh::deploy::worker::swh_storage_archiver_azure::config:
     queue: swh.indexer.tasks.SWHOrchestratorAllContentsTask
     batch_size: 10
 
+swh::banco_objstorage::config:
+  cls: remote
+  args:
+    url: http://banco.internal.softwareheritage.org:5003/
+
 swh::azure_objstorage::config:
   cls: multiplexer
   args:
@@ -1518,12 +1523,14 @@ swh::deploy::worker::swh_indexer::rehash::concurrency: 4
 swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::rehash::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+# Should be in config below but it does not work as is (full config is
+# merged through the manifest)
+swh::deploy::worker::swh_indexer::rehash::objstorage: "%{alias('swh::azure_objstorage::config')}"
 swh::deploy::worker::swh_indexer::rehash::config:
   storage:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
-  objstorage: "%{alias('swh::azure_objstorage::config')}"
   compute_checksums:
     - blake2s256
   batch_size_retrieve_content: 10000
