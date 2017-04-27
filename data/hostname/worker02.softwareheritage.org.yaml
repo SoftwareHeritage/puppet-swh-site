@@ -13,7 +13,6 @@ networks:
 swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
-  - swh_loader_svn
   - swh_loader_git_disk
   - swh_indexer_orchestrator
   - swh_indexer_orchestrator_text
