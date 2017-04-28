@@ -1,5 +1,5 @@
 networks:
-  private:
+  default:
     interface: eth0
     address: 192.168.100.34
     netmask: 255.255.255.0
