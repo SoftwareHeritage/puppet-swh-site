@@ -1513,7 +1513,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
-  workdir: /tmp/swh/indexer.mimetype/
+  destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
   tool:
     name: file
     version: 5.22
