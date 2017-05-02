@@ -1488,7 +1488,6 @@ swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh:
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
     - language
-    - ctags
     - fossology_license
   check_presence: false
 
