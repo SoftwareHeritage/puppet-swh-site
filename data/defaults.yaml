@@ -1152,7 +1152,7 @@ swh::deploy::worker::swh_loader_git::config:
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
 
-swh::deploy::worker::swh_loader_git_disk::concurrency: 1
+swh::deploy::worker::swh_loader_git_disk::concurrency: 2
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
 swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git_disk::config:
@@ -1162,7 +1162,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   directory_packet_size: 100
 
-swh::deploy::worker::swh_loader_svn::concurrency: 1
+swh::deploy::worker::swh_loader_svn::concurrency: 2
 swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
