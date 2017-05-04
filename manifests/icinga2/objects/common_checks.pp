@@ -1,5 +1,7 @@
 # Icinga2 common check definitions
 class profile::icinga2::objects::common_checks {
+  $service_configuration = hiera('icinga2::service_configuration')
+
   ::icinga2::object::service {'ping4':
     import        => ['generic-service'],
     apply         => true,
@@ -8,15 +10,19 @@ class profile::icinga2::objects::common_checks {
     target        => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 
-  ::icinga2::object::service {'linux_load':
-    import           => ['generic-service'],
-    service_name     => 'load',
-    apply            => true,
-    check_command    => 'load',
-    command_endpoint => 'host.name',
-    assign           => ['host.vars.os == Linux'],
-    ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+  each($service_configuration['load']) |$name, $vars| {
+    ::icinga2::object::service {"linux_load_${name}":
+      import           => ['generic-service'],
+      service_name     => 'load',
+      apply            => true,
+      check_command    => 'load',
+      command_endpoint => 'host.name',
+      assign           => ['host.vars.os == Linux', "host.vars.load == ${name}"],
+      ignore           => ['host.vars.noagent'],
+      target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+      vars             => $vars,
+    }
+
   }
 
   ::icinga2::object::service {'linux_disks':
