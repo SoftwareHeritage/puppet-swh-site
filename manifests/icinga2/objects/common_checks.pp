@@ -11,9 +11,9 @@ class profile::icinga2::objects::common_checks {
   }
 
   each($service_configuration['load']) |$name, $vars| {
-    if $name == 'normal' {
+    if $name == 'default' {
       $assign = 'host.vars.os == Linux'
-      $ignore = 'host.vars.noagent || host.vars.load != normal'
+      $ignore = 'host.vars.noagent || host.vars.load'
     } else {
       $assign = "host.vars.os == Linux && host.vars.load == ${name}"
       $ignore = 'host.vars.noagent'
