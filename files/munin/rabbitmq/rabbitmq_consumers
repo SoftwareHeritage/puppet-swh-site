@@ -30,9 +30,12 @@ fi
 
 HOME=/tmp/
 VHOST=${vhost:-"/"}
+FILTER=${filter:-"^(amq\.gen-.*|celery@.*\.pidbox|celeryev\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"}
 QUEUES=$(HOME=$HOME rabbitmqctl list_queues -p $VHOST name | \
 		grep -v '^Listing' | \
-		grep -v 'done\.$' | sed -e 's/[.=-]/_/g' )
+    grep -v 'done\.$' | \
+    grep -Ev $FILTER | \
+    sed -e 's/[.=-]/_/g' )
 
 if [ "$1" = "config" ]; then
         QUEUE_WARN=${queue_warn:-100}
@@ -71,5 +74,5 @@ fi
 # "value" subfield for every data field.
 
 HOME=$HOME rabbitmqctl list_queues -p $VHOST name consumers| \
-	grep -v "^Listing" | grep -v "done.$" | \
+	grep -v "^Listing" | grep -v "done.$" | grep -Ev $FILTER | \
     perl -nle'($q, $s) = split; $q =~ s/[.=-]/_/g; print("$q.value $s")'
