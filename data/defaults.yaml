@@ -2184,7 +2184,7 @@ icinga2::features:
 
 icinga2::service_configuration:
   load:
-    normal:
+    default:
       load_wload1: 30
       load_wload5: 28
       load_wload15: 26
@@ -2207,7 +2207,6 @@ icinga2::host::vars:
   disks:
     'disk /':
       disk_partitions: '/'
-  load: normal
 
 systemd_journal::role: sender
 systemd_journal::upload_url: https://pergamon.internal.softwareheritage.org:19532
