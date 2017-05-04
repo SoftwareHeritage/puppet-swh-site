@@ -11,14 +11,22 @@ class profile::icinga2::objects::common_checks {
   }
 
   each($service_configuration['load']) |$name, $vars| {
+    if $name == 'normal' {
+      $assign = 'host.vars.os == Linux'
+      $ignore = 'host.vars.noagent || host.vars.load != normal'
+    } else {
+      $assign = "host.vars.os == Linux && host.vars.load == ${name}"
+      $ignore = 'host.vars.noagent'
+    }
+
     ::icinga2::object::service {"linux_load_${name}":
       import           => ['generic-service'],
       service_name     => 'load',
       apply            => true,
       check_command    => 'load',
       command_endpoint => 'host.name',
-      assign           => ["host.vars.os == Linux && host.vars.load == ${name}"],
-      ignore           => ['host.vars.noagent'],
+      assign           => [$assign],
+      ignore           => [$ignore],
       target           => '/etc/icinga2/zones.d/global-templates/services.conf',
       vars             => $vars,
     }
