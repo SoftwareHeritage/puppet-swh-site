@@ -17,7 +17,7 @@ class profile::icinga2::objects::common_checks {
       apply            => true,
       check_command    => 'load',
       command_endpoint => 'host.name',
-      assign           => ['host.vars.os == Linux', "host.vars.load == ${name}"],
+      assign           => ["host.vars.os == Linux && host.vars.load == ${name}"],
       ignore           => ['host.vars.noagent'],
       target           => '/etc/icinga2/zones.d/global-templates/services.conf',
       vars             => $vars,
