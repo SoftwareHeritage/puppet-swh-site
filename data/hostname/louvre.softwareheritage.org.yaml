@@ -9,3 +9,6 @@ ssh::permitrootlogin: "yes"
 
 dar::backup::exclude:
   - srv/containers
+
+icinga2::host::vars:
+  load: high

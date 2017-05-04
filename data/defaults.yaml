@@ -2182,6 +2182,23 @@ icinga2::features:
   - checker
   - mainlog
 
+icinga2::service_configuration:
+  load:
+    normal:
+      load_wload1: 30
+      load_wload5: 28
+      load_wload15: 26
+      load_cload1: 50
+      load_cload5: 45
+      load_cload15: 40
+    high:
+      load_wload1: 140
+      load_wload5: 120
+      load_wload15: 100
+      load_cload1: 240
+      load_cload5: 220
+      load_cload15: 200
+
 icinga2::host::vars:
   os: Linux
   cores: "%{::processorcount}"
@@ -2190,6 +2207,7 @@ icinga2::host::vars:
   disks:
     'disk /':
       disk_partitions: '/'
+  load: normal
 
 systemd_journal::role: sender
 systemd_journal::upload_url: https://pergamon.internal.softwareheritage.org:19532

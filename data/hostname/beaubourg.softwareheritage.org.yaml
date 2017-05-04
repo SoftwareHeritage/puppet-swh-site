@@ -1,2 +1,5 @@
 # needed for proxmox-ve
 ssh::permitrootlogin: "yes"
+
+icinga2::host::vars:
+  load: high

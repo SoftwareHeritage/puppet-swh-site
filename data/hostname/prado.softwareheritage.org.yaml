@@ -1,3 +1,6 @@
 dar::backup::exclude:
   - srv/softwareheritage/postgres
   - srv/softwareheritage/postgres-hdd
+
+icinga2::host::vars:
+  load: high
