@@ -36,11 +36,6 @@ class profile::icinga2::objects::templates {
     target   => $template_file,
   }
 
-  ::icinga2::object::notification {'mail-host-notification':
-    template => true,
-    target   => $template_file,
-  }
-
   ::icinga2::object::notification {'service-notification':
     template => true,
     states   => ['OK', 'Warning', 'Critical', 'Unknown' ],
