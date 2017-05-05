@@ -3,7 +3,7 @@ class profile::icinga2::objects::notifications {
   $notification_file = '/etc/icinga2/conf.d/notifications.conf'
 
   $type = 'service'
-  $apply_target = upcase($type[0]) + $type[1,-1]
+  $apply_target = "${type[0].upcase}${type[1,-1]}"
   $means = 'irc'
 
   ::icinga2::object::notification {"${means}-notify-all-${type}s":
