@@ -26,20 +26,24 @@ class profile::icinga2::objects::commands {
   ::icinga2::object::notificationcommand {'mail-host-notification':
     command => ['/etc/icinga2/scripts/mail-host-notification.sh'],
     env     => $hostenv,
+    target  => $command_file,
   }
 
   ::icinga2::object::notificationcommand {'irc-host-notification':
     command => ['/etc/icinga2/scripts/irc-host-notification.sh'],
     env     => $hostenv,
+    target  => $command_file,
   }
 
   ::icinga2::object::notificationcommand {'mail-service-notification':
     command => ['/etc/icinga2/scripts/irc-service-notification.sh'],
     env     => $serviceenv,
+    target  => $command_file,
   }
 
   ::icinga2::object::notificationcommand {'irc-service-notification':
     command => ['/etc/icinga2/scripts/irc-service-notification.sh'],
     env     => $serviceenv,
+    target  => $command_file,
   }
 }
