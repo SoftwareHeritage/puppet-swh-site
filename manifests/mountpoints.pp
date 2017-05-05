@@ -22,8 +22,8 @@ class profile::mountpoints {
         pass    => 0,
         options => 'defaults';
       $mountpoint:
-        *        => $mount_config,
-        requires => File[$mountpoint],
+        *       => $mount_config,
+        require => File[$mountpoint],
     }
   }
 }
