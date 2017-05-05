@@ -4,23 +4,23 @@ class profile::icinga2::objects::commands {
   $command_file = '/etc/icinga2/conf.d/commands.conf'
 
   $hostenv = {
-    NOTIFICATIONTYPE       => '$notification.type$',
-    HOSTALIAS              => '$host.display_name$',
-    HOSTADDRESS            => '$address$',
-    HOSTSTATE              => '$host.state$',
-    LONGDATETIME           => '$icinga.long_date_time$',
-    HOSTOUTPUT             => '$host.output$',
-    NOTIFICATIONAUTHORNAME => '$notification.author$',
-    NOTIFICATIONCOMMENT    => '$notification.comment$',
-    HOSTDISPLAYNAME        => '$host.display_name$',
-    USEREMAIL              => '$user.email$',
+    'NOTIFICATIONTYPE'       => '$notification.type$',
+    'HOSTALIAS'              => '$host.display_name$',
+    'HOSTADDRESS'            => '$address$',
+    'HOSTSTATE'              => '$host.state$',
+    'LONGDATETIME'           => '$icinga.long_date_time$',
+    'HOSTOUTPUT'             => '$host.output$',
+    'NOTIFICATIONAUTHORNAME' => '$notification.author$',
+    'NOTIFICATIONCOMMENT'    => '$notification.comment$',
+    'HOSTDISPLAYNAME'        => '$host.display_name$',
+    'USEREMAIL'              => '$user.email$',
   }
 
   $serviceenv = $hostenv - 'HOSTOUTPUT' + {
-    SERVICEDESC            => '$service.name$',
-    SERVICESTATE           => '$service.state$',
-    SERVICEOUTPUT          => '$service.output$',
-    SERVICEDISPLAYNAME     => '$service.display_name$',
+    'SERVICEDESC'            => '$service.name$',
+    'SERVICESTATE'           => '$service.state$',
+    'SERVICEOUTPUT'          => '$service.output$',
+    'SERVICEDISPLAYNAME'     => '$service.display_name$',
   }
 
   ::icinga2::object::notificationcommand {'mail-host-notification':
