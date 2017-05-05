@@ -15,13 +15,15 @@ class profile::mountpoints {
       ensure => directory,
     }
 
-    mount {$mountpoint:
-      ensure   => present,
-      dump     => 0,
-      pass     => 0,
-      options  => 'defaults',
-      *        => $mount_config,
-      requires => File[$mountpoint],
+    mount {
+      default:
+        ensure  => present,
+        dump    => 0,
+        pass    => 0,
+        options => 'defaults';
+      $mountpoint:
+        *        => $mount_config,
+        requires => File[$mountpoint],
     }
   }
 }
