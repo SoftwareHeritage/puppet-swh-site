@@ -2217,3 +2217,28 @@ redis::server::bind: 127.0.0.1
 redis::server::port: 6379
 # redis::server::password in private data
 
+mountpoints:
+  /srv/storage/space:
+    device: uffizi:/srv/storage/space
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - noauto
+      - x-systemd.automount
+      - x-systemd.device-timeout=10
+  /srv/softwareheritage/objects:
+    device: uffizi:/srv/softwareheritage/objects
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - noauto
+      - x-systemd.automount
+      - x-systemd.device-timeout=10
