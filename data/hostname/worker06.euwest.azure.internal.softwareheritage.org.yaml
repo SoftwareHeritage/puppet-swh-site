@@ -1,8 +1,5 @@
 swh::deploy::worker::instances:
+  - swh_indexer_rehash
+  - swh_indexer_mimetype
   - swh_indexer_language
   - swh_indexer_fossology_license
-  - swh_indexer_rehash
-
-swh::deploy::worker::swh_indexer::fossology_license::concurrency: 4
-swh::deploy::worker::swh_indexer::language::concurrency: 4
-swh::deploy::worker::swh_indexer::rehash::concurrency: 2
