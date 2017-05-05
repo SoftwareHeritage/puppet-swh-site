@@ -8,7 +8,7 @@ class profile::icinga2::objects::timeperiods {
       monday    => '00:00-24:00',
       tuesday   => '00:00-24:00',
       wednesday => '00:00-24:00',
-      thurdsay  => '00:00-24:00',
+      thursday  => '00:00-24:00',
       friday    => '00:00-24:00',
       saturday  => '00:00-24:00',
       sunday    => '00:00-24:00',
