@@ -25,9 +25,8 @@ class profile::icinga2::objects::templates {
     target   => $template_file,
   }
 
-  ::icinga2::object::notification {'mail-host-notification':
+  ::icinga2::object::notification {'host-notification':
     template => true,
-    command  => 'mail-host-notification',
     states   => ['Up', 'Down'],
     types    => [
       'Problem', 'Acknowledgement', 'Recovery', 'Custom', 'FlappingStart',
@@ -37,9 +36,13 @@ class profile::icinga2::objects::templates {
     target   => $template_file,
   }
 
-  ::icinga2::object::notification {'mail-service-notification':
+  ::icinga2::object::notification {'mail-host-notification':
     template => true,
-    command  => 'mail-service-notification',
+    target   => $template_file,
+  }
+
+  ::icinga2::object::notification {'service-notification':
+    template => true,
     states   => ['OK', 'Warning', 'Critical', 'Unknown' ],
     types    => [
       'Problem', 'Acknowledgement', 'Recovery', 'Custom', 'FlappingStart',
@@ -47,5 +50,16 @@ class profile::icinga2::objects::templates {
     ],
     period   => '24x7',
     target   => $template_file,
+  }
+
+  each(['host', 'service']) |$type| {
+    each(['irc', 'mail']) |$means| {
+      ::icinga2::object::notification {"${means}-${type}-notification":
+        template => true,
+        import   => ["${type}-notification"],
+        command  => "${means}-${type}-notification",
+        target   => $template_file,
+      }
+    }
   }
 }
