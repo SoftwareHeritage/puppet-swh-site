@@ -13,7 +13,7 @@ class profile::icinga2::objects::notifications {
       assign       => [true],
       users        => ['root'],
       target       => $notification_file,
-      interval     => '12 hours',
+      interval     => '12h',
     }
   }
 }
