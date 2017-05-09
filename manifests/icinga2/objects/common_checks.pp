@@ -2,6 +2,7 @@
 class profile::icinga2::objects::common_checks {
   $service_configuration = hiera('icinga2::service_configuration')
 
+  # Done locally on the master
   ::icinga2::object::service {'ping4':
     import        => ['generic-service'],
     apply         => true,
@@ -9,6 +10,16 @@ class profile::icinga2::objects::common_checks {
     assign        => ['host.address'],
     target        => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
+
+  ::icinga2::object::service {'linux-ssh':
+    import        => ['generic-service'],
+    apply         => true,
+    check_command => 'ssh',
+    assign        => ['host.vars.os == Linux'],
+    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
+
+  # Done remotely on the client: command_endpoint = host.name.
 
   each($service_configuration['load']) |$name, $vars| {
     if $name == 'default' {
@@ -44,20 +55,13 @@ class profile::icinga2::objects::common_checks {
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 
-  ::icinga2::object::service {'linux-ssh':
-    import        => ['generic-service'],
-    apply         => true,
-    check_command => 'ssh',
-    assign        => ['host.vars.os == Linux'],
-    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
-  }
-
   ::icinga2::object::service {'journalbeat':
-    import        => ['generic-service'],
-    apply         => true,
-    check_command => 'check_journal',
-    assign        => ['host.vars.os == Linux'],
-    ignore        => ['-:"check_journal" !in host.vars.plugins'],
-    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
+    import           => ['generic-service'],
+    apply            => true,
+    check_command    => 'check_journal',
+    command_endpoint => 'host.name',
+    assign           => ['host.vars.os == Linux'],
+    ignore           => ['-:"check_journal" !in host.vars.plugins'],
+    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 }
