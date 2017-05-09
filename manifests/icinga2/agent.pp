@@ -57,4 +57,6 @@ class profile::icinga2::agent {
   icinga2::object::zone { 'global-templates':
     global => true,
   }
+
+  include profile::icinga2::objects::agent_checks
 }
