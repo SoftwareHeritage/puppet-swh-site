@@ -40,7 +40,7 @@ class profile::icinga2::objects::agent_checks {
   ['systemd-journal'].each |$group| {
     exec {"add nagios to group ${group}":
       command => "usermod -a -G ${group} nagios",
-      unless  => "getent group ${group} | cut -d: -f4 | grep -qE (^|,)nagios(,|\$)",
+      unless  => "getent group ${group} | cut -d: -f4 | grep -qE '(^|,)nagios(,|$)'",
       path    => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
       notify  => Service['icinga2'],
       require => Package['icinga2'],
