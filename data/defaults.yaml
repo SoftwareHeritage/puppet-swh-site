@@ -1472,9 +1472,14 @@ swh::azure_objstorage::config:
           filters_conf:
             - type: prefix
               prefix: f
-      - cls: remote
+      - cls: filtered
         args:
-          url: http://uffizi.internal.softwareheritage.org:5003/
+          storage_conf:
+            cls: remote
+            args:
+              url: http://uffizi.internal.softwareheritage.org:5003/
+          filters_conf:
+            - type: readonly
 
 swh::deploy::worker::swh_indexer::orchestrator::concurrency: 2
 swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
