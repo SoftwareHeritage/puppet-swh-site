@@ -57,7 +57,7 @@ class profile::icinga2::objects::common_checks {
     apply         => true,
     check_command => 'check_journal',
     assign        => ['host.vars.os == Linux'],
-    ignore        => ['"check_journal" !in host.vars.plugins'],
+    ignore        => ['-:"check_journal" !in host.vars.plugins'],
     target        => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 }
