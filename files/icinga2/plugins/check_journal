@@ -108,7 +108,7 @@ class JournalLag(nagiosplugin.Resource):
         sameboot = system_cursor['b'] == file_cursor['b']
         seqnum_lag = system_cursor['i'] - file_cursor['i'] if sameboot else 0
         monotonic_lag = system_cursor['m'] - file_cursor['m'] if sameboot else 0
-        realtime_lag = system_cursor['t'] - file_cursor['t'] if sameboot else 0
+        realtime_lag = system_cursor['t'] - file_cursor['t']
 
         return [
             nagiosplugin.Metric('sameboot', sameboot, context='sameboot'),
