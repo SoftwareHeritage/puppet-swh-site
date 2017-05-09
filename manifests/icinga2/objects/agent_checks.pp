@@ -30,6 +30,7 @@ class profile::icinga2::objects::agent_checks {
 
   $packages = [
     'python3-nagiosplugin',
+    'python3-systemd',
     'monitoring-plugins-basic',
   ]
   package {$packages:
