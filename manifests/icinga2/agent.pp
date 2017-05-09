@@ -7,12 +7,15 @@ class profile::icinga2::agent {
   $parent_zone = hiera('icinga2::parent_zone')
   $parent_endpoints = hiera('icinga2::parent_endpoints')
 
+  include profile::icinga2::objects::agent_checks
+
   $local_host_vars = {
     disks => hash(flatten(
       $::mounts.map |$mount| {
         ["disk ${mount}", {disk_partitions => $mount}]
       },
-    )),
+      )),
+    plugins => keys($profile::icinga2::objects::agent_checks::plugins),
   }
 
   class {'::icinga2':
@@ -67,6 +70,4 @@ class profile::icinga2::agent {
     recurse => true,
     tag     => 'icinga2::config::file',
   }
-
-  include profile::icinga2::objects::agent_checks
 }

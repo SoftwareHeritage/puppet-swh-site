@@ -4,13 +4,23 @@ class profile::icinga2::master {
   $features = hiera('icinga2::features')
   $icinga2_network = hiera('icinga2::network')
 
-  $icinga2_host_vars = hiera_hash('icinga2::host::vars')
+  $hiera_host_vars = hiera_hash('icinga2::host::vars')
 
   $icinga2_db_username = hiera('icinga2::master::db::username')
   $icinga2_db_password = hiera('icinga2::master::db::password')
   $icinga2_db_database = hiera('icinga2::master::db::database')
 
   include profile::icinga2::objects
+  include profile::icinga2::objects::agent_checks
+
+  $local_host_vars = {
+    disks => hash(flatten(
+      $::mounts.map |$mount| {
+        ["disk ${mount}", {disk_partitions => $mount}]
+      },
+      )),
+    plugins => keys($profile::icinga2::objects::agent_checks::plugins),
+  }
 
   include ::postgresql::server
 
@@ -54,7 +64,7 @@ class profile::icinga2::master {
     address       => ip_for_network($icinga2_network),
     display_name  => $::fqdn,
     check_command => 'hostalive',
-    vars          => $icinga2_host_vars,
+    vars          => deep_merge($local_host_vars, $hiera_host_vars),
     target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
