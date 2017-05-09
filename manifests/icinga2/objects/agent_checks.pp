@@ -42,9 +42,16 @@ class profile::icinga2::objects::agent_checks {
       command => "usermod -a -G ${group} nagios",
       unless  => "getent group ${group} | cut -d: -f4 | grep -qE '(^|,)nagios(,|$)'",
       path    => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
-      notify  => Service['icinga2'],
       require => Package['icinga2'],
+      notify  => Exec['restart icinga2 after group change'],
     }
+  }
+
+  exec {'restart icinga2 after group change':
+    command     => 'systemctl restart icinga2.service',
+    path        => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
+    require     => Package['icinga2'],
+    refreshonly => true,
   }
 
   file {$swh_plugin_dir:
