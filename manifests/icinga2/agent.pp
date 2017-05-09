@@ -16,7 +16,7 @@ class profile::icinga2::agent {
   }
 
   class {'::icinga2':
-    confd    => false,
+    confd    => true,
     features => $features,
   }
 
@@ -56,6 +56,16 @@ class profile::icinga2::agent {
 
   icinga2::object::zone { 'global-templates':
     global => true,
+  }
+
+  file {'/etc/icinga2/conf.d':
+    ensure  => directory,
+    owner   => 'nagios',
+    group   => 'nagios',
+    mode    => '0755',
+    purge   => true,
+    recurse => true,
+    tag     => 'icinga2::config::file',
   }
 
   include profile::icinga2::objects::agent_checks
