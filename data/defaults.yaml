@@ -1557,7 +1557,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     version: 3.1.0rc2-31-ga2cbb8c
     command: /usr/bin/nomossa
 
-swh::deploy::worker::swh_indexer::language::concurrency: 2
+swh::deploy::worker::swh_indexer::language::concurrency: 1
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
