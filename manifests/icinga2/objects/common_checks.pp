@@ -55,13 +55,23 @@ class profile::icinga2::objects::common_checks {
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 
+  ::icinga2::object::service {'apt':
+    import           => ['generic-service'],
+    apply            => true,
+    check_command    => 'apt',
+    command_endpoint => 'host.name',
+    assign           => ['host.vars.os == Linux'],
+    ignore           => ['host.vars.noagent'],
+    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
+
   ::icinga2::object::service {'journalbeat':
     import           => ['generic-service'],
     apply            => true,
     check_command    => 'check_journal',
     command_endpoint => 'host.name',
     assign           => ['host.vars.os == Linux'],
-    ignore           => ['-:"check_journal" !in host.vars.plugins'],
+    ignore           => ['-:"check_journal" !in host.vars.plugins', 'host.vars.noagent'],
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 }
