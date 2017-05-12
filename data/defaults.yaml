@@ -1566,7 +1566,6 @@ swh::deploy::worker::swh_indexer::language::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
-  workdir: /tmp/swh/indexer.language/
   tool:
     name: pygments
     version: 2.0.1+dfsg-1.1+deb8u1
