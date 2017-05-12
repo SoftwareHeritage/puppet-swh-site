@@ -1520,6 +1520,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
   destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
+  rescheduling_task: swh.indexer.tasks.SWHContentMimetypeTask
   tool:
     name: file
     version: 5.22
@@ -1551,6 +1552,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
+  rescheduling_task: swh.indexer.tasks.SWHContentFossologyLicenseTask
   workdir: /tmp/swh/indexer.fossology.license/
   tool:
     name: nomos
@@ -1566,6 +1568,7 @@ swh::deploy::worker::swh_indexer::language::config:
     cls: remote
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
+  rescheduling_task: swh.indexer.tasks.SWHContentLanguageTask
   tool:
     name: pygments
     version: 2.0.1+dfsg-1.1+deb8u1
