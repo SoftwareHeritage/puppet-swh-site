@@ -40,6 +40,8 @@ smtp::mail_aliases:
     - nicolas+swhinfra@dandrimont.eu
   morane:
     - morane.gg@gmail.com
+  ssushant:
+    - sushant.sushant@inria.fr
   postgres:
     - root
   rdicosmo:
@@ -329,6 +331,18 @@ users:
       seirl:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E
+  ssushant:
+    uid: 1014
+    full_name: Sushant
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhstorage
+      - swhteam
+    authorized_keys:
+      sushant.mukhija0@gmail.com:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCvWoRsznkpBZpgGd9qjbW8Vt6wrUSKw/0fm+HzQDEUsiajG9Igy9VJcMiU6CwFmXvsRjY5Sm4z7aZLpCn0d73ixmNWHy60UG1mnN+BVdfzxEZFfBiLw/PBaKgTpa00yMQbvszXfAnlo1ttnadCdCYWBBBYCx25HEp7MJyORFbbVkqukmp1rJN1o4zUKX7jkrnMHH/vaNdH+dBJAQP0rP/o6LR6GNeWX4hW8/0VgdVqiqqdHpy8OvB9tXKCwY1YYmr6lecOS20msak4UDA8uvufPc37KtxVcvbOstMTkmkSZ4RBxruNfF/GK/pUfg2e6j6B9JkNX4D22C/8NJWydMNxGsn3HMe6bu2QcQf+QgfqqzHZzcwQitHPF9vHMLg0TJLZNM1lAFSJeJkls4cVW/fko8pGrYouRv2ktcRAdugmfw/3txDuVJXOjjPdbLrI3+8TPYQvvPMBodgoxbDxKduO4qY+j8PmqdjjMWayDkasy2nIVwbJHQlmz687BvIRLv80t3RqeYpkjUBK6vld5RDgiZN+HdtlyLL49M5BuD7Gu+iXCziCmJjV1LfY3H29oJsx1SICnbuSjXpIRO+XnMTkgNuCOHtjnbErQnGq+tb7l1UDVw5xWqbeWcVIq5/vmPZRnIZyMvAAuq8bMPaew5oywAs55esdJ6oVgO6w4DX1OQ==
 
 groups:
   adm:
@@ -2015,6 +2029,7 @@ desktop::printers::cups_usernames:
   olasd: ndandrim
   seirl: apietri
   zack: zacchiro
+  ssushant: ssushant
 
 zookeeper::hosts:
   getty.internal.softwareheritage.org: '1'
