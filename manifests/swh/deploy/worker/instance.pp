@@ -41,7 +41,6 @@ define profile::swh::deploy::worker::instance (
         content => template('profile/swh/deploy/worker/parameters.conf.erb'),
         notify  => [
           Exec['systemd-daemon-reload'],
-          Service[$service_basename],
         ],
       }
 
@@ -58,15 +57,6 @@ define profile::swh::deploy::worker::instance (
         mode    => '0640',
         content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
       }
-
-      service {$service_basename:
-        ensure  => running,
-        require => [
-          File[$instance_config],
-          File[$systemd_snippet],
-        ],
-      }
-
     }
     default: {
       file {[
@@ -74,10 +64,6 @@ define profile::swh::deploy::worker::instance (
         $instance_config,
       ]:
         ensure => absent,
-      }
-
-      service {$service_basename:
-        ensure => stopped,
       }
     }
   }
