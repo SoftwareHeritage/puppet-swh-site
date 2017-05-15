@@ -5,13 +5,15 @@ smtp::mynetworks:
   - 192.168.128.0/24  # storage array, for notification emails
   - 192.168.129.0/24  # storage array, for notification emails
 
+smtp::mail_aliases:
+  barman: root
+
+smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
+
 dar::backup::exclude:
   - srv/barman
   - srv/softwareheritage/annex
   - srv/elasticsearch
-
-smtp::mail_aliases:
-  barman: root
 
 # open objstorage api
 swh::deploy::objstorage::uwsgi::listen: 0.0.0.0:5003
