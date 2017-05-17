@@ -1557,6 +1557,7 @@ swh::deploy::worker::swh_indexer::rehash::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   compute_checksums:
     - blake2s256
+  rescheduling_task: swh.indexer.tasks.SWHRecomputeChecksumsTask
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
