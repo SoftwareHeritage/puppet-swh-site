@@ -7,6 +7,9 @@ mod 'role',
 mod 'dar',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDAR/swh-dar.git'
 
+mod 'gunicorn',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-swh-gunicorn.git'
+
 mod 'mediawiki',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMW/swh-mediawiki.git'
 
