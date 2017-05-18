@@ -8,14 +8,11 @@ class profile::swh::deploy::storage {
 
   $swh_packages = ['python3-swh.storage']
 
-  $uwsgi_listen_address = hiera('swh::deploy::storage::uwsgi::listen')
-  $uwsgi_workers = hiera('swh::deploy::storage::uwsgi::workers')
-  $uwsgi_http_workers = hiera('swh::deploy::storage::uwsgi::http_workers')
-  $uwsgi_http_keepalive = hiera('swh::deploy::storage::uwsgi::http_keepalive')
-  $uwsgi_http_timeout = hiera('swh::deploy::storage::uwsgi::http_timeout')
-  $uwsgi_max_requests = hiera('swh::deploy::storage::uwsgi::max_requests')
-  $uwsgi_max_requests_delta = hiera('swh::deploy::storage::uwsgi::max_requests_delta')
-  $uwsgi_reload_mercy = hiera('swh::deploy::storage::uwsgi::reload_mercy')
+  $backend_listen_address = hiera('swh::deploy::storage::backend::listen')
+  $backend_workers = hiera('swh::deploy::storage::backend::workers')
+  $backend_http_keepalive = hiera('swh::deploy::storage::backend::http_keepalive')
+  $backend_http_timeout = hiera('swh::deploy::storage::backend::http_timeout')
+  $backend_reload_mercy = hiera('swh::deploy::storage::backend::reload_mercy')
 
   $storage_config = hiera('swh::deploy::storage::config')
 
@@ -43,34 +40,18 @@ class profile::swh::deploy::storage {
     notify  => Service['uwsgi'],
   }
 
-  ::uwsgi::site {'swh-storage':
-    ensure   => enabled,
-    settings => {
-      plugin              => 'python3',
-      workers             => $uwsgi_workers,
-      max_requests        => $uwsgi_max_requests,
-      max_requests_delta  => $uwsgi_max_requests_delta,
-      worker_reload_mercy => $uwsgi_reload_mercy,
-      reload_mercy        => $uwsgi_reload_mercy,
-      uid                 => $user,
-      gid                 => $user,
-      umask               => '022',
-      module              => 'swh.storage.api.server',
-      callable            => 'run_from_webserver',
-    }
-  }
-
-  ::uwsgi::site {'swh-storage-http':
-    ensure => enabled,
-    settings => {
-      workers        => 0,
-      http           => $uwsgi_listen_address,
-      http_workers   => $uwsgi_http_workers,
-      http_keepalive => $uwsgi_http_keepalive,
-      http_timeout   => $uwsgi_http_timeout,
-      http_to        => '/var/run/uwsgi/app/swh-storage/socket',
-      uid            => $user,
-      gid            => $user,
+  ::gunicorn::instance {'swh-storage':
+    ensure     => enabled,
+    user       => $user,
+    group      => $group,
+    executable => 'swh.storage.api.server:run_from_webserver',
+    settings   => {
+      bind             => $backend_listen_address,
+      workers          => $backend_workers,
+      worker_class     => 'sync',
+      timeout          => $backend_http_timeout,
+      graceful_timeout => $backend_reload_mercy,
+      keepalive        => $backend_http_keepalive,
     }
   }
 }
