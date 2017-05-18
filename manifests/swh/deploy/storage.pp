@@ -21,7 +21,7 @@ class profile::swh::deploy::storage {
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['uwsgi'],
+    notify  => Service['gunicorn-swh-storage'],
   }
 
   file {$conf_directory:
