@@ -16,7 +16,7 @@ class profile::swh::deploy::storage {
 
   $storage_config = hiera('swh::deploy::storage::config')
 
-  include ::uwsgi
+  include ::gunicorn
 
   package {$swh_packages:
     ensure  => latest,
