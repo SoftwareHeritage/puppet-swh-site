@@ -1,7 +1,7 @@
 # RabbitMQ icinga2 plugins
 
 class profile::icinga2::plugins::rabbitmq {
-  $packages = ['nagios-plugins-rabbitmq']
+  $packages = ['nagios-plugins-rabbitmq', 'libjson-perl']
   package {$packages:
     ensure => present,
   }
@@ -9,10 +9,14 @@ class profile::icinga2::plugins::rabbitmq {
   $plugin_configfile = '/etc/icinga2/conf.d/rabbitmq-plugins.conf'
 
   $base_arguments = {
-    '-H' => '$rabbitmq_host$',
-    '-P' => '$rabbitmq_port$',
-    '-u' => '$rabbitmq_user$',
-    '-p' => '$rabbitmq_password$',
+    '-H'         => '$rabbitmq_host$',
+    '--port'     => '$rabbitmq_port$',
+    '--user'     => '$rabbitmq_user$',
+    '--password' => '$rabbitmq_password$',
+    '--vhost' => {
+      'value'  => '$rabbitmq_vhost$',
+      'set_if' => '$rabbitmq_vhost$',
+    }
   }
 
   $base_vars = {
@@ -48,8 +52,12 @@ class profile::icinga2::plugins::rabbitmq {
       vars      => $base_vars,
     },
     rabbitmq_server => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
+      arguments => $base_arguments + {
+        '--node' => '$rabbitmq_node$',
+      },
+      vars      => $base_vars + {
+        'rabbitmq_node' => '$check_address$',
+      },
     },
     rabbitmq_exchange => {
       arguments => $base_arguments,
