@@ -79,7 +79,7 @@ class profile::icinga2::plugins::rabbitmq {
 
   $plugins.each |$command, $plugin| {
     ::icinga2::object::checkcommand {$command:
-      import    => ['plugin-check-command'],
+      import    => ['plugin-check-command', 'ipv4-or-ipv6'],
       command   => ["-:PluginContribDir + \"-rabbitmq/check_${command}\""],
       arguments => $plugin['arguments'],
       vars      => $plugin['vars'],
