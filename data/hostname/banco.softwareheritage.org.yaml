@@ -16,7 +16,7 @@ dar::backup::exclude:
   - srv/elasticsearch
 
 # open objstorage api
-swh::deploy::objstorage::backend::listen: 0.0.0.0:5003
+swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
 
 icinga2::host::vars:

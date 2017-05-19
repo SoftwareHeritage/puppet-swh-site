@@ -919,7 +919,8 @@ swh::deploy::storage::db::port: 5432
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
-swh::deploy::storage::backend::listen: 127.0.0.1:5002
+swh::deploy::storage::backend::listen::host: 127.0.0.1
+swh::deploy::storage::backend::listen::port: 5002
 swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::reload_mercy: 3600
 swh::deploy::storage::backend::http_keepalive: 5
@@ -1012,7 +1013,8 @@ swh::deploy::objstorage::config:
     root: "%{hiera('swh::deploy::objstorage::directory')}"
     slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
 
-swh::deploy::objstorage::backend::listen: 127.0.0.1:5003
+swh::deploy::objstorage::backend::listen::host: 127.0.0.1
+swh::deploy::objstorage::backend::listen::port: 5003
 swh::deploy::objstorage::backend::workers: 4
 swh::deploy::objstorage::backend::reload_mercy: 3600
 swh::deploy::objstorage::backend::http_workers: 1

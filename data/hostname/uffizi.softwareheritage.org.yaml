@@ -2,7 +2,7 @@ dar::backup::exclude:
   - srv/softwareheritage/annex
 
 # Deploy the storage server as a public resource
-swh::deploy::storage::backend::listen: 0.0.0.0:5002
+swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 48
 swh::deploy::storage::config:
   storage:
@@ -16,7 +16,7 @@ swh::deploy::storage::config:
           slicing: "0:2/2:4/4:6"
 
 # open objstorage api
-swh::deploy::objstorage::backend::listen: 0.0.0.0:5003
+swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
 
 swh::deploy::worker::instances:
