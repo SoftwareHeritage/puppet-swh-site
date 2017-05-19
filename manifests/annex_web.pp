@@ -70,4 +70,51 @@ class profile::annex_web {
     mode    => '0640',
     content => '$annex_vhost_basic_auth_content',
   }
+
+
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
+  @@::icinga2::object::service {"annex http redirect on ${::fqdn}":
+    service_name  => 'annex http redirect',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address => $annex_vhost_name,
+      http_uri     => '/',
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"annex https on ${::fqdn}":
+    service_name  => 'annex https',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address    => $annex_vhost_name,
+      http_ssl        => true,
+      http_sni        => true,
+      http_uri        => '/',
+      http_onredirect => sticky
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"annex https certificate ${::fqdn}":
+    service_name  => 'annex https certificate',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address     => $annex_vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 60,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
 }
