@@ -81,6 +81,7 @@ class profile::annex_web {
     check_command => 'http',
     vars          => {
       http_address => $annex_vhost_name,
+      http_vhost   => $annex_vhost_name,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -94,6 +95,7 @@ class profile::annex_web {
     check_command => 'http',
     vars          => {
       http_address    => $annex_vhost_name,
+      http_vhost      => $annex_vhost_name,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -110,6 +112,7 @@ class profile::annex_web {
     check_command => 'http',
     vars          => {
       http_address     => $annex_vhost_name,
+      http_vhost       => $annex_vhost_name,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,

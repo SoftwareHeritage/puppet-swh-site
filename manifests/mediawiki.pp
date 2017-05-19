@@ -61,6 +61,7 @@ class profile::mediawiki {
       check_command => 'http',
       vars          => {
         http_address => $name,
+        http_vhost   => $name,
         http_uri     => '/',
       },
       target        => $icinga_checks_file,
@@ -74,6 +75,7 @@ class profile::mediawiki {
       check_command => 'http',
       vars          => {
         http_address    => $name,
+        http_vhost      => $name,
         http_ssl        => true,
         http_sni        => true,
         http_uri        => '/',
@@ -89,6 +91,7 @@ class profile::mediawiki {
       host_name     => $::fqdn,
       check_command => 'http',
       vars          => {
+        http_vhost       => $name,
         http_address     => $name,
         http_ssl         => true,
         http_sni         => true,

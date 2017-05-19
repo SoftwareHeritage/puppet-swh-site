@@ -187,6 +187,7 @@ class profile::swh::deploy::webapp {
     check_command => 'http',
     vars          => {
       http_address => $vhost_name,
+      http_vhost   => $vhost_name,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -200,6 +201,7 @@ class profile::swh::deploy::webapp {
     check_command => 'http',
     vars          => {
       http_address    => $vhost_name,
+      http_vhost      => $vhost_name,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -216,6 +218,7 @@ class profile::swh::deploy::webapp {
     check_command => 'http',
     vars          => {
       http_address     => $vhost_name,
+      http_vhost       => $vhost_name,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,

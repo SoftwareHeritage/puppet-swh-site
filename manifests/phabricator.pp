@@ -290,6 +290,7 @@ class profile::phabricator {
     check_command => 'http',
     vars          => {
       http_address => $phabricator_vhost_name,
+      http_vhost   => $phabricator_vhost_name,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -303,6 +304,7 @@ class profile::phabricator {
     check_command => 'http',
     vars          => {
       http_address    => $phabricator_vhost_name,
+      http_vhost      => $phabricator_vhost_name,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -319,6 +321,7 @@ class profile::phabricator {
     check_command => 'http',
     vars          => {
       http_address     => $phabricator_vhost_name,
+      http_vhost       => $phabricator_vhost_name,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,
