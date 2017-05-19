@@ -10,4 +10,7 @@ class profile::icinga2::objects {
   include profile::icinga2::objects::static_checks
   include profile::icinga2::objects::agent_checks
   include profile::icinga2::objects::exported_checks
+
+  include profile::icinga2::plugins::rabbitmq
+
 }

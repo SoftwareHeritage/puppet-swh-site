@@ -1,6 +1,5 @@
 class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
-  include ::profile::icinga2::plugins::rabbitmq
 
   $rabbitmq_user = hiera('rabbitmq::monitoring::user')
   $rabbitmq_password = hiera('rabbitmq::monitoring::password')
@@ -18,20 +17,18 @@ class profile::rabbitmq {
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
-    service_name     => 'rabbitmq server',
-    import           => ['generic-service'],
-    host_name        => $::fqdn,
-    check_command    => 'rabbitmq_server',
-    command_endpoint => $::fqdn,
-    vars             => {
-      rabbitmq_address  => '127.0.0.1',
+    service_name  => 'rabbitmq server',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'rabbitmq_server',
+    vars          => {
       rabbitmq_port     => 15672,
       rabbitmq_vhost    => '/',
       rabbitmq_node     => $::hostname,
       rabbitmq_user     => $rabbitmq_user,
       rabbitmq_password => $rabbitmq_password,
     },
-    target           => $icinga_checks_file,
-    tag              => 'icinga2::exported',
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
   }
 }
