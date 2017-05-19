@@ -26,6 +26,8 @@ class profile::mediawiki {
   $mediawiki_vhost_ssl_cipher = hiera('mediawiki::vhost::ssl_cipher')
   $mediawiki_vhost_hsts_header = hiera('mediawiki::vhost::hsts_header')
 
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
   each ($mediawiki_vhosts) |$name, $data| {
     $secret_key = $data['secret_key']
     $upgrade_key = $data['upgrade_key']
@@ -50,6 +52,50 @@ class profile::mediawiki {
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
       swh_logo                   => $data['swh_logo'],
+    }
+
+    @@::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
+      service_name  => "mediawiki ${name} http redirect",
+      import        => ['generic-service'],
+      host_name     => $::fqdn,
+      check_command => 'http',
+      vars          => {
+        http_address => $name,
+        http_uri     => '/',
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
+    }
+
+    @@::icinga2::object::service {"mediawiki ${name} https on ${::fqdn}":
+      service_name  => "mediawiki ${name}",
+      import        => ['generic-service'],
+      host_name     => $::fqdn,
+      check_command => 'http',
+      vars          => {
+        http_address    => $name,
+        http_ssl        => true,
+        http_sni        => true,
+        http_uri        => '/',
+        http_onredirect => sticky
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
+    }
+
+    @@::icinga2::object::service {"mediawiki ${name} https certificate ${::fqdn}":
+      service_name  => "mediawiki ${name} https certificate",
+      import        => ['generic-service'],
+      host_name     => $::fqdn,
+      check_command => 'http',
+      vars          => {
+        http_address     => $name,
+        http_ssl         => true,
+        http_sni         => true,
+        http_certificate => 60,
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
     }
   }
 }
