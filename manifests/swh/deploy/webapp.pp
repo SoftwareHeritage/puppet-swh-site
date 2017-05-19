@@ -177,4 +177,52 @@ class profile::swh::deploy::webapp {
     mode    => '0640',
     content => $vhost_basic_auth_content,
   }
+
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
+  @@::icinga2::object::service {"swh-webapp http redirect on ${::fqdn}":
+    service_name  => 'swh webapp http redirect',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address => $vhost_name,
+      http_uri     => '/',
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"swh-webapp https on ${::fqdn}":
+    service_name  => 'swh webapp',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address    => $vhost_name,
+      http_ssl        => true,
+      http_sni        => true,
+      http_uri        => '/',
+      http_onredirect => sticky
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"swh-webapp https certificate ${::fqdn}":
+    service_name  => 'swh webapp https certificate',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address     => $vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 60,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+
 }
