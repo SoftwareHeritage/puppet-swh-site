@@ -57,6 +57,7 @@ class profile::swh::deploy::objstorage {
     }
   }
 
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"swh-objstorage api (localhost on ${::fqdn})":
     service_name     => 'swh-objstorage api (localhost)',
