@@ -8,7 +8,10 @@ class profile::swh::deploy::storage {
 
   $swh_packages = ['python3-swh.storage']
 
-  $backend_listen_address = hiera('swh::deploy::storage::backend::listen')
+  $backend_listen_host = hiera('swh::deploy::storage::backend::listen::host')
+  $backend_listen_port = hiera('swh::deploy::storage::backend::listen::port')
+  $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
+
   $backend_workers = hiera('swh::deploy::storage::backend::workers')
   $backend_http_keepalive = hiera('swh::deploy::storage::backend::http_keepalive')
   $backend_http_timeout = hiera('swh::deploy::storage::backend::http_timeout')
@@ -52,6 +55,40 @@ class profile::swh::deploy::storage {
       timeout          => $backend_http_timeout,
       graceful_timeout => $backend_reload_mercy,
       keepalive        => $backend_http_keepalive,
+    }
+  }
+
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
+  @@::icinga2::object::service {"swh-storage api (localhost on ${::fqdn})":
+    service_name     => 'swh-storage api (localhost)',
+    import           => ['generic-service'],
+    host_name        => $::fqdn,
+    check_command    => 'http',
+    command_endpoint => $::fqdn,
+    vars             => {
+      http_address => '127.0.0.1',
+      http_port    => $backend_listen_port,
+      http_uri     => '/',
+      http_string  => 'SWH Storage API server',
+    },
+    target           => $icinga_checks_file,
+    tag              => 'icinga2::exported',
+  }
+
+  if $backend_listen_host != '127.0.0.1' {
+    @@::icinga2::object::service {"swh-storage api (remote on ${::fqdn})":
+      service_name  => 'swh-storage api (remote)',
+      import        => ['generic-service'],
+      host_name     => $::fqdn,
+      check_command => 'http',
+      vars          => {
+        http_port   => $backend_listen_port,
+        http_uri    => '/',
+        http_string => 'SWH Storage API server',
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
     }
   }
 }
