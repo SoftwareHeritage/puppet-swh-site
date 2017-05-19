@@ -1012,14 +1012,12 @@ swh::deploy::objstorage::config:
     root: "%{hiera('swh::deploy::objstorage::directory')}"
     slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
 
-swh::deploy::objstorage::uwsgi::listen: 127.0.0.1:5003
-swh::deploy::objstorage::uwsgi::workers: 4
-swh::deploy::objstorage::uwsgi::max_requests: 32
-swh::deploy::objstorage::uwsgi::max_requests_delta: 4
-swh::deploy::objstorage::uwsgi::reload_mercy: 3600
-swh::deploy::objstorage::uwsgi::http_workers: 1
-swh::deploy::objstorage::uwsgi::http_keepalive: 1
-swh::deploy::objstorage::uwsgi::http_timeout: 100000
+swh::deploy::objstorage::backend::listen: 127.0.0.1:5003
+swh::deploy::objstorage::backend::workers: 4
+swh::deploy::objstorage::backend::reload_mercy: 3600
+swh::deploy::objstorage::backend::http_workers: 1
+swh::deploy::objstorage::backend::http_keepalive: 5
+swh::deploy::objstorage::backend::http_timeout: 100000
 
 swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
 swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
