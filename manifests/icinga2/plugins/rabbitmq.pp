@@ -72,7 +72,7 @@ class profile::icinga2::plugins::rabbitmq {
   $plugins.each |$command, $plugin| {
     ::icinga2::object::checkcommand {$command:
       import    => ['plugin-check-command'],
-      command   => ['PluginDir', "check_${command}"],
+      command   => ["-:PluginContribDir + \"/check_${command}\""],
       arguments => $plugin['arguments'],
       vars      => $plugin['vars'],
       target    => $plugin_configfile,
