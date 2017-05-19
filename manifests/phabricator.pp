@@ -280,4 +280,50 @@ class profile::phabricator {
   package {'python-pygments':
     ensure => installed,
   }
+
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
+  @@::icinga2::object::service {"phabricator http redirect on ${::fqdn}":
+    service_name  => 'phabricator http redirect',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address => $phabricator_vhost_name,
+      http_uri     => '/',
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"phabricator https on ${::fqdn}":
+    service_name  => 'phabricator',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address    => $phabricator_vhost_name,
+      http_ssl        => true,
+      http_sni        => true,
+      http_uri        => '/',
+      http_onredirect => sticky
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"phabricator https certificate ${::fqdn}":
+    service_name  => 'phabricator https certificate',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address     => $phabricator_vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 60,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
 }
