@@ -16,7 +16,7 @@ class profile::swh::deploy::objstorage {
   $backend_http_timeout = hiera('swh::deploy::objstorage::backend::http_timeout')
   $backend_reload_mercy = hiera('swh::deploy::objstorage::backend::reload_mercy')
 
-  include ::uwsgi
+  include ::gunicorn
 
   package {$swh_packages:
     ensure  => latest,
