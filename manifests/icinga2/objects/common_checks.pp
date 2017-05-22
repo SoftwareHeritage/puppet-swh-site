@@ -60,6 +60,10 @@ class profile::icinga2::objects::common_checks {
     apply            => true,
     check_command    => 'apt',
     command_endpoint => 'host.name',
+    check_interval   => '3h',
+    vars             => {
+      apt_timeout => '120',
+    },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
