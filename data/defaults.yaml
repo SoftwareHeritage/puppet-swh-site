@@ -40,8 +40,6 @@ smtp::mail_aliases:
     - nicolas+swhinfra@dandrimont.eu
   morane:
     - morane.gg@gmail.com
-  ssushant:
-    - sushant.sushant@inria.fr
   postgres:
     - root
   rdicosmo:
@@ -52,6 +50,8 @@ smtp::mail_aliases:
     - ardumont
   seirl:
     - antoine.pietri1@gmail.com
+  ssushant:
+    - sushant.sushant@inria.fr
   swhstorage:
     - root
   swhworker:
