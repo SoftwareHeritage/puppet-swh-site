@@ -32,6 +32,8 @@ smtp::mynetworks:
 smtp::relay_destinations: {}
 smtp::virtual_aliases: {}
 smtp::mail_aliases:
+  anlambert:
+    antoine.lambert33@gmail.com
   ardumont:
     - antoine.romain.dumont@gmail.com
   fiendish:
@@ -346,6 +348,15 @@ users:
       sushant.mukhija0@gmail.com-2:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC4oLTkZZscbdiMZnh/p8VhfEyRKapqRT7L24kTxxL9Y9QWj3DzCQ7tj8SK/0Y+O0NcrZtXZS/Mx/f6qAjuZwp6Vzo3hLcB016gd5+6suFwz5wfwLFlwF6zgRFc9SqlKuVQdfc0aUvkjReUUalvqXioUqAWi633ZCMGmvjI3c7paIaeGtmjJ2TUE/Qm7x/XxURwk02Y+t7yNhGRGeaGBTKW/OZmIkkaFiSA2syHVRB+fdynPcilYhzaKKWs+6OjG4osKGVJaSef02dSSYHXI4D0HcLgVjExDCt2GGp0Q8e3fFo954btoXLpmij+fOJH1DpHKfUFyOkAnGVOz1wM3Y97
+  anlambert:
+    uid: 1015
+    full_name: Antoine Lambert
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhstorage
+      - swhteam
+    authorized_keys: {}
 
 groups:
   adm:
