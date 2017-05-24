@@ -237,7 +237,7 @@ class profile::swh::deploy::webapp {
       http_vhost   => $vhost_name,
       http_uri     => '/api/1/stat/counters/',
       http_ssl     => true,
-      http_string  => '"content":'
+      http_string  => '\"content\":'
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
@@ -254,7 +254,7 @@ class profile::swh::deploy::webapp {
       http_uri     => '/api/1/known/',
       http_ssl     => true,
       http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
-      http_string  => '"found": true',
+      http_string  => '\"found\": true',
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
