@@ -1124,14 +1124,21 @@ swh::deploy::webapp::config:
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   limiter:
-    global_limits:
-      - 120 per hour
     headers_enabled: true
     strategy: moving-window
     storage_uri: "%{hiera('swh::deploy::webapp::redis')}"
     storage_options: {}
     in_memory_fallback:
       - 120 per hour
+    shared_limits:
+      swh_api:
+        prefix: api_
+        limits:
+          - 120 per hour
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.29
+          - 128.93.193.29
 
 swh::deploy::webapp::locked_endpoints:
   - /browse/
