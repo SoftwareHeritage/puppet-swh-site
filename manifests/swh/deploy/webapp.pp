@@ -251,7 +251,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
-      http_uri     => '/api/1/known/',
+      http_uri     => '/api/1/content/known/',
       http_ssl     => true,
       http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
       http_string  => '\"found\": true',
