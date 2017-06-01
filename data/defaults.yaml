@@ -1561,9 +1561,10 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
   rescheduling_task: swh.indexer.tasks.SWHContentMimetypeTask
   tool:
-    name: file
-    version: 5.22
-    command: file
+    name: 'file'
+    version: '5.22'
+    configuration:
+      command_line: 'file --mime <filepath>'
 
 swh::deploy::worker::swh_indexer::rehash::concurrency: 9
 swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1594,10 +1595,11 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   rescheduling_task: swh.indexer.tasks.SWHContentFossologyLicenseTask
   workdir: /tmp/swh/indexer.fossology.license/
-  tool:
-    name: nomos
-    version: 3.1.0rc2-31-ga2cbb8c
-    command: /usr/bin/nomossa
+  tools:
+    name: 'nomos'
+    version: '3.1.0rc2-31-ga2cbb8c'
+    configuration:
+      command_line: 'nomossa <filepath>'
 
 swh::deploy::worker::swh_indexer::language::concurrency: 3
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1609,9 +1611,13 @@ swh::deploy::worker::swh_indexer::language::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
   rescheduling_task: swh.indexer.tasks.SWHContentLanguageTask
-  tool:
-    name: pygments
-    version: 2.0.1+dfsg-1.1+deb8u1
+  tools:
+    name: 'pygments'
+    version: '2.0.1+dfsg-1.1+deb8u1'
+    configuration:
+      type: 'library'
+      debian-package: 'python3-pygments'
+      max_content_size: 10240
 
 swh::deploy::worker::swh_indexer::ctags::concurrency: 2
 swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1624,10 +1630,11 @@ swh::deploy::worker::swh_indexer::ctags::config:
     args:
       url: http://uffizi.internal.softwareheritage.org:5002/
   workdir: /tmp/swh/indexer.ctags/
-  tool:
-    name: universal-ctags
-    version: ~git7859817b
-    command: /usr/bin/ctags
+  tools:
+    name: 'universal-ctags'
+    version: '~git7859817b'
+    configuration:
+      command_line: "ctags --fields=+lnz --sort=no --links=no --output-format=json <filepath>"
   languages:
     abap: ''
     abnf: ''
