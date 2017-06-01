@@ -11,9 +11,11 @@ class profile::mountpoints {
       $mount_config = $config
     }
 
-    file {$mountpoint:
-      ensure => directory,
-    }
+    exec {"create ${mountpoint}":
+      creates => $mountpoint,
+      command => "mkdir -p ${mountpoint}",
+      path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+    } -> file {$mountpoint:}
 
     mount {
       default:
