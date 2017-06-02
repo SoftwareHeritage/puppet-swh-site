@@ -1560,7 +1560,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
       url: http://uffizi.internal.softwareheritage.org:5002/
   destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
   rescheduling_task: swh.indexer.tasks.SWHContentMimetypeTask
-  tool:
+  tools:
     name: 'file'
     version: '5.22'
     configuration:
