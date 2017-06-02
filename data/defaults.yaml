@@ -1564,7 +1564,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
     name: 'file'
     version: '5.22'
     configuration:
-      command_line: 'file --mime <filepath>'
+      command_line: "file --mime <filepath>"
 
 swh::deploy::worker::swh_indexer::rehash::concurrency: 9
 swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1599,7 +1599,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     name: 'nomos'
     version: '3.1.0rc2-31-ga2cbb8c'
     configuration:
-      command_line: 'nomossa <filepath>'
+      command_line: "nomossa <filepath>"
 
 swh::deploy::worker::swh_indexer::language::concurrency: 3
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1615,8 +1615,8 @@ swh::deploy::worker::swh_indexer::language::config:
     name: 'pygments'
     version: '2.0.1+dfsg-1.1+deb8u1'
     configuration:
-      type: 'library'
-      debian-package: 'python3-pygments'
+      type: "library"
+      debian-package: "python3-pygments"
       max_content_size: 10240
 
 swh::deploy::worker::swh_indexer::ctags::concurrency: 2
