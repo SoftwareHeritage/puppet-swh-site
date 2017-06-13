@@ -1289,6 +1289,8 @@ swh::deploy::worker::swh_storage_archiver::storages:
     cls: remote
     args:
       url: http://banco.internal.softwareheritage.org:5003/
+  - host: azure
+    <<: *azure_objstorage_config
 
 swh::deploy::worker::swh_storage_archiver::concurrency: 10
 swh::deploy::worker::swh_storage_archiver::loglevel: info
@@ -1327,7 +1329,7 @@ swh::banco_objstorage::config:
   args:
     url: http://banco.internal.softwareheritage.org:5003/
 
-swh::azure_objstorage::config:
+swh::azure_objstorage::config: &azure_objstorage_config
   cls: multiplexer
   args:
     objstorages:
