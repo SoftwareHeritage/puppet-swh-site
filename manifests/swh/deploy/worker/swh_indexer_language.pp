@@ -10,9 +10,6 @@ class profile::swh::deploy::worker::swh_indexer_language {
   $config_file = '/etc/softwareheritage/indexer/language.yml'
   $config = hiera('swh::deploy::worker::swh_indexer::language::config')
 
-  $objstorage_config = hiera('swh::azure_objstorage::config')
-  $merged_config = merge($config, {'objstorage' => $objstorage_config})
-
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_language']
 
@@ -36,6 +33,6 @@ class profile::swh::deploy::worker::swh_indexer_language {
     group   => 'swhdev',
     # Contains passwords
     mode    => '0640',
-    content => inline_template("<%= @merged_config.to_yaml %>\n"),
+    content => inline_template("<%= @config.to_yaml %>\n"),
   }
 }

@@ -7,9 +7,6 @@ class profile::swh::deploy::indexer {
   $config_file = "${config_directory}/base.yml"
   $config = hiera('swh::deploy::worker::swh_indexer::base::config')
 
-  $objstorage_config = hiera('swh::azure_objstorage::config')
-  $merged_config = merge($config, {'objstorage' => $objstorage_config})
-
   $packages = ['python3-swh.indexer']
 
   file {$config_directory:
@@ -25,7 +22,7 @@ class profile::swh::deploy::indexer {
     group   => 'swhdev',
     # Contains passwords
     mode    => '0640',
-    content => inline_template("<%= @merged_config.to_yaml %>\n"),
+    content => inline_template("<%= @config.to_yaml %>\n"),
   }
 
   package {$packages:
