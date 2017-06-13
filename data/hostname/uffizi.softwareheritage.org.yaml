@@ -21,8 +21,6 @@ swh::deploy::objstorage::backend::workers: 16
 
 swh::deploy::worker::instances:
   - swh_storage_archiver
-  - swh_storage_archiver_azure
-  - swh_provenance_cache
 
 icinga2::host::vars:
   load: high

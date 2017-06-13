@@ -13,5 +13,4 @@ networks:
 swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
-  - swh_reader_git
   - swh_loader_git_disk
