@@ -1273,8 +1273,8 @@ swh::deploy::worker::swh_lister_github::config:
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
 swh::deploy::worker::swh_storage_archiver::archival_max_age: 3600
-swh::deploy::worker::swh_storage_archiver::retention_policy: 2
-swh::deploy::worker::swh_storage_archiver::batch_max_size: 1000
+swh::deploy::worker::swh_storage_archiver::retention_policy: 3
+swh::deploy::worker::swh_storage_archiver::batch_max_size: 5
 swh::deploy::worker::swh_storage_archiver::db::host: db
 swh::deploy::worker::swh_storage_archiver::db::dbname: softwareheritage-archiver
 swh::deploy::worker::swh_storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
