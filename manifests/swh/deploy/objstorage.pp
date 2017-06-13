@@ -46,11 +46,11 @@ class profile::swh::deploy::objstorage {
     ensure     => enabled,
     user       => $user,
     group      => $group,
-    executable => 'swh.objstorage.api.server:run_from_webserver',
+    executable => 'swh.objstorage.api.server:make_app_from_configfile()',
     settings   => {
       bind             => $backend_listen_address,
       workers          => $backend_workers,
-      worker_class     => 'sync',
+      worker_class     => 'aiohttp.worker.GunicornWebWorker',
       timeout          => $backend_http_timeout,
       graceful_timeout => $backend_reload_mercy,
       keepalive        => $backend_http_keepalive,
