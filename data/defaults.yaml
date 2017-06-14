@@ -1257,16 +1257,17 @@ swh::deploy::objstorage::backend::http_keepalive: 5
 swh::deploy::objstorage::backend::http_timeout: 100000
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
-swh::deploy::deposit::conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/deposit.yml"
+swh::deploy::deposit::conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
 swh::deploy::deposit::db::host: db
 swh::deploy::deposit::db::port: 5432
 swh::deploy::deposit::db::user: swhstorage
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
+swh::deploy::deposit::db::password: "%{hiera('swh::deploy::storage::db::password')}"
 swh::deploy::deposit::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::deposit::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::deposit::config:
   max_upload_size: 209715200
-  deposit_db: "host=%{hiera('swh::deploy::deposit::db::host')} user=%{hiera('swh::deploy::deposit::db::user')}  dbname=%{hiera('swh::deploy::deposit::db::dbname')} password=%{hiera('swh::deploy::deposit::db::password')}"
+  dbconn: "host=%{hiera('swh::deploy::deposit::db::host')} port=%{hiera('swh::deploy::deposit::db::port')} user=%{hiera('swh::deploy::deposit::db::user')} dbname=%{hiera('swh::deploy::deposit::db::dbname')} password=%{hiera('swh::deploy::deposit::db::password')}"
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: 5006
