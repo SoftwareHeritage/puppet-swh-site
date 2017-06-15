@@ -1,2 +1,6 @@
 dar::backup::exclude:
   - srv/softwareheritage/postgres
+
+# that's a mirror of the load on the host...
+icinga2::host::vars:
+  load: high
