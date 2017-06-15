@@ -1,0 +1,15 @@
+networks:
+  private:
+    interface: eth1
+    address: 192.168.100.39
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
+  default:
+    interface: eth0
+    address: 128.93.193.39
+    netmask: 255.255.255.0
+    gateway: 128.93.193.254
+
+swh::deploy::worker::instances: []
+
+swh::deploy::worker::swh_loader_git::concurrency: 10
