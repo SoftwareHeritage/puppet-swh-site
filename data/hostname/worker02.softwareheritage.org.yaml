@@ -13,10 +13,3 @@ networks:
 swh::deploy::worker::instances:
   - swh_loader_git
   - swh_lister_github
-  - swh_loader_git_disk
-  - swh_indexer_orchestrator
-  - swh_indexer_orchestrator_text
-  - swh_indexer_mimetype
-  - swh_indexer_language
-  - swh_indexer_ctags
-  - swh_indexer_fossology_license
