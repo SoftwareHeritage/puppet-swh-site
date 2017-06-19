@@ -1489,6 +1489,9 @@ swh::deploy::worker::swh_storage_archiver::config:
       <<: *swh_objstorage_config_banco
     - host: azure
       <<: *swh_objstorage_config_azure
+  sources:
+    - uffizi
+    - banco
 
 swh::deploy::worker::swh_indexer::orchestrator::concurrency: 2
 swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
