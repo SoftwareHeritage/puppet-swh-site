@@ -41,7 +41,8 @@ class profile::swh::apt_config {
 
   $swh_repository = hiera('swh::apt_config::swh_repository')
   $swh_release = $::lsbdistcodename ? {
-    'stretch' => 'sid',
+    'buster'  => 'sid',
+    'stretch' => 'stretch-swh',
     default   => $::lsbdistcodename,
   }
 
