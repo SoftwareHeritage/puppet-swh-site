@@ -759,7 +759,7 @@ bind::resource_records:
     data: grand-palais.internal.softwareheritage.org.
   giverny/A:
     type: A
-    record: giverny.internal.softwareheritage.org.
+    record: giverny.internal.softwareheritage.org
     data: 192.168.101.118
   worker01-euwest/A:
     type: A
