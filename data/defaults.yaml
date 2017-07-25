@@ -757,6 +757,10 @@ bind::resource_records:
     type: CNAME
     record: grandpalais.internal.softwareheritage.org
     data: grand-palais.internal.softwareheritage.org.
+  giverny/A:
+    type: A
+    record: giverny.internal.softwareheritage.org.
+    data: 192.168.101.118
   worker01-euwest/A:
     type: A
     record: worker01.euwest.azure.internal.softwareheritage.org
