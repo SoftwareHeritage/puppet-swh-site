@@ -12,3 +12,6 @@ users:
   morane:
     groups:
       - sudo
+  grouss:
+    groups:
+      - sudo
