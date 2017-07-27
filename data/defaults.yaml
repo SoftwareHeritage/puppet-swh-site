@@ -360,6 +360,16 @@ users:
       antoine.lambert33@gmail.com:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDS+Z1jURuw2vvmjKO0DcErdyE68uy3beLBE1fXVFl1KS4sSf7LnoTDhn0FmA3oSRa1H7widwfSX7nMzto3ehZLxOUKzFxkezdib3B9cP+m2yJ9tizaMFe8YzPXTPbWxA1bikL7V8hp7jYoTdSWizVI+4w5VHdS1OUOHjyDHDE0m8Mrgb+hB8tUvoHgw3llnCT4qvCdclLwZUUGyqSUl/12T4ARki7N9uy8y1NSfm/p2Xbfd5v6/BjzR1hJ+hrtK6Q3LHS+Gc0dv3SegOLW4Vb/gP5wX+mpbm/lCfY78smpyHrwodcMcondOMCaW5x8719+EWE9Rz144IXTJB0oaJDZ6toOIlik6QGlHLupiTAn4J5Tcb/K+p/XggO58PszGpjIgBSxxTPHViOiR6tNyZIy7EYXWnUMTxu29ru8WsTeei7wR7NVszU7RIHtgYglk/KiKfeelOlB57IksdttzgvFgkvibFA/xIK0NFHsWGXWDXO+LKe22X9OkuClnxEyMDxvBJO0ST+zCA7tAMxHMuVPkrikk6Dn4jm+BSltjDxF/FyyR7Pv+rKYKLw9yWjxPoeFbSkOWY5A0ZJpgKE4V74sMGm2fZDxPTf9jfYeNKpC0tZGi0mR/n5JipZBTrEkB4dM2MUUSSxhAhO/bdRvRRQYa7rkwb2+Tjd2qAYPmDMMxQ==
+  grouss:
+    uid: 1016
+    full_name: Guillaume Rousseau
+    shell: /bin/bash
+    groups:
+      - swhteam
+    authorized_keys:
+      guillaume.rousseau@univ-paris-diderot.fr:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Akcdxrod/MFcHg53dCf7iZY/ph9MR0tWU08pjMDfU04j1nAgmHmvumYbxBtFNnd0nu4A9YY4nT79273PCE3c6ba3zSGS9DBYhrASGDqHBECrgEREM3YPXpA2NI0FKEZ878Ic3CQlYaOmRoe/QkFpm2j8CMoG4VdKp0EcvV1RCTgWqJY1P4KC30CJUg+OdGRaaqHEoSskjstU5yjbZCC9M90Hz0xO+MsMl/xKdcDmvwbLDMtp/3SKDQeyN4Q7Uu/zZwoZ8FmgEU4Xp7nKN3yCiEB9rqMkP/lLY71hTPHn/GiZnPo4rWL13w3unuI3X0GDpqxPxjt0LZN4xQEGEn+1
 
 groups:
   adm:
