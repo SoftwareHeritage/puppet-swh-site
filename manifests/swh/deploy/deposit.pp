@@ -2,11 +2,18 @@
 
 class profile::swh::deploy::deposit {
   $conf_directory = hiera('swh::deploy::deposit::conf_directory')
-  $conf_file = hiera('swh::deploy::deposit::conf_file')
+
+  $swh_conf_file = hiera('swh::deploy::deposit::swh_conf_file')
   $user = hiera('swh::deploy::deposit::user')
   $group = hiera('swh::deploy::deposit::group')
+  $swh_conf_raw = hiera('swh::deploy::deposit::config')
 
-  $deposit_config = hiera('swh::deploy::deposit::config')
+  $swh_setting_file = hiera('swh::deploy::deposit::settings_conf_file')
+  $db_host = hiera('swh::deploy::deposit::db::host')
+  $db_port = hiera('swh::deploy::deposit::db::port')
+  $db_user = hiera('swh::deploy::deposit::db::user')
+  $db_password = hiera('swh::deploy::deposit::db::password')
+  $runtime_secret_key = hiera('swh::deploy::deposit::runtime_secret_key')
 
   $swh_packages = ['python3-swh.deposit']
 
@@ -33,12 +40,23 @@ class profile::swh::deploy::deposit {
     mode   => '0750',
   }
 
-  file {$conf_file:
+  # swh's configuration part (upload size, etc...)
+  file {$swh_conf_file:
     ensure  => present,
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template("<%= @deposit_config.to_yaml %>\n"),
+    content => inline_template("<%= @swh_conf_raw.to_yaml %>\n"),
+    notify  => Service['gunicorn-swh-deposit'],
+  }
+
+  # django settings part (db, template, etc...)
+  file {$swh_settings_file:
+    ensure => present,
+    owner  => 'root'
+    group   => $group,
+    mode    => '0640',
+    content => template('profile/swh/deploy/deposit/settings.py.erb'),
     notify  => Service['gunicorn-swh-deposit'],
   }
 
@@ -46,11 +64,11 @@ class profile::swh::deploy::deposit {
     ensure     => enabled,
     user       => $user,
     group      => $group,
-    executable => 'swh.deposit.server:make_app_from_configfile()',
+    executable => 'swh.deposit.wsgi',
     settings   => {
       bind             => $backend_listen_address,
       workers          => $backend_workers,
-      worker_class     => 'aiohttp.worker.GunicornWebWorker',
+      worker_class     => 'sync',
       timeout          => $backend_http_timeout,
       graceful_timeout => $backend_reload_mercy,
       keepalive        => $backend_http_keepalive,
