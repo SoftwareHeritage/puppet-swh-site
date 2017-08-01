@@ -8,7 +8,8 @@ class profile::swh::deploy::deposit {
   $group = hiera('swh::deploy::deposit::group')
   $swh_conf_raw = hiera('swh::deploy::deposit::config')
 
-  $swh_setting_file = hiera('swh::deploy::deposit::settings_conf_file')
+  $swh_settings_file = hiera('swh::deploy::deposit::settings_conf_file')
+  $db_name = hiera('swh::deploy::deposit::db::dbname')
   $db_host = hiera('swh::deploy::deposit::db::host')
   $db_port = hiera('swh::deploy::deposit::db::port')
   $db_user = hiera('swh::deploy::deposit::db::user')
@@ -53,7 +54,7 @@ class profile::swh::deploy::deposit {
   # django settings part (db, template, etc...)
   file {$swh_settings_file:
     ensure => present,
-    owner  => 'root'
+    owner  => 'root',
     group   => $group,
     mode    => '0640',
     content => template('profile/swh/deploy/deposit/settings.py.erb'),
