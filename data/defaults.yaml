@@ -1276,7 +1276,7 @@ swh::deploy::objstorage::backend::http_timeout: 100000
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
-swh::deploy::deposit::setting_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/settings.py"
+swh::deploy::deposit::settings_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/settings.py"
 swh::deploy::deposit::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::deposit::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::deposit::db::host: db
