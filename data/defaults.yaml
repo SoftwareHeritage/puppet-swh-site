@@ -74,6 +74,7 @@ packages:
   - etckeeper
   - git
   - htop
+  - ipython3
   - molly-guard
   - moreutils
   - ncdu
