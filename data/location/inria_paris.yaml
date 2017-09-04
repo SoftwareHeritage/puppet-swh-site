@@ -1,4 +1,6 @@
 ---
+timezone: Europe/Paris
+
 dns::forwarders:
   - 128.93.77.234
 dns::forwarder_insecure: false

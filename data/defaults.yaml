@@ -70,6 +70,8 @@ locales::installed_locales:
   - fr_FR.UTF-8 UTF-8
   - it_IT.UTF-8 UTF-8
 
+timezone: Etc/UTC
+
 packages:
   - etckeeper
   - git
