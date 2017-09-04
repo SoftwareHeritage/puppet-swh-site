@@ -101,6 +101,10 @@ class profile::base {
     priority => 20,
   }
 
+  class {'::timezone':
+    timezone => hiera('timezone'),
+  }
+
   $bind_autogenerate = hiera_hash('bind::autogenerate')
   $bind_key = hiera('bind::update_key')
 
