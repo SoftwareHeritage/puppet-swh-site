@@ -42,6 +42,10 @@ mod 'cups',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCUPS/mosen-cups.git',
     :ref => 'master'
 
+mod 'debconf',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-stm-debconf.git',
+    :ref => 'v2.0.0'
+
 mod 'debconf_package',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPDEBP/rlenglet-debconf_package.git',
     :ref => 'fix-metadata'
@@ -113,6 +117,10 @@ mod 'stdlib',
 mod 'sudo',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSUDO/saz-sudo.git',
     :ref => 'fix-stretch'
+
+mod 'timezone',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-saz-timezone.git',
+    :ref => 'v3.5.0'
 
 mod 'zookeeper',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPZK/wikimedia-zookeeper.git',
