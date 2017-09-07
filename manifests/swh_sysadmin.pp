@@ -11,4 +11,5 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::munin::plugins::postgresql
 
   include profile::annex_web
+  include profile::docs_web
 }
