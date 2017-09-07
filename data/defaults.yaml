@@ -38,6 +38,8 @@ smtp::mail_aliases:
     - antoine.romain.dumont@gmail.com
   fiendish:
     - patcherton.fixesthings@gmail.com
+  ftigeot:
+    - ftswh@wolfpond.org
   olasd:
     - nicolas+swhinfra@dandrimont.eu
   morane:
