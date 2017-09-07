@@ -19,6 +19,7 @@ class profile::docs_web {
     servername      => $docs_vhost_name,
     port            => '80',
     docroot         => $docs_vhost_docroot,
+    manage_docroot  => false,  # will be managed by the SSL resource
     redirect_status => 'permanent',
     redirect_dest   => "https://${docs_vhost_name}/",
   }
