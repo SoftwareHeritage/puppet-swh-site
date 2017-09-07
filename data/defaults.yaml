@@ -373,6 +373,18 @@ users:
       guillaume.rousseau@univ-paris-diderot.fr:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Akcdxrod/MFcHg53dCf7iZY/ph9MR0tWU08pjMDfU04j1nAgmHmvumYbxBtFNnd0nu4A9YY4nT79273PCE3c6ba3zSGS9DBYhrASGDqHBECrgEREM3YPXpA2NI0FKEZ878Ic3CQlYaOmRoe/QkFpm2j8CMoG4VdKp0EcvV1RCTgWqJY1P4KC30CJUg+OdGRaaqHEoSskjstU5yjbZCC9M90Hz0xO+MsMl/xKdcDmvwbLDMtp/3SKDQeyN4Q7Uu/zZwoZ8FmgEU4Xp7nKN3yCiEB9rqMkP/lLY71hTPHn/GiZnPo4rWL13w3unuI3X0GDpqxPxjt0LZN4xQEGEn+1
+  ftigeot:
+    uid: 1017
+    full_name: Francois Tigeot
+    shell: /usr/bin/zsh
+    groups:
+      - adm
+      - swhteam
+      - sudo
+    authorized_keys:
+      ftswh@wolfpond.org:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDXpL8nJw6kUgXSxxO1GrScPWYA7wa1ng7VwF0l1StAVavRGcYpYHdahCYrdIz4QF6fY+HSsUoTwyMHLsmU8tHOK6Urx+EAnUB0t6x0v3wfuwKslAK0hHSgZYGIEkFd4qWX2guHwekIILrSIj+TnlodFMUw5ulCrcGIj8Ss2YZlxXkw8opFLNA22cmrYVwHryv0yfYFejnpBlM9WLA8R8ZKc5Du9Enx5fG0YIFjPH4aaU20W77b+aIQrJTIostANwhSn2TnbhubFklqM314LfgUpVC7+rIe5L5Vk3iY0FHhYN4cBi1DK7NVrw1gwfuBt2Hpjnv/4FRazmn7LM+F0eLdYWzIFVv68vrCtOSSxvUeJtjDYWLWPn/sBJQ8/5yOP3vhxAJAgIvvHnWuGIPVLK9UO6lFGmhaxPP01I8pX/aE7AoRNqFFUXxnkSkSbjLNEGpDSfGVmxnM1fYlqkZzabPFEAbkm2iUKpAEcJWugLMNCGR5Vy2Lspf7DjviNelLvuIOGBeNhY99ecqFLRej0oTf46HHpsaZEWx8zdg7BvAjkCmII8YtZyqYD7tW8P3yEFPkBRhpu+85FwUe+335ZiTPnlR37+QHz4Ax4vBPB3/3q9u+JTXnKqkm3kfiLUcPu1VrwkLBXKr56fnw4+ckUNTVrnkt8/Czz9RghnCM4cD/3w==
 
 groups:
   adm:
