@@ -1382,12 +1382,13 @@ swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}
 swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
 swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
-swh::deploy::webapp::uwsgi::listen: 127.0.0.1:5003
-swh::deploy::webapp::uwsgi::protocol: uwsgi
-swh::deploy::webapp::uwsgi::workers: 32
-swh::deploy::webapp::uwsgi::max_requests: 512
-swh::deploy::webapp::uwsgi::max_requests_delta: 8
-swh::deploy::webapp::uwsgi::reload_mercy: 3600
+swh::deploy::webapp::backend::listen::host:: 127.0.0.1
+swh::deploy::webapp::backend::listen::port:: 5003
+swh::deploy::webapp::backend::workers: 32
+swh::deploy::webapp::backend::http_keepalive: 5
+swh::deploy::webapp::backend::http_timeout: 100000
+swh::deploy::webapp::backend::reload_mercy: 3600
+
 swh::deploy::webapp::vhost::name: archive.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
   - base.softwareheritage.org
@@ -1404,25 +1405,15 @@ swh::deploy::webapp::config:
       url: http://127.0.0.1:5002/
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
-  limiter:
-    headers_enabled: true
-    strategy: moving-window
-    storage_uri: "%{hiera('swh::deploy::webapp::redis')}"
-    storage_options: {}
-    in_memory_fallback:
-      - 120 per hour
-    shared_limits:
-      swh_api:
-        prefix: api_
-        limits:
-          - 120 per hour
-        exempted_networks:
-          - 127.0.0.0/8
-          - 192.168.100.29
-          - 128.93.193.29
+  limiters:
+    swh_api:
+      limiter_rate: 120/h
+      exempted_networks:
+        - 127.0.0.0/8
+        - 192.168.100.29
+        - 128.93.193.29
 
 swh::deploy::webapp::locked_endpoints:
-  - /browse/
   - /api/1/content/[^/]+/symbol/
   - /api/1/entity/
   - /api/1/provenance/
