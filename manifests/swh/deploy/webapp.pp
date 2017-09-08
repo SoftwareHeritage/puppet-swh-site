@@ -98,8 +98,6 @@ class profile::swh::deploy::webapp {
   include ::apache::mod::proxy
   include ::apache::mod::headers
 
-  ::apache::mod {'proxy_http':}
-
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     serveraliases   => $vhost_aliases,
