@@ -362,9 +362,9 @@ users:
       - swhstorage
       - swhteam
     authorized_keys:
-      antoine.lambert33@gmail.com:
+      antoine.lambert@inria.fr:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDS+Z1jURuw2vvmjKO0DcErdyE68uy3beLBE1fXVFl1KS4sSf7LnoTDhn0FmA3oSRa1H7widwfSX7nMzto3ehZLxOUKzFxkezdib3B9cP+m2yJ9tizaMFe8YzPXTPbWxA1bikL7V8hp7jYoTdSWizVI+4w5VHdS1OUOHjyDHDE0m8Mrgb+hB8tUvoHgw3llnCT4qvCdclLwZUUGyqSUl/12T4ARki7N9uy8y1NSfm/p2Xbfd5v6/BjzR1hJ+hrtK6Q3LHS+Gc0dv3SegOLW4Vb/gP5wX+mpbm/lCfY78smpyHrwodcMcondOMCaW5x8719+EWE9Rz144IXTJB0oaJDZ6toOIlik6QGlHLupiTAn4J5Tcb/K+p/XggO58PszGpjIgBSxxTPHViOiR6tNyZIy7EYXWnUMTxu29ru8WsTeei7wR7NVszU7RIHtgYglk/KiKfeelOlB57IksdttzgvFgkvibFA/xIK0NFHsWGXWDXO+LKe22X9OkuClnxEyMDxvBJO0ST+zCA7tAMxHMuVPkrikk6Dn4jm+BSltjDxF/FyyR7Pv+rKYKLw9yWjxPoeFbSkOWY5A0ZJpgKE4V74sMGm2fZDxPTf9jfYeNKpC0tZGi0mR/n5JipZBTrEkB4dM2MUUSSxhAhO/bdRvRRQYa7rkwb2+Tjd2qAYPmDMMxQ==
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDLWPcZnSUszEedMa39dT3ZCHpRod3NTs6WT4OfMMRVahrhTtWYdSiNGy8U3kEQveTZvMrb9WLtLPB3K8o7Xrf8WCI8iTOl9eb9DVjE9XL+zS0ZAcEmoZ5YH8e3gEDoDm8ZrMxF+V5XSlvhNi6kbWzJdqhXu++bJHHqGrKUHeTCQCfpYYMrsnvhPjtxe+90BK7e+IGm1Ha8LZMCCmOtz0XggxD8d2mFBaP2p8v9xsM48KfwFvsRMb3TZIaO/+NcsRSTe7wfFAR1pb14pi5LZAHeb2tpWfVH2vQGaE7Rej+Ycf4UOeaRmFGpimw7u7fugvDvKfZ/vs7w7Qs2RtxNdqJf9JM+vvi78OQbloufot1Tz2r19aDbhM9nsCn+Uo3rNfkmD+UcSMKrRJCMEXVBbaY/bgzs7XoqCJ8ODE2U/dF3NtHBZr+CB52iilUtemXy+Xwqw4TSs/r9vW7/XueTdb0Yp/cUs5uLCqCwlMpGS5okorpdJextp5gRuN6EMlUo6PffRiz5T0CqKm1xJu0NeT0EaacAXoGTDQaS4pIQGglqWfAOmjej9dM8gxAF6rgrx70uJt6Hy18tvzdB5iwJ4F2LUjcZhFnrxjUDzhjPoDBiRtPNgEKrCc30OHsveqXwMPo3v/d3np1Vpkum0JEwmp83q92P5T2rbf+wiruxZhhtww==
   grouss:
     uid: 1016
     full_name: Guillaume Rousseau
