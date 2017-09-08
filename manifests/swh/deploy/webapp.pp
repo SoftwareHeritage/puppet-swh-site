@@ -8,12 +8,13 @@ class profile::swh::deploy::webapp {
   $webapp_config = hiera('swh::deploy::webapp::config')
   $conf_log_dir = hiera('swh::deploy::webapp::conf::log_dir')
 
-  $uwsgi_listen_address = hiera('swh::deploy::webapp::uwsgi::listen')
-  $uwsgi_protocol = hiera('swh::deploy::webapp::uwsgi::protocol')
-  $uwsgi_workers = hiera('swh::deploy::webapp::uwsgi::workers')
-  $uwsgi_max_requests = hiera('swh::deploy::webapp::uwsgi::max_requests')
-  $uwsgi_max_requests_delta = hiera('swh::deploy::webapp::uwsgi::max_requests_delta')
-  $uwsgi_reload_mercy = hiera('swh::deploy::webapp::uwsgi::reload_mercy')
+  $backend_listen_host = hiera('swh::deploy::webapp::backend::listen::host')
+  $backend_listen_port = hiera('swh::deploy::webapp::backend::listen::port')
+  $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
+  $backend_workers = hiera('swh::deploy::webapp::backend::workers')
+  $backend_http_keepalive = hiera('swh::deploy::webapp::backend::http_keepalive')
+  $backend_http_timeout = hiera('swh::deploy::webapp::backend::http_timeout')
+  $backend_reload_mercy = hiera('swh::deploy::webapp::backend::reload_mercy')
 
   $swh_packages = ['python3-swh.web']
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
@@ -39,12 +40,12 @@ class profile::swh::deploy::webapp {
     }
   }
 
-  include ::uwsgi
+  include ::gunicorn
 
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['uwsgi'],
+    notify  => Service['gunicorn-swh-webapp'],
   }
 
   file {$conf_directory:
@@ -74,25 +75,21 @@ class profile::swh::deploy::webapp {
     group   => $group,
     mode    => '0640',
     content => inline_template("<%= @webapp_config.to_yaml %>\n"),
-    notify  => Service['uwsgi'],
+    notify  => Service['gunicorn-swh-webapp'],
   }
 
-  ::uwsgi::site {'swh-webapp':
-    ensure   => enabled,
-    settings => {
-      plugin              => 'python3',
-      protocol            => $uwsgi_protocol,
-      socket              => $uwsgi_listen_address,
-      workers             => $uwsgi_workers,
-      max_requests        => $uwsgi_max_requests,
-      max_requests_delta  => $uwsgi_max_requests_delta,
-      worker_reload_mercy => $uwsgi_reload_mercy,
-      reload_mercy        => $uwsgi_reload_mercy,
-      uid                 => $user,
-      gid                 => $user,
-      umask               => '022',
-      module              => 'swh.web.ui.main',
-      callable            => 'run_from_webserver',
+  ::gunicorn::instance {'swh-webapp':
+    ensure     => enabled,
+    user       => $user,
+    group      => $group,
+    executable => 'swh.web.wsgi:application',
+    settings   => {
+      bind             => $backend_listen_address,
+      workers          => $backend_workers,
+      worker_class     => 'sync',
+      timeout          => $backend_http_timeout,
+      graceful_timeout => $backend_reload_mercy,
+      keepalive        => $backend_http_keepalive,
     }
   }
 
@@ -101,7 +98,7 @@ class profile::swh::deploy::webapp {
   include ::apache::mod::proxy
   include ::apache::mod::headers
 
-  ::apache::mod {'proxy_uwsgi':}
+  ::apache::mod {'proxy_http':}
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
@@ -140,7 +137,7 @@ class profile::swh::deploy::webapp {
         url  => '!',
       },
       { path => '/',
-        url  => "uwsgi://${uwsgi_listen_address}/",
+        url  => "http://${backend_listen_address}/",
       },
     ],
     directories          => [
