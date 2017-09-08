@@ -15,8 +15,8 @@ class profile::swh::deploy::webapp {
   $uwsgi_max_requests_delta = hiera('swh::deploy::webapp::uwsgi::max_requests_delta')
   $uwsgi_reload_mercy = hiera('swh::deploy::webapp::uwsgi::reload_mercy')
 
-  $swh_packages = ['python3-swh.web.ui']
-  $static_dir = '/usr/lib/python3/dist-packages/swh/web/ui/static'
+  $swh_packages = ['python3-swh.web']
+  $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
   $vhost_name = hiera('swh::deploy::webapp::vhost::name')
   $vhost_aliases = hiera('swh::deploy::webapp::vhost::aliases')
