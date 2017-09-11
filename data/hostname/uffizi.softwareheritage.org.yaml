@@ -3,7 +3,7 @@ dar::backup::exclude:
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 48
+swh::deploy::storage::backend::workers: 96
 swh::deploy::storage::config:
   storage:
     cls: local
