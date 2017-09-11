@@ -16,6 +16,8 @@ class profile::swh::deploy::storage {
   $backend_http_keepalive = hiera('swh::deploy::storage::backend::http_keepalive')
   $backend_http_timeout = hiera('swh::deploy::storage::backend::http_timeout')
   $backend_reload_mercy = hiera('swh::deploy::storage::backend::reload_mercy')
+  $backend_max_requests = hiera('swh::deploy::storage::backend::max_requests')
+  $backend_max_requests_jitter = hiera('swh::deploy::storage::backend::max_requests_jitter')
 
   $storage_config = hiera('swh::deploy::storage::config')
 
@@ -49,12 +51,14 @@ class profile::swh::deploy::storage {
     group      => $group,
     executable => 'swh.storage.api.server:run_from_webserver',
     settings   => {
-      bind             => $backend_listen_address,
-      workers          => $backend_workers,
-      worker_class     => 'sync',
-      timeout          => $backend_http_timeout,
-      graceful_timeout => $backend_reload_mercy,
-      keepalive        => $backend_http_keepalive,
+      bind                => $backend_listen_address,
+      workers             => $backend_workers,
+      worker_class        => 'sync',
+      timeout             => $backend_http_timeout,
+      graceful_timeout    => $backend_reload_mercy,
+      keepalive           => $backend_http_keepalive,
+      max_requests        => $backend_max_requests,
+      max_requests_jitter => $backend_max_requests_jitter,
     }
   }
 
