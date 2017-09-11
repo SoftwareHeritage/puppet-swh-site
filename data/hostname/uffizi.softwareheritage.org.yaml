@@ -26,53 +26,53 @@ icinga2::host::vars:
   load: high
   disks:
     disk /srv/storage/0:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/1:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/2:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/3:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/4:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/5:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/6:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/7:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/8:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/9:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/a:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/b:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/c:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/d:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/e:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/f:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
     disk /srv/storage/space/mirrors/gitorious.org/mnt:
-      disk_wfree: '6%'
+      disk_wfree: '5%'
       disk_cfree: '3%'
