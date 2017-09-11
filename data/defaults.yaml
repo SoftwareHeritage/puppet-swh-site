@@ -1209,6 +1209,8 @@ swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::reload_mercy: 3600
 swh::deploy::storage::backend::http_keepalive: 5
 swh::deploy::storage::backend::http_timeout: 100000
+swh::deploy::storage::backend::max_requests: 10000
+swh::deploy::storage::backend::max_requests_jitter: 1000
 swh::deploy::storage::config:
   storage:
     cls: local
