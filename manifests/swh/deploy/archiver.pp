@@ -12,7 +12,7 @@ class profile::swh::deploy::archiver {
     mode   => '0644',
   }
 
-  $packages = ['python3-swh.storage.archiver']
+  $packages = ['python3-swh.archiver']
 
   package {$packages:
     ensure => 'installed',
