@@ -122,6 +122,10 @@ mod 'timezone',
     :git => 'git@forge.softwareheritage.org:/source/puppet-saz-timezone.git',
     :ref => 'v3.5.0'
 
+mod 'unattended_upgrades',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppet-unattended_upgrades.git',
+    :ref => 'v3.0.0'
+
 mod 'zookeeper',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPZK/wikimedia-zookeeper.git',
     :ref => 'fix-jessie-backports'
