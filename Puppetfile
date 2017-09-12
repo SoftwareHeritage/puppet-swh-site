@@ -104,7 +104,7 @@ mod 'redis',
 
 mod 'memcached',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMEMC/saz-memcached.git',
-    :ref => '3.0.2'
+    :ref => 'v3.0.2'
 
 mod 'resolv_conf',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPRESO/saz-resolv_conf.git',
