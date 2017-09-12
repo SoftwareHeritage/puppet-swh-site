@@ -2273,7 +2273,7 @@ systemd_journal::logstash_hosts:
 
 memcached::server::bind: 127.0.0.1
 memcached::server::port: 11211
-memcached::server::max_memory: '1%'
+memcached::server::max_memory: '5%'
 
 mountpoints:
   /srv/storage/space:
