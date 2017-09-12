@@ -98,10 +98,6 @@ mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
     :ref => '7.1.1'
 
-mod 'redis',
-    :git => 'git@forge.softwareheritage.org:/diffusion/SPREDIS/arioch-redis.git',
-    :ref => '1.2.4'
-
 mod 'memcached',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMEMC/saz-memcached.git',
     :ref => 'v3.0.2'
