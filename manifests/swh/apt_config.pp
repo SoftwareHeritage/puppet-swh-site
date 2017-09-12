@@ -13,6 +13,10 @@ class profile::swh::apt_config {
     },
   }
 
+  if hiera('swh::apt_config::unattended_upgrades') {
+    include profile::swh::apt_config::unattended_upgrades
+  }
+
   ::apt::source {'debian':
     location => $debian_mirror,
     release  => $::lsbdistcodename,
@@ -55,5 +59,4 @@ class profile::swh::apt_config {
   }
 
   Class['apt::update'] -> Package <||>
-
 }
