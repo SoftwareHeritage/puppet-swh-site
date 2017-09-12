@@ -964,6 +964,16 @@ swh::apt_config::debian_security_mirror: "http://%{hiera('swh::apt_config::debia
 swh::apt_config::azure_repository::hostname: debian-archive.trafficmanager.net
 swh::apt_config::azure_repository: "http://%{hiera('swh::apt_config::azure_repository::hostname')}/debian-azure/"
 
+swh::apt_config::unattended_upgrades: true
+swh::apt_config::unattended_upgraes::origins:
+ - "o=Debian,n=%{::lsbdistcodename}"                                    # main Debian archive
+ - "o=Debian,n=%{::lsbdistcodename}-updates"                            # stable-updates (ex-volatile)
+ - "o=Debian,n=%{::lsbdistcodename},l=Debian-Security"                  # security updates
+ - "o=debian icinga-%{::lsbdistcodename},n=icinga-%{::lsbdistcodename}" # Icinga2 repository
+ - "o=Debian Azure,n=%{::lsbdistcodename}"                              # Debian Azure
+ - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
+ - "o=elastic"                                                          # Yes elasticsearch has both cases <_<
+ - "o=Elastic"                                                          # ...
 
 swh::objstorage::config::azure: &swh_objstorage_config_azure
   cls: multiplexer
