@@ -11,7 +11,7 @@ After=network.target kafka.service
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/python3 -m swh.storage.archiver.updater
+ExecStart=/usr/bin/python3 -m swh.archiver.updater
 Restart=always
 RestartSec=5s
 

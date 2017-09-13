@@ -9,7 +9,7 @@ class profile::swh::deploy::worker::swh_storage_archiver {
   $config_file = hiera('swh::deploy::worker::swh_storage_archiver::conf_file')
   $config = hiera('swh::deploy::worker::swh_storage_archiver::config')
 
-  $task_modules = ['swh.storage.archiver.tasks']
+  $task_modules = ['swh.archiver.tasks']
   $task_queues = ['swh_storage_archive_worker']
 
   ::profile::swh::deploy::worker::instance {'swh_storage_archiver':
