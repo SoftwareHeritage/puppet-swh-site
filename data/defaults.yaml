@@ -387,6 +387,11 @@ users:
       ftswh@wolfpond.org:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDXpL8nJw6kUgXSxxO1GrScPWYA7wa1ng7VwF0l1StAVavRGcYpYHdahCYrdIz4QF6fY+HSsUoTwyMHLsmU8tHOK6Urx+EAnUB0t6x0v3wfuwKslAK0hHSgZYGIEkFd4qWX2guHwekIILrSIj+TnlodFMUw5ulCrcGIj8Ss2YZlxXkw8opFLNA22cmrYVwHryv0yfYFejnpBlM9WLA8R8ZKc5Du9Enx5fG0YIFjPH4aaU20W77b+aIQrJTIostANwhSn2TnbhubFklqM314LfgUpVC7+rIe5L5Vk3iY0FHhYN4cBi1DK7NVrw1gwfuBt2Hpjnv/4FRazmn7LM+F0eLdYWzIFVv68vrCtOSSxvUeJtjDYWLWPn/sBJQ8/5yOP3vhxAJAgIvvHnWuGIPVLK9UO6lFGmhaxPP01I8pX/aE7AoRNqFFUXxnkSkSbjLNEGpDSfGVmxnM1fYlqkZzabPFEAbkm2iUKpAEcJWugLMNCGR5Vy2Lspf7DjviNelLvuIOGBeNhY99ecqFLRej0oTf46HHpsaZEWx8zdg7BvAjkCmII8YtZyqYD7tW8P3yEFPkBRhpu+85FwUe+335ZiTPnlR37+QHz4Ax4vBPB3/3q9u+JTXnKqkm3kfiLUcPu1VrwkLBXKr56fnw4+ckUNTVrnkt8/Czz9RghnCM4cD/3w==
+  swhdeposit:
+    uid: 1018
+    full_name: SWH Deposit App Account
+    shell: /bin/bash
+    groups: []
 
 groups:
   adm:
@@ -417,6 +422,8 @@ groups:
     gid: 27 # assigned from base-files
   gitorious:
     gid: 5000
+  swhdeposit:
+    gid: 1011
 
 munin::node::allow:
   - 192.168.100.29
@@ -1315,16 +1322,27 @@ swh::deploy::objstorage::backend::http_timeout: 100000
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
-swh::deploy::deposit::settings_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/settings.py"
-swh::deploy::deposit::user: "%{hiera('swh::deploy::storage::user')}"
-swh::deploy::deposit::group: "%{hiera('swh::deploy::storage::group')}"
-swh::deploy::deposit::db::host: db
-swh::deploy::deposit::db::port: 5432
-swh::deploy::deposit::db::user: swhstorage
-swh::deploy::deposit::db::dbname: softwareheritage-deposit
-swh::deploy::deposit::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/settings.yml"
+swh::deploy::deposit::user: swhdeposit
+swh::deploy::deposit::group: swhdeposit
+# test configuration
 swh::deploy::deposit::config:
-  max_upload_size: 209715200
+  authentication: true
+  max_upload_size: 20971520
+  objstorage:
+    cls: pathslicing
+    args:
+      root: /tmp/swh-deposit/uploads
+      slicing: 0:1/1:5
+# swh::deploy::deposit::runtime_secret_key in private data
+swh::deploy::deposit::settings_private_data:
+  secret_key: "{hiera('swh::deploy::deposit::runtime_secret_key')}"
+  db:
+    host: db
+    port: 5432
+    name: softwareheritage-deposit
+    user: swhstorage
+    password: "%{hiera('swh::deploy::storage::db::password')}"
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: 5006
