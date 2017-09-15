@@ -8,15 +8,11 @@ class profile::swh::deploy::deposit {
   $group = hiera('swh::deploy::deposit::group')
   $swh_conf_raw = hiera('swh::deploy::deposit::config')
 
-  $swh_settings_file = hiera('swh::deploy::deposit::settings_conf_file')
-  $db_name = hiera('swh::deploy::deposit::db::dbname')
-  $db_host = hiera('swh::deploy::deposit::db::host')
-  $db_port = hiera('swh::deploy::deposit::db::port')
-  $db_user = hiera('swh::deploy::deposit::db::user')
-  $db_password = hiera('swh::deploy::deposit::db::password')
-  $runtime_secret_key = hiera('swh::deploy::deposit::runtime_secret_key')
-
   $swh_packages = ['python3-swh.deposit']
+
+  # private data file to read from swh.deposit.settings.production
+  $settings_private_data_file = hiera('swh::deploy::deposit::settings_private_data_file')
+  $setting_private_data = hiera('swh::deploy::deposit::settings_private_data')
 
   $backend_listen_host = hiera('swh::deploy::deposit::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::deposit::backend::listen::port')
@@ -51,13 +47,13 @@ class profile::swh::deploy::deposit {
     notify  => Service['gunicorn-swh-deposit'],
   }
 
-  # django settings part (db, template, etc...)
-  file {$swh_settings_file:
+  # swh's private configuration part (db, secret key)
+  file {$private_data_file:
     ensure => present,
-    owner  => 'root',
-    group   => $group,
-    mode    => '0640',
-    content => template('profile/swh/deploy/deposit/settings.py.erb'),
+    owner => 'root',
+    group => $group,
+    mode  => '0640',
+    content => inline_template("<%= @settings_private_data.to_yaml %>\n"),
     notify  => Service['gunicorn-swh-deposit'],
   }
 
