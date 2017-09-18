@@ -1322,7 +1322,7 @@ swh::deploy::objstorage::backend::http_timeout: 100000
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
-swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/settings.yml"
+swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/private.yml"
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 # test configuration
@@ -1336,7 +1336,7 @@ swh::deploy::deposit::config:
       slicing: 0:1/1:5
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::settings_private_data:
-  secret_key: "{hiera('swh::deploy::deposit::runtime_secret_key')}"
+  secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
   db:
     host: db
     port: 5432
