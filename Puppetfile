@@ -82,6 +82,10 @@ mod 'mysql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMY/puppetlabs-mysql.git',
     :ref => '3.9.0'
 
+mod 'nginx',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppet-nginx.git',
+    :ref => 'v0.7.1'
+
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
     :ref => '4.2.0'
