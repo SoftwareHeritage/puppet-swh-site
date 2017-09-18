@@ -12,7 +12,7 @@ class profile::swh::deploy::deposit {
 
   # private data file to read from swh.deposit.settings.production
   $settings_private_data_file = hiera('swh::deploy::deposit::settings_private_data_file')
-  $setting_private_data = hiera('swh::deploy::deposit::settings_private_data')
+  $settings_private_data = hiera('swh::deploy::deposit::settings_private_data')
 
   $backend_listen_host = hiera('swh::deploy::deposit::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::deposit::backend::listen::port')
@@ -48,7 +48,7 @@ class profile::swh::deploy::deposit {
   }
 
   # swh's private configuration part (db, secret key)
-  file {$private_data_file:
+  file {$settings_private_data_file:
     ensure => present,
     owner => 'root',
     group => $group,
