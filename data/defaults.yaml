@@ -423,7 +423,7 @@ groups:
   gitorious:
     gid: 5000
   swhdeposit:
-    gid: 1011
+    gid: 1018
 
 munin::node::allow:
   - 192.168.100.29
