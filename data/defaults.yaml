@@ -62,6 +62,8 @@ smtp::mail_aliases:
     - zack
     - olasd
     - ardumont
+  swhdeposit:
+    - ardumont
   zack:
     - zack@upsilon.cc
 
