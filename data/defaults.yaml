@@ -33,7 +33,7 @@ smtp::relay_destinations: {}
 smtp::virtual_aliases: {}
 smtp::mail_aliases:
   anlambert:
-    antoine.lambert33@gmail.com
+    - antoine.lambert33@gmail.com
   ardumont:
     - antoine.romain.dumont@gmail.com
   fiendish:
