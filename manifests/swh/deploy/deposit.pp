@@ -83,7 +83,7 @@ class profile::swh::deploy::deposit {
     vars             => {
       http_address => '127.0.0.1',
       http_port    => $backend_listen_port,
-      http_uri     => '/deposit/',
+      http_uri     => '/',
       http_string  => 'SWH Deposit API',
     },
     target           => $icinga_checks_file,
@@ -98,7 +98,7 @@ class profile::swh::deploy::deposit {
       check_command => 'http',
       vars          => {
         http_port   => $backend_listen_port,
-        http_uri    => '/deposit/',
+        http_uri    => '/',
         http_string => 'SWH Deposit API',
       },
       target        => $icinga_checks_file,
