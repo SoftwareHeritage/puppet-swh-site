@@ -1329,7 +1329,11 @@ swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 # test configuration
 swh::deploy::deposit::config:
-  authentication: true
+  authentication:
+    activated: true
+    white-list:
+      GET:
+        - /
   max_upload_size: 20971520
   objstorage:
     cls: pathslicing
