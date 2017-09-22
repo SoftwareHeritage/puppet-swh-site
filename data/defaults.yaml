@@ -1322,6 +1322,16 @@ swh::deploy::objstorage::backend::http_workers: 1
 swh::deploy::objstorage::backend::http_keepalive: 5
 swh::deploy::objstorage::backend::http_timeout: 100000
 
+swh::deploy::deposit::vhost::name: deposit.softwareheritage.org
+swh::deploy::deposit::vhost::aliases: []
+swh::deploy::deposit::vhost::docroot: "/var/www/%{hiera('swh::deploy::deposit::vhost::name')}"
+swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+swh::deploy::deposit::locked_endpoints:
+  - /1/hal/.*
+  - /1/admin/.*
+
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
 swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/private.yml"
