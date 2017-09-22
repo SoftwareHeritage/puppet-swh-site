@@ -797,6 +797,10 @@ bind::resource_records:
     type: A
     record: giverny.internal.softwareheritage.org
     data: 192.168.101.118
+  unibo-test/A:
+    type: A
+    record: unibo-test.internal.softwareheritage.org
+    data: 192.168.101.130
   worker01-euwest/A:
     type: A
     record: worker01.euwest.azure.internal.softwareheritage.org
