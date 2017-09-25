@@ -30,6 +30,10 @@ node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
 
+node /^unibo-test.(internal.)?softwareheritage.org$/ {
+  include role::swh_remote_objstorage
+}
+
 node /^uffizi.(internal.)?softwareheritage.org$/ {
   include role::swh_storage
 }
