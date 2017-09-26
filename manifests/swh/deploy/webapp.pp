@@ -249,7 +249,7 @@ class profile::swh::deploy::webapp {
       http_uri     => '/api/1/content/known/search/',
       http_ssl     => true,
       http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
-      http_string  => '\"found\": true',
+      http_string  => '\"found\":true',
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
