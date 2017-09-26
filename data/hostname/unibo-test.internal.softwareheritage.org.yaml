@@ -1,4 +1,4 @@
-ssh::port: 22
+ssh::port: 7022
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
