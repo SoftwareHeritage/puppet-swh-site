@@ -45,7 +45,7 @@ class profile::swh::deploy::deposit {
     ensure => directory,
     owner  => 'root',
     group  => $group,
-    mode   => '0750',
+    mode   => '0755',
   }
 
   # swh's configuration part (upload size, etc...)
