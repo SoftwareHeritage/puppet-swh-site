@@ -1,0 +1,6 @@
+---
+dns::forwarders:
+  - 137.204.25.71
+  - 137.204.25.213
+  - 137.204.25.77
+dns::forwarder_insecure: false
