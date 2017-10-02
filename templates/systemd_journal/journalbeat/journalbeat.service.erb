@@ -2,8 +2,7 @@
 
 [Unit]
 Description=Send systemd journal messages to logstash
-After=unbound.service
-Requires=unbound.service
+After=nss-lookup.target
 
 [Service]
 Type=simple
