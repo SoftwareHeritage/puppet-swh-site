@@ -21,7 +21,9 @@ class profile::icinga2::objects::agent_checks {
       vars => {
         'journal_lag_warn' => 1200,
         'journal_lag_crit' => 3600,
-      }
+      },
+      sudo => true,
+      sudo_user => 'journalbeat',
     },
   }
 
@@ -35,23 +37,6 @@ class profile::icinga2::objects::agent_checks {
   ]
   package {$packages:
     ensure => present,
-  }
-
-  ['systemd-journal'].each |$group| {
-    exec {"add nagios to group ${group}":
-      command => "usermod -a -G ${group} nagios",
-      unless  => "getent group ${group} | cut -d: -f4 | grep -qE '(^|,)nagios(,|$)'",
-      path    => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
-      require => Package['icinga2'],
-      notify  => Exec['restart icinga2 after group change'],
-    }
-  }
-
-  exec {'restart icinga2 after group change':
-    command     => 'systemctl restart icinga2.service',
-    path        => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
-    require     => Package['icinga2'],
-    refreshonly => true,
   }
 
   file {$swh_plugin_dir:
@@ -76,9 +61,26 @@ class profile::icinga2::objects::agent_checks {
 
     }
 
+    if $plugin['sudo'] {
+      $sudo_user = $plugin['sudo_user']
+      $icinga_command = ['sudo', '-u', $sudo_user, $command_path]
+
+      ::sudo::conf { "icinga-${command}":
+        ensure   => present,
+        content  => "nagios ALL=(${sudo_user}) NOPASSWD: ${command_path}",
+        priority => 50,
+      }
+    } else {
+      $icinga_command = [$command_path]
+
+      ::sudo::conf { "icinga-${command}":
+        ensure  => absent,
+      }
+    }
+
     ::icinga2::object::checkcommand {$command:
       import    => ['plugin-check-command'],
-      command   => [$command_path],
+      command   => $icinga_command,
       arguments => $plugin['arguments'],
       vars      => $plugin['vars'],
       target    => $swh_plugin_configfile,
