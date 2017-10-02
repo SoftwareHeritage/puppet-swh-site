@@ -2313,6 +2313,12 @@ icinga2::host::vars:
     'disk /':
       disk_partitions: '/'
 
+icinga2::apiusers:
+  root:
+    # password in private data
+    permissions:
+      - '*'
+
 systemd_journal::role: sender
 systemd_journal::upload_url: https://pergamon.internal.softwareheritage.org:19532
 systemd_journal::logstash_hosts:
