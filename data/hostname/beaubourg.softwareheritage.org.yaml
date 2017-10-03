@@ -3,3 +3,6 @@ ssh::permitrootlogin: "yes"
 
 icinga2::host::vars:
   load: high
+
+dar::backup::exclude:
+  - srv/containers
