@@ -1587,7 +1587,7 @@ swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::depl
 swh::deploy::worker::swh_indexer::orchestrator::config:
   indexers:
     mimetype:
-      batch_size: 100
+      batch_size: 1000
       check_presence: false
 
 swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 2
@@ -1596,10 +1596,10 @@ swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh:
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
     language:
-      batch_size: 20
+      batch_size: 50
       check_presence: false
     fossology_license:
-      batch_size: 50
+      batch_size: 100
       check_presence: false
 
 swh::deploy::worker::swh_indexer::base::concurrency: 2
@@ -1638,7 +1638,7 @@ swh::deploy::worker::swh_indexer::rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
+swh::deploy::worker::swh_indexer::fossology_license::concurrency: 3
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
@@ -1653,7 +1653,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     configuration:
       command_line: "nomossa <filepath>"
 
-swh::deploy::worker::swh_indexer::language::concurrency: 2
+swh::deploy::worker::swh_indexer::language::concurrency: 3
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
