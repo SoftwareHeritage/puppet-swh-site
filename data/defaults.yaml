@@ -865,6 +865,7 @@ dar::backup::exclude:
  - var/cache
  - var/run
  - var/tmp
+ - var/log/journal
 dar::backup::options:
  - -zbzip2
 
