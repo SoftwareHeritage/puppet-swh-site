@@ -363,6 +363,7 @@ users:
       - swhdev
       - swhstorage
       - swhteam
+      - swhdeploy
     authorized_keys:
       antoine.lambert@inria.fr:
         type: ssh-rsa
