@@ -11,6 +11,7 @@ Before=phabricator-phd.service
 [Service]
 User=<%= @phabricator_user %>
 Group=<%= @phabricator_user %>
+RuntimeDirectory=phabricator-aphlict
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start
