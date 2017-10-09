@@ -1336,12 +1336,14 @@ swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorci
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::deposit::locked_endpoints:
   - /1/.*
+  - /1/[^/]/[^/]+/raw/
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
 swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/private.yml"
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
+swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
 # test configuration
 swh::deploy::deposit::config:
   authentication:
@@ -1349,12 +1351,8 @@ swh::deploy::deposit::config:
     white-list:
       GET:
         - /
-  max_upload_size: 20971520
-  objstorage:
-    cls: pathslicing
-    args:
-      root: /tmp/swh-deposit/uploads
-      slicing: 0:1/1:5
+  max_upload_size: 209715200
+
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::settings_private_data:
   secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
@@ -1364,6 +1362,7 @@ swh::deploy::deposit::settings_private_data:
     name: softwareheritage-deposit
     user: swhstorage
     password: "%{hiera('swh::deploy::storage::db::password')}"
+  media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: 5006
