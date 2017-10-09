@@ -34,6 +34,8 @@ class profile::swh::deploy::deposit {
   $vhost_ssl_cipher = hiera('swh::deploy::deposit::vhost::ssl_cipher')
   $locked_endpoints = hiera_array('swh::deploy::deposit::locked_endpoints')
 
+  $media_root_directory = hiera('swh::deploy::deposit::media_root_directory')
+
   include ::gunicorn
 
   package {$swh_packages:
@@ -58,7 +60,14 @@ class profile::swh::deploy::deposit {
     notify  => Service['gunicorn-swh-deposit'],
   }
 
-  # swh's private configuration part (db, secret key)
+  file {$media_root_directory:
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+    mode   => '0750',
+  }
+
+  # swh's private configuration part (db, secret key, media_root)
   file {$settings_private_data_file:
     ensure => present,
     owner => 'root',
