@@ -64,7 +64,7 @@ class profile::swh::deploy::deposit {
     ensure => directory,
     owner  => $user,
     group  => $group,
-    mode   => '0750',
+    mode   => '2750',
   }
 
   # swh's private configuration part (db, secret key, media_root)
