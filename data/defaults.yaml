@@ -1335,7 +1335,6 @@ swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::deposit::locked_endpoints:
-  - /1/.*
   - /1/[^/]+/[^/]+/raw/
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
