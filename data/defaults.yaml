@@ -1485,11 +1485,13 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.git
   - python3-swh.loader.dir
   - python3-swh.loader.tar
+  - python3-swh.loader.svn
   - python3-swh.lister
 swh::deploy::scheduler::task_modules:
   - swh.loader.git.tasks
   - swh.loader.dir.tasks
   - swh.loader.tar.tasks
+  - swh.loader.svn.tasks
   - swh.lister.github.tasks
 
 # swh::deploy::worker::task_broker::password in private data
