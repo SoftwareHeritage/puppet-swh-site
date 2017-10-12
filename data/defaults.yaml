@@ -1346,11 +1346,6 @@ swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
 # test configuration
 swh::deploy::deposit::config:
-  authentication:
-    activated: true
-    white-list:
-      GET:
-        - /
   max_upload_size: 209715200
 
 # swh::deploy::deposit::runtime_secret_key in private data
