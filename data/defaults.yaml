@@ -1492,6 +1492,7 @@ swh::deploy::scheduler::backported_packages:
   jessie:
     - python3-sqlalchemy
 swh::deploy::scheduler::task_modules:
+  - swh.lister.debian.tasks
   - swh.lister.github.tasks
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
@@ -1501,15 +1502,16 @@ swh::deploy::scheduler::task_modules:
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
-swh::deploy::loader_debian::db::user: loader-debian
+swh::deploy::loader_debian::db::user: lister-debian
 # in private data: swh::deploy::loader_debian::db::password
-swh::deploy::loader_debian::db::dbname: loader-debian
+swh::deploy::loader_debian::db::dbname: lister-debian
 
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
   - swh_loader_debian
   - swh_loader_git
+  - swh_lister_debian
   - swh_lister_github
 
 swh::deploy::worker::swh_loader_git::concurrency: 10
@@ -1527,6 +1529,14 @@ swh::deploy::worker::swh_loader_debian::task_broker: "%{hiera('swh::deploy::work
 swh::deploy::worker::swh_loader_debian::config:
   storage: *swh_storage_config_uffizi
   directory_packet_size: 100
+  lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
+
+swh::deploy::worker::swh_lister_debian::concurrency: 1
+swh::deploy::worker::swh_lister_debian::loglevel: info
+swh::deploy::worker::swh_lister_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_lister_debian::config:
+  storage: *swh_storage_config_uffizi
+  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
 swh::deploy::worker::swh_loader_git_disk::concurrency: 2

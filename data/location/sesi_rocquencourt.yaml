@@ -11,6 +11,7 @@ ntp::servers:
 smtp::relayhost: '[smtp.inria.fr]'
 
 swh::deploy::worker::instances:
+  - swh_lister_debian
   - swh_lister_github
   - swh_loader_debian
   - swh_loader_git
