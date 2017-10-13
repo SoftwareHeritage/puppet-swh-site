@@ -9,8 +9,3 @@ networks:
     address: 128.93.193.27
     netmask: 255.255.255.0
     gateway: 128.93.193.254
-
-swh::deploy::worker::instances:
-  - swh_loader_git
-  - swh_lister_github
-  - swh_loader_svn
