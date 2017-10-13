@@ -1482,22 +1482,22 @@ swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::hos
 # swh::deploy::scheduler::task_broker::password in private data
 swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::scheduler::task_packages:
-  - python3-swh.loader.git
+  - python3-swh.lister
   - python3-swh.loader.debian
   - python3-swh.loader.dir
-  - python3-swh.loader.tar
+  - python3-swh.loader.git
   - python3-swh.loader.svn
-  - python3-swh.lister
+  - python3-swh.loader.tar
 swh::deploy::scheduler::backported_packages:
   jessie:
     - python3-sqlalchemy
 swh::deploy::scheduler::task_modules:
-  - swh.loader.git.tasks
+  - swh.lister.github.tasks
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
-  - swh.loader.tar.tasks
+  - swh.loader.git.tasks
   - swh.loader.svn.tasks
-  - swh.lister.github.tasks
+  - swh.loader.tar.tasks
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
