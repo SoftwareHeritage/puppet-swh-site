@@ -10,11 +10,7 @@ class profile::swh::deploy::worker::swh_lister_github {
   $task_modules = ['swh.lister.github.tasks']
   $task_queues = ['swh_lister_github_discover', 'swh_lister_github_refresh']
 
-  $packages = ['python3-swh.lister']
-
-  package {$packages:
-    ensure => 'installed',
-  }
+  include ::profile::swh::deploy::base_lister
 
   ::profile::swh::deploy::worker::instance {'swh_lister_github':
     ensure       => present,
@@ -24,7 +20,7 @@ class profile::swh::deploy::worker::swh_lister_github {
     task_modules => $task_modules,
     task_queues  => $task_queues,
     require      => [
-      Package[$packages],
+      Package['python3-swh.lister'],
       File[$config_file],
     ],
   }
