@@ -8,6 +8,7 @@ class profile::swh::deploy::scheduler {
   $task_broker = hiera('swh::deploy::scheduler::task_broker')
   $task_packages = hiera('swh::deploy::scheduler::task_packages')
   $task_modules = hiera('swh::deploy::scheduler::task_modules')
+  $task_backported_packages = hiera('swh::deploy::scheduler::backported_packages')
 
   include ::systemd
 
@@ -24,15 +25,29 @@ class profile::swh::deploy::scheduler {
   $packages = ['python3-swh.scheduler']
   $services = [$listener_service_name, $runner_service_name]
 
+  $pinned_packages = $task_backported_packages[$::lsbdistcodename]
+  if $pinned_packages {
+    ::apt::pin {'swh-scheduler':
+      explanation => 'Pin swh.scheduler dependencies to backports',
+      codename    => "${::lsbdistcodename}-backports",
+      packages    => $pinned_packages,
+      priority    => 990,
+    } ->
+    package {$task_packages:
+      ensure => installed,
+      notify => Service[$runner_service_name],
+    }
+  } else {
+    package {$task_packages:
+      ensure => installed,
+      notify => Service[$runner_service_name],
+    }
+  }
+
   package {$packages:
     ensure => installed,
     notify => Service[$services],
   }
-
-  package {$task_packages:
-    ensure => installed,
-    notify => Service[$runner_service_name],
-    }
 
   # Template uses variables
   #  - $database
