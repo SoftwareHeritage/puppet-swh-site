@@ -23,8 +23,8 @@ class profile::swh::deploy::base_lister {
       'python3-sqlalchemy',
     ]
 
-    ::apt::pin {'swh-loader-debian':
-      explanation => 'Pin swh.loader.debian dependencies to backports',
+    ::apt::pin {'swh-lister-base':
+      explanation => 'Pin swh.lister dependencies to backports',
       codename    => 'jessie-backports',
       packages    => $pinned_packages,
       priority    => 990,
