@@ -1,5 +1,0 @@
-swh::deploy::worker::instances:
-  - swh_indexer_rehash
-  - swh_indexer_mimetype
-  - swh_indexer_language
-  - swh_indexer_fossology_license
