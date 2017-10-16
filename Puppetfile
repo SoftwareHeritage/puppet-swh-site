@@ -92,7 +92,7 @@ mod 'ntp',
 
 mod 'php',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPHP/thias-php.git',
-    :ref => '1.2.0'
+    :ref => 'bugfix-php7.0'
 
 mod 'postgresql',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPG/puppetlabs-postgresql.git',
