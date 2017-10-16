@@ -6,10 +6,10 @@ class profile::mediawiki {
 
   include ::php::fpm::daemon
 
-  # ::php::fpm::conf {'mediawiki':
-  #   listen => $mediawiki_fpm_root,
-  #   user   => 'www-data',
-  # }
+  ::php::fpm::conf {'mediawiki':
+    listen => $mediawiki_fpm_root,
+    user   => 'www-data',
+  }
 
   include ::profile::ssl
 
@@ -52,6 +52,7 @@ class profile::mediawiki {
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
       swh_logo                   => $data['swh_logo'],
+      site_name                  => $data['site_name'],
     }
 
     @@::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
