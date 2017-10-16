@@ -157,7 +157,7 @@ class profile::phabricator {
 
   include ::php::fpm::daemon
 
-  ::php::ini {'/etc/php/7.0/cli/php.ini':}
+  ::php::ini {'/etc/php7.0/cli/php.ini':}
 
   ::php::fpm::conf {'phabricator':
     listen          => $phabricator_fpm_listen,
