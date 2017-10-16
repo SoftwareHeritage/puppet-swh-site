@@ -920,15 +920,17 @@ mediawiki::vhosts:
   intranet.softwareheritage.org:
     swh_logo: /images/9/99/Swh-intranet-logo.png
     mysql:
-      username: mediawiki
-      dbname: mediawiki
+      username: mw_intranet
+      dbname: mediawiki_intranet
     aliases: []
+    site_name: Software Heritage Intranet
   wiki.softwareheritage.org:
     swh_logo: /images/b/b2/Swh-logo.png
     mysql:
-      username: mediawiki_wg
-      dbname: mediawiki_wg
+      username: mw_public
+      dbname: mediawiki_public
     aliases: []
+    site_name: Software Heritage Wiki
 
 mediawiki::vhost::docroot: /var/lib/mediawiki
 mediawiki::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
