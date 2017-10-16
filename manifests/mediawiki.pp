@@ -6,10 +6,10 @@ class profile::mediawiki {
 
   include ::php::fpm::daemon
 
-  ::php::fpm::conf {'mediawiki':
-    listen => $mediawiki_fpm_root,
-    user   => 'www-data',
-  }
+  # ::php::fpm::conf {'mediawiki':
+  #   listen => $mediawiki_fpm_root,
+  #   user   => 'www-data',
+  # }
 
   include ::profile::ssl
 
