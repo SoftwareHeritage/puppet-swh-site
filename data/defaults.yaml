@@ -1619,7 +1619,7 @@ swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::depl
 swh::deploy::worker::swh_indexer::orchestrator::config:
   indexers:
     mimetype:
-      batch_size: 1000
+      batch_size: 100
       check_presence: false
 
 swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 2
