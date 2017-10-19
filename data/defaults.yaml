@@ -996,6 +996,7 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
  - "o=elastic"                                                          # Yes elasticsearch has both cases <_<
  - "o=Elastic"                                                          # ...
+ - "o=packages.sury.org"                                                # PHP backports (tate)
 
 swh::objstorage::config::azure: &swh_objstorage_config_azure
   cls: multiplexer
