@@ -2331,6 +2331,11 @@ icinga2::master::db::database: icinga2
 icinga2::icingaweb2::db::username: icingaweb2
 # icinga2::icingaweb2::db::password in private data
 icinga2::icingaweb2::db::database: icingaweb2
+icinga2::icingaweb2::protected_customvars:
+  - "*pw*"
+  - "*pass*"
+  - community
+  - http_auth_pair
 
 icinga2::icingaweb2::vhost::name: icinga.softwareheritage.org
 icinga2::icingaweb2::vhost::aliases:
