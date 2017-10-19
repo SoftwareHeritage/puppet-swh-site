@@ -70,7 +70,7 @@ class profile::debian_repository {
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"debian repository http redirect on ${::fqdn}":
-    service_name  => 'repository http redirect',
+    service_name  => 'debian repository http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
     check_command => 'http',
@@ -84,7 +84,7 @@ class profile::debian_repository {
   }
 
   @@::icinga2::object::service {"debian repository https on ${::fqdn}":
-    service_name  => 'repository https',
+    service_name  => 'debian repository https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
     check_command => 'http',
@@ -101,7 +101,7 @@ class profile::debian_repository {
   }
 
   @@::icinga2::object::service {"debian repository https certificate ${::fqdn}":
-    service_name  => 'repository https certificate',
+    service_name  => 'debian repository https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
     check_command => 'http',
