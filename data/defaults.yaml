@@ -2315,6 +2315,10 @@ icinga2::master::db::username: icinga2
 # icinga2::master::db::password in private data
 icinga2::master::db::database: icinga2
 
+icinga2::icingaweb2::db::username: icingaweb2
+# icinga2::icingaweb2::db::password in private data
+icinga2::icingaweb2::db::database: icingaweb2
+
 icinga2::parent_zone: master
 icinga2::parent_endpoints:
   pergamon.softwareheritage.org:
