@@ -6,7 +6,7 @@
 
 set -e
 
-PUPPET_ENV_PATH=/etc/puppet/environments
+PUPPET_ENV_PATH=$(puppet config print environmentpath)
 
 declare -A GIT_REPOS_TO_MERGE
 
