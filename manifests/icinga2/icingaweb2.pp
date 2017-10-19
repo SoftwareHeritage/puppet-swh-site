@@ -112,4 +112,53 @@ class profile::icinga2::icingaweb2 {
         File[$ssl_key],
     ],
   }
+
+  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+
+  @@::icinga2::object::service {"icingaweb2 http redirect on ${::fqdn}":
+    service_name  => 'icingaweb2 http redirect',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address => $icingaweb2_vhost_name,
+      http_vhost   => $icingaweb2_vhost_name,
+      http_uri     => '/',
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"icingaweb2 https on ${::fqdn}":
+    service_name  => 'icingaweb2 https',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address    => $icingaweb2_vhost_name,
+      http_vhost      => $icingaweb2_vhost_name,
+      http_ssl        => true,
+      http_sni        => true,
+      http_uri        => '/',
+      http_onredirect => sticky
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"icingaweb2 https certificate ${::fqdn}":
+    service_name  => 'icingaweb2 https certificate',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address     => $icingaweb2_vhost_name,
+      http_vhost       => $icingaweb2_vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 60,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
 }
