@@ -18,7 +18,7 @@ class profile::icinga2::icingaweb2 {
     db_host        => 'localhost',
     db_port        => 5432,
     db_username    => $icingaweb2_db_username,
-    db_password    => $icingaweb2_db_username,
+    db_password    => $icingaweb2_db_password,
     require        => Postgresql::Server::Db[$icingaweb2_db_database],
   }
 
