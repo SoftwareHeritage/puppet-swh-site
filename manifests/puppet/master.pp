@@ -6,15 +6,14 @@ class profile::puppet::master {
 
   class { '::puppet':
     server                      => true,
-    server_foreman              => false,
+    server_common_modules_path  => '',
     server_environments         => [],
+    server_external_nodes       => '',
+    server_foreman              => false,
     server_passenger            => true,
     server_puppetdb_host        => $puppetdb,
     server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
-    server_external_nodes       => '',
-    server_common_modules_path  => '',
-
 
     *                           => $::profile::puppet::base::agent_config,
   }
