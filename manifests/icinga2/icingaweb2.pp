@@ -23,6 +23,8 @@ class profile::icinga2::icingaweb2 {
     require        => Postgresql::Server::Db[$icingaweb2_db_database],
   }
 
+  # Icingaweb2 modules
+
   ::postgresql::server::db {$icingaweb2_db_database:
     user     => $icingaweb2_db_username,
     password => postgresql_password($icingaweb2_db_username, $icingaweb2_db_password),
@@ -44,4 +46,10 @@ class profile::icinga2::icingaweb2 {
   }
 
   include ::icingaweb2::module::doc
+
+  # Icingaweb2 permissions
+  ::icingaweb2::config::role {'guest':
+    users       => 'guest',
+    permissions => 'module/monitoring',
+  }
 }
