@@ -8,6 +8,8 @@ class profile::icinga2::icingaweb2 {
   $icingaweb2_db_password = hiera('icinga2::icingaweb2::db::password')
   $icingaweb2_db_database = hiera('icinga2::icingaweb2::db::database')
 
+  include profile::icinga2::apt_config
+
   class {'::icingaweb2':
     manage_repo    => false,
     manage_package => true,
