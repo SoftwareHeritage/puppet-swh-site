@@ -97,7 +97,10 @@ class profile::icinga2::icingaweb2::vhost {
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
-      http_onredirect => sticky
+      http_onredirect => sticky,
+      # Authentication page
+      http_expect     => '403',
+      http_body       => '<title>Icinga Web 2 Login</title>',
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
