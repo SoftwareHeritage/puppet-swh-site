@@ -142,6 +142,10 @@ mod 'unattended_upgrades',
     :git => 'git@forge.softwareheritage.org:/source/puppet-puppet-unattended_upgrades.git',
     :ref => 'v3.0.0'
 
+mod 'vcsrepo',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-vcsrepo.git',
+    :ref => '2.0.0'
+
 mod 'zookeeper',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPZK/wikimedia-zookeeper.git',
     :ref => 'fix-jessie-backports'
