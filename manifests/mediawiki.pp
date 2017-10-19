@@ -70,10 +70,30 @@ class profile::mediawiki {
       tag           => 'icinga2::exported',
     }
 
-    if $basic_auth_content {
+    if $basic_auth_content != '' {
       $extra_vars = {
         http_expect => '401 Unauthorized',
       }
+
+      @@::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
+        service_name  => "mediawiki ${name} + auth",
+        import        => ['generic-service'],
+        host_name     => $::fqdn,
+        check_command => 'http',
+        vars          => {
+          http_address    => $name,
+          http_vhost      => $name,
+          http_ssl        => true,
+          http_sni        => true,
+          http_uri        => '/',
+          http_onredirect => sticky,
+          http_auth_pair  => $data['icinga_http_auth_pair'],
+          http_string     => "<title>${site_name}</title>",
+        },
+        target        => $icinga_checks_file,
+        tag           => 'icinga2::exported',
+      }
+
     } else {
       $extra_vars = {
         http_string => "<title>${site_name}</title>",
