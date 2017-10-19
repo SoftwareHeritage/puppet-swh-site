@@ -96,10 +96,9 @@ class profile::icinga2::icingaweb2::vhost {
       http_vhost   => $icingaweb2_vhost_name,
       http_ssl     => true,
       http_sni     => true,
-      # Authentication page
       http_uri     => '/authentication/login',
-      http_expect  => '403',
-      http_body    => '<title>Icinga Web 2 Login</title>',
+      http_header  => ['Cookie: _chc=1'],
+      http_string  => '<title>Icinga Web 2 Login</title>',
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
