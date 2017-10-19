@@ -1,20 +1,20 @@
 # Puppet master profile
 class profile::puppet::master {
   $puppetmaster = hiera('puppet::master::hostname')
+  $puppetdb = hiera('puppet::master::puppetdb')
 
-  include profile::puppet::apt_config
+  include ::profile::puppet::base
 
   class { '::puppet':
     server                      => true,
-    server_parser               => 'future',
     server_foreman              => false,
     server_environments         => [],
     server_passenger            => true,
-    server_storeconfigs_backend => 'active_record',
+    server_puppetdb_host        => $puppetdb,
+    server_reports              => 'puppetdb',
+    server_storeconfigs_backend => 'puppetdb',
 
-    runmode                     => 'none',
-    pluginsync                  => true,
-    puppetmaster                => $puppetmaster,
+    *                           => $::profile::puppet::base::agent_config,
   }
 
   file { '/usr/local/sbin/swh-puppet-master-deploy':
