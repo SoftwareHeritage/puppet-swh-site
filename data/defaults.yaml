@@ -2319,6 +2319,15 @@ icinga2::icingaweb2::db::username: icingaweb2
 # icinga2::icingaweb2::db::password in private data
 icinga2::icingaweb2::db::database: icingaweb2
 
+icinga2::icingaweb2::vhost::name: icinga.softwareheritage.org
+icinga2::icingaweb2::vhost::aliases:
+  - icinga.internal.softwareheritage.org
+icinga2::icingaweb2::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+icinga2::icingaweb2::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+icinga2::icingaweb2::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+icinga2::icingaweb2::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+
 icinga2::parent_zone: master
 icinga2::parent_endpoints:
   pergamon.softwareheritage.org:
