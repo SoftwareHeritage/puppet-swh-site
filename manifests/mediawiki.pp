@@ -31,6 +31,7 @@ class profile::mediawiki {
   each ($mediawiki_vhosts) |$name, $data| {
     $secret_key = $data['secret_key']
     $upgrade_key = $data['upgrade_key']
+    $site_name = $data['site_name']
     $basic_auth_content = $data['basic_auth']
 
     ::mediawiki::instance { $name:
@@ -52,7 +53,7 @@ class profile::mediawiki {
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
       swh_logo                   => $data['swh_logo'],
-      site_name                  => $data['site_name'],
+      site_name                  => $site_name,
     }
 
     @@::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
@@ -69,6 +70,16 @@ class profile::mediawiki {
       tag           => 'icinga2::exported',
     }
 
+    if $basic_auth_content {
+      $extra_vars = {
+        http_expect => '401 Unauthorized',
+      }
+    } else {
+      $extra_vars = {
+        http_string => "<title>${site_name}</title>",
+      }
+    }
+
     @@::icinga2::object::service {"mediawiki ${name} https on ${::fqdn}":
       service_name  => "mediawiki ${name}",
       import        => ['generic-service'],
@@ -80,8 +91,8 @@ class profile::mediawiki {
         http_ssl        => true,
         http_sni        => true,
         http_uri        => '/',
-        http_onredirect => sticky
-      },
+        http_onredirect => sticky,
+      } + $extra_vars,
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',
     }
