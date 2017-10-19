@@ -467,6 +467,8 @@ php::fpm::daemon::log_dir_mode: '0750'
 apache::server_tokens: 'Prod'
 apache::server_signature: 'Off'
 apache::trace_enable: 'Off'
+apache::passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+
 
 # Those variables need to be set manually in the SSL vhosts.
 apache::ssl_protocol: all -SSLv2 -SSLv3
