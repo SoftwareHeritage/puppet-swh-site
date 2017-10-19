@@ -10,8 +10,10 @@ class profile::puppet::master {
     server_environments         => [],
     server_passenger            => true,
     server_puppetdb_host        => $puppetdb,
-    server_reports              => 'puppetdb',
+    server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
+    server_external_nodes       => undef,
+
 
     *                           => $::profile::puppet::base::agent_config,
   }
