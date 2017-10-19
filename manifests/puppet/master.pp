@@ -12,7 +12,7 @@ class profile::puppet::master {
     server_puppetdb_host        => $puppetdb,
     server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
-    server_external_nodes       => undef,
+    server_external_nodes       => '',
 
 
     *                           => $::profile::puppet::base::agent_config,

@@ -7,6 +7,7 @@ class profile::puppet::base {
     runmode      => 'none',
     pluginsync   => true,
     puppetmaster => $puppetmaster,
+    hiera_config => "\$environmentdir/production/hiera.yaml",
   }
 
   file { '/usr/local/sbin/swh-puppet-test':
