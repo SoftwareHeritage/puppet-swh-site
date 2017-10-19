@@ -44,6 +44,7 @@ class profile::icinga2::icingaweb2 {
 
   include ::profile::ssl
   include ::profile::apache::common
+  include ::apache2::mod::php
 
   $icingaweb2_vhost_name = hiera('icinga2::icingaweb2::vhost::name')
   $icingaweb2_vhost_aliases = hiera('icinga2::icingaweb2::vhost::aliases')
