@@ -77,7 +77,6 @@ locales::installed_locales:
 timezone: Etc/UTC
 
 packages:
-  - apt-transport-https
   - etckeeper
   - git
   - htop
