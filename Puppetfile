@@ -102,6 +102,10 @@ mod 'puppet',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPPUP/theforeman-puppet.git',
     :ref => '8.0.4'
 
+mod 'puppetdb',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-puppetdb.git',
+    :ref => '6.0.1'
+
 mod 'memcached',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPMEMC/saz-memcached.git',
     :ref => 'v3.0.2'
