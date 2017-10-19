@@ -13,6 +13,10 @@ class profile::swh::apt_config {
     },
   }
 
+  package {'apt-transport-https':
+    ensure => 'present',
+  }
+
   if hiera('swh::apt_config::unattended_upgrades') {
     include profile::swh::apt_config::unattended_upgrades
   }
@@ -58,5 +62,5 @@ class profile::swh::apt_config {
     allow_unsigned => true,
   }
 
-  Class['apt::update'] -> Package <||>
+  Package['apt-transport-https'] -> Class['apt::update'] -> Package <| title != 'apt-transport-https' |>
 }
