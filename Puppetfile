@@ -116,7 +116,7 @@ mod 'ssh',
 
 mod 'stdlib',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSTD/puppetlabs-stdlib.git',
-    :ref => '4.12.0'
+    :ref => '4.20.0'
 
 mod 'sudo',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPSUDO/saz-sudo.git',
