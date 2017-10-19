@@ -7,6 +7,7 @@ class profile::icinga2::icingaweb2 {
   $icingaweb2_db_username = hiera('icinga2::icingaweb2::db::username')
   $icingaweb2_db_password = hiera('icinga2::icingaweb2::db::password')
   $icingaweb2_db_database = hiera('icinga2::icingaweb2::db::database')
+  $icingaweb2_protected_customvars = hiera('icinga2::icingaweb2::protected_customvars')
 
   include profile::icinga2::apt_config
   include profile::icinga2::icingaweb2::vhost
@@ -31,13 +32,14 @@ class profile::icinga2::icingaweb2 {
   }
 
   class {'::icingaweb2::module::monitoring':
-    ido_type          => 'pgsql',
-    ido_host          => 'localhost',
-    ido_port          => 5432,
-    ido_db_name       => $icinga2_db_database,
-    ido_db_username   => $icinga2_db_username,
-    ido_db_password   => $icinga2_db_password,
-    commandtransports => {
+    ido_type             => 'pgsql',
+    ido_host             => 'localhost',
+    ido_port             => 5432,
+    ido_db_name          => $icinga2_db_database,
+    ido_db_username      => $icinga2_db_username,
+    ido_db_password      => $icinga2_db_password,
+    protected_custimvars => $icingaweb2_protected_customvars,
+    commandtransports    => {
       icinga2 => {
         transport => 'local',
         path      => '/var/run/icinga2/cmd/icinga2.cmd',
