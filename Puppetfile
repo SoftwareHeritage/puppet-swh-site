@@ -62,6 +62,10 @@ mod 'icinga2',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPICI/icinga-icinga2.git',
     :ref => 'v1.2.0'
 
+mod 'inifile',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-inifile.git',
+    :ref => '1.6.0'
+
 mod 'kafka',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPKFK/wikimedia-kafka.git',
     :ref => 'fix-versioncmp'
