@@ -28,7 +28,9 @@ class profile::icinga2::icingaweb2 {
   }
 
   class {'::icingaweb2::module::monitoring':
+    ido_type          => 'pgsql',
     ido_host          => 'localhost',
+    ido_port          => 5432,
     ido_db_name       => $icinga2_db_database,
     ido_db_username   => $icinga2_db_username,
     ido_db_password   => $icinga2_db_password,
