@@ -1,6 +1,5 @@
 # Puppet master profile
 class profile::puppet::master {
-  $puppetmaster = hiera('puppet::master::hostname')
   $puppetdb = hiera('puppet::master::puppetdb')
 
   include ::profile::puppet::base
