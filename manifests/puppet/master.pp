@@ -13,6 +13,7 @@ class profile::puppet::master {
     server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
     server_external_nodes       => '',
+    server_common_modules_path  => '',
 
 
     *                           => $::profile::puppet::base::agent_config,
