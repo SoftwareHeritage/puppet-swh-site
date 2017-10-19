@@ -38,7 +38,7 @@ class profile::icinga2::icingaweb2 {
     ido_db_name          => $icinga2_db_database,
     ido_db_username      => $icinga2_db_username,
     ido_db_password      => $icinga2_db_password,
-    protected_custimvars => $icingaweb2_protected_customvars,
+    protected_customvars => join($icingaweb2_protected_customvars, ', '),
     commandtransports    => {
       icinga2 => {
         transport => 'local',
