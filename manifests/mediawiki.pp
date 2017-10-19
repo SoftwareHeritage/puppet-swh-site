@@ -32,13 +32,13 @@ class profile::mediawiki {
     $secret_key = $data['secret_key']
     $upgrade_key = $data['upgrade_key']
     $site_name = $data['site_name']
-    $basic_auth_content = $data['basic_auth']
+    $basic_auth_content = $data['basic_auth_content']
 
     ::mediawiki::instance { $name:
       vhost_docroot              => $mediawiki_vhost_docroot,
       vhost_aliases              => $data['aliases'],
       vhost_fpm_root             => $mediawiki_fpm_root,
-      vhost_basic_auth           => $data['basic_auth_content'],
+      vhost_basic_auth           => $basic_auth_content,
       vhost_ssl_protocol         => $mediawiki_vhost_ssl_protocol,
       vhost_ssl_honorcipherorder => $mediawiki_vhost_ssl_honorcipherorder,
       vhost_ssl_cipher           => $mediawiki_vhost_ssl_cipher,
