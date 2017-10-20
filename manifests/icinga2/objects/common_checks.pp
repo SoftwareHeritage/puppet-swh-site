@@ -63,6 +63,7 @@ class profile::icinga2::objects::common_checks {
     check_interval   => '3h',
     vars             => {
       apt_timeout => '120',
+      apt_only_critical => 'true',
     },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
