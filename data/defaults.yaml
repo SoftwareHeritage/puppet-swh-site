@@ -975,6 +975,7 @@ swh::global_conf::contents: |
 
 swh::apt_config::swh_repository::hostname: debian.softwareheritage.org
 swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_repository::hostname')}/"
+swh::apt_config::enable_non_free: false
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"

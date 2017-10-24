@@ -12,3 +12,7 @@ dar::backup::exclude:
 
 icinga2::host::vars:
   load: high
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode

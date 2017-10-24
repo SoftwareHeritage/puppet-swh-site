@@ -6,3 +6,8 @@ icinga2::host::vars:
 
 dar::backup::exclude:
   - srv/containers
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
+

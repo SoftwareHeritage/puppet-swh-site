@@ -15,6 +15,10 @@ dar::backup::exclude:
   - srv/softwareheritage/annex
   - srv/elasticsearch
 
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
+
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
