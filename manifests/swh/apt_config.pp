@@ -3,6 +3,7 @@
 class profile::swh::apt_config {
   $debian_mirror = hiera('swh::apt_config::debian_mirror')
   $debian_security_mirror = hiera('swh::apt_config::debian_security_mirror')
+  $debian_enable_non_free = hiera('swh::apt_config::enable_non_free')
 
   class {'::apt':
     purge => {
@@ -21,29 +22,34 @@ class profile::swh::apt_config {
     include profile::swh::apt_config::unattended_upgrades
   }
 
+  $repos = $debian_enable_non_free ? {
+    true    => 'main contrib non-free',
+    default => 'main',
+  }
+
   ::apt::source {'debian':
     location => $debian_mirror,
     release  => $::lsbdistcodename,
-    repos    => 'main',
+    repos    => $repos,
   }
 
   ::apt::source {'debian-updates':
     location => $debian_mirror,
     release  => "${::lsbdistcodename}-updates",
-    repos    => 'main',
+    repos    => $repos,
   }
 
   ::apt::source {'debian-security':
     location => $debian_security_mirror,
     release  => "${::lsbdistcodename}/updates",
-    repos    => 'main',
+    repos    => $repos,
   }
 
   if $::lsbdistcodename == 'jessie' {
     class {'::apt::backports':
       pin      => 100,
       location => $debian_mirror,
-      repos    => 'main',
+      repos    => $repos,
     }
   }
 
