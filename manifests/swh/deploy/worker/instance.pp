@@ -8,7 +8,8 @@ define profile::swh::deploy::worker::instance (
   $concurrency = 10,
   $loglevel = 'info',
   $max_tasks_per_child = 5,
-  $instance_name = $title)
+  $instance_name = $title,
+  $limit_no_file='None')
 {
   include ::profile::swh::deploy::worker::base
   include ::systemd
