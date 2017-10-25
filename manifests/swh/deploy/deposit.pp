@@ -134,6 +134,9 @@ class profile::swh::deploy::deposit {
     ssl_ca               => $ssl_ca,
     ssl_key              => $ssl_key,
     docroot              => $vhost_docroot,
+    request_headers      => [
+      "set X_FORWARDED_PROTO 'https' env=HTTPS",
+    ],
     proxy_pass           => [
       { path => '/static',
         url  => '!',
