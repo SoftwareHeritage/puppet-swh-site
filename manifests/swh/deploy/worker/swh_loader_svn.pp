@@ -11,19 +11,21 @@ class profile::swh::deploy::worker::swh_loader_svn {
   $task_queues = ['swh_loader_svn', 'swh_loader_svn_mount_and_load']
 
   $packages = ['python3-swh.loader.svn']
+  $limit_no_file = hiera('swh::deploy::worker::swh_loader_svn::limit_no_file')
 
   package {$packages:
     ensure => 'latest',
   }
 
   ::profile::swh::deploy::worker::instance {'swh_loader_svn':
-    ensure       => present,
-    concurrency  => $concurrency,
-    loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
-    require      => [
+    ensure        => present,
+    concurrency   => $concurrency,
+    loglevel      => $loglevel,
+    task_broker   => $task_broker,
+    task_modules  => $task_modules,
+    task_queues   => $task_queues,
+    limit_no_file => $limit_no_file,
+    require       => [
       Package[$packages],
       File[$config_file],
     ],
