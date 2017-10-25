@@ -1,2 +1,0 @@
-swh::deploy::worker::instances:
-  - swh_loader_svn
