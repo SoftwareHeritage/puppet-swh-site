@@ -1565,6 +1565,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
   directory_packet_size: 100
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
+swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
 swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
