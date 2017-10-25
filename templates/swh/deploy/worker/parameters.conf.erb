@@ -5,6 +5,6 @@
 Environment=CONCURRENCY=<%= @concurrency %>
 Environment=MAX_TASKS_PER_CHILD=<%= @max_tasks_per_child %>
 Environment=LOGLEVEL=<%= @loglevel %>
-<% if limit_no_file != 'None' %>
+<% if @limit_no_file != 'None' %>
 LimitNOFILE=<%= @limit_no_file %>
 <% end %>
