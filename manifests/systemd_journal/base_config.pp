@@ -11,7 +11,10 @@ class profile::systemd_journal::base_config {
   exec {'systemd_journal-tmpdir':
     command => 'systemd-tmpfiles --create --prefix /var/log/journal',
     path    => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
-    require => File['/var/log/journal'],
+    require => [
+      File['/var/log/journal'],
+      Package['acl'],
+    ],
     unless  => 'getfacl -csp /var/log/journal | grep -Eq group:adm:r-x',
   }
 }
