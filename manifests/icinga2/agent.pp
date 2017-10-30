@@ -9,12 +9,16 @@ class profile::icinga2::agent {
 
   include profile::icinga2::objects::agent_checks
 
+  $check_mounts = $::mounts.filter |$mount| {
+    $mount !~ /^\/srv\/containers/
+  }
+
   $local_host_vars = {
     disks => hash(flatten(
-      $::mounts.map |$mount| {
+      $check_mounts.map |$mount| {
         ["disk ${mount}", {disk_partitions => $mount}]
       },
-      )),
+    )),
     plugins => keys($profile::icinga2::objects::agent_checks::plugins),
   }
 

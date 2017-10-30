@@ -8,6 +8,7 @@ begin
       "cgroup",
       "cifs",
       "coda",
+      "configfs",
       "debugfs",
       "devfs",
       "devpts",
