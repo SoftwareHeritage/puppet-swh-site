@@ -85,6 +85,7 @@ packages:
   - molly-guard
   - moreutils
   - ncdu
+  - nfs-common
   - python3
   - ruby-filesystem
   - strace
