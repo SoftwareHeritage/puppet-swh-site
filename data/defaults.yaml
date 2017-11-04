@@ -1579,8 +1579,7 @@ swh::deploy::worker::swh_loader_svn::config:
   send_releases: true
   send_occurrences: true
   content_packet_size: 1000
-  content_packet_block_size_bytes: 104857600
-  content_packet_size_bytes: 1073741824
+  content_packet_size_bytes: 104857600
   directory_packet_size: 250
   revision_packet_size: 100
   release_packet_size: 100
