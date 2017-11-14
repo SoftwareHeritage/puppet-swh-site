@@ -1,4 +1,4 @@
-node 'louvre.softwareheritage.org' {
+ node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
 }
 
@@ -30,7 +30,7 @@ node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
 
-node /^unibo-test.(internal.)?softwareheritage.org$/ {
+node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
   include role::swh_remote_objstorage
 }
 
