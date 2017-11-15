@@ -1648,9 +1648,6 @@ swh::deploy::worker::swh_indexer::orchestrator_text::loglevel: info
 swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
-    language:
-      batch_size: 50
-      check_presence: false
     fossology_license:
       batch_size: 100
       check_presence: false
