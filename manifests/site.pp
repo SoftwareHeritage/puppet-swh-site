@@ -31,7 +31,9 @@ node 'banco.softwareheritage.org' {
 }
 
 node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
+  include role::swh_database
   include role::swh_remote_objstorage
+  include role::swh_vault
 }
 
 node /^uffizi.(internal.)?softwareheritage.org$/ {
