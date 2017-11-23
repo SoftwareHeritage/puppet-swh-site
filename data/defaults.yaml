@@ -338,6 +338,7 @@ users:
       - swhdev
       - swhstorage
       - swhteam
+      - swhdeploy
     authorized_keys:
       seirl:
         type: ssh-ed25519
