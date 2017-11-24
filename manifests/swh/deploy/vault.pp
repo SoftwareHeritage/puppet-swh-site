@@ -42,7 +42,7 @@ class profile::swh::deploy::vault {
     group   => $group,
     mode    => '0640',
     content => inline_template("<%= @vault_config.to_yaml %>\n"),
-    notify  => service['gunicorn-swh-vault'],
+    notify  => Service['gunicorn-swh-vault'],
   }
 
   ::gunicorn::instance {'swh-vault':
