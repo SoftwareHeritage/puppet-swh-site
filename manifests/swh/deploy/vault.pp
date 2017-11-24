@@ -25,7 +25,7 @@ class profile::swh::deploy::vault {
 
   package {$swh_packages:
     ensure  => latest,
-    require => Apt::source['softwareheritage'],
+    require => Apt::Source['softwareheritage'],
     notify  => Service['gunicorn-swh-vault'],
   }
 
