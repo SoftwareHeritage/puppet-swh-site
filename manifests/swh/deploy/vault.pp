@@ -8,8 +8,8 @@ class profile::swh::deploy::vault {
 
   $swh_packages = ['python3-swh.vault']
 
-  $backend_listen_host = hiera('swh::deploy::vault::listen::host')
-  $backend_listen_port = hiera('swh::deploy::vault::listen::port')
+  $backend_listen_host = hiera('swh::deploy::vault::backend::listen::host')
+  $backend_listen_port = hiera('swh::deploy::vault::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
 
   $backend_workers = hiera('swh::deploy::vault::backend::workers')
