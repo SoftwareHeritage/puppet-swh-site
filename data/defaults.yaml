@@ -398,6 +398,14 @@ users:
     full_name: SWH Deposit App Account
     shell: /bin/bash
     groups: []
+  swhvault:
+    uid: 1019
+    full_name: SWH Vault Account
+    shell: /bin/bash
+    groups:
+      - swhdeploy
+      - swhstorage
+      - swhvault
 
 groups:
   adm:
@@ -430,6 +438,8 @@ groups:
     gid: 5000
   swhdeposit:
     gid: 1018
+  swhvault:
+    gid: 1019
 
 munin::node::allow:
   - 192.168.100.29
@@ -1277,6 +1287,39 @@ swh::deploy::storage_listener::topic_prefix: swh.tmp_journal.new
 swh::deploy::storage_listener::kafka_brokers:
   - getty.internal.softwareheritage.org
 swh::deploy::storage_listener::poll_timeout: 10
+
+swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/storage"
+swh::deploy::vault::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
+swh::deploy::vault::user: swhvault
+swh::deploy::vault::group: swhvault
+swh::deploy::vault::db::host: orangeriedev # FIXME
+swh::deploy::vault::db::port: 5432
+swh::deploy::vault::db::user: swhvault
+swh::deploy::vault::db::dbname: softwareheritage
+swh::deploy::vault::directory: "%{hiera('swh::base_directory')}/objects" # TODO
+swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache" # TODO
+swh::deploy::vault::backend::listen::host: 127.0.0.1
+swh::deploy::vault::backend::listen::port: 5005
+swh::deploy::vault::backend::workers: 4
+swh::deploy::vault::backend::reload_mercy: 3600
+swh::deploy::vault::backend::http_keepalive: 5
+swh::deploy::vault::backend::http_timeout: 100000
+swh::deploy::vault::backend::max_requests: 10000
+swh::deploy::vault::backend::max_requests_jitter: 1000
+swh::deploy::vault::config:
+  storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      objstorage:
+        <<: *swh_objstorage_config_uffizi
+  cache:
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::vault::cache')}" # TODO
+      slicing: "0:1/1:5"
+  db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
+
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
