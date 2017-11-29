@@ -1427,6 +1427,23 @@ swh::deploy::deposit::settings_private_data:
     password: "%{hiera('swh::deploy::storage::db::password')}"
   media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
+swh::deploy::worker::swh_loader_deposit::swh_conf_dir: "%{hiera('swh::conf_directory')}/loader"
+swh::deploy::worker::swh_loader_deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::injection::swh_conf_dir')}/deposit.yml"
+swh::deploy::worker::swh_loader_deposit::concurrency: 10
+swh::deploy::worker::swh_loader_deposit::loglevel: info
+swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_deposit::config:
+  storage: *swh_storage_config_uffizi
+  extraction_dir: /tmp/swh.loader.deposit/
+
+swh::deploy::deposit::client::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/client.yml"
+# deposit_basic_auth_swhworker_{username|password} in private_data
+swh::deploy::deposit::client::settings_private_data:
+  url: https://deposit.softwareheritage.org
+  auth:
+    username: "%{hiera('deposit_basic_auth_swhworker_username')}"
+    password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: 5006
 swh::deploy::deposit::backend::workers: 4
