@@ -1552,6 +1552,7 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.git
   - python3-swh.loader.svn
   - python3-swh.loader.tar
+  - python3-swh.deposit.injection
 swh::deploy::scheduler::backported_packages:
   jessie:
     - python3-sqlalchemy
@@ -1563,6 +1564,7 @@ swh::deploy::scheduler::task_modules:
   - swh.loader.git.tasks
   - swh.loader.svn.tasks
   - swh.loader.tar.tasks
+  - swh.deposit.injection.tasks
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
