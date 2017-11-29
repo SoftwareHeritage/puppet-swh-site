@@ -4,8 +4,7 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $loglevel = hiera('swh::deploy::worker::swh_loader_deposit::loglevel')
   $task_broker = hiera('swh::deploy::worker::swh_loader_deposit::task_broker')
 
-  $deposit_config_dir = hiera('swh::deploy::deposit::conf_directory')
-  $config_directory = hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_dir')
+  $deposit_config_directory = hiera('swh::deploy::deposit::conf_directory')
   $config_file = hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_file')
   $config = hiera('swh::deploy::worker::swh_loader_deposit::config')
 
@@ -32,13 +31,6 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   }
 
   file {$deposit_config_directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0755',
-  }
-
-  file {$config_directory:
     ensure => directory,
     owner  => 'root',
     group  => $group,
