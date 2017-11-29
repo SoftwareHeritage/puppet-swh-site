@@ -397,7 +397,8 @@ users:
     uid: 1018
     full_name: SWH Deposit App Account
     shell: /bin/bash
-    groups: []
+    groups:
+      - swhscheduler
   swhvault:
     uid: 1019
     full_name: SWH Vault Account
@@ -406,7 +407,7 @@ users:
       - swhdeploy
       - swhstorage
       - swhvault
-      - swhscheduler
+
 
 groups:
   adm:
