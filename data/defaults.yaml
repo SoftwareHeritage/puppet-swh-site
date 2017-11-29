@@ -406,6 +406,7 @@ users:
       - swhdeploy
       - swhstorage
       - swhvault
+      - swhscheduler
 
 groups:
   adm:
