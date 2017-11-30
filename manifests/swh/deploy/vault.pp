@@ -49,11 +49,11 @@ class profile::swh::deploy::vault {
     ensure     => enabled,
     user       => $user,
     group      => $group,
-    executable => 'swh.vault.api.server:run_from_webserver',
+    executable => 'swh.vault.api.server:make_app_from_configfile()',
     settings   => {
       bind                => $backend_listen_address,
       workers             => $backend_workers,
-      worker_class        => 'sync',
+      worker_class        => 'aiohttp.worker.GunicornWebWorker',
       timeout             => $backend_http_timeout,
       graceful_timeout    => $backend_reload_mercy,
       keepalive           => $backend_http_keepalive,
