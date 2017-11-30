@@ -1291,7 +1291,7 @@ swh::deploy::storage_listener::kafka_brokers:
 swh::deploy::storage_listener::poll_timeout: 10
 
 swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
-swh::deploy::vault::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/vault.yml"
+swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/vault.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
 swh::deploy::vault::db::host: orangeriedev # FIXME
