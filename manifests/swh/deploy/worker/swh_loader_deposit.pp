@@ -8,10 +8,10 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $config_file = hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_file')
   $config = hiera('swh::deploy::worker::swh_loader_deposit::config')
 
-  $task_modules = ['swh.deposit.injection.tasks']
+  $task_modules = ['swh.deposit.loader.tasks']
   $task_queues = ['swh_loader_deposit', 'swh_checker_deposit']
 
-  $packages = ['python3-swh.deposit.injection']
+  $packages = ['python3-swh.deposit.loader']
 
   package {$packages:
     ensure => 'present',
