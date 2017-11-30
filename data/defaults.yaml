@@ -1290,15 +1290,14 @@ swh::deploy::storage_listener::kafka_brokers:
   - getty.internal.softwareheritage.org
 swh::deploy::storage_listener::poll_timeout: 10
 
-swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/storage"
-swh::deploy::vault::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
+swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
+swh::deploy::vault::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/vault.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
 swh::deploy::vault::db::host: orangeriedev # FIXME
 swh::deploy::vault::db::port: 5432
 swh::deploy::vault::db::user: swhvault
 swh::deploy::vault::db::dbname: swhvault
-swh::deploy::vault::directory: "%{hiera('swh::base_directory')}/objects" # TODO
 swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache" # TODO
 swh::deploy::vault::backend::listen::host: 127.0.0.1
 swh::deploy::vault::backend::listen::port: 5005
