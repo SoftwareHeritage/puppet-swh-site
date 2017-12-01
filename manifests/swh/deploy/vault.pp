@@ -42,11 +42,14 @@ class profile::swh::deploy::vault {
   }
 
   ::gunicorn::instance {'swh-vault':
-    ensure     => enabled,
-    user       => $user,
-    group      => $group,
-    executable => 'swh.vault.api.server:make_app_from_configfile()',
-    settings   => {
+    ensure      => enabled,
+    user        => $user,
+    group       => $group,
+    executable  => 'swh.vault.api.server:make_app_from_configfile()',
+    environment => {
+      SWH_WORKER_INSTANCE => 'swh_vault_cooker',
+    },
+    settings    => {
       bind                => $backend_listen_address,
       workers             => $backend_workers,
       worker_class        => 'aiohttp.worker.GunicornWebWorker',
@@ -55,7 +58,7 @@ class profile::swh::deploy::vault {
       keepalive           => $backend_http_keepalive,
       max_requests        => $backend_max_requests,
       max_requests_jitter => $backend_max_requests_jitter,
-    }
+    },
   }
 
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
