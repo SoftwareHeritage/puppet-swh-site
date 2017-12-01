@@ -17,7 +17,7 @@ class profile::swh::deploy::worker::vault_cooker {
     ensure => 'present',
   }
 
-  ::profile::swh::deploy::worker::instance {'swh_vault_cooking':
+  ::profile::swh::deploy::worker::instance {'swh_vault_cooker':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
