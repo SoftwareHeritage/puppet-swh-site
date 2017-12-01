@@ -1,6 +1,6 @@
 # Deployment of a vault cooker
 
-class profile::swh::deploy::worker::vault_cooker {
+class profile::swh::deploy::worker::swh_vault_cooker {
   $concurrency = hiera('swh::deploy::worker::vault_cooker::concurrency')
   $loglevel = hiera('swh::deploy::worker::vault_cooker::loglevel')
   $task_broker = hiera('swh::deploy::worker::vault_cooker::task_broker')
