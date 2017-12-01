@@ -1,12 +1,12 @@
 # Deployment of the swh.vault.api server
 
 class profile::swh::deploy::vault {
+  include ::profile::swh::deploy::base_vault
+
   $conf_directory = hiera('swh::deploy::vault::conf_directory')
   $conf_file = hiera('swh::deploy::vault::conf_file')
   $user = hiera('swh::deploy::vault::user')
   $group = hiera('swh::deploy::vault::group')
-
-  $swh_packages = ['python3-swh.vault']
 
   $backend_listen_host = hiera('swh::deploy::vault::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::vault::backend::listen::port')
@@ -23,11 +23,11 @@ class profile::swh::deploy::vault {
 
   include ::gunicorn
 
-  package {$swh_packages:
-    ensure  => latest,
-    require => Apt::Source['softwareheritage'],
-    notify  => Service['gunicorn-swh-vault'],
-  }
+#  package {$swh_packages:
+#    ensure  => latest,
+#    require => Apt::Source['softwareheritage'],
+#    notify  => Service['gunicorn-swh-vault'],
+#  }
 
   file {$conf_directory:
     ensure => directory,

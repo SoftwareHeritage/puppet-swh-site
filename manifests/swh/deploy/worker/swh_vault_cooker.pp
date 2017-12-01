@@ -1,6 +1,8 @@
 # Deployment of a vault cooker
 
 class profile::swh::deploy::worker::swh_vault_cooker {
+  include ::profile::swh::deploy::base_vault
+
   $concurrency = hiera('swh::deploy::worker::swh_vault_cooker::concurrency')
   $loglevel = hiera('swh::deploy::worker::swh_vault_cooker::loglevel')
   $task_broker = hiera('swh::deploy::worker::swh_vault_cooker::task_broker')
@@ -10,12 +12,6 @@ class profile::swh::deploy::worker::swh_vault_cooker {
 
   $task_modules = ['swh.vault.cooking_tasks']
   $task_queues = ['swh_vault_cooking']
-
-  $packages = ['python3-swh.vault']
-
-  package {$packages:
-    ensure => 'present',
-  }
 
   ::profile::swh::deploy::worker::instance {'swh_vault_cooker':
     ensure       => present,
