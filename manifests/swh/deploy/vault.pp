@@ -23,11 +23,7 @@ class profile::swh::deploy::vault {
 
   include ::gunicorn
 
-#  package {$swh_packages:
-#    ensure  => latest,
-#    require => Apt::Source['softwareheritage'],
-#    notify  => Service['gunicorn-swh-vault'],
-#  }
+  Package['python3-swh.vault'] ~> Service['gunicorn-swh-vault']
 
   file {$conf_directory:
     ensure => directory,
