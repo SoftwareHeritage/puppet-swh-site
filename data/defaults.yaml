@@ -2192,6 +2192,14 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
+swh::deploy::worker::vault_cooker::concurrency: 1
+swh::deploy::worker::vault_cooker::loglevel: info
+swh::deploy::worker::vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
+swh::deploy::worker::vault_cooker::config:
+  storage: *swh_storage_config_uffizi
+  vault_url: "http://localhost:5005/" # TODO (needs to be overwritten)
+
 desktop::printers:
   MFP_C:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
