@@ -22,7 +22,7 @@ class profile::swh::deploy::worker::swh_loader_deposit {
 
   # This installs the swh-worker@$service_name service
   ::profile::swh::deploy::worker::instance {$service_name:
-    ensure       => present,
+    ensure       => running,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
     task_broker  => $task_broker,

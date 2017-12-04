@@ -9,7 +9,7 @@ define profile::swh::deploy::worker::instance (
   $loglevel = 'info',
   $max_tasks_per_child = 5,
   $instance_name = $title,
-  $limit_no_file='None')
+  $limit_no_file = 'None')
 {
   include ::profile::swh::deploy::worker::base
   include ::systemd
@@ -57,6 +57,51 @@ define profile::swh::deploy::worker::instance (
         # contains a password for the broker
         mode    => '0640',
         content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
+      }
+    }
+    'running': {
+      file {$systemd_dir:
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
+      }
+
+      # Uses variables
+      # - $concurrency
+      # - $loglevel
+      # - $max_tasks_per_child
+      file {$systemd_snippet:
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template('profile/swh/deploy/worker/parameters.conf.erb'),
+        notify  => [
+          Exec['systemd-daemon-reload'],
+        ],
+      }
+
+      # Uses variables
+      # - $task_broker
+      # - $task_modules
+      # - $task_queues
+      # - $task_soft_time_limit
+      file {$instance_config:
+        ensure  => present,
+        owner   => 'swhworker',
+        group   => 'swhdev',
+        # contains a password for the broker
+        mode    => '0640',
+        content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
+      }
+
+      service {$service_basename:
+        ensure  => running,
+        require => [
+          File[$instance_config],
+          File[$systemd_snippet],
+        ],
       }
     }
     default: {
