@@ -13,11 +13,15 @@ class profile::swh::deploy::worker::swh_loader_deposit {
 
   $packages = ['python3-swh.deposit.loader']
 
+  $service_name = 'swh_loader_deposit'
+
   package {$packages:
-    ensure => 'present',
+    ensure => 'latest',
+    notify => Service["swh-worker@$service_name"],
   }
 
-  ::profile::swh::deploy::worker::instance {'swh_loader_deposit':
+  # This installs the swh-worker@$service_name service
+  ::profile::swh::deploy::worker::instance {$service_name:
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
