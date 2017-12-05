@@ -36,25 +36,28 @@ class profile::swh::deploy::worker::swh_loader_deposit {
 
   file {$deposit_config_directory:
     ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0755',
+    owner  => 'swhworker',
+    group  => 'swhdev',
+    mode   => '0750',
   }
 
   file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
-    group   => 'swhworker',
-    mode    => '0644',
+    group   => 'swhdev',
+    mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
+    require      => [
+      File[$deposit_config_directory],
+    ],
   }
 
   $swh_client_conf_file = hiera('swh::deploy::deposit::client::swh_conf_file')
   $swh_client_config = hiera('swh::deploy::deposit::client::settings_private_data')
   file {$swh_client_conf_file:
     owner   => 'swhworker',
-    group   => 'swhworker',
-    mode    => '0644',
+    group   => 'swhdev',
+    mode    => '0640',
     content => inline_template("<%= @swh_client_config.to_yaml %>\n"),
   }
 }
