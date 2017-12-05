@@ -9,7 +9,7 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $config = hiera('swh::deploy::worker::swh_loader_deposit::config')
 
   $task_modules = ['swh.deposit.loader.tasks']
-  $task_queues = ['swh_checker_deposit']
+  $task_queues = ['swh_checker_deposit', 'swh_loader_deposit']
 
   $packages = ['python3-swh.deposit.loader']
 
