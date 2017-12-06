@@ -1531,6 +1531,7 @@ swh::deploy::webapp::config:
     cls: remote
     args:
       url: http://127.0.0.1:5002/
+  vault: http://orangeriedev.internal.softwareheritage.org:5005/  # TODO
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   throttling:
