@@ -1,7 +1,8 @@
 # Deployment of the swh.indexer.storage.api.server
 
 class profile::swh::deploy::indexer_storage {
-  $conf_directory = hiera('swh::deploy::indexer::storage::conf_directory')
+  include ::profile::swh::deploy::base_storage
+
   $conf_file = hiera('swh::deploy::indexer::storage::conf_file')
   $user = hiera('swh::deploy::indexer::storage::user')
   $group = hiera('swh::deploy::indexer::storage::group')
@@ -27,13 +28,6 @@ class profile::swh::deploy::indexer_storage {
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
     notify  => Service['gunicorn-swh-indexer-storage'],
-  }
-
-  file {$conf_directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0755',
   }
 
   file {$conf_file:
