@@ -5,7 +5,7 @@ class role::swh_api inherits role::swh_server {
   # Web UI
   include profile::memcached
   include profile::swh::deploy::storage
-  include profile::swh::deploy::indexer::storage
+  include profile::swh::deploy::indexer_storage
   include profile::swh::deploy::webapp
   include profile::swh::deploy::deposit
 }
