@@ -1251,6 +1251,11 @@ swh::storage::config::uffizi: &swh_storage_config_uffizi
   args:
     url: http://uffizi.internal.softwareheritage.org:5002/
 
+swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
+  cls: remote
+  args:
+    url: http://uffizi.internal.softwareheritage.org:5007/
+
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
 swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
@@ -1279,6 +1284,26 @@ swh::deploy::storage::config:
       db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
         <<: *swh_objstorage_config_uffizi
+
+swh::deploy::indexer::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
+swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::indexer::storage::conf_directory')}/indexer.yml"
+swh::deploy::indexer::storage::user: swhstorage
+swh::deploy::indexer::storage::group: swhstorage
+swh::deploy::indexer::storage::db::host: somerset
+swh::deploy::indexer::storage::db::port: 5433
+swh::deploy::indexer::storage::db::user: swhstorage
+swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
+swh::deploy::indexer::storage::backend::listen::host: 127.0.0.1
+swh::deploy::indexer::storage::backend::listen::port: 5007
+swh::deploy::indexer::storage::backend::workers: 4
+swh::deploy::indexer::storage::backend::reload_mercy: 3600
+swh::deploy::indexer::storage::backend::http_keepalive: 5
+swh::deploy::indexer::storage::backend::http_timeout: 100000
+swh::deploy::indexer::storage::backend::max_requests: 10000
+swh::deploy::indexer::storage::backend::max_requests_jitter: 1000
+swh::deploy::indexer::storage::config:
+  indexer_storage:
+    <<: **swh_indexer_storage_config_uffizi
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"

@@ -15,6 +15,15 @@ swh::deploy::storage::config:
           root: "%{hiera('swh::deploy::storage::directory')}"
           slicing: "0:2/2:4/4:6"
 
+# Deploy the indexer storage server as a public resource
+swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
+swh::deploy::indexer::storage::backend::workers: 32
+swh::deploy::indexer::storage::config:
+  indexer_storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
