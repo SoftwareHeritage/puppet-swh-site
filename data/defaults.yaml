@@ -1438,6 +1438,11 @@ swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploa
 # test configuration
 swh::deploy::deposit::config:
   max_upload_size: 209715200
+  tool:
+    name: 'swh-deposit'
+    version: '0.0.1'
+    configuration:
+      sword_version: 2
 
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::settings_private_data:
