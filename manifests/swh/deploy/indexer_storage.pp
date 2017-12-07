@@ -7,7 +7,7 @@ class profile::swh::deploy::indexer_storage {
   $user = hiera('swh::deploy::indexer::storage::user')
   $group = hiera('swh::deploy::indexer::storage::group')
 
-  $swh_packages = ['python3-swh.indexer']
+  $swh_packages = ['python3-swh.indexer.storage']
 
   $backend_listen_host = hiera('swh::deploy::indexer::storage::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::indexer::storage::backend::listen::port')
