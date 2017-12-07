@@ -1285,8 +1285,7 @@ swh::deploy::storage::config:
       objstorage:
         <<: *swh_objstorage_config_uffizi
 
-swh::deploy::indexer::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
-swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::indexer::storage::conf_directory')}/indexer.yml"
+swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
 swh::deploy::indexer::storage::db::host: somerset
