@@ -1303,7 +1303,7 @@ swh::deploy::indexer::storage::backend::max_requests: 10000
 swh::deploy::indexer::storage::backend::max_requests_jitter: 1000
 swh::deploy::indexer::storage::config:
   indexer_storage:
-    <<: **swh_indexer_storage_config_uffizi
+    <<: *swh_indexer_storage_config_uffizi
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
