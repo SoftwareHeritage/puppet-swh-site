@@ -46,9 +46,6 @@ class profile::swh::deploy::vault {
     user        => $user,
     group       => $group,
     executable  => 'swh.vault.api.server:make_app_from_configfile()',
-    environment => {
-      'SWH_WORKER_INSTANCE' => 'swh_vault_cooker',
-    },
     settings    => {
       bind                => $backend_listen_address,
       workers             => $backend_workers,
