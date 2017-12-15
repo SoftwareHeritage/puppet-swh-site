@@ -70,7 +70,7 @@ class profile::swh::deploy::vault {
       http_address => '127.0.0.1',
       http_port    => $backend_listen_port,
       http_uri     => '/',
-      http_string  => 'swh vault api server',
+      http_string  => 'SWH Vault API server',
     },
     target           => $icinga_checks_file,
     tag              => 'icinga2::exported',
@@ -85,7 +85,7 @@ class profile::swh::deploy::vault {
       vars          => {
         http_port   => $backend_listen_port,
         http_uri    => '/',
-        http_string => 'swh vault api server',
+        http_string => 'SWH Vault API server',
       },
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',
