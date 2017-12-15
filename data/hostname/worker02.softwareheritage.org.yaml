@@ -9,12 +9,3 @@ networks:
     address: 128.93.193.22
     netmask: 255.255.255.0
     gateway: 128.93.193.254
-
-swh::deploy::worker::instances:
-  - swh_lister_debian
-  - swh_lister_github
-  - swh_loader_debian
-  - swh_loader_git
-  - swh_loader_git_disk
-  - swh_loader_svn
-  - swh_loader_deposit
