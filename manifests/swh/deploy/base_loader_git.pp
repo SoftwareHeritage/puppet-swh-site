@@ -6,7 +6,7 @@ class profile::swh::deploy::base_loader_git {
   $packages = ['python3-swh.loader.git']
 
   package {$packages:
-    ensure => 'installed',
+    ensure => 'latest',
   }
 
 }
