@@ -10,9 +10,7 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
   $config = hiera('swh::deploy::worker::swh_loader_mercurial::config')
 
   $task_modules = ['swh.loader.mercurial.tasks']
-  $task_queues = ['swh_loader_mercurial',
-                  'swh_loader_mercurial_slow',
-                  'swh_loader_mercurial_slow_archive']
+  $task_queues = ['swh_loader_mercurial', 'swh_loader_mercurial_archive']
 
   $service_name = 'swh_loader_mercurial'
 
