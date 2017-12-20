@@ -1667,6 +1667,12 @@ swh::deploy::worker::swh_loader_git_disk::config:
   storage: *swh_storage_config_uffizi
   directory_packet_size: 100
 
+swh::deploy::worker::swh_loader_mercurial::concurrency: 1
+swh::deploy::worker::swh_loader_mercurial::loglevel: info
+swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_mercurial::config:
+  storage: *swh_storage_config_uffizi
+
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
 swh::deploy::worker::swh_loader_svn::loglevel: info
