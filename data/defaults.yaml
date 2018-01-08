@@ -855,6 +855,10 @@ bind::resource_records:
     type: A
     record: worker08.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.11
+  dbreplica0-euwest/A:
+    type: A
+    record: dbreplica0.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.15
 
 bind::resource_records::default_data:
   type: A
