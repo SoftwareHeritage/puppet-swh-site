@@ -52,6 +52,7 @@ smtp::mail_aliases:
     - olasd
     - zack
     - ardumont
+    - ftigeot
   seirl:
     - antoine.pietri1@gmail.com
   ssushant:
