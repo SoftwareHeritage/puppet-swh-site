@@ -54,6 +54,10 @@ node /^worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_worker_azure
 }
 
+node 'dbreplica0.euwest.azure.internal.softwareheritage.org' {
+  include role::swh_database
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
