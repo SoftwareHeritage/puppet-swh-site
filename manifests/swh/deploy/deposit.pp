@@ -10,6 +10,8 @@ class profile::swh::deploy::deposit {
 
   $swh_packages = ['python3-swh.deposit']
 
+  $static_dir = '/usr/lib/python3/dist-packages/swh/deposit/static'
+
   # private data file to read from swh.deposit.settings.production
   $settings_private_data_file = hiera('swh::deploy::deposit::settings_private_data_file')
   $settings_private_data = hiera('swh::deploy::deposit::settings_private_data')
