@@ -17,10 +17,4 @@ class profile::systemd_journal::base_config {
     ],
     unless  => 'getfacl -csp /var/log/journal | grep -Eq group:adm:r-x',
   }
-
-  file_line { 'systemd_journal_maxsize':
-    path => '/etc/systemd/journald.conf',
-    line => 'SystemMaxUse=400M',
-  }
-
 }
