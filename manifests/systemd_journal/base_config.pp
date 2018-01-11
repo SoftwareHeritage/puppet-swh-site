@@ -19,8 +19,8 @@ class profile::systemd_journal::base_config {
   }
 
   file_line { 'systemd_journal_maxsize':
-	path => '/etc/systemd/journald.conf',
-	line => 'SystemMaxUse=400M',
-    }
+    path => '/etc/systemd/journald.conf',
+    line => 'SystemMaxUse=400M',
+  }
 
 }
