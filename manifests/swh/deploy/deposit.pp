@@ -26,11 +26,13 @@ class profile::swh::deploy::deposit {
   $backend_reload_mercy = hiera('swh::deploy::deposit::backend::reload_mercy')
 
   $vhost_name = hiera('swh::deploy::deposit::vhost::name')
+  $vhost_port = hiera('apache::http_port')
   $vhost_aliases = hiera('swh::deploy::deposit::vhost::aliases')
   $vhost_docroot = hiera('swh::deploy::deposit::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   # swh::deploy::deposit::vhost::basic_auth_content in private
   $vhost_basic_auth_content = hiera('swh::deploy::deposit::vhost::basic_auth_content')
+  $vhost_ssl_port = hiera('apache::https_port')
   $vhost_ssl_protocol = hiera('swh::deploy::deposit::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = hiera('swh::deploy::deposit::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = hiera('swh::deploy::deposit::vhost::ssl_cipher')
@@ -113,7 +115,7 @@ class profile::swh::deploy::deposit {
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     serveraliases   => $vhost_aliases,
-    port            => '80',
+    port            => $vhost_port,
     docroot         => $vhost_docroot,
     redirect_status => 'permanent',
     redirect_dest   => "https://${vhost_name}/",
@@ -127,7 +129,7 @@ class profile::swh::deploy::deposit {
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
     serveraliases        => $vhost_aliases,
-    port                 => '443',
+    port                 => $vhost_ssl_port,
     ssl                  => true,
     ssl_protocol         => $vhost_ssl_protocol,
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
@@ -230,6 +232,7 @@ class profile::swh::deploy::deposit {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
+      http_port    => $vhost_port,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -244,6 +247,7 @@ class profile::swh::deploy::deposit {
     vars          => {
       http_address    => $vhost_name,
       http_vhost      => $vhost_name,
+      http_port       => $vhost_ssl_port,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -261,6 +265,7 @@ class profile::swh::deploy::deposit {
     vars          => {
       http_address     => $vhost_name,
       http_vhost       => $vhost_name,
+      http_port        => $vhost_ssl_port,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,

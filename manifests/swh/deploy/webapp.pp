@@ -20,10 +20,12 @@ class profile::swh::deploy::webapp {
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
   $vhost_name = hiera('swh::deploy::webapp::vhost::name')
+  $vhost_port = hiera('apache::http_port')
   $vhost_aliases = hiera('swh::deploy::webapp::vhost::aliases')
   $vhost_docroot = hiera('swh::deploy::webapp::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   $vhost_basic_auth_content = hiera('swh::deploy::webapp::vhost::basic_auth_content')
+  $vhost_ssl_port = hiera('apache::https_port')
   $vhost_ssl_protocol = hiera('swh::deploy::webapp::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = hiera('swh::deploy::webapp::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = hiera('swh::deploy::webapp::vhost::ssl_cipher')
@@ -101,7 +103,7 @@ class profile::swh::deploy::webapp {
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     serveraliases   => $vhost_aliases,
-    port            => '80',
+    port            => $vhost_port,
     docroot         => $vhost_docroot,
     redirect_status => 'permanent',
     redirect_dest   => "https://${vhost_name}/",
@@ -115,7 +117,7 @@ class profile::swh::deploy::webapp {
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
     serveraliases        => $vhost_aliases,
-    port                 => '443',
+    port                 => $vhost_ssl_port,
     ssl                  => true,
     ssl_protocol         => $vhost_ssl_protocol,
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
@@ -186,6 +188,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
+      http_port    => $vhost_port,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -200,6 +203,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address    => $vhost_name,
       http_vhost      => $vhost_name,
+      http_port       => $vhost_ssl_port,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -217,6 +221,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address     => $vhost_name,
       http_vhost       => $vhost_name,
+      http_port        => $vhost_ssl_port,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,
@@ -233,6 +238,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
+      http_port    => $vhost_ssl_port,
       http_uri     => '/api/1/stat/counters/',
       http_ssl     => true,
       http_string  => '\"content\":'
@@ -249,6 +255,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
+      http_port    => $vhost_ssl_port,
       http_uri     => '/api/1/content/known/search/',
       http_ssl     => true,
       http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
