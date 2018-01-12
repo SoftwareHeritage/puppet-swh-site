@@ -146,6 +146,10 @@ mod 'unattended_upgrades',
     :git => 'git@forge.softwareheritage.org:/source/puppet-puppet-unattended_upgrades.git',
     :ref => 'v3.0.0'
 
+mod 'varnish',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-claranet-varnish.git',
+    :ref => '4.1.6'
+
 mod 'vcsrepo',
     :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-vcsrepo.git',
     :ref => '2.0.0'
