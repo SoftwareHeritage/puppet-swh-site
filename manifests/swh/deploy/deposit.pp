@@ -74,10 +74,10 @@ class profile::swh::deploy::deposit {
 
   # swh's private configuration part (db, secret key, media_root)
   file {$settings_private_data_file:
-    ensure => present,
-    owner => 'root',
-    group => $group,
-    mode  => '0640',
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
     content => inline_template("<%= @settings_private_data.to_yaml %>\n"),
     notify  => Service['gunicorn-swh-deposit'],
   }
