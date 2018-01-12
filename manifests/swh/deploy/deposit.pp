@@ -113,18 +113,55 @@ class profile::swh::deploy::deposit {
   include ::apache::mod::headers
 
   ::apache::vhost {"${vhost_name}_non-ssl":
-    servername      => $vhost_name,
-    serveraliases   => $vhost_aliases,
-    port            => $vhost_port,
-    docroot         => $vhost_docroot,
-    redirect_status => 'permanent',
-    redirect_dest   => "https://${vhost_name}/",
+    servername    => $vhost_name,
+    serveraliases => $vhost_aliases,
+    port          => $vhost_port,
+    docroot       => $vhost_docroot,
+    proxy_pass    => [
+      { path => '/static',
+        url  => '!',
+      },
+      { path => '/robots.txt',
+        url  => '!',
+      },
+      { path => '/favicon.ico',
+        url  => '!',
+      },
+      { path => '/',
+        url  => "http://${backend_listen_address}/",
+      },
+    ],
+    directories   => [
+      { path     => '/1',
+        provider => 'location',
+        allow    => 'from all',
+        satisfy  => 'Any',
+        headers  => ['add Access-Control-Allow-Origin "*"'],
+      },
+      { path    => $static_dir,
+        options => ['-Indexes'],
+      },
+    ] + $endpoint_directories,
+    aliases       => [
+      { alias => '/static',
+        path  => $static_dir,
+      },
+      { alias => '/robots.txt',
+        path  => "${static_dir}/robots.txt",
+      },
+    ],
+    require       => [
+      File[$vhost_basic_auth_file],
+    ]
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
   $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
   $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+
+  include ::profile::hitch
+  realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
 
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
