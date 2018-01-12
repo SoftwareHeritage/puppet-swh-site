@@ -143,9 +143,6 @@ class profile::swh::deploy::webapp {
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   include ::profile::hitch
   realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
