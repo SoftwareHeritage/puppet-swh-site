@@ -8,37 +8,37 @@ import std;
 
 sub vcl_recv {
     if (
-<% @aliases.each do |alias_| %>
+<% @aliases.each do |alias_| -%>
         req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>$" ||
-<% end %>
+<% end -%>
         req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>$"
     ) {
         if (std.port(server.ip) == <%= scope['::profile::varnish::http_port'] %>) {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         }
-<% if @vcl_recv_extra %>
+<% if @vcl_recv_extra -%>
         <%= @vcl_recv_extra %>
-<% end %>
+<% end -%>
     }
 }
 
-<% if @hsts_max_age or @vcl_deliver_extra %>
+<% if @hsts_max_age or @vcl_deliver_extra -%>
 sub vcl_deliver {
     if (
-<% @aliases.each do |alias_| %>
+<% @aliases.each do |alias_| -%>
         req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>$" ||
-<% end %>
+<% end -%>
         req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>$"
     ) {
-<% if @hsts_max_age %>
+<% if @hsts_max_age -%>
         if (std.port(server.ip) != <%= scope['::profile::varnish::http_port'] %>) {
             set resp.http.Strict-Transport-Security = "max-age=<%= @hsts_max_age %>;";
         }
-<% end %>
-<% if @vcl_deliver_extra %>
+<% end -%>
+<% if @vcl_deliver_extra -%>
         <%= @vcl_deliver_extra %>
-<% end %>
+<% end -%>
     }
 }
-<% end %>
+<% end -%>
