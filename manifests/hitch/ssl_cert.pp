@@ -1,6 +1,6 @@
 # Configure hitch to support a given TLS cert
-class profile::hitch::ssl_cert (
-  $ssl_cert_name = $title,
+define profile::hitch::ssl_cert (
+  String $ssl_cert_name = $title,
 ){
   include ::profile::ssl
 
