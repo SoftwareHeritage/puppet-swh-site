@@ -57,4 +57,6 @@ class profile::varnish {
     content => "# File managed with puppet (module profile::varnish)\n# All modifications will be lost\n\n",
     order   => '00',
   }
+
+  include ::profile::varnish::default_vcls
 }
