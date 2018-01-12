@@ -6,7 +6,7 @@ define profile::varnish::vhost (
   Array[String] $aliases = [],
   Optional[String] $vcl_recv_extra = undef,
   Optional[String] $vcl_deliver_extra = undef,
-  Optional[String] $hsts_max_age = undef,
+  Variant[Undef, String, Integer[1]] $hsts_max_age = undef,
 ) {
   ::profile::varnish::vcl_include {"vhost_${servername}":
     order   => $order,
