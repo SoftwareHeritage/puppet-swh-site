@@ -17,11 +17,13 @@ sub vcl_recv {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         }
-        <%= @extra_recv_vcl %>
+<% if @vcl_recv_extra %>
+        <%= @vcl_recv_extra %>
+<% end %>
     }
 }
 
-<% if @hsts_max_age or @extra_deliver_vcl %>
+<% if @hsts_max_age or @vcl_deliver_extra %>
 sub vcl_deliver {
     if (
 <% @aliases.each do |alias| %>
@@ -34,7 +36,9 @@ sub vcl_deliver {
             set resp.http.Strict-Transport-Security = "max-age=<%= @hsts_max_age %>;";
         }
 <% end %>
-        <%= @extra_deliver_vcl %>
+<% if @vcl_deliver_extra %>
+        <%= @vcl_deliver_extra %>
+<% end %>
     }
 }
 <% end %>

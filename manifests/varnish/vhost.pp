@@ -4,9 +4,9 @@ define profile::varnish::vhost (
   String $servername = $title,
   String $order = '50',
   Array[String] $aliases = [],
-  String $extra_recv_vcl = '',
-  String $extra_deliver_vcl = '',
-  String $hsts_max_age = undef,
+  Optional[String] $vcl_recv_extra = undef,
+  Optional[String] $vcl_deliver_extra = undef,
+  Optional[String] $hsts_max_age = undef,
 ) {
   ::profile::varnish::vcl_include {"vhost_${servername}":
     order   => $order,
