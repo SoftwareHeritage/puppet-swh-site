@@ -114,6 +114,16 @@ class profile::swh::deploy::webapp {
   $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
+  include ::profile::hitch
+
+  each([$vhost_name] + $vhost_aliases) |$domain| {
+    ::hitch::domain {$vhost_name:
+      key_source    => $ssl_key,
+      cert_source   => $ssl_cert,
+      cacert_source => $ssl_ca,
+    }
+  }
+
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
     serveraliases        => $vhost_aliases,
