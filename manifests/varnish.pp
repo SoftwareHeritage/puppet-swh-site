@@ -30,7 +30,7 @@ class profile::varnish {
 
   ::varnish::vcl {'/etc/varnish/default.vcl':
     content => template('profile/varnish/default.vcl.erb'),
-    require => File['/etc/varnish/includes.vcl'],
+    require => Concat[$includes_vcl],
   }
 
   file {$includes_dir:
