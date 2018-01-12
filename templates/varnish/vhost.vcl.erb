@@ -8,8 +8,8 @@ import std;
 
 sub vcl_recv {
     if (
-<% @aliases.each do |alias| %>
-        req.http.host ~ "^(?i)<%= Regexp.escape(alias) %>$" ||
+<% @aliases.each do |alias_| %>
+        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>$" ||
 <% end %>
         req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>$"
     ) {
@@ -26,8 +26,8 @@ sub vcl_recv {
 <% if @hsts_max_age or @vcl_deliver_extra %>
 sub vcl_deliver {
     if (
-<% @aliases.each do |alias| %>
-        req.http.host ~ "^(?i)<%= Regexp.escape(alias) %>$" ||
+<% @aliases.each do |alias_| %>
+        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>$" ||
 <% end %>
         req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>$"
     ) {
