@@ -37,6 +37,7 @@ begin
       "smbfs",
       "sysfs",
       "tmpfs",
+      "tracefs",
       "udf",
       "usbfs",
     ].uniq.sort.join(',')
