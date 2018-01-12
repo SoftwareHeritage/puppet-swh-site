@@ -27,3 +27,4 @@ swh::deploy::storage::db::host: somerset
 swh::deploy::storage::db::port: 5433
 
 hitch::frontend: "[*]:443"
+hitch::proxy_support: true
