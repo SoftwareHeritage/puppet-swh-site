@@ -115,14 +115,7 @@ class profile::swh::deploy::webapp {
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   include ::profile::hitch
-
-  each(unique([$vhost_name] + $vhost_aliases)) |$domain| {
-    ::hitch::domain {$domain:
-      key_source    => $ssl_key,
-      cert_source   => $ssl_cert,
-      cacert_source => $ssl_ca,
-    }
-  }
+  realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
 
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,

@@ -18,4 +18,10 @@ class profile::hitch {
     backend        => $backend,
     write_proxy_v2 => $write_proxy_v2,
   }
+
+  # Provide virtual resources for each possible hitch TLS certificate
+  # Users can realize the resource using
+  #   realize(::Profile::Hitch::Ssl_Cert[$cert_name])
+  $ssl_certs = keys(hiera('ssl'))
+  @::profile::hitch::ssl_cert {$ssl_certs:}
 }
