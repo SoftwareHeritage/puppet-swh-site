@@ -4,8 +4,6 @@
 #
 # File managed by puppet. All modifications will be lost.
 
-import std;
-
 sub vcl_recv {
     if (
 <% @aliases.each do |alias_| -%>
