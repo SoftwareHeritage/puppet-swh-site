@@ -14,6 +14,8 @@ sub vcl_recv {
         if (std.port(server.ip) == <%= scope['::profile::varnish::http_port'] %>) {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
+        } else {
+            set req.http.X_FORWARDED_PROTO = "https";
         }
 <% if @vcl_recv_extra -%>
         <%= @vcl_recv_extra %>
