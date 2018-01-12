@@ -506,8 +506,8 @@ hitch::proxy_support: false
 varnish::http_port: 10080
 varnish::proxy_port: 6081
 varnish::listen:
-  - ":${hiera('varnish::http_port')}"
-  - "[::1]:${hiera('varnish::proxy_port')},PROXY"
+  - ":%{hiera('varnish::http_port')}"
+  - "[::1]:%{hiera('varnish::proxy_port')},PROXY"
 
 varnish::backend_http_port: "%{hiera('apache::http_port')}"
 #varnish::hsts_max_age: "%{hiera('strict_transport_security::max_age')}"
