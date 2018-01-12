@@ -3,6 +3,8 @@ class profile::hitch {
   $frontend = hiera('hitch::frontend')
   $proxy_support = hiera('hitch::proxy_support')
 
+  $ocsp_dir = '/var/lib/hitch'
+
   if $proxy_support {
     $varnish_proxy_port = hiera('varnish::proxy_port')
     $backend            = "[::1]:${varnish_proxy_port}"
@@ -17,6 +19,15 @@ class profile::hitch {
     frontend       => $frontend,
     backend        => $backend,
     write_proxy_v2 => $write_proxy_v2,
+    require        => File[$ocsp_dir],
+  }
+
+  file {$ocsp_dir:
+    ensure => directory,
+    mode   => '0700',
+    owner  => $::hitch::user,
+    group  => $::hitch::group,
+    notify => Service[$::hitch::service_name],
   }
 
   # Provide virtual resources for each possible hitch TLS certificate
