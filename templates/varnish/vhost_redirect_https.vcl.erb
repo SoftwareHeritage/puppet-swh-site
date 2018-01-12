@@ -1,0 +1,27 @@
+# vhost_<%= @aliases[0] %>_redirect_https.vcl
+#
+# Redirect virtual host to https
+#
+# File managed by puppet. All modifications will be lost.
+
+import std;
+
+sub vcl_recv {
+    if (std.port(server.ip) != <%= scope['::profile::varnish::http_port'] %> && (
+<% @aliases.each do |alias| %>
+        req.http.host ~ "^(?i)<%= Regexp.escape(alias) %>$" ||
+<% end %>
+        false
+    )) {
+        set req.http.x-redir = "https://" + req.http.host + req.url;
+        return(synth(850, "Moved permanently"));
+    }
+}
+
+<% if scope['::profile::varnish::hsts_max_age'] %>
+sub vcl_deliver {
+    if (std.port(server.ip) != <%= scope['::profile::varnish::http_port'] %>) {
+        set resp.http.Strict-Transport-Security = "max-age=<%= scope['::profile::varnish::hsts_max_age'] %>;";
+    }
+}
+<% end -%>
