@@ -159,6 +159,12 @@ class profile::swh::deploy::deposit {
   include ::profile::hitch
   realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
 
+  include ::profile::varnish
+  ::profile::varnish::vhost {$vhost_name:
+    aliases      => $vhost_aliases,
+    hsts_max_age => hiera('strict_transport_security::max_age'),
+  }
+
   file {$vhost_basic_auth_file:
     ensure  => present,
     owner   => 'root',
