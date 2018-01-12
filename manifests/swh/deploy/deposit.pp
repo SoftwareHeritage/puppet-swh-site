@@ -107,7 +107,6 @@ class profile::swh::deploy::deposit {
     }
   }
 
-  include ::profile::ssl
   include ::profile::apache::common
   include ::apache::mod::proxy
   include ::apache::mod::headers
@@ -156,68 +155,9 @@ class profile::swh::deploy::deposit {
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   include ::profile::hitch
   realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
-
-  ::apache::vhost {"${vhost_name}_ssl":
-    servername           => $vhost_name,
-    serveraliases        => $vhost_aliases,
-    port                 => $vhost_ssl_port,
-    ssl                  => true,
-    ssl_protocol         => $vhost_ssl_protocol,
-    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
-    ssl_cipher           => $vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_ca               => $ssl_ca,
-    ssl_key              => $ssl_key,
-    docroot              => $vhost_docroot,
-    request_headers      => [
-      "set X_FORWARDED_PROTO 'https' env=HTTPS",
-    ],
-    proxy_pass           => [
-      { path => '/static',
-        url  => '!',
-      },
-      { path => '/robots.txt',
-        url  => '!',
-      },
-      { path => '/favicon.ico',
-        url  => '!',
-      },
-      { path => '/',
-        url  => "http://${backend_listen_address}/",
-      },
-    ],
-    directories          => [
-      { path     => '/1',
-        provider => 'location',
-        allow    => 'from all',
-        satisfy  => 'Any',
-        headers  => ['add Access-Control-Allow-Origin "*"'],
-      },
-      { path    => $static_dir,
-        options => ['-Indexes'],
-      },
-    ] + $endpoint_directories,
-    aliases              => [
-      { alias => '/static',
-        path  => $static_dir,
-      },
-      { alias => '/robots.txt',
-        path  => "${static_dir}/robots.txt",
-      },
-    ],
-    require              => [
-      File[$vhost_basic_auth_file],
-      File[$ssl_cert],
-      File[$ssl_ca],
-      File[$ssl_key],
-    ],
-  }
 
   file {$vhost_basic_auth_file:
     ensure  => present,
