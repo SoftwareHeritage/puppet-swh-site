@@ -116,7 +116,7 @@ class profile::swh::deploy::webapp {
 
   include ::profile::hitch
 
-  each([$vhost_name] + $vhost_aliases) |$domain| {
+  each(unique([$vhost_name] + $vhost_aliases)) |$domain| {
     ::hitch::domain {$vhost_name:
       key_source    => $ssl_key,
       cert_source   => $ssl_cert,
