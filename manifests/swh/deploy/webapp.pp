@@ -147,6 +147,11 @@ class profile::swh::deploy::webapp {
   include ::profile::hitch
   realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
 
+  include ::profile::varnish
+  ::profile::varnish::vhost {$vhost_name:
+    aliases => $vhost_aliases,
+  }
+
   file {$vhost_basic_auth_file:
     ensure  => present,
     owner   => 'root',
