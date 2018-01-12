@@ -499,7 +499,7 @@ apache::http_port: 80
 apache::https_port: 443
 
 # Hitch TLS proxy configuration
-hitch::frontend: [*]:10443
+hitch::frontend: "[*]:10443"
 hitch::proxy_support: false
 
 # Varnish configuration
