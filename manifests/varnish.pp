@@ -7,7 +7,6 @@ class profile::varnish {
 
   $http_port = hiera('varnish::http_port')
   $backend_http_port = hiera('varnish::backend_http_port')
-  $hsts_max_age = hiera('varnish::hsts_max_age')
 
   $listen = hiera('varnish::listen')
   $admin_listen = hiera('varnish::admin_listen')
