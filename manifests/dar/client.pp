@@ -53,7 +53,7 @@ class profile::dar::client {
   # Export a remote backup to the backup server
   @@dar::remote_backup { "${::hostname}.${::hostname}":
     remote_backup_storage => hiera('dar::backup::storage'),
-    remote_backup_host    => $::hostname,
+    remote_backup_host    => $::fqdn,
     remote_backup_name    => $::hostname,
     local_backup_storage  => hiera('dar_server::backup::storage'),
     hour                  => hiera('dar_server::cron::hour'),
