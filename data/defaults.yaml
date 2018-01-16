@@ -3,6 +3,7 @@ dns::local_cache: true
 dns::nameservers:
   - 127.0.0.1
 dns::search_domains:
+  - euwest.azure.internal.softwareheritage.org
   - internal.softwareheritage.org
   - softwareheritage.org
 dns::forward_zones:
