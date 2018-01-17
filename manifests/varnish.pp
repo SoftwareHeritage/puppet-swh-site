@@ -11,20 +11,30 @@ class profile::varnish {
   $listen = hiera('varnish::listen')
   $admin_listen = hiera('varnish::admin_listen')
   $admin_port = hiera('varnish::admin_port')
+  $http2_support = hiera('varnish::http2_support')
   $secret = hiera('varnish::secret')
   $storage_type = hiera('varnish::storage_type')
   $storage_size = hiera('varnish::storage_size')
   $storage_file = hiera('varnish::storage_file')
 
+  if $http2_support {
+    $runtime_params = {
+      feature => '+http2',
+    }
+  } else {
+    $runtime_params = {}
+  }
+
   class {'::varnish':
-    addrepo      => false,
-    listen       => $listen,
-    admin_listen => $admin_listen,
-    admin_port   => $admin_port,
-    secret       => $secret,
-    storage_type => $storage_type,
-    storage_size => $storage_size,
-    storage_file => $storage_file,
+    addrepo        => false,
+    listen         => $listen,
+    admin_listen   => $admin_listen,
+    admin_port     => $admin_port,
+    secret         => $secret,
+    storage_type   => $storage_type,
+    storage_size   => $storage_size,
+    storage_file   => $storage_file,
+    runtime_params => $runtime_params,
   }
 
   ::varnish::vcl {'/etc/varnish/default.vcl':

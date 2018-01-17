@@ -2,6 +2,7 @@
 class profile::hitch {
   $frontend = hiera('hitch::frontend')
   $proxy_support = hiera('hitch::proxy_support')
+  $http2_support = hiera('hitch::http2_support')
 
   $ocsp_dir = '/var/lib/hitch'
 
@@ -15,10 +16,17 @@ class profile::hitch {
     $write_proxy_v2   = 'off'
   }
 
+  if $http2_support {
+    $alpn_protos = 'h2,http/1.1'
+  } else {
+    $alpn_protos = undef
+  }
+
   class {'::hitch':
     frontend       => $frontend,
     backend        => $backend,
     write_proxy_v2 => $write_proxy_v2,
+    alpn_protos    => $alpn_protos,
     require        => File[$ocsp_dir],
   }
 
