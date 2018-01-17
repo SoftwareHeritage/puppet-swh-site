@@ -32,5 +32,8 @@ hitch::proxy_support: true
 varnish::http_port: 80
 apache::http_port: 9080
 
+hitch::http2_support: true
+varnish::http2_support: true
+
 # Disable default vhost on port 80
 apache::default_vhost: false

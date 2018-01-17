@@ -501,10 +501,12 @@ apache::https_port: 443
 # Hitch TLS proxy configuration
 hitch::frontend: "[*]:10443"
 hitch::proxy_support: false
+hitch::http2_support: false
 
 # Varnish configuration
 varnish::http_port: 10080
 varnish::proxy_port: 6081
+varnish::http2_support: false
 varnish::listen:
   - ":%{hiera('varnish::http_port')}"
   - "[::1]:%{hiera('varnish::proxy_port')},PROXY"
