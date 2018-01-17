@@ -60,7 +60,7 @@ mod 'extlib',
 
 mod 'hitch',
     :git => 'git@forge.softwareheritage.org:/source/puppet-ssm-hitch.git',
-    :ref => 'bugfix/puppet-4'
+    :ref => 'feature/additional-config'
 
 mod 'icinga2',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPICI/icinga-icinga2.git',
