@@ -1809,7 +1809,7 @@ swh::deploy::worker::swh_indexer::base::config:
   storage: *swh_storage_config_uffizi
   objstorage: *swh_objstorage_config_azure_readonly_with_fallback
 
-swh::deploy::worker::swh_indexer::mimetype::concurrency: 5
+swh::deploy::worker::swh_indexer::mimetype::concurrency: 6
 swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
