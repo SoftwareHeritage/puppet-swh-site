@@ -1,11 +1,14 @@
 swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 96
 
+swh::deploy::storage::db::host: somerset
+swh::deploy::storage::db::port: 5433
+
 swh::deploy::storage::config:
   storage:
     cls: local
     args:
-      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::objstorage::config: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
