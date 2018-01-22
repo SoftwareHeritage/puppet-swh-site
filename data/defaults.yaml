@@ -741,6 +741,22 @@ bind::zones:
     domain: 100.168.192.in-addr.arpa
   101.168.192.in-addr.arpa:
     domain: 101.168.192.in-addr.arpa
+  200.168.192.in-addr.arpa:
+    domain: 200.168.192.in-addr.arpa
+  201.168.192.in-addr.arpa:
+    domain: 201.168.192.in-addr.arpa
+  202.168.192.in-addr.arpa:
+    domain: 202.168.192.in-addr.arpa
+  203.168.192.in-addr.arpa:
+    domain: 203.168.192.in-addr.arpa
+  204.168.192.in-addr.arpa:
+    domain: 204.168.192.in-addr.arpa
+  205.168.192.in-addr.arpa:
+    domain: 205.168.192.in-addr.arpa
+  206.168.192.in-addr.arpa:
+    domain: 206.168.192.in-addr.arpa
+  207.168.192.in-addr.arpa:
+    domain: 207.168.192.in-addr.arpa
 
 bind::zones::default_data:
   zone_type: master
@@ -849,50 +865,6 @@ bind::resource_records:
     type: A
     record: orangeriedev.internal.softwareheritage.org
     data: 192.168.101.130
-  worker01-euwest/A:
-    type: A
-    record: worker01.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.4
-  worker02-euwest/A:
-    type: A
-    record: worker02.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.5
-  worker03-euwest/A:
-    type: A
-    record: worker03.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.6
-  worker04-euwest/A:
-    type: A
-    record: worker04.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.7
-  worker05-euwest/A:
-    type: A
-    record: worker05.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.8
-  worker06-euwest/A:
-    type: A
-    record: worker06.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.9
-  worker07-euwest/A:
-    type: A
-    record: worker07.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.10
-  worker08-euwest/A:
-    type: A
-    record: worker08.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.11
-  worker09-euwest/A:
-    type: A
-    record: worker09.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.12
-  worker10-euwest/A:
-    type: A
-    record: worker10.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.14
-  dbreplica0-euwest/A:
-    type: A
-    record: dbreplica0.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.15
 
 bind::resource_records::default_data:
   type: A
@@ -905,7 +877,8 @@ bind::clients:
   - '::1/128'
 
 bind::autogenerate:
-  '192.168.100.0/24': internal.softwareheritage.org
+  - 192.168.100.0/24
+  - 192.168.200.0/21
 
 dar::backup::storage: /srv/backups
 dar::backup::num_backups: 1
