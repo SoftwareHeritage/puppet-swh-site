@@ -105,23 +105,23 @@ class profile::base {
     timezone => hiera('timezone'),
   }
 
-  $bind_autogenerate = hiera_hash('bind::autogenerate')
+  $bind_autogenerate = hiera('bind::autogenerate')
   $bind_key = hiera('bind::update_key')
 
-  each($bind_autogenerate) |$net, $zone| {
+  each($bind_autogenerate) |$net| {
     $ipaddr = ip_for_network($net)
     if $ipaddr {
       $reverse = reverse_ipv4($ipaddr)
-      $fqdn = "${::hostname}.${zone}"
+      $fqdn = $::swh_hostname['internal_fqdn']
 
-      @@resource_record { "${::hostname}/${zone}/A":
+      @@resource_record { "${fqdn}/A":
         type    => 'A',
         record  => $fqdn,
         data    => $ipaddr,
         keyfile => "/etc/bind/keys/${bind_key}",
       }
 
-      @@resource_record { "${::hostname}/${zone}/PTR":
+      @@resource_record { "${fqdn}/PTR":
         type    => 'PTR',
         record  => $reverse,
         data    => "${fqdn}.",
