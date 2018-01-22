@@ -9,3 +9,5 @@ swh::deploy::storage::config:
       objstorage: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::objstorage::config: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
+
+swh::deploy::worker::instances: []
