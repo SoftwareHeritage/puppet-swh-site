@@ -1415,7 +1415,7 @@ swh::deploy::archiver_content_updater::config:
     - uffizi
 
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
-swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/objstorage.yml"
+swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/server.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
 swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
