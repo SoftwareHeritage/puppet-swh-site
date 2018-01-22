@@ -1,6 +1,9 @@
 class profile::dar::client {
   include ::dar
 
+  $dar_remote_hostname = $::swh_hostname['short']
+  $dar_backup_name = $::hostname
+
   $hierahour     = hiera('dar::cron::hour')
   if $hierahour == 'fqdn_rand' {
     $hour = fqdn_rand(24, 'backup_hour')
@@ -36,7 +39,7 @@ class profile::dar::client {
     $weekday = $hieraweekday
   }
 
-  dar::backup { $::hostname:
+  dar::backup { $dar_backup_name:
     backup_storage   => hiera('dar::backup::storage'),
     keep_backups     => hiera('dar::backup::num_backups'),
     backup_base      => hiera('dar::backup::base'),
@@ -51,10 +54,10 @@ class profile::dar::client {
   }
 
   # Export a remote backup to the backup server
-  @@dar::remote_backup { "${::hostname}.${::hostname}":
+  @@dar::remote_backup { "${dar_remote_hostname}.${dar_backup_name}":
     remote_backup_storage => hiera('dar::backup::storage'),
-    remote_backup_host    => $::fqdn,
-    remote_backup_name    => $::hostname,
+    remote_backup_host    => $dar_remote_hostname,
+    remote_backup_name    => $dar_backup_name,
     local_backup_storage  => hiera('dar_server::backup::storage'),
     hour                  => hiera('dar_server::cron::hour'),
     minute                => hiera('dar_server::cron::minute'),
