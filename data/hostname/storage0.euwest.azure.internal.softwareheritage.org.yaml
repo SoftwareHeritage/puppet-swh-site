@@ -7,3 +7,5 @@ swh::deploy::storage::config:
     args:
       db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
+
+swh::deploy::objstorage::config: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
