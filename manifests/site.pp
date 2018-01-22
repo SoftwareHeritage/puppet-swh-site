@@ -34,7 +34,7 @@ node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
 
-node /^uffizi.(internal.)?softwareheritage.org$/ {
+node /^(uffizi|storage\d+\.[^.]+\.azure).(internal.)?softwareheritage.org$/ {
   include role::swh_storage
 }
 
