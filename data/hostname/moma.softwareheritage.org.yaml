@@ -26,6 +26,13 @@ dar::backup::exclude:
 swh::deploy::storage::db::host: somerset
 swh::deploy::storage::db::port: 5433
 
+swh::deploy::storage::config:
+  storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      objstorage: "%{alias('swh::objstorage::config::azure_readonly_with_fallback')}"
+
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 
