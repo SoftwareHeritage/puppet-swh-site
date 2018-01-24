@@ -892,6 +892,8 @@ dar::backup::exclude:
  - srv/remote-backups
  - srv/softwareheritage/objects
  - srv/softwareheritage/postgres
+ - srv/softwareheritage/scratch
+ - srv/softwareheritage/scratch.2TB
  - srv/storage
  - sys
  - tmp
