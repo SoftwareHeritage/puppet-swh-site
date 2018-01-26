@@ -865,6 +865,10 @@ bind::resource_records:
     type: A
     record: orangeriedev.internal.softwareheritage.org
     data: 192.168.101.130
+  orangerie/A:
+    type: A
+    record: orangerie.internal.softwareheritage.org
+    data: 192.168.101.142
 
 bind::resource_records::default_data:
   type: A
