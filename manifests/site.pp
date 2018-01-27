@@ -59,11 +59,11 @@ node 'dbreplica0.euwest.azure.internal.softwareheritage.org' {
 }
 
 node /^ceph-osd\d+\.internal\.softwareheritage\.org$/ {
-  include role::ceph_osd
+  include role::swh_ceph_osd
 }
 
 node /^ceph-mon\d+\.internal\.softwareheritage\.org$/ {
-  include role::ceph_mon
+  include role::swh_ceph_mon
 }
 
 node
