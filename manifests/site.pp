@@ -58,6 +58,14 @@ node 'dbreplica0.euwest.azure.internal.softwareheritage.org' {
   include role::swh_database
 }
 
+node /^ceph-osd\d+\.internal\.softwareheritage\.org$/ {
+  include role::ceph_osd
+}
+
+node /^ceph-mon\d+\.internal\.softwareheritage\.org$/ {
+  include role::ceph_mon
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
