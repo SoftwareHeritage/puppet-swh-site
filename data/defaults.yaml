@@ -2260,7 +2260,6 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
-swh::deploy::worker::swh_vault_cooker::vault_url: "http://orangerie.internal.softwareheritage.org:5005/"
 swh::deploy::worker::swh_vault_cooker::concurrency: 1
 swh::deploy::worker::swh_vault_cooker::loglevel: info
 swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
