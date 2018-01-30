@@ -1046,6 +1046,13 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=Elastic"                                                          # ...
  - "o=packages.sury.org"                                                # PHP backports (tate)
 
+swh::remote_service::storage::port: 5002
+swh::remote_service::objstorage::port: 5003
+swh::remote_service::webapp::port: 5004
+swh::remote_service::vault::port: 5005
+swh::remote_service::deposit::port: 5006
+swh::remote_service::indexer::port: 5007
+
 swh::objstorage::config::azure: &swh_objstorage_config_azure
   cls: multiplexer
   args:
@@ -1237,7 +1244,7 @@ swh::objstorage::config::azure::readonly: &swh_objstorage_config_azure_readonly
 swh::objstorage::config::uffizi: &swh_objstorage_config_uffizi
   cls: remote
   args:
-    url: http://uffizi.internal.softwareheritage.org:5003/
+    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
 
 swh::objstorage::config::uffizi::readonly: &swh_objstorage_config_uffizi_readonly
   cls: filtered
@@ -1249,7 +1256,7 @@ swh::objstorage::config::uffizi::readonly: &swh_objstorage_config_uffizi_readonl
 swh::objstorage::config::banco: &swh_objstorage_config_banco
   cls: remote
   args:
-    url: http://banco.internal.softwareheritage.org:5003/
+    url: "http://banco.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
 
 swh::objstorage::config::banco::readonly: &swh_objstorage_config_banco_readonly
   cls: filtered
@@ -1269,12 +1276,12 @@ swh::objstorage::config::azure_readonly_with_fallback: &swh_objstorage_config_az
 swh::storage::config::uffizi: &swh_storage_config_uffizi
   cls: remote
   args:
-    url: http://uffizi.internal.softwareheritage.org:5002/
+    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
 swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   cls: remote
   args:
-    url: http://uffizi.internal.softwareheritage.org:5007/
+    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
@@ -1290,7 +1297,7 @@ swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
 swh::deploy::storage::backend::listen::host: 127.0.0.1
-swh::deploy::storage::backend::listen::port: 5002
+swh::deploy::storage::backend::listen::port: "%{alias('swh::remote_service::storage::port')}"
 swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::reload_mercy: 3600
 swh::deploy::storage::backend::http_keepalive: 5
@@ -1313,7 +1320,7 @@ swh::deploy::indexer::storage::db::port: 5433
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
 swh::deploy::indexer::storage::backend::listen::host: 127.0.0.1
-swh::deploy::indexer::storage::backend::listen::port: 5007
+swh::deploy::indexer::storage::backend::listen::port: "%{alias('swh::remote_service::indexer::port')}"
 swh::deploy::indexer::storage::backend::workers: 4
 swh::deploy::indexer::storage::backend::reload_mercy: 3600
 swh::deploy::indexer::storage::backend::http_keepalive: 5
@@ -1344,7 +1351,7 @@ swh::deploy::vault::db::user: swhvault
 swh::deploy::vault::db::dbname: swhvault
 swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 swh::deploy::vault::backend::listen::host: 127.0.0.1
-swh::deploy::vault::backend::listen::port: 5005
+swh::deploy::vault::backend::listen::port: "%{alias('swh::remote_service::vault::port')}"
 swh::deploy::vault::backend::workers: 4
 swh::deploy::vault::backend::reload_mercy: 3600
 swh::deploy::vault::backend::http_keepalive: 5
@@ -1434,7 +1441,7 @@ swh::deploy::objstorage::config:
   max_client_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
-swh::deploy::objstorage::backend::listen::port: 5003
+swh::deploy::objstorage::backend::listen::port: "%{alias('swh::remote_service::objstorage::port')}"
 swh::deploy::objstorage::backend::workers: 4
 swh::deploy::objstorage::backend::reload_mercy: 3600
 swh::deploy::objstorage::backend::http_workers: 1
@@ -1494,7 +1501,7 @@ swh::deploy::deposit::client::settings_private_data:
     password: "%{hiera('deposit_basic_auth_swhworker_password')}"
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
-swh::deploy::deposit::backend::listen::port: 5006
+swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
 swh::deploy::deposit::backend::workers: 4
 swh::deploy::deposit::backend::reload_mercy: 3600
 swh::deploy::deposit::backend::http_keepalive: 5
@@ -1562,7 +1569,7 @@ swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
 swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
 swh::deploy::webapp::backend::listen::host: 127.0.0.1
-swh::deploy::webapp::backend::listen::port: 5003
+swh::deploy::webapp::backend::listen::port: "%{alias('swh::remote_service::webapp::port')}"
 swh::deploy::webapp::backend::workers: 32
 swh::deploy::webapp::backend::http_keepalive: 5
 swh::deploy::webapp::backend::http_timeout: 100000
@@ -1580,12 +1587,12 @@ swh::deploy::webapp::config:
   storage:
     cls: remote
     args:
-      url: http://127.0.0.1:5002/
-  vault: http://orangeriedev.internal.softwareheritage.org:5005/  # TODO
+      url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
+  vault: "http://orangeriedev.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"  # TODO
   indexer_storage:
     cls: remote
     args:
-      url: http://127.0.0.1:5007/
+      url: "http://127.0.0.1:%{hiera('swh::remote_service::indexer::port')}/"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   throttling:
@@ -2264,7 +2271,7 @@ swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worke
 swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::swh_vault_cooker::config:
   storage: *swh_storage_config_uffizi
-  vault_url: "http://localhost:5005/" # TODO (needs to be overwritten)
+  vault_url: "http://localhost:%{hiera('swh::remote_service::vault::port')}/" # TODO (needs to be overwritten)
 
 desktop::printers:
   MFP_C:
