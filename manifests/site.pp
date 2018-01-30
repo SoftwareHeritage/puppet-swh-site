@@ -34,7 +34,7 @@ node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
 
-node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
+node /^(unibo-prod|orangerie).(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }
 
