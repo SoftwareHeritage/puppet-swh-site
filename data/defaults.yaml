@@ -1338,11 +1338,11 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::db::host: orangeriedev # FIXME
+swh::deploy::vault::db::host: orangerie
 swh::deploy::vault::db::port: 5432
 swh::deploy::vault::db::user: swhvault
 swh::deploy::vault::db::dbname: swhvault
-swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache" # TODO
+swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 swh::deploy::vault::backend::listen::host: 127.0.0.1
 swh::deploy::vault::backend::listen::port: 5005
 swh::deploy::vault::backend::workers: 4
@@ -1361,7 +1361,7 @@ swh::deploy::vault::config:
   cache:
     cls: pathslicing
     args:
-      root: "%{hiera('swh::deploy::vault::cache')}" # TODO
+      root: "%{hiera('swh::deploy::vault::cache')}"
       slicing: "0:1/1:5"
   db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
   scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
