@@ -1359,12 +1359,7 @@ swh::deploy::vault::backend::http_timeout: 100000
 swh::deploy::vault::backend::max_requests: 10000
 swh::deploy::vault::backend::max_requests_jitter: 1000
 swh::deploy::vault::config:
-  storage:
-    cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-      objstorage:
-        <<: *swh_objstorage_config_uffizi
+  storage: *swh_storage_config_azure
   cache:
     cls: pathslicing
     args:
@@ -2265,13 +2260,14 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
+swh::deploy::worker::swh_vault_cooker::vault_url: "http://orangerie.internal.softwareheritage.org:5005/"
 swh::deploy::worker::swh_vault_cooker::concurrency: 1
 swh::deploy::worker::swh_vault_cooker::loglevel: info
 swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::swh_vault_cooker::config:
-  storage: *swh_storage_config_uffizi
-  vault_url: "http://localhost:%{hiera('swh::remote_service::vault::port')}/" # TODO (needs to be overwritten)
+  storage: *swh_storage_config_azure
+  vault_url: "http://localhost:%{hiera('swh::remote_service::vault::port')}/"
 
 desktop::printers:
   MFP_C:

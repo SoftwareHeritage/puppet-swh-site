@@ -10,3 +10,5 @@ swh::deploy::vault::backend::listen::host: 0.0.0.0
 
 swh::deploy::worker::instances:
   - swh_vault_cooker
+
+swh::deploy::worker::swh_vault_cooker::vault_url: "http://orangeriedev.internal.softwareheritage.org:5005/"
