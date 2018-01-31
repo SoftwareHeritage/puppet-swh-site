@@ -1590,7 +1590,7 @@ swh::deploy::webapp::config:
     cls: remote
     args:
       url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
-  vault: "http://orangeriedev.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"  # TODO
+  vault: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
   indexer_storage:
     cls: remote
     args:
