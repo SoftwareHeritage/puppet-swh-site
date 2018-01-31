@@ -1,0 +1,3 @@
+---
+worker_instances:
+  - swh_vault_cooker
