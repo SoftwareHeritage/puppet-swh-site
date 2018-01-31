@@ -1289,6 +1289,11 @@ swh::storage::config::uffizi: &swh_storage_config_uffizi
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
+swh::storage::config::azure:
+  cls: remote
+  args:
+    url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+
 swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   cls: remote
   args:
