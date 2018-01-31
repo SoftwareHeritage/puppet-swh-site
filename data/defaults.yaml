@@ -1284,15 +1284,22 @@ swh::remote_service::objstorage::config_as_dict:
   uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
   azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
 
-swh::storage::config::uffizi: &swh_storage_config_uffizi
+swh::remote_service::storage::config::uffizi:
   cls: remote
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
-swh::storage::config::azure:
+swh::remote_service::storage::config::azure:
   cls: remote
   args:
     url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+
+swh::remote_service::storage::config::localhost:
+  cls: remote
+  args:
+    url: "http://localhost:%{hiera('swh::remote_service::storage::port')}/"
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
 
 swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   cls: remote
@@ -1374,7 +1381,7 @@ swh::deploy::vault::backend::http_timeout: 100000
 swh::deploy::vault::backend::max_requests: 10000
 swh::deploy::vault::backend::max_requests_jitter: 1000
 swh::deploy::vault::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   cache:
     cls: pathslicing
     args:
@@ -1401,7 +1408,7 @@ swh::deploy::journal_publisher::config:
     - revision
     - release
   max_messages: 1000
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
@@ -1499,7 +1506,7 @@ swh::deploy::worker::swh_loader_deposit::concurrency: 2
 swh::deploy::worker::swh_loader_deposit::loglevel: info
 swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_deposit::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   extraction_dir: /tmp/swh.loader.deposit/
 
 swh::deploy::deposit::client::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/client.yml"
@@ -1673,7 +1680,7 @@ swh::deploy::worker::swh_loader_git::concurrency: 3
 swh::deploy::worker::swh_loader_git::loglevel: info
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
@@ -1682,7 +1689,7 @@ swh::deploy::worker::swh_loader_debian::concurrency: 1
 swh::deploy::worker::swh_loader_debian::loglevel: info
 swh::deploy::worker::swh_loader_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_debian::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
@@ -1690,7 +1697,7 @@ swh::deploy::worker::swh_lister_debian::concurrency: 1
 swh::deploy::worker::swh_lister_debian::loglevel: info
 swh::deploy::worker::swh_lister_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_lister_debian::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
@@ -1698,14 +1705,14 @@ swh::deploy::worker::swh_loader_git_disk::concurrency: 2
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
 swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git_disk::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
 
 swh::deploy::worker::swh_loader_mercurial::concurrency: 1
 swh::deploy::worker::swh_loader_mercurial::loglevel: info
 swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_mercurial::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
@@ -1713,7 +1720,7 @@ swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_svn::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   send_contents: true
   send_directories: true
   send_revisions: true
@@ -1736,7 +1743,7 @@ swh::deploy::worker::swh_lister_github::db::dbname: lister-github
 swh::deploy::worker::swh_lister_github::db::user: lister-github
 #swh::deploy::worker::swh_lister_github::db::password in private data
 swh::deploy::worker::swh_lister_github::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
   # credentials in private data
@@ -1799,7 +1806,7 @@ swh::deploy::worker::swh_indexer::base::loglevel: info
 swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::base::config:
   indexer_storage: *swh_indexer_storage_config_uffizi
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
 swh::deploy::worker::swh_indexer::mimetype::concurrency: 6
@@ -1817,7 +1824,7 @@ swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worke
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::rehash::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::rehash::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   compute_checksums:
     - blake2s256
@@ -2277,7 +2284,7 @@ swh::deploy::worker::swh_vault_cooker::loglevel: info
 swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::swh_vault_cooker::config:
-  storage: *swh_storage_config_uffizi
+  storage: "%{alias('swh::remote_service::storage::config')}"
   vault_url: "http://localhost:%{hiera('swh::remote_service::vault::port')}/"
 
 desktop::printers:
