@@ -3,7 +3,6 @@
 class profile::swh::deploy::vault {
   include ::profile::swh::deploy::base_vault
 
-  $conf_directory = hiera('swh::deploy::vault::conf_directory')
   $conf_file = hiera('swh::deploy::vault::conf_file')
   $user = hiera('swh::deploy::vault::user')
   $group = hiera('swh::deploy::vault::group')
@@ -24,13 +23,6 @@ class profile::swh::deploy::vault {
   include ::gunicorn
 
   Package['python3-swh.vault'] ~> Service['gunicorn-swh-vault']
-
-  file {$conf_directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0755',
-  }
 
   file {$conf_file:
     ensure  => present,
