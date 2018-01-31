@@ -2286,7 +2286,7 @@ swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worke
 swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::swh_vault_cooker::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  vault_url: "http://localhost:%{hiera('swh::remote_service::vault::port')}/"
+  vault_url: "http://orangerie:%{hiera('swh::remote_service::vault::port')}/"
 
 desktop::printers:
   MFP_C:
