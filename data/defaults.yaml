@@ -1721,17 +1721,11 @@ swh::deploy::worker::swh_loader_svn::loglevel: info
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_svn::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  send_contents: true
-  send_directories: true
-  send_revisions: true
-  send_releases: true
-  send_occurrences: true
   content_packet_size: 1000
   content_packet_size_bytes: 104857600
   directory_packet_size: 250
   revision_packet_size: 100
   release_packet_size: 100
-  occurrence_packet_size: 100
   check_revision: 1000
 
 swh::deploy::worker::swh_lister_github::concurrency: 1
