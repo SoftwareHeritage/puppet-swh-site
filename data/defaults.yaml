@@ -1338,7 +1338,7 @@ swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_d
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
 swh::deploy::indexer::storage::db::host: somerset
-swh::deploy::indexer::storage::db::port: 5433
+swh::deploy::indexer::storage::db::port: 5434
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
 swh::deploy::indexer::storage::backend::listen::host: 127.0.0.1
