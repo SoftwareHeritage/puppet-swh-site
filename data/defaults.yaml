@@ -2566,3 +2566,6 @@ mountpoints:
       - noauto
       - x-systemd.automount
       - x-systemd.device-timeout=10
+
+
+ceph::release: luminous
