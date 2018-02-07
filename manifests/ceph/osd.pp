@@ -7,4 +7,6 @@ class profile::ceph::osd {
     keyring_path => '/var/lib/ceph/bootstrap-osd/ceph.keyring',
     secret       => $bootstrap_osd_key,
   }
+
+  ::ceph::osd {'/dev/sda':}
 }
