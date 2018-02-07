@@ -2574,3 +2574,7 @@ ceph::mon_initial_members:
   - ceph-mon1.internal.softwareheritage.org
 ceph::mon_host:
   - 192.168.100.170
+
+# ceph::key::admin in private-data
+# ceph::key::mon in private-data
+# ceph::key::bootstrap-osd in private-data
