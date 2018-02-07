@@ -3,11 +3,16 @@ class profile::ceph::mon {
   include profile::ceph::base
 
   $mon_key = hiera('ceph::key::mon')
+  $mgr_key = hiera('ceph::key::mgr')
   $admin_key = hiera('ceph::key::admin')
   $bootstrap_osd_key = hiera('ceph::key::bootstrap_osd')
 
   ::ceph::mon {$::hostname:
     key => $mon_key,
+  }
+
+  ::ceph::mgr {$::hostname:
+    key => $mgr_key,
   }
 
   ::Ceph::Key {
