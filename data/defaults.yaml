@@ -2579,4 +2579,5 @@ ceph::mon_host:
 
 # ceph::key::admin in private-data
 # ceph::key::mon in private-data
+# ceph::key::mgr in private-data
 # ceph::key::bootstrap_osd in private-data
