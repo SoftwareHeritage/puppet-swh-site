@@ -2570,8 +2570,10 @@ mountpoints:
 
 ceph::release: luminous
 ceph::fsid: b3e34018-388e-499b-9579-d1c0d57e8c09
+
+# needs to match the values of $::hostname on the ceph monitors
 ceph::mon_initial_members:
-  - ceph-mon1.internal.softwareheritage.org
+  - ceph-mon1
 ceph::mon_host:
   - 192.168.100.170
 
