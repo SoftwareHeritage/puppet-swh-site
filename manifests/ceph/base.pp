@@ -1,4 +1,8 @@
 # Base configuration for Ceph
 class profile::ceph::base {
-  include ::ceph::repo
+  $ceph_release = hiera('ceph::release')
+
+  class {'::ceph::repo':
+    release => $ceph_release,
+  }
 }
