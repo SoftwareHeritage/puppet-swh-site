@@ -12,7 +12,8 @@ class profile::ceph::mon {
   }
 
   ::ceph::mgr {$::hostname:
-    key => $mgr_key,
+    key        => $mgr_key,
+    inject_key => true,
   }
 
   ::Ceph::Key {
