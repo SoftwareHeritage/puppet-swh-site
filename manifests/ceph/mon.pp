@@ -2,17 +2,17 @@
 class profile::ceph::mon {
   include profile::ceph::base
 
-  $mon_key = hiera('ceph::key::mon')
-  $mgr_key = hiera('ceph::key::mgr')
-  $admin_key = hiera('ceph::key::admin')
-  $bootstrap_osd_key = hiera('ceph::key::bootstrap_osd')
+  $mon_secret = hiera('ceph::secret::mon')
+  $mgr_secret = hiera('ceph::secret::mgr')
+
+  $client_keys = hiera('ceph::keys')
 
   ::ceph::mon {$::hostname:
-    key => $mon_key,
+    key => $mon_secret,
   }
 
   ::ceph::mgr {$::hostname:
-    key        => $mgr_key,
+    key        => $mgr_secret,
     inject_key => true,
   }
 
@@ -22,15 +22,9 @@ class profile::ceph::mon {
     inject_keyring => "/var/lib/ceph/mon/ceph-${::hostname}/keyring",
   }
 
-  ::ceph::key {'client.admin':
-    secret  => $admin_key,
-    cap_mon => 'allow *',
-    cap_osd => 'allow *',
-    cap_mds => 'allow',
-  }
-
-  ::ceph::key {'client.bootstrap-osd':
-    secret  => $bootstrap_osd_key,
-    cap_mon => 'allow profile bootstrap-osd',
+  each($client_keys) |$name, $data| {
+    ::ceph::key {"client.${name}":
+      * => $data,
+    }
   }
 }
