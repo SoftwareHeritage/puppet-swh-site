@@ -1642,6 +1642,7 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.debian
   - python3-swh.loader.dir
   - python3-swh.loader.git
+  - python3-swh.loader.mercurial
   - python3-swh.loader.svn
   - python3-swh.loader.tar
   - python3-swh.deposit.loader
@@ -1656,6 +1657,7 @@ swh::deploy::scheduler::task_modules:
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
   - swh.loader.git.tasks
+  - swh.loader.mercurial.tasks
   - swh.loader.svn.tasks
   - swh.loader.tar.tasks
   - swh.deposit.loader.tasks
