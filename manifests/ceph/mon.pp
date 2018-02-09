@@ -2,8 +2,8 @@
 class profile::ceph::mon {
   include profile::ceph::base
 
-  $mon_secret = hiera('ceph::secret::mon')
-  $mgr_secret = hiera('ceph::secret::mgr')
+  $mon_secret = hiera('ceph::secrets::mon')
+  $mgr_secret = hiera('ceph::secrets::mgr')
 
   $client_keys = hiera('ceph::keys')
 
