@@ -2580,7 +2580,7 @@ ceph::keys:
     cap_mon: allow *
     cap_osd: allow *
   bootstrap-osd:
-    secret: "%{hiera('ceph::secrets::bootstrap-osd')}"
+    secret: "%{hiera('ceph::secrets::bootstrap_osd')}"
     cap_mon: allow profile bootstrap-osd
   proxmox-rbd:
     secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
