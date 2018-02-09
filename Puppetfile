@@ -36,7 +36,7 @@ mod 'apache',
 
 mod 'ceph',
     :git => 'git@forge.softwareheritage.org:/source/puppet-openstack-ceph.git',
-    :ref => '2.4.2'
+    :ref => 'master'
 
 mod 'concat',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
