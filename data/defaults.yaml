@@ -1715,6 +1715,7 @@ swh::deploy::worker::swh_loader_mercurial::loglevel: info
 swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
+  reduce_effort: False
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
