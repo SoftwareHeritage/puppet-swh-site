@@ -12,6 +12,7 @@ class profile::swh::deploy::worker::swh_loader_svn {
 
   $packages = ['python3-swh.loader.svn']
   $limit_no_file = hiera('swh::deploy::worker::swh_loader_svn::limit_no_file')
+  $private_tmp = hiera('swh::deploy::worker::swh_loader_svn::private_tmp')
 
   package {$packages:
     ensure => 'latest',
@@ -25,6 +26,7 @@ class profile::swh::deploy::worker::swh_loader_svn {
     task_modules  => $task_modules,
     task_queues   => $task_queues,
     limit_no_file => $limit_no_file,
+    private_tmp   => $private_tmp,
     require       => [
       Package[$packages],
       File[$config_file],

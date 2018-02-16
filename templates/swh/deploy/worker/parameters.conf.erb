@@ -8,3 +8,6 @@ Environment=LOGLEVEL=<%= @loglevel %>
 <% if @limit_no_file %>
 LimitNOFILE=<%= @limit_no_file %>
 <% end %>
+<% if @private_tmp %>
+TmpPrivate=<%= @private_tmp %>
+<% end %>

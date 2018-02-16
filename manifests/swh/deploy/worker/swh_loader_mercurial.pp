@@ -13,6 +13,7 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
   $task_queues = ['swh_loader_mercurial', 'swh_loader_mercurial_archive']
 
   $service_name = 'swh_loader_mercurial'
+  $private_tmp = hiera('swh::deploy::worker::swh_loader_mercurial::private_tmp')
 
   $packages = ['python3-swh.loader.mercurial']
 
@@ -28,6 +29,7 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
     task_broker  => $task_broker,
     task_modules => $task_modules,
     task_queues  => $task_queues,
+    private_tmp  => $private_tmp,
     require      => [
       File[$config_file],
     ],
