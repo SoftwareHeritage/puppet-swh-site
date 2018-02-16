@@ -1721,6 +1721,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
   directory_packet_size: 100
 
 swh::deploy::worker::swh_loader_mercurial::concurrency: 1
+swh::deploy::worker::swh_loader_mercurial::private_tmp: true
 swh::deploy::worker::swh_loader_mercurial::loglevel: info
 swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_mercurial::config:
@@ -1728,6 +1729,7 @@ swh::deploy::worker::swh_loader_mercurial::config:
   reduce_effort: False
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
+swh::deploy::worker::swh_loader_svn::private_tmp: true
 swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
 swh::deploy::worker::swh_loader_svn::loglevel: info
 # Contains a password: in private data
