@@ -14,7 +14,6 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
 
   $service_name = 'swh_loader_mercurial'
 
-
   $packages = ['python3-swh.loader.mercurial']
 
   package {$packages:
