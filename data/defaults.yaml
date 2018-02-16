@@ -2413,7 +2413,7 @@ postgresql::apt_config::pglogical::mirror: 'http://packages.2ndquadrant.com/pglo
 postgresql::apt_config::pglogical::keyid: 855AF5C7B897656417FA73D65D941908AA7A6805
 postgresql::apt_config::pglogical::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
-
+  
   mQENBFUQs34BCADT3W0Nnf0E0/2LGU4Afzg4dAViJqqhOLBwuWUS6Np+ZqCK6beY
   E46KS/CowwBmca9stm5oJbcpz2WCNxnb6OGlgxQnYEaVl4z6bDRDJ3BdiIbcjdYM
   cutJupmZbrlvfnf30AcQXc6RCZ/x/53CDuCXyrO7djkBkoolJFQbzfy0HcRnNRVp
@@ -2448,7 +2448,7 @@ icinga2::apt_config::keyid: F51A91A5EE001AA5D77D53C4C6E319C334410682
 icinga2::apt_config::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v2.0.19 (GNU/Linux)
-
+  
   mQGiBFKHzk4RBACSHMIFTtfw4ZsNKAA03Gf5t7ovsKWnS7kcMYleAidypqhOmkGg
   0petiYsMPYT+MOepCJFGNzwQwJhZrdLUxxMSWay4Xj0ArgpD9vbvU+gj8Tb02l+x
   SqNGP8jXMV5UnK4gZsrYGLUPvx47uNNYRIRJAGOPYTvohhnFJiG402dzlwCg4u5I
