@@ -9,7 +9,8 @@ define profile::swh::deploy::worker::instance (
   $loglevel = 'info',
   $max_tasks_per_child = 5,
   $instance_name = $title,
-  $limit_no_file = 'None')
+  $limit_no_file = undef,
+  $private_tmp = 'None')
 {
   include ::profile::swh::deploy::worker::base
   include ::systemd
