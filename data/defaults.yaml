@@ -1503,6 +1503,7 @@ swh::deploy::deposit::settings_private_data:
 swh::deploy::worker::swh_loader_deposit::swh_conf_dir: "%{hiera('swh::conf_directory')}/loader"
 swh::deploy::worker::swh_loader_deposit::swh_conf_file: "%{hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_dir')}/deposit.yml"
 swh::deploy::worker::swh_loader_deposit::concurrency: 2
+swh::deploy::worker::swh_loader_deposit::private_tmp: true
 swh::deploy::worker::swh_loader_deposit::loglevel: info
 swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_deposit::config:
