@@ -6,6 +6,8 @@ class profile::swh::deploy::worker::base {
   $systemd_template_unit_file = "/etc/systemd/system/${systemd_template_unit_name}"
   $systemd_unit_name = 'swh-worker.service'
   $systemd_unit_file = "/etc/systemd/system/${systemd_unit_name}"
+  $systemd_slice_name = 'system-swh\x2dworker.slice'
+  $systemd_slice_file = "/etc/systemd/system/${systemd_slice_name}"
   $systemd_generator = '/lib/systemd/system-generators/swh-worker-generator'
   $config_directory = '/etc/softwareheritage/worker'
 
@@ -28,6 +30,15 @@ class profile::swh::deploy::worker::base {
     group  => 'root',
     mode   => '0644',
     source => "puppet:///modules/profile/swh/deploy/worker/${systemd_unit_name}",
+    notify => Exec['systemd-daemon-reload'],
+  }
+
+  file {$systemd_slice_file:
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => "puppet:///modules/profile/swh/deploy/worker/${systemd_slice_name}",
     notify => Exec['systemd-daemon-reload'],
   }
 
