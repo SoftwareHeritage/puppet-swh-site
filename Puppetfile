@@ -100,7 +100,7 @@ mod 'mysql',
 
 mod 'nginx',
     :git => 'git@forge.softwareheritage.org:/source/puppet-puppet-nginx.git',
-    :ref => 'v0.7.1'
+    :ref => 'v0.10.0'
 
 mod 'ntp',
     :git => 'git@forge.softwareheritage.org:/diffusion/SPNTP/puppetlabs-ntp.git',
