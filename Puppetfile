@@ -39,7 +39,7 @@ mod 'ceph',
     :ref => 'master'
 
 mod 'concat',
-    :git => 'git@forge.softwareheritage.org:/diffusion/SPCAT/puppetlabs-concat.git',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-concat.git',
     :ref => '4.2.0'
 
 mod 'cups',
@@ -135,7 +135,7 @@ mod 'ssh',
     :ref => 'v2.9.1'
 
 mod 'stdlib',
-    :git => 'git@forge.softwareheritage.org:/diffusion/SPSTD/puppetlabs-stdlib.git',
+    :git => 'git@forge.softwareheritage.org:/source/puppet-puppetlabs-stdlib.git',
     :ref => '4.24.0'
 
 mod 'sudo',
