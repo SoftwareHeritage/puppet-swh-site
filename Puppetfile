@@ -1,26 +1,42 @@
 mod 'profile',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-profile.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-profile.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'role',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-role.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-role.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'dar',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-dar.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-dar.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'gunicorn',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-gunicorn.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-gunicorn.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'mediawiki',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-mediawiki.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-mediawiki.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'postfix',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-postfix.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-postfix.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'systemd',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-systemd.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-systemd.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'uwsgi',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-uwsgi.git'
+    :git => 'https://forge.softwareheritage.org/source/puppet-swh-uwsgi.git',
+    :branch => :control_branch,
+    :default_branch => 'master'
 
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt.git',
