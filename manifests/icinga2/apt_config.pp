@@ -5,13 +5,16 @@ class profile::icinga2::apt_config {
   $key =    hiera('icinga2::apt_config::key')
 
   apt::source { 'icinga-stable-release':
-    location    => $mirror,
-    release     => "icinga-${::lsbdistcodename}",
-    repos       => 'main',
-    key         => {
+    location => $mirror,
+    release  => "icinga-${::lsbdistcodename}",
+    repos    => 'main',
+    key      => {
       id      => $keyid,
       content => $key,
       },
-    include_src => false,
+    include  => {
+      src => false,
+      deb => true,
+    },
   }
 }
