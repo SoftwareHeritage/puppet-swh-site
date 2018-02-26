@@ -68,11 +68,11 @@ mod 'hitch',
 
 mod 'icinga2',
     :git => 'https://forge.softwareheritage.org/source/puppet-icinga-icinga2.git',
-    :ref => 'v1.2.0'
+    :tag => 'v1.3.5'
 
 mod 'icingaweb2',
     :git => 'https://forge.softwareheritage.org/source/puppet-icinga-icingaweb2.git',
-    :ref => 'v2.0.0'
+    :tag => 'v2.1.0'
 
 mod 'inifile',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-inifile.git',
