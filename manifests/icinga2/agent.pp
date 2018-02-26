@@ -65,7 +65,7 @@ class profile::icinga2::agent {
     global => true,
   }
 
-  file {['/etc/icinga2/conf.d', '/etc/icinga2/repository.d']:
+  file {['/etc/icinga2/conf.d']:
     ensure  => directory,
     owner   => 'nagios',
     group   => 'nagios',
