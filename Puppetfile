@@ -24,7 +24,7 @@ mod 'uwsgi',
 
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt.git',
-    :ref => 'hotfix-628'
+    :tag => '4.5.1'
 
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind.git',
