@@ -92,7 +92,7 @@ mod 'icingaweb2',
 
 mod 'inifile',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-inifile.git',
-    :ref => '1.6.0'
+    :ref => '2.2.0'
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-wikimedia-kafka.git',
