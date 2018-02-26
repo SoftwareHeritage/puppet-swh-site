@@ -76,7 +76,7 @@ mod 'debnet',
 
 mod 'extlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-extlib.git',
-    :ref => 'v0.11.3'
+    :tag => 'v2.0.1'
 
 mod 'hitch',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-hitch.git',
