@@ -132,7 +132,7 @@ mod 'postgresql',
 
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet.git',
-    :ref => '8.0.4'
+    :tag => '8.2.0'
 
 mod 'puppetdb',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-puppetdb.git',
