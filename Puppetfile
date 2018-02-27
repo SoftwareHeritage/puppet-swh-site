@@ -56,7 +56,7 @@ mod 'ceph',
 
 mod 'concat',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-concat.git',
-    :ref => '4.2.0'
+    :tag => '3.0.0'
 
 mod 'cups',
     :git => 'https://forge.softwareheritage.org/source/puppet-mosen-cups.git',
