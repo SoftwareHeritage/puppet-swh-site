@@ -132,7 +132,7 @@ mod 'puppet',
 
 mod 'puppetdb',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-puppetdb.git',
-    :ref => '6.0.1'
+    :ref => '6.0.2'
 
 mod 'memcached',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-memcached.git',
