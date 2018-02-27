@@ -136,7 +136,7 @@ mod 'puppetdb',
 
 mod 'memcached',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-memcached.git',
-    :ref => 'v3.0.2'
+    :ref => 'v3.1.0'
 
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf.git',
