@@ -21,6 +21,8 @@ ntp::servers:
   - 2.debian.pool.ntp.org
   - 3.debian.pool.ntp.org
 
+sudo::configs: {}
+
 # smtp::relayhost is per-location. Default value:
 smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
 smtp::mydestination:
