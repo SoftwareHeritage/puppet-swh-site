@@ -152,7 +152,7 @@ mod 'stdlib',
 
 mod 'sudo',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-sudo.git',
-    :ref => 'fix-stretch'
+    :ref => 'v5.0.0'
 
 mod 'timezone',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-timezone.git',
