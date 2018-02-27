@@ -64,7 +64,7 @@ mod 'cups',
 
 mod 'debconf',
     :git => 'https://forge.softwareheritage.org/source/puppet-stm-debconf.git',
-    :ref => 'v2.0.0'
+    :ref => 'v2.1.0'
 
 mod 'debconf_package',
     :git => 'https://forge.softwareheritage.org/source/puppet-rlenglet-debconf_package.git',
