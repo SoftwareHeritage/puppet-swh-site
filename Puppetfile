@@ -156,7 +156,7 @@ mod 'sudo',
 
 mod 'timezone',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-timezone.git',
-    :ref => 'v3.5.0'
+    :ref => 'v4.1.1'
 
 mod 'unattended_upgrades',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-unattended_upgrades.git',
