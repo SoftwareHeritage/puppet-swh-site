@@ -66,10 +66,6 @@ mod 'debconf',
     :git => 'https://forge.softwareheritage.org/source/puppet-stm-debconf.git',
     :ref => 'v2.1.0'
 
-mod 'debconf_package',
-    :git => 'https://forge.softwareheritage.org/source/puppet-rlenglet-debconf_package.git',
-    :ref => 'fix-metadata'
-
 mod 'debnet',
     :git => 'https://forge.softwareheritage.org/source/puppet-trepasi-debnet.git',
     :ref => 'v1.5.2'
