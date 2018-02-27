@@ -108,7 +108,7 @@ mod 'munin',
 
 mod 'mysql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-mysql.git',
-    :ref => '3.9.0'
+    :ref => '5.3.0'
 
 mod 'nginx',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-nginx.git',
