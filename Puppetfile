@@ -160,7 +160,7 @@ mod 'timezone',
 
 mod 'unattended_upgrades',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-unattended_upgrades.git',
-    :ref => 'v3.0.0'
+    :ref => 'v3.1.0'
 
 mod 'varnish',
     :git => 'https://forge.softwareheritage.org/source/puppet-claranet-varnish.git',
