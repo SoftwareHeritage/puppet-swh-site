@@ -124,7 +124,7 @@ mod 'php',
 
 mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql.git',
-    :ref => '4.9.0'
+    :ref => '5.3.0'
 
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet.git',
