@@ -98,10 +98,6 @@ mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales.git',
     :ref => 'v2.5.0'
 
-mod 'module_data',
-    :git => 'https://forge.softwareheritage.org/source/puppet-ripienaar-module_data.git',
-    :ref => '0.0.4'
-
 mod 'munin',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-munin.git',
     :ref => '0.1.0'
