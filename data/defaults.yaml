@@ -2604,3 +2604,6 @@ ceph::keys:
     secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
+
+nginx::package_name: nginx-light
+nginx::accept_mutex: false
