@@ -6,7 +6,9 @@ smtp::mynetworks:
   - 192.168.129.0/24  # storage array, for notification emails
 
 smtp::mail_aliases:
-  barman: root
+  - user: barman
+    aliases:
+      - root
 
 smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
 
