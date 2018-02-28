@@ -1,7 +1,8 @@
 dns::local_cache: false
 
 smtp::relay_destinations:
-  "%{hiera('phabricator::vhost::name')}": smtp:[tate.internal.softwareheritage.org]
+  - destination: "%{hiera('phabricator::vhost::name')}"
+    route: smtp:[tate.internal.softwareheritage.org]
 
 smtp::mynetworks:
   - 127.0.0.0/8

@@ -32,43 +32,55 @@ smtp::mynetworks:
   - "[::ffff:127.0.0.0]/104"
   - "[::1]/128"
 smtp::relay_destinations: {}
-smtp::virtual_aliases: {}
+smtp::virtual_aliases: []
 smtp::mail_aliases:
-  anlambert:
-    - antoine.lambert33@gmail.com
-  ardumont:
-    - antoine.romain.dumont@gmail.com
-  fiendish:
-    - patcherton.fixesthings@gmail.com
-  ftigeot:
-    - ftswh@wolfpond.org
-  olasd:
-    - nicolas+swhinfra@dandrimont.eu
-  morane:
-    - morane.gg@gmail.com
-  postgres:
-    - root
-  rdicosmo:
-    - roberto@dicosmo.org
-  root:
-    - olasd
-    - zack
-    - ardumont
-    - ftigeot
-  seirl:
-    - antoine.pietri1@gmail.com
-  ssushant:
-    - sushant.sushant@inria.fr
-  swhstorage:
-    - root
-  swhworker:
-    - zack
-    - olasd
-    - ardumont
-  swhdeposit:
-    - ardumont
-  zack:
-    - zack@upsilon.cc
+  - user: anlambert
+    aliases:
+      - antoine.lambert33@gmail.com
+  - user: ardumont
+    aliases:
+      - antoine.romain.dumont@gmail.com
+  - user: fiendish
+    aliases:
+      - patcherton.fixesthings@gmail.com
+  - user: ftigeot
+    aliases:
+      - ftswh@wolfpond.org
+  - user: olasd
+    aliases:
+      - nicolas+swhinfra@dandrimont.eu
+  - user: morane
+    aliases:
+      - morane.gg@gmail.com
+  - user: postgres
+    aliases:
+      - root
+  - user: rdicosmo
+    aliases:
+      - roberto@dicosmo.org
+  - user: root
+    aliases:
+      - olasd
+      - zack
+      - ardumont
+      - ftigeot
+  - user: seirl
+    aliases:
+      - antoine.pietri1@gmail.com
+  - user: swhstorage
+    aliases:
+      - root
+  - user: swhworker
+    aliases:
+      - zack
+      - olasd
+      - ardumont
+  - user: swhdeposit
+    aliases:
+      - ardumont
+  - user: zack
+    aliases:
+      - zack@upsilon.cc
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
