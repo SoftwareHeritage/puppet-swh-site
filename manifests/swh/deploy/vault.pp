@@ -93,6 +93,7 @@ class profile::swh::deploy::vault {
     command_endpoint => $::fqdn,
     vars             => {
       http_address => '127.0.0.1',
+      http_vhost   => '127.0.0.1',
       http_port    => $backend_listen_port,
       http_uri     => '/',
       http_string  => 'SWH Vault API server',
