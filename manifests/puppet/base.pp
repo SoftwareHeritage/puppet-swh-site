@@ -4,10 +4,12 @@ class profile::puppet::base {
   $puppetmaster = lookup('puppet::master::hostname')
 
   $agent_config = {
-    runmode      => 'none',
-    pluginsync   => true,
-    puppetmaster => $puppetmaster,
-    hiera_config => "\$environmentpath/production/hiera.yaml",
+    runmode             => 'none',
+    pluginsync          => true,
+    puppetmaster        => $puppetmaster,
+    additional_settings => {
+      environment_data_provider => 'hiera',
+    },
   }
 
   file { '/usr/local/sbin/swh-puppet-test':
