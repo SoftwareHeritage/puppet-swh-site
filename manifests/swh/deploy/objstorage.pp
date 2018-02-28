@@ -9,7 +9,7 @@ class profile::swh::deploy::objstorage {
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
   }
-  Package[$swh_packages] ~> Service['gunicorn-swh-vault']
+  Package[$swh_packages] ~> Service['gunicorn-swh-objstorage']
 
   file {$conf_directory:
     ensure => directory,
