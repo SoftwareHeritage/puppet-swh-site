@@ -3,6 +3,7 @@
 define profile::swh::deploy::rpc_server (
   String $executable,
   String $instance_name = $name,
+  String $http_check_string = "SWH ${capitalize($name)} API server",
   Enum['sync', 'async'] $worker = 'sync',
 ) {
   include ::profile::nginx
