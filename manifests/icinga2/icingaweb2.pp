@@ -54,4 +54,9 @@ class profile::icinga2::icingaweb2 {
     users       => 'guest',
     permissions => 'module/monitoring',
   }
+
+  ::icingaweb2::config::role {'icinga':
+    users       => 'icinga',
+    permissions => '*',
+  }
 }
