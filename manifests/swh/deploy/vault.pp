@@ -63,13 +63,7 @@ class profile::swh::deploy::vault {
     server_name          => $nginx_server_names,
     client_max_body_size => '4G',
     raw_append           => ['keepalive 5;'],
-  }
-
-  ::nginx::resource::location {'nginx-swh-vault-/':
-    ensure   => present,
-    server   => 'nginx-swh-vault',
-    location => '/',
-    proxy    => 'swh-vault-gunicorn',
+    proxy                => 'swh-vault-gunicorn',
   }
 
   ::gunicorn::instance {$service_name:
