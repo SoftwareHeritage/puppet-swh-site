@@ -1,6 +1,6 @@
 # Deploy an instance of a rpc service
 
-define profile::swh::deploy::rpc_instance (
+define profile::swh::deploy::rpc_server (
   String $executable,
   String $instance_name = $name,
   Enum['sync', 'async'] $worker = 'sync',
