@@ -2,14 +2,19 @@
 
 class profile::swh::deploy::vault {
   include ::profile::swh::deploy::base_vault
+  include ::profile::nginx
 
   $conf_file = hiera('swh::deploy::vault::conf_file')
   $user = hiera('swh::deploy::vault::user')
   $group = hiera('swh::deploy::vault::group')
 
+  $service_name = 'swh-vault'
+  $gunicorn_service_name = "gunicorn-${service_name}"
+  $gunicorn_unix_socket = "unix:/run/gunicorn/${service_name}/gunicorn.sock"
+
   $backend_listen_host = hiera('swh::deploy::vault::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::vault::backend::listen::port')
-  $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
+  $nginx_server_names = hiera('swh::deploy::vault::server_names')
 
   $backend_workers = hiera('swh::deploy::vault::backend::workers')
   $backend_http_keepalive = hiera('swh::deploy::vault::backend::http_keepalive')
@@ -33,13 +38,45 @@ class profile::swh::deploy::vault {
     notify  => Service['gunicorn-swh-vault'],
   }
 
-  ::gunicorn::instance {'swh-vault':
-    ensure      => enabled,
-    user        => $user,
-    group       => $group,
-    executable  => 'swh.vault.api.server:make_app_from_configfile()',
-    settings    => {
-      bind                => $backend_listen_address,
+  ::nginx::resource::upstream {'swh-vault-gunicorn':
+    members => [
+      $gunicorn_unix_socket,
+    ],
+  }
+
+  # Default server on listen_port: return 444 for wrong domain name
+  ::nginx::resource::server {'nginx-swh-vault-default':
+    ensure            => present,
+    listen_ip         => $backend_listen_host,
+    listen_port       => $backend_listen_port,
+    listen_options    => 'default_server',
+    maintenance       => true,
+    maintenance_value => 'return 444',
+  }
+
+  # actual server
+  ::nginx::resource::server {'nginx-swh-vault':
+    ensure               => present,
+    listen_ip            => $backend_listen_host,
+    listen_port          => $backend_listen_port,
+    listen_options       => 'deferred',
+    server_names         => $nginx_server_names,
+    client_max_body_size => '4G',
+    raw_append           => ['keepalive 5;'],
+    locations            => {
+      '/' => {
+        proxy => 'swh-vault-gunicorn',
+      },
+    },
+  }
+
+  ::gunicorn::instance {$service_name:
+    ensure     => enabled,
+    user       => $user,
+    group      => $group,
+    executable => 'swh.vault.api.server:make_app_from_configfile()',
+    settings   => {
+      bind                => $gunicorn_unix_socket,
       workers             => $backend_workers,
       worker_class        => 'aiohttp.worker.GunicornWebWorker',
       timeout             => $backend_http_timeout,
