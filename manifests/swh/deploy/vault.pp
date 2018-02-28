@@ -60,7 +60,7 @@ class profile::swh::deploy::vault {
     listen_ip            => $backend_listen_host,
     listen_port          => $backend_listen_port,
     listen_options       => 'deferred',
-    server_names         => $nginx_server_names,
+    server_name          => $nginx_server_names,
     client_max_body_size => '4G',
     raw_append           => ['keepalive 5;'],
     locations            => {
