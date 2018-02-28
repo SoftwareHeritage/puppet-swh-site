@@ -59,7 +59,7 @@ class profile::munin::stats_export {
 
   $ssl_cert_name = 'stats_export_softwareheritage_org'
   $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
+  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   ::apache::vhost {"${vhost_name}_ssl":
@@ -70,13 +70,13 @@ class profile::munin::stats_export {
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
     ssl_cipher           => $vhost_ssl_cipher,
     ssl_cert             => $ssl_cert,
-    ssl_ca               => $ssl_ca,
+    ssl_chain            => $ssl_chain,
     ssl_key              => $ssl_key,
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
     require              => [
         File[$ssl_cert],
-        File[$ssl_ca],
+        File[$ssl_chain],
         File[$ssl_key],
     ],
   }

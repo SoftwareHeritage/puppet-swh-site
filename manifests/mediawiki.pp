@@ -15,7 +15,7 @@ class profile::mediawiki {
 
   $ssl_cert_name = 'star_softwareheritage_org'
   $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
+  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   include ::mediawiki
@@ -43,7 +43,7 @@ class profile::mediawiki {
       vhost_ssl_honorcipherorder => $mediawiki_vhost_ssl_honorcipherorder,
       vhost_ssl_cipher           => $mediawiki_vhost_ssl_cipher,
       vhost_ssl_cert             => $ssl_cert,
-      vhost_ssl_ca               => $ssl_ca,
+      vhost_ssl_chain            => $ssl_chain,
       vhost_ssl_key              => $ssl_key,
       vhost_ssl_hsts_header      => $mediawiki_vhost_hsts_header,
       db_host                    => 'localhost',

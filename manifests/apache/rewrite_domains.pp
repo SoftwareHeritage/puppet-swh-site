@@ -14,7 +14,7 @@ class profile::apache::rewrite_domains {
     $ssl_cert_name = $data['ssl_cert_name']
 
     $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-    $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
+    $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
     $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
     ::apache::vhost {"${name}_non-ssl":
@@ -34,7 +34,7 @@ class profile::apache::rewrite_domains {
       ssl_honorcipherorder => $ssl_honorcipherorder,
       ssl_cipher           => $ssl_cipher,
       ssl_cert             => $ssl_cert,
-      ssl_ca               => $ssl_ca,
+      ssl_chain            => $ssl_chain,
       ssl_key              => $ssl_key,
       headers              => [$hsts_header],
       docroot              => '/var/www',
