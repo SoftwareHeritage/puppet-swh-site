@@ -3,31 +3,32 @@
 define profile::swh::deploy::rpc_server (
   String $executable,
   String $instance_name = $name,
+  String $config_key = $name,
   String $http_check_string = "SWH ${capitalize($name)} API server",
   Enum['sync', 'async'] $worker = 'sync',
 ) {
   include ::profile::nginx
 
-  $conf_file = lookup("swh::deploy::${instance_name}::conf_file")
-  $user = lookup("swh::deploy::${instance_name}::user")
-  $group = lookup("swh::deploy::${instance_name}::group")
+  $conf_file = lookup("swh::deploy::${config_key}::conf_file")
+  $user = lookup("swh::deploy::${config_key}::user")
+  $group = lookup("swh::deploy::${config_key}::group")
 
   $service_name = "swh-${instance_name}"
   $gunicorn_service_name = "gunicorn-${service_name}"
   $gunicorn_unix_socket = "unix:/run/gunicorn/${service_name}/gunicorn.sock"
 
-  $backend_listen_host = lookup("swh::deploy::${instance_name}::backend::listen::host")
-  $backend_listen_port = lookup("swh::deploy::${instance_name}::backend::listen::port")
-  $nginx_server_names = lookup("swh::deploy::${instance_name}::backend::server_names")
+  $backend_listen_host = lookup("swh::deploy::${config_key}::backend::listen::host")
+  $backend_listen_port = lookup("swh::deploy::${config_key}::backend::listen::port")
+  $nginx_server_names = lookup("swh::deploy::${config_key}::backend::server_names")
 
-  $backend_workers = lookup("swh::deploy::${instance_name}::backend::workers")
-  $backend_http_keepalive = lookup("swh::deploy::${instance_name}::backend::http_keepalive")
-  $backend_http_timeout = lookup("swh::deploy::${instance_name}::backend::http_timeout")
-  $backend_reload_mercy = lookup("swh::deploy::${instance_name}::backend::reload_mercy")
-  $backend_max_requests = lookup("swh::deploy::${instance_name}::backend::max_requests")
-  $backend_max_requests_jitter = lookup("swh::deploy::${instance_name}::backend::max_requests_jitter")
+  $backend_workers = lookup("swh::deploy::${config_key}::backend::workers")
+  $backend_http_keepalive = lookup("swh::deploy::${config_key}::backend::http_keepalive")
+  $backend_http_timeout = lookup("swh::deploy::${config_key}::backend::http_timeout")
+  $backend_reload_mercy = lookup("swh::deploy::${config_key}::backend::reload_mercy")
+  $backend_max_requests = lookup("swh::deploy::${config_key}::backend::max_requests")
+  $backend_max_requests_jitter = lookup("swh::deploy::${config_key}::backend::max_requests_jitter")
 
-  $instance_config = lookup("swh::deploy::${instance_name}::config")
+  $instance_config = lookup("swh::deploy::${config_key}::config")
 
   include ::gunicorn
 
