@@ -39,8 +39,9 @@ class profile::swh::deploy::vault {
   }
 
   ::nginx::resource::upstream {'swh-vault-gunicorn':
-    members => [
-      "http://${gunicorn_unix_socket} fail_timeout=0",
+    upstream_fail_timeout => 0,
+    members               => [
+      $gunicorn_unix_socket,
     ],
   }
 
@@ -62,8 +63,7 @@ class profile::swh::deploy::vault {
     listen_options       => 'deferred',
     server_name          => $nginx_server_names,
     client_max_body_size => '4G',
-    raw_append           => ['keepalive 5;'],
-    proxy                => 'swh-vault-gunicorn',
+    proxy                => 'http://swh-vault-gunicorn',
   }
 
   ::gunicorn::instance {$service_name:
