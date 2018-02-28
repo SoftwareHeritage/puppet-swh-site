@@ -18,7 +18,7 @@ define profile::swh::deploy::rpc_server (
 
   $backend_listen_host = hiera("swh::deploy::${instance_name}::backend::listen::host")
   $backend_listen_port = hiera("swh::deploy::${instance_name}::backend::listen::port")
-  $nginx_server_names = hiera("swh::deploy::${instance_name}::server_names") + ['127.0.0.1', '::1', 'localhost']
+  $nginx_server_names = hiera("swh::deploy::${instance_name}::backend::server_names")
 
   $backend_workers = hiera("swh::deploy::${instance_name}::backend::workers")
   $backend_http_keepalive = hiera("swh::deploy::${instance_name}::backend::http_keepalive")
