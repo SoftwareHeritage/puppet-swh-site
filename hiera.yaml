@@ -1,13 +1,16 @@
 ---
-:backends:
-  - yaml
-:yaml:
-  :datadir: "%{::settings::environmentpath}/%{::environment}/data"
-:hierarchy:
-  - "private/hostname/%{::fqdn}"
-  - "private/location/%{::location}"
-  - "private/defaults"
-  - "hostname/%{::fqdn}"
-  - "location/%{::location}"
-  - defaults
-:merge_behavior: deeper
+version: 4
+datadir: data
+hierarchy:
+  - name: "private/hostname/%{::fqdn}"
+    backend: yaml
+  - name: "private/location/%{::location}"
+    backend: yaml
+  - name: "private/defaults"
+    backend: yaml
+  - name: "hostname/%{::fqdn}"
+    backend: yaml
+  - name: "location/%{::location}"
+    backend: yaml
+  - name: defaults
+    backend: yaml
