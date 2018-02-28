@@ -127,7 +127,7 @@ define profile::swh::deploy::rpc_server (
       host_name     => $::fqdn,
       check_command => 'http',
       vars          => {
-        http_vhost  => $::fqdn,
+        http_vhost  => $::swh_hostname['internal_fqdn'],
         http_port   => $backend_listen_port,
         http_uri    => '/',
         http_string => $http_check_string,
