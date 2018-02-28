@@ -1329,6 +1329,12 @@ swh::deploy::storage::backend::http_keepalive: 5
 swh::deploy::storage::backend::http_timeout: 100000
 swh::deploy::storage::backend::max_requests: 10000
 swh::deploy::storage::backend::max_requests_jitter: 1000
+swh::deploy::storage::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - ::1
 swh::deploy::storage::config:
   storage:
     cls: local
@@ -1351,6 +1357,12 @@ swh::deploy::indexer::storage::backend::http_keepalive: 5
 swh::deploy::indexer::storage::backend::http_timeout: 100000
 swh::deploy::indexer::storage::backend::max_requests: 10000
 swh::deploy::indexer::storage::backend::max_requests_jitter: 1000
+swh::deploy::indexer::storage::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - ::1
 swh::deploy::indexer::storage::config:
   indexer_storage:
     <<: *swh_indexer_storage_config_uffizi
@@ -1369,9 +1381,6 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::server_names:
-  - "%{::swh_hostname.internal_fqdn}"
-  - "%{::hostname}"
 swh::deploy::vault::db::host: orangerie
 swh::deploy::vault::db::port: 5432
 swh::deploy::vault::db::user: swhvault
@@ -1385,6 +1394,12 @@ swh::deploy::vault::backend::http_keepalive: 5
 swh::deploy::vault::backend::http_timeout: 100000
 swh::deploy::vault::backend::max_requests: 10000
 swh::deploy::vault::backend::max_requests_jitter: 1000
+swh::deploy::vault::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - ::1
 swh::deploy::vault::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   cache:
@@ -1469,6 +1484,12 @@ swh::deploy::objstorage::backend::reload_mercy: 3600
 swh::deploy::objstorage::backend::http_workers: 1
 swh::deploy::objstorage::backend::http_keepalive: 5
 swh::deploy::objstorage::backend::http_timeout: 100000
+swh::deploy::objstorage::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - ::1
 
 swh::deploy::deposit::vhost::name: deposit.softwareheritage.org
 swh::deploy::deposit::vhost::aliases: []
