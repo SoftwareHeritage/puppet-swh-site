@@ -1369,6 +1369,9 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
+swh::deploy::vault::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
 swh::deploy::vault::db::host: orangerie
 swh::deploy::vault::db::port: 5432
 swh::deploy::vault::db::user: swhvault
