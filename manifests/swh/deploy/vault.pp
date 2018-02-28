@@ -40,7 +40,7 @@ class profile::swh::deploy::vault {
 
   ::nginx::resource::upstream {'swh-vault-gunicorn':
     members => [
-      "${gunicorn_unix_socket} fail_timeout=0",
+      "http://${gunicorn_unix_socket} fail_timeout=0",
     ],
   }
 
