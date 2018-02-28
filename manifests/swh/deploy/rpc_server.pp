@@ -130,7 +130,7 @@ define profile::swh::deploy::rpc_server (
         http_vhost  => $::fqdn,
         http_port   => $backend_listen_port,
         http_uri    => '/',
-        http_string => 'SWH Vault API server',
+        http_string => $http_check_string,
       },
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',
