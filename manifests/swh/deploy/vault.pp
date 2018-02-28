@@ -14,7 +14,7 @@ class profile::swh::deploy::vault {
 
   $backend_listen_host = hiera('swh::deploy::vault::backend::listen::host')
   $backend_listen_port = hiera('swh::deploy::vault::backend::listen::port')
-  $nginx_server_names = hiera('swh::deploy::vault::server_names')
+  $nginx_server_names = hiera('swh::deploy::vault::server_names') + ['127.0.0.1', '::1', 'localhost']
 
   $backend_workers = hiera('swh::deploy::vault::backend::workers')
   $backend_http_keepalive = hiera('swh::deploy::vault::backend::http_keepalive')
@@ -108,6 +108,7 @@ class profile::swh::deploy::vault {
       host_name     => $::fqdn,
       check_command => 'http',
       vars          => {
+        http_vhost  => $::fqdn,
         http_port   => $backend_listen_port,
         http_uri    => '/',
         http_string => 'SWH Vault API server',
