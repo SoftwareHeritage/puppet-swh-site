@@ -9,6 +9,7 @@ class profile::swh::deploy::objstorage {
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
   }
+  Package[$swh_packages] ~> Service['gunicorn-swh-vault']
 
   file {$conf_directory:
     ensure => directory,
@@ -17,7 +18,7 @@ class profile::swh::deploy::objstorage {
     mode   => '0750',
   }
 
-  ::profile::swh::deploy::rpc_instance {'objstorage':
+  ::profile::swh::deploy::rpc_server {'objstorage':
     executable        => 'swh.objstorage.api.server:make_app_from_configfile()',
     worker            => 'async',
     http_check_string => 'SWH Objstorage API server',
