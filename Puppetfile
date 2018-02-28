@@ -44,7 +44,7 @@ mod 'apt',
 
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind.git',
-    :ref => '6.0.1'
+    :ref => '7.3.1'
 
 mod 'apache',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache.git',
