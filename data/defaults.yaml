@@ -2609,4 +2609,4 @@ ceph::keys:
     cap_osd: profile rbd pool=rbd
 
 nginx::package_name: nginx-light
-nginx::accept_mutex: false
+nginx::accept_mutex: 'off'
