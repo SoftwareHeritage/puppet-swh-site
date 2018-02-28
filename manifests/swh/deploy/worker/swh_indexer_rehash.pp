@@ -3,12 +3,12 @@
 class profile::swh::deploy::worker::swh_indexer_rehash {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = hiera('swh::deploy::worker::swh_indexer::rehash::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_indexer::rehash::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_indexer::rehash::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_indexer::rehash::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_indexer::rehash::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_indexer::rehash::task_broker')
 
   $config_file = '/etc/softwareheritage/indexer/rehash.yml'
-  $config = hiera('swh::deploy::worker::swh_indexer::rehash::config')
+  $config = lookup('swh::deploy::worker::swh_indexer::rehash::config')
 
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_rehash']

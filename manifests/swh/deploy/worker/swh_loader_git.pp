@@ -2,12 +2,12 @@
 class profile::swh::deploy::worker::swh_loader_git {
   include ::profile::swh::deploy::base_loader_git
 
-  $concurrency = hiera('swh::deploy::worker::swh_loader_git::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_git::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_git::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_loader_git::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_loader_git::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_loader_git::task_broker')
 
   $config_file = '/etc/softwareheritage/loader/git-updater.yml'
-  $config = hiera('swh::deploy::worker::swh_loader_git::config')
+  $config = lookup('swh::deploy::worker::swh_loader_git::config')
 
   $task_modules = ['swh.loader.git.tasks']
   $task_queues = ['swh_loader_git']

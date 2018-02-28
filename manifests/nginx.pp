@@ -1,8 +1,8 @@
 # Deployment of nginx as a reverse proxy for Software Heritage RPC servers
 
 class profile::nginx {
-  $accept_mutex = hiera('nginx::accept_mutex')
-  $package_name = hiera('nginx::package_name')
+  $accept_mutex = lookup('nginx::accept_mutex')
+  $package_name = lookup('nginx::package_name')
 
   class {'::nginx':
     package_name => $package_name,

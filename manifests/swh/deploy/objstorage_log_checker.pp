@@ -1,13 +1,13 @@
 # Deployment of the swh.objstorage.checker.LogContentChecker
 
 class profile::swh::deploy::objstorage_log_checker {
-  $conf_directory = hiera('swh::deploy::objstorage_log_checker::conf_directory')
-  $conf_file = hiera('swh::deploy::objstorage_log_checker::conf_file')
-  $user = hiera('swh::deploy::objstorage_log_checker::user')
-  $group = hiera('swh::deploy::objstorage_log_checker::group')
+  $conf_directory = lookup('swh::deploy::objstorage_log_checker::conf_directory')
+  $conf_file = lookup('swh::deploy::objstorage_log_checker::conf_file')
+  $user = lookup('swh::deploy::objstorage_log_checker::user')
+  $group = lookup('swh::deploy::objstorage_log_checker::group')
 
   # configuration file
-  $log_checker_config = hiera('swh::deploy::objstorage_log_checker::config')
+  $log_checker_config = lookup('swh::deploy::objstorage_log_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 

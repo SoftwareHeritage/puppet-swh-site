@@ -4,12 +4,12 @@ class profile::apache::rewrite_domains {
 
   include ::profile::ssl
 
-  $ssl_protocol = hiera('apache::ssl_protocol')
-  $ssl_honorcipherorder = hiera('apache::ssl_honorcipherorder')
-  $ssl_cipher = hiera('apache::ssl_cipher')
-  $hsts_header = hiera('apache::hsts_header')
+  $ssl_protocol = lookup('apache::ssl_protocol')
+  $ssl_honorcipherorder = lookup('apache::ssl_honorcipherorder')
+  $ssl_cipher = lookup('apache::ssl_cipher')
+  $hsts_header = lookup('apache::hsts_header')
 
-  $rewrite_domains = hiera_hash('apache::rewrite_domains')
+  $rewrite_domains = lookup('apache::rewrite_domains', Hash, 'deep')
   each($rewrite_domains) |$name, $data| {
     $ssl_cert_name = $data['ssl_cert_name']
 

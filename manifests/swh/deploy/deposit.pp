@@ -1,44 +1,44 @@
 # Deployment of the swh.deposit server
 
 class profile::swh::deploy::deposit {
-  $conf_directory = hiera('swh::deploy::deposit::conf_directory')
+  $conf_directory = lookup('swh::deploy::deposit::conf_directory')
 
-  $swh_conf_file = hiera('swh::deploy::deposit::swh_conf_file')
-  $user = hiera('swh::deploy::deposit::user')
-  $group = hiera('swh::deploy::deposit::group')
-  $swh_conf_raw = hiera('swh::deploy::deposit::config')
+  $swh_conf_file = lookup('swh::deploy::deposit::swh_conf_file')
+  $user = lookup('swh::deploy::deposit::user')
+  $group = lookup('swh::deploy::deposit::group')
+  $swh_conf_raw = lookup('swh::deploy::deposit::config')
 
   $swh_packages = ['python3-swh.deposit']
 
   $static_dir = '/usr/lib/python3/dist-packages/swh/deposit/static'
 
   # private data file to read from swh.deposit.settings.production
-  $settings_private_data_file = hiera('swh::deploy::deposit::settings_private_data_file')
-  $settings_private_data = hiera('swh::deploy::deposit::settings_private_data')
+  $settings_private_data_file = lookup('swh::deploy::deposit::settings_private_data_file')
+  $settings_private_data = lookup('swh::deploy::deposit::settings_private_data')
 
-  $backend_listen_host = hiera('swh::deploy::deposit::backend::listen::host')
-  $backend_listen_port = hiera('swh::deploy::deposit::backend::listen::port')
+  $backend_listen_host = lookup('swh::deploy::deposit::backend::listen::host')
+  $backend_listen_port = lookup('swh::deploy::deposit::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
 
-  $backend_workers = hiera('swh::deploy::deposit::backend::workers')
-  $backend_http_keepalive = hiera('swh::deploy::deposit::backend::http_keepalive')
-  $backend_http_timeout = hiera('swh::deploy::deposit::backend::http_timeout')
-  $backend_reload_mercy = hiera('swh::deploy::deposit::backend::reload_mercy')
+  $backend_workers = lookup('swh::deploy::deposit::backend::workers')
+  $backend_http_keepalive = lookup('swh::deploy::deposit::backend::http_keepalive')
+  $backend_http_timeout = lookup('swh::deploy::deposit::backend::http_timeout')
+  $backend_reload_mercy = lookup('swh::deploy::deposit::backend::reload_mercy')
 
-  $vhost_name = hiera('swh::deploy::deposit::vhost::name')
-  $vhost_port = hiera('apache::http_port')
-  $vhost_aliases = hiera('swh::deploy::deposit::vhost::aliases')
-  $vhost_docroot = hiera('swh::deploy::deposit::vhost::docroot')
+  $vhost_name = lookup('swh::deploy::deposit::vhost::name')
+  $vhost_port = lookup('apache::http_port')
+  $vhost_aliases = lookup('swh::deploy::deposit::vhost::aliases')
+  $vhost_docroot = lookup('swh::deploy::deposit::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   # swh::deploy::deposit::vhost::basic_auth_content in private
-  $vhost_basic_auth_content = hiera('swh::deploy::deposit::vhost::basic_auth_content')
-  $vhost_ssl_port = hiera('apache::https_port')
-  $vhost_ssl_protocol = hiera('swh::deploy::deposit::vhost::ssl_protocol')
-  $vhost_ssl_honorcipherorder = hiera('swh::deploy::deposit::vhost::ssl_honorcipherorder')
-  $vhost_ssl_cipher = hiera('swh::deploy::deposit::vhost::ssl_cipher')
-  $locked_endpoints = hiera_array('swh::deploy::deposit::locked_endpoints')
+  $vhost_basic_auth_content = lookup('swh::deploy::deposit::vhost::basic_auth_content')
+  $vhost_ssl_port = lookup('apache::https_port')
+  $vhost_ssl_protocol = lookup('swh::deploy::deposit::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('swh::deploy::deposit::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('swh::deploy::deposit::vhost::ssl_cipher')
+  $locked_endpoints = lookup('swh::deploy::deposit::locked_endpoints', Array, 'unique')
 
-  $media_root_directory = hiera('swh::deploy::deposit::media_root_directory')
+  $media_root_directory = lookup('swh::deploy::deposit::media_root_directory')
 
   include ::gunicorn
 
@@ -162,7 +162,7 @@ class profile::swh::deploy::deposit {
   include ::profile::varnish
   ::profile::varnish::vhost {$vhost_name:
     aliases      => $vhost_aliases,
-    hsts_max_age => hiera('strict_transport_security::max_age'),
+    hsts_max_age => lookup('strict_transport_security::max_age'),
   }
 
   file {$vhost_basic_auth_file:

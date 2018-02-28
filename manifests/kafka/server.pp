@@ -6,9 +6,9 @@ class profile::kafka::server {
   class {'::kafka':}
 
   class {'::kafka::server':
-    log_dirs         => hiera_array('kafka::log_dirs'),
-    brokers          => hiera_hash('kafka::brokers'),
-    zookeeper_hosts  => hiera_array('kafka::zookeeper::hosts'),
-    zookeeper_chroot => hiera('kafka::zookeeper::chroot'),
+    log_dirs         => lookup('kafka::log_dirs', Array, 'unique'),
+    brokers          => lookup('kafka::brokers', Hash, 'deep'),
+    zookeeper_hosts  => lookup('kafka::zookeeper::hosts', Array, 'unique'),
+    zookeeper_chroot => lookup('kafka::zookeeper::chroot'),
   }
 }

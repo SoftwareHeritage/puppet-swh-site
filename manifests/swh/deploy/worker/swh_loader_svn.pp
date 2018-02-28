@@ -1,18 +1,18 @@
 # Deployment for swh-loader-svn
 class profile::swh::deploy::worker::swh_loader_svn {
-  $concurrency = hiera('swh::deploy::worker::swh_loader_svn::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_svn::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_svn::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_loader_svn::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_loader_svn::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_loader_svn::task_broker')
 
   $config_file = '/etc/softwareheritage/loader/svn.yml'
-  $config = hiera('swh::deploy::worker::swh_loader_svn::config')
+  $config = lookup('swh::deploy::worker::swh_loader_svn::config')
 
   $task_modules = ['swh.loader.svn.tasks']
   $task_queues = ['swh_loader_svn', 'swh_loader_svn_mount_and_load']
 
   $packages = ['python3-swh.loader.svn']
-  $limit_no_file = hiera('swh::deploy::worker::swh_loader_svn::limit_no_file')
-  $private_tmp = hiera('swh::deploy::worker::swh_loader_svn::private_tmp')
+  $limit_no_file = lookup('swh::deploy::worker::swh_loader_svn::limit_no_file')
+  $private_tmp = lookup('swh::deploy::worker::swh_loader_svn::private_tmp')
 
   package {$packages:
     ensure => 'latest',

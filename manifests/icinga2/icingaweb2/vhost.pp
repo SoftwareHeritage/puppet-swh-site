@@ -5,13 +5,13 @@ class profile::icinga2::icingaweb2::vhost {
   include ::profile::apache::common
   include ::apache::mod::php
 
-  $icingaweb2_vhost_name = hiera('icinga2::icingaweb2::vhost::name')
-  $icingaweb2_vhost_aliases = hiera('icinga2::icingaweb2::vhost::aliases')
+  $icingaweb2_vhost_name = lookup('icinga2::icingaweb2::vhost::name')
+  $icingaweb2_vhost_aliases = lookup('icinga2::icingaweb2::vhost::aliases')
   $icingaweb2_vhost_docroot = '/usr/share/icingaweb2/public'
-  $icingaweb2_vhost_ssl_protocol = hiera('icinga2::icingaweb2::vhost::ssl_protocol')
-  $icingaweb2_vhost_ssl_honorcipherorder = hiera('icinga2::icingaweb2::vhost::ssl_honorcipherorder')
-  $icingaweb2_vhost_ssl_cipher = hiera('icinga2::icingaweb2::vhost::ssl_cipher')
-  $icingaweb2_vhost_hsts_header = hiera('icinga2::icingaweb2::vhost::hsts_header')
+  $icingaweb2_vhost_ssl_protocol = lookup('icinga2::icingaweb2::vhost::ssl_protocol')
+  $icingaweb2_vhost_ssl_honorcipherorder = lookup('icinga2::icingaweb2::vhost::ssl_honorcipherorder')
+  $icingaweb2_vhost_ssl_cipher = lookup('icinga2::icingaweb2::vhost::ssl_cipher')
+  $icingaweb2_vhost_hsts_header = lookup('icinga2::icingaweb2::vhost::hsts_header')
 
   ::apache::vhost {"${icingaweb2_vhost_name}_non-ssl":
     servername      => $icingaweb2_vhost_name,

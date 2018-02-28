@@ -1,6 +1,6 @@
 # Munin master class
 class profile::munin::master {
-  $master_hostname = hiera('munin::master::hostname')
+  $master_hostname = lookup('munin::master::hostname')
   $master_hostname_domain = join(delete_at(split($master_hostname, '[.]'), 0), '.')
   $master_hostname_target = "${::hostname}.${master_hostname_domain}."
 
@@ -48,7 +48,7 @@ class profile::munin::master {
     ],
   }
 
-  $bind_key = hiera('bind::update_key')
+  $bind_key = lookup('bind::update_key')
 
   @@resource_record { 'munin/CNAME':
     record  => $master_hostname,

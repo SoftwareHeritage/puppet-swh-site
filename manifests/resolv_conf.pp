@@ -1,7 +1,7 @@
 # Configure resolv.conf
 class profile::resolv_conf {
-  $nameservers = hiera('dns::nameservers')
-  $search_domains = hiera('dns::search_domains')
+  $nameservers = lookup('dns::nameservers')
+  $search_domains = lookup('dns::search_domains')
 
   class {'::resolv_conf':
     nameservers => $nameservers,

@@ -1,8 +1,8 @@
 # Configure the SSH server
 
 class profile::ssh::server {
-  $sshd_port = hiera('ssh::port')
-  $sshd_permitrootlogin = hiera('ssh::permitrootlogin')
+  $sshd_port = lookup('ssh::port')
+  $sshd_permitrootlogin = lookup('ssh::permitrootlogin')
 
   class { '::ssh::server':
     storeconfigs_enabled => false,
@@ -12,7 +12,7 @@ class profile::ssh::server {
     },
   }
 
-  $users = hiera_hash('users')
+  $users = lookup('users', Hash, 'deep')
 
   each($users) |$name, $data| {
     if $name == 'root' {

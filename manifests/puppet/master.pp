@@ -1,6 +1,6 @@
 # Puppet master profile
 class profile::puppet::master {
-  $puppetdb = hiera('puppet::master::puppetdb')
+  $puppetdb = lookup('puppet::master::puppetdb')
 
   include ::profile::puppet::base
 

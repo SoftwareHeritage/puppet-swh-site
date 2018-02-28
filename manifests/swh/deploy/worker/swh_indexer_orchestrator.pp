@@ -4,12 +4,12 @@ class profile::swh::deploy::worker::swh_indexer_orchestrator {
 
   include ::profile::swh::deploy::indexer
 
-  $concurrency = hiera('swh::deploy::worker::swh_indexer::orchestrator::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_indexer::orchestrator::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_indexer::orchestrator::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_indexer::orchestrator::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_indexer::orchestrator::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_indexer::orchestrator::task_broker')
 
   $config_file = '/etc/softwareheritage/indexer/orchestrator.yml'
-  $config = hiera('swh::deploy::worker::swh_indexer::orchestrator::config')
+  $config = lookup('swh::deploy::worker::swh_indexer::orchestrator::config')
 
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_orchestrator_content_all']

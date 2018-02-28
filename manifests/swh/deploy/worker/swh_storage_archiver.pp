@@ -2,12 +2,12 @@
 class profile::swh::deploy::worker::swh_storage_archiver {
   include ::profile::swh::deploy::archiver
 
-  $concurrency = hiera('swh::deploy::worker::swh_storage_archiver::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_storage_archiver::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_storage_archiver::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_storage_archiver::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_storage_archiver::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_storage_archiver::task_broker')
 
-  $config_file = hiera('swh::deploy::worker::swh_storage_archiver::conf_file')
-  $config = hiera('swh::deploy::worker::swh_storage_archiver::config')
+  $config_file = lookup('swh::deploy::worker::swh_storage_archiver::conf_file')
+  $config = lookup('swh::deploy::worker::swh_storage_archiver::config')
 
   $task_modules = ['swh.archiver.tasks']
   $task_queues = ['swh_storage_archive_worker']

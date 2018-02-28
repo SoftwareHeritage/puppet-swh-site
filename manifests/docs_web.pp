@@ -1,16 +1,16 @@
 # Deployment of web-facing static documentation
 class profile::docs_web {
 
-  $docs_basepath =  hiera('docs::basepath')
+  $docs_basepath =  lookup('docs::basepath')
 
-  $docs_vhost_name = hiera('docs::vhost::name')
-  $docs_vhost_docroot = hiera('docs::vhost::docroot')
-  $docs_vhost_docroot_group = hiera('docs::vhost::docroot_group')
-  $docs_vhost_docroot_mode = hiera('docs::vhost::docroot_mode')
-  $docs_vhost_ssl_protocol = hiera('docs::vhost::ssl_protocol')
-  $docs_vhost_ssl_honorcipherorder = hiera('docs::vhost::ssl_honorcipherorder')
-  $docs_vhost_ssl_cipher = hiera('docs::vhost::ssl_cipher')
-  $docs_vhost_hsts_header = hiera('docs::vhost::hsts_header')
+  $docs_vhost_name = lookup('docs::vhost::name')
+  $docs_vhost_docroot = lookup('docs::vhost::docroot')
+  $docs_vhost_docroot_group = lookup('docs::vhost::docroot_group')
+  $docs_vhost_docroot_mode = lookup('docs::vhost::docroot_mode')
+  $docs_vhost_ssl_protocol = lookup('docs::vhost::ssl_protocol')
+  $docs_vhost_ssl_honorcipherorder = lookup('docs::vhost::ssl_honorcipherorder')
+  $docs_vhost_ssl_cipher = lookup('docs::vhost::ssl_cipher')
+  $docs_vhost_hsts_header = lookup('docs::vhost::hsts_header')
 
   include ::profile::ssl
   include ::profile::apache::common

@@ -1,11 +1,11 @@
 # Base class for Software Heritage-specific configuration
 
 class profile::swh {
-  $swh_base_directory = hiera('swh::base_directory')
-  $swh_conf_directory = hiera('swh::conf_directory')
-  $swh_global_conf_file = hiera('swh::global_conf::file')
-  $swh_global_conf_contents = hiera('swh::global_conf::contents')
-  $swh_log_directory = hiera('swh::log_directory')
+  $swh_base_directory = lookup('swh::base_directory')
+  $swh_conf_directory = lookup('swh::conf_directory')
+  $swh_global_conf_file = lookup('swh::global_conf::file')
+  $swh_global_conf_contents = lookup('swh::global_conf::contents')
+  $swh_log_directory = lookup('swh::log_directory')
 
   $swh_logrotate_conf = '/etc/logrotate.d/softwareheritage'
 

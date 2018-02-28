@@ -1,11 +1,11 @@
 # Deployment for swh-loader-debian
 class profile::swh::deploy::worker::swh_loader_debian {
-  $concurrency = hiera('swh::deploy::worker::swh_loader_debian::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_debian::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_debian::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_loader_debian::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_loader_debian::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_loader_debian::task_broker')
 
   $config_file = '/etc/softwareheritage/loader/debian.yml'
-  $config = hiera('swh::deploy::worker::swh_loader_debian::config')
+  $config = lookup('swh::deploy::worker::swh_loader_debian::config')
 
   $task_modules = ['swh.loader.debian.tasks']
   $task_queues = ['swh_loader_debian']

@@ -1,7 +1,7 @@
 # Base puppet configuration for all hosts.
 
 class profile::puppet::base {
-  $puppetmaster = hiera('puppet::master::hostname')
+  $puppetmaster = lookup('puppet::master::hostname')
 
   $agent_config = {
     runmode      => 'none',

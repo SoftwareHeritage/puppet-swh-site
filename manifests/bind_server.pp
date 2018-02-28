@@ -2,13 +2,13 @@ class profile::bind_server {
 
   include ::profile::resolv_conf
 
-  $forwarders = hiera('dns::forwarders')
-  $zones = hiera('bind::zones')
-  $default_zone_data = hiera('bind::zones::default_data')
-  $clients = hiera('bind::clients')
-  $resource_records = hiera('bind::resource_records')
-  $default_rr_data = hiera('bind::resource_records::default_data')
-  $update_key = hiera('bind::update_key')
+  $forwarders = lookup('dns::forwarders')
+  $zones = lookup('bind::zones')
+  $default_zone_data = lookup('bind::zones::default_data')
+  $clients = lookup('bind::clients')
+  $resource_records = lookup('bind::resource_records')
+  $default_rr_data = lookup('bind::resource_records::default_data')
+  $update_key = lookup('bind::update_key')
   $zone_names = keys($zones)
 
   class { '::bind':

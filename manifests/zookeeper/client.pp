@@ -2,7 +2,7 @@
 
 class profile::zookeeper::client {
   class {'::zookeeper':
-    hosts    => hiera_hash('zookeeper::hosts'),
-    data_dir => hiera('zookeeper::data_dir'),
+    hosts    => lookup('zookeeper::hosts', Hash, 'deep'),
+    data_dir => lookup('zookeeper::data_dir'),
   }
 }

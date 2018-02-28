@@ -3,12 +3,12 @@
 class profile::swh::deploy::worker::swh_indexer_language {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = hiera('swh::deploy::worker::swh_indexer::language::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_indexer::language::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_indexer::language::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_indexer::language::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_indexer::language::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_indexer::language::task_broker')
 
   $config_file = '/etc/softwareheritage/indexer/language.yml'
-  $config = hiera('swh::deploy::worker::swh_indexer::language::config')
+  $config = lookup('swh::deploy::worker::swh_indexer::language::config')
 
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_language']

@@ -1,5 +1,5 @@
 class profile::devel::postgres {
-  $packages = hiera_array('packages::devel::postgres')
+  $packages = lookup('packages::devel::postgres', Array, 'unique')
 
   package { $packages:
     ensure => present,

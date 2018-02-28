@@ -1,36 +1,36 @@
 # WebApp deployment
 class profile::swh::deploy::webapp {
-  $conf_directory = hiera('swh::deploy::webapp::conf_directory')
-  $conf_file = hiera('swh::deploy::webapp::conf_file')
-  $user = hiera('swh::deploy::webapp::user')
-  $group = hiera('swh::deploy::webapp::group')
+  $conf_directory = lookup('swh::deploy::webapp::conf_directory')
+  $conf_file = lookup('swh::deploy::webapp::conf_file')
+  $user = lookup('swh::deploy::webapp::user')
+  $group = lookup('swh::deploy::webapp::group')
 
-  $webapp_config = hiera('swh::deploy::webapp::config')
-  $conf_log_dir = hiera('swh::deploy::webapp::conf::log_dir')
+  $webapp_config = lookup('swh::deploy::webapp::config')
+  $conf_log_dir = lookup('swh::deploy::webapp::conf::log_dir')
 
-  $backend_listen_host = hiera('swh::deploy::webapp::backend::listen::host')
-  $backend_listen_port = hiera('swh::deploy::webapp::backend::listen::port')
+  $backend_listen_host = lookup('swh::deploy::webapp::backend::listen::host')
+  $backend_listen_port = lookup('swh::deploy::webapp::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
-  $backend_workers = hiera('swh::deploy::webapp::backend::workers')
-  $backend_http_keepalive = hiera('swh::deploy::webapp::backend::http_keepalive')
-  $backend_http_timeout = hiera('swh::deploy::webapp::backend::http_timeout')
-  $backend_reload_mercy = hiera('swh::deploy::webapp::backend::reload_mercy')
+  $backend_workers = lookup('swh::deploy::webapp::backend::workers')
+  $backend_http_keepalive = lookup('swh::deploy::webapp::backend::http_keepalive')
+  $backend_http_timeout = lookup('swh::deploy::webapp::backend::http_timeout')
+  $backend_reload_mercy = lookup('swh::deploy::webapp::backend::reload_mercy')
 
   $swh_packages = ['python3-swh.web']
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
-  $vhost_name = hiera('swh::deploy::webapp::vhost::name')
-  $vhost_port = hiera('apache::http_port')
-  $vhost_aliases = hiera('swh::deploy::webapp::vhost::aliases')
-  $vhost_docroot = hiera('swh::deploy::webapp::vhost::docroot')
+  $vhost_name = lookup('swh::deploy::webapp::vhost::name')
+  $vhost_port = lookup('apache::http_port')
+  $vhost_aliases = lookup('swh::deploy::webapp::vhost::aliases')
+  $vhost_docroot = lookup('swh::deploy::webapp::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
-  $vhost_basic_auth_content = hiera('swh::deploy::webapp::vhost::basic_auth_content')
-  $vhost_ssl_port = hiera('apache::https_port')
-  $vhost_ssl_protocol = hiera('swh::deploy::webapp::vhost::ssl_protocol')
-  $vhost_ssl_honorcipherorder = hiera('swh::deploy::webapp::vhost::ssl_honorcipherorder')
-  $vhost_ssl_cipher = hiera('swh::deploy::webapp::vhost::ssl_cipher')
+  $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content')
+  $vhost_ssl_port = lookup('apache::https_port')
+  $vhost_ssl_protocol = lookup('swh::deploy::webapp::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
 
-  $locked_endpoints = hiera_array('swh::deploy::webapp::locked_endpoints')
+  $locked_endpoints = lookup('swh::deploy::webapp::locked_endpoints', Array, 'unique')
 
   $endpoint_directories = $locked_endpoints.map |$endpoint| {
     { path           => "^${endpoint}",
@@ -150,7 +150,7 @@ class profile::swh::deploy::webapp {
   include ::profile::varnish
   ::profile::varnish::vhost {$vhost_name:
     aliases      => $vhost_aliases,
-    hsts_max_age => hiera('strict_transport_security::max_age'),
+    hsts_max_age => lookup('strict_transport_security::max_age'),
   }
 
   file {$vhost_basic_auth_file:

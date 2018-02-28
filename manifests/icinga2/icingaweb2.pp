@@ -1,13 +1,13 @@
 # Icinga web 2 configuration
 class profile::icinga2::icingaweb2 {
-  $icinga2_db_username = hiera('icinga2::master::db::username')
-  $icinga2_db_password = hiera('icinga2::master::db::password')
-  $icinga2_db_database = hiera('icinga2::master::db::database')
+  $icinga2_db_username = lookup('icinga2::master::db::username')
+  $icinga2_db_password = lookup('icinga2::master::db::password')
+  $icinga2_db_database = lookup('icinga2::master::db::database')
 
-  $icingaweb2_db_username = hiera('icinga2::icingaweb2::db::username')
-  $icingaweb2_db_password = hiera('icinga2::icingaweb2::db::password')
-  $icingaweb2_db_database = hiera('icinga2::icingaweb2::db::database')
-  $icingaweb2_protected_customvars = hiera('icinga2::icingaweb2::protected_customvars')
+  $icingaweb2_db_username = lookup('icinga2::icingaweb2::db::username')
+  $icingaweb2_db_password = lookup('icinga2::icingaweb2::db::password')
+  $icingaweb2_db_database = lookup('icinga2::icingaweb2::db::database')
+  $icingaweb2_protected_customvars = lookup('icinga2::icingaweb2::protected_customvars')
 
   include profile::icinga2::apt_config
   include profile::icinga2::icingaweb2::vhost

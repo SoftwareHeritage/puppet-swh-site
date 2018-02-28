@@ -4,7 +4,7 @@
 class profile::network {
   debnet::iface::loopback { 'lo': }
 
-  $interfaces = hiera('networks')
+  $interfaces = lookup('networks')
   each($interfaces) |$label, $data| {
 
     if $label == 'private' {

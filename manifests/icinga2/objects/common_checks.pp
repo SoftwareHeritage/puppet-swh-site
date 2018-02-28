@@ -1,6 +1,6 @@
 # Icinga2 common check definitions
 class profile::icinga2::objects::common_checks {
-  $service_configuration = hiera('icinga2::service_configuration')
+  $service_configuration = lookup('icinga2::service_configuration')
 
   # Done locally on the master
   ::icinga2::object::service {'ping4':

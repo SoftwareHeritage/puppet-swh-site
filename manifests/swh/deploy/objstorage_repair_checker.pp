@@ -1,12 +1,12 @@
 # Deployment of the swh.objstorage.checker.RepairContentChecker
 
 class profile::swh::deploy::objstorage_repair_checker {
-  $conf_directory = hiera('swh::deploy::objstorage_repair_checker::conf_directory')
-  $conf_file = hiera('swh::deploy::objstorage_repair_checker::conf_file')
-  $user = hiera('swh::deploy::objstorage_repair_checker::user')
-  $group = hiera('swh::deploy::objstorage_repair_checker::group')
+  $conf_directory = lookup('swh::deploy::objstorage_repair_checker::conf_directory')
+  $conf_file = lookup('swh::deploy::objstorage_repair_checker::conf_file')
+  $user = lookup('swh::deploy::objstorage_repair_checker::user')
+  $group = lookup('swh::deploy::objstorage_repair_checker::group')
 
-  $repair_checker_config = hiera('swh::deploy::objstorage_repair_checker::config')
+  $repair_checker_config = lookup('swh::deploy::objstorage_repair_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 

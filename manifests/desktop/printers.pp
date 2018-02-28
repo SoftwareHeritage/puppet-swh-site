@@ -1,9 +1,9 @@
 class profile::desktop::printers {
-  $printers = hiera_hash('desktop::printers')
-  $default_printer = hiera('desktop::printers::default')
-  $cups_usernames = hiera_hash('desktop::printers::cups_usernames')
+  $printers = lookup('desktop::printers', Hash, 'deep')
+  $default_printer = lookup('desktop::printers::default')
+  $cups_usernames = lookup('desktop::printers::cups_usernames', Hash, 'deep')
 
-  $ppd_dir = hiera('desktop::printers::ppd_dir')
+  $ppd_dir = lookup('desktop::printers::ppd_dir')
   $ppd_file = "${ppd_dir}/MFP.ppd"
   $ppd_auth_filter = "${ppd_dir}/MFP_auth_filter"
 

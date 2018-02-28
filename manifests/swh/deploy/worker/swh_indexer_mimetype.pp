@@ -3,12 +3,12 @@
 class profile::swh::deploy::worker::swh_indexer_mimetype {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = hiera('swh::deploy::worker::swh_indexer::mimetype::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_indexer::mimetype::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_indexer::mimetype::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_indexer::mimetype::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_indexer::mimetype::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_indexer::mimetype::task_broker')
 
   $config_file = '/etc/softwareheritage/indexer/mimetype.yml'
-  $config = hiera('swh::deploy::worker::swh_indexer::mimetype::config')
+  $config = lookup('swh::deploy::worker::swh_indexer::mimetype::config')
 
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_mimetype']

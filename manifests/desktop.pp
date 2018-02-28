@@ -1,5 +1,5 @@
 class profile::desktop {
-  $packages = hiera_array('packages::desktop')
+  $packages = lookup('packages::desktop', Array, 'unique')
 
   package { $packages:
     ensure => present,

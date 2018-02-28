@@ -1,8 +1,8 @@
 class profile::munin::plugins::rabbitmq {
-  $messages_warn = hiera('munin::plugins::rabbitmq::messages_warn')
-  $messages_crit = hiera('munin::plugins::rabbitmq::messages_crit')
-  $queue_memory_warn = hiera('munin::plugins::rabbitmq::queue_memory_warn')
-  $queue_memory_crit = hiera('munin::plugins::rabbitmq::queue_memory_crit')
+  $messages_warn = lookup('munin::plugins::rabbitmq::messages_warn')
+  $messages_crit = lookup('munin::plugins::rabbitmq::messages_crit')
+  $queue_memory_warn = lookup('munin::plugins::rabbitmq::queue_memory_warn')
+  $queue_memory_crit = lookup('munin::plugins::rabbitmq::queue_memory_crit')
 
   munin::plugin {
     'rabbitmq_connections':

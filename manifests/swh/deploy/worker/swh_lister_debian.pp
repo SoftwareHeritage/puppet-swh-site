@@ -1,11 +1,11 @@
 # Deployment for swh-lister-debian
 class profile::swh::deploy::worker::swh_lister_debian {
-  $concurrency = hiera('swh::deploy::worker::swh_lister_debian::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_lister_debian::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_lister_debian::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_lister_debian::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_lister_debian::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_lister_debian::task_broker')
 
   $config_file = '/etc/softwareheritage/lister-debian.yml'
-  $config = hiera_hash('swh::deploy::worker::swh_lister_debian::config')
+  $config = lookup('swh::deploy::worker::swh_lister_debian::config', Hash, 'deep')
 
   $task_modules = ['swh.lister.debian.tasks']
   $task_queues = ['swh_lister_debian']

@@ -1,11 +1,11 @@
 # stats_export master class
 class profile::munin::stats_export {
-  $vhost_name = hiera('stats_export::vhost::name')
-  $vhost_docroot = hiera('stats_export::vhost::docroot')
-  $vhost_ssl_protocol = hiera('stats_export::vhost::ssl_protocol')
-  $vhost_ssl_honorcipherorder = hiera('stats_export::vhost::ssl_honorcipherorder')
-  $vhost_ssl_cipher = hiera('stats_export::vhost::ssl_cipher')
-  $vhost_hsts_header = hiera('stats_export::vhost::hsts_header')
+  $vhost_name = lookup('stats_export::vhost::name')
+  $vhost_docroot = lookup('stats_export::vhost::docroot')
+  $vhost_ssl_protocol = lookup('stats_export::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('stats_export::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('stats_export::vhost::ssl_cipher')
+  $vhost_hsts_header = lookup('stats_export::vhost::hsts_header')
 
   $export_file = "${vhost_docroot}/history_counters.json"
 

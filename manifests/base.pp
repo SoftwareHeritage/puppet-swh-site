@@ -1,15 +1,15 @@
 # Base configuration for Software Heritage servers
 class profile::base {
   class { '::ntp':
-    servers => hiera('ntp::servers'),
+    servers => lookup('ntp::servers'),
   }
 
   class { '::postfix':
-    relayhost          => hiera('smtp::relayhost'),
-    mydestination      => hiera_array('smtp::mydestination'),
-    mynetworks         => hiera_array('smtp::mynetworks'),
-    relay_destinations => hiera_hash('smtp::relay_destinations'),
-    virtual_aliases    => hiera_hash('smtp::virtual_aliases'),
+    relayhost          => lookup('smtp::relayhost'),
+    mydestination      => lookup('smtp::mydestination', Array, 'unique'),
+    mynetworks         => lookup('smtp::mynetworks', Array, 'unique'),
+    relay_destinations => lookup('smtp::relay_destinations', Hash, 'deep'),
+    virtual_aliases    => lookup('smtp::virtual_aliases', Hash, 'deep'),
   }
 
   exec {'newaliases':
@@ -18,7 +18,7 @@ class profile::base {
     require     => Package['postfix'],
   }
 
-  $mail_aliases = hiera_hash('smtp::mail_aliases')
+  $mail_aliases = lookup('smtp::mail_aliases', Hash, 'deep')
   each($mail_aliases) |$alias, $recipients| {
     mailalias {$alias:
       ensure    => present,
@@ -28,18 +28,18 @@ class profile::base {
   }
 
   class { '::locales':
-    default_locale => hiera('locales::default_locale'),
-    locales        => hiera('locales::installed_locales'),
+    default_locale => lookup('locales::default_locale'),
+    locales        => lookup('locales::installed_locales'),
   }
 
-  $packages = hiera_array('packages')
+  $packages = lookup('packages', Array, 'unique')
 
   package { $packages:
     ensure => present,
   }
 
-  $users = hiera_hash('users')
-  $groups = hiera_hash('groups')
+  $users = lookup('users', Hash, 'deep')
+  $groups = lookup('groups', Hash, 'deep')
 
   each($groups) |$name, $data| {
     group { $name:
@@ -102,11 +102,11 @@ class profile::base {
   }
 
   class {'::timezone':
-    timezone => hiera('timezone'),
+    timezone => lookup('timezone'),
   }
 
-  $bind_autogenerate = hiera('bind::autogenerate')
-  $bind_key = hiera('bind::update_key')
+  $bind_autogenerate = lookup('bind::autogenerate')
+  $bind_key = lookup('bind::update_key')
 
   each($bind_autogenerate) |$net| {
     $ipaddr = ip_for_network($net)

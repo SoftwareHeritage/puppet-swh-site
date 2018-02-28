@@ -3,11 +3,11 @@
 class profile::swh::deploy::journal_simple_checker_producer {
   include ::profile::swh::deploy::journal
 
-  $conf_file = hiera('swh::deploy::journal_simple_checker_producer::conf_file')
-  $user = hiera('swh::deploy::journal_simple_checker_producer::user')
-  $group = hiera('swh::deploy::journal_simple_checker_producer::group')
+  $conf_file = lookup('swh::deploy::journal_simple_checker_producer::conf_file')
+  $user = lookup('swh::deploy::journal_simple_checker_producer::user')
+  $group = lookup('swh::deploy::journal_simple_checker_producer::group')
 
-  $checker_config = hiera(
+  $checker_config = lookup(
     'swh::deploy::journal_simple_checker_producer::config')
 
   include ::systemd

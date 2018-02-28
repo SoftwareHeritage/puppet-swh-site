@@ -1,8 +1,8 @@
 # Deployment of the deployment private key for Software Heritage
 
 class profile::swh::deploy {
-  $deploy_group = hiera('swh::deploy::group')
-  $deploy_directory = hiera('swh::deploy::directory')
+  $deploy_group = lookup('swh::deploy::group')
+  $deploy_directory = lookup('swh::deploy::directory')
 
   file {$deploy_directory:
     ensure  => directory,
@@ -16,7 +16,7 @@ class profile::swh::deploy {
 
   file {"${deploy_directory}/id_rsa":
     ensure  => present,
-    content => hiera('swh::deploy::private_key'),
+    content => lookup('swh::deploy::private_key'),
     owner   => 'root',
     group   => $deploy_group,
     mode    => '0640',
@@ -28,7 +28,7 @@ class profile::swh::deploy {
 
   file {"${deploy_directory}/id_rsa.pub":
     ensure  => present,
-    content => hiera('swh::deploy::public_key'),
+    content => lookup('swh::deploy::public_key'),
     owner   => 'root',
     group   => $deploy_group,
     mode    => '0640',

@@ -2,18 +2,18 @@
 class profile::swh::deploy::worker::swh_loader_mercurial {
   include ::profile::swh::deploy::base_loader_git
 
-  $concurrency = hiera('swh::deploy::worker::swh_loader_mercurial::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_mercurial::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_mercurial::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_loader_mercurial::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_loader_mercurial::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_loader_mercurial::task_broker')
 
   $config_file = '/etc/softwareheritage/loader/hg.yml'
-  $config = hiera('swh::deploy::worker::swh_loader_mercurial::config')
+  $config = lookup('swh::deploy::worker::swh_loader_mercurial::config')
 
   $task_modules = ['swh.loader.mercurial.tasks']
   $task_queues = ['swh_loader_mercurial', 'swh_loader_mercurial_archive']
 
   $service_name = 'swh_loader_mercurial'
-  $private_tmp = hiera('swh::deploy::worker::swh_loader_mercurial::private_tmp')
+  $private_tmp = lookup('swh::deploy::worker::swh_loader_mercurial::private_tmp')
 
   $packages = ['python3-swh.loader.mercurial']
 

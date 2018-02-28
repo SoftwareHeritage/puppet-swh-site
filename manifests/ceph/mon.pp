@@ -2,10 +2,10 @@
 class profile::ceph::mon {
   include profile::ceph::base
 
-  $mon_secret = hiera('ceph::secrets::mon')
-  $mgr_secret = hiera('ceph::secrets::mgr')
+  $mon_secret = lookup('ceph::secrets::mon')
+  $mgr_secret = lookup('ceph::secrets::mgr')
 
-  $client_keys = hiera('ceph::keys')
+  $client_keys = lookup('ceph::keys')
 
   ::ceph::mon {$::hostname:
     key => $mon_secret,

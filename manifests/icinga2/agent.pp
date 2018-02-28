@@ -1,11 +1,11 @@
 # Icinga2 agent configuration
 class profile::icinga2::agent {
-  $features = hiera('icinga2::features')
-  $icinga2_network = hiera('icinga2::network')
-  $hiera_host_vars = hiera_hash('icinga2::host::vars')
+  $features = lookup('icinga2::features')
+  $icinga2_network = lookup('icinga2::network')
+  $hiera_host_vars = lookup('icinga2::host::vars', Hash, 'deep')
 
-  $parent_zone = hiera('icinga2::parent_zone')
-  $parent_endpoints = hiera('icinga2::parent_endpoints')
+  $parent_zone = lookup('icinga2::parent_zone')
+  $parent_endpoints = lookup('icinga2::parent_endpoints')
 
   include profile::icinga2::objects::agent_checks
 

@@ -1,18 +1,18 @@
 # Deployment for swh-loader-deposit
 class profile::swh::deploy::worker::swh_loader_deposit {
-  $concurrency = hiera('swh::deploy::worker::swh_loader_deposit::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_loader_deposit::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_loader_deposit::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_loader_deposit::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_loader_deposit::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_loader_deposit::task_broker')
 
-  $deposit_config_directory = hiera('swh::deploy::deposit::conf_directory')
-  $config_file = hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_file')
-  $config = hiera('swh::deploy::worker::swh_loader_deposit::config')
+  $deposit_config_directory = lookup('swh::deploy::deposit::conf_directory')
+  $config_file = lookup('swh::deploy::worker::swh_loader_deposit::swh_conf_file')
+  $config = lookup('swh::deploy::worker::swh_loader_deposit::config')
 
   $task_modules = ['swh.deposit.loader.tasks']
   $task_queues = ['swh_checker_deposit', 'swh_loader_deposit']
 
   $packages = ['python3-swh.deposit.loader']
-  $private_tmp = hiera('swh::deploy::worker::swh_loader_deposit::private_tmp')
+  $private_tmp = lookup('swh::deploy::worker::swh_loader_deposit::private_tmp')
 
   $service_name = 'swh_loader_deposit'
 
@@ -54,8 +54,8 @@ class profile::swh::deploy::worker::swh_loader_deposit {
     ],
   }
 
-  $swh_client_conf_file = hiera('swh::deploy::deposit::client::swh_conf_file')
-  $swh_client_config = hiera('swh::deploy::deposit::client::settings_private_data')
+  $swh_client_conf_file = lookup('swh::deploy::deposit::client::swh_conf_file')
+  $swh_client_config = lookup('swh::deploy::deposit::client::settings_private_data')
   file {$swh_client_conf_file:
     owner   => 'swhworker',
     group   => 'swhdev',

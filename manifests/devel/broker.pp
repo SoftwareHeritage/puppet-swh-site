@@ -1,5 +1,5 @@
 class profile::devel::broker {
-  $packages = hiera_array('packages::devel::broker')
+  $packages = lookup('packages::devel::broker', Array, 'unique')
 
   package { $packages:
     ensure => present,

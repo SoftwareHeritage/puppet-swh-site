@@ -1,8 +1,8 @@
 # Deployment of mediawiki for the Software Heritage intranet
 class profile::mediawiki {
-  $mediawiki_fpm_root = hiera('mediawiki::php::fpm_listen')
+  $mediawiki_fpm_root = lookup('mediawiki::php::fpm_listen')
 
-  $mediawiki_vhosts = hiera_hash('mediawiki::vhosts')
+  $mediawiki_vhosts = lookup('mediawiki::vhosts', Hash, 'deep')
 
   include ::php::fpm::daemon
 
@@ -20,11 +20,11 @@ class profile::mediawiki {
 
   include ::mediawiki
 
-  $mediawiki_vhost_docroot = hiera('mediawiki::vhost::docroot')
-  $mediawiki_vhost_ssl_protocol = hiera('mediawiki::vhost::ssl_protocol')
-  $mediawiki_vhost_ssl_honorcipherorder = hiera('mediawiki::vhost::ssl_honorcipherorder')
-  $mediawiki_vhost_ssl_cipher = hiera('mediawiki::vhost::ssl_cipher')
-  $mediawiki_vhost_hsts_header = hiera('mediawiki::vhost::hsts_header')
+  $mediawiki_vhost_docroot = lookup('mediawiki::vhost::docroot')
+  $mediawiki_vhost_ssl_protocol = lookup('mediawiki::vhost::ssl_protocol')
+  $mediawiki_vhost_ssl_honorcipherorder = lookup('mediawiki::vhost::ssl_honorcipherorder')
+  $mediawiki_vhost_ssl_cipher = lookup('mediawiki::vhost::ssl_cipher')
+  $mediawiki_vhost_hsts_header = lookup('mediawiki::vhost::hsts_header')
 
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 

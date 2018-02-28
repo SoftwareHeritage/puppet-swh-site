@@ -1,16 +1,16 @@
 # Deployment of web-facing public Git-annex
 class profile::annex_web {
 
-  $annex_basepath =  hiera('annex::basepath')
+  $annex_basepath =  lookup('annex::basepath')
 
-  $annex_vhost_name = hiera('annex::vhost::name')
-  $annex_vhost_docroot = hiera('annex::vhost::docroot')
+  $annex_vhost_name = lookup('annex::vhost::name')
+  $annex_vhost_docroot = lookup('annex::vhost::docroot')
   $annex_vhost_basic_auth_file = "${annex_basepath}/http_auth"
-  $annex_vhost_basic_auth_content = hiera('annex::vhost::basic_auth_content')
-  $annex_vhost_ssl_protocol = hiera('annex::vhost::ssl_protocol')
-  $annex_vhost_ssl_honorcipherorder = hiera('annex::vhost::ssl_honorcipherorder')
-  $annex_vhost_ssl_cipher = hiera('annex::vhost::ssl_cipher')
-  $annex_vhost_hsts_header = hiera('annex::vhost::hsts_header')
+  $annex_vhost_basic_auth_content = lookup('annex::vhost::basic_auth_content')
+  $annex_vhost_ssl_protocol = lookup('annex::vhost::ssl_protocol')
+  $annex_vhost_ssl_honorcipherorder = lookup('annex::vhost::ssl_honorcipherorder')
+  $annex_vhost_ssl_cipher = lookup('annex::vhost::ssl_cipher')
+  $annex_vhost_hsts_header = lookup('annex::vhost::hsts_header')
 
   include ::profile::ssl
   include ::profile::apache::common

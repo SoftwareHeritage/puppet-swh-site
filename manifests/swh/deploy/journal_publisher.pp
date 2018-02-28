@@ -3,11 +3,11 @@
 class profile::swh::deploy::journal_publisher {
   include ::profile::swh::deploy::journal
 
-  $conf_file = hiera('swh::deploy::journal_publisher::conf_file')
-  $user = hiera('swh::deploy::journal_publisher::user')
-  $group = hiera('swh::deploy::journal_publisher::group')
+  $conf_file = lookup('swh::deploy::journal_publisher::conf_file')
+  $user = lookup('swh::deploy::journal_publisher::user')
+  $group = lookup('swh::deploy::journal_publisher::group')
 
-  $publisher_config = hiera('swh::deploy::journal_publisher::config')
+  $publisher_config = lookup('swh::deploy::journal_publisher::config')
 
   include ::systemd
 

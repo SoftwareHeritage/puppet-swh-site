@@ -1,9 +1,9 @@
 # Base class for Software Heritage-specific apt configuration
 
 class profile::swh::apt_config {
-  $debian_mirror = hiera('swh::apt_config::debian_mirror')
-  $debian_security_mirror = hiera('swh::apt_config::debian_security_mirror')
-  $debian_enable_non_free = hiera('swh::apt_config::enable_non_free')
+  $debian_mirror = lookup('swh::apt_config::debian_mirror')
+  $debian_security_mirror = lookup('swh::apt_config::debian_security_mirror')
+  $debian_enable_non_free = lookup('swh::apt_config::enable_non_free')
 
   class {'::apt':
     purge => {
@@ -18,7 +18,7 @@ class profile::swh::apt_config {
     ensure => 'present',
   }
 
-  if hiera('swh::apt_config::unattended_upgrades') {
+  if lookup('swh::apt_config::unattended_upgrades') {
     include profile::swh::apt_config::unattended_upgrades
   }
 
@@ -53,7 +53,7 @@ class profile::swh::apt_config {
     }
   }
 
-  $swh_repository = hiera('swh::apt_config::swh_repository')
+  $swh_repository = lookup('swh::apt_config::swh_repository')
   $swh_release = $::lsbdistcodename ? {
     'buster'  => 'sid',
     'stretch' => 'stretch-swh',

@@ -3,11 +3,11 @@
 class profile::swh::deploy::archiver_content_updater {
   include profile::swh::deploy::archiver
 
-  $conf_file = hiera('swh::deploy::archiver_content_updater::conf_file')
-  $user = hiera('swh::deploy::archiver_content_updater::user')
-  $group = hiera('swh::deploy::archiver_content_updater::group')
+  $conf_file = lookup('swh::deploy::archiver_content_updater::conf_file')
+  $user = lookup('swh::deploy::archiver_content_updater::user')
+  $group = lookup('swh::deploy::archiver_content_updater::group')
 
-  $content_updater_config = hiera('swh::deploy::archiver_content_updater::config')
+  $content_updater_config = lookup('swh::deploy::archiver_content_updater::config')
 
   include ::systemd
 

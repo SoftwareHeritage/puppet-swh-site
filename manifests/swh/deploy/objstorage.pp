@@ -1,8 +1,8 @@
 # Deployment of the swh.objstorage.api server
 
 class profile::swh::deploy::objstorage {
-  $conf_directory = hiera('swh::deploy::objstorage::conf_directory')
-  $group = hiera('swh::deploy::objstorage::group')
+  $conf_directory = lookup('swh::deploy::objstorage::conf_directory')
+  $group = lookup('swh::deploy::objstorage::group')
   $swh_packages = ['python3-swh.objstorage']
 
   package {$swh_packages:

@@ -1,9 +1,9 @@
 # Munin node class
 class profile::munin::node {
-  $munin_node_allow = hiera('munin::node::allow')
-  $munin_node_network = hiera('munin::node::network')
-  $munin_node_plugins_disable = hiera_array('munin::node::plugins::disable')
-  $munin_node_plugins_enable = hiera_array('munin::node::plugins::enable')
+  $munin_node_allow = lookup('munin::node::allow')
+  $munin_node_network = lookup('munin::node::network')
+  $munin_node_plugins_disable = lookup('munin::node::plugins::disable', Array, 'unique')
+  $munin_node_plugins_enable = lookup('munin::node::plugins::enable', Array, 'unique')
 
   class { '::munin::node':
     allow        => $munin_node_allow,

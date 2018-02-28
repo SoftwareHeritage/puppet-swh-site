@@ -1,14 +1,14 @@
 # An icinga master host
 class profile::icinga2::master {
-  $zonename = hiera('icinga2::master::zonename')
-  $features = hiera('icinga2::features')
-  $icinga2_network = hiera('icinga2::network')
+  $zonename = lookup('icinga2::master::zonename')
+  $features = lookup('icinga2::features')
+  $icinga2_network = lookup('icinga2::network')
 
-  $hiera_host_vars = hiera_hash('icinga2::host::vars')
+  $hiera_host_vars = lookup('icinga2::host::vars', Hash, 'deep')
 
-  $icinga2_db_username = hiera('icinga2::master::db::username')
-  $icinga2_db_password = hiera('icinga2::master::db::password')
-  $icinga2_db_database = hiera('icinga2::master::db::database')
+  $icinga2_db_username = lookup('icinga2::master::db::username')
+  $icinga2_db_password = lookup('icinga2::master::db::password')
+  $icinga2_db_database = lookup('icinga2::master::db::database')
 
   include profile::icinga2::objects
   include profile::icinga2::objects::agent_checks

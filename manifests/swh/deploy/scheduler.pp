@@ -1,14 +1,14 @@
 # Deployment of swh-scheduler related utilities
 class profile::swh::deploy::scheduler {
-  $conf_file = hiera('swh::deploy::scheduler::conf_file')
-  $user = hiera('swh::deploy::scheduler::user')
-  $group = hiera('swh::deploy::scheduler::group')
-  $database = hiera('swh::deploy::scheduler::database')
+  $conf_file = lookup('swh::deploy::scheduler::conf_file')
+  $user = lookup('swh::deploy::scheduler::user')
+  $group = lookup('swh::deploy::scheduler::group')
+  $database = lookup('swh::deploy::scheduler::database')
 
-  $task_broker = hiera('swh::deploy::scheduler::task_broker')
-  $task_packages = hiera('swh::deploy::scheduler::task_packages')
-  $task_modules = hiera('swh::deploy::scheduler::task_modules')
-  $task_backported_packages = hiera('swh::deploy::scheduler::backported_packages')
+  $task_broker = lookup('swh::deploy::scheduler::task_broker')
+  $task_packages = lookup('swh::deploy::scheduler::task_packages')
+  $task_modules = lookup('swh::deploy::scheduler::task_modules')
+  $task_backported_packages = lookup('swh::deploy::scheduler::backported_packages')
 
   include ::systemd
 

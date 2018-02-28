@@ -7,18 +7,18 @@ class profile::debian_repository {
     ensure => installed,
   }
 
-  $repository_basepath =  hiera('debian_repository::basepath')
+  $repository_basepath =  lookup('debian_repository::basepath')
 
-  $repository_vhost_name = hiera('debian_repository::vhost::name')
-  $repository_vhost_aliases = hiera('debian_repository::vhost::aliases')
-  $repository_vhost_docroot = hiera('debian_repository::vhost::docroot')
-  $repository_vhost_docroot_owner = hiera('debian_repository::vhost::docroot_owner')
-  $repository_vhost_docroot_group = hiera('debian_repository::vhost::docroot_group')
-  $repository_vhost_docroot_mode = hiera('debian_repository::vhost::docroot_mode')
-  $repository_vhost_ssl_protocol = hiera('debian_repository::vhost::ssl_protocol')
-  $repository_vhost_ssl_honorcipherorder = hiera('debian_repository::vhost::ssl_honorcipherorder')
-  $repository_vhost_ssl_cipher = hiera('debian_repository::vhost::ssl_cipher')
-  $repository_vhost_hsts_header = hiera('debian_repository::vhost::hsts_header')
+  $repository_vhost_name = lookup('debian_repository::vhost::name')
+  $repository_vhost_aliases = lookup('debian_repository::vhost::aliases')
+  $repository_vhost_docroot = lookup('debian_repository::vhost::docroot')
+  $repository_vhost_docroot_owner = lookup('debian_repository::vhost::docroot_owner')
+  $repository_vhost_docroot_group = lookup('debian_repository::vhost::docroot_group')
+  $repository_vhost_docroot_mode = lookup('debian_repository::vhost::docroot_mode')
+  $repository_vhost_ssl_protocol = lookup('debian_repository::vhost::ssl_protocol')
+  $repository_vhost_ssl_honorcipherorder = lookup('debian_repository::vhost::ssl_honorcipherorder')
+  $repository_vhost_ssl_cipher = lookup('debian_repository::vhost::ssl_cipher')
+  $repository_vhost_hsts_header = lookup('debian_repository::vhost::hsts_header')
 
   include ::profile::ssl
   include ::profile::apache::common

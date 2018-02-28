@@ -1,6 +1,6 @@
 # profile for the workstation of a Software Heritage developer
 class profile::devel {
-  $packages = hiera_array('packages::devel')
+  $packages = lookup('packages::devel', Array, 'unique')
 
   package { $packages:
     ensure => present,

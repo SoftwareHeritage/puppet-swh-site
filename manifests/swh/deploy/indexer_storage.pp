@@ -3,24 +3,24 @@
 class profile::swh::deploy::indexer_storage {
   include ::profile::swh::deploy::base_storage
 
-  $conf_file = hiera('swh::deploy::indexer::storage::conf_file')
-  $user = hiera('swh::deploy::indexer::storage::user')
-  $group = hiera('swh::deploy::indexer::storage::group')
+  $conf_file = lookup('swh::deploy::indexer::storage::conf_file')
+  $user = lookup('swh::deploy::indexer::storage::user')
+  $group = lookup('swh::deploy::indexer::storage::group')
 
   $swh_packages = ['python3-swh.indexer.storage']
 
-  $backend_listen_host = hiera('swh::deploy::indexer::storage::backend::listen::host')
-  $backend_listen_port = hiera('swh::deploy::indexer::storage::backend::listen::port')
+  $backend_listen_host = lookup('swh::deploy::indexer::storage::backend::listen::host')
+  $backend_listen_port = lookup('swh::deploy::indexer::storage::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
 
-  $backend_workers = hiera('swh::deploy::indexer::storage::backend::workers')
-  $backend_http_keepalive = hiera('swh::deploy::indexer::storage::backend::http_keepalive')
-  $backend_http_timeout = hiera('swh::deploy::indexer::storage::backend::http_timeout')
-  $backend_reload_mercy = hiera('swh::deploy::indexer::storage::backend::reload_mercy')
-  $backend_max_requests = hiera('swh::deploy::indexer::storage::backend::max_requests')
-  $backend_max_requests_jitter = hiera('swh::deploy::indexer::storage::backend::max_requests_jitter')
+  $backend_workers = lookup('swh::deploy::indexer::storage::backend::workers')
+  $backend_http_keepalive = lookup('swh::deploy::indexer::storage::backend::http_keepalive')
+  $backend_http_timeout = lookup('swh::deploy::indexer::storage::backend::http_timeout')
+  $backend_reload_mercy = lookup('swh::deploy::indexer::storage::backend::reload_mercy')
+  $backend_max_requests = lookup('swh::deploy::indexer::storage::backend::max_requests')
+  $backend_max_requests_jitter = lookup('swh::deploy::indexer::storage::backend::max_requests_jitter')
 
-  $idx_storage_config = hiera('swh::deploy::indexer::storage::config')
+  $idx_storage_config = lookup('swh::deploy::indexer::storage::config')
 
   include ::gunicorn
 

@@ -1,5 +1,5 @@
 class profile::swh::deploy::base_storage {
-  $swh_conf_storage_directory = hiera('swh::deploy::storage::conf_directory')
+  $swh_conf_storage_directory = lookup('swh::deploy::storage::conf_directory')
 
   file {$swh_conf_storage_directory:
     ensure => directory,

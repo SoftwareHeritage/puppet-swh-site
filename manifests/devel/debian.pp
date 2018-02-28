@@ -1,5 +1,5 @@
 class profile::devel::debian {
-  $packages = hiera_array('packages::devel::debian')
+  $packages = lookup('packages::devel::debian', Array, 'unique')
 
   package { $packages:
     ensure => present,

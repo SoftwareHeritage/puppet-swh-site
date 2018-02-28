@@ -3,24 +3,24 @@
 class profile::swh::deploy::storage {
   include ::profile::swh::deploy::base_storage
 
-  $conf_file = hiera('swh::deploy::storage::conf_file')
-  $user = hiera('swh::deploy::storage::user')
-  $group = hiera('swh::deploy::storage::group')
+  $conf_file = lookup('swh::deploy::storage::conf_file')
+  $user = lookup('swh::deploy::storage::user')
+  $group = lookup('swh::deploy::storage::group')
 
   $swh_packages = ['python3-swh.storage']
 
-  $backend_listen_host = hiera('swh::deploy::storage::backend::listen::host')
-  $backend_listen_port = hiera('swh::deploy::storage::backend::listen::port')
+  $backend_listen_host = lookup('swh::deploy::storage::backend::listen::host')
+  $backend_listen_port = lookup('swh::deploy::storage::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
 
-  $backend_workers = hiera('swh::deploy::storage::backend::workers')
-  $backend_http_keepalive = hiera('swh::deploy::storage::backend::http_keepalive')
-  $backend_http_timeout = hiera('swh::deploy::storage::backend::http_timeout')
-  $backend_reload_mercy = hiera('swh::deploy::storage::backend::reload_mercy')
-  $backend_max_requests = hiera('swh::deploy::storage::backend::max_requests')
-  $backend_max_requests_jitter = hiera('swh::deploy::storage::backend::max_requests_jitter')
+  $backend_workers = lookup('swh::deploy::storage::backend::workers')
+  $backend_http_keepalive = lookup('swh::deploy::storage::backend::http_keepalive')
+  $backend_http_timeout = lookup('swh::deploy::storage::backend::http_timeout')
+  $backend_reload_mercy = lookup('swh::deploy::storage::backend::reload_mercy')
+  $backend_max_requests = lookup('swh::deploy::storage::backend::max_requests')
+  $backend_max_requests_jitter = lookup('swh::deploy::storage::backend::max_requests_jitter')
 
-  $storage_config = hiera('swh::deploy::storage::config')
+  $storage_config = lookup('swh::deploy::storage::config')
 
   include ::gunicorn
 

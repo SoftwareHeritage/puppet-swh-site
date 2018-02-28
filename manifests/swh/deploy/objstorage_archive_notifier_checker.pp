@@ -1,13 +1,13 @@
 # Deployment of the swh.objstorage.checker.ArchiveNotifierContentChecker
 
 class profile::swh::deploy::objstorage_archive_notifier_checker {
-  $conf_directory = hiera('swh::deploy::objstorage_archive_notifier_checker::conf_directory')
-  $conf_file = hiera('swh::deploy::objstorage_archive_notifier_checker::conf_file')
-  $user = hiera('swh::deploy::objstorage_archive_notifier_checker::user')
-  $group = hiera('swh::deploy::objstorage_archive_notifier_checker::group')
+  $conf_directory = lookup('swh::deploy::objstorage_archive_notifier_checker::conf_directory')
+  $conf_file = lookup('swh::deploy::objstorage_archive_notifier_checker::conf_file')
+  $user = lookup('swh::deploy::objstorage_archive_notifier_checker::user')
+  $group = lookup('swh::deploy::objstorage_archive_notifier_checker::group')
 
   # configuration file
-  $archive_notifier_config = hiera('swh::deploy::objstorage_archive_notifier_checker::config')
+  $archive_notifier_config = lookup('swh::deploy::objstorage_archive_notifier_checker::config')
 
   $swh_packages = ['python3-swh.objstorage.checker']
 

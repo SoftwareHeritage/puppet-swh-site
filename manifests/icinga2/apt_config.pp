@@ -1,8 +1,8 @@
 # Icinga2 APT configuration
 class profile::icinga2::apt_config {
-  $mirror = hiera('icinga2::apt_config::mirror')
-  $keyid =  hiera('icinga2::apt_config::keyid')
-  $key =    hiera('icinga2::apt_config::key')
+  $mirror = lookup('icinga2::apt_config::mirror')
+  $keyid =  lookup('icinga2::apt_config::keyid')
+  $key =    lookup('icinga2::apt_config::key')
 
   apt::source { 'icinga-stable-release':
     location => $mirror,

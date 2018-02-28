@@ -1,7 +1,7 @@
 # Icinga2 API users
 class profile::icinga2::objects::apiusers {
   $apiuser_file = '/etc/icinga2/conf.d/api-users.conf'
-  $apiusers = hiera_hash('icinga2::apiusers')
+  $apiusers = lookup('icinga2::apiusers', Hash, 'deep')
 
   each($apiusers) |$name, $data| {
     ::icinga2::object::apiuser {$name:

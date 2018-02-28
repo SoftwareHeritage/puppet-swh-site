@@ -3,7 +3,7 @@ class profile::ssl {
   $public_dir = '/etc/ssl/certs/softwareheritage'
   $private_dir = '/etc/ssl/private/softwareheritage'
 
-  $ssl_certificates = hiera_hash('ssl')
+  $ssl_certificates = lookup('ssl', Hash, 'deep')
 
   $cert_domains = keys($ssl_certificates)
 

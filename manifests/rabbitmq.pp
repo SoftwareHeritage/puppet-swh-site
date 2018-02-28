@@ -1,8 +1,8 @@
 class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
 
-  $rabbitmq_user = hiera('rabbitmq::monitoring::user')
-  $rabbitmq_password = hiera('rabbitmq::monitoring::password')
+  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
+  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
 
   package {'rabbitmq-server':
     ensure => installed

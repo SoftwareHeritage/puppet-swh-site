@@ -3,12 +3,12 @@
 class profile::swh::deploy::worker::swh_vault_cooker {
   include ::profile::swh::deploy::base_vault
 
-  $concurrency = hiera('swh::deploy::worker::swh_vault_cooker::concurrency')
-  $loglevel = hiera('swh::deploy::worker::swh_vault_cooker::loglevel')
-  $task_broker = hiera('swh::deploy::worker::swh_vault_cooker::task_broker')
+  $concurrency = lookup('swh::deploy::worker::swh_vault_cooker::concurrency')
+  $loglevel = lookup('swh::deploy::worker::swh_vault_cooker::loglevel')
+  $task_broker = lookup('swh::deploy::worker::swh_vault_cooker::task_broker')
 
-  $conf_file = hiera('swh::deploy::worker::swh_vault_cooker::conf_file')
-  $config = hiera('swh::deploy::worker::swh_vault_cooker::config')
+  $conf_file = lookup('swh::deploy::worker::swh_vault_cooker::conf_file')
+  $config = lookup('swh::deploy::worker::swh_vault_cooker::config')
 
   $task_modules = ['swh.vault.cooking_tasks']
   $task_queues = ['swh_vault_cooking']

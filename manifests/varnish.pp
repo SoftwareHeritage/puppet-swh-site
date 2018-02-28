@@ -5,17 +5,17 @@ class profile::varnish {
   $includes_vcl_name = 'includes.vcl'
   $includes_vcl = "/etc/varnish/${includes_vcl_name}"
 
-  $http_port = hiera('varnish::http_port')
-  $backend_http_port = hiera('varnish::backend_http_port')
+  $http_port = lookup('varnish::http_port')
+  $backend_http_port = lookup('varnish::backend_http_port')
 
-  $listen = hiera('varnish::listen')
-  $admin_listen = hiera('varnish::admin_listen')
-  $admin_port = hiera('varnish::admin_port')
-  $http2_support = hiera('varnish::http2_support')
-  $secret = hiera('varnish::secret')
-  $storage_type = hiera('varnish::storage_type')
-  $storage_size = hiera('varnish::storage_size')
-  $storage_file = hiera('varnish::storage_file')
+  $listen = lookup('varnish::listen')
+  $admin_listen = lookup('varnish::admin_listen')
+  $admin_port = lookup('varnish::admin_port')
+  $http2_support = lookup('varnish::http2_support')
+  $secret = lookup('varnish::secret')
+  $storage_type = lookup('varnish::storage_type')
+  $storage_size = lookup('varnish::storage_size')
+  $storage_file = lookup('varnish::storage_file')
 
   if $http2_support {
     $runtime_params = {

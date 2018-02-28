@@ -1,6 +1,6 @@
 # Parameters for the unbound DNS resolver
 class profile::unbound {
-  $has_local_cache = hiera('dns::local_cache')
+  $has_local_cache = lookup('dns::local_cache')
 
   $package = 'unbound'
   $service = 'unbound'
@@ -12,9 +12,9 @@ class profile::unbound {
   if $has_local_cache {
     include ::profile::resolv_conf
 
-    $forwarders = hiera('dns::forwarders')
-    $forward_zones = hiera('dns::forward_zones')
-    $insecure = hiera('dns::forwarder_insecure')
+    $forwarders = lookup('dns::forwarders')
+    $forward_zones = lookup('dns::forward_zones')
+    $insecure = lookup('dns::forwarder_insecure')
 
     package {$package:
       ensure => installed,

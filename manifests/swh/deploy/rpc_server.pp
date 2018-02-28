@@ -8,26 +8,26 @@ define profile::swh::deploy::rpc_server (
 ) {
   include ::profile::nginx
 
-  $conf_file = hiera("swh::deploy::${instance_name}::conf_file")
-  $user = hiera("swh::deploy::${instance_name}::user")
-  $group = hiera("swh::deploy::${instance_name}::group")
+  $conf_file = lookup("swh::deploy::${instance_name}::conf_file")
+  $user = lookup("swh::deploy::${instance_name}::user")
+  $group = lookup("swh::deploy::${instance_name}::group")
 
   $service_name = "swh-${instance_name}"
   $gunicorn_service_name = "gunicorn-${service_name}"
   $gunicorn_unix_socket = "unix:/run/gunicorn/${service_name}/gunicorn.sock"
 
-  $backend_listen_host = hiera("swh::deploy::${instance_name}::backend::listen::host")
-  $backend_listen_port = hiera("swh::deploy::${instance_name}::backend::listen::port")
-  $nginx_server_names = hiera("swh::deploy::${instance_name}::backend::server_names")
+  $backend_listen_host = lookup("swh::deploy::${instance_name}::backend::listen::host")
+  $backend_listen_port = lookup("swh::deploy::${instance_name}::backend::listen::port")
+  $nginx_server_names = lookup("swh::deploy::${instance_name}::backend::server_names")
 
-  $backend_workers = hiera("swh::deploy::${instance_name}::backend::workers")
-  $backend_http_keepalive = hiera("swh::deploy::${instance_name}::backend::http_keepalive")
-  $backend_http_timeout = hiera("swh::deploy::${instance_name}::backend::http_timeout")
-  $backend_reload_mercy = hiera("swh::deploy::${instance_name}::backend::reload_mercy")
-  $backend_max_requests = hiera("swh::deploy::${instance_name}::backend::max_requests")
-  $backend_max_requests_jitter = hiera("swh::deploy::${instance_name}::backend::max_requests_jitter")
+  $backend_workers = lookup("swh::deploy::${instance_name}::backend::workers")
+  $backend_http_keepalive = lookup("swh::deploy::${instance_name}::backend::http_keepalive")
+  $backend_http_timeout = lookup("swh::deploy::${instance_name}::backend::http_timeout")
+  $backend_reload_mercy = lookup("swh::deploy::${instance_name}::backend::reload_mercy")
+  $backend_max_requests = lookup("swh::deploy::${instance_name}::backend::max_requests")
+  $backend_max_requests_jitter = lookup("swh::deploy::${instance_name}::backend::max_requests_jitter")
 
-  $instance_config = hiera("swh::deploy::${instance_name}::config")
+  $instance_config = lookup("swh::deploy::${instance_name}::config")
 
   include ::gunicorn
 

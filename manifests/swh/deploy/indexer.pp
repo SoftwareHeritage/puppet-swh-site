@@ -5,7 +5,7 @@ class profile::swh::deploy::indexer {
 
   $config_directory = '/etc/softwareheritage/indexer'
   $config_file = "${config_directory}/base.yml"
-  $config = hiera('swh::deploy::worker::swh_indexer::base::config')
+  $config = lookup('swh::deploy::worker::swh_indexer::base::config')
 
   $packages = ['python3-swh.indexer']
 

@@ -3,7 +3,7 @@
 class profile::swh::deploy::archiver {
   include ::profile::swh::deploy::objstorage_cloud
 
-  $config_dir = hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')
+  $config_dir = lookup('swh::deploy::worker::swh_storage_archiver::conf_directory')
 
   file {$config_dir:
     ensure => 'directory',

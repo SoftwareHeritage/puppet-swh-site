@@ -1,14 +1,14 @@
 # Deployment of the swh.storage.listener
 
 class profile::swh::deploy::storage_listener {
-  $conf_directory = hiera('swh::deploy::storage_listener::conf_directory')
-  $conf_file = hiera('swh::deploy::storage_listener::conf_file')
-  $user = hiera('swh::deploy::storage_listener::user')
-  $group = hiera('swh::deploy::storage_listener::group')
-  $database = hiera('swh::deploy::storage_listener::database')
-  $topic_prefix = hiera('swh::deploy::storage_listener::topic_prefix')
-  $kafka_brokers = hiera_array('swh::deploy::storage_listener::kafka_brokers')
-  $poll_timeout = hiera('swh::deploy::storage_listener::poll_timeout')
+  $conf_directory = lookup('swh::deploy::storage_listener::conf_directory')
+  $conf_file = lookup('swh::deploy::storage_listener::conf_file')
+  $user = lookup('swh::deploy::storage_listener::user')
+  $group = lookup('swh::deploy::storage_listener::group')
+  $database = lookup('swh::deploy::storage_listener::database')
+  $topic_prefix = lookup('swh::deploy::storage_listener::topic_prefix')
+  $kafka_brokers = lookup('swh::deploy::storage_listener::kafka_brokers', Array, 'unique')
+  $poll_timeout = lookup('swh::deploy::storage_listener::poll_timeout')
 
   include ::systemd
 

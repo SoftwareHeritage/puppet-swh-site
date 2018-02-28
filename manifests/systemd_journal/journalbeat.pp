@@ -9,7 +9,7 @@ class profile::systemd_journal::journalbeat {
   $service = 'journalbeat'
   $servicefile = "/etc/systemd/system/${service}.service"
 
-  $logstash_hosts = hiera('systemd_journal::logstash_hosts')
+  $logstash_hosts = lookup('systemd_journal::logstash_hosts')
 
   include ::systemd
 

@@ -1,6 +1,6 @@
 # Handle mount points
 class profile::mountpoints {
-  $mountpoints = hiera_hash('mountpoints')
+  $mountpoints = lookup('mountpoints', Hash, 'deep')
 
   each($mountpoints) |$mountpoint, $config| {
     if (has_key($config, 'options') and $config['options'] =~ Array) {

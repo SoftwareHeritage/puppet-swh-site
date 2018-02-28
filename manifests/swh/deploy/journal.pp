@@ -1,7 +1,7 @@
 # Base Journal configuration
 
 class profile::swh::deploy::journal {
-  $conf_directory = hiera('swh::deploy::journal::conf_directory')
+  $conf_directory = lookup('swh::deploy::journal::conf_directory')
 
   file {$conf_directory:
     ensure => 'directory',
