@@ -494,7 +494,7 @@ apache::mod::passenger::passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passen
 apache::ssl_protocol: all -SSLv2 -SSLv3
 apache::ssl_honorcipherorder: 'On'
 apache::ssl_cipher: EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!ECDSA:CAMELLIA256-SHA:AES256-SHA:CAMELLIA128-SHA:AES128-SHA
-apache::hsts_header: "add Strict-Transport-Security \"max-age=%{hiera('strict_transport_security::max_age')}\""
+apache::hsts_header: "set Strict-Transport-Security \"max-age=%{hiera('strict_transport_security::max_age')}\""
 
 # Those variables need to be set manually for all vhosts
 apache::http_port: 80
