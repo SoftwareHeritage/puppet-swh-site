@@ -2645,3 +2645,5 @@ ceph::keys:
 
 nginx::package_name: nginx-light
 nginx::accept_mutex: 'off'
+nginx::names_hash_bucket_size: 128
+nginx::names_hash_max_size: 1024
