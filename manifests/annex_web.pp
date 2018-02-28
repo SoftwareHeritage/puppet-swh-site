@@ -25,7 +25,7 @@ class profile::annex_web {
 
   $ssl_cert_name = 'star_softwareheritage_org'
   $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_ca   = $::profile::ssl::ca_paths[$ssl_cert_name]
+  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
   ::apache::vhost {"${annex_vhost_name}_ssl":
@@ -36,7 +36,7 @@ class profile::annex_web {
     ssl_honorcipherorder => $annex_vhost_ssl_honorcipherorder,
     ssl_cipher           => $annex_vhost_ssl_cipher,
     ssl_cert             => $ssl_cert,
-    ssl_ca               => $ssl_ca,
+    ssl_chain            => $ssl_chain,
     ssl_key              => $ssl_key,
     headers              => [$annex_vhost_hsts_header],
     docroot              => $annex_vhost_docroot,
@@ -52,7 +52,7 @@ class profile::annex_web {
                              }],
     require              => [
         File[$ssl_cert],
-        File[$ssl_ca],
+        File[$ssl_chain],
         File[$ssl_key],
     ],
   }
