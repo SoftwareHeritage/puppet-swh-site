@@ -2642,14 +2642,14 @@ ceph::keys:
     secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
-  objstorage-rw:
-    secret: "%{hiera('ceph::secrets::objstorage_rw')}"
+  swh-contents-rw:
+    secret: "%{hiera('ceph::secrets::swh_contents_rw')}"
     cap_mon: allow r
-    cap_osd: allow rw pool=objstorage-prod
-  objstorage-test-rw:
-    secret: "%{hiera('ceph::secrets::objstorage_test_rw')}"
+    cap_osd: allow rw pool=swh_contents
+  swh-contents-test-rw:
+    secret: "%{hiera('ceph::secrets::swh_contents_test_rw')}"
     cap_mon: allow r
-    cap_osd: allow rw pool=objstorage-test
+    cap_osd: allow rw pool=swh_contents_test
 
 nginx::package_name: nginx-light
 nginx::accept_mutex: 'off'
