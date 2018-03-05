@@ -28,11 +28,6 @@ mod 'postfix',
     :branch => :control_branch,
     :default_branch => 'master'
 
-mod 'systemd',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-systemd.git',
-    :branch => :control_branch,
-    :default_branch => 'master'
-
 mod 'uwsgi',
     :git => 'https://forge.softwareheritage.org/source/puppet-swh-uwsgi.git',
     :branch => :control_branch,
@@ -149,6 +144,10 @@ mod 'stdlib',
 mod 'sudo',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-sudo.git',
     :ref => 'v5.0.0'
+
+mod 'systemd',
+    :git => 'https://forge.softwareheritage.org/source/puppet-camptocamp-systemd.git',
+    :ref => '1.1.1'
 
 mod 'timezone',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-timezone.git',
