@@ -36,8 +36,6 @@ class profile::phabricator {
   $phabricator_vhost_ssl_cipher = lookup('phabricator::vhost::ssl_cipher')
   $phabricator_vhost_hsts_header = lookup('phabricator::vhost::hsts_header')
 
-  include ::systemd
-
   $homedirs = {
     $phabricator_user     => $phabricator_basepath,
     $phabricator_vcs_user => "${phabricator_basepath}/vcshome",
@@ -100,22 +98,15 @@ class profile::phabricator {
     require => File[$phabricator_ssh_hook],
   }
 
-  file {'/etc/systemd/system/phabricator-sshd.service':
+  ::systemd::unit_file {'phabricator-sshd.service':
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/phabricator/phabricator-sshd.service.erb'),
-    notify  => Exec['systemd-daemon-reload'],
     require => File[$phabricator_ssh_config],
-  }
-
-  service {'phabricator-sshd':
+  } ~> service {'phabricator-sshd':
     ensure  => 'running',
     enable  => true,
     require => [
       File['/etc/systemd/system/phabricator-sshd.service'],
-      Exec['systemd-daemon-reload'],
     ],
   }
 
@@ -237,45 +228,25 @@ class profile::phabricator {
   # Uses:
     # $phabricator_basepath
     # $phabricator_user
-  file {'/etc/systemd/system/phabricator-phd.service':
+  ::systemd::unit_file {'phabricator-phd.service':
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/phabricator/phabricator-phd.service.erb'),
-    notify  => Exec['systemd-daemon-reload'],
-  }
-
-  service {'phabricator-phd':
-    ensure  => 'running',
-    enable  => true,
-    require => [
-      File['/etc/systemd/system/phabricator-phd.service'],
-      Exec['systemd-daemon-reload'],
-    ],
+  } ~> service {'phabricator-phd':
+    ensure => 'running',
+    enable => true,
   }
 
   # Uses:
     # $phabricator_basepath
     # $phabricator_user
     # $phabricator_notification_*
-    file {'/etc/systemd/system/phabricator-aphlict.service':
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('profile/phabricator/phabricator-aphlict.service.erb'),
-      notify  => Exec['systemd-daemon-reload'],
-    }
-
-    service {'phabricator-aphlict':
-      ensure  => 'running',
-      enable  => true,
-      require => [
-        File['/etc/systemd/system/phabricator-aphlict.service'],
-        Exec['systemd-daemon-reload'],
-      ],
-    }
+  ::systemd::unit_file {'phabricator-aphlict.service':
+    ensure  => present,
+    content => template('profile/phabricator/phabricator-aphlict.service.erb'),
+  } ~> service {'phabricator-aphlict':
+      ensure => 'running',
+      enable => true,
+  }
 
   package {'python-pygments':
     ensure => installed,
