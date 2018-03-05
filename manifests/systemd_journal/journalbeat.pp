@@ -7,11 +7,8 @@ class profile::systemd_journal::journalbeat {
   $configdir = '/etc/journalbeat'
   $configfile = "${configdir}/journalbeat.yml"
   $service = 'journalbeat'
-  $servicefile = "/etc/systemd/system/${service}.service"
 
   $logstash_hosts = lookup('systemd_journal::logstash_hosts')
-
-  include ::systemd
 
   package {$package:
     ensure => present
@@ -31,16 +28,16 @@ class profile::systemd_journal::journalbeat {
   #  - $homedir
   #  - $configfile
   #
-  file {$servicefile:
+  ::systemd::unit_file {"${service}.service":
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/systemd_journal/journalbeat/journalbeat.service.erb'),
-    require => Package[$package],
-    notify  => [
-      Exec['systemd-daemon-reload'],
-      Service[$service],
+  }
+  ~> service {$service:
+    ensure  => running,
+    enable  => true,
+    require => [
+      Package[$package],
+      File[$configfile],
     ],
   }
 
@@ -61,18 +58,8 @@ class profile::systemd_journal::journalbeat {
     mode    => '0644',
     content => template('profile/systemd_journal/journalbeat/journalbeat.yml.erb'),
     notify  => [
-      Exec['systemd-daemon-reload'],
       Service[$service],
     ],
   }
 
-  service {$service:
-    ensure  => running,
-    enable  => true,
-    require => [
-      File[$servicefile],
-      File[$configfile],
-      Exec['systemd-daemon-reload'],
-    ],
-  }
 }

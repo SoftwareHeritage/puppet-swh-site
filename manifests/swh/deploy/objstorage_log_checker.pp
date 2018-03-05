@@ -31,15 +31,9 @@ class profile::swh::deploy::objstorage_log_checker {
     content => inline_template("<%= @log_checker_config.to_yaml %>\n"),
   }
 
-  include ::systemd
-
-  file {'/etc/systemd/system/objstorage_log_checker.service':
+  ::systemd::unit_file {'objstorage_log_checker.service':
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/swh/deploy/storage/objstorage_log_checker.service.erb'),
-    notify  => Exec['systemd-daemon-reload'],
     require => [
       File[$conf_file],
       Package[$swh_packages],

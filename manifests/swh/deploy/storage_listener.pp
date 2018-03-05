@@ -10,10 +10,8 @@ class profile::swh::deploy::storage_listener {
   $kafka_brokers = lookup('swh::deploy::storage_listener::kafka_brokers', Array, 'unique')
   $poll_timeout = lookup('swh::deploy::storage_listener::poll_timeout')
 
-  include ::systemd
-
   $service_name = 'swh-storage-listener'
-  $service_file = "/etc/systemd/system/${service_name}.service"
+  $unit_name = "${service_name}.service"
 
   package {'python3-swh.storage.listener':
     ensure => latest,
@@ -47,22 +45,13 @@ class profile::swh::deploy::storage_listener {
   #  - $user
   #  - $group
   #
-  file {$service_file:
+  ::systemd::unit_file {$unit_name:
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/swh/deploy/storage_listener/swh-storage-listener.service.erb'),
     require => Package['python3-swh.storage.listener'],
-    notify  => [
-      Exec['systemd-daemon-reload'],
-      Service[$service_name],
-    ],
-  }
-
-  service {$service_name:
+  } ~> service {$service_name:
     ensure  => running,
     enable  => true,
-    require => File[$service_file],
+    require => File[$conf_file],
   }
 }

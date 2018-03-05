@@ -9,25 +9,14 @@ class profile::swh::deploy::journal_publisher {
 
   $publisher_config = lookup('swh::deploy::journal_publisher::config')
 
-  include ::systemd
-
   $service_name = 'swh-journal-publisher'
-  $service_file = "/etc/systemd/system/${service_name}.service"
-
-
-  file {$conf_directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0750',
-  }
+  $unit_name = "${service_name}.service"
 
   file {$conf_file:
     ensure  => present,
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    require => File[$conf_directory],
     content => inline_template("<%= @publisher_config.to_yaml %>\n"),
     notify  => Service[$service_name],
   }
@@ -36,22 +25,11 @@ class profile::swh::deploy::journal_publisher {
   #  - $user
   #  - $group
   #
-  file {$service_file:
+  ::systemd::unit_file {$unit_name:
     ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('profile/swh/deploy/journal/swh-journal-publisher.service.erb'),
-    require => Package[$package_name],
-    notify  => [
-      Exec['systemd-daemon-reload'],
-      Service[$service_name],
-    ],
-  }
-
-  service {$service_name:
-    ensure  => running,
-    enable  => false,
-    require => File[$service_file],
+  } ~> service {$service_name:
+    ensure => running,
+    enable => false,
   }
 }

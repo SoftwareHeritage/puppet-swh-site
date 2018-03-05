@@ -1,13 +1,11 @@
 # Base worker profile
 class profile::swh::deploy::worker::base {
-  include ::systemd
+
+  include ::systemd::systemctl::daemon_reload
 
   $systemd_template_unit_name = 'swh-worker@.service'
-  $systemd_template_unit_file = "/etc/systemd/system/${systemd_template_unit_name}"
   $systemd_unit_name = 'swh-worker.service'
-  $systemd_unit_file = "/etc/systemd/system/${systemd_unit_name}"
   $systemd_slice_name = 'system-swh\x2dworker.slice'
-  $systemd_slice_file = "/etc/systemd/system/${systemd_slice_name}"
   $systemd_generator = '/lib/systemd/system-generators/swh-worker-generator'
   $config_directory = '/etc/softwareheritage/worker'
 
@@ -15,31 +13,22 @@ class profile::swh::deploy::worker::base {
     ensure => installed,
   }
 
-  file {$systemd_template_unit_file:
+  ::systemd::unit_file {$systemd_template_unit_name:
     ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
     source => "puppet:///modules/profile/swh/deploy/worker/${systemd_template_unit_name}",
-    notify => Exec['systemd-daemon-reload'],
   }
 
-  file {$systemd_unit_file:
+  ::systemd::unit_file {$systemd_unit_name:
     ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
     source => "puppet:///modules/profile/swh/deploy/worker/${systemd_unit_name}",
-    notify => Exec['systemd-daemon-reload'],
+  } ~> service {'swh-worker':
+      ensure => running,
+      enable => true,
   }
 
-  file {$systemd_slice_file:
+  ::systemd::unit_file {$systemd_slice_name:
     ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
     source => "puppet:///modules/profile/swh/deploy/worker/${systemd_slice_name}",
-    notify => Exec['systemd-daemon-reload'],
   }
 
   file {$systemd_generator:
@@ -48,7 +37,7 @@ class profile::swh::deploy::worker::base {
     group  => 'root',
     mode   => '0755',
     source => 'puppet:///modules/profile/swh/deploy/worker/swh-worker-generator',
-    notify => Exec['systemd-daemon-reload'],
+    notify => Class['systemd::systemctl::daemon_reload'],
   }
 
   file {$config_directory:
@@ -60,14 +49,4 @@ class profile::swh::deploy::worker::base {
     recurse => true,
   }
 
-  service {'swh-worker':
-    ensure  => running,
-    enable  => true,
-    require => [
-      Exec['systemd-daemon-reload'],
-      File[$systemd_template_unit_file],
-      File[$systemd_unit_file],
-      File[$systemd_generator],
-    ],
-  }
 }
