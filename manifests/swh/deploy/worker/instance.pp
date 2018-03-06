@@ -45,11 +45,13 @@ define profile::swh::deploy::worker::instance (
         mode    => '0640',
         content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
       }
-      service {$service_basename:
-        ensure  => $ensure,
-        require => [
-          File[$instance_config],
-        ],
+      if $ensure == 'running' {
+        service {$service_basename:
+          ensure  => $ensure,
+          require => [
+            File[$instance_config],
+          ],
+        }
       }
     }
     default: {
