@@ -144,13 +144,9 @@ class profile::phabricator {
     require    => Mysql_user[$mysql_username],
   }
 
-  include ::php::cli
+  include ::profile::php
 
-  include ::php::fpm::daemon
-
-  ::php::ini {'/etc/php/7.1/cli/php.ini':}
-
-  ::php::fpm::conf {'phabricator':
+  ::php::fpm::pool {'phabricator':
     listen          => $phabricator_fpm_listen,
     user            => 'www-data',
     php_admin_value => {
@@ -160,13 +156,20 @@ class profile::phabricator {
     },
   }
 
-  ::php::module {[
+  ::php::extension {[
     'apcu',
+    'mailparse',
+  ]:
+    provider       => 'apt',
+    package_prefix => 'php-',
+  }
+
+  ::php::extension {[
     'curl',
     'gd',
-    'mailparse',
     'mysql',
   ]:
+    provider => 'apt',
   }
 
   include ::profile::ssl

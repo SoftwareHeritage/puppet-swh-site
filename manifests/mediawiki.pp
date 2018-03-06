@@ -4,9 +4,9 @@ class profile::mediawiki {
 
   $mediawiki_vhosts = lookup('mediawiki::vhosts', Hash, 'deep')
 
-  include ::php::fpm::daemon
+  include ::profile::php
 
-  ::php::fpm::conf {'mediawiki':
+  ::php::fpm::pool {'mediawiki':
     listen => $mediawiki_fpm_root,
     user   => 'www-data',
   }
