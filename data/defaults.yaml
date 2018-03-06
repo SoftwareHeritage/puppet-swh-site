@@ -1804,6 +1804,7 @@ swh::deploy::worker::swh_storage_archiver::db::dbname: softwareheritage-archiver
 swh::deploy::worker::swh_storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
 swh::deploy::worker::swh_storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
 swh::deploy::worker::swh_storage_archiver::concurrency: 10
+swh::deploy::worker::swh_storage_archiver::max_tasks_per_child: 500
 swh::deploy::worker::swh_storage_archiver::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_storage_archiver::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
