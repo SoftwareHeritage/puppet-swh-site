@@ -82,7 +82,7 @@ define profile::swh::deploy::rpc_server (
     client_max_body_size => '4G',
     proxy                => "http://swh-${instance_name}-gunicorn",
     proxy_buffering      => $nginx_proxy_buffering,
-    proxy_read_timeout   => $backend_http_timeout,
+    proxy_read_timeout   => "${backend_http_timeout}s",
   }
 
   ::gunicorn::instance {$service_name:
