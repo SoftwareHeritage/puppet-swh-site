@@ -1338,7 +1338,7 @@ swh::deploy::storage::backend::listen::port: "%{alias('swh::remote_service::stor
 swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::reload_mercy: 3600
 swh::deploy::storage::backend::http_keepalive: 5
-swh::deploy::storage::backend::http_timeout: 100000
+swh::deploy::storage::backend::http_timeout: 3600
 swh::deploy::storage::backend::max_requests: 10000
 swh::deploy::storage::backend::max_requests_jitter: 1000
 swh::deploy::storage::backend::server_names:
@@ -1366,7 +1366,7 @@ swh::deploy::indexer::storage::backend::listen::port: "%{alias('swh::remote_serv
 swh::deploy::indexer::storage::backend::workers: 4
 swh::deploy::indexer::storage::backend::reload_mercy: 3600
 swh::deploy::indexer::storage::backend::http_keepalive: 5
-swh::deploy::indexer::storage::backend::http_timeout: 100000
+swh::deploy::indexer::storage::backend::http_timeout: 3600
 swh::deploy::indexer::storage::backend::max_requests: 10000
 swh::deploy::indexer::storage::backend::max_requests_jitter: 1000
 swh::deploy::indexer::storage::backend::server_names:
@@ -1403,7 +1403,7 @@ swh::deploy::vault::backend::listen::port: "%{alias('swh::remote_service::vault:
 swh::deploy::vault::backend::workers: 4
 swh::deploy::vault::backend::reload_mercy: 3600
 swh::deploy::vault::backend::http_keepalive: 5
-swh::deploy::vault::backend::http_timeout: 100000
+swh::deploy::vault::backend::http_timeout: 3600
 swh::deploy::vault::backend::max_requests: 10000
 swh::deploy::vault::backend::max_requests_jitter: 1000
 swh::deploy::vault::backend::server_names:
@@ -1495,7 +1495,7 @@ swh::deploy::objstorage::backend::workers: 4
 swh::deploy::objstorage::backend::reload_mercy: 3600
 swh::deploy::objstorage::backend::http_workers: 1
 swh::deploy::objstorage::backend::http_keepalive: 5
-swh::deploy::objstorage::backend::http_timeout: 100000
+swh::deploy::objstorage::backend::http_timeout: 3600
 swh::deploy::objstorage::backend::max_requests: 0
 swh::deploy::objstorage::backend::max_requests_jitter: 0
 swh::deploy::objstorage::backend::server_names:
@@ -1563,7 +1563,7 @@ swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::depo
 swh::deploy::deposit::backend::workers: 4
 swh::deploy::deposit::backend::reload_mercy: 3600
 swh::deploy::deposit::backend::http_keepalive: 5
-swh::deploy::deposit::backend::http_timeout: 100000
+swh::deploy::deposit::backend::http_timeout: 3600
 
 swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
 swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
@@ -1627,7 +1627,7 @@ swh::deploy::webapp::backend::listen::host: 127.0.0.1
 swh::deploy::webapp::backend::listen::port: "%{alias('swh::remote_service::webapp::port')}"
 swh::deploy::webapp::backend::workers: 32
 swh::deploy::webapp::backend::http_keepalive: 5
-swh::deploy::webapp::backend::http_timeout: 100000
+swh::deploy::webapp::backend::http_timeout: 3600
 swh::deploy::webapp::backend::reload_mercy: 3600
 
 swh::deploy::webapp::vhost::name: archive.softwareheritage.org
