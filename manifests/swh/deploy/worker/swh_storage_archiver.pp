@@ -3,6 +3,7 @@ class profile::swh::deploy::worker::swh_storage_archiver {
   include ::profile::swh::deploy::archiver
 
   $concurrency = lookup('swh::deploy::worker::swh_storage_archiver::concurrency')
+  $max_tasks_per_child = lookup('swh::deploy::worker::swh_storage_archiver::max_tasks_per_child')
   $loglevel = lookup('swh::deploy::worker::swh_storage_archiver::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_storage_archiver::task_broker')
 
@@ -13,13 +14,14 @@ class profile::swh::deploy::worker::swh_storage_archiver {
   $task_queues = ['swh_storage_archive_worker']
 
   ::profile::swh::deploy::worker::instance {'swh_storage_archiver':
-    ensure       => present,
-    concurrency  => $concurrency,
-    loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
-    require      => [
+    ensure              => present,
+    concurrency         => $concurrency,
+    loglevel            => $loglevel,
+    task_broker         => $task_broker,
+    task_modules        => $task_modules,
+    task_queues         => $task_queues,
+    max_tasks_per_child => $max_tasks_per_child,
+    require             => [
       File[$config_file],
     ],
   }
