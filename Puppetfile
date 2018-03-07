@@ -110,8 +110,8 @@ mod 'ntp',
     :ref => '6.4.1'
 
 mod 'php',
-    :git => 'https://forge.softwareheritage.org/source/puppet-thias-php',
-    :ref => 'bugfix-php7.1'
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-php',
+    :ref => 'v5.3.0'
 
 mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
