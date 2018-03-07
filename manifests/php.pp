@@ -29,4 +29,12 @@ class profile::php {
   class {'::php::fpm':
     pools => {},
   }
+
+  package {"php${php_version}-mysql":
+    ensure => installed,
+  }
+  -> ::php::extension {['mysqlnd', 'mysqli', 'pdo_mysql']:
+    provider => 'none',
+  }
+
 }

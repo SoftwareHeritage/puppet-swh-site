@@ -167,7 +167,6 @@ class profile::phabricator {
   ::php::extension {[
     'curl',
     'gd',
-    'mysql',
   ]:
     provider => 'apt',
   }
