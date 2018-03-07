@@ -45,7 +45,7 @@ class profile::swh::apt_config {
     repos    => $repos,
   }
 
-  if $::lsbdistcodename == 'jessie' {
+  if $::lsbdistcodename == 'stretch' {
     class {'::apt::backports':
       pin      => 100,
       location => $debian_mirror,
@@ -56,8 +56,7 @@ class profile::swh::apt_config {
   $swh_repository = lookup('swh::apt_config::swh_repository')
   $swh_release = $::lsbdistcodename ? {
     'buster'  => 'sid',
-    'stretch' => 'stretch-swh',
-    default   => $::lsbdistcodename,
+    default   => "${::lsbdistcodename}-swh",
   }
 
   ::apt::source {'softwareheritage':
