@@ -13,6 +13,7 @@ Group=<%= @group %>
 Type=simple
 ExecStart=/bin/sh -c 'while true; do echo running pending tasks at `/bin/date`...; /usr/bin/python3 -m swh.scheduler.celery_backend.runner; sleep 10; done'
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target

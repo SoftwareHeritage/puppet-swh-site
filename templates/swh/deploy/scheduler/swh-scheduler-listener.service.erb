@@ -13,6 +13,7 @@ Group=<%= @group %>
 Type=simple
 ExecStart=/usr/bin/python3 -m swh.scheduler.celery_backend.listener
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
