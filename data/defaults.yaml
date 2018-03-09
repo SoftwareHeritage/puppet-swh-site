@@ -2742,3 +2742,15 @@ prometheus::node::defaults_config:
       ignored_devices: "^lo$"
     textfile:
       directory: /var/lib/prometheus/node-exporter
+
+grafana::db::database: grafana
+grafana::db::username: grafana
+# grafana::db::password in private-data
+grafana::server::port: 3000
+
+grafana::config:
+  app_mode: production
+  server:
+    http_port: "%{alias('grafana::server::port')}"
+  users:
+    allow_sign_up: false
