@@ -23,12 +23,13 @@ class profile::prometheus::node {
   $listen_address = lookup('prometheus::node::listen_address', Optional[String], 'first', undef)
   $actual_listen_address = pick($listen_address, ip_for_network($listen_network))
   $listen_port = lookup('prometheus::node::listen_port')
+  $target = "${actual_listen_address}:${listen_port}"
 
   $defaults_config = deep_merge(
     $lookup_defaults_config,
     {
       web => {
-        listen_address => "${actual_listen_address}:${listen_port}",
+        listen_address => $target,
       },
     }
   )
@@ -42,5 +43,9 @@ class profile::prometheus::node {
     content => template('profile/prometheus/node/prometheus-node-exporter.defaults.erb'),
     require => Package['prometheus-node-exporter'],
     notify  => Service['prometheus-node-exporter'],
+  }
+
+  profile::prometheus::export_scrape_config {'node':
+    target => $target,
   }
 }
