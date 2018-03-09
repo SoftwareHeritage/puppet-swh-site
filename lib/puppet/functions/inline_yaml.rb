@@ -3,7 +3,7 @@ require 'yaml'
 Puppet::Functions.create_function(:inline_yaml) do
   dispatch :from_variable do
     param 'Hash', :variable
-    optional_param 'Hash', :parameters
+    optional_param 'Variant[Hash, Array]', :parameters
     return_type 'String'
   end
 
