@@ -105,5 +105,5 @@ class profile::prometheus::server {
     notify  => Service['prometheus'],
   }
 
-  Profile::Prometheus::Scrape_config <<| prometheus_server == $::certname |>>
+  Profile::Prometheus::Scrape_config <<| prometheus_server == $trusted['certname'] |>>
 }
