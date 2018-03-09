@@ -2746,11 +2746,18 @@ prometheus::node::defaults_config:
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data
-grafana::server::port: 3000
+grafana::backend::port: 3000
+
+grafana::vhost::name: grafana.softwareheritage.org
+grafana::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+grafana::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+grafana::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+grafana::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 grafana::config:
   app_mode: production
   server:
-    http_port: "%{alias('grafana::server::port')}"
+    root_url: "https://%{lookup('grafana::vhost::name')}/"
+    http_port: "%{alias('grafana::backend::port')}"
   users:
     allow_sign_up: false
