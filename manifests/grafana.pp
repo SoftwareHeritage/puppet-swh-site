@@ -16,7 +16,7 @@ class profile::grafana {
     install_method => 'repo',
     cfg            => $config + {
       database => {
-        type     => 'postgresql',
+        type     => 'postgres',
         host     => '127.0.0.1:5432',
         name     => $db,
         user     => $db_username,
