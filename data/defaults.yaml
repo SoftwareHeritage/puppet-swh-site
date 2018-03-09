@@ -2713,3 +2713,31 @@ php::apt_config::key: |
   IwsvfZGLfuzTOahvuEMccjo5L7K4HpCDHuFPjfE0rA==
   =0VaR
   -----END PGP PUBLIC KEY BLOCK-----
+
+prometheus::server::defaults_config:
+  web:
+    enable_admin_api: true
+  storage:
+    tsdb:
+      retention: '1y'
+
+prometheus::server::listen_network: 192.168.100.0/24
+prometheus::server::listen_port: 9090
+
+prometheus::node::listen_network: 192.168.100.0/24
+prometheus::node::listen_port: 9100
+prometheus::node::defaults_config:
+  collector:
+    diskstats:
+      ignored_devices: "^(ram|loop|fd|(h|s|v|xv)d[a-z]|nvme\\d+n\\d+p)\\d+$"
+    filesystem:
+      ignored_mount_points: "^/(sys|proc|dev|run|srv/softwareheritage/objects)($|/)"
+    systemd: true
+    logind: true
+    loadavg: true
+    ntp: true
+    netstat: true
+    netdev:
+      ignored_devices: "^lo$"
+    textfile:
+      directory: /var/lib/prometheus/node-exporter
