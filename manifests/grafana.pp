@@ -24,4 +24,6 @@ class profile::grafana {
       }
     }
   }
+
+  contain profile::grafana::vhost
 }
