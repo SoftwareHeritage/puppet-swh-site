@@ -2761,3 +2761,17 @@ grafana::config:
     http_port: "%{alias('grafana::backend::port')}"
   users:
     allow_sign_up: false
+
+grafana::objects::organizations:
+  - name: Software Heritage
+    id: 1
+
+grafana::objects::users: []
+
+grafana::objects::datasources:
+  - name: Prometheus (Pergamon)
+    url: "http://pergamon.internal.softwareheritage.org:%{hiera('prometheus::server::listen_port')}"
+    type: prometheus
+    organization: 1
+    access_mode: proxy
+    is_default: true
