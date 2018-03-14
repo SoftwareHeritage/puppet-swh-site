@@ -14,6 +14,7 @@ class profile::grafana {
 
   class {'::grafana':
     install_method => 'repo',
+    version        => 'latest',
     cfg            => $config + {
       database => {
         type     => 'postgres',
