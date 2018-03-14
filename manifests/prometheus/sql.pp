@@ -61,7 +61,7 @@ class profile::prometheus::sql {
     },
   }
 
-  file {'/etc/defaults/prometheus-sql-exporter':
+  file {'/etc/default/prometheus-sql-exporter':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
