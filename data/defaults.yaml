@@ -2743,6 +2743,9 @@ prometheus::node::defaults_config:
     textfile:
       directory: /var/lib/prometheus/node-exporter
 
+prometheus::sql::listen_network: "%{lookup('internal_network')}"
+prometheus::sql::listen_port: 9237
+
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data
