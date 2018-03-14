@@ -2761,6 +2761,10 @@ grafana::config:
     http_port: "%{alias('grafana::backend::port')}"
   users:
     allow_sign_up: false
+  auth.anonymous:
+    enabled: true
+    org_name: Software Heritage
+    org_role: Viewer
 
 grafana::objects::organizations:
   - name: Software Heritage
