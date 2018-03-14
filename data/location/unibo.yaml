@@ -4,3 +4,6 @@ dns::forwarders:
   - 137.204.25.213
   - 137.204.25.77
 dns::forwarder_insecure: true
+
+internal_network: 192.168.101.0/24
+

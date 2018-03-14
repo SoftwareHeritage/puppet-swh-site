@@ -3,9 +3,7 @@ dns::forwarders:
   - 168.63.129.16
 dns::forwarder_insecure: false
 
-icinga2::network: 192.168.200.0/21
-munin::node::network: 192.168.200.0/21
-prometheus::node::listen_network: 192.168.200.0/21
+internal_network: 192.168.200.0/21
 
 swh::deploy::worker::instances:
   - swh_indexer_rehash

@@ -7,6 +7,8 @@ dns::forwarder_insecure: false
 
 smtp::relayhost: '[smtp.inria.fr]'
 
+internal_network: 192.168.101.0/24
+
 users:
   seirl:
     groups:

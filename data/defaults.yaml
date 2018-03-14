@@ -461,7 +461,7 @@ groups:
 munin::node::allow:
   - 192.168.100.29
 
-munin::node::network: 192.168.100.0/23
+munin::node::network: "%{lookup('internal_network')}"
 
 munin::node::plugins::enable:
   - apt
@@ -2549,7 +2549,7 @@ icinga2::parent_zone: master
 icinga2::parent_endpoints:
   pergamon.softwareheritage.org:
     host: 192.168.100.29
-icinga2::network: 192.168.100.0/23
+icinga2::network: "%{lookup('internal_network')}"
 icinga2::features:
   - checker
   - mainlog
@@ -2721,11 +2721,11 @@ prometheus::server::defaults_config:
     tsdb:
       retention: '1y'
 
-prometheus::server::listen_network: 192.168.100.0/24
+prometheus::server::listen_network: "%{lookup('internal_network')}"
 prometheus::server::listen_port: 9090
 prometheus::server::certname: pergamon.softwareheritage.org
 
-prometheus::node::listen_network: 192.168.100.0/24
+prometheus::node::listen_network: "%{lookup('internal_network')}"
 prometheus::node::listen_port: 9100
 prometheus::node::defaults_config:
   collector:
