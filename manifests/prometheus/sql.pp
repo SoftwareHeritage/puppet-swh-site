@@ -1,22 +1,29 @@
 # Deployment of prometheus SQL exporter
 
 class profile::prometheus::sql {
-  package {'prometheus-sql-exporter':
+  $exporter_name = 'sql'
+  $package_name = "prometheus-${exporter_name}-exporter"
+  $service_name = $package_name
+  $defaults_file = "/etc/default/${package_name}"
+  $config_file = "/etc/${package_name}.yml"
+  $config_template = "${config_file}.in"
+  $config_updater = "/usr/bin/update-${package_name}-config"
+
+  package {$package_name:
     ensure => latest,
   }
 
-  service {'prometheus-sql-exporter':
+  service {$service_name:
     ensure  => 'running',
     enable  => true,
     require => [
-      Package['prometheus-sql-exporter'],
-      File['/etc/defaults/prometheus-sql-exporter'],
-      Exec['/usr/bin/update-prometheus-sql-exporter-config'],
+      Package[$package_name],
+      Exec[$config_updater],
     ]
   }
 
 
-  file {'/usr/bin/update-prometheus-sql-exporter-config':
+  file {$config_updater:
     ensure => present,
     owner  => 'root',
     group  => 'root',
@@ -24,13 +31,13 @@ class profile::prometheus::sql {
     source => 'puppet:///modules/profile/prometheus/sql/update-prometheus-sql-exporter-config',
   }
 
-  file {'/etc/prometheus/prometheus-sql-exporter.yml.in':
+  file {$config_template:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('profile/prometheus/sql/prometheus-sql-exporter.yml.in.erb'),
-    notify  => Exec['/usr/bin/update-prometheus-sql-exporter-config'],
+    notify  => Exec[$config_updater],
   }
 
   $update_deps = ['python3-pkg-resources', 'python3-yaml']
@@ -40,13 +47,15 @@ class profile::prometheus::sql {
     },
   )
 
-  exec {'/usr/bin/update-prometheus-sql-exporter-config':
+  exec {$config_updater:
     refreshonly => true,
-    creates     => '/etc/prometheus/prometheus-sql-exporter.yml',
+    creates     => $config_file,
     require     => [
       Package[$update_deps],
-      File['/usr/bin/update-prometheus-sql-exporter-config'],
+      File[$config_template],
+      File[$config_updater],
     ],
+    notify      => Service[$service_name],
   }
 
   $listen_network = lookup('prometheus::sql::listen_network', Optional[String], 'first', undef)
@@ -61,14 +70,14 @@ class profile::prometheus::sql {
     },
   }
 
-  file {'/etc/default/prometheus-sql-exporter':
+  file {$defaults_file:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('profile/prometheus/sql/prometheus-sql-exporter.defaults.erb'),
-    require => Package['prometheus-sql-exporter'],
-    notify  => Service['prometheus-sql-exporter'],
+    require => Package[$package_name],
+    notify  => Service[$service_name],
   }
 
   profile::prometheus::export_scrape_config {'sql':
