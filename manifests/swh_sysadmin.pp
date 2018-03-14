@@ -6,7 +6,9 @@ class role::swh_sysadmin inherits role::swh_server {
 
   include profile::prometheus::server
   include profile::grafana
+
   include profile::prometheus::node
+  include profile::prometheus::sql
 
   include profile::puppet::master
 
