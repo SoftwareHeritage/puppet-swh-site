@@ -1,0 +1,12 @@
+
+CONFIG=/etc/prometheus-sql-exporter.yml
+PGHOST=/var/run/postgresql
+PGAPPNAME=prometheus-sql-exporter
+GOGC=40
+GOMAXPROCS=4
+LOGLEVEL=WARN
+ARGS="\
+<%- scope.call_function('flatten_to_argument_list', [@defaults_config]).each do |argument| -%>
+    <%= argument %> \
+<%- end -%>
+"
