@@ -37,6 +37,10 @@ mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt',
     :tag => '4.5.1'
 
+mod 'archive',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-archive',
+    :tag => 'v2.3.0'
+
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind',
     :ref => '7.3.1'
