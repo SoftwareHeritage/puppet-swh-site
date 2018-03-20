@@ -13,7 +13,7 @@ class profile::kafka::broker {
 
   $zookeeper_chroot = lookup('kafka::zookeeper::chroot')
   $zookeeper_servers = lookup('zookeeper::servers', Hash)
-  $zookeeper_port = lookup('zookeeper::election_port', Integer)
+  $zookeeper_port = lookup('zookeeper::client_port', Integer)
   $zookeeper_connect_string = join(
     $zookeeper_servers.map |$id, $server| {"${server}:${zookeeper_port}${zookeeper_chroot}"},
     ','
