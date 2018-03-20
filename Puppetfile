@@ -170,6 +170,6 @@ mod 'vcsrepo',
     :ref => '2.3.0'
 
 mod 'zookeeper',
-    :git => 'https://forge.softwareheritage.org/source/puppet-wikimedia-zookeeper',
-    :ref => 'fix-jessie-backports'
+    :git => 'https://forge.softwareheritage.org/source/puppet-deric-zookeeper',
+    :ref => 'v0.7.7'
 

@@ -2361,9 +2361,11 @@ desktop::printers::cups_usernames:
   zack: zacchiro
   ssushant: ssushant
 
-zookeeper::hosts:
-  getty.internal.softwareheritage.org: '1'
-zookeeper::data_dir: /var/lib/zookeeper
+zookeeper::servers:
+  1: getty.internal.softwareheritage.org
+zookeeper::datastore: /var/lib/zookeeper
+zookeeper::election_port: 2888
+zookeeper::leader_port: 3888
 
 kafka::version: '1.0.1'
 kafka::scala_version: '2.11'
