@@ -2364,6 +2364,7 @@ desktop::printers::cups_usernames:
 zookeeper::servers:
   1: getty.internal.softwareheritage.org
 zookeeper::datastore: /var/lib/zookeeper
+zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
