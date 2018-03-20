@@ -90,8 +90,8 @@ mod 'inifile',
     :ref => '2.2.0'
 
 mod 'kafka',
-    :git => 'https://forge.softwareheritage.org/source/puppet-wikimedia-kafka',
-    :ref => 'fix-versioncmp'
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
+    :ref => 'v5.0.0'
 
 mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',

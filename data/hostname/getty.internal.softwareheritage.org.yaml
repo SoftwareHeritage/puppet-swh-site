@@ -1,2 +1,4 @@
 dar::backup::exclude:
   - srv/kafka
+
+kafka::broker_id: 1

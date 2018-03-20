@@ -2365,14 +2365,18 @@ zookeeper::hosts:
   getty.internal.softwareheritage.org: '1'
 zookeeper::data_dir: /var/lib/zookeeper
 
-kafka::log_dirs:
-  - /srv/kafka/logdir
+kafka::version: '1.0.1'
+kafka::scala_version: '2.11'
+kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
+
+kafka::broker_config:
+  broker.id: "%{alias('kafka::broker_id')}"
+  log.dirs: /srv/kafka/logdir
+kafka::zookeeper::chroot: '/kafka/softwareheritage'
+
 kafka::brokers:
   getty.internal.softwareheritage.org:
     id: 1
-kafka::zookeeper::hosts:
-  - getty.internal.softwareheritage.org:2181
-kafka::zookeeper::chroot: '/kafka/softwareheritage'
 
 stats_export::vhost::name: stats.export.softwareheritage.org
 stats_export::vhost::docroot: "/var/www/%{hiera('stats_export::vhost::name')}"
