@@ -1715,6 +1715,13 @@ swh::deploy::scheduler::task_modules:
   - swh.indexer.tasks
   - swh.vault.cooking_tasks
 
+swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
+swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
+swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
+swh::deploy::scheduler::archive:config:
+  storage_nodes:
+    - banco.internal.softwareheritage.org:9200
+
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
 swh::deploy::loader_debian::db::user: lister-debian
