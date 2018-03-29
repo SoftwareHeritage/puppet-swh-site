@@ -114,4 +114,42 @@ class profile::swh::deploy::scheduler {
       Systemd::Unit_File[$listener_unit_name],
     ],
   }
+
+  $archive_config_dir = lookup('swh::deploy::scheduler::archive::conf_dir')
+  $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
+  $archive_config = lookup('swh::deploy::scheduler::archive::config')
+
+  file {$archive_config_dir:
+    ensure => 'directory',
+    owner  => $user,
+    group  => 'swhscheduler',
+    mode   => '0644',
+  }
+
+  file {$archive_config_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => inline_template("<%= @archive_config.to_yaml %>\n"),
+    require      => [
+      File[$archive_config_dir],
+    ],
+  }
+
+  cron {'mensual_archival_tasks':
+    ensure   => present,
+    user     => $user,
+    command  => "echo python3 -m swh.scheduler.cli archive --dry-run",
+    hour     => fqdn_rand(24, 'mensual_archival_tasks_hour'),
+    minute   => fqdn_rand(60, 'mensual_archival_tasks_minute'),
+    month    => '*',
+    monthday => '1',
+    weekday  => '*',
+    require  => [
+      Package[$packages],
+      File[$archive_config_file],
+    ],
+  }
+
 }
