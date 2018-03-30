@@ -1720,7 +1720,7 @@ swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::ar
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::archive:config:
   storage_nodes:
-    - banco.internal.softwareheritage.org:9200
+    - petitpalais.internal.softwareheritage.org:9200
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
