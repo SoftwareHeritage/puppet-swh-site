@@ -140,7 +140,7 @@ class profile::swh::deploy::scheduler {
   cron {'mensual_archival_tasks':
     ensure   => present,
     user     => $user,
-    command  => "echo python3 -m swh.scheduler.cli archive --dry-run",
+    command  => "echo python3 -m swh.scheduler.cli task archive --dry-run",
     hour     => fqdn_rand(24, 'mensual_archival_tasks_hour'),
     minute   => fqdn_rand(60, 'mensual_archival_tasks_minute'),
     month    => '*',
