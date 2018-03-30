@@ -1718,7 +1718,7 @@ swh::deploy::scheduler::task_modules:
 swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
-swh::deploy::scheduler::archive:config:
+swh::deploy::scheduler::archive::config:
   storage_nodes:
     - petitpalais.internal.softwareheritage.org:9200
 
