@@ -51,6 +51,10 @@ class profile::swh::apt_config {
       location => $debian_mirror,
       repos    => $repos,
     }
+  } else {
+    ::apt::source {'backports':
+      ensure => absent,
+    }
   }
 
   $swh_repository = lookup('swh::apt_config::swh_repository')
