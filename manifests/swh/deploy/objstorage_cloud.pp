@@ -11,12 +11,7 @@ class profile::swh::deploy::objstorage_cloud {
 
   $objstorage_packages = ['python3-swh.objstorage.cloud']
 
-  ::apt::pin {'objstorage_cloud':
-    explanation => 'Pin python3-azure-storage dependencies to backports',
-    codename    => 'jessie-backports',
-    packages    => $pinned_packages,
-    priority    => 990,
-  } -> package {$objstorage_packages:
+  package {$objstorage_packages:
     ensure => installed,
   }
 }

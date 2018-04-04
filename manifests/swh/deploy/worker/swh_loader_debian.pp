@@ -10,19 +10,6 @@ class profile::swh::deploy::worker::swh_loader_debian {
   $task_modules = ['swh.loader.debian.tasks']
   $task_queues = ['swh_loader_debian']
 
-  if $::lsbdistcodename == 'jessie' {
-    $pinned_packages = [
-      'python3-sqlalchemy',
-    ]
-
-    ::apt::pin {'swh-loader-debian':
-      explanation => 'Pin swh.loader.debian dependencies to backports',
-      codename    => 'jessie-backports',
-      packages    => $pinned_packages,
-      priority    => 990,
-    }
-  }
-
   $packages = ['python3-swh.loader.debian']
 
   package {$packages:

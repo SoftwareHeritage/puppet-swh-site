@@ -29,19 +29,7 @@ class profile::puppet::base {
   }
 
   # Backported packages
-  if $::lsbdistcodename == 'jessie' {
-    $pinned_packages = [
-      'facter',
-      'hiera',
-      'puppet',
-      'puppet-common',
-      'puppetmaster',
-      'puppetmaster-common',
-      'puppetmaster-passenger',
-      'ruby-deep-merge',
-    ]
-  }
-  elsif $::lsbdistcodename == 'stretch' {
+  if $::lsbdistcodename == 'stretch' {
     $pinned_packages = [
       'facter',
       'libfacter*',

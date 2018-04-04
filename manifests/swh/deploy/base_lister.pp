@@ -17,17 +17,4 @@ class profile::swh::deploy::base_lister {
   package {$packages:
     ensure => 'installed',
   }
-
-  if $::lsbdistcodename == 'jessie' {
-    $pinned_packages = [
-      'python3-sqlalchemy',
-    ]
-
-    ::apt::pin {'swh-lister-base':
-      explanation => 'Pin swh.lister dependencies to backports',
-      codename    => 'jessie-backports',
-      packages    => $pinned_packages,
-      priority    => 990,
-    } -> Package[$packages]
-  }
 }
