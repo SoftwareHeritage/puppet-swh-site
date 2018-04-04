@@ -40,10 +40,24 @@ class profile::puppet::base {
       'puppetmaster-passenger',
       'ruby-deep-merge',
     ]
+  }
+  elsif $::lsbdistcodename == 'stretch' {
+    $pinned_packages = [
+      'facter',
+      'libfacter*',
+      'libleatherman*',
+      'libleatherman-data',
+      'libcpp-hocon*',
+    ]
+  }
+  else {
+    $pinned_packages = undef
+  }
 
+  if $pinned_packages {
     ::apt::pin {'puppet':
       explanation => 'Pin puppet dependencies to backports',
-      codename    => 'jessie-backports',
+      codename    => "${::lsbdistcodename}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }
