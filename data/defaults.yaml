@@ -802,6 +802,10 @@ bind::resource_records:
     type: NS
     record: 101.168.192.in-addr.arpa
     data: pergamon.internal.softwareheritage.org.
+  archive/CNAME:
+    type: CNAME
+    record: archive.internal.softwareheritage.org
+    data: moma.internal.softwareheritage.org.
   db/CNAME:
     type: CNAME
     record: db.internal.softwareheritage.org
@@ -1637,6 +1641,7 @@ swh::deploy::webapp::backend::reload_mercy: 3600
 swh::deploy::webapp::vhost::name: archive.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
   - base.softwareheritage.org
+  - archive.internal.softwareheritage.org
 swh::deploy::webapp::vhost::docroot: "/var/www/%{hiera('swh::deploy::webapp::vhost::name')}"
 swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
