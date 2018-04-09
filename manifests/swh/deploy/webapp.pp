@@ -142,10 +142,12 @@ class profile::swh::deploy::webapp {
     ],
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
+  $ssl_cert_names = ['star_softwareheritage_org', 'star_internal_softwareheritage_org']
 
   include ::profile::hitch
-  realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
+  each($ssl_cert_names) |$ssl_cert_name| {
+    realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
+  }
 
   include ::profile::varnish
   ::profile::varnish::vhost {$vhost_name:
