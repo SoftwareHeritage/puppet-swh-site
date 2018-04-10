@@ -2,7 +2,7 @@
   include role::swh_hypervisor_master
 }
 
-node 'beaubourg.softwareheritage.org', 'tytso.softwareheritage.org' {
+node 'beaubourg.softwareheritage.org', 'orsay.softwareheritage.org' {
   include role::swh_hypervisor
 }
 
