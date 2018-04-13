@@ -70,6 +70,10 @@ node /^ceph-mon\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ceph_mon
 }
 
+node 'thyssen.internal.softwareheritage.org' {
+  include role::swh_ci_server
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
