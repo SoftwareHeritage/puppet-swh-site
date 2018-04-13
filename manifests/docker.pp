@@ -20,4 +20,8 @@ class profile::docker {
   -> package {'docker-ce':
     ensure => present,
   }
+  -> service {'docker':
+    ensure => running,
+    enable => true,
+  }
 }
