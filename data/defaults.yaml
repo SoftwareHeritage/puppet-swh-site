@@ -2748,6 +2748,10 @@ prometheus::server::defaults_config:
     tsdb:
       retention: '1y'
 
+prometheus::server::config::global:
+  scrape_interval: 1m
+  scrape_timeout: 45s
+
 prometheus::server::listen_network: "%{lookup('internal_network')}"
 prometheus::server::listen_port: 9090
 prometheus::server::certname: pergamon.softwareheritage.org
