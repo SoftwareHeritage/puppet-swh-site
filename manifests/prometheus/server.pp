@@ -8,7 +8,7 @@ class profile::prometheus::server {
   $scrape_configs_dirname = 'exported-configs'
   $scrape_configs_dir = "${config_dir}/${scrape_configs_dirname}"
 
-  $global_config = {}
+  $global_config = lookup('prometheus::server::config::global', Hash)
   $rule_files = []
   $scrape_configs = []
   $remote_read = []
