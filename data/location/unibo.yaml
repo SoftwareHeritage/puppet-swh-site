@@ -7,3 +7,4 @@ dns::forwarder_insecure: true
 
 internal_network: 192.168.101.0/24
 
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
