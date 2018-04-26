@@ -115,6 +115,15 @@ class profile::swh::deploy::scheduler {
     ],
   }
 
+  # scheduler rpc server
+
+  ::profile::swh::deploy::rpc_server {'scheduler':
+    config_key => 'scheduler::remote',
+    executable => 'swh.scheduler.api.server:run_from_webserver',
+  }
+
+  # task archival cron
+
   $archive_config_dir = lookup('swh::deploy::scheduler::archive::conf_dir')
   $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
   $archive_config = lookup('swh::deploy::scheduler::archive::config')
