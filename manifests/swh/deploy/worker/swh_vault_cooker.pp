@@ -11,7 +11,7 @@ class profile::swh::deploy::worker::swh_vault_cooker {
   $config = lookup('swh::deploy::worker::swh_vault_cooker::config')
 
   $task_modules = ['swh.vault.cooking_tasks']
-  $task_queues = ['swh_vault_cooking']
+  $task_queues = ['swh_vault_cooking', 'swh_vault_batch_cooking']
 
   ::profile::swh::deploy::worker::instance {'swh_vault_cooker':
     ensure       => present,
