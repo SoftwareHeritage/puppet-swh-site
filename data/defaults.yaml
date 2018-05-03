@@ -1077,185 +1077,73 @@ swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 5008
 
 swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
-  cls: multiplexer
+  cls: azure-prefixed
   args:
-    objstorages:
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 0euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 0
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 1euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 1
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 2euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 2
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 3euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 3
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 4euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 4
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 5euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 5
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 6euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 6
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 7euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 7
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 8euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 8
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: 9euwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: 9
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: aeuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: a
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: beuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: b
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: ceuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: c
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: deuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: d
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: eeuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: e
-      - cls: filtered
-        args:
-          storage_conf:
-            cls: azure-storage
-            args:
-              account_name: feuwestswh
-              api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
-              container_name: contents
-          filters_conf:
-            - type: prefix
-              prefix: f
+    accounts:
+      "0":
+        account_name: 0euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
+        container_name: contents
+      "1":
+        account_name: 1euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
+        container_name: contents
+      "2":
+        account_name: 2euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
+        container_name: contents
+      "3":
+        account_name: 3euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
+        container_name: contents
+      "4":
+        account_name: 4euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
+        container_name: contents
+      "5":
+        account_name: 5euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
+        container_name: contents
+      "6":
+        account_name: 6euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
+        container_name: contents
+      "7":
+        account_name: 7euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
+        container_name: contents
+      "8":
+        account_name: 8euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
+        container_name: contents
+      "9":
+        account_name: 9euwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
+        container_name: contents
+      "a":
+        account_name: aeuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
+        container_name: contents
+      "b":
+        account_name: beuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
+        container_name: contents
+      "c":
+        account_name: ceuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
+        container_name: contents
+      "d":
+        account_name: deuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
+        container_name: contents
+      "e":
+        account_name: eeuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
+        container_name: contents
+      "f":
+        account_name: feuwestswh
+        api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
+        container_name: contents
 
 swh::remote_service::objstorage::config::azure::readonly:
   cls: filtered
