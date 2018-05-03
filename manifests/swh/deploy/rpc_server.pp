@@ -83,6 +83,7 @@ define profile::swh::deploy::rpc_server (
     proxy                => "http://swh-${instance_name}-gunicorn",
     proxy_buffering      => $nginx_proxy_buffering,
     proxy_read_timeout   => "${backend_http_timeout}s",
+    format_log           => "combined if=\$error_status",
   }
 
   ::gunicorn::instance {$service_name:
