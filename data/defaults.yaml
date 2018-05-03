@@ -1542,6 +1542,8 @@ swh::deploy::deposit::config:
     version: '0.0.1'
     configuration:
       sword_version: 2
+  scheduler:
+    <<: *swh_scheduler_remote_config_saatchi
 
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::settings_private_data:
