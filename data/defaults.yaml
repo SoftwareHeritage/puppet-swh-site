@@ -1074,6 +1074,7 @@ swh::remote_service::webapp::port: 5004
 swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
+swh::remote_service::scheduler::port: 5008
 
 swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
   cls: multiplexer
@@ -1327,6 +1328,11 @@ swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   cls: remote
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+
+swh::remote_service::scheduler::config::saatchi: &swh_scheduler_remote_config_saatchi
+  cls: remote
+  args:
+    url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
@@ -1723,6 +1729,28 @@ swh::deploy::scheduler::task_modules:
   - swh.deposit.loader.tasks
   - swh.indexer.tasks
   - swh.vault.cooking_tasks
+
+swh::deploy::scheduler::remote::conf_dir: "%{hiera('swh::conf_directory')}/backend"
+swh::deploy::scheduler::remote::conf_file: "%{hiera('swh::deploy::scheduler::remote::conf_dir')}/scheduler.yml"
+swh::deploy::scheduler::remote::user: swhscheduler
+swh::deploy::scheduler::remote::group: swhscheduler
+swh::deploy::scheduler::remote::backend::listen::host: 127.0.0.1
+swh::deploy::scheduler::remote::backend::listen::port: "%{alias('swh::remote_service::scheduler::port')}"
+swh::deploy::scheduler::remote::backend::workers: 4
+swh::deploy::scheduler::remote::backend::reload_mercy: 3600
+swh::deploy::scheduler::remote::backend::http_keepalive: 5
+swh::deploy::scheduler::remote::backend::http_timeout: 3600
+swh::deploy::scheduler::remote::backend::max_requests: 10000
+swh::deploy::scheduler::remote::backend::max_requests_jitter: 1000
+swh::deploy::scheduler::remote::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - "::1"
+swh::deploy::scheduler::remote::config:
+  scheduler:
+    <<: *swh_scheduler_remote_config_saatchi
 
 swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
