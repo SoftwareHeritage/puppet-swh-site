@@ -21,4 +21,14 @@ class profile::nginx {
     names_hash_max_size    => $names_hash_max_size,
     worker_processes       => $actual_worker_processes,
   }
+
+  ::nginx::resource::map {'error_status':
+    ensure   => present,
+    string   => "\$status",
+    default  => '1',
+    mappings => {
+      '~^[23]' => '0',
+      '404'    => '0',
+    }
+  }
 }
