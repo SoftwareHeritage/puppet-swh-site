@@ -12,7 +12,7 @@ swh::deploy::storage::config:
       objstorage:
         cls: multiplexer
         args:
-          storages:
+          objstorages:
             - cls: pathslicing
               args:
                 root: "%{hiera('swh::deploy::storage::directory')}"
