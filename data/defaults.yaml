@@ -848,6 +848,15 @@ bind::resource_records:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
     data: saatchi.internal.softwareheritage.org.
+  esnode1/A:
+    record: esnode1.internal.softwareheritage.org
+    data: 192.168.100.61
+  esnode2/A:
+    record: esnode2.internal.softwareheritage.org
+    data: 192.168.100.62
+  esnode3/A:
+    record: esnode3.internal.softwareheritage.org
+    data: 192.168.100.63
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
