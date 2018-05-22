@@ -93,7 +93,6 @@ timezone: Etc/UTC
 
 packages:
   - acl
-  - apt-transport-https
   - etckeeper
   - git
   - htop
