@@ -1656,7 +1656,9 @@ swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::ar
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::archive::config:
   storage_nodes:
-    - host: petitpalais.internal.softwareheritage.org
+    - host: esnode1.internal.softwareheritage.org
+      port: 9200
+    - host: esnode2.internal.softwareheritage.org
       port: 9200
   client_options:
     sniff: false
