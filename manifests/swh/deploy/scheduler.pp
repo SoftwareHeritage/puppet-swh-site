@@ -150,11 +150,8 @@ class profile::swh::deploy::scheduler {
     ensure   => present,
     user     => $user,
     command  => "echo python3 -m swh.scheduler.cli task archive --dry-run",
-    day      => '*'
     hour     => fqdn_rand(24, 'archival_tasks_hour'),
     minute   => fqdn_rand(60, 'archival_tasks_minute'),
-    month    => '*',
-    weekday  => '*',
     require  => [
       Package[$packages],
       File[$archive_config_file],
