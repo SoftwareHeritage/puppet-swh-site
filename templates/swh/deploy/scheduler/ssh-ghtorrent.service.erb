@@ -1,0 +1,19 @@
+# SSH Ghtorrent unit file
+# Managed by puppet class profile::swh::deploy::scheduler::updater::consumer
+# Changes will be overwritten
+
+[Unit]
+Description=SSH connection to GHTorrent infra
+Requires=network.target 
+After=network.target 
+
+[Service]
+User=<%= @backend_user %>
+Group=<%= @backend_group %>
+Type=simple
+ExecStart=ssh -i <%= @ghtorrent_private_key %> -L <%= @local_port %>:streamer.ghtorrent.org:5672 ghtorrent@streamer.ghtorrent.org
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
