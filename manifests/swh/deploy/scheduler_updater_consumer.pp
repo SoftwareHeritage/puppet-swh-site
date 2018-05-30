@@ -1,6 +1,6 @@
 # Deployment of swh-scheduler-updater related utilities
-class profile::swh::deploy::scheduler::updater::consumer {
-  include ::profile::swh::deploy::scheduler::updater
+class profile::swh::deploy::scheduler_updater_consumer {
+  include ::profile::swh::deploy::scheduler_updater
 
   # only ghtorrent so far
   $consumer_conf_dir = lookup('swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir')
@@ -8,12 +8,12 @@ class profile::swh::deploy::scheduler::updater::consumer {
   $consumer_user = lookup('swh::deploy::scheduler::updater::consumer::user')
   $consumer_group = lookup('swh::deploy::scheduler::updater::consumer::group')
 
-  file {$consumer_conf_dir:
-    ensure => directory,
-    owner  => 'root',
-    group  => $consumer_group,
-    mode   => '0755',
-  }
+#  file {$consumer_conf_dir:
+#    ensure => directory,
+#    owner  => 'root',
+#    group  => $consumer_group,
+#    mode   => '0755',
+#  }
 
   $consumer_config = lookup('swh::deploy::scheduler::updater::consumer::ghtorrent::config')
   file {$consumer_conf_file:
@@ -28,7 +28,7 @@ class profile::swh::deploy::scheduler::updater::consumer {
 
   $local_port = lookup('swh::deploy::scheduler::updater::consumer::ghtorrent::port')
   $ghtorrent_private_key_raw = lookup('swh::deploy::scheduler::updater::consumer::ghtorrent::private_key')
-  $ghtorrent_private_key = '~/.ssh/id-rsa-swh-ghtorrent'
+  $ghtorrent_private_key = "/home/${consumer_user}/.ssh/id-rsa-swh-ghtorrent"
 
   # write private key to access the ghtorrent infra
   file {$ghtorrent_private_key:
@@ -53,8 +53,8 @@ class profile::swh::deploy::scheduler::updater::consumer {
 
   # actual service consuming from ghtorrent
 
-  ghtorrent_consumer_service = 'swh-scheduler-updater-consumer-ghtorrent.service'
-  ghtorrent_consumer_unit_name = "${ghtorrent_consumer_service_name}.service"
+  $ghtorrent_consumer_service = 'swh-scheduler-updater-consumer-ghtorrent'
+  $ghtorrent_consumer_unit_name = "${ghtorrent_consumer_service}.service"
   # Service to consume from ghtorrent
   ::systemd::unit_file {$ghtorrent_consumer_unit_name:
     ensure  => present,
