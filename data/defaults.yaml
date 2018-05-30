@@ -1661,7 +1661,7 @@ swh::deploy::scheduler::updater::backend::config:
   cache_read_limit: 1000
 
 swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir: "%{hiera('swh::conf_directory')}/backend"
-swh::deploy::scheduler::updater::consumer::ghtorrent::conf_file: "%{hiera('swh::deploy::scheduler::updater::consumer::conf_dir')}/ghtorrent.yml"
+swh::deploy::scheduler::updater::consumer::ghtorrent::conf_file: "%{hiera('swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir')}/ghtorrent.yml"
 swh::deploy::scheduler::updater::consumer::user: swhscheduler
 swh::deploy::scheduler::updater::consumer::group: swhscheduler
 
@@ -1679,7 +1679,7 @@ swh::deploy::scheduler::updater::consumer::ghtorrent::config:
   rabbitmq_prefetch_read: 1000
 
 swh::deploy::scheduler::updater::writer::conf_dir: "%{hiera('swh::conf_directory')}/backend"
-swh::deploy::scheduler::updater::writer::conf_file: "%{hiera('swh::deploy::scheduler::writer::conf_dir')}/scheduler-updater-writer.yml"
+swh::deploy::scheduler::updater::writer::conf_file: "%{hiera('swh::deploy::scheduler::updater::writer::conf_dir')}/scheduler-updater-writer.yml"
 swh::deploy::scheduler::updater::writer::user: swhscheduler
 swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
