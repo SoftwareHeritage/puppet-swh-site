@@ -149,7 +149,7 @@ class profile::swh::deploy::scheduler {
   cron {'archive_completed_oneshot_and_disabled_recurring_tasks':
     ensure   => present,
     user     => $user,
-    command  => "echo python3 -m swh.scheduler.cli task archive --dry-run",
+    command  => "/usr/bin/python3 -m swh.scheduler.cli task archive",
     hour     => fqdn_rand(24, 'archival_tasks_hour'),
     minute   => fqdn_rand(60, 'archival_tasks_minute'),
     require  => [
