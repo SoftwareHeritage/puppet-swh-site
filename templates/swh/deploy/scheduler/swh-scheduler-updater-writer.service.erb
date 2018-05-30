@@ -11,7 +11,7 @@ After=network.target
 User=<%= @writer_user %>
 Group=<%= @writer_group %>
 Type=oneshot
-ExecStart=echo /usr/bin/python3 -m swh.scheduler.updater.writer
+ExecStart=/usr/bin/python3 -m swh.scheduler.updater.writer
 
 [Install]
 WantedBy=multi-user.target
