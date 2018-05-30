@@ -8,8 +8,8 @@ Requires=network.target ssh-ghtorrent.service
 After=network.target ssh-ghtorrent.service
 
 [Service]
-User=<%= @backend_user %>
-Group=<%= @backend_group %>
+User=<%= @consumer_user %>
+Group=<%= @consumer_group %>
 Type=simple
 ExecStart=/usr/bin/python3 -m swh.scheduler.updater.ghtorrent.cli
 Restart=always
