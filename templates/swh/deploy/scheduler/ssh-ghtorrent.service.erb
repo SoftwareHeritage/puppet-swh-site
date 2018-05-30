@@ -4,14 +4,14 @@
 
 [Unit]
 Description=SSH connection to GHTorrent infra
-Requires=network.target 
-After=network.target 
+Requires=network-online.target
+After=network-online.target
 
 [Service]
-User=<%= @backend_user %>
-Group=<%= @backend_group %>
+User=<%= @consumer_user %>
+Group=<%= @consumer_group %>
 Type=simple
-ExecStart=ssh -i <%= @ghtorrent_private_key %> -L <%= @local_port %>:streamer.ghtorrent.org:5672 ghtorrent@streamer.ghtorrent.org
+ExecStart=/usr/bin/ssh -i <%= @ghtorrent_private_key %> -L <%= @local_port %>:streamer.ghtorrent.org:5672 ghtorrent@streamer.ghtorrent.org
 Restart=always
 RestartSec=10
 
