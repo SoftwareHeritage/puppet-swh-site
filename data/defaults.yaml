@@ -1683,16 +1683,15 @@ swh::deploy::scheduler::updater::writer::conf_file: "%{hiera('swh::deploy::sched
 swh::deploy::scheduler::updater::writer::user: swhscheduler
 swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
-# every minute (as a tryout)
-swh::deploy::scheduler::updater::writer::timer_period: "*-*-* *:*:00"
+swh::deploy::scheduler::updater::writer::timer_period: "*-*-* *:00:00"
 swh::deploy::scheduler::updater::writer::config:
   scheduler:
     <<: *swh_scheduler_remote_config_saatchi
-    scheduler_updater:
-      scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
-      cache_read_limit: 1000
-    pause: 10
-    verbose: no
+  scheduler_updater:
+    scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
+    cache_read_limit: 1000
+  pause: 10
+  verbose: no
 
 swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
