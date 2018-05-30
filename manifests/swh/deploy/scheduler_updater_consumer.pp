@@ -8,6 +8,11 @@ class profile::swh::deploy::scheduler_updater_consumer {
   $consumer_user = lookup('swh::deploy::scheduler::updater::consumer::user')
   $consumer_group = lookup('swh::deploy::scheduler::updater::consumer::group')
 
+  $packages = ['autossh']
+  package {$packages:
+    ensure => present,
+  }
+
 #  file {$consumer_conf_dir:
 #    ensure => directory,
 #    owner  => 'root',
@@ -45,6 +50,7 @@ class profile::swh::deploy::scheduler_updater_consumer {
   ::systemd::unit_file {$ghtorrent_unit_name:
     ensure  => present,
     content => template("profile/swh/deploy/scheduler/${ghtorrent_unit_name}.erb"),
+    require => Package[$packages],
   } ~> service {$ghtorrent_service_name:
     ensure  => running,
     enable  => true,
