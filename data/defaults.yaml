@@ -1284,8 +1284,7 @@ swh::deploy::indexer::storage::backend::server_names:
   - localhost
   - "::1"
 swh::deploy::indexer::storage::config:
-  indexer_storage:
-    <<: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
@@ -1436,8 +1435,7 @@ swh::deploy::deposit::config:
     version: '0.0.1'
     configuration:
       sword_version: 2
-  scheduler:
-    <<: *swh_scheduler_remote_config_saatchi
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::settings_private_data:
@@ -1645,8 +1643,7 @@ swh::deploy::scheduler::remote::backend::server_names:
   - localhost
   - "::1"
 swh::deploy::scheduler::remote::config:
-  scheduler:
-    <<: *swh_scheduler_remote_config_saatchi
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 
 swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
@@ -1685,8 +1682,7 @@ swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
 swh::deploy::scheduler::updater::writer::timer_period: "*-*-* *:00:00"
 swh::deploy::scheduler::updater::writer::config:
-  scheduler:
-    <<: *swh_scheduler_remote_config_saatchi
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   scheduler_updater:
     scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
     cache_read_limit: 1000
@@ -1842,7 +1838,7 @@ swh::deploy::worker::swh_indexer::base::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::base::config:
-  indexer_storage: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
@@ -1851,7 +1847,7 @@ swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::wor
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::mimetype::config:
-  indexer_storage: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
   rescheduling_task: swh.indexer.tasks.SWHContentMimetypeTask
@@ -1875,7 +1871,7 @@ swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::de
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::fossology_license::config:
-  indexer_storage: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   rescheduling_task: swh.indexer.tasks.SWHContentFossologyLicenseTask
   workdir: /tmp/swh/indexer.fossology.license/
@@ -1890,7 +1886,7 @@ swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::wor
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::language::config:
-  indexer_storage: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   rescheduling_task: swh.indexer.tasks.SWHContentLanguageTask
   tools:
@@ -1907,7 +1903,7 @@ swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker
 swh::deploy::worker::swh_indexer::ctags::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::swh_indexer::ctags::config:
-  indexer_storage: *swh_indexer_storage_config_uffizi
+  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   workdir: /tmp/swh/indexer.ctags/
   tools:
