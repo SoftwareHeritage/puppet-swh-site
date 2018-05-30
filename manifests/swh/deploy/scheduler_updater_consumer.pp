@@ -66,7 +66,7 @@ class profile::swh::deploy::scheduler_updater_consumer {
     ensure  => present,
     content => template("profile/swh/deploy/scheduler/${ghtorrent_consumer_unit_name}.erb"),
   } ~> service {$ghtorrent_consumer_service:
-    ensure  => stopped,
+    ensure  => running,
     enable  => true,
     require => Service[$ghtorrent_service_name],
   }
