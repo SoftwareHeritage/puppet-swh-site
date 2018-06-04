@@ -1680,7 +1680,7 @@ swh::deploy::scheduler::updater::writer::conf_file: "%{hiera('swh::deploy::sched
 swh::deploy::scheduler::updater::writer::user: swhscheduler
 swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
-swh::deploy::scheduler::updater::writer::timer_period: "00/2:00"
+swh::deploy::scheduler::updater::writer::timer_period: "00/4:00"
 swh::deploy::scheduler::updater::writer::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   scheduler_updater:
