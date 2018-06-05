@@ -1588,9 +1588,6 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
   - /api/1/entity/
   - /api/1/provenance/
-  - /api/1/revision/origin/.*/directory/
-  - /api/1/revision/[^/]+/raw/
-  - /browse/
 
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
 swh::deploy::scheduler::user: swhscheduler
