@@ -14,7 +14,7 @@ node 'tate.softwareheritage.org' {
   include role::swh_forge
 }
 
-node '^(moma|webapp0).softwareheritage.org' {
+node /^(moma|webapp0).softwareheritage.org$/ {
   include role::swh_api
 }
 
