@@ -24,7 +24,7 @@ class profile::swh::deploy::webapp {
   $vhost_aliases = lookup('swh::deploy::webapp::vhost::aliases')
   $vhost_docroot = lookup('swh::deploy::webapp::vhost::docroot')
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
-  $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content')
+  $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content', String, '')
   $vhost_ssl_port = lookup('apache::https_port')
   $vhost_ssl_protocol = lookup('swh::deploy::webapp::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
@@ -155,12 +155,18 @@ class profile::swh::deploy::webapp {
     hsts_max_age => lookup('strict_transport_security::max_age'),
   }
 
-  file {$vhost_basic_auth_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'www-data',
-    mode    => '0640',
-    content => $vhost_basic_auth_content,
+  if $endpoint_directories {
+    file {$vhost_basic_auth_file:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'www-data',
+      mode    => '0640',
+      content => $vhost_basic_auth_content,
+    }
+  } else {
+    file {$vhost_basic_auth_file:
+      ensure  => absent,
+    }
   }
 
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
