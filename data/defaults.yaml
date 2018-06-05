@@ -896,6 +896,10 @@ bind::resource_records:
     type: A
     record: orsay.internal.softwareheritage.org
     data: 192.168.101.146
+  webapp0/A:
+    type: A
+    record: webapp0.softwareheritage.org
+    data: 40.113.114.88
 
 bind::resource_records::default_data:
   type: A
