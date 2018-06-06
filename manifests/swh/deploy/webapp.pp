@@ -19,6 +19,8 @@ class profile::swh::deploy::webapp {
   $swh_packages = ['python3-swh.web']
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
+  $varnish_http_port = lookup('varnish::http_port')
+
   $vhost_name = lookup('swh::deploy::webapp::vhost::name')
   $vhost_port = lookup('apache::http_port')
   $vhost_aliases = lookup('swh::deploy::webapp::vhost::aliases')
@@ -179,7 +181,7 @@ class profile::swh::deploy::webapp {
     vars          => {
       http_address => $vhost_name,
       http_vhost   => $vhost_name,
-      http_port    => $vhost_port,
+      http_port    => $varnish_http_port,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
