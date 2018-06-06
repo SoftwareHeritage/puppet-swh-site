@@ -221,38 +221,5 @@ class profile::swh::deploy::webapp {
     tag           => 'icinga2::exported',
   }
 
-  @@::icinga2::object::service {"swh-webapp counters ${::fqdn}":
-    service_name  => 'swh webapp counters',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address => $vhost_name,
-      http_vhost   => $vhost_name,
-      http_port    => $vhost_ssl_port,
-      http_uri     => '/api/1/stat/counters/',
-      http_ssl     => true,
-      http_string  => '\"content\":'
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
-
-  @@::icinga2::object::service {"swh-webapp content known ${::fqdn}":
-    service_name  => 'swh webapp content known',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address => $vhost_name,
-      http_vhost   => $vhost_name,
-      http_port    => $vhost_ssl_port,
-      http_uri     => '/api/1/content/known/search/',
-      http_ssl     => true,
-      http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
-      http_string  => '\"found\":true',
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
+  include ::profile::swh::deploy::webapp::icinga_checks
 }
