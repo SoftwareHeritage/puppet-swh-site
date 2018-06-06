@@ -13,6 +13,10 @@ class profile::swh::deploy::webapp::icinga_checks {
       http_post   => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
       http_string => '\"found\":true',
     },
+    'content end to end' => {
+      http_uri    => '/browse/content/4dfc4478b1d5f7388b298fdfc06802485bdeae0c/',
+      http_string => 'PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2',
+    },
   }
 
   each($checks) |$name, $args| {
