@@ -20,7 +20,7 @@ class profile::swh::deploy::webapp::icinga_checks {
     'directory end to end' => {
       http_uri               => '/browse/directory/977fc4b98c0e85816348cebd3b12026407c368b6/',
       http_linespan          => true,
-      http_expect_body_regex => 'Doc.*Grammar.*Include.*Lib.*Mac.*Misc.*Modules.*Objects.*PC.*PCBuild.*LICENSE.*README.rst',
+      http_expect_body_regex => 'Doc.*Grammar.*Include.*Lib.*Mac.*Misc.*Modules.*Objects.*PC.*PCbuild.*LICENSE.*README.rst',
     },
   }
 
