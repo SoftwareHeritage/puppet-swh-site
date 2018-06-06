@@ -30,6 +30,14 @@ class profile::swh::deploy::webapp::icinga_checks {
         'as requested by the decoder \\\\(for alignments\\\\)."'
       ]),
     },
+    'release end to end' => {
+      http_uri               => '/browse/release/a9b7e3f1eada90250a6b2ab2ef3e0a846cb1683/',
+      http_linespan          => true,
+      http_expect_body_regex => join([
+        '-:"Linux 4.9-rc8.*',
+        '/revision/3e5de27e940d00d8d504dfb96625fb654f641509/"'
+      ]),
+    },
     'snapshot end to end' => {
       http_uri => '/browse/snapshot/baebc2109e4a2ec22a1129a3859647e191d04df4/branches/',
       http_linespan => true,
