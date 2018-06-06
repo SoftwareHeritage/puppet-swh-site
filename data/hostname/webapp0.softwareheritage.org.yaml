@@ -1,5 +1,3 @@
-networks: []
-
 swh::deploy::storage::db::host: somerset
 swh::deploy::storage::db::port: 5433
 
