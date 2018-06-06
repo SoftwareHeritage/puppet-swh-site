@@ -9,10 +9,10 @@ class profile::swh::deploy::webapp::icinga_checks {
       http_string => '\"content\":',
     },
     'content known' => {
-      http_uri     => '/api/1/content/known/search/',
-      http_post    => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
-      http_string  => '\"found\":true',
-    }
+      http_uri    => '/api/1/content/known/search/',
+      http_post   => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
+      http_string => '\"found\":true',
+    },
   }
 
   each($checks) |$name, $args| {
