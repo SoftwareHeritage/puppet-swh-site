@@ -25,7 +25,7 @@ class profile::swh::deploy::webapp::icinga_checks {
     'revision end to end' => {
       http_uri               => '/browse/revision/f1b94134a4b879bc55c3dacdb496690c8ebdc03f/',
       http_linespan          => true,
-      http_expect_body_regex => 'Allocate the output vlc pictures with dimensions padded,.*as requested by the decoder (for alignments).',
+      http_expect_body_regex => '-:"Allocate the output vlc pictures with dimensions padded,.*as requested by the decoder \(for alignments\)."',
     },
   }
 
