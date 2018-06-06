@@ -22,6 +22,11 @@ class profile::swh::deploy::webapp::icinga_checks {
       http_linespan          => true,
       http_expect_body_regex => 'Doc.*Grammar.*Include.*Lib.*Mac.*Misc.*Modules.*Objects.*PC.*PCbuild.*LICENSE.*README.rst',
     },
+    'revision end to end' => {
+      http_uri               => '/browse/revision/f1b94134a4b879bc55c3dacdb496690c8ebdc03f/',
+      http_linespan          => true,
+      http_expect_body_regex => 'Allocate the output vlc pictures with dimensions padded,.*as requested by the decoder (for alignments).',
+    },
   }
 
   each($checks) |$name, $args| {
