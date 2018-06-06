@@ -38,3 +38,8 @@ apache::http_port: 9080
 
 # Disable default vhost on port 80
 apache::default_vhost: false
+
+swh::deploy::webapp::vhost::name: archive.softwareheritage.org
+swh::deploy::webapp::vhost::aliases:
+  - base.softwareheritage.org
+  - archive.internal.softwareheritage.org
