@@ -30,6 +30,36 @@ class profile::swh::deploy::webapp::icinga_checks {
         'as requested by the decoder \\(for alignments\\)."'
       ]),
     },
+    'snapshot end to end' => {
+      http_uri => '/browse/snapshot/baebc2109e4a2ec22a1129a3859647e191d04df4/branches/',
+      http_linespan => true,
+      http_expect_body_regex => join([
+        '-:"',
+        join([
+          'buster/main/4.13.13-1',
+          'buster/main/4.14.12-2',
+          'buster/main/4.14.13-1',
+          'buster/main/4.14.17-1',
+          'buster/main/4.15.4-1',
+          'buster/main/4.9.65-3',
+          'experimental/main/4.10~rc6-1~exp2',
+          'jessie-backports/main/3.16.39-1',
+          'jessie-backports/main/4.7.8-1~bpo8\\\\+1',
+          'jessie-backports/main/4.9.18-1~bpo8\\\\+1',
+          'jessie-backports/main/4.9.65-3\\\\+deb9u1~bpo8\\\\+1',
+          'jessie-backports/main/4.9.65-3\\\\+deb9u2~bpo8\\\\+1',
+          'jessie-kfreebsd/main/3.16.7-ckt9-2',
+          'jessie-proposed-updates/main/3.16.51-3',
+          'jessie-proposed-updates/main/3.16.51-3\\\\+deb8u1',
+          'jessie-updates/main/3.16.51-3',
+          'jessie/main/3.16.43-1',
+          'jessie/main/3.16.51-2',
+          'jessie/main/3.16.7-ckt2-1',
+          'jessie/main/3.16.7-ckt20-1\\\\+deb8u3',
+        ], '.*'),
+        '"',
+      ]),
+    }
   }
 
   each($checks) |$name, $args| {
