@@ -106,8 +106,6 @@ class profile::swh::deploy::webapp {
     serveraliases => $vhost_aliases,
     port          => $vhost_port,
     docroot       => $vhost_docroot,
-    ip            => '127.0.0.1',  # apache is not supposed to listen on public
-                                   # addresses (varnish is)
     proxy_pass    => [
       { path => '/static',
         url  => '!',
