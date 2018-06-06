@@ -27,7 +27,7 @@ class profile::swh::deploy::webapp::icinga_checks {
       http_linespan          => true,
       http_expect_body_regex => join([
         '-:"Allocate the output vlc pictures with dimensions padded,.*',
-        'as requested by the decoder \\(for alignments\\)."'
+        'as requested by the decoder \\\\(for alignments\\\\)."'
       ]),
     },
     'snapshot end to end' => {
