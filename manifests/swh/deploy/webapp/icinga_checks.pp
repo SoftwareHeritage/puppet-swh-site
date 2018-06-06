@@ -17,6 +17,11 @@ class profile::swh::deploy::webapp::icinga_checks {
       http_uri    => '/browse/content/4dfc4478b1d5f7388b298fdfc06802485bdeae0c/',
       http_string => 'PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2',
     },
+    'directory end to end' => {
+      http_uri               => '/browse/directory/977fc4b98c0e85816348cebd3b12026407c368b6/',
+      http_linespan          => true,
+      http_expect_body_regex => 'Doc.*Grammar.*Include.*Lib.*Mac.*Misc.*Modules.*Objects.*PC.*PCBuild.*LICENSE.*README.rst',
+    },
   }
 
   each($checks) |$name, $args| {
