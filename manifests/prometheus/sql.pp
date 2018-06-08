@@ -70,6 +70,9 @@ class profile::prometheus::sql {
     },
   }
 
+  # needed for the following file generation
+  $extra_config = lookup('prometheus::sql::exporter::extra_config')
+
   file {$defaults_file:
     ensure  => present,
     owner   => 'root',

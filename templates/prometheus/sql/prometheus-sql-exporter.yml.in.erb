@@ -510,3 +510,5 @@ jobs:
             sum( analyze_count) analyze_count,
             sum( autoanalyze_count) autoanalyze_count
             FROM pg_stat_all_tables;
+
+<%= @extra_config.to_yaml %>
