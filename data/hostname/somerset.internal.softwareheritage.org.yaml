@@ -7,20 +7,20 @@ icinga2::host::vars:
 
 prometheus::sql::exporter::extra_config:
   - name: "SoftwareHeritageIndexerCounters"
-  interval: '1h'
-  connections:
-  - 'postgres://postgres@:5434/softwareheritage-indexer?sslmode=disable'
-  queries:
-  - name: "swh_indexer_count"
-    help: "Indexer count per type"
-    labels:
-      - "mimetype"
-      - "fossology_license"
-    values:
-      - "count_mimetype"
-      - "count_fossology_license"
-    query:  |
-             select 'mimetype',
-                    (select count(*) from content_mimetype) as count_mimetype,
-                    'fossology_license',
-                    (select count(*) from content_fossology_license) as count_fossology_license;
+    interval: '1h'
+    connections:
+    - 'postgres://postgres@:5434/softwareheritage-indexer?sslmode=disable'
+    queries:
+    - name: "swh_indexer_count"
+      help: "Indexer count per type"
+      labels:
+        - "mimetype"
+        - "fossology_license"
+      values:
+        - "count_mimetype"
+        - "count_fossology_license"
+      query:  |
+               select 'mimetype',
+                      (select count(*) from content_mimetype) as count_mimetype,
+                      'fossology_license',
+                      (select count(*) from content_fossology_license) as count_fossology_license;
