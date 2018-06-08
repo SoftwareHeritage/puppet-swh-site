@@ -70,8 +70,9 @@ class profile::prometheus::sql {
     },
   }
 
-  # needed for the following file generation
-  $extra_config = lookup('prometheus::sql::exporter::extra_config')
+  # needed for the the configuration generation
+  # optiona extra configuration per host
+  $extra_config = lookup('prometheus::sql::exporter::extra_config', Data, 'first', undef)
 
   file {$defaults_file:
     ensure  => present,
