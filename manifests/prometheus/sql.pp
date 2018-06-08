@@ -31,6 +31,10 @@ class profile::prometheus::sql {
     source => 'puppet:///modules/profile/prometheus/sql/update-prometheus-sql-exporter-config',
   }
 
+  # needed for the the configuration generation
+  # optiona extra configuration per host
+  $extra_config = lookup('prometheus::sql::exporter::extra_config', Data, 'first', undef)
+
   file {$config_template:
     ensure  => present,
     owner   => 'root',
@@ -69,10 +73,6 @@ class profile::prometheus::sql {
       listen_address => $target,
     },
   }
-
-  # needed for the the configuration generation
-  # optiona extra configuration per host
-  $extra_config = lookup('prometheus::sql::exporter::extra_config', Data, 'first', undef)
 
   file {$defaults_file:
     ensure  => present,
