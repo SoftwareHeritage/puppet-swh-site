@@ -511,5 +511,5 @@ jobs:
             sum( autoanalyze_count) autoanalyze_count
             FROM pg_stat_all_tables;
 <% if @extra_config -%>
-<%= @extra_config.to_yaml %>
-<% end -%>
+<%= @extra_config.to_yaml().gsub(/^---\n/, '') %>
+<%- end -%>
