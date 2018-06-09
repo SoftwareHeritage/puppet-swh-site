@@ -104,11 +104,14 @@ def append_conn_strings_to_template(conf):
             if cluster_version >= min_version and cluster_version <= max_version:
                 used_clusters.append(cluster)
 
-        for cluster in used_clusters:
-            if job["name"].startswith("cluster"):
+        if job['name'].startswith('cluster'):
+            for cluster in used_clusters:
                 conn_strings.extend(build_conn_strings(cluster, False))
-            if job["name"].startswith("database"):
+        elif job['name'].startswith('database'):
+            for cluster in used_clusters:
                 conn_strings.extend(build_conn_strings(cluster, True))
+        else:
+            conn_strings.extend(job['connections'])
 
         job["connections"] = conn_strings
 
