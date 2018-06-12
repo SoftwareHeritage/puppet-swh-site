@@ -70,7 +70,7 @@ node /^worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_worker_azure
 }
 
-node 'dbreplica0.euwest.azure.internal.softwareheritage.org' {
+node /^dbreplica(0|1)\.euwest\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_database
 }
 
