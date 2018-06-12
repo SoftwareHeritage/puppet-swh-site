@@ -31,7 +31,7 @@ class profile::swh::deploy::webapp::icinga_checks {
       ]),
     },
     'release end to end' => {
-      http_uri               => '/browse/release/a9b7e3f1eada90250a6b2ab2ef3e0a846cb1683/',
+      http_uri               => '/browse/release/a9b7e3f1eada90250a6b2ab2ef3e0a846cb16831/',
       http_linespan          => true,
       http_expect_body_regex => join([
         '-:"Linux 4.9-rc8.*',
