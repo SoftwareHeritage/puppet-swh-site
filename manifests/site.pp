@@ -35,9 +35,9 @@ node 'banco.softwareheritage.org' {
 }
 
 node
-  'esnode1.softwareheritage.org',
-  'esnode2.softwareheritage.org',
-  'esnode3.softwareheritage.org'
+  'esnode1.internal.softwareheritage.org',
+  'esnode2.internal.softwareheritage.org',
+  'esnode3.internal.softwareheritage.org'
 {
   include role::swh_elasticsearch
 }
