@@ -25,6 +25,10 @@ class profile::icinga2::objects::agent_checks {
       sudo => true,
       sudo_user => 'journalbeat',
     },
+
+    'check_elasticsearch_cluster.sh' => {
+    },
+
   }
 
   $swh_plugin_dir = '/usr/lib/nagios/plugins/swh'
