@@ -34,6 +34,14 @@ node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
 
+node
+  'esnode1.softwareheritage.org',
+  'esnode2.softwareheritage.org',
+  'esnode3.softwareheritage.org'
+{
+  include role::swh_elasticsearch
+}
+
 node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
