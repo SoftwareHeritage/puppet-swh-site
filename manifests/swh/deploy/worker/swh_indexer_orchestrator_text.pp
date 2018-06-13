@@ -14,7 +14,7 @@ class profile::swh::deploy::worker::swh_indexer_orchestrator_text {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_orchestrator_content_text']
 
-  ::profile::swh::deploy::worker::instance {'swh_indexer_orchestrator_text':
+  Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_orchestrator_text':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
