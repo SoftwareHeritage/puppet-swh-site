@@ -1,0 +1,17 @@
+# Journal Checker unit file
+# Managed by puppet class profile::swh::deploy::journal_simple_checker_producer
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Journal Checker
+Requires=network.target kafka.service
+After=network.target kafka.service
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=OneShot
+ExecStart=/usr/bin/python3 -m swh.journal.checker
+
+[Install]
+WantedBy=multi-user.target

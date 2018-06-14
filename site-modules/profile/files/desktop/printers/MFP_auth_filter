@@ -1,0 +1,488 @@
+#!/usr/bin/perl -w
+
+# 7.22 (01 November 2013)
+
+use warnings;
+my %IQsOQdemWnRpKqgX9ckOY7a;
+my %IQddZwV6KPGAiuqlymAjaf9;
+my $CgQgehjU2fkeP3IuU_SluaS = 0;
+my $IQlTd0tjxipX5EM8bpksT9f = 0;
+my $RgdbYnWd0mYfstEI94Kmas1 = -1;
+my $NgLsAFr0eWBtUkx_ph10zLd = -1;
+my $OwEORWd_diPRRfMjclgacYG = 0;
+my $Pg7kuusKmFTpUKGI83WDyI4 = 0;
+my $RgH6C062x1Obd2hS5mfo1kc = 0;
+my %VAo9NQ_6OV7q4PDBhbsVUIW = (
+"Auto" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"Thin" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thin) >> setpagedevice
+userdict /TSBMediaType 11 put
+%%EndFeature
+} stopped cleartomark',
+"UpperCassette" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 0 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"LowerCassette" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 1 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"LCF" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 4 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"PedestalUpperCassette" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 4 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"PedestalLowerCassette" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 5 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"SheetFeedBypass" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed true
+/MediaPosition 3 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature
+} stopped cleartomark',
+"TandemLCF" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 4 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature    
+} stopped cleartomark',
+"ExternalLCF" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 6 /MediaType null >> setpagedevice
+userdict /TSBMediaType 0 put
+%%EndFeature   
+} stopped cleartomark',
+"Plain" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Plain) >> setpagedevice
+userdict /TSBMediaType 0 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=PLAIN) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"PlainA" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Plain) >> setpagedevice
+userdict /TSBMediaType 0 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=PLAIN) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Plain1" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Plain1) >> setpagedevice
+userdict /TSBMediaType 0 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=PLAIN1) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Plain2" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Plain2) >> setpagedevice
+userdict /TSBMediaType 0 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=PLAIN2) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick1" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 1) >> setpagedevice
+userdict /TSBMediaType 1 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK1) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick1back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 1b) >> setpagedevice
+userdict /TSBMediaType 1 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK1B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick2" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 2) >> setpagedevice
+userdict /TSBMediaType 2 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK2) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick2back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 2b) >> setpagedevice
+userdict /TSBMediaType 3 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK2B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick3" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 3) >> setpagedevice
+userdict /TSBMediaType 4 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK3) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick3back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 3b) >> setpagedevice
+userdict /TSBMediaType 4 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK3B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick4" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 4) >> setpagedevice
+userdict /TSBMediaType 4 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK4) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Thick4back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Thick 4b) >> setpagedevice
+userdict /TSBMediaType 4 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=THICK4B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Transparency" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed true
+/MediaPosition 9 /MediaType (Transparency) >> setpagedevice
+userdict /TSBMediaType 5 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=TRANSPARENCY) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Recycled" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Recycled) >> setpagedevice
+userdict /TSBMediaType 6 put
+<</TSBPrivate (DSSC PRINT MEDIATYPE=RECYCLED) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Special1" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Waterproof 1) >> setpagedevice
+userdict /TSBMediaType 7 put
+<< /OutputPosition 3 >> setpagedevice
+<</TSBPrivate (DSSC PRINT MEDIATYPE=WATERPROOF1) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Special1back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Waterproof 1b) >> setpagedevice
+userdict /TSBMediaType 8 put
+<< /OutputPosition 3 >> setpagedevice
+<</TSBPrivate (DSSC PRINT MEDIATYPE=WATERPROOF1B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Special2" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Waterproof 2) >> setpagedevice
+userdict /TSBMediaType 9 put
+<< /OutputPosition 3 >> setpagedevice
+<</TSBPrivate (DSSC PRINT MEDIATYPE=WATERPROOF2) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark',
+"Special2back" => '
+[{
+%%BeginFeature: *paperSource ok
+<< /DeferredMediaSelection true /ManualFeed false
+/MediaPosition 9 /MediaType (Waterproof 2b) >> setpagedevice
+userdict /TSBMediaType 10 put
+<< /OutputPosition 3 >> setpagedevice
+<</TSBPrivate (DSSC PRINT MEDIATYPE=WATERPROOF2B) >> setpagedevice
+%%EndFeature   
+} stopped cleartomark'
+);
+my $FglgkIk3FkJuea4yg45GKKS = "";
+my $Rgig05yAdP87v5aUne4pvMp = 0;
+my $KwrHRUAQOB_9zEJmYK7BgDJ;
+my $Zw3xzK1N60_42I7h9ki6syC = "CUPS User";
+my $VAx0IN05N6mheBLY6acC3Q_ = "CUPS Document";
+$FglgkIk3FkJuea4yg45GKKS = `domainname`;
+chomp $FglgkIk3FkJuea4yg45GKKS;
+if (length( $FglgkIk3FkJuea4yg45GKKS) == 0)
+{$KwrHRUAQOB_9zEJmYK7BgDJ = "False";
+}else
+{$KwrHRUAQOB_9zEJmYK7BgDJ = "True";
+}my %XAZt5_uRiv_LxHCSXzfN9Fc = (
+"True" => '
+[{
+%%BeginFeature: *UserAuthentication True
+<</TSBPrivate (DSSC PRINT DOMAINNAME=' . $FglgkIk3FkJuea4yg45GKKS . ') >> setpagedevice
+<</TSBPrivate (DSSC PRINT CERTIFIED=1) >> setpagedevice
+%%EndFeature
+} stopped cleartomark
+',
+"False" => '
+[{
+%%BeginFeature: *UserAuthentication False
+<</TSBPrivate (DSSC PRINT DOMAINNAME=) >> setpagedevice
+<</TSBPrivate (DSSC PRINT CERTIFIED=0) >> setpagedevice
+%%EndFeature
+} stopped cleartomark
+'
+);
+my $ZANthMYeXyYLcEp_9ouCR1R = '	[{
+%%BeginFeature: *Duplex NoDuplex
+<</Duplex false >> setpagedevice
+%%EndFeature
+} stopped cleartomark';
+my @Fgq5sA_PwVW_ShNX38akDvi = split(/(?<!\\) /, $ARGV[4]);
+foreach my $SQshiLOhTwBvAso8GKW70DN (@Fgq5sA_PwVW_ShNX38akDvi)
+{if ($SQshiLOhTwBvAso8GKW70DN =~ m/(.*)=(.*)/)
+{my $JwW2OO_Egq8Fkrsb5GUVeY0 = $1;
+my $Pgld7xc58fAiA5CvSN3mXQC = $2;
+$Pgld7xc58fAiA5CvSN3mXQC =~ s/\\(.)/$1/g;
+$IQsOQdemWnRpKqgX9ckOY7a{$JwW2OO_Egq8Fkrsb5GUVeY0} = $Pgld7xc58fAiA5CvSN3mXQC;
+}elsif ($SQshiLOhTwBvAso8GKW70DN =~ m/^no(.*)/)
+{$IQsOQdemWnRpKqgX9ckOY7a{$1} = 0;
+}else
+{$IQsOQdemWnRpKqgX9ckOY7a{$SQshiLOhTwBvAso8GKW70DN} = 1;
+}}my $ZACgdc0Z4W80a5PksxshAGN = "";
+if (defined ($ARGV[$#ARGV])) { $ZACgdc0Z4W80a5PksxshAGN = $ARGV[$#ARGV] }if (-f "$ZACgdc0Z4W80a5PksxshAGN") { open TheInputSource, "<" . $ZACgdc0Z4W80a5PksxshAGN }else { open TheInputSource, "-" }if($ARGV[1])
+{$Zw3xzK1N60_42I7h9ki6syC = $ARGV[1];
+}my $PwsEc1XImx03gTEUZBUbza2 = 0;
+while (defined (my $MAYuL63LQjlLfvOn4nR_IaT = <TheInputSource>))
+{if ($MAYuL63LQjlLfvOn4nR_IaT =~ /<<\/TSBPrivate \(DSSC PRINT USERLOGIN=(.*)\) >> setpagedevice/ )
+{$MAYuL63LQjlLfvOn4nR_IaT = "<</TSBPrivate (DSSC PRINT USERLOGIN=" . $Zw3xzK1N60_42I7h9ki6syC . ") >> setpagedevice\n";
+}if ($MAYuL63LQjlLfvOn4nR_IaT =~ /<<\/TSBPrivate \(DSSC JOB NAME=(.*)\) >> setpagedevice/ )
+{$MAYuL63LQjlLfvOn4nR_IaT = "<</TSBPrivate (DSSC JOB NAME=" . $VAx0IN05N6mheBLY6acC3Q_ . ") >> setpagedevice\n";
+}if ($MAYuL63LQjlLfvOn4nR_IaT =~ /^\%\%BeginSetup/ && $PwsEc1XImx03gTEUZBUbza2 != 1)
+{print $MAYuL63LQjlLfvOn4nR_IaT;
+my $ZQuIMYrqEQh0apZoii8gG06 = 1;
+my $MAtcZ_Rp_Fl2wS9mC_KrKlO = $IQsOQdemWnRpKqgX9ckOY7a{"com.apple.print.PrintSettings.PMLayoutRows..n."};
+my $MgasYOuyeXOQox_TZJ8HKLy = $IQsOQdemWnRpKqgX9ckOY7a{"com.apple.print.PrintSettings.PMLayoutColumns..n."};
+if (defined($MAtcZ_Rp_Fl2wS9mC_KrKlO) and defined($MgasYOuyeXOQox_TZJ8HKLy))
+{ $ZQuIMYrqEQh0apZoii8gG06 = $MAtcZ_Rp_Fl2wS9mC_KrKlO * $MgasYOuyeXOQox_TZJ8HKLy }$MAYuL63LQjlLfvOn4nR_IaT = "<</TSBPrivate (DSSC PRINT NUPCOUNT=" . $ZQuIMYrqEQh0apZoii8gG06 . ") >> setpagedevice\n";
+$PwsEc1XImx03gTEUZBUbza2 = 1;
+}if ( $MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%Page:\s*(\d+)\s*/)
+{$IQlTd0tjxipX5EM8bpksT9f = $1;
+if ($IQlTd0tjxipX5EM8bpksT9f == 1 )
+{if(!defined $IQddZwV6KPGAiuqlymAjaf9{"InputSlot"})
+{$IQddZwV6KPGAiuqlymAjaf9{"InputSlot"} = "Auto";
+}if ( $IQddZwV6KPGAiuqlymAjaf9{"UseFrontCover"} eq "True" )
+{$RgdbYnWd0mYfstEI94Kmas1 = LAXUX6rBHE9_kThT1ViJumr();
+}if( $IQddZwV6KPGAiuqlymAjaf9{"UseBackCover"} eq "True" )
+{$NgLsAFr0eWBtUkx_ph10zLd = NgBqXkrPQke_x_sDyDPuQ1M();
+}}if ( $IQlTd0tjxipX5EM8bpksT9f == $RgdbYnWd0mYfstEI94Kmas1 )
+{if ($IQddZwV6KPGAiuqlymAjaf9{"Duplex"} ne "None")
+{OQg31OtLYDVoheJXme4GMcl();
+}Yg_pv8thjFMU91046_04dKY();
+}if ($IQlTd0tjxipX5EM8bpksT9f == $NgLsAFr0eWBtUkx_ph10zLd)
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} ne "None" )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"BackCoverPrintStyle"} eq "Print1" )
+{print ($ZANthMYeXyYLcEp_9ouCR1R);
+}}KAVqkrt4s_47MR1s3oVhOM3();
+}}if ( ($IQlTd0tjxipX5EM8bpksT9f == 1) && ($RgH6C062x1Obd2hS5mfo1kc != 1))
+{if ( $IQddZwV6KPGAiuqlymAjaf9{'UseFrontCover'} ne "True" )
+{if ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%BeginFeature:/)
+{if ( $IQddZwV6KPGAiuqlymAjaf9{'UseBackCover'} eq "True" )
+{$CgQgehjU2fkeP3IuU_SluaS--;
+$NgLsAFr0eWBtUkx_ph10zLd = NgBqXkrPQke_x_sDyDPuQ1M();
+$CgQgehjU2fkeP3IuU_SluaS++;
+$NgLsAFr0eWBtUkx_ph10zLd++;
+$RgH6C062x1Obd2hS5mfo1kc = 1;
+}}}}if ( $IQlTd0tjxipX5EM8bpksT9f != 0 )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{'UseFrontCover'} eq "True" )
+{if ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%BeginFeature:/)
+{$Pg7kuusKmFTpUKGI83WDyI4 = 1;
+}if ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%EndFeature/)
+{$Pg7kuusKmFTpUKGI83WDyI4 = 0;
+$MAYuL63LQjlLfvOn4nR_IaT = "";
+}if ($Pg7kuusKmFTpUKGI83WDyI4 == 1)
+{$MAYuL63LQjlLfvOn4nR_IaT = "";
+}}}if ( ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%EOF/) && ($NgLsAFr0eWBtUkx_ph10zLd == $CgQgehjU2fkeP3IuU_SluaS + 1))
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} ne "None" )
+{print ($ZANthMYeXyYLcEp_9ouCR1R);
+}$OwEORWd_diPRRfMjclgacYG = 1;
+KAVqkrt4s_47MR1s3oVhOM3();
+Cw4Mkys2_8v2e9cwu4aKEjQ();
+}if ($IQlTd0tjxipX5EM8bpksT9f == 0 )
+{if ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%BeginFeature:\s*\*(\S*)\s*(\S*)/)
+{my $VAlLZextcELhv1X2BM7_pvq = $1;
+my $Pgld7xc58fAiA5CvSN3mXQC = $2;
+$IQddZwV6KPGAiuqlymAjaf9{$VAlLZextcELhv1X2BM7_pvq} = $Pgld7xc58fAiA5CvSN3mXQC;
+}if ( $MAYuL63LQjlLfvOn4nR_IaT =~ /\/Pages\s*(\d+).*/ )
+{$CgQgehjU2fkeP3IuU_SluaS = $1;
+}}if ($MAYuL63LQjlLfvOn4nR_IaT =~ /\%\%BeginFeature:\s*\*DeptCode/)
+{$Rgig05yAdP87v5aUne4pvMp = 1;
+}if ( ($Rgig05yAdP87v5aUne4pvMp == 1) && ( $MAYuL63LQjlLfvOn4nR_IaT =~ /}\s*stopped\s*cleartomark/ ) )
+{my $BgZ5P_MZ2FTwIdx_khSFhge = $XAZt5_uRiv_LxHCSXzfN9Fc{"$KwrHRUAQOB_9zEJmYK7BgDJ"};
+$MAYuL63LQjlLfvOn4nR_IaT .= "\n$BgZ5P_MZ2FTwIdx_khSFhge\n";
+$Rgig05yAdP87v5aUne4pvMp = 0;
+}print( $MAYuL63LQjlLfvOn4nR_IaT );
+}if ($IQddZwV6KPGAiuqlymAjaf9{'UseBackCover'} eq "True")
+{if (($OwEORWd_diPRRfMjclgacYG != 1) && ($IQddZwV6KPGAiuqlymAjaf9{'BackCoverPrintStyle'} eq "NoPrint"))
+{KAVqkrt4s_47MR1s3oVhOM3 ();
+Cw4Mkys2_8v2e9cwu4aKEjQ ();
+print "%%EOF";
+}}sub Yg_pv8thjFMU91046_04dKY
+{my $Vg7pxS85Je2d3dKRIeMY0qk = $IQddZwV6KPGAiuqlymAjaf9{"InputSlot"};
+my $SAv1MaaCf_HfvaAP2AbswHD = $VAo9NQ_6OV7q4PDBhbsVUIW{"$Vg7pxS85Je2d3dKRIeMY0qk"};
+print ("\n$SAv1MaaCf_HfvaAP2AbswHD\n");
+}sub NgBqXkrPQke_x_sDyDPuQ1M
+{my $VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+if ( $IQddZwV6KPGAiuqlymAjaf9{"BackCoverPrintStyle"} eq "NoPrint" )
+{$VQDs1UaDsMh_Ql0CnAehnva =  $CgQgehjU2fkeP3IuU_SluaS + 1;
+}elsif ( $IQddZwV6KPGAiuqlymAjaf9{"BackCoverPrintStyle"} eq "Print" )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} eq "None" )
+{if ($CgQgehjU2fkeP3IuU_SluaS > 1)
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+}else
+{$VQDs1UaDsMh_Ql0CnAehnva = -1;
+}}else
+{if ( $CgQgehjU2fkeP3IuU_SluaS == 2 )
+{if ( ($IQddZwV6KPGAiuqlymAjaf9{'UseFrontCover'} eq "True") && 
+($IQddZwV6KPGAiuqlymAjaf9{'FrontCoverPrintStyle'} eq "Print1"))
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+}}elsif ($CgQgehjU2fkeP3IuU_SluaS > 2)
+{if ( ($IQddZwV6KPGAiuqlymAjaf9{'UseFrontCover'} eq "True") && 
+($IQddZwV6KPGAiuqlymAjaf9{'FrontCoverPrintStyle'} eq "Print1")) 
+{if ( ($CgQgehjU2fkeP3IuU_SluaS % 2) != 0 )
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS - 1;
+}else
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+}}else
+{if ( ($CgQgehjU2fkeP3IuU_SluaS % 2) != 0 )
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+}else
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS - 1;
+}}}else
+{$VQDs1UaDsMh_Ql0CnAehnva = -1;
+}}}elsif ( $IQddZwV6KPGAiuqlymAjaf9{"BackCoverPrintStyle"} eq "Print1" )
+{if ($CgQgehjU2fkeP3IuU_SluaS > 1)
+{$VQDs1UaDsMh_Ql0CnAehnva = $CgQgehjU2fkeP3IuU_SluaS;
+}else
+{$VQDs1UaDsMh_Ql0CnAehnva = -1;
+}}return $VQDs1UaDsMh_Ql0CnAehnva;
+}sub KAVqkrt4s_47MR1s3oVhOM3
+{my $VAbI7UXk4XwwdfFVS_YarYc = $IQddZwV6KPGAiuqlymAjaf9{"BackCoverSource"};
+my $SAv1MaaCf_HfvaAP2AbswHD = $VAo9NQ_6OV7q4PDBhbsVUIW{"$VAbI7UXk4XwwdfFVS_YarYc"};
+print ("\n$SAv1MaaCf_HfvaAP2AbswHD\n");
+}sub LAXUX6rBHE9_kThT1ViJumr
+{my $YQYou_rUvKNwAebrhpy3ONu = $IQddZwV6KPGAiuqlymAjaf9{"FrontCoverSource"};
+my $SAv1MaaCf_HfvaAP2AbswHD = $VAo9NQ_6OV7q4PDBhbsVUIW{"$YQYou_rUvKNwAebrhpy3ONu"};
+print ("\n$SAv1MaaCf_HfvaAP2AbswHD\n");
+if ( $IQddZwV6KPGAiuqlymAjaf9{"FrontCoverPrintStyle"} eq "NoPrint" )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} ne "None" )
+{print ($ZANthMYeXyYLcEp_9ouCR1R);
+}Cw4Mkys2_8v2e9cwu4aKEjQ();
+return 1;
+}elsif ( $IQddZwV6KPGAiuqlymAjaf9{"FrontCoverPrintStyle"} eq "Print" )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} eq "None" )
+{return 2; 
+}else
+{return 3;
+}}elsif ( $IQddZwV6KPGAiuqlymAjaf9{"FrontCoverPrintStyle"} eq "Print1" )
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} ne "None" )
+{print ($ZANthMYeXyYLcEp_9ouCR1R);
+}return 2;
+}else
+{}}sub OQg31OtLYDVoheJXme4GMcl
+{if ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} eq "DuplexNoTumble" )
+{print '	
+[{
+%%BeginFeature: *Duplex setting
+<< /Duplex true /Tumble false >> setpagedevice
+%%EndFeature
+} stopped cleartomark';		
+}elsif ( $IQddZwV6KPGAiuqlymAjaf9{"Duplex"} eq "DuplexTumble" )
+{print '	
+[{
+%%BeginFeature: *Duplex setting
+<< /Duplex true /Tumble true >> setpagedevice
+%%EndFeature
+} stopped cleartomark';
+}else
+{print '	
+[{
+%%BeginFeature: *Duplex setting
+<< /Duplex false /Tumble false >> setpagedevice
+%%EndFeature
+} stopped cleartomark';
+}}sub PQpforKzO6hVgyBsEnu2Gjd
+{print( "Print Feature Hash\n" );
+Yw0hll42BnESxxL94xo50oO();
+}sub Yw0hll42BnESxxL94xo50oO
+{foreach my $JwW2OO_Egq8Fkrsb5GUVeY0 (sort(keys(%IQddZwV6KPGAiuqlymAjaf9)))
+{print "$JwW2OO_Egq8Fkrsb5GUVeY0: $IQddZwV6KPGAiuqlymAjaf9{$JwW2OO_Egq8Fkrsb5GUVeY0}\n";
+}}sub Cw4Mkys2_8v2e9cwu4aKEjQ
+{print( "\nshowpage\n" );
+}sub IA6zNEzpp42_KaxiOHzdlJk
+{my $SgsLFTthhmv_sZ1qGrsN3iV = $_[0];
+if ($SgsLFTthhmv_sZ1qGrsN3iV =~ m/^\((.*)\)$/)
+{$SgsLFTthhmv_sZ1qGrsN3iV = $1;
+}foreach my $PwUajytA_SVkp_zcip7OZka ($_[0] =~ m/(?<=\\)([0-3][0-7][0-7])/g)
+{$SgsLFTthhmv_sZ1qGrsN3iV =~ s/\\$PwUajytA_SVkp_zcip7OZka/chr oct $PwUajytA_SVkp_zcip7OZka/ge;
+}$SgsLFTthhmv_sZ1qGrsN3iV =~ s/\\(?>![\(\)])/\\\\/g;
+$SgsLFTthhmv_sZ1qGrsN3iV =~ s/(?<!\\)\(/\\\(/g;
+$SgsLFTthhmv_sZ1qGrsN3iV =~ s/(?<!\\)\)/\\\)/g;
+return $SgsLFTthhmv_sZ1qGrsN3iV;
+}

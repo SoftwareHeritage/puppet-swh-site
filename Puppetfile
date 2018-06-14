@@ -1,13 +1,3 @@
-mod 'profile',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-profile',
-    :branch => :control_branch,
-    :default_branch => 'master'
-
-mod 'role',
-    :git => 'https://forge.softwareheritage.org/source/puppet-swh-role',
-    :branch => :control_branch,
-    :default_branch => 'master'
-
 mod 'dar',
     :git => 'https://forge.softwareheritage.org/source/puppet-swh-dar',
     :branch => :control_branch,

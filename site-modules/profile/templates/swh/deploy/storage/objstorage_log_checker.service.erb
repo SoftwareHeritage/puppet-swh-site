@@ -1,0 +1,14 @@
+# File managed by puppet - modifications will be overwritten
+[Unit]
+Description=ObjStorage Content Log Checker
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=/usr/bin/python3 -m swh.objstorage.checker log --daemon
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

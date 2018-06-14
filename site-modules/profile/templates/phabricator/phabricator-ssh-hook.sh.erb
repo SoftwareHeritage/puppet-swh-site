@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Phabricator SSH hook
+#
+# Managed by puppet class profile::phabricator
+# Changes will be overwritten
+
+VCSUSER="<%= @phabricator_vcs_user %>"
+
+# NOTE: Replace this with the path to your Phabricator directory.
+ROOT="<%= @phabricator_basepath %>/phabricator"
+
+if [ "$1" != "$VCSUSER" ];
+then
+  exit 1
+fi
+
+exec "$ROOT/bin/ssh-auth" "$@"

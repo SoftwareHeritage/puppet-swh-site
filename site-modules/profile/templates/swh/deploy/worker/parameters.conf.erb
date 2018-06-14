@@ -1,0 +1,13 @@
+# Managed by puppet - modifications will be overwritten
+# In defined class profile::swh::deploy::worker::instance
+
+[Service]
+Environment=CONCURRENCY=<%= @concurrency %>
+Environment=MAX_TASKS_PER_CHILD=<%= @max_tasks_per_child %>
+Environment=LOGLEVEL=<%= @loglevel %>
+<% if @limit_no_file %>
+LimitNOFILE=<%= @limit_no_file %>
+<% end %>
+<% if @private_tmp %>
+PrivateTmp=<%= @private_tmp %>
+<% end %>

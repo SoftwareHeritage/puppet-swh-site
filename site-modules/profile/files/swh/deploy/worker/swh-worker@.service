@@ -1,0 +1,24 @@
+[Unit]
+Description=Software Heritage Worker (%i)
+After=network.target
+
+[Service]
+User=swhworker
+Group=swhworker
+
+Type=simple
+Environment=SWH_WORKER_INSTANCE=%i
+Environment=CONCURRENCY=10
+Environment=MAX_TASKS_PER_CHILD=5
+Environment=LOGLEVEL=info
+ExecStart=/usr/bin/python3 -m celery worker --app=swh.scheduler.celery_backend.config.app --pool=prefork --events --concurrency=${CONCURRENCY} --maxtasksperchild=${MAX_TASKS_PER_CHILD} -Ofair --loglevel=${LOGLEVEL} --without-gossip --without-mingle --without-heartbeat -n %i.%%h
+
+KillMode=process
+KillSignal=SIGTERM
+TimeoutStopSec=0
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

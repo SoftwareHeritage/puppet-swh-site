@@ -1,0 +1,19 @@
+# Scheduler Runner unit file
+# Managed by puppet class profile::swh::deploy::scheduler
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage scheduler runner
+Requires=network.target rabbitmq-server.service
+After=network.target rabbitmq-server.service
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/bin/sh -c 'while true; do echo running pending tasks at `/bin/date`...; /usr/bin/python3 -m swh.scheduler.celery_backend.runner; sleep 10; done'
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
