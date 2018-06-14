@@ -10,12 +10,6 @@ class profile::elasticsearch {
     shell  => '/bin/false',
   }
 
-  file { '/srv/elasticsearch':
-    ensure => 'directory',
-    owner  => 'elasticsearch',
-    mode   => '755',
-  }
-
   package { 'openjdk-8-jre-headless':
     ensure => 'present',
   }
@@ -35,13 +29,33 @@ class profile::elasticsearch {
     },
   }
 
-  package { 'elasticsearch':
-    ensure => 'present',
+  class { 'elasticsearch':
+    instances => {
+      'es-01' => {
+        'config' => {
+          'cluster.name' => 'clustername',
+          'node.name' => 'nodename',
+          'network.host' => '127.0.0.1',
+          'discovery.zen.ping.unicast.hosts' => [
+		'a',
+		'b',
+		'c',
+	  ],
+	  # XXX: should depend on cluster size. Always have at least n+1 machines.
+          'discovery.zen.minimum_master_nodes' => 2,
+	  # Good for archiving: use half of heap memory for indexing operations.
+          'indices.memory.index_buffer_size' => '50%',
+        },
+        datadir => '/srv/elasticsearch',
+      },
+    },
+    manage_repo => false,
+    # XXX: how do we remove options ?
+    # Ensure we do not keep CMS options ?
+    jvm_options => [
+      '-Xms15g',
+      '-Xmx15g',
+      '-XX:+UseG1GC',
+    ]
   }
-
-  service { 'elasticsearch':
-    ensure => running,
-    enable => true,
-  }
-
 }
