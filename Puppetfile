@@ -61,6 +61,10 @@ mod 'cups',
     :git => 'https://forge.softwareheritage.org/source/puppet-mosen-cups',
     :ref => 'master'
 
+mod 'datacat',
+    :git => 'https://forge.softwareheritage.org/source/puppet-richardc-datacat',
+    :ref => '0.6.2'
+
 mod 'debconf',
     :git => 'https://forge.softwareheritage.org/source/puppet-stm-debconf',
     :ref => 'v2.1.0'
