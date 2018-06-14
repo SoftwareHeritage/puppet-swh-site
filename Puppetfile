@@ -69,6 +69,10 @@ mod 'debnet',
     :git => 'https://forge.softwareheritage.org/source/puppet-trepasi-debnet',
     :ref => 'v1.5.2'
 
+mod 'elasticsearch',
+    :git => 'https://forge.softwareheritage.org/source/puppet-elastic-elasticsearch',
+    :ref => '6.2.2'
+
 mod 'extlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-extlib',
     :tag => 'v2.0.1'
