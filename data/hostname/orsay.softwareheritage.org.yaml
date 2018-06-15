@@ -9,6 +9,3 @@ dns::forwarders:
   - 128.93.11.1
 
 internal_network: 192.168.101.0/24
-
-dns::forwarders:
-  - 128.93.11.1
