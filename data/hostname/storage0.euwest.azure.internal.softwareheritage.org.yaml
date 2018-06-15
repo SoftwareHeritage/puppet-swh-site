@@ -4,6 +4,7 @@ swh::deploy::storage::backend::workers: 96
 swh::deploy::storage::db::host: dbreplica0.euwest.azure.internal.softwareheritage.org
 swh::deploy::storage::db::port: 5433
 
+swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
 swh::deploy::indexer::storage::db::host: dbreplica1.euwest.azure.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::port: 5434
 
