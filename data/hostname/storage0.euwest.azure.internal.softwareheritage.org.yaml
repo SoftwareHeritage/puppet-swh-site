@@ -4,6 +4,9 @@ swh::deploy::storage::backend::workers: 96
 swh::deploy::storage::db::host: dbreplica0.euwest.azure.internal.softwareheritage.org
 swh::deploy::storage::db::port: 5433
 
+swh::deploy::indexer::storage::db::host: dbreplica1.euwest.azure.internal.softwareheritage.org
+swh::deploy::indexer::storage::db::port: 5434
+
 swh::deploy::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::worker::instances: []
