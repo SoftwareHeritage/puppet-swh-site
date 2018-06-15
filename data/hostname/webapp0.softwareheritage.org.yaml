@@ -1,6 +1,3 @@
-swh::deploy::storage::db::host: somerset
-swh::deploy::storage::db::port: 5433
-
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 
@@ -10,9 +7,12 @@ apache::http_port: 9080
 # Disable default vhost on port 80
 apache::default_vhost: false
 
-swh::deploy::storage::db::host: dbreplica0.euwest.azure.internal.softwareheritage.org
-swh::deploy::storage::db::port: 5433
-
 swh::deploy::webapp::vhost::name: webapp0.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
   - webapp0.softwareheritage.org
+
+swh::deploy::storage::config:
+  storage: "%{alias('swh::remote_service::storage::config::azure')}"
+
+swh::deploy::indexer::storage::config:
+  indexer_storage: "%{alias('swh::indexer::storage::config::azure')}"

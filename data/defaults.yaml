@@ -1223,6 +1223,11 @@ swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
+swh::indexer::storage::config::azure:
+  cls: remote
+  args:
+    url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+
 swh::remote_service::scheduler::config::saatchi: &swh_scheduler_remote_config_saatchi
   cls: remote
   args:
