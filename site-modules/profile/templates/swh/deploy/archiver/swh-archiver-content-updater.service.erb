@@ -1,0 +1,19 @@
+# Journal Publisher unit file
+# Managed by puppet class profile::swh::deploy::archiver_content_updater
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Archiver Content Updater
+Requires=network.target kafka.service
+After=network.target kafka.service
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/python3 -m swh.archiver.updater
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

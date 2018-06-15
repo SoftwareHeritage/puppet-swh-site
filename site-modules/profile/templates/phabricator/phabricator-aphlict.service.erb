@@ -1,0 +1,21 @@
+# Phabricator Notification Daemon unit file
+# Managed by puppet class profile::phabricator
+# Changes will be overwritten
+
+[Unit]
+Description=Phabricator Notification Daemon
+Requires=network.target mysql.service apache2.service
+After=network.target mysql.service apache2.service
+Before=phabricator-phd.service
+
+[Service]
+User=<%= @phabricator_user %>
+Group=<%= @phabricator_user %>
+RuntimeDirectory=phabricator-aphlict
+Type=forking
+Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start
+ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/aphlict stop
+
+[Install]
+WantedBy=multi-user.target

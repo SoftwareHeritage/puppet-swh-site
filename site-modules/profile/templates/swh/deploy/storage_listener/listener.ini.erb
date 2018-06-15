@@ -1,0 +1,9 @@
+# swh.storage.listener configuration file
+# File managed by puppet - modifications will be overwritten
+
+[main]
+database = <%= @database %>
+brokers = <%= @kafka_brokers.join(',') %>
+topic_prefix = <%= @topic_prefix %>
+poll_timeout = <%= @poll_timeout %>
+

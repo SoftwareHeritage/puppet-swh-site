@@ -1,0 +1,15 @@
+# File managed by puppet (class profile::unbound), all changes will be lost
+
+forward-zone:
+    name: "."
+<% @forwarders.each do |forwarder| -%>
+    forward-addr: <%= forwarder %>
+<% end -%>
+
+<% @forward_zones.each do |zone, forwarders| -%>
+forward-zone:
+    name: "<%= zone %>"
+<% forwarders.each do |forwarder| -%>
+    forward-addr: <%= forwarder %>
+<% end -%>
+<% end -%>

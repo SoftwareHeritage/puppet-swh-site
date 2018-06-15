@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# This systemd generator creates dependency symlinks that make all swh-worker
+# instances in /etc/softwareheritage/worker/ be started/stopped/reloaded when
+# swh-worker.service is started/stopped/reloaded.
+
+set -eu
+
+gendir="$1"
+wantdir="$1/swh-worker.service.wants"
+swhworkerservice="/etc/systemd/system/swh-worker@.service"
+
+mkdir -p "$wantdir"
+
+for conf in /etc/softwareheritage/worker/*.ini; do
+	test -e "$conf" || continue
+	base=$(basename $conf)
+	instancename=$(basename $base .ini)
+	ln -s "$swhworkerservice" "$wantdir/swh-worker@$instancename.service"
+done
+
+exit 0
