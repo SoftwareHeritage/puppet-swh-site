@@ -2652,6 +2652,15 @@ ceph::keys:
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents_test
 
+ceph::client_keyrings:
+  '/etc/softwareheritage/ceph-keyring':
+    owner: root
+    group: swhdev
+    mode: '0640'
+    keys:
+      - swh-contents
+      - swh-contents-test
+
 nginx::package_name: nginx-light
 nginx::accept_mutex: 'off'
 nginx::names_hash_bucket_size: 128
