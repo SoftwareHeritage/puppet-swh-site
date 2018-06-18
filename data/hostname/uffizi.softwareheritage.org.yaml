@@ -36,6 +36,17 @@ swh::deploy::indexer::storage::config:
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
 
+ceph::client_keyrings:
+  '/etc/softwareheritage/storage/ceph-keyring':
+    owner: root
+    group: swhstorage
+    mode: '0640'
+    keys:
+      - swh-contents
+      - swh-contents-rw
+      - swh-contents-test
+      - swh-contents-test-rw
+
 swh::deploy::worker::instances:
   - swh_storage_archiver
 
