@@ -2657,7 +2657,7 @@ ceph::client_keyrings:
   "%{alias('ceph::default_client_keyring')}":
     owner: root
     group: swhdev
-    mode: '0640'
+    mode: '0644'
     keys:
       - swh-contents
       - swh-contents-test
