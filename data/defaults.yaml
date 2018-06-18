@@ -2635,10 +2635,18 @@ ceph::keys:
     secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
+  swh-contents:
+    secret: "%{hiera('ceph::secrets::swh_contents')}"
+    cap_mon: allow r
+    cap_osd: allow r pool=swh_contents
   swh-contents-rw:
     secret: "%{hiera('ceph::secrets::swh_contents_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents
+  swh-contents-test:
+    secret: "%{hiera('ceph::secrets::swh_contents_test')}"
+    cap_mon: allow r
+    cap_osd: allow r pool=swh_contents_test
   swh-contents-test-rw:
     secret: "%{hiera('ceph::secrets::swh_contents_test_rw')}"
     cap_mon: allow r
