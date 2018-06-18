@@ -38,7 +38,7 @@ class profile::ceph::base {
       $secret = $ceph_keys[$name]['secret']
       ::concat::fragment {"${file}/client.${name}":
         target  => $file,
-        content => "[client.${name}]\n    secret = ${secret}\n",
+        content => "[client.${name}]\n\tkey = ${secret}\n",
       }
     }
   }
