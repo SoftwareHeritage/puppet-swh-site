@@ -40,7 +40,7 @@ swh::deploy::objstorage::ceph::keyring: /etc/softwareheritage/objstorage/ceph-ke
 swh::deploy::objstorage::ceph::rados_id: swh-contents-rw
 
 ceph::client_keyrings:
-  "%{alias('swh::deploy::objstorage::ceph::keyring')}":
+  '/etc/softwareheritage/objstorage/ceph-keyring':
     owner: root
     group: swhstorage
     mode: '0640'

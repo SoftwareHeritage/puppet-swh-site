@@ -2654,7 +2654,7 @@ ceph::keys:
 
 ceph::default_client_keyring: /etc/softwareheritage/ceph-keyring
 ceph::client_keyrings:
-  "%{alias('ceph::default_client_keyring')}":
+  '/etc/softwareheritage/ceph-keyring':
     owner: root
     group: swhdev
     mode: '0644'
