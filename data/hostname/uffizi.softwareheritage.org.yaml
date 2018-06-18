@@ -36,16 +36,16 @@ swh::deploy::indexer::storage::config:
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
 
+swh::deploy::objstorage::ceph::keyring: /etc/softwareheritage/objstorage/ceph-keyring
+swh::deploy::objstorage::ceph::rados_id: swh-contents-rw
+
 ceph::client_keyrings:
-  '/etc/softwareheritage/storage/ceph-keyring':
+  "%{alias('swh::deploy::objstorage::ceph::keyring')}":
     owner: root
     group: swhstorage
     mode: '0640'
     keys:
-      - swh-contents
-      - swh-contents-rw
-      - swh-contents-test
-      - swh-contents-test-rw
+      - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
 
 swh::deploy::worker::instances:
   - swh_storage_archiver

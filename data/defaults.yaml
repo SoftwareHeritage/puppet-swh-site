@@ -2662,6 +2662,17 @@ ceph::client_keyrings:
       - swh-contents
       - swh-contents-test
 
+swh::deploy::objstorage::ceph::keyring: "%{alias('ceph::default_client_keyring')}"
+swh::deploy::objstorage::ceph::pool_name: swh_contents
+swh::deploy::objstorage::ceph::rados_id: swh-contents
+swh::deploy::objstorage::ceph::config:
+  cls: rados
+  args:
+    pool_name: "%{alias('swh::deploy::objstorage::ceph::pool_name')}"
+    rados_id: "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
+    ceph_config:
+      keyring: "%{alias('swh::deploy::objstorage::ceph::keyring')}"
+
 nginx::package_name: nginx-light
 nginx::accept_mutex: 'off'
 nginx::names_hash_bucket_size: 128
