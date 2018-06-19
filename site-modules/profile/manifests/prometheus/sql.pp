@@ -32,7 +32,7 @@ class profile::prometheus::sql {
   }
 
   # needed for the the configuration generation
-  # optiona extra configuration per host
+  # optional extra configuration per host
   $extra_config = lookup('prometheus::sql::exporter::extra_config', Data, 'first', undef)
 
   file {$config_template:
