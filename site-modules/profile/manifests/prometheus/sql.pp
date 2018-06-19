@@ -22,6 +22,12 @@ class profile::prometheus::sql {
     ]
   }
 
+  ::systemd::dropin_file {"${service_name}/restart.conf":
+    ensure   => present,
+    unit     => "${service_name}.service",
+    filename => 'restart.conf',
+    content  => "[Service]\nRestart=always\nRestartSec=5\n",
+  }
 
   file {$config_updater:
     ensure => present,

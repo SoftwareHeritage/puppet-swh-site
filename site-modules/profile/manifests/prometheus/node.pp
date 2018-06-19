@@ -18,6 +18,13 @@ class profile::prometheus::node {
     ]
   }
 
+  ::systemd::dropin_file {'prometheus-node-exporter/restart.conf':
+    ensure   => present,
+    unit     => 'prometheus-node-exporter.service',
+    filename => 'restart.conf',
+    content  => "[Service]\nRestart=always\nRestartSec=5\n",
+  }
+
   $lookup_defaults_config = lookup('prometheus::node::defaults_config', Hash)
   $listen_network = lookup('prometheus::node::listen_network', Optional[String], 'first', undef)
   $listen_address = lookup('prometheus::node::listen_address', Optional[String], 'first', undef)
