@@ -1070,8 +1070,6 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=debian icinga-%{::lsbdistcodename},n=icinga-%{::lsbdistcodename}" # Icinga2 repository
  - "o=Debian Azure,n=%{::lsbdistcodename}"                              # Debian Azure
  - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
- - "o=elastic"                                                          # Yes elasticsearch has both cases <_<
- - "o=Elastic"                                                          # ...
  - "o=packages.sury.org"                                                # PHP backports (tate)
 
 swh::remote_service::storage::port: 5002
