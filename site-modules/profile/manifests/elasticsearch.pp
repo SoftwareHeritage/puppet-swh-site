@@ -36,7 +36,7 @@ class profile::elasticsearch {
   }
 
   package { 'elasticsearch':
-    ensure => 'present',
+    ensure => '6.3.0',
   }
 
   service { 'elasticsearch':
