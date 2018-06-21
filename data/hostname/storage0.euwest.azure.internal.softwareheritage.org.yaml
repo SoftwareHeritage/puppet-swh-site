@@ -3,6 +3,10 @@ swh::deploy::storage::backend::workers: 48
 swh::deploy::storage::backend::max_requests: 1000
 swh::deploy::storage::backend::max_requests_jitter: 100
 
+swh::deploy::objstorage::backend::listen::host: 0.0.0.0
+swh::deploy::objstorage::backend::workers: 8
+
+
 swh::deploy::storage::db::host: dbreplica0.euwest.azure.internal.softwareheritage.org
 swh::deploy::storage::db::port: 5433
 
