@@ -27,4 +27,22 @@ class profile::ceph::mon {
       * => $data,
     }
   }
+
+  $enabled_modules = pick(
+    $::ceph_mgr_modules,
+    {'enabled_modules' => []},
+  )['enabled_modules']
+
+  unless (member($enabled_modules, 'prometheus')) {
+    Service<| tag == 'ceph-mgr' |>
+    -> exec {'ceph mgr enable module prometheus':
+      path   => ['/bin', '/usr/bin'],
+    }
+  }
+
+  $fqdn = $::swh_hostname['internal_fqdn']
+
+  profile::prometheus::export_scrape_config {'ceph':
+    target => "http://${fqdn}:9283",
+  }
 }
