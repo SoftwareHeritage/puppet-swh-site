@@ -40,9 +40,7 @@ class profile::ceph::mon {
     }
   }
 
-  $fqdn = $::swh_hostname['internal_fqdn']
-
   profile::prometheus::export_scrape_config {'ceph':
-    target => "http://${fqdn}:9283",
+    target => "${profile::prometheus::node::actual_listen_address}:9283",
   }
 }
