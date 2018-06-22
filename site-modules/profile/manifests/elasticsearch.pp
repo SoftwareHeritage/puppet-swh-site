@@ -39,6 +39,11 @@ class profile::elasticsearch {
     ensure => '6.3.0',
   }
 
+  systemd::dropin_file { 'elasticsearch.conf':
+    unit   => 'elasticsearch.service',
+    content  => template('profile/swh/elasticsearch.conf.erb'),
+  }
+
   service { 'elasticsearch':
     ensure => running,
     enable => true,
