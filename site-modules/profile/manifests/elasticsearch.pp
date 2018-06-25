@@ -39,6 +39,13 @@ class profile::elasticsearch {
     ensure => '6.3.0',
   }
 
+  # niofs increases I/O performance and node reliability
+  file_line { 'elasticsearch niofs':
+    ensure => present,
+    line   => 'index.store.type: niofs',
+    path   => '/etc/elasticsearch/elasticsearch.yml',
+  }
+
   systemd::dropin_file { 'elasticsearch.conf':
     unit   => 'elasticsearch.service',
     content  => template('profile/swh/elasticsearch.conf.erb'),
