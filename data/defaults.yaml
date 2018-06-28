@@ -1697,7 +1697,8 @@ swh::deploy::scheduler::archive::config:
     - host: esnode1.internal.softwareheritage.org
       port: 9200
   client_options:
-    sniff: false
+    sniff_on_start: false
+    sniff_on_connection_fail: True
     http_compress: false
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
