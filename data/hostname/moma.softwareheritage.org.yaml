@@ -16,6 +16,8 @@ dar::backup::exclude:
 swh::deploy::storage::db::host: somerset
 swh::deploy::storage::db::port: 5433
 
+swh::deploy::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 
