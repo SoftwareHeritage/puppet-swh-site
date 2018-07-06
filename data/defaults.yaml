@@ -40,6 +40,9 @@ smtp::mail_aliases:
   - user: ardumont
     aliases:
       - antoine.romain.dumont@gmail.com
+  - user: ddouard
+    aliases:
+      - david.douard@sdfa3.org
   - user: fiendish
     aliases:
       - patcherton.fixesthings@gmail.com
@@ -422,7 +425,17 @@ users:
       - swhdeploy
       - swhstorage
       - swhvault
-
+  ddouard:
+    uid: 1020
+    full_name: David Douard
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      david.douard@sdfa3.org:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCoON7De2Bx03owpZfzbOyucZTmyQdm7F+LP4D4H9EyOFxtyMpjH2S9Ve/JvMoFIWGQQlXSkYzRv63Z0BzPLKD2NsYgomcjOLdw1Baxnv8VOH+Q01g4B3cabcP2LMVjerHt/KRkY3E6dnKLQGE5UiER/taQ7KazAwvu89nUd4BJsV43rJ3X3DtFEfH3lR4ZEIgFyPUkVemQAjBhueFmN3w8debOdr7t9cBpnYvYKzLQN+G/kQVFc+fgs+fFOtOv+Az9kTXChfLs5pKPBm+MuGxz4gS3fPiAjY9cN6vGzr7ZNkCRUSUjJ10Hlm7Gf2EN8f+k6iSR4CPeixDcZ+scbCg4dCORqTsliSQzUORIJED9fbUR6bBjF4rRwm5GvnXx5ZTToWDJu0PSHYOkomqffp30wqvAvs6gLb+bG1daYsOLp+wYru3q09J9zUAA8vNXoWYaERFxgwsmsf57t8+JevUuePJGUC45asHjQh/ON1H5PDXtULmeD1GKkjqyaS7SBNbpOWgQb21l3pwhLet3Mq3TJmxVqzGMDnYvQMUCkiPdZq2pDplzfpDpOKLaDg8q82rR5+/tAfB4P2Z9RCOqnMLRcQk9AluTyO1D472Mkp+v5VA4di0eTWZ0tuzwYJEft0OVo+QOVTslCGsyGiEUoOcHzkrdgsT5uQziyAfgTMSuiw==
 
 groups:
   adm:
@@ -433,6 +446,8 @@ groups:
     gid: 1001
   ardumont:
     gid: 1003
+  ddouard:
+    gid: 1020
   swhworker:
     gid: 1004
   swhdev:
