@@ -16,3 +16,6 @@ swh::deploy::storage::config:
 
 swh::deploy::indexer::storage::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::azure')}"
+
+swh::deploy::webapp::config::allowed_hosts:
+  - webapp0.softwareheritage.org

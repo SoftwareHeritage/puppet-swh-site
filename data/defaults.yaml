@@ -1561,6 +1561,8 @@ swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+swh::deploy::webapp::config::allowed_hosts:
+  - archive.softwareheritage.org
 swh::deploy::webapp::config:
   storage:
     cls: remote
@@ -1592,6 +1594,7 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+  allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
