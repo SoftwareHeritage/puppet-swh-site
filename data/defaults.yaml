@@ -1628,6 +1628,7 @@ swh::deploy::scheduler::backported_packages:
 swh::deploy::scheduler::task_modules:
   - swh.lister.debian.tasks
   - swh.lister.github.tasks
+  - swh.lister.gitlab.tasks
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
   - swh.loader.git.tasks
