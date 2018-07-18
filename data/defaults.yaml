@@ -1755,7 +1755,7 @@ swh::deploy::worker::swh_lister_debian::loglevel: info
 swh::deploy::worker::swh_lister_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_lister_debian::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
 swh::deploy::worker::swh_loader_git_disk::concurrency: 2
@@ -1793,7 +1793,7 @@ swh::deploy::worker::swh_lister_github::db::user: lister-github
 #swh::deploy::worker::swh_lister_github::db::password in private data
 swh::deploy::worker::swh_lister_github::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
   # credentials in private data
 
