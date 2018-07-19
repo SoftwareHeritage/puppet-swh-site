@@ -16,6 +16,7 @@ node 'tate.softwareheritage.org' {
 
 node 'moma.softwareheritage.org' {
   include role::swh_api
+  include role::swh_apache_log_archiver
 }
 
 node 'webapp0.softwareheritage.org' {
