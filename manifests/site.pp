@@ -1,5 +1,6 @@
- node 'louvre.softwareheritage.org' {
+node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
+  include role::swh_lsi_storage_adapter
 }
 
 node 'beaubourg.softwareheritage.org', 'orsay.softwareheritage.org' {
