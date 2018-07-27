@@ -884,13 +884,9 @@ bind::resource_records:
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
-  petit-palais/A:
-    record: petit-palais.internal.softwareheritage.org
-    data: 192.168.101.58
-  petitpalais/CNAME:
-    type: CNAME
+  petitpalais/A:
     record: petitpalais.internal.softwareheritage.org
-    data: petit-palais.internal.softwareheritage.org.
+    data: 192.168.101.154
   grand-palais/A:
     record: grand-palais.internal.softwareheritage.org
     data: 192.168.101.62
