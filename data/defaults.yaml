@@ -851,6 +851,9 @@ bind::resource_records:
     type: CNAME
     record: logstash.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
+  logstash0/A:
+    record: logstash0.internal.softwareheritage.org
+    data: 192.168.100.19
   kibana/CNAME:
     type: CNAME
     record: kibana.internal.softwareheritage.org
