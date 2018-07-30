@@ -88,6 +88,10 @@ node 'thyssen.internal.softwareheritage.org' {
   include role::swh_ci_server
 }
 
+node 'logstash0.internal.softwareheritage.org' {
+  include role::swh_logstash_instance
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
