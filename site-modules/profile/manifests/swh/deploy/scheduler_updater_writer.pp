@@ -43,7 +43,7 @@ class profile::swh::deploy::scheduler_updater_writer {
     ensure  => present,
     content => template("profile/swh/deploy/scheduler/${writer_timer_unit_name}.erb"),
   } ~> service {$writer_timer_unit_name:
-    ensure  => running,
+    ensure  => stopped,
     enable  => true,
     require => Service[$writer_unit_name],
   }

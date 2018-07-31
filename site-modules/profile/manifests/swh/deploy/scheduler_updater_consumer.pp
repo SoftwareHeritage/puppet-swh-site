@@ -52,7 +52,7 @@ class profile::swh::deploy::scheduler_updater_consumer {
     content => template("profile/swh/deploy/scheduler/${ghtorrent_unit_name}.erb"),
     require => Package[$packages],
   } ~> service {$ghtorrent_service_name:
-    ensure  => running,
+    ensure  => stopped,
     enable  => true,
     require => File[$ghtorrent_private_key],
   }
@@ -66,7 +66,7 @@ class profile::swh::deploy::scheduler_updater_consumer {
     ensure  => present,
     content => template("profile/swh/deploy/scheduler/${ghtorrent_consumer_unit_name}.erb"),
   } ~> service {$ghtorrent_consumer_service:
-    ensure  => running,
+    ensure  => stopped,
     enable  => true,
     require => Service[$ghtorrent_service_name],
   }
