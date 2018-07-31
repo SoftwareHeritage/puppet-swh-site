@@ -18,7 +18,7 @@ class profile::filebeat {
   }
 
   package { 'filebeat':
-    ensure => '6.3.1',
+    ensure => '6.3.2',
   }
 
 }

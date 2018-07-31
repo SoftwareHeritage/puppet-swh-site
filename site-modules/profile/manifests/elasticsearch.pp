@@ -36,7 +36,7 @@ class profile::elasticsearch {
   }
 
   package { 'elasticsearch':
-    ensure => '6.3.0',
+    ensure => '6.3.2',
   }
 
   # niofs increases I/O performance and node reliability
