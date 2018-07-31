@@ -850,7 +850,7 @@ bind::resource_records:
   logstash/CNAME:
     type: CNAME
     record: logstash.internal.softwareheritage.org
-    data: banco.internal.softwareheritage.org.
+    data: logstash0.internal.softwareheritage.org.
   logstash0/A:
     record: logstash0.internal.softwareheritage.org
     data: 192.168.100.19
