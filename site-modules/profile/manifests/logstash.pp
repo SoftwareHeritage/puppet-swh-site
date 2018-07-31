@@ -21,4 +21,24 @@ class profile::logstash {
     ensure => 'installed',
   }
 
+  file { '/etc/logstash/conf.d/input.conf':
+    ensure => 'file',
+    content => template('profile/logstash/input.conf.erb'),
+  }
+
+  file { '/etc/logstash/conf.d/output.conf':
+    ensure => 'file',
+    content => template('profile/logstash/output.conf.erb'),
+  }
+
+  file { '/etc/logstash/conf.d/filter.conf':
+    ensure => 'file',
+    content => template('profile/logstash/filter.conf.erb'),
+  }
+
+  service { 'logstash':
+    ensure => running,
+    enable => true,
+  }
+
 }

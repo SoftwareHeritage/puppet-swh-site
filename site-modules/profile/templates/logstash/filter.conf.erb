@@ -1,0 +1,10 @@
+filter {
+  if [fields][apache_log_type] == "access_log" {
+      grok {
+        match => { "message" => "%{COMBINEDAPACHELOG}" }
+      }
+      date {
+        match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+      }
+  }
+}
