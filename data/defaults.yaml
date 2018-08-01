@@ -858,6 +858,9 @@ bind::resource_records:
     type: CNAME
     record: kibana.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
+  kibana0/A:
+    record: kibana0.internal.softwareheritage.org
+    data: 192.168.100.50
   rabbitmq/CNAME:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
