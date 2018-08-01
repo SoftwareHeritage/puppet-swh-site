@@ -94,6 +94,10 @@ node 'logstash0.internal.softwareheritage.org' {
   include role::swh_logstash_instance
 }
 
+node 'logstash0.internal.softwareheritage.org' {
+  include role::swh_kibana_instance
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
