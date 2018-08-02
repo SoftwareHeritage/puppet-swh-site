@@ -21,4 +21,9 @@ class profile::kibana {
     ensure => 'present',
   }
 
+  file { '/etc/kibana/kibana.yml':
+    ensure => 'file',
+    content => template('profile/kibana/kibana.yml.erb'),
+  }
+
 }
