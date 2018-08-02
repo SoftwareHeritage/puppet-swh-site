@@ -385,6 +385,7 @@ users:
       - swhstorage
       - swhteam
       - swhdeploy
+      - swhwebapp
     authorized_keys:
       antoine.lambert@inria.fr:
         type: ssh-rsa
