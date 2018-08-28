@@ -1,4 +1,4 @@
-class role::swh_sysadmin inherits role::swh_server {
+class role::swh_munin_master inherits role::swh_server {
   include profile::network
 
   include profile::munin::master
