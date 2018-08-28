@@ -855,6 +855,9 @@ bind::resource_records:
   logstash0/A:
     record: logstash0.internal.softwareheritage.org
     data: 192.168.100.19
+  munin0/A:
+    record: munin0.internal.softwareheritage.org
+    data: 192.168.100.20
   kibana/CNAME:
     type: CNAME
     record: kibana.internal.softwareheritage.org
