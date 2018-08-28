@@ -1497,7 +1497,7 @@ swh::deploy::deposit::client::settings_private_data:
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
-swh::deploy::deposit::backend::workers: 4
+swh::deploy::deposit::backend::workers: 8
 swh::deploy::deposit::backend::reload_mercy: 3600
 swh::deploy::deposit::backend::http_keepalive: 5
 swh::deploy::deposit::backend::http_timeout: 3600
