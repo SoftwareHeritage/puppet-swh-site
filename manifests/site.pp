@@ -98,6 +98,10 @@ node 'kibana0.internal.softwareheritage.org' {
   include role::swh_kibana_instance
 }
 
+node 'munin0.internal.softwareheritage.org' {
+  include role::swh_munin_master
+}
+
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
