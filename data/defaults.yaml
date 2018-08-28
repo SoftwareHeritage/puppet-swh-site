@@ -1656,7 +1656,7 @@ swh::deploy::scheduler::remote::user: swhscheduler
 swh::deploy::scheduler::remote::group: swhscheduler
 swh::deploy::scheduler::remote::backend::listen::host: 127.0.0.1
 swh::deploy::scheduler::remote::backend::listen::port: "%{alias('swh::remote_service::scheduler::port')}"
-swh::deploy::scheduler::remote::backend::workers: 4
+swh::deploy::scheduler::remote::backend::workers: 16
 swh::deploy::scheduler::remote::backend::reload_mercy: 3600
 swh::deploy::scheduler::remote::backend::http_keepalive: 5
 swh::deploy::scheduler::remote::backend::http_timeout: 3600
