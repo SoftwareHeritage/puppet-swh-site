@@ -845,6 +845,10 @@ bind::resource_records:
     type: CNAME
     record: icinga.internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+  munin/CNAME:
+    type: CNAME
+    record: munin.internal.softwareheritage.org
+    data: pergamon.internal.softwareheritage.org.
   faitout/CNAME:
     type: CNAME
     record: faitout.internal.softwareheritage.org

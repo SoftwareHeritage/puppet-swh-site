@@ -48,12 +48,4 @@ class profile::munin::master {
     ],
   }
 
-  $bind_key = lookup('bind::update_key')
-
-  @@resource_record { 'munin/CNAME':
-    record  => $master_hostname,
-    type    => 'CNAME',
-    data    => $master_hostname_target,
-    keyfile => "/etc/bind/keys/${bind_key}",
-  }
 }
