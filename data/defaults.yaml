@@ -475,6 +475,7 @@ groups:
     gid: 1019
 
 munin::node::allow:
+  - 192.168.100.20
   - 192.168.100.29
 
 munin::node::network: "%{lookup('internal_network')}"
