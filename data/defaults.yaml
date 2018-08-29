@@ -487,8 +487,14 @@ munin::node::plugins::enable:
 
 munin::node::plugins::disable:
   - apt_all
+  - df_inode
   - exim_mailstats
   - exim_mailqueue
+  - netstat
+  - nfs4_client
+  - nfsd4
+  - open_files
+  - open_inodes
 
 munin::master::hostname: munin.internal.softwareheritage.org
 
