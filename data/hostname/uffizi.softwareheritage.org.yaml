@@ -3,7 +3,9 @@ dar::backup::exclude:
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 96
+swh::deploy::storage::backend::workers: 64
+swh::deploy::storage::backend::max_requests: 500
+swh::deploy::storage::backend::max_requests_jitter: 50
 swh::deploy::storage::config:
   storage:
     cls: local
@@ -100,3 +102,5 @@ icinga2::host::vars:
     disk /srv/storage/space/mirrors/gitorious.org/mnt:
       disk_wfree: '5%'
       disk_cfree: '3%'
+
+nginx::worker_processes: 16
