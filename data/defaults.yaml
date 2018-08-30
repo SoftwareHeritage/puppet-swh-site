@@ -856,10 +856,6 @@ bind::resource_records:
     type: CNAME
     record: icinga.internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
-  munin/CNAME:
-    type: CNAME
-    record: munin.internal.softwareheritage.org
-    data: pergamon.internal.softwareheritage.org.
   faitout/CNAME:
     type: CNAME
     record: faitout.internal.softwareheritage.org
@@ -871,6 +867,10 @@ bind::resource_records:
   logstash0/A:
     record: logstash0.internal.softwareheritage.org
     data: 192.168.100.19
+  munin/CNAME:
+    type: CNAME
+    record: munin.internal.softwareheritage.org
+    data: munin0.internal.softwareheritage.org.
   munin0/A:
     record: munin0.internal.softwareheritage.org
     data: 192.168.100.20
