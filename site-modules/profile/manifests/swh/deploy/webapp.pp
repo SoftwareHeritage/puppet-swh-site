@@ -46,10 +46,12 @@ class profile::swh::deploy::webapp {
 
   include ::gunicorn
 
+  $services = ['gunicorn-swh-webapp', 'gunicorn-swh-storage']
+
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['gunicorn-swh-webapp'],
+    notify  => Service[$services],
   }
 
   file {$conf_directory:
