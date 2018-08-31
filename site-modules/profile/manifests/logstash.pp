@@ -18,7 +18,7 @@ class profile::logstash {
   }
 
   package { 'logstash':
-    ensure => '6.3.2',
+    ensure => '1:6.3.2-1',
   }
 
   file { '/etc/logstash/conf.d/input.conf':
