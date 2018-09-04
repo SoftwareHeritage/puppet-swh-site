@@ -12,7 +12,7 @@ swh::deploy::storage::db::port: 5433
 
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
 swh::deploy::indexer::storage::db::host: dbreplica1.euwest.azure.internal.softwareheritage.org
-swh::deploy::indexer::storage::db::port: 5434
+swh::deploy::indexer::storage::db::port: 5432
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: local
