@@ -1584,6 +1584,7 @@ swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
+# swh::deploy::webapp::config::grecaptcha::private_key in private data
 swh::deploy::webapp::config:
   storage:
     cls: remote
@@ -1615,7 +1616,23 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+      swh_save_origin:
+        limiter_rate:
+          default: 120/h
+          POST: 10/h
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 128.93.193.29
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
+  scheduler:
+    cls: remote
+    args:
+      url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+  grecaptcha:
+    validation_url: https://www.google.com/recaptcha/api/siteverify
+    site_key: 6Le0l2wUAAAAAHgtL_aJmIfnow8pFB62sAoG8B7m
+    private_key: "%{hiera('swh::deploy::webapp::config::grecaptcha::private_key')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
