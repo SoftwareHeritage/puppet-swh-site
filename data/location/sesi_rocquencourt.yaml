@@ -16,6 +16,7 @@ swh::deploy::worker::instances:
   - swh_lister_debian
   - swh_lister_github
   - swh_lister_gitlab
+  - swh_lister_pypi
   - swh_loader_debian
   - swh_loader_git
   - swh_loader_git_disk
