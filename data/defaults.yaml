@@ -928,10 +928,6 @@ bind::resource_records:
     type: A
     record: orangerie.internal.softwareheritage.org
     data: 192.168.101.142
-  orsay/A:
-    type: A
-    record: orsay.internal.softwareheritage.org
-    data: 192.168.101.146
 
 bind::resource_records::default_data:
   type: A
