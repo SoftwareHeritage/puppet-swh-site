@@ -8,6 +8,5 @@ class role::swh_api_azure inherits role::swh_server {
   # Web UI
   include profile::memcached
   include profile::swh::deploy::storage
-  include profile::swh::deploy::indexer_storage
   include profile::swh::deploy::webapp
 }
