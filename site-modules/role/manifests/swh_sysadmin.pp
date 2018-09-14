@@ -13,7 +13,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::apache::simple_server
   include ::apache::mod::rewrite
 
-  include profile::bind_server
+  include profile::bind_server::primary
   include profile::munin::plugins::postgresql
 
   include profile::annex_web

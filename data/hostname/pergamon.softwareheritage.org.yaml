@@ -1,5 +1,8 @@
 dns::local_cache: false
 
+# Overrides for primary bind server
+bind::zones::type: master
+
 smtp::relay_destinations:
   - destination: "%{hiera('phabricator::vhost::name')}"
     route: smtp:[tate.internal.softwareheritage.org]

@@ -799,14 +799,22 @@ bind::zones:
   207.168.192.in-addr.arpa:
     domain: 207.168.192.in-addr.arpa
 
+# Defaults for secondary bind server
+bind::zones::type: slave
+bind::zones::masters:
+  - 192.168.100.29
+bind::zones::allow_transfers:
+  - 192.168.100.29
+  - 192.168.200.22
+
 bind::zones::default_data:
-  zone_type: master
+  zone_type: "%{alias('bind::zones::type')}"
   dynamic: true
-  masters: ''
+  masters: "%{alias('bind::zones::masters')}"
   transfer_source: ''
   allow_updates: []
   update_policies: ''
-  allow_transfers: ''
+  allow_transfers: "%{alias('bind::zones::allow_transfers')}"
   dnssec: false
   key_directory: ''
   ns_notify: true
