@@ -911,6 +911,9 @@ bind::resource_records:
   ardumont/A:
     record: ardumont.internal.softwareheritage.org
     data: 192.168.101.14
+  ardumont-desktop/A:
+    record: ardumont-desktop.internal.softwareheritage.org
+    data: 192.168.101.158
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
