@@ -1,2 +1,1 @@
 dns::local_cache: false
-dns::nameservers: "%{alias('dns::forwarders')}"
