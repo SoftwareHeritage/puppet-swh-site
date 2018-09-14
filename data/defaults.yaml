@@ -1587,6 +1587,7 @@ swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
+swh::deploy::webapp::indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
 # swh::deploy::webapp::config::grecaptcha::private_key in private data
 swh::deploy::webapp::config:
   storage:
@@ -1594,10 +1595,7 @@ swh::deploy::webapp::config:
     args:
       url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
   vault: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
-  indexer_storage:
-    cls: remote
-    args:
-      url: "http://127.0.0.1:%{hiera('swh::remote_service::indexer::port')}/"
+  indexer_storage: "%{alias('swh::deploy::webapp::indexer_storage')}"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 1048576
