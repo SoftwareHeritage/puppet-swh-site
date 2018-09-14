@@ -34,9 +34,9 @@ class profile::bind_server::common {
         any2array($merged_data['allow_updates']),
         ["key ${update_key}"],
       )
-      $masters = []
+      $masters = undef
     } else {
-      $allow_updates = []
+      $allow_updates = undef
       $masters = $merged_data['masters']
     }
 
