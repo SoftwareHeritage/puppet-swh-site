@@ -805,6 +805,7 @@ bind::zones::masters:
   - 192.168.100.29
 bind::zones::allow_transfers:
   - 192.168.100.0/24
+  - 192.168.101.0/24
   - 192.168.200.22
 
 bind::zones::default_data:
