@@ -1574,8 +1574,8 @@ swh::deploy::objstorage_archive_notifier_checker::config:
       dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
 
 
-swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
-swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.yml"
+swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
+swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
 swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
 swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
