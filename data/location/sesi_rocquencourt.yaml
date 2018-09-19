@@ -18,9 +18,9 @@ swh::deploy::worker::instances:
   - swh_lister_gitlab
   - swh_lister_pypi
   - swh_loader_debian
+  - swh_loader_deposit
   - swh_loader_git
   - swh_loader_git_disk
+  - swh_loader_mercurial
   - swh_loader_pypi
   - swh_loader_svn
-  - swh_loader_deposit
-  - swh_loader_mercurial
