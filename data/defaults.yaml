@@ -5,13 +5,7 @@ dns::nameservers:
 dns::search_domains:
   - internal.softwareheritage.org
   - softwareheritage.org
-dns::forward_zones:
-  'internal.softwareheritage.org.':
-    - 192.168.100.29
-  '100.168.192.in-addr.arpa.':
-    - 192.168.100.29
-  '101.168.192.in-addr.arpa.':
-    - 192.168.100.29
+# dns::forward_zones per-location. No default value
 # dns::forwarders per-location. No Default value
 
 # ntp::servers per-location. Default value:
