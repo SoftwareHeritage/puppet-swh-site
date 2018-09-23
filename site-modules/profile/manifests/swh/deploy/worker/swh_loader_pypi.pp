@@ -9,6 +9,7 @@ class profile::swh::deploy::worker::swh_loader_pypi {
 
   $task_modules = ['swh.loader.pypi.tasks']
   $task_queues = ['swh_loader_pypi']
+  $private_tmp = lookup('swh::deploy::worker::swh_loader_pypi::private_tmp')
 
   $packages = ['python3-swh.loader.pypi']
 
@@ -23,6 +24,7 @@ class profile::swh::deploy::worker::swh_loader_pypi {
     task_broker  => $task_broker,
     task_modules => $task_modules,
     task_queues  => $task_queues,
+    private_tmp  => $private_tmp,
     require      => [
       Package[$packages],
       File[$config_file],
