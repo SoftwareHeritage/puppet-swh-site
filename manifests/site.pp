@@ -109,7 +109,8 @@ node 'munin0.internal.softwareheritage.org' {
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
-  'grand-palais.softwareheritage.org'{
+  'grand-palais.softwareheritage.org',
+  'ddouard-desktop.internal.softwareheritage.org' {
   include role::swh_desktop
 }
 
