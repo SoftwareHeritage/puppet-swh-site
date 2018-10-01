@@ -27,3 +27,6 @@ users:
   grouss:
     groups:
       - sudo
+  ddouard:
+    groups:
+      - sudo
