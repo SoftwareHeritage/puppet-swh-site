@@ -947,6 +947,9 @@ bind::resource_records:
     type: A
     record: orangerie.internal.softwareheritage.org
     data: 192.168.101.142
+  ddouard-desktop/A:
+    record: ddouard-desktop.internal.softwareheritage.org
+    data: 192.168.101.162
 
 bind::resource_records::default_data:
   type: A
