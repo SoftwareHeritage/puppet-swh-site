@@ -18,7 +18,7 @@ class profile::kibana {
   }
 
   package { 'kibana':
-    ensure => 'present',
+    ensure => '5.6.12',
   }
 
   file { '/etc/kibana/kibana.yml':
