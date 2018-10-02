@@ -18,7 +18,13 @@ class profile::kibana {
   }
 
   package { 'kibana':
-    ensure => '5.6.12',
+    ensure => '6.3.2',
+  }
+
+  apt::pin { 'kibana':
+    packages => 'kibana',
+    version => '6.3.2',
+    priority => 1001,
   }
 
   file { '/etc/kibana/kibana.yml':

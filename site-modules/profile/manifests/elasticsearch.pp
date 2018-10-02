@@ -39,6 +39,12 @@ class profile::elasticsearch {
     ensure => '6.3.2',
   }
 
+  apt::pin { 'elasticsearch':
+    packages => 'elasticsearch elasticsearch-oss',
+    version => '6.3.2',
+    priority => 1001,
+  }
+
   # niofs increases I/O performance and node reliability
   file_line { 'elasticsearch niofs':
     ensure => present,
