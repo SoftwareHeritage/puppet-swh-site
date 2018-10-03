@@ -1,0 +1,7 @@
+---
+
+# Add ddouard as jenkins admin
+users:
+  ddouard:
+    groups:
+      - sudo
