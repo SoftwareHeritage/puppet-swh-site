@@ -2944,6 +2944,14 @@ grafana::objects::datasources:
     access_mode: proxy
     is_default: true
 
+jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
+
+jenkins::vhost::name: jenkins.softwareheritage.org
+jenkins::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+jenkins::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+jenkins::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+jenkins::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
 jenkins::apt_config::mirror: https://pkg.jenkins.io/debian-stable
 jenkins::apt_config::keyid: 150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6
 jenkins::apt_config::key: |
