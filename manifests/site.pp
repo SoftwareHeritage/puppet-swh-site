@@ -62,10 +62,6 @@ node /^getty.(internal.)?softwareheritage.org$/ {
   include role::swh_eventlog
 }
 
-node 'worker08.softwareheritage.org' {
-  include role::swh_worker_inria_miracle
-}
-
 node /^worker\d+\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_worker_inria
 }
