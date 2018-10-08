@@ -35,6 +35,14 @@ class profile::bind_server::common {
         ["key ${update_key}"],
       )
       $masters = undef
+
+      resource_record { "${zone}/NS":
+        type    => 'NS',
+        record  => $zone,
+        data    => $merged_data['ns_records'],
+        keyfile => "/etc/bind/keys/${profile::bind_server::common::update_key}",
+      }
+
     } else {
       $allow_updates = undef
       $masters = $merged_data['masters']
