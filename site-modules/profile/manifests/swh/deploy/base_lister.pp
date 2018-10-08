@@ -15,6 +15,6 @@ class profile::swh::deploy::base_lister {
   $packages = ['python3-swh.lister']
 
   package {$packages:
-    ensure => 'installed',
+    ensure => latest,
   }
 }

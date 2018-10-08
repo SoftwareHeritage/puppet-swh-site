@@ -29,33 +29,30 @@ class profile::elasticsearch {
     },
   }
 
-  class { 'elasticsearch':
-    instances => {
-      'es-01' => {
-        'config' => {
-          'cluster.name' => 'clustername',
-          'node.name' => 'nodename',
-          'network.host' => '127.0.0.1',
-          'discovery.zen.ping.unicast.hosts' => [
-		'a',
-		'b',
-		'c',
-	  ],
-	  # XXX: should depend on cluster size. Always have at least n+1 machines.
-          'discovery.zen.minimum_master_nodes' => 2,
-	  # Good for archiving: use half of heap memory for indexing operations.
-          'indices.memory.index_buffer_size' => '50%',
-        },
-        datadir => '/srv/elasticsearch',
-      },
-    },
-    manage_repo => false,
-    # XXX: how do we remove options ?
-    # Ensure we do not keep CMS options ?
-    jvm_options => [
-      '-Xms15g',
-      '-Xmx15g',
-      '-XX:+UseG1GC',
-    ]
+  package { 'elasticsearch':
+    ensure => '6.3.2',
+  }
+
+  apt::pin { 'elasticsearch':
+    packages => 'elasticsearch elasticsearch-oss',
+    version => '6.3.2',
+    priority => 1001,
+  }
+
+  # niofs increases I/O performance and node reliability
+  file_line { 'elasticsearch niofs':
+    ensure => present,
+    line   => 'index.store.type: niofs',
+    path   => '/etc/elasticsearch/elasticsearch.yml',
+  }
+
+  systemd::dropin_file { 'elasticsearch.conf':
+    unit   => 'elasticsearch.service',
+    content  => template('profile/swh/elasticsearch.conf.erb'),
+  }
+
+  service { 'elasticsearch':
+    ensure => running,
+    enable => true,
   }
 }

@@ -4,8 +4,3 @@ icinga2::host::vars:
 swh::apt_config::enable_non_free: true
 packages:
   - amd64-microcode
-
-dns::forwarders:
-  - 128.93.11.1
-
-internal_network: 192.168.101.0/24

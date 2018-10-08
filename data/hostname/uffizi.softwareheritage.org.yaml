@@ -3,25 +3,23 @@ dar::backup::exclude:
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 96
+swh::deploy::storage::backend::workers: 64
+swh::deploy::storage::backend::max_requests: 500
+swh::deploy::storage::backend::max_requests_jitter: 50
 swh::deploy::storage::config:
   storage:
     cls: local
     args:
       db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
-        cls: multiplexer
+        cls: striping
         args:
           objstorages:
-            - cls: striping
+            - cls: pathslicing
               args:
-                objstorages:
-                  - cls: pathslicing
-                    args:
-                      root: "%{hiera('swh::deploy::storage::directory')}"
-                      slicing: "0:2/2:4/4:6"
-                  - "%{alias('swh::remote_service::objstorage::config::banco')}"
-            - "%{alias('swh::remote_service::objstorage::config::azure')}"
+                root: "%{hiera('swh::deploy::storage::directory')}"
+                slicing: "0:2/2:4/4:6"
+            - "%{alias('swh::remote_service::objstorage::config::banco')}"
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
@@ -35,6 +33,17 @@ swh::deploy::indexer::storage::config:
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
+
+swh::deploy::objstorage::ceph::keyring: /etc/softwareheritage/objstorage/ceph-keyring
+swh::deploy::objstorage::ceph::rados_id: swh-contents-rw
+
+ceph::client_keyrings:
+  '/etc/softwareheritage/objstorage/ceph-keyring':
+    owner: root
+    group: swhstorage
+    mode: '0640'
+    keys:
+      - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
 
 swh::deploy::worker::instances:
   - swh_storage_archiver
@@ -93,3 +102,5 @@ icinga2::host::vars:
     disk /srv/storage/space/mirrors/gitorious.org/mnt:
       disk_wfree: '5%'
       disk_cfree: '3%'
+
+nginx::worker_processes: 16

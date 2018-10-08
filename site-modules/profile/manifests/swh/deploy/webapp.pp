@@ -32,6 +32,8 @@ class profile::swh::deploy::webapp {
   $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
 
+  $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
+
   $locked_endpoints = lookup('swh::deploy::webapp::locked_endpoints', Array, 'unique')
 
   $endpoint_directories = $locked_endpoints.map |$endpoint| {
@@ -46,10 +48,12 @@ class profile::swh::deploy::webapp {
 
   include ::gunicorn
 
+  $services = ['gunicorn-swh-webapp', 'gunicorn-swh-storage']
+
   package {$swh_packages:
     ensure  => latest,
     require => Apt::Source['softwareheritage'],
-    notify  => Service['gunicorn-swh-webapp'],
+    notify  => Service[$services],
   }
 
   file {$conf_directory:
@@ -80,6 +84,13 @@ class profile::swh::deploy::webapp {
     mode    => '0640',
     content => inline_template("<%= @webapp_config.to_yaml %>\n"),
     notify  => Service['gunicorn-swh-webapp'],
+  }
+
+  file {$production_db_dir:
+    ensure => directory,
+    owner  => 'swhwebapp',
+    group  => $group,
+    mode   => '0755',
   }
 
   ::gunicorn::instance {'swh-webapp':

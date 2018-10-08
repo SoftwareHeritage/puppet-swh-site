@@ -8,7 +8,8 @@ EnvironmentFile=-/etc/default/ssh
 ExecStart=/usr/sbin/sshd -D $SSHD_OPTS -f <%= @phabricator_ssh_config %>
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
-Restart=on-failure
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target

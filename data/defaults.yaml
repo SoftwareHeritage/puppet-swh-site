@@ -5,13 +5,7 @@ dns::nameservers:
 dns::search_domains:
   - internal.softwareheritage.org
   - softwareheritage.org
-dns::forward_zones:
-  'internal.softwareheritage.org.':
-    - 192.168.100.29
-  '100.168.192.in-addr.arpa.':
-    - 192.168.100.29
-  '101.168.192.in-addr.arpa.':
-    - 192.168.100.29
+# dns::forward_zones per-location. No default value
 # dns::forwarders per-location. No Default value
 
 # ntp::servers per-location. Default value:
@@ -40,6 +34,9 @@ smtp::mail_aliases:
   - user: ardumont
     aliases:
       - antoine.romain.dumont@gmail.com
+  - user: ddouard
+    aliases:
+      - david.douard@sdfa3.org
   - user: fiendish
     aliases:
       - patcherton.fixesthings@gmail.com
@@ -81,6 +78,9 @@ smtp::mail_aliases:
   - user: zack
     aliases:
       - zack@upsilon.cc
+  - user: vlorentz
+    aliases:
+      - valentin.lorentz@inria.fr
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -382,6 +382,7 @@ users:
       - swhstorage
       - swhteam
       - swhdeploy
+      - swhwebapp
     authorized_keys:
       antoine.lambert@inria.fr:
         type: ssh-rsa
@@ -422,7 +423,28 @@ users:
       - swhdeploy
       - swhstorage
       - swhvault
-
+  ddouard:
+    uid: 1020
+    full_name: David Douard
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      david.douard@sdfa3.org:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCoON7De2Bx03owpZfzbOyucZTmyQdm7F+LP4D4H9EyOFxtyMpjH2S9Ve/JvMoFIWGQQlXSkYzRv63Z0BzPLKD2NsYgomcjOLdw1Baxnv8VOH+Q01g4B3cabcP2LMVjerHt/KRkY3E6dnKLQGE5UiER/taQ7KazAwvu89nUd4BJsV43rJ3X3DtFEfH3lR4ZEIgFyPUkVemQAjBhueFmN3w8debOdr7t9cBpnYvYKzLQN+G/kQVFc+fgs+fFOtOv+Az9kTXChfLs5pKPBm+MuGxz4gS3fPiAjY9cN6vGzr7ZNkCRUSUjJ10Hlm7Gf2EN8f+k6iSR4CPeixDcZ+scbCg4dCORqTsliSQzUORIJED9fbUR6bBjF4rRwm5GvnXx5ZTToWDJu0PSHYOkomqffp30wqvAvs6gLb+bG1daYsOLp+wYru3q09J9zUAA8vNXoWYaERFxgwsmsf57t8+JevUuePJGUC45asHjQh/ON1H5PDXtULmeD1GKkjqyaS7SBNbpOWgQb21l3pwhLet3Mq3TJmxVqzGMDnYvQMUCkiPdZq2pDplzfpDpOKLaDg8q82rR5+/tAfB4P2Z9RCOqnMLRcQk9AluTyO1D472Mkp+v5VA4di0eTWZ0tuzwYJEft0OVo+QOVTslCGsyGiEUoOcHzkrdgsT5uQziyAfgTMSuiw==
+  vlorentz:
+    uid: 1021
+    full_name: Valentin Lorentz
+    shell: /usr/bin/zsh
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      valentin.lorentz@inria.fr:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAILsRMQjrrfUjX1ka9e6YlyMyDvTC+qk5a21Fp9yXYI7p
 
 groups:
   adm:
@@ -433,6 +455,8 @@ groups:
     gid: 1001
   ardumont:
     gid: 1003
+  ddouard:
+    gid: 1020
   swhworker:
     gid: 1004
   swhdev:
@@ -459,7 +483,7 @@ groups:
     gid: 1019
 
 munin::node::allow:
-  - 192.168.100.29
+  - 192.168.100.20
 
 munin::node::network: "%{lookup('internal_network')}"
 
@@ -470,8 +494,19 @@ munin::node::plugins::enable:
 
 munin::node::plugins::disable:
   - apt_all
+  - df_inode
+  - entropy
   - exim_mailstats
   - exim_mailqueue
+  - interrupts
+  - irqstats
+  - netstat
+  - nfs4_client
+  - nfsd4
+  - open_files
+  - open_inodes
+  - proc_pri
+  - vmstat
 
 munin::master::hostname: munin.internal.softwareheritage.org
 
@@ -538,42 +573,51 @@ ssl:
   star_softwareheritage_org:
     certificate: |
       -----BEGIN CERTIFICATE-----
-      MIIGlTCCBX2gAwIBAgIQDjmSRHUEXcLOQA5yynS0ljANBgkqhkiG9w0BAQsFADBk
+      MIIIXzCCB0egAwIBAgIQDPHPysLFk3NJoSYi+mieNDANBgkqhkiG9w0BAQsFADBk
       MQswCQYDVQQGEwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJ
       QW1zdGVyZGFtMQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wg
-      Q0EgMzAeFw0xNTEwMTUwMDAwMDBaFw0xODEwMTkxMjAwMDBaMIG/MQswCQYDVQQG
-      EwJGUjERMA8GA1UECBMIWXZlbGluZXMxFTATBgNVBAcTDFJvY3F1ZW5jb3VydDFJ
-      MEcGA1UEChNASW5zdGl0dXQgTmF0aW9uYWwgZGUgUmVjaGVyY2hlIGVuIEluZm9y
-      bWF0aXF1ZSBldCBlbiBBdXRvbWF0aXF1ZTEaMBgGA1UECxMRU29mdHdhcmUgSGVy
-      aXRhZ2UxHzAdBgNVBAMMFiouc29mdHdhcmVoZXJpdGFnZS5vcmcwggIiMA0GCSqG
-      SIb3DQEBAQUAA4ICDwAwggIKAoICAQDkJbBlHS8qDspHFiif9yqNrSalWNcAoxUr
-      JRAW9NGhj98PTu3nVnmcLSkGLhXGNUkoU3xQ7p9fSQmHLgun4Suw4/DzRhwIyrXz
-      pb1WjoMbaSqMenROexSb7C7YnwX19BH8d8A3Hut+VKzYLMG9/aevS7gd6+cLOT7P
-      GTL6P5hL2XZfHlK/P8NNtWkefXrZJ/7TeD3Tx2wuzaercglsmfOQ2RJamLOr9oRR
-      3++hxAQrrq0o3k0t8d7OWMNAFsrxzJJRpfoEWM9GYNzDbmsoOAKUwgZtgDs/seV+
-      zByuzE3EC3Br1kNOc9bnNGn1p5Vybk1Pnu/MpkYaxG35oTN6r4i9whH1EJA6Ag8b
-      cPOO9rR66emmyVc7PyGJl3zo6ajfzJ8WLrElLeofqcxIi10pr7jLEoIxWUmTHTRa
-      2yi9juR9gWnMl930yTuNMF2YPlZFwGJq0UY2Bqpey25UdLUIYraqzn6I6Jpc52fq
-      CUgmA390pyADqe8EhgOC6+BhTn0fFLnoOr0+p2kXLUHpCCG7ZmPg/mIkb4aX589o
-      rRYbkhKx2yvpAYtwmcPdmOTkXry+j+ifXGbdmT6/uYeWmzYEuDFSI/cPm9OlSBgv
-      TGop9uMOvrlHSzsLFlmZd05SweCjs/30EpRiIzdPD0bgA6QUk8s/Y6tstyR2aY4r
-      gjDGFuPgfwIDAQABo4IB5TCCAeEwHwYDVR0jBBgwFoAUZ/2IIBQnmMcJ0iUZu+lR
-      EWN1UGIwHQYDVR0OBBYEFF/v9armSIX9Cc27QHF7arptmN5MMDcGA1UdEQQwMC6C
-      Fiouc29mdHdhcmVoZXJpdGFnZS5vcmeCFHNvZnR3YXJlaGVyaXRhZ2Uub3JnMA4G
-      A1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwawYD
-      VR0fBGQwYjAvoC2gK4YpaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL1RFUkVOQVNT
-      TENBMy5jcmwwL6AtoCuGKWh0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9URVJFTkFT
-      U0xDQTMuY3JsMEwGA1UdIARFMEMwNwYJYIZIAYb9bAEBMCowKAYIKwYBBQUHAgEW
-      HGh0dHBzOi8vd3d3LmRpZ2ljZXJ0LmNvbS9DUFMwCAYGZ4EMAQICMG4GCCsGAQUF
-      BwEBBGIwYDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMDgG
-      CCsGAQUFBzAChixodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVEVSRU5BU1NM
-      Q0EzLmNydDAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4IBAQCYCI6aos3H
-      z+uchhCCaxQNyxcjwQPdlNkQtdpJPxDEX6cOBPp3zFIhakQJHMbKrJBd4UEDTrzF
-      zcJWNmZpFVs7nmSIYP5Asb74gQ83OoGL4IZBZNl6l7id99SmldeVl/Ptbfdkt8cw
-      gV/8SgwLXSIxB/aStyo0eytdxri+BqZwKjJejaKfhzxCe50gLJaS+zyjTvlhljA1
-      vDYmBramvEzGbt5ONEEAnPAYhKsSdZGo71ARbrit/nuLVUmY8zvoGblTNZHHRgT/
-      JPsYp3CjKIVTX9v5tQjaTVt6oPaL9yQhBJaj1dbMrYmVyyaLyrY8i/O/Gdbfcesl
-      wOHPLsGhuYNF
+      Q0EgMzAeFw0xODA5MjcwMDAwMDBaFw0yMDEyMzAwMDAwMDBaMIGQMQswCQYDVQQG
+      EwJGUjEVMBMGA1UEBxMMUm9jcXVlbmNvdXJ0MUkwRwYDVQQKE0BJbnN0aXR1dCBO
+      YXRpb25hbCBkZSBSZWNoZXJjaGUgZW4gSW5mb3JtYXRpcXVlIGV0IGVuIEF1dG9t
+      YXRpcXVlMR8wHQYDVQQDDBYqLnNvZnR3YXJlaGVyaXRhZ2Uub3JnMIICIjANBgkq
+      hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA5CWwZR0vKg7KRxYon/cqja0mpVjXAKMV
+      KyUQFvTRoY/fD07t51Z5nC0pBi4VxjVJKFN8UO6fX0kJhy4Lp+ErsOPw80YcCMq1
+      86W9Vo6DG2kqjHp0TnsUm+wu2J8F9fQR/HfANx7rflSs2CzBvf2nr0u4HevnCzk+
+      zxky+j+YS9l2Xx5Svz/DTbVpHn162Sf+03g908dsLs2nq3IJbJnzkNkSWpizq/aE
+      Ud/vocQEK66tKN5NLfHezljDQBbK8cySUaX6BFjPRmDcw25rKDgClMIGbYA7P7Hl
+      fswcrsxNxAtwa9ZDTnPW5zRp9aeVcm5NT57vzKZGGsRt+aEzeq+IvcIR9RCQOgIP
+      G3Dzjva0eunppslXOz8hiZd86Omo38yfFi6xJS3qH6nMSItdKa+4yxKCMVlJkx00
+      WtsovY7kfYFpzJfd9Mk7jTBdmD5WRcBiatFGNgaqXstuVHS1CGK2qs5+iOiaXOdn
+      6glIJgN/dKcgA6nvBIYDguvgYU59HxS56Dq9PqdpFy1B6Qghu2Zj4P5iJG+Gl+fP
+      aK0WG5ISsdsr6QGLcJnD3Zjk5F68vo/on1xm3Zk+v7mHlps2BLgxUiP3D5vTpUgY
+      L0xqKfbjDr65R0s7CxZZmXdOUsHgo7P99BKUYiM3Tw9G4AOkFJPLP2OrbLckdmmO
+      K4Iwxhbj4H8CAwEAAaOCA94wggPaMB8GA1UdIwQYMBaAFGf9iCAUJ5jHCdIlGbvp
+      URFjdVBiMB0GA1UdDgQWBBRf7/Wq5kiF/QnNu0Bxe2q6bZjeTDA3BgNVHREEMDAu
+      ghYqLnNvZnR3YXJlaGVyaXRhZ2Uub3JnghRzb2Z0d2FyZWhlcml0YWdlLm9yZzAO
+      BgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMGsG
+      A1UdHwRkMGIwL6AtoCuGKWh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9URVJFTkFT
+      U0xDQTMuY3JsMC+gLaArhilodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVEVSRU5B
+      U1NMQ0EzLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG/WwBATAqMCgGCCsGAQUFBwIB
+      FhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAgGBmeBDAECAjBuBggrBgEF
+      BQcBAQRiMGAwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTA4
+      BggrBgEFBQcwAoYsaHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1RFUkVOQVNT
+      TENBMy5jcnQwDAYDVR0TAQH/BAIwADCCAfUGCisGAQQB1nkCBAIEggHlBIIB4QHf
+      AHYApLkJkLQYWBSHuxOizGdwCjw1mAT5G9+443fNDsgN3BAAAAFmG53a8gAABAMA
+      RzBFAiEA4FsESbszMapP/1928EYdqTnGxwDpAnjibblmY4Qb4nkCIF/dTJoCbDnO
+      0LSLS+P5bc9cAkgGAyXBwpvB8+ZJszctAHYAh3W/51l8+IxDmV+9827/Vo1HVjb/
+      SrVgwbTq/16ggw8AAAFmG53bzwAABAMARzBFAiEAlpn5W7rsxL6urq8S3tMw9Hr+
+      cZaWAg7dp6kolPecYMECIDFDDBElmoHXCzW35kQXzGxgwrj/ns1nrbc7T5PzjcKw
+      AHUAu9nfvB+KcbWTlCOXqpJ7RzhXlQqrUugakJZkNo4e0YUAAAFmG53b9AAABAMA
+      RjBEAiA8F7P2NjU/AXfguds8cWDRqJsuVpF3qrzVZ4hnlTBeuQIgFohcpNsjkcY3
+      hsgDI6j2VMuk5TVLd/2ehdtaT8lUX/kAdgBvU3asMfAxGdiZAKRRFf93FRwR2QLB
+      ACkGjbIImjfZEwAAAWYbndzFAAAEAwBHMEUCIEwt+EUHkqPBraADN4jCGF6tfzp6
+      LcAIOWt4m/8OMM4pAiEA8m3u/w219RAamjShsaguGbQfxRZGcQcVc0++zXilApYw
+      DQYJKoZIhvcNAQELBQADggEBAKr3KUfjEWsIk1umodHo8Cck49TgioNy6e8w9ajW
+      9Sp3FB/MRskWtL3NU64CecMJlvgJrZogUv+eZlquLCnTiKQdmTY0xYVmt+igT9ca
+      o907aEc2puEHDm8KsCvwLM6nbVPR03nEaj/P6aSM42eordzcWyQY5+uy69r1yfus
+      gVwJjm9aq+EX7KoK+HDE/fF8BOuHxoWzuTxbKTGjD7lEwMi+MdFGwhX/WEOu3Um8
+      MZzX4bRVAgtJNbbrBRYQ1D2gSA+VAmXEBJhYV5UboNWgGE6EwMwTOCTyhpAjHZdy
+      3yFaxgRObjDQEO/LMG+/iDKMUV1T2onVux89LEpaEzeJcnA=
       -----END CERTIFICATE-----
     ca_bundle: |
       -----BEGIN CERTIFICATE-----
@@ -772,14 +816,23 @@ bind::zones:
   207.168.192.in-addr.arpa:
     domain: 207.168.192.in-addr.arpa
 
+# Defaults for secondary bind server
+bind::zones::type: slave
+bind::zones::masters:
+  - 192.168.100.29
+bind::zones::allow_transfers:
+  - 192.168.100.0/24
+  - 192.168.101.0/24
+  - 192.168.200.22
+
 bind::zones::default_data:
-  zone_type: master
+  zone_type: "%{alias('bind::zones::type')}"
   dynamic: true
-  masters: ''
+  masters: "%{alias('bind::zones::masters')}"
   transfer_source: ''
   allow_updates: []
   update_policies: ''
-  allow_transfers: ''
+  allow_transfers: "%{alias('bind::zones::allow_transfers')}"
   dnssec: false
   key_directory: ''
   ns_notify: true
@@ -835,11 +888,24 @@ bind::resource_records:
   logstash/CNAME:
     type: CNAME
     record: logstash.internal.softwareheritage.org
-    data: banco.internal.softwareheritage.org.
+    data: logstash0.internal.softwareheritage.org.
+  logstash0/A:
+    record: logstash0.internal.softwareheritage.org
+    data: 192.168.100.19
+  munin/CNAME:
+    type: CNAME
+    record: munin.internal.softwareheritage.org
+    data: munin0.internal.softwareheritage.org.
+  munin0/A:
+    record: munin0.internal.softwareheritage.org
+    data: 192.168.100.20
   kibana/CNAME:
     type: CNAME
     record: kibana.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
+  kibana0/A:
+    record: kibana0.internal.softwareheritage.org
+    data: 192.168.100.50
   rabbitmq/CNAME:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
@@ -863,16 +929,15 @@ bind::resource_records:
   ardumont/A:
     record: ardumont.internal.softwareheritage.org
     data: 192.168.101.14
+  ardumont-desktop/A:
+    record: ardumont-desktop.internal.softwareheritage.org
+    data: 192.168.101.158
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
-  petit-palais/A:
-    record: petit-palais.internal.softwareheritage.org
-    data: 192.168.101.58
-  petitpalais/CNAME:
-    type: CNAME
+  petitpalais/A:
     record: petitpalais.internal.softwareheritage.org
-    data: petit-palais.internal.softwareheritage.org.
+    data: 192.168.101.154
   grand-palais/A:
     record: grand-palais.internal.softwareheritage.org
     data: 192.168.101.62
@@ -892,10 +957,9 @@ bind::resource_records:
     type: A
     record: orangerie.internal.softwareheritage.org
     data: 192.168.101.142
-  orsay/A:
-    type: A
-    record: orsay.internal.softwareheritage.org
-    data: 192.168.101.146
+  ddouard-desktop/A:
+    record: ddouard-desktop.internal.softwareheritage.org
+    data: 192.168.101.162
 
 bind::resource_records::default_data:
   type: A
@@ -1070,8 +1134,6 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=debian icinga-%{::lsbdistcodename},n=icinga-%{::lsbdistcodename}" # Icinga2 repository
  - "o=Debian Azure,n=%{::lsbdistcodename}"                              # Debian Azure
  - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
- - "o=elastic"                                                          # Yes elasticsearch has both cases <_<
- - "o=Elastic"                                                          # ...
  - "o=packages.sury.org"                                                # PHP backports (tate)
 
 swh::remote_service::storage::port: 5002
@@ -1222,6 +1284,11 @@ swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
   cls: remote
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+
+swh::indexer::storage::config::azure:
+  cls: remote
+  args:
+    url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
 swh::remote_service::scheduler::config::saatchi: &swh_scheduler_remote_config_saatchi
   cls: remote
@@ -1420,6 +1487,7 @@ swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorci
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
+  - /1/private/deposits/
 
 swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
@@ -1468,7 +1536,7 @@ swh::deploy::deposit::client::settings_private_data:
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
-swh::deploy::deposit::backend::workers: 4
+swh::deploy::deposit::backend::workers: 8
 swh::deploy::deposit::backend::reload_mercy: 3600
 swh::deploy::deposit::backend::http_keepalive: 5
 swh::deploy::deposit::backend::http_timeout: 3600
@@ -1526,8 +1594,8 @@ swh::deploy::objstorage_archive_notifier_checker::config:
       dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
 
 
-swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/webapp"
-swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/webapp.yml"
+swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
+swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
 swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
 swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
@@ -1543,16 +1611,22 @@ swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+swh::deploy::webapp::config::allowed_hosts:
+  - archive.softwareheritage.org
+swh::deploy::webapp::production_db_dir: /var/lib/swh
+swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
+swh::deploy::webapp::indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+# in private data:
+# swh::deploy::webapp::config::grecaptcha::private_key
+# deposit_basic_auth_swhworker_username
+# deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
   storage:
     cls: remote
     args:
       url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
   vault: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
-  indexer_storage:
-    cls: remote
-    args:
-      url: "http://127.0.0.1:%{hiera('swh::remote_service::indexer::port')}/"
+  indexer_storage: "%{alias('swh::deploy::webapp::indexer_storage')}"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 1048576
@@ -1574,6 +1648,28 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+      swh_save_origin:
+        limiter_rate:
+          default: 120/h
+          POST: 10/h
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 128.93.193.29
+  allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
+  scheduler:
+    cls: remote
+    args:
+      url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+  grecaptcha:
+    validation_url: https://www.google.com/recaptcha/api/siteverify
+    site_key: 6Le0l2wUAAAAAHgtL_aJmIfnow8pFB62sAoG8B7m
+    private_key: "%{hiera('swh::deploy::webapp::config::grecaptcha::private_key')}"
+  production_db: "%{hiera('swh::deploy::webapp::production_db')}"
+  deposit:
+    private_api_url: https://deposit.softwareheritage.org/1/private/
+    private_api_user: "%{hiera('deposit_basic_auth_swhworker_username')}"
+    private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
@@ -1596,6 +1692,7 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.dir
   - python3-swh.loader.git
   - python3-swh.loader.mercurial
+  - python3-swh.loader.pypi
   - python3-swh.loader.svn
   - python3-swh.loader.tar
   - python3-swh.deposit.loader
@@ -1607,10 +1704,13 @@ swh::deploy::scheduler::backported_packages:
 swh::deploy::scheduler::task_modules:
   - swh.lister.debian.tasks
   - swh.lister.github.tasks
+  - swh.lister.gitlab.tasks
+  - swh.lister.pypi.tasks
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
   - swh.loader.git.tasks
   - swh.loader.mercurial.tasks
+  - swh.loader.pypi.tasks
   - swh.loader.svn.tasks
   - swh.loader.tar.tasks
   - swh.deposit.loader.tasks
@@ -1623,7 +1723,7 @@ swh::deploy::scheduler::remote::user: swhscheduler
 swh::deploy::scheduler::remote::group: swhscheduler
 swh::deploy::scheduler::remote::backend::listen::host: 127.0.0.1
 swh::deploy::scheduler::remote::backend::listen::port: "%{alias('swh::remote_service::scheduler::port')}"
-swh::deploy::scheduler::remote::backend::workers: 4
+swh::deploy::scheduler::remote::backend::workers: 16
 swh::deploy::scheduler::remote::backend::reload_mercy: 3600
 swh::deploy::scheduler::remote::backend::http_keepalive: 5
 swh::deploy::scheduler::remote::backend::http_timeout: 3600
@@ -1687,12 +1787,15 @@ swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::ar
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::archive::config:
   storage_nodes:
-    - host: esnode1.internal.softwareheritage.org
-      port: 9200
     - host: esnode2.internal.softwareheritage.org
       port: 9200
+    - host: esnode3.internal.softwareheritage.org
+      port: 9200
+    - host: esnode1.internal.softwareheritage.org
+      port: 9200
   client_options:
-    sniff: false
+    sniff_on_start: false
+    sniff_on_connection_fail: True
     http_compress: false
 
 swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
@@ -1709,7 +1812,7 @@ swh::deploy::worker::instances:
   - swh_lister_debian
   - swh_lister_github
 
-swh::deploy::worker::swh_loader_git::concurrency: 3
+swh::deploy::worker::swh_loader_git::concurrency: 2
 swh::deploy::worker::swh_loader_git::loglevel: info
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git::config:
@@ -1731,7 +1834,7 @@ swh::deploy::worker::swh_lister_debian::loglevel: info
 swh::deploy::worker::swh_lister_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_lister_debian::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
 swh::deploy::worker::swh_loader_git_disk::concurrency: 2
@@ -1749,6 +1852,13 @@ swh::deploy::worker::swh_loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   reduce_effort: False
 
+swh::deploy::worker::swh_loader_pypi::concurrency: 1
+swh::deploy::worker::swh_loader_pypi::private_tmp: true
+swh::deploy::worker::swh_loader_pypi::loglevel: info
+swh::deploy::worker::swh_loader_pypi::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_loader_pypi::config:
+  storage: "%{alias('swh::remote_service::storage::config')}"
+
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::private_tmp: true
 swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
@@ -1757,7 +1867,6 @@ swh::deploy::worker::swh_loader_svn::loglevel: info
 swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_svn::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  revision_packet_size: 1000
 
 swh::deploy::worker::swh_lister_github::concurrency: 1
 swh::deploy::worker::swh_lister_github::loglevel: warning
@@ -1769,8 +1878,36 @@ swh::deploy::worker::swh_lister_github::db::user: lister-github
 #swh::deploy::worker::swh_lister_github::db::password in private data
 swh::deploy::worker::swh_lister_github::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
+  # credentials in private data
+
+swh::deploy::worker::swh_lister_gitlab::concurrency: 1
+swh::deploy::worker::swh_lister_gitlab::loglevel: warning
+# Contains a password: in private data
+swh::deploy::worker::swh_lister_gitlab::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_lister_gitlab::db::host: db
+swh::deploy::worker::swh_lister_gitlab::db::dbname: lister-gitlab
+swh::deploy::worker::swh_lister_gitlab::db::user: lister-gitlab
+#swh::deploy::worker::swh_lister_gitlab::db::password in private data
+swh::deploy::worker::swh_lister_gitlab::config:
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::swh_lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::swh_lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::swh_lister_gitlab::db::dbname')}"
+  # credentials in private data
+
+swh::deploy::worker::swh_lister_pypi::concurrency: 1
+swh::deploy::worker::swh_lister_pypi::loglevel: warning
+# Contains a password: in private data
+swh::deploy::worker::swh_lister_pypi::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+swh::deploy::worker::swh_lister_pypi::db::host: db
+swh::deploy::worker::swh_lister_pypi::db::dbname: lister-pypi
+swh::deploy::worker::swh_lister_pypi::db::user: lister-pypi
+#swh::deploy::worker::swh_lister_pypi::db::password in private data
+swh::deploy::worker::swh_lister_pypi::config:
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_pypi::db::user')}:%{hiera('swh::deploy::worker::swh_lister_pypi::db::password')}@%{hiera('swh::deploy::worker::swh_lister_pypi::db::host')}/%{hiera('swh::deploy::worker::swh_lister_pypi::db::dbname')}"
   # credentials in private data
 
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
@@ -2630,14 +2767,43 @@ ceph::keys:
     secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
+  swh-contents:
+    secret: "%{hiera('ceph::secrets::swh_contents')}"
+    cap_mon: allow r
+    cap_osd: allow r pool=swh_contents
   swh-contents-rw:
     secret: "%{hiera('ceph::secrets::swh_contents_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents
+  swh-contents-test:
+    secret: "%{hiera('ceph::secrets::swh_contents_test')}"
+    cap_mon: allow r
+    cap_osd: allow r pool=swh_contents_test
   swh-contents-test-rw:
     secret: "%{hiera('ceph::secrets::swh_contents_test_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents_test
+
+ceph::default_client_keyring: /etc/softwareheritage/ceph-keyring
+ceph::client_keyrings:
+  '/etc/softwareheritage/ceph-keyring':
+    owner: root
+    group: swhdev
+    mode: '0644'
+    keys:
+      - swh-contents
+      - swh-contents-test
+
+swh::deploy::objstorage::ceph::keyring: "%{alias('ceph::default_client_keyring')}"
+swh::deploy::objstorage::ceph::pool_name: swh_contents
+swh::deploy::objstorage::ceph::rados_id: swh-contents
+swh::deploy::objstorage::ceph::config:
+  cls: rados
+  args:
+    pool_name: "%{alias('swh::deploy::objstorage::ceph::pool_name')}"
+    rados_id: "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
+    ceph_config:
+      keyring: "%{alias('swh::deploy::objstorage::ceph::keyring')}"
 
 nginx::package_name: nginx-light
 nginx::accept_mutex: 'off'
@@ -2777,6 +2943,14 @@ grafana::objects::datasources:
     organization: 1
     access_mode: proxy
     is_default: true
+
+jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
+
+jenkins::vhost::name: jenkins.softwareheritage.org
+jenkins::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+jenkins::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+jenkins::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+jenkins::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 jenkins::apt_config::mirror: https://pkg.jenkins.io/debian-stable
 jenkins::apt_config::keyid: 150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6
@@ -3026,3 +3200,36 @@ elastic::apt_config::key: |
   =92oX
   -----END PGP PUBLIC KEY BLOCK-----
   
+hwraid_levert::apt_config::keyid: 0073C11919A641464163F7116005210E23B3D3B4
+hwraid_levert::apt_config::key: |
+  -----BEGIN PGP PUBLIC KEY BLOCK-----
+  Version: GnuPG v1.4.12 (GNU/Linux)
+  
+  mQENBFHwGLoBCADGXHFostxbz4UzGFYtmox4pvyN1gMhq2KCuQ6f+FESa4HTd9L6
+  XVhXWPCad3cdxBIls+41+AdZTWxWMu7DUdy8nMU1Ikfw6JeHcSx97G5BdxBVMjK4
+  iMGfPdLfDgWf4BQ2h0dnTEWobt31WaqgNiNjNrKktqbymmF94pwYkwL53ydIA4zl
+  8ZQRZooFigkS9WdoKjh30Pv/SWakILSLcSQFHK0dvSkeGd1NxT9dMNPAXXqLom4+
+  7kCc0s04sS+0DwW16b0Hpb46mtsR9kzOnrE/Smj24uOGzNZen0oCc2Y7bfZlyaN+
+  RlTkWEze7lemc4Byup/QWkhT0Er8F8uxexy5ABEBAAG0PEhXUmFpZCAoaHR0cDov
+  L2h3cmFpZC5sZS12ZXJ0Lm5ldCkgPHJvb3RAaHdyYWlkLmxlLXZlcnQubmV0PokB
+  OAQTAQIAIgUCUfAYugIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQYAUh
+  DiOz07Rc4Af+N3dEZZHzLNVTjQ0+fCyeg8/flWOkR8DhP10cyoJhSHFTZRdXVshn
+  kP4VmmUycVeURh76DmrIRe/9Oyca6aGXccRMqvq+HMgBPVwD5qNhcJPIuzqEvmlO
+  6UIeW2ydil/v1pWu740fGntyFRQcsfqjReVPXw9K588F7MDMyL+31vLm6aorLSzR
+  hvLhOmGisTs0wg2Oz9f4muauRy6cpQPw/Zi/P/F4WkQYscbHrSbhszj6OIg/vftR
+  UbZ7QB26/+40B0ag4JzLpmj3scFxf/WdUl5LXazqhsbkurk7huV41BNKXi1+BS3c
+  x6pFzWEHpiuG1j7U/nScGzEQpsMlUW9D+rkBDQRR8Bi6AQgAuhH1H0VLwcROI/5n
+  9yTxSbTIZbyhUan3raAbit3pgo0zLagfUtp3vULVnm5ISqQcYFGLZoE1MUkmjGOL
+  38W0lsIiZTaKOKXxBbLlPhhrvlXnNWAG/S1wnq7K+DV179KCTkUzaLRDbHvv999j
+  9odBRtAkiTnCfHTMCN4AhydEejNxtlzJo4E5FecH4reimLI5euUdTltgCjixrbsa
+  KbQftYpSMdXnLy2+00QZoXu0U/h4WZcMhOSEEiyGP9BY6m5G76n03HIeQ6eALDFu
+  ryAgO+SB9rBrm/VN0kR/TZq0iA3uzLHC7zCw2aImipkr+rIuJOku0wH9MyowBbia
+  bQtnCQARAQABiQEfBBgBAgAJBQJR8Bi6AhsMAAoJEGAFIQ4js9O0d5YH/3fNQgsC
+  LvD0g2wdoksv5bG9CUOi9Bs0JHqI0LhXmPvMsbDojZ+zZle7KWNfK2227mWhmoG1
+  WLujJSmTtxhEO1fXIdYjlDfk2uLJKuFi2wQX9n8dFDUmKY3CUJgeVZof1uQ/5C3D
+  O06CcuOtf2d/+iijuW112aV1q1hoQqw71ojTET0iIV6lD/0i1eEBSSe1Ohb9yTGR
+  VxTVrB78zU9hih4/Oq8wJT/Fv25aO1MDSc26CXAg0JA6IWvKal3BSPNhtz4L4FIg
+  lXleArf9oJqxDO3TsV5zcLyxsIuRuxyP0+AKdSQUqv0dFi4Jf79OmvOmgwydhHjY
+  +f7quLbwiiDmPbU=
+  =Yv6D
+  -----END PGP PUBLIC KEY BLOCK-----

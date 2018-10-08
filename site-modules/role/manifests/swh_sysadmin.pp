@@ -1,13 +1,9 @@
 class role::swh_sysadmin inherits role::swh_server {
   include profile::network
 
-  include profile::munin::master
-  include profile::munin::stats_export
-
   include profile::prometheus::server
   include profile::grafana
 
-  include profile::prometheus::node
   include profile::prometheus::sql
 
   include profile::puppet::master
@@ -15,7 +11,9 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::icinga2::icingaweb2
 
   include profile::apache::simple_server
-  include profile::bind_server
+  include ::apache::mod::rewrite
+
+  include profile::bind_server::primary
   include profile::munin::plugins::postgresql
 
   include profile::annex_web

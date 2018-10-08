@@ -1,6 +1,14 @@
 ---
 timezone: Europe/Paris
 
+dns::forward_zones:
+  'internal.softwareheritage.org.':
+    - 192.168.100.29
+  '100.168.192.in-addr.arpa.':
+    - 192.168.100.29
+  '101.168.192.in-addr.arpa.':
+    - 192.168.100.29
+
 dns::forwarders:
   - 128.93.77.234
 dns::forwarder_insecure: false
@@ -17,5 +25,8 @@ users:
     groups:
       - sudo
   grouss:
+    groups:
+      - sudo
+  ddouard:
     groups:
       - sudo

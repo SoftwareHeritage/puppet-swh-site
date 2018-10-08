@@ -1,9 +1,11 @@
- node 'louvre.softwareheritage.org' {
+node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
+  include role::swh_lsi_storage_adapter
 }
 
 node 'beaubourg.softwareheritage.org', 'orsay.softwareheritage.org' {
   include role::swh_hypervisor
+  include role::swh_lsi_storage_adapter
 }
 
 node 'pergamon.softwareheritage.org' {
@@ -16,6 +18,7 @@ node 'tate.softwareheritage.org' {
 
 node 'moma.softwareheritage.org' {
   include role::swh_api
+  include role::swh_apache_log_archiver
 }
 
 node 'webapp0.softwareheritage.org' {
@@ -32,6 +35,7 @@ node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
 
 node 'banco.softwareheritage.org' {
   include role::swh_backup
+  include role::swh_lsi_storage_adapter
 }
 
 node
@@ -82,14 +86,31 @@ node /^ceph-mon\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ceph_mon
 }
 
+node /^ns\d+\.(.*\.azure\.)?internal\.softwareheritage\.org/ {
+  include role::swh_nameserver_secondary
+}
+
 node 'thyssen.internal.softwareheritage.org' {
   include role::swh_ci_server
+}
+
+node 'logstash0.internal.softwareheritage.org' {
+  include role::swh_logstash_instance
+}
+
+node 'kibana0.internal.softwareheritage.org' {
+  include role::swh_kibana_instance
+}
+
+node 'munin0.internal.softwareheritage.org' {
+  include role::swh_munin_master
 }
 
 node
   'giverny.softwareheritage.org',
   'petit-palais.softwareheritage.org',
-  'grand-palais.softwareheritage.org'{
+  'grand-palais.softwareheritage.org',
+  'ddouard-desktop.internal.softwareheritage.org' {
   include role::swh_desktop
 }
 

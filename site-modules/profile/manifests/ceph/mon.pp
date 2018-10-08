@@ -27,4 +27,20 @@ class profile::ceph::mon {
       * => $data,
     }
   }
+
+  $enabled_modules = pick(
+    $::ceph_mgr_modules,
+    {'enabled_modules' => []},
+  )['enabled_modules']
+
+  unless (member($enabled_modules, 'prometheus')) {
+    Service<| tag == 'ceph-mgr' |>
+    -> exec {'ceph mgr enable module prometheus':
+      path   => ['/bin', '/usr/bin'],
+    }
+  }
+
+  profile::prometheus::export_scrape_config {'ceph':
+    target => "${profile::prometheus::node::actual_listen_address}:9283",
+  }
 }

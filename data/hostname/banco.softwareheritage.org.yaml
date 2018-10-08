@@ -24,6 +24,17 @@ packages:
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
 
+swh::deploy::objstorage::ceph::keyring: /etc/softwareheritage/objstorage/ceph-keyring
+swh::deploy::objstorage::ceph::rados_id: swh-contents-rw
+
+ceph::client_keyrings:
+  '/etc/softwareheritage/objstorage/ceph-keyring':
+    owner: root
+    group: swhstorage
+    mode: '0640'
+    keys:
+      - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
+
 icinga2::host::vars:
   disks:
     disk /srv/storage/0:

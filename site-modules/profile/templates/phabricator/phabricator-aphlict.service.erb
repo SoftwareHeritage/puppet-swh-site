@@ -16,6 +16,8 @@ Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start
 ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/aphlict stop
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target

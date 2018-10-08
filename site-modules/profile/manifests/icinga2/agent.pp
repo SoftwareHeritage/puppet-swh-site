@@ -44,6 +44,7 @@ class profile::icinga2::agent {
   }
 
   @@::icinga2::object::endpoint {$::fqdn:
+    host   => ip_for_network($icinga2_network),
     target => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
   }
 

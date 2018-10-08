@@ -10,11 +10,12 @@ After=network.target mysql.service apache2.service
 [Service]
 User=<%= @phabricator_user %>
 Group=<%= @phabricator_user %>
-Type=oneshot
+Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/phd start
 ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/phd stop
-RemainAfterExit=yes
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
