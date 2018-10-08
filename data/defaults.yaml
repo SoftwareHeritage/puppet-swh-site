@@ -841,22 +841,11 @@ bind::zones::default_data:
   forwarders: ''
   forward: ''
   source: ''
+  ns_records:
+    - pergamon.internal.softwareheritage.org.
+    - ns0.euwest.azure.internal.softwareheritage.org.
 
 bind::resource_records:
-  internal/NS:
-    type: NS
-    record: internal.softwareheritage.org
-    data:
-      - pergamon.internal.softwareheritage.org.
-      - ns0.euwest.azure.internal.softwareheritage.org.
-  100/NS:
-    type: NS
-    record: 101.168.192.in-addr.arpa
-    data: pergamon.internal.softwareheritage.org.
-  101/NS:
-    type: NS
-    record: 101.168.192.in-addr.arpa
-    data: pergamon.internal.softwareheritage.org.
   archive/CNAME:
     type: CNAME
     record: archive.internal.softwareheritage.org
