@@ -8,6 +8,10 @@ class profile::icinga2::objects::static_checks {
     check_command => 'hostalive4',
     address       => 'www.softwareheritage.org',
     target        => $checks_file,
+    vars          => {
+      ping_wrta => 150,
+      ping_crta => 300,
+    },
   }
 
   ::icinga2::object::service {'Software Heritage Homepage':
