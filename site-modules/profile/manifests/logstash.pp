@@ -18,12 +18,12 @@ class profile::logstash {
   }
 
   package { 'logstash':
-    ensure => '1:6.3.2-1',
+    ensure => '1:6.4.2-1',
   }
 
   apt::pin { 'logstash':
     packages => 'logstash',
-    version  => '1:6.3.2-1',
+    version  => '1:6.4.2-1',
     priority => 1001,
   }
 
