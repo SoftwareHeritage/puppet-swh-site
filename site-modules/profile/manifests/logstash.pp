@@ -21,6 +21,12 @@ class profile::logstash {
     ensure => '1:6.3.2-1',
   }
 
+  apt::pin { 'logstash':
+    packages => 'logstash',
+    version  => '1:6.3.2-1',
+    priority => 1001,
+  }
+
   file { '/etc/logstash/conf.d/input.conf':
     ensure => 'file',
     content => template('profile/logstash/input.conf.erb'),
