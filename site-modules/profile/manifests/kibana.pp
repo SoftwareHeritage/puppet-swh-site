@@ -6,6 +6,7 @@ class profile::kibana {
 
   $keyid =  lookup('elastic::apt_config::keyid')
   $key =    lookup('elastic::apt_config::key')
+  $version = lookup('elastic::elk_version')
 
   apt::source { 'elastic-6.x':
     location => 'https://artifacts.elastic.co/packages/6.x/apt',
@@ -18,12 +19,12 @@ class profile::kibana {
   }
 
   package { 'kibana':
-    ensure => '6.3.2',
+    ensure => $version,
   }
 
   apt::pin { 'kibana':
     packages => 'kibana',
-    version => '6.3.2',
+    version => $version,
     priority => 1001,
   }
 
