@@ -46,4 +46,25 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
   }
 
+  ::icinga2::object::host {'DNS resolvers':
+    check_command => 'hostalive4',
+    address       => '127.0.0.1',
+    target        => $checks_file,
+  }
+
+  ::icinga2::object::service {'SOA':
+    host_name     => 'DNS resolvers',
+    check_command => 'check_resolvers',
+    target        => $checks_file,
+  }
+
+  ::icinga2::object::checkcommand {'check_resolvers':
+    import        => ['plugin-check-command'],
+    command       => [
+	'/usr/lib/nagios/plugins/dsa-nagios-checks_checks_dsa-check-soas.txt',
+	'internal.softwareheritage.org',
+    ],
+    target        => $checks_file,
+  }
+
 }
