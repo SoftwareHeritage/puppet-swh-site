@@ -1941,7 +1941,7 @@ swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
 swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::orchestrator::config:
   indexers:
-    mimetype:
+    indexer_mimetype:
       batch_size: 100
       check_presence: false
 
@@ -1950,7 +1950,7 @@ swh::deploy::worker::swh_indexer::orchestrator_text::loglevel: info
 swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_indexer::orchestrator_text::config:
   indexers:
-    fossology_license:
+    indexer_fossology_license:
       batch_size: 100
       check_presence: false
 
