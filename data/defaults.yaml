@@ -1971,7 +1971,6 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   destination_queue: swh.indexer.tasks.OrchestratorTextContents
-  rescheduling_task: swh.indexer.tasks.ContentMimetype
 
 swh::deploy::worker::swh_indexer::rehash::concurrency: 5
 swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
@@ -1983,7 +1982,6 @@ swh::deploy::worker::swh_indexer::rehash::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   compute_checksums:
     - blake2s256
-  rescheduling_task: swh.indexer.tasks.RecomputeChecksums
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
@@ -1994,7 +1992,6 @@ swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh:
 swh::deploy::worker::swh_indexer::fossology_license::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  rescheduling_task: swh.indexer.tasks.ContentFossologyLicense
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
     name: 'nomos'
@@ -2009,7 +2006,6 @@ swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::
 swh::deploy::worker::swh_indexer::language::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  rescheduling_task: swh.indexer.tasks.ContentLanguage
   tools:
     name: 'pygments'
     version: '2.0.1+dfsg-1.1+deb8u1'
