@@ -1072,8 +1072,9 @@ annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 docs::basepath: /srv/softwareheritage/docs
 docs::vhost::name: docs.softwareheritage.org
 docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot"
-docs::vhost::docroot_group: "swhdev"
-docs::vhost::docroot_mode: "2775"
+docs::vhost::docroot_owner: "jenkins-push-docs"
+docs::vhost::docroot_group: "www-data"
+docs::vhost::docroot_mode: "2755"
 docs::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 docs::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 docs::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"

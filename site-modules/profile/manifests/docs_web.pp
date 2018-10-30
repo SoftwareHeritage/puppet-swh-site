@@ -5,6 +5,7 @@ class profile::docs_web {
 
   $docs_vhost_name = lookup('docs::vhost::name')
   $docs_vhost_docroot = lookup('docs::vhost::docroot')
+  $docs_vhost_docroot_owner = lookup('docs::vhost::docroot_owner')
   $docs_vhost_docroot_group = lookup('docs::vhost::docroot_group')
   $docs_vhost_docroot_mode = lookup('docs::vhost::docroot_mode')
   $docs_vhost_ssl_protocol = lookup('docs::vhost::ssl_protocol')
@@ -41,6 +42,7 @@ class profile::docs_web {
     ssl_key              => $ssl_key,
     headers              => [$docs_vhost_hsts_header],
     docroot              => $docs_vhost_docroot,
+    docroot_owner        => $docs_vhost_docroot_owner,
     docroot_group        => $docs_vhost_docroot_group,
     docroot_mode         => $docs_vhost_docroot_mode,
     directories          => [{
