@@ -36,6 +36,7 @@ node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
 node 'banco.softwareheritage.org' {
   include role::swh_backup
   include role::swh_lsi_storage_adapter
+  include role::swh_rsnapshot_master
 }
 
 node

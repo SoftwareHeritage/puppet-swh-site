@@ -14,7 +14,7 @@ smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
 
 dar::backup::exclude:
   - srv/barman
-  - srv/capistran
+  - srv/rsnapshot
   - srv/softwareheritage/annex
 
 swh::apt_config::enable_non_free: true
