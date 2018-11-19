@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   $config = lookup('swh::deploy::worker::swh_indexer::mimetype::config')
 
   $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_content_mimetype', 'swh_indexer_content_range_mimetype']
+  $task_queues = ['swh_indexer_content_mimetype', 'swh_indexer_content_mimetype_range']
 
   Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_mimetype':
     ensure       => present,
