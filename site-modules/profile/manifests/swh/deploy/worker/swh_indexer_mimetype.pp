@@ -8,7 +8,8 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::mimetype::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::mimetype::config_file')
-  $config_path = "${swh::conf_directory}/${config_file}"
+  $config_directory = lookup('swh::conf_directory')
+  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::mimetype::config')
 
   $task_modules = ['swh.indexer.tasks']
