@@ -8,7 +8,7 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::mimetype::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::mimetype::config_file')
-  $config_path = '${swh::conf_directory}/${config_file}'
+  $config_path = "${swh::conf_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::mimetype::config')
 
   $task_modules = ['swh.indexer.tasks']
@@ -24,7 +24,7 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],
-      File[$config_file],
+      File[$config_path],
     ],
   }
 
