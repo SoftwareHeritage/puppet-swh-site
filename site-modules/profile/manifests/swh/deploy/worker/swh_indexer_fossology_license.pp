@@ -7,7 +7,9 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
   $loglevel = lookup('swh::deploy::worker::swh_indexer::fossology_license::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_indexer::fossology_license::task_broker')
 
-  $config_file = '/etc/softwareheritage/indexer/fossology_license.yml'
+  $config_file = lookup('swh::deploy::worker::swh_indexer::fossology_license::config_file')
+  $config_directory = lookup('swh::conf_directory')
+  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::fossology_license::config')
 
   $task_modules = ['swh.indexer.tasks']
@@ -23,7 +25,7 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],
-      File[$config_file],
+      File[$config_path],
     ],
   }
 
