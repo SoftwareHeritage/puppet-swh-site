@@ -2004,6 +2004,7 @@ swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh:
 swh::deploy::worker::swh_indexer::fossology_license::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::azure')}"
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
     name: 'nomos'
