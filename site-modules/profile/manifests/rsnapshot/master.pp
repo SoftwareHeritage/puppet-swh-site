@@ -31,6 +31,7 @@ class profile::rsnapshot::master {
     command => '/usr/bin/rsnapshot hourly',
     user    => 'root',
     hour    => '*/4',
+    minute  => '0',
   }
 
   cron { 'rsnapshot_daily':
