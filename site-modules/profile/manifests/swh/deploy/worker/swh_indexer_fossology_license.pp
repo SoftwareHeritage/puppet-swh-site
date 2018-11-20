@@ -11,7 +11,7 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
   $config = lookup('swh::deploy::worker::swh_indexer::fossology_license::config')
 
   $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_content_fossology_license']
+  $task_queues = ['swh_indexer_content_fossology_license', 'swh_indexer_content_fossology_license_range']
 
   Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_fossology_license':
     ensure       => present,
