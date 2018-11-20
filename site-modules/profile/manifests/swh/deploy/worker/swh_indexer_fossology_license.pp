@@ -29,7 +29,7 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
     ],
   }
 
-  file {$config_file:
+  file {$config_path:
     ensure  => 'present',
     owner   => 'swhworker',
     group   => 'swhdev',
