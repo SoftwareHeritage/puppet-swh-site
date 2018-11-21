@@ -2956,6 +2956,8 @@ grafana::objects::datasources:
     access_mode: proxy
     is_default: true
 
+java::distribution: jre
+
 jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
 
 jenkins::vhost::name: jenkins.softwareheritage.org
