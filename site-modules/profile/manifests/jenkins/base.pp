@@ -1,8 +1,10 @@
 class profile::jenkins::base {
   group {'jenkins':
+    ensure => present,
     system => true,
   }
   -> user {'jenkins':
+    ensure => present,
     system => true,
     gid    => 'jenkins',
     home   => '/var/lib/jenkins',
