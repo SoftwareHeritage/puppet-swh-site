@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/default/jenkins-agent
-ExecStart=/usr/bin/java -jar <%- @jenkins_agent_jar %> -jnlpUrl "$JNLP_URL" -secret "$JNLP_SECRET" -workDir "$AGENT_WORKDIR"
+ExecStart=/usr/bin/java -jar <%= @jenkins_agent_jar %> -jnlpUrl $JNLP_URL -secret $JNLP_SECRET -workDir $AGENT_WORKDIR
 UnsetEnvironment=JNLP_URL JNLP_SECRET AGENT_WORKDIR
 
 User=jenkins
