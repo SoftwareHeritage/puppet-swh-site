@@ -2967,7 +2967,7 @@ jenkins::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 jenkins::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agent.jar"
-jenkins::agent::jnlp::url: "%{hiera('jenkins::bakend::url')}/computer/%{::swh_hostname.internal_fqdn}/slave-agent.jnlp"
+jenkins::agent::jnlp::url: "%{hiera('jenkins::backend::url')}/computer/%{::swh_hostname.internal_fqdn}/slave-agent.jnlp"
 # jenkins::agent::jnlp::token in private_data
 
 jenkins::apt_config::mirror: https://pkg.jenkins.io/debian-stable
