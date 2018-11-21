@@ -91,6 +91,10 @@ node 'thyssen.internal.softwareheritage.org' {
   include role::swh_ci_server
 }
 
+node /^jenkins-debian\d+\.internal\.softwareheritage\.org$/ {
+  include role::swh_ci_agent_debian
+}
+
 node 'logstash0.internal.softwareheritage.org' {
   include role::swh_logstash_instance
 }
