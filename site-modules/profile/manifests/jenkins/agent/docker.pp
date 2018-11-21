@@ -1,6 +1,5 @@
-class profile::jenkins::worker {
+class profile::jenkins::agent::docker {
   include profile::docker
-  include profile::jenkins::service
 
   exec {'add jenkins user to docker group':
     path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
@@ -9,8 +8,8 @@ class profile::jenkins::worker {
     unless  => 'getent group docker | cut -d: -f4 | grep -qE \'(^|,)jenkins(,|$)\'',
     require => [
       Package['docker-ce'],
-      Package['jenkins'],
+      User['jenkins'],
     ],
-    notify  => Service['jenkins'],
+    tag     => 'reload_jenkins',
   }
 }
