@@ -445,6 +445,9 @@ users:
       valentin.lorentz@inria.fr:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAILsRMQjrrfUjX1ka9e6YlyMyDvTC+qk5a21Fp9yXYI7p
+      vlorentz@softwareheritage.org:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIIjJoY4XBTTNsxLVF/sUKBI4WGR2AIiR9qfMdspnsRfJ
 
 groups:
   adm:
