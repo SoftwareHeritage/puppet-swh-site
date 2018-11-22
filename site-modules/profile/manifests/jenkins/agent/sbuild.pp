@@ -22,4 +22,10 @@ class profile::jenkins::agent::sbuild {
     ],
     tag     => 'restart_jenkins',
   }
+
+  ::sudo::conf { 'jenkins-sbuild':
+    ensure   => present,
+    content  => 'jenkins  ALL = NOPASSWD: ALL',
+    priority => 20,
+  }
 }
