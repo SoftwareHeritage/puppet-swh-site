@@ -5,6 +5,12 @@ class profile::jenkins::agent::sbuild {
     ensure => installed,
   }
 
+  file {'/usr/share/jenkins/debian-scripts':
+    ensure => 'directory',
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+
   exec {'add jenkins user to sbuild group':
     path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
     command => 'gpasswd -a jenkins sbuild',
