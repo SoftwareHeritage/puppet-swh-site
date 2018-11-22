@@ -5,6 +5,32 @@ class profile::jenkins::agent::sbuild {
     ensure => installed,
   }
 
+  if $::lsbdistcodename == 'stretch' {
+    $pinned_packages = [
+      'sbuild',
+      'schroot',
+      'devscripts',
+      'git',
+      'git-buildpackage',
+    ]
+  }
+  else {
+    $pinned_packages = undef
+  }
+
+  if $pinned_packages {
+    ::apt::pin {'jenkins-sbuild':
+      explanation => 'Pin jenkins to backports',
+      codename    => "${::lsbdistcodename}-backports",
+      packages    => $pinned_packages,
+      priority    => 990,
+    }
+  } else {
+    ::apt::pin {'jenkins-sbuild':
+      ensure => 'absent',
+    }
+  }
+
   file {'/usr/share/jenkins/debian-scripts':
     ensure => 'directory',
     owner  => 'jenkins',
