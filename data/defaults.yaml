@@ -2941,6 +2941,8 @@ grafana::config:
     enabled: true
     org_name: Software Heritage
     org_role: Viewer
+  smtp:
+    enabled: true
 
 grafana::objects::organizations:
   - name: Software Heritage
