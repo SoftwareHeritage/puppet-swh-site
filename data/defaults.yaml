@@ -2943,6 +2943,8 @@ grafana::config:
     org_role: Viewer
   smtp:
     enabled: true
+    skip_verify: true
+    from_address: grafana@softwareheritage.org
 
 grafana::objects::organizations:
   - name: Software Heritage
