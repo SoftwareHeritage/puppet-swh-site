@@ -7,11 +7,13 @@ class profile::jenkins::agent::sbuild {
 
   if $::lsbdistcodename == 'stretch' {
     $pinned_packages = [
-      'sbuild',
-      'schroot',
       'devscripts',
       'git',
       'git-buildpackage',
+      'git-man',
+      'libsbuild-perl',
+      'sbuild',
+      'schroot',
     ]
   }
   else {
