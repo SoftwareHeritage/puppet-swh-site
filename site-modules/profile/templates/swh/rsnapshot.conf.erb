@@ -50,7 +50,7 @@ cmd_rsync	/usr/bin/rsync
 
 # Uncomment this to enable remote ssh backups over rsync.
 #
-#cmd_ssh	/usr/bin/ssh
+cmd_ssh		/usr/bin/ssh
 
 # Comment this out to disable syslog support.
 #
@@ -162,7 +162,15 @@ rsync_short_args	-aH
 #include	???
 #include	???
 #exclude	???
-#exclude	???
+<% @backup_exclusion.each do |item|
+	# Directly using item here will modify @backup_exclusion
+	# and potentially impact other templates
+	str = String.new(item.to_s)
+	str.insert(0,'/') if (item.chars.first != '/')
+	str << '/' if (item.chars.last != '/')
+%>
+exclude		<%= str -%>
+<% end %>
 
 # The include_file and exclude_file parameters, if enabled, simply get
 # passed directly to rsync. Please look up the --include-from and
