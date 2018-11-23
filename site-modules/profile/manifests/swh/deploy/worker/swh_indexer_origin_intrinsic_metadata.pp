@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_indexer_origin_intrinsic_metadata {
   $config = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config')
 
   $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_content_origin_intrinsic_metadata']
+  $task_queues = ['swh_indexer_origin_intrinsic_metadata']
 
   Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_origin_intrinsic_metadata':
     ensure       => present,
