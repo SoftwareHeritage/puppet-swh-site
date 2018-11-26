@@ -304,7 +304,8 @@ class profile::phabricator {
   }
 
   each($::ssh) |$algo, $data| {
-    @@sshkey {"phabricator-${::certname}-${algo}":
+    if $algo == 'ecdsa' { $algo = 'ecdsa-sha2-nistp256' }
+    @@sshkey {"phabricator-${::fqdn}-${algo}":
       host_aliases => [$phabricator_vhost_name],
       type         => $algo,
       key          => $data['key'],

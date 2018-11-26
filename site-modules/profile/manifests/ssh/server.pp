@@ -46,7 +46,8 @@ class profile::ssh::server {
   }
 
   each($::ssh) |$algo, $data| {
-    @@sshkey {"ssh-${::certname}-${algo}":
+    if $algo == 'ecdsa' { $algo = 'ecdsa-sha2-nistp256' }
+    @@sshkey {"ssh-${::fqdn}-${algo}":
       host_aliases => unique(values($::swh_hostname)),
       type         => $algo,
       key          => $data['key'],
