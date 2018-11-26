@@ -1988,7 +1988,7 @@ swh::deploy::worker::swh_indexer::origin_head::config:
     origin_intrinsic_metadata: null
 
 swh::deploy::worker::swh_indexer::revision_metadata::config_file: "indexer/revision_metadata.yml"
-swh::deploy::worker::swh_indexer::revision_metadata::concurrency: 3
+swh::deploy::worker::swh_indexer::revision_metadata::concurrency: 1
 swh::deploy::worker::swh_indexer::revision_metadata::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
 swh::deploy::worker::swh_indexer::revision_metadata::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
