@@ -304,10 +304,10 @@ class profile::phabricator {
   }
 
   each($::ssh) |$algo, $data| {
-    @@sshkey {"phabricator-${phabricator_vhost_name}-${algo}":
-      name => $phabricator_vhost_name,
-      type => $algo,
-      key  => $data['key'],
+    @@sshkey {"phabricator-${::certname}-${algo}":
+      host_aliases => [$phabricator_vhost_name],
+      type         => $algo,
+      key          => $data['key'],
     }
   }
 }
