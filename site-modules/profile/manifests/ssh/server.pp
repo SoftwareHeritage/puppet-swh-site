@@ -45,5 +45,16 @@ class profile::ssh::server {
     }
   }
 
+  each($::ssh) |$algo, $data| {
+    each(unique(values($::swh_hostname))) |$hostname| {
+      @@sshkey {"ssh-${hostname}-${algo}":
+        name => $hostname,
+        type => $algo,
+        key  => $data['key'],
+        tag  => 'ssh',
+      }
+    }
+  }
 
+  Sshkey <<| |>>
 }

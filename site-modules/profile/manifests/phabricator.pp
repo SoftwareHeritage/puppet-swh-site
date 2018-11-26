@@ -302,4 +302,12 @@ class profile::phabricator {
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
   }
+
+  each($::ssh) |$algo, $data| {
+    @@sshkey {"phabricator-${phabricator_vhost_name}-${algo}":
+      name => $phabricator_vhost_name,
+      type => $algo,
+      key  => $data['key'],
+    }
+  }
 }
