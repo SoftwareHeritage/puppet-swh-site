@@ -304,10 +304,13 @@ class profile::phabricator {
   }
 
   each($::ssh) |$algo, $data| {
-    if $algo == 'ecdsa' { $algo = 'ecdsa-sha2-nistp256' }
-    @@sshkey {"phabricator-${::fqdn}-${algo}":
+    $real_algo = $algo ? {
+      'ecdsa' => 'ecdsa-sha2-nistp256',
+      default => $algo,
+    }
+    @@sshkey {"phabricator-${::fqdn}-${real_algo}":
       host_aliases => [$phabricator_vhost_name],
-      type         => $algo,
+      type         => $real_algo,
       key          => $data['key'],
     }
   }
