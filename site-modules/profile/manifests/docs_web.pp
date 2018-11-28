@@ -55,6 +55,9 @@ class profile::docs_web {
         File[$ssl_chain],
         File[$ssl_key],
     ],
+    rewrites => [
+        { rewrite_rule => '^/?$ /devel/ [R,L]' },
+    ],
   }
 
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
