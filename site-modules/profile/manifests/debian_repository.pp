@@ -9,12 +9,34 @@ class profile::debian_repository {
 
   $repository_basepath =  lookup('debian_repository::basepath')
 
+  $repository_owner = lookup('debian_repository::owner')
+  $repository_group = lookup('debian_repository::group')
+  $repository_mode = lookup('debian_repository::mode')
+
+  user {$repository_owner:
+    ensure => present,
+    system => true,
+  }
+
+  file {$repository_basepath:
+    ensure => 'directory',
+    owner  => $repository_owner,
+    group  => $repository_mode,
+    mode   => $repository_mode,
+  }
+
+  $repository_incoming = "${repository_basepath}/incoming"
+
+  file {$repository_incoming:
+    ensure => 'directory',
+    owner  => $repository_owner,
+    group  => $repository_mode,
+    mode   => $repository_mode,
+  }
+
   $repository_vhost_name = lookup('debian_repository::vhost::name')
   $repository_vhost_aliases = lookup('debian_repository::vhost::aliases')
   $repository_vhost_docroot = lookup('debian_repository::vhost::docroot')
-  $repository_vhost_docroot_owner = lookup('debian_repository::vhost::docroot_owner')
-  $repository_vhost_docroot_group = lookup('debian_repository::vhost::docroot_group')
-  $repository_vhost_docroot_mode = lookup('debian_repository::vhost::docroot_mode')
   $repository_vhost_ssl_protocol = lookup('debian_repository::vhost::ssl_protocol')
   $repository_vhost_ssl_honorcipherorder = lookup('debian_repository::vhost::ssl_honorcipherorder')
   $repository_vhost_ssl_cipher = lookup('debian_repository::vhost::ssl_cipher')
@@ -28,7 +50,7 @@ class profile::debian_repository {
     serveraliases   => $repository_vhost_aliases,
     port            => '80',
     docroot         => $repository_vhost_docroot,
-    manage_docroot  => false,  # will be managed by the SSL resource
+    manage_docroot  => false,
     redirect_status => 'permanent',
     redirect_dest   => "https://${repository_vhost_name}/",
   }
@@ -50,9 +72,7 @@ class profile::debian_repository {
     ssl_key              => $ssl_key,
     headers              => [$repository_vhost_hsts_header],
     docroot              => $repository_vhost_docroot,
-    docroot_owner        => $repository_vhost_docroot_owner,
-    docroot_group        => $repository_vhost_docroot_group,
-    docroot_mode         => $repository_vhost_docroot_mode,
+    manage_docroot       => false,
     directories          => [
       {
         path    => $repository_vhost_docroot,

@@ -1100,13 +1100,14 @@ swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_reposito
 swh::apt_config::enable_non_free: false
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
+debian_repository::owner: root
+debian_repository::group: swhdev
+debian_repository::mode: "02775"
+
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
 debian_repository::vhost::aliases:
   - debian.internal.softwareheritage.org
 debian_repository::vhost::docroot: "%{hiera('debian_repository::basepath')}"
-debian_repository::vhost::docroot_owner: root
-debian_repository::vhost::docroot_group: swhdev
-debian_repository::vhost::docroot_mode: "02775"
 debian_repository::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 debian_repository::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 debian_repository::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
