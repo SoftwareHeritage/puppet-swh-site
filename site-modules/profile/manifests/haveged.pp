@@ -8,5 +8,5 @@ class profile::haveged {
     ensure  => running,
     enable  => true,
     require => Package['haveged'],
-  }
+  } -> Gpg_Key <<| |>>
 }
