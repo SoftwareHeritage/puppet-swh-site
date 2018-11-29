@@ -1,4 +1,6 @@
 class profile::jenkins::agent::sbuild {
+  include ::profile::haveged
+
   $packages = ['sbuild', 'build-essential', 'devscripts', 'git-buildpackage']
 
   package {$packages:
@@ -56,4 +58,11 @@ class profile::jenkins::agent::sbuild {
     content  => 'jenkins  ALL = NOPASSWD: ALL',
     priority => 20,
   }
+
+  $key_uid = "Software Heritage autobuilder (on ${::swh_hostname['short']}) <jenkins@${::swh_hostname['fqdn']}>"
+  [$key] = (gpg_key {$key_uid:
+    ensure     => present,
+    owner      => 'jenkins',
+    expire     => '365d',
+  })
 }
