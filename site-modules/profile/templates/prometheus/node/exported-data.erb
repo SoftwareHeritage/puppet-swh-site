@@ -1,0 +1,9 @@
+# HELP puppet_class Classes defined on the given host
+# TYPE puppet_class gauge
+<% scope.call_function(
+    'puppetdb_query',
+    ['resources[title] { type = "Class" and certname = "' + @trusted['certname'] + '" }'])
+    .sort {|a, b| a['title'] <=> b['title'] }
+    .each do |resource| -%>
+puppet_class{class="<%= resource['title'].downcase %>"} 1
+<% end -%>
