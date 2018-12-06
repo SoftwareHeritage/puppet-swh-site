@@ -7,7 +7,7 @@ icinga2::host::vars:
 
 prometheus::sql::exporter::extra_config:
   - name: "SoftwareHeritageIndexerCounters"
-    interval: '1d'
+    interval: '1h'
     connections:
     - 'postgres://postgres@:5434/softwareheritage-indexer?sslmode=disable'
     queries:
