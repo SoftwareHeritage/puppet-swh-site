@@ -2989,6 +2989,14 @@ jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agen
 jenkins::agent::jnlp::url: "%{hiera('jenkins::backend::url')}computer/%{::swh_hostname.internal_fqdn}/slave-agent.jnlp"
 # jenkins::agent::jnlp::token in private_data
 
+weekly_report_bot::user: nobody
+weekly_report_bot::cron::hour: 0
+weekly_report_bot::cron::minute: 0
+weekly_report_bot::cron::weekday: fri
+
+
+# APT repository settings
+
 jenkins::apt_config::mirror: https://pkg.jenkins.io/debian-stable
 jenkins::apt_config::keyid: 150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6
 jenkins::apt_config::key: |

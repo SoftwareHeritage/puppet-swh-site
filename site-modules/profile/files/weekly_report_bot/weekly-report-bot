@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DEST=swh-team@inria.fr
+
+/usr/lib/sendmail -t <<EOF
+From: Weekly report bot <swh-team@inria.fr>
+To: $DEST
+Subject: [Weekly Report] Week $(date +%Y/%W)
+
+Beep boop, I'm a bot.
+
+Here's a thread for your weekly reports!
+
+Yours faithfully,
+-- 
+Cron for $(whoami)@$(hostname)
+EOF
