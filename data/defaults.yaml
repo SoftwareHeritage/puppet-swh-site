@@ -998,18 +998,14 @@ dar::backup::exclude:
 dar::backup::options:
  - -zbzip2
 
-dar::cron::hour: 0
-dar::cron::minute: fqdn_rand
-dar::cron::month: '*'
-dar::cron::monthday: '*'
-dar::cron::weekday: '*'
+dar::cron:
+  hour: 0
+  minute: fqdn_rand
 
 dar_server::backup::storage: /srv/remote-backups
-dar_server::cron::hour: '0-4'
-dar_server::cron::minute: '*/10'
-dar_server::cron::month: '*'
-dar_server::cron::monthday: '*'
-dar_server::cron::weekday: '*'
+dar_server::cron:
+  hour: '0-4'
+  minute: '*/10'
 
 phabricator::basepath: /srv/phabricator
 phabricator::user: phabricator
