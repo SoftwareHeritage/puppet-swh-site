@@ -2895,6 +2895,7 @@ prometheus::server::certname: pergamon.softwareheritage.org
 
 prometheus::node::listen_network: "%{lookup('internal_network')}"
 prometheus::node::listen_port: 9100
+prometheus::node::textfile_directory: /var/lib/prometheus/node-exporter
 prometheus::node::defaults_config:
   collector:
     diskstats:
@@ -2909,7 +2910,22 @@ prometheus::node::defaults_config:
     netdev:
       ignored_devices: "^lo$"
     textfile:
-      directory: /var/lib/prometheus/node-exporter
+      directory: "%{lookup('prometheus::node::textfile_directory')}"
+
+prometheus::node::scripts::directory: /var/lib/prometheus/node-exporter-scripts
+prometheus::node::scripts:
+  puppet-classes:
+    mode: cron
+    cron:
+      user: root
+      specification:
+        minute: fqdn_rand
+  apt:
+    mode: cron
+    cron:
+      user: root
+      specification:
+        minute: fqdn_rand
 
 prometheus::sql::listen_network: "%{lookup('internal_network')}"
 prometheus::sql::listen_port: 9237

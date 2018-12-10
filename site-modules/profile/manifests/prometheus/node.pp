@@ -52,6 +52,41 @@ class profile::prometheus::node {
     notify  => Service['prometheus-node-exporter'],
   }
 
+  $textfile_directory = lookup('prometheus::node::textfile_directory')
+  $scripts = lookup('prometheus::node::scripts', Hash, 'deep')
+  $scripts_directory = lookup('prometheus::node::scripts::directory')
+
+  file {$scripts_directory:
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0700',
+    recurse => true,
+    purge   => true,
+  }
+
+  each($scripts) |$script, $data| {
+    file {"${scripts_directory}/${script}":
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0700',
+      content => template("profile/prometheus/node/scripts/${script}.erb"),
+    }
+    if $data['mode'] == 'cron' {
+      $cron_spec = profile::cron_rand(
+        $data['cron']['specification'],
+        "prometheus-node-exporter-${script}"
+      )
+
+      cron {"prometheus-node-exporter-${script}":
+        ensure => present,
+        user   => $data['cron']['user'],
+        *      => $cron_spec,
+      }
+    }
+  }
+
   profile::prometheus::export_scrape_config {'node':
     target => $target,
   }
