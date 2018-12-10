@@ -1,164 +1,84 @@
-#!/usr/bin/python3
-#
-# Originally part of Credativ's Elephant Shed
-# https://github.com/credativ/elephant-shed
-# prometheus/sql_exporter/update-prometheus-sql-exporter-config
-# Licensed under the GPLv3.
-#
-# Adapted to run on Python 3.5
+#!/usr/bin/perl
 
-import sys
-import yaml
-import subprocess
-import traceback
-from pkg_resources import parse_version
+use strict;
+use warnings;
+use PgCommon;
+use Storable qw(dclone);
+use YAML;
 
-"""
-Returns a list of clusters (dict) containing the following attributes:
-    - name
-    - version
-    - port
-    - status
-    - owner
-    - databases (dict)
+# from list of queries, remove all that do not satisfy the scope/version/cluster/database constraints
+sub filter_queries($$$$;$)
+{
+  my ($queries, $scope, $version, $cluster, $database) = @_;
+  my @result;
+  foreach my $query (@$queries) {
+    $query->{scope} //= 'database';
+    die "scope '$query->{scope}' must be either 'cluster' or 'database'"
+      unless ($query->{scope} =~ /^(cluster|database)$/);
+    next if $query->{scope} ne $scope;
+    next if $query->{min_version} and $version < $query->{min_version};
+    next if $query->{max_version} and $version > $query->{max_version};
+    next if $query->{version} and $version !~ /$query->{version}/;
+    next if $query->{cluster} and $cluster !~ /$query->{cluster}/;
+    next if $query->{database} and $database !~ /$query->{database}/;
 
-Calls get_databases for each cluster.
-"""
-def get_clusters(min_version=None, max_version=None):
-    clusters = list()
+    my $q = dclone($query);
+    delete $q->{scope}; delete $q->{min_version}; delete $q->{max_version};
+    delete $q->{version}; delete $q->{cluster}; delete $q->{database};
+    push @result, $q;
+  }
+  return \@result;
+}
 
-    proc = subprocess.Popen(["pg_lsclusters"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
-    (out, err) = proc.communicate()
+my $queries_directory = $ARGV[0] // die "No directory for *.yml query files specified";
+my $output_yaml = $ARGV[1] // die "No output yaml file specified";
 
-    out = out.rstrip("\n")
-    out_lines = out.splitlines()
+# load all *.yml files from input directory and collect the contained query lists
+my $queries;
+foreach my $yml (glob "$queries_directory/*.yml") {
+  my $q;
+  eval { $q = YAML::LoadFile($yml); };
+  die "Error loading $yml: $@" if ($@);
+  next if (ref($q) eq ''); # file is empty
+  die "$yml is not a yaml list:" . ref($q) unless (ref($q) eq 'ARRAY');
+  push @$queries, @$q;
+}
 
-    for i in range(1,len(out_lines)):
-        cluster = dict()
-        version, name, port, status, owner = out_lines[i].split()[:5]
-        cluster["version"] = version
-        cluster["name"] = name
-        cluster["port"] = port
-        cluster["status"] = status
-        cluster["owner"] = owner
-        cluster["databases"] = get_databases(cluster)
-        clusters.append(cluster)
+# walk all clusters and databases and produce jobs for them
+my $jobs = [];
+foreach my $version (get_versions()) {
+  foreach my $cluster (get_version_clusters($version)) {
+    my %info = cluster_info($version, $cluster);
+    next unless $info{running}; # cluster is down, skip it
+    my $owner = (getpwuid $info{owneruid})[0] // die "Could not determine owner name of cluster $version $cluster";
+    my $socket = get_cluster_socketdir($version, $cluster);
 
-    return clusters
+    # job for cluster-wide queries
+    push @$jobs, {
+      connections => [ "postgres://$owner\@:$info{port}/postgres?sslmode=disable&host=$socket" ],
+      interval => 0,
+      name => "$version/$cluster",
+      queries => filter_queries($queries, 'cluster', $version, $cluster),
+    };
 
-"""
-Returns a list of databases for the given cluster.
-"""
-def get_databases(cluster):
-    databases = list()
-    command = "sudo -u %s psql -p %s -tXA -c \"SELECT datname FROM pg_database WHERE NOT datname ~ '^template(0|1)$';\""
-    command = command % (cluster["owner"], cluster["port"])
-    proc = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
-    (out, err) = proc.communicate()
-    out_lines = out.splitlines()
-    for line in out_lines:
-        databases.append(line.split("|")[0])
+    # jobs for per-database queries
+    my @cluster_databases = get_cluster_databases($version, $cluster);
+    foreach my $database (grep { $_ and $_ !~ /^template[01]$/ } @cluster_databases) {
+      push @$jobs, {
+        connections => [ "postgres://$owner\@:$info{port}/$database?sslmode=disable&host=$socket" ],
+        interval => 0,
+        name => "$version/$cluster/$database",
+        queries => filter_queries($queries, 'database', $version, $cluster, $database),
+      };
+    }
 
-    return databases
+    # create pg_stat_statements in "postgres" database if missing
+    next if $info{recovery}; # cluster is in recovery mode, skip it
+    open PSQL, "|-", "su -c 'psql -q -h $socket -p $info{port} postgres' $owner";
+    print PSQL "DO \$\$DECLARE ext name; BEGIN SELECT INTO ext extname FROM pg_extension WHERE extname = 'pg_stat_statements'; IF NOT FOUND THEN RAISE NOTICE 'Creating pg_stat_statements extension in cluster $version/$cluster'; CREATE EXTENSION pg_stat_statements; END IF; END\$\$ LANGUAGE plpgsql;\n";
+    close PSQL;
+  }
+}
 
-"""
-Returns the a config element (dict).
-"""
-def read_config_template():
-    config_filename = "/etc/prometheus-sql-exporter.yml.in"
-    with open(config_filename, "r") as f:
-        yaml_conf = yaml.load(f)
-
-    return yaml_conf
-
-"""
-Writes the given config to file.
-"""
-def write_config(conf):
-    config_filename = "/etc/prometheus-sql-exporter.yml"
-    with open(config_filename, "w") as f:
-        yaml.dump(conf, f)
-
-    return True
-
-"""
-Takes a given config and appends connection strings to it.
-"""
-def append_conn_strings_to_template(conf):
-    clusters = get_clusters()
-
-    for job in conf["jobs"]:
-        min_version = parse_version("0")
-        max_version = parse_version("99999999999")
-        used_clusters = list()
-        conn_strings = list()
-
-        if "min_version" in job:
-            min_version = parse_version(job["min_version"])
-
-        if "max_version" in job:
-            max_version = parse_version(job["max_version"])
-
-        for cluster in clusters:
-            cluster_version = parse_version(cluster["version"])
-            if cluster_version >= min_version and cluster_version <= max_version:
-                used_clusters.append(cluster)
-
-        if job['name'].startswith('cluster'):
-            for cluster in used_clusters:
-                conn_strings.extend(build_conn_strings(cluster, False))
-        elif job['name'].startswith('database'):
-            for cluster in used_clusters:
-                conn_strings.extend(build_conn_strings(cluster, True))
-        else:
-            conn_strings.extend(job['connections'])
-
-        job["connections"] = conn_strings
-
-    return conf
-
-"""
-Returns a list of connection strings for all clusters/databases.
-
-If per_db is True a list of all databases is returned. Otherwise a list of all
-clusters (using template1) is returned.
-"""
-def build_conn_strings(cluster, per_db=True):
-    conn_strings = list()
-
-    if per_db:
-        for db in cluster["databases"]:
-            conn_string = 'postgres://%s@:%s/%s?sslmode=disable'
-            conn_string = conn_string % (cluster["owner"], cluster["port"], db)
-            conn_strings.append(conn_string)
-    else:
-        conn_string = 'postgres://%s@:%s/postgres?sslmode=disable'
-        conn_string = conn_string % (cluster["owner"], cluster["port"])
-        conn_strings.append(conn_string)
-
-    return conn_strings
-
-if __name__ == "__main__":
-    clusters = get_clusters()
-
-    try:
-        yaml_conf = read_config_template()
-    except:
-        sys.stderr.write("Could not read config template.\n")
-        print('-'*60)
-        traceback.print_exc(file=sys.stdout)
-        print('-'*60)
-        exit(1)
-
-    try:
-        yaml_conf = append_conn_strings_to_template(yaml_conf)
-    except:
-        sys.stderr.write("Could not write new config.\n")
-        print('-'*60)
-        traceback.print_exc(file=sys.stdout)
-        print('-'*60)
-        exit(1)
-
-    write_config(yaml_conf)
-
-    exit(0)
+# write output yml
+YAML::DumpFile($output_yaml, { jobs => $jobs });

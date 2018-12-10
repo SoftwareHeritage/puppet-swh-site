@@ -1,0 +1,28 @@
+- name: "swh_indexer_count"
+  help: "Indexer count per type"
+  scope: database
+  cluster: indexer
+  database: softwareheritage-indexer
+  interval: '1h'
+  labels:
+    - "mimetype"
+    - "fossology_license"
+  values:
+    - "count_mimetype"
+    - "count_fossology_license"
+  query: >-
+    select 'mimetype',
+           (select reltuples
+            from pg_class C
+            left join pg_namespace N on (N.oid = C.relnamespace)
+            where nspname not in ('pg_catalog', 'information_schema') and
+                  relkind='r' and
+                  relname='content_mimetype'
+           ) as count_mimetype,
+           'fossology_license',
+           (select reltuples
+            from pg_class C
+            left join pg_namespace N on (N.oid = C.relnamespace)
+            where nspname not in ('pg_catalog', 'information_schema') and
+                  relkind='r' and
+                  relname='content_fossology_license') as count_fossology_license;

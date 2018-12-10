@@ -5,12 +5,12 @@ class profile::prometheus::sql {
   $package_name = "prometheus-${exporter_name}-exporter"
   $service_name = $package_name
   $defaults_file = "/etc/default/${package_name}"
-  $config_file = "/etc/${package_name}.yml"
-  $config_template = "${config_file}.in"
+  $config_snippet_dir = "/etc/${package_name}"
+  $config_file = "/var/run/postgresql/${package_name}.yml"
   $config_updater = "/usr/bin/update-${package_name}-config"
 
   package {$package_name:
-    ensure => latest,
+    ensure => installed,
   }
 
   service {$service_name:
@@ -18,7 +18,6 @@ class profile::prometheus::sql {
     enable  => true,
     require => [
       Package[$package_name],
-      Exec[$config_updater],
     ]
   }
 
@@ -29,56 +28,53 @@ class profile::prometheus::sql {
     content  => "[Service]\nRestart=always\nRestartSec=5\n",
   }
 
-  file {$config_updater:
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/profile/prometheus/sql/update-prometheus-sql-exporter-config',
+  ::systemd::dropin_file {"${service_name}/update_config.conf":
+    ensure   => present,
+    unit     => "${service_name}.service",
+    filename => 'update_config.conf',
+    content  => template('profile/prometheus/sql/systemd/update_config.conf.erb'),
   }
 
-  # needed for the the configuration generation
-  # optional extra configuration per host
-  $extra_config = lookup('prometheus::sql::exporter::extra_config', Data, 'first', undef)
-
-  file {$config_template:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/prometheus/sql/prometheus-sql-exporter.yml.in.erb'),
-    notify  => Exec[$config_updater],
-  }
-
-  $update_deps = ['python3-pkg-resources', 'python3-yaml']
+  $update_deps = ['postgresql-client-common', 'libyaml-perl']
   ensure_packages(
     $update_deps, {
       ensure => present
     },
   )
 
-  exec {$config_updater:
-    refreshonly => true,
-    creates     => $config_file,
-    require     => [
-      Package[$update_deps],
-      File[$config_template],
-      File[$config_updater],
-    ],
-    notify      => Service[$service_name],
+  file {$config_updater:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => 'puppet:///modules/profile/prometheus/sql/update-prometheus-sql-exporter-config',
+    require => Package[$update_deps],
+  }
+
+  file {$config_snippet_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+  $config_snippets = lookup('prometheus::sql::config_snippets', Array[String], 'unique')
+
+  each($config_snippets) |$snippet| {
+    file {"${config_snippet_dir}/${snippet}.yml":
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => "puppet:///modules/profile/prometheus/sql/config/${snippet}.yml",
+    }
   }
 
   $listen_network = lookup('prometheus::sql::listen_network', Optional[String], 'first', undef)
-  $listen_address = lookup('prometheus::sql::listen_address', Optional[String], 'first', undef)
-  $actual_listen_address = pick($listen_address, ip_for_network($listen_network))
+  $listen_ip = lookup('prometheus::sql::listen_address', Optional[String], 'first', undef)
+  $actual_listen_ip = pick($listen_ip, ip_for_network($listen_network))
   $listen_port = lookup('prometheus::sql::listen_port')
-  $target = "${actual_listen_address}:${listen_port}"
-
-  $defaults_config = {
-    web => {
-      listen_address => $target,
-    },
-  }
+  $listen_address = "${actual_listen_ip}:${listen_port}"
 
   file {$defaults_file:
     ensure  => present,
@@ -91,6 +87,6 @@ class profile::prometheus::sql {
   }
 
   profile::prometheus::export_scrape_config {'sql':
-    target => $target,
+    target => $listen_address,
   }
 }

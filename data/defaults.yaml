@@ -2929,10 +2929,11 @@ prometheus::node::scripts:
 
 prometheus::sql::listen_network: "%{lookup('internal_network')}"
 prometheus::sql::listen_port: 9237
-
-# extra sql exporter configuration per host
-# (cf. somerset.internal.softwareheritage.org.yml)
-# prometheus::sql::exporter::extra_config: []
+prometheus::sql::config_snippets:
+  - activity
+  - queries
+  - replication
+  - wal
 
 grafana::db::database: grafana
 grafana::db::username: grafana
