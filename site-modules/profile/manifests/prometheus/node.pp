@@ -52,16 +52,6 @@ class profile::prometheus::node {
     notify  => Service['prometheus-node-exporter'],
   }
 
-  file {'/var/lib/prometheus/node-exporter/puppet.prom':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/prometheus/node/exported-data.erb'),
-    require => Package['prometheus-node-exporter'],
-  }
-
-
   profile::prometheus::export_scrape_config {'node':
     target => $target,
   }
