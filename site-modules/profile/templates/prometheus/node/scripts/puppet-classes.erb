@@ -20,4 +20,5 @@ sort /var/lib/puppet/state/classes.txt | while read cls; do
 done
 } > $tmpfile
 
+chmod 644 $tmpfile
 mv $tmpfile $outfile
