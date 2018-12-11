@@ -6,6 +6,6 @@
   labels:
     - object_type
   values:
-    - count
+    - value
   query: >-
     select label as object_type, value from swh_stat_counters()
