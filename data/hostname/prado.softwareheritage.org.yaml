@@ -7,3 +7,4 @@ icinga2::host::vars:
 
 prometheus::sql::config_snippets:
   - swh-scheduler
+  - swh-storage

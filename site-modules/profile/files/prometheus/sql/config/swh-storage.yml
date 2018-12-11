@@ -1,0 +1,11 @@
+- name: swh_archive_object_count
+  help: Software Heritage Archive object counters
+  scope: database
+  cluster: main
+  database: softwareheritage
+  labels:
+    - object_type
+  values:
+    - count
+  query: >-
+    select label as object_type, value from swh_stat_counters()
