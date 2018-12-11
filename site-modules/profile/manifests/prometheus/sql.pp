@@ -33,6 +33,7 @@ class profile::prometheus::sql {
     unit     => "${service_name}.service",
     filename => 'update_config.conf',
     content  => template('profile/prometheus/sql/systemd/update_config.conf.erb'),
+    notify   => Service[$service_name],
   }
 
   $update_deps = ['postgresql-client-common', 'libyaml-perl']
@@ -49,6 +50,7 @@ class profile::prometheus::sql {
     mode    => '0755',
     source  => 'puppet:///modules/profile/prometheus/sql/update-prometheus-sql-exporter-config',
     require => Package[$update_deps],
+    notify  => Service[$service_name],
   }
 
   file {$config_snippet_dir:
@@ -56,6 +58,7 @@ class profile::prometheus::sql {
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
+    notify => Service[$service_name],
   }
 
   $config_snippets = lookup('prometheus::sql::config_snippets', Array[String], 'unique')
@@ -67,6 +70,7 @@ class profile::prometheus::sql {
       group  => 'root',
       mode   => '0644',
       source => "puppet:///modules/profile/prometheus/sql/config/${snippet}.yml",
+      notify => Service[$service_name],
     }
   }
 
