@@ -82,7 +82,7 @@ class profile::prometheus::node {
       cron {"prometheus-node-exporter-${script}":
         ensure  => present,
         user    => $data['cron']['user'],
-        command => "${scripts_directory}/${script}",
+        command => "chronic ${scripts_directory}/${script}",
         *       => $cron_spec,
       }
     }
