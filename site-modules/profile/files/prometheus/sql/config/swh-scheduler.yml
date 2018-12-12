@@ -1,7 +1,7 @@
 - name: "swh_scheduler_oneshot"
   scope: database
   cluster: secondary
-  database: softwareheritage-scheduler
+  database: ^softwareheritage-scheduler$
   interval: '1h'
   help: "Software Heritage Scheduled Oneshot Tasks"
   labels:
@@ -16,7 +16,7 @@
 - name: "swh_scheduler_recurring"
   scope: database
   cluster: secondary
-  database: softwareheritage-scheduler
+  database: ^softwareheritage-scheduler$
   interval: '1h'
   help: "Software Heritage Scheduled Recurring Tasks"
   labels:
