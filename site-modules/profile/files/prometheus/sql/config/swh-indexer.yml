@@ -2,7 +2,7 @@
   help: "Indexer count per type"
   scope: database
   cluster: indexer
-  database: softwareheritage-indexer
+  database: ^softwareheritage-indexer$
   interval: '1h'
   labels:
     - "mimetype"
