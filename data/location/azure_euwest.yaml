@@ -7,9 +7,8 @@ dns::forward_zones:
   '101.168.192.in-addr.arpa.':
     - 192.168.200.22
 
-dns::forwarders:
-  - 168.63.129.16
-dns::forwarder_insecure: true
+dns::forwarders: []
+dns::forwarder_insecure: false
 
 internal_network: 192.168.200.0/21
 
