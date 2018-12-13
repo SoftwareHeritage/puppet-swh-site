@@ -7,6 +7,6 @@ class profile::memcached {
   class {'::memcached':
     listen_ip  => $memcached_bind,
     tcp_port   => $memcached_port,
-    max_memory => $memcached_max_memory,
+    max_memory => $memcached_memory,
   }
 }
