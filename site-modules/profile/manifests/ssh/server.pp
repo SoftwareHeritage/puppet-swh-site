@@ -50,8 +50,29 @@ class profile::ssh::server {
       'ecdsa' => 'ecdsa-sha2-nistp256',
       default => $algo,
     }
+
+    $aliases = [
+      values($::swh_hostname),
+      ip_for_network(lookup('internal_network')),
+      $::public_ipaddresses,
+    ]
+    .flatten
+    .unique
+    .filter |$x| { !!$x } # filter empty values
+    .map |$x| {
+      case $sshd_port {
+        22: {
+          case $x {
+            /:/: { "[${x}]" } # bracket IPv6 addresses
+            default: { $x }
+          }
+        }
+        default: { "[${x}]:${sshd_port}" } # specify non-default ssh port
+      }
+    }
+
     @@sshkey {"ssh-${::fqdn}-${real_algo}":
-      host_aliases => unique(values($::swh_hostname)),
+      host_aliases => $aliases,
       type         => $real_algo,
       key          => $data['key'],
     }
