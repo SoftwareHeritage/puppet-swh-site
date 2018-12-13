@@ -19,6 +19,8 @@ class profile::dar::client {
   $server_cron = profile::cron_rand(lookup('dar_server::cron', Hash), 'backup_server')
 
   $dir_for_fetched_backups = lookup('dar_server::backup::storage')
+  $central_backup_host = lookup('dar_server::central_host')
+
   # Export a remote backup to the backup server
   @@dar::remote_backup { "${dar_remote_hostname}.${dar_backup_name}":
     remote_backup_storage => lookup('dar::backup::storage'),
@@ -36,7 +38,7 @@ class profile::dar::client {
     service_name     => 'backup freshness',
     import           => ['generic-service'],
     host_name        => $::fqdn,
-    command_endpoint => 'louvre.softwareheritage.org',
+    command_endpoint => $central_backup_host,
     check_command    => 'check_newest_file_age',
     vars             => {
       check_directory => $checked_directory,

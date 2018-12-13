@@ -1003,6 +1003,7 @@ dar::cron:
   minute: fqdn_rand
 
 dar_server::backup::storage: /srv/remote-backups
+dar_server::central_host: louvre.softwareheritage.org
 dar_server::cron:
   hour: '0-4'
   minute: '*/10'
