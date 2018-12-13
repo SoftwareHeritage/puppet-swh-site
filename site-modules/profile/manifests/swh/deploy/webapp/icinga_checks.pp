@@ -30,6 +30,19 @@ class profile::swh::deploy::webapp::icinga_checks {
         'as requested by the decoder \\\\(for alignments\\\\)."'
       ]),
     },
+    'revision log end to end' => {
+      http_uri               => '/browse/revision/b9b0ecd1e2f9db10335383651f8317ed8cec8296/log/',
+      http_linespan          => true,
+      http_expect_body_regex => join([
+        '-:"',
+        join([
+          '/browse/revision/b9b0ecd1e2f9db10335383651f8317ed8cec8296/',
+          'Roberto Di Cosmo',
+          'Moved to github',
+        ], '.*'),
+        '"',
+      ]),
+    },
     'release end to end' => {
       http_uri               => '/browse/release/a9b7e3f1eada90250a6b2ab2ef3e0a846cb16831/',
       http_linespan          => true,
