@@ -74,16 +74,17 @@ class profile::prometheus::node {
       content => template("profile/prometheus/node/scripts/${script}.erb"),
     }
     if $data['mode'] == 'cron' {
-      $cron_spec = profile::cron_rand(
-        $data['cron']['specification'],
-        "prometheus-node-exporter-${script}"
-      )
-
       cron {"prometheus-node-exporter-${script}":
-        ensure  => present,
-        user    => $data['cron']['user'],
-        command => "chronic ${scripts_directory}/${script}",
-        *       => $cron_spec,
+        ensure => absent,
+        user   => $data['cron']['user'],
+      }
+
+      profile::cron::d {"prometheus-node-exporter-${script}":
+        target      => 'prometheus',
+        user        => $data['cron']['user'],
+        command     => "chronic ${scripts_directory}/${script}",
+        random_seed => "prometheus-node-exporter-${script}",
+        *           => $data['cron']['specification'],
       }
     }
   }
