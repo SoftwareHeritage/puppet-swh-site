@@ -1,0 +1,6 @@
+# Cron snippet <%= @unique_tag %>
+<% if @special -%>
+<%= @special %> <%= @user %> <%= @command %>
+<% else -%>
+<%= @_params_hash['minute'] %> <%= @_params_hash['hour'] %> <%= @_params_hash['monthday'] %> <%= @_params_hash['month'] %> <%= @_params_hash['weekday'] %> <%= @user %> <%= @command %>
+<% end -%>
