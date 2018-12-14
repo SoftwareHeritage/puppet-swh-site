@@ -70,5 +70,6 @@ define profile::cron::d(
     order   => '10',
     content => template('profile/cron/snippet.erb'),
     tag     => "profile::cron::${target}",
+    target  => "profile::cron::${target}",
   }
 }

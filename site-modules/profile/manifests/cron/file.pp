@@ -21,6 +21,7 @@ define profile::cron::file (
 
   concat_fragment {"profile::cron::${target}::_header":
     target  => "profile::cron::${target}",
+    tag     => "profile::cron::${target}",
     order   => '00',
     content => "# Managed by puppet (module profile::cron), manual changes will be lost\n\n",
   }
