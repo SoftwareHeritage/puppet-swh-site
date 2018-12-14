@@ -2995,9 +2995,10 @@ jenkins::agent::jnlp::url: "%{hiera('jenkins::backend::url')}computer/%{::swh_ho
 # jenkins::agent::jnlp::token in private_data
 
 weekly_report_bot::user: nobody
-weekly_report_bot::cron::hour: 0
-weekly_report_bot::cron::minute: 0
-weekly_report_bot::cron::weekday: fri
+weekly_report_bot::cron:
+  minute: 05
+  hour: 16
+  weekday: fri
 
 
 # APT repository settings

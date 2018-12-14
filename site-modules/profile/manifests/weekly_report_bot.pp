@@ -4,9 +4,7 @@ class profile::weekly_report_bot {
   $command = '/usr/local/bin/weekly-report-bot'
 
   $weekly_report_user = lookup('weekly_report_bot::user')
-  $weekly_report_hour = lookup('weekly_report_bot::cron::hour')
-  $weekly_report_minute = lookup('weekly_report_bot::cron::minute')
-  $weekly_report_weekday = lookup('weekly_report_bot::cron::weekday')
+  $weekly_report_cron = lookup('weekly_report_bot::cron')
 
   file {$command:
     ensure => present,
@@ -16,11 +14,9 @@ class profile::weekly_report_bot {
     source => 'puppet:///modules/profile/weekly_report_bot/weekly-report-bot',
   }
 
-  cron {'weekly-report-bot':
-    command => "su - ${weekly_report_user} -c ${command}",
-    user    => 'root',
-    hour    => $weekly_report_hour,
-    minute  => $weekly_report_minute,
-    weekday => $weekly_report_weekday,
+  profile::cron::d {'weekly-report-bot':
+    command => $command,
+    user    => $weekly_report_user,
+    *       => $weekly_report_cron,
   }
 }
