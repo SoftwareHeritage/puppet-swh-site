@@ -116,6 +116,6 @@ node
 }
 
 node default {
-  include role::swh_server
+  include role::swh_base
   include profile::puppet::agent
 }
