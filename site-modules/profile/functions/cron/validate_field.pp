@@ -3,6 +3,7 @@ function profile::cron::validate_field(
   Variant[Integer, String, Array[Variant[Integer, String]]] $value,
   Optional[Array[String]] $valid_strings,
   Optional[Tuple[Integer, Integer]] $int_range,
+  Optional[String] $seed = undef,
   Boolean $arrays_valid = true,
 ) >> Tuple[Optional[String], Array[String]] {
 
@@ -11,6 +12,7 @@ function profile::cron::validate_field(
   }
 
   $_valid_strings = pick_default($valid_strings, [])
+  $_int_range =  pick_default($int_range, [0, 0])
 
   case $value {
     Array: {
@@ -20,6 +22,7 @@ function profile::cron::validate_field(
           $_value,
           $valid_strings,
           $int_range,
+          $seed,
           false,
         )
       }
@@ -39,12 +42,18 @@ function profile::cron::validate_field(
       return [$value, []]
     }
 
+    'fqdn_rand': {
+      [$_min, $_max] = $_int_range
+      return [$_min + fqdn_rand($_max - $_min + 1, "${seed}_${field}"), []]
+    }
+
     /^\d+$/: {
       return profile::cron::validate_field(
         $field,
         Integer($value, 10),
         $valid_strings,
         $int_range,
+        $seed,
         $arrays_valid,
       )
     }
@@ -55,6 +64,7 @@ function profile::cron::validate_field(
         $value.split('[ ,]'),
         $valid_strings,
         $int_range,
+        $seed,
         $arrays_valid,
       )
     }
@@ -65,6 +75,7 @@ function profile::cron::validate_field(
         $1,
         $valid_strings,
         $int_range,
+        $seed,
         false,
       )
 
@@ -73,6 +84,7 @@ function profile::cron::validate_field(
         $2,
         $valid_strings,
         $int_range,
+        $seed,
         false,
       )
 
@@ -92,6 +104,7 @@ function profile::cron::validate_field(
         $1,
         $valid_strings,
         $int_range,
+        $seed,
         false,
       )
 
@@ -100,6 +113,7 @@ function profile::cron::validate_field(
         $2,
         $valid_strings,
         $int_range,
+        $seed,
         false,
       )
 
@@ -108,6 +122,7 @@ function profile::cron::validate_field(
         Integer($3, 10),
         [],
         $int_range,
+        $seed,
         false,
       )
       $_errors = $min_valid[1] + $max_valid[1] + $interval_valid[1]
@@ -127,6 +142,7 @@ function profile::cron::validate_field(
         Integer($1, 10),
         [],
         $int_range,
+        $seed,
         false,
       )
       if empty($interval_valid[1]) {
@@ -142,7 +158,7 @@ function profile::cron::validate_field(
     }
 
     Integer: {
-      [$_min, $_max] = pick_default($int_range, [0, 0])
+      [$_min, $_max] = $_int_range
       if $_min <= $value and $value <= $_max {
         return [String($value), []]
       } else {

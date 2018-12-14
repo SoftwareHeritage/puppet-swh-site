@@ -16,11 +16,11 @@ define profile::cron::d(
   include profile::cron
 
   $_params = {
-    'minute' => $minute,
-    'hour' => $hour,
+    'minute'   => $minute,
+    'hour'     => $hour,
     'monthday' => $monthday,
-    'month' => $month,
-    'weekday' => $weekday,
+    'month'    => $month,
+    'weekday'  => $weekday,
   }
 
   $_int_limits = {
@@ -51,6 +51,7 @@ define profile::cron::d(
       pick_default($value, '*'),
       $_str_values[$field],
       $_int_limits[$field],
+      $random_seed,
     )
   }
 
