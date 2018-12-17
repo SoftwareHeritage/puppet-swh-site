@@ -148,7 +148,10 @@ if __name__ == '__main__':
         sys.stdout = os.fdopen(fd, 'w')
         cache = apt.Cache()
         if IS_ROOT:
-            update_cache(cache)
+            try:
+                update_cache(cache)
+            except apt.cache.LockFailedException:
+                pass
 
         upgrades = get_package_upgrades(cache, dist_upgrade=False)
         upgrade_groups = group_changes(upgrades)
