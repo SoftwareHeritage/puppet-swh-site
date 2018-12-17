@@ -1810,6 +1810,7 @@ swh::deploy::worker::instances:
   - swh_lister_debian
   - swh_lister_github
 
+swh::deploy::worker::swh_loader_git::config_file: "loader/git.yml"
 swh::deploy::worker::swh_loader_git::concurrency: 2
 swh::deploy::worker::swh_loader_git::loglevel: info
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
