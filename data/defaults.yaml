@@ -1836,6 +1836,7 @@ swh::deploy::worker::swh_lister_debian::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
 
+swh::deploy::worker::swh_loader_git_disk::config_file: "loader/git-disk.yml"
 swh::deploy::worker::swh_loader_git_disk::concurrency: 2
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
 swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"

@@ -6,7 +6,9 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
   $loglevel = lookup('swh::deploy::worker::swh_loader_git_disk::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_loader_git_disk::task_broker')
 
-  $config_file = '/etc/softwareheritage/loader/git-loader.yml'
+  $config_file = lookup('swh::deploy::worker::swh_loader_git_disk::config_file')
+  $config_directory = lookup('swh::conf_directory')
+  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_loader_git_disk::config')
 
   $task_modules = ['swh.loader.git.tasks']
@@ -25,11 +27,11 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
     task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::base_loader_git'],
-      File[$config_file],
+      File[$config_path],
     ],
   }
 
-  file {$config_file:
+  file {$config_path:
     ensure  => 'present',
     owner   => 'swhworker',
     group   => 'swhworker',
