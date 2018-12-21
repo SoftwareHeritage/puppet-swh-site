@@ -3,7 +3,10 @@ node 'louvre.softwareheritage.org' {
   include role::swh_lsi_storage_adapter
 }
 
-node 'beaubourg.softwareheritage.org', 'orsay.softwareheritage.org' {
+node 'beaubourg.softwareheritage.org',
+     'orsay.softwareheritage.org',
+     'hypervisor3.softwareheritage.org'
+{
   include role::swh_hypervisor
   include role::swh_lsi_storage_adapter
 }
