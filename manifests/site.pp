@@ -2,9 +2,7 @@ node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
 }
 
-node 'beaubourg.softwareheritage.org',
-     'orsay.softwareheritage.org',
-     'hypervisor3.softwareheritage.org'
+node /^(orsay|beaubourg|hypervisor\d+)\.(internal\.)?softwareheritage\.org$/
 {
   include role::swh_hypervisor
 }
