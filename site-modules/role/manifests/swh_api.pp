@@ -7,4 +7,7 @@ class role::swh_api inherits role::swh_server {
   include profile::swh::deploy::storage
   include profile::swh::deploy::webapp
   include profile::swh::deploy::deposit
+
+  # Apache logs
+  include profile::filebeat
 }

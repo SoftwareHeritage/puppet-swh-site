@@ -9,4 +9,7 @@ class role::swh_api_azure inherits role::swh_server {
   include profile::memcached
   include profile::swh::deploy::storage
   include profile::swh::deploy::webapp
+
+  # Apache logs
+  include profile::filebeat
 }
