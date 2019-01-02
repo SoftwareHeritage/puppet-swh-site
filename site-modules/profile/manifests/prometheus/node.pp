@@ -63,6 +63,7 @@ class profile::prometheus::node {
     mode    => '0700',
     recurse => true,
     purge   => true,
+    require => Package['prometheus-node-exporter'],
   }
 
   each($scripts) |$script, $data| {
