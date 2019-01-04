@@ -148,10 +148,13 @@ if __name__ == '__main__':
         sys.stdout = os.fdopen(fd, 'w')
         cache = apt.Cache()
         if IS_ROOT:
+            print('# HELP apt_cache_update_failed Whether the apt cache update failed')
             try:
                 update_cache(cache)
-            except apt.cache.LockFailedException:
-                pass
+            except Exception:
+                print_prometheus_metric('apt_cache_update_failed', 1)
+            else:
+                print_prometheus_metric('apt_cache_update_failed', 0)
 
         upgrades = get_package_upgrades(cache, dist_upgrade=False)
         upgrade_groups = group_changes(upgrades)
