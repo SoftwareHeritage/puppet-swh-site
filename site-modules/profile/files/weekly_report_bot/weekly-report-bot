@@ -5,7 +5,7 @@ DEST=swh-team@inria.fr
 /usr/lib/sendmail -t <<EOF
 From: Weekly report bot <swh-team@inria.fr>
 To: $DEST
-Subject: [Weekly Report] Week $(date +%Y/%W)
+Subject: [Weekly Report] Week $(date +%G/%V)
 
 Beep boop, I'm a bot.
 
