@@ -21,7 +21,7 @@ class profile::debian_repository {
   file {$repository_basepath:
     ensure => 'directory',
     owner  => $repository_owner,
-    group  => $repository_mode,
+    group  => $repository_group,
     mode   => $repository_mode,
   }
 
@@ -30,7 +30,7 @@ class profile::debian_repository {
   file {$repository_incoming:
     ensure => 'directory',
     owner  => $repository_owner,
-    group  => $repository_mode,
+    group  => $repository_group,
     mode   => $repository_mode,
   }
 
