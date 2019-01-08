@@ -10,7 +10,7 @@ class profile::icinga2::agent {
   include profile::icinga2::objects::agent_checks
 
   $check_mounts = $::mounts.filter |$mount| {
-    $mount !~ /^\/srv\/containers/
+    $mount !~ /^\/srv\/containers\// and $mount !~ /^\/var\/lib\/docker\/overlay2\//
   }
 
   $local_host_vars = {
