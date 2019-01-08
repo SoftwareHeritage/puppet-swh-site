@@ -1100,7 +1100,7 @@ swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_reposito
 swh::apt_config::enable_non_free: false
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
-debian_repository::owner: root
+debian_repository::owner: swhdebianrepo
 debian_repository::group: swhdev
 debian_repository::mode: "02775"
 
