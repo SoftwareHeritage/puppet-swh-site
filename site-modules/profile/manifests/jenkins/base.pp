@@ -15,6 +15,13 @@ class profile::jenkins::base {
     owner  => 'jenkins',
     group  => 'jenkins',
   }
+  -> file {'/var/lib/jenkins/.gitconfig':
+    ensure => present,
+    mode   => '0644',
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    content => template('profile/jenkins/gitconfig.erb')
+  }
   file {'/usr/share/jenkins':
     ensure => 'directory',
     mode   => '0755',

@@ -1,0 +1,9 @@
+# Git configuration for jenkins
+# Handled by puppet (class profile::jenkins::base), manual changes will be lost
+
+[user]
+  name = Jenkins for Software Heritage
+  email = jenkins@<%= @fqdn %>
+
+[url "git@forge.softwareheritage.org:"]
+	pushInsteadOf = https://forge.softwareheritage.org
