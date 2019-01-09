@@ -61,12 +61,23 @@ class profile::debian_repository {
   }
 
   $gpg_keys = lookup('debian_repository::gpg_keys', Array)
+
+  $gpg_raw_command = 'gpg --batch --pinentry-mode loopback'
   each($gpg_keys) |$keyid| {
     exec {"debian repository gpg key ${keyid}":
       path    => ['/usr/bin'],
-      command => "gpg --recv-keys ${keyid}",
+      command => "${gpg_raw_command} --recv-keys ${keyid}",
       user    => $owner,
-      unless  => "gpg --list-keys ${keyid}",
+      unless  => "${gpg_raw_command} --list-keys ${keyid}",
+    }
+
+    profile::cron::d {"debrepo-keyring-refresh-${keyid}":
+      target      => 'debrepo-keyring-refresh',
+      user        => $owner,
+      command     => "chronic ${gpg_raw_command} --recv-keys ${keyid}",
+      random_seed => "debrepo-keyring-${keyid}",
+      minute      => 'fqdn_rand',
+      hour        => 'fqdn_rand',
     }
   }
 
