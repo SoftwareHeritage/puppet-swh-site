@@ -1,0 +1,6 @@
+# File managed by puppet (class profile::debian_repository).
+# Local modifications will be lost
+
+<% @gpg_keys.each do |fpr| -%>
+allow * by key <%= fpr[-16..-1] %>+
+<% end %>

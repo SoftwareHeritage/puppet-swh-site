@@ -1101,8 +1101,35 @@ swh::apt_config::enable_non_free: false
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
+debian_repository::owner::homedir: /home/swhdebianrepo
 debian_repository::group: swhdev
 debian_repository::mode: "02775"
+
+debian_repository::ssh_authorized_keys:
+  nicolasd@darboux:
+    type: ssh-rsa
+    key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ1TCpfzrvxLhEMhxjbxqPDCwY0nazIr1cyIbhGD2bUdAbZqVMdNtr7MeDnlLIKrIPJWuvltauvLNkYU0iLc1jMntdBCBM3hgXjmTyDtc8XvXseeBp5tDqccYNR/cnDUuweNcL5tfeu5kzaAg3DFi5Dsncs5hQK5KQ8CPKWcacPjEk4ir9gdFrtKG1rZmg/wi7YbfxrJYWzb171hdV13gSgyXdsG5UAFsNyxsKSztulcLKxvbmDgYbzytr38FK2udRk7WuqPbtEAW1zV4yrBXBSB/uw8EAMi+wwvLTwyUcEl4u0CTlhREljUx8LhYrsQUCrBcmoPAmlnLCD5Q9XrGH
+  jenkins@thyssen:
+    type: ssh-rsa
+    key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCrfYnl8v4QK1ClkPMHO4WiPqgLVoOGpOPFUvg3WehMo8xMQ9e/EeZddQn96mhHkbbC5HCWEVK1VwafpIeadaMHnypdGhpapncYPpoKItxmf1IwVtlt/h8OYai5pTMCgkuOHjhnQdO20Amr9WMkoRZ/K7v/GijIZ6svvgWiYKfDnu0s1ziFYIT5rEA5hL9SqNJTlKdy2H68/7mmTii9NpBsGWQYDOjcrwELNOI5EUgQSOzmeKxecPkABfh/dezp6jmrv/2x7bm7LT46d+rnVDqVRiUrLVnLhrZCmZDxXfbEmftTdAoK8U/wjLreanRxKOc7arYRyKu0RbAaejPejzgR
+
+debian_repository::gpg_keys:
+  # olasd
+  - 791F12396630DD71FD364375B8E5087766475AAF
+  # zack
+  - 4900707DDC5C07F2DECB02839C31503C6D866396
+  # ardumont
+  - BF00203D741AC9D546A8BE0752E2E9840D10C3B8
+  # anlambert
+  - 91FAF3F5CDE011E4FDF4CBF2D026E5C2F802586D
+  # seirl
+  - 225CD9E3FA9374BDF6E057042F8984858B1A9945
+  # vlorentz
+  - 379043E3DF96D3237E6782AC0E082B40E4376B1E
+  # ddouard
+  - 7DC7325EF1A6226AB6C3D7E32388A3BF6F0A6938
+  # jenkins-debian1
+  - 1F4BDC445E30C7066324D7B3D7D3329147AE3148
 
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
 debian_repository::vhost::aliases:
