@@ -63,6 +63,7 @@ class profile::debian_repository {
   $gpg_keys = lookup('debian_repository::gpg_keys', Array)
   each($gpg_keys) |$keyid| {
     exec {"debian repository gpg key ${keyid}":
+      path    => ['/usr/bin'],
       command => "gpg --recv-keys ${keyid}",
       user    => $owner,
       unless  => "gpg --list-keys ${keyid}",
