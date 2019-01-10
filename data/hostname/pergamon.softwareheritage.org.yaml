@@ -31,7 +31,7 @@ apache::mpm_module: prefork
 
 dar::backup::exclude:
   - srv/softwareheritage/annex/annexroot
-  - var/log
+  - var/lib/prometheus
 
 icinga2::role: master
 
