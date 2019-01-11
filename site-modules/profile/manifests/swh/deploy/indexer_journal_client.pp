@@ -20,10 +20,10 @@ class profile::swh::deploy::indexer_journal_client {
     notify => Service[$service_name],
   }
 
-  file {$conf_file:
+  file {$config_path:
     ensure  => present,
-    owner   => root,
-    group   => $group,
+    owner   => 'root',
+    group   => 'swhdev',
     mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$service_name],
