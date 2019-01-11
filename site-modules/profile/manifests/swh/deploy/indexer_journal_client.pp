@@ -24,7 +24,7 @@ class profile::swh::deploy::indexer_journal_client {
     ensure  => present,
     owner   => 'root',
     group   => 'swhdev',
-    mode    => '0640',
+    mode    => '0644',
     content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$service_name],
   }
