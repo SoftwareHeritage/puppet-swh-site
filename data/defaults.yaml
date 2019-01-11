@@ -1436,6 +1436,7 @@ swh::deploy::journal_publisher::config:
     - content
     - revision
     - release
+    - origin_visit
   max_messages: 1000
   storage: "%{alias('swh::remote_service::storage::config')}"
 
