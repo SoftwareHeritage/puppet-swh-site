@@ -3,11 +3,14 @@
 class profile::swh::deploy::indexer_journal_client {
   include ::profile::swh::deploy::journal
 
-  $conf_file = lookup('swh::deploy::indexer_journal_client::conf_file')
+  $config_file = lookup('swh::deploy::indexer_journal_client::config_file')
+  $config_directory = lookup('swh::conf_directory')
+  $config_path = "${config_directory}/${config_file}"
+  $config = lookup('swh::deploy::indexer_journal_client::config')
+
   $user = lookup('swh::deploy::indexer_journal_client::user')
   $group = lookup('swh::deploy::indexer_journal_client::group')
 
-  $config = lookup('swh::deploy::indexer_journal_client::config')
   $service_name = 'swh-indexer-journal-client'
   $unit_name = "${service_name}.service"
 
