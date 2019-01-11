@@ -8,7 +8,7 @@ class profile::swh::deploy::worker::swh_indexer_origin_intrinsic_metadata {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file')
-  $config_directory = lookup('swh::conf_directory')
+  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
   $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config')
 

@@ -1993,7 +1993,7 @@ swh::deploy::worker::swh_indexer::base::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
-swh::deploy::worker::swh_indexer::mimetype::config_file: "indexer/mimetype.yml"
+swh::deploy::worker::swh_indexer::mimetype::config_file: "mimetype.yml"
 swh::deploy::worker::swh_indexer::mimetype::concurrency: 2
 swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2004,7 +2004,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
 
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "indexer/origin_intrinsic_metadata.yml"
+swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::concurrency: 1
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2015,7 +2015,7 @@ swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
 
-swh::deploy::worker::swh_indexer::origin_head::config_file: "indexer/origin_head.yml"
+swh::deploy::worker::swh_indexer::origin_head::config_file: "origin_head.yml"
 swh::deploy::worker::swh_indexer::origin_head::concurrency: 1
 swh::deploy::worker::swh_indexer::origin_head::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2028,7 +2028,7 @@ swh::deploy::worker::swh_indexer::origin_head::config:
     revision_metadata: indexer_revision_metadata
     origin_intrinsic_metadata: indexer_origin_metadata
 
-swh::deploy::worker::swh_indexer::revision_metadata::config_file: "indexer/revision_metadata.yml"
+swh::deploy::worker::swh_indexer::revision_metadata::config_file: "revision_metadata.yml"
 swh::deploy::worker::swh_indexer::revision_metadata::concurrency: 1
 swh::deploy::worker::swh_indexer::revision_metadata::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2039,6 +2039,7 @@ swh::deploy::worker::swh_indexer::revision_metadata::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
 
+swh::deploy::worker::swh_indexer::rehash::config_file: "rehash.yml"
 swh::deploy::worker::swh_indexer::rehash::concurrency: 5
 swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2052,7 +2053,7 @@ swh::deploy::worker::swh_indexer::rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::swh_indexer::fossology_license::config_file: "indexer/fossology_license.yml"
+swh::deploy::worker::swh_indexer::fossology_license::config_file: "fossology_license.yml"
 swh::deploy::worker::swh_indexer::fossology_license::concurrency: 2
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2068,6 +2069,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     configuration:
       command_line: "nomossa <filepath>"
 
+swh::deploy::worker::swh_indexer::language::config_file: "language.yml"
 swh::deploy::worker::swh_indexer::language::concurrency: 3
 swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data
@@ -2083,6 +2085,7 @@ swh::deploy::worker::swh_indexer::language::config:
       debian-package: "python3-pygments"
       max_content_size: 10240
 
+swh::deploy::worker::swh_indexer::ctags::config_file: "ctags.yml"
 swh::deploy::worker::swh_indexer::ctags::concurrency: 2
 swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
 # Contains a password: in private data

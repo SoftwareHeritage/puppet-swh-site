@@ -8,7 +8,7 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::fossology_license::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::fossology_license::config_file')
-  $config_directory = lookup('swh::conf_directory')
+  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
   $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::fossology_license::config')
 
