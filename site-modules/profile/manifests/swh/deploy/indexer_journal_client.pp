@@ -30,7 +30,7 @@ class profile::swh::deploy::indexer_journal_client {
   #  - $user
   #  - $group
   #
-  ::systemd::unit {$unit_name:
+  ::systemd::unit_file {$unit_name:
     ensure  => present,
     content => template("profile/swh/deploy/journal/${unit_name}.erb"),
   } ~> service {$service_name:
