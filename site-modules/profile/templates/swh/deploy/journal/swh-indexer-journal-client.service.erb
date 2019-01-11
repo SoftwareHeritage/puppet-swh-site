@@ -1,0 +1,18 @@
+# Indexer Journal Client unit file
+# Managed by puppet class profile::swh::deploy::indexer_journal_client
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Indexer Journal Client
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/python3 -m swh.indexer.journal_client
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
