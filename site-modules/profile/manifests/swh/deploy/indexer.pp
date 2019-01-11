@@ -1,20 +1,11 @@
-# Base class for the indexer manifests
+# Base class for the indexer worker manifests
 class profile::swh::deploy::indexer {
-
+  include ::profile::swh::deploy::base_indexer
   include ::profile::swh::deploy::objstorage_cloud
 
-  $config_directory = '/etc/softwareheritage/indexer'
+  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
   $config_file = "${config_directory}/base.yml"
   $config = lookup('swh::deploy::worker::swh_indexer::base::config')
-
-  $packages = ['python3-swh.indexer']
-
-  file {$config_directory:
-    ensure => 'directory',
-    owner  => 'swhworker',
-    group  => 'swhworker',
-    mode   => '0755',
-  }
 
   file {$config_file:
     ensure  => 'present',
@@ -23,9 +14,5 @@ class profile::swh::deploy::indexer {
     # Contains passwords
     mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
-  }
-
-  package {$packages:
-    ensure => 'latest',
   }
 }

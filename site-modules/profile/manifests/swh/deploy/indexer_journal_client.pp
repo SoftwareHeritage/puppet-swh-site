@@ -1,10 +1,10 @@
 # Deployment of the swh.indexer.journal_client
-
 class profile::swh::deploy::indexer_journal_client {
+  include ::profile::swh::deploy::base_indexer
   include ::profile::swh::deploy::journal
 
   $config_file = lookup('swh::deploy::indexer_journal_client::config_file')
-  $config_directory = lookup('swh::deploy::indexer_journal_client::config_dir')
+  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
   $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::indexer_journal_client::config')
 
@@ -13,19 +13,6 @@ class profile::swh::deploy::indexer_journal_client {
 
   $service_name = 'swh-indexer-journal-client'
   $unit_name = "${service_name}.service"
-
-  $packages = ['python3-swh.indexer']
-  package {$packages:
-    ensure => 'present',
-    notify => Service[$service_name],
-  }
-
-  file {$config_directory:
-    ensure  => directory,
-    owner   => $user,
-    group   => $group,
-    mode    => '0644',
-  }
 
   file {$config_path:
     ensure  => present,

@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_indexer_rehash {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_rehash']
 
-  Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_rehash':
+  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_rehash':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,

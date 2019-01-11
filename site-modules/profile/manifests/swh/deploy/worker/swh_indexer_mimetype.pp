@@ -15,7 +15,7 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_mimetype', 'swh_indexer_content_mimetype_range']
 
-  Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_mimetype':
+  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_mimetype':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,

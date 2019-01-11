@@ -15,7 +15,7 @@ class profile::swh::deploy::worker::swh_indexer_origin_head {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_origin_head']
 
-  Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_origin_head':
+  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_origin_head':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,

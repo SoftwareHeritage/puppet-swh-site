@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::swh_indexer_ctags {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_ctags']
 
-  Package[$::profile::swh::deploy::indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_ctags':
+  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_ctags':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
