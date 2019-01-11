@@ -1973,7 +1973,8 @@ swh::deploy::worker::swh_storage_archiver::config:
     - banco
   max_queue_length: "%{hiera('swh::deploy::worker::swh_storage_archiver::max_queue_length')}"
 
-swh::deploy::indexer_journal_client::config_file: "indexer/journal_client.yml"
+swh::deploy::indexer_journal_client::config_dir: "%{hiera('swh::conf_directory')}/indexer"
+swh::deploy::indexer_journal_client::config_file: "journal_client.yml"
 swh::deploy::indexer_journal_client::user: swhstorage
 swh::deploy::indexer_journal_client::group: swhstorage
 swh::deploy::indexer_journal_client::config:

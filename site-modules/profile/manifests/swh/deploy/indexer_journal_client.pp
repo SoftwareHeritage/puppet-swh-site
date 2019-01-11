@@ -4,7 +4,7 @@ class profile::swh::deploy::indexer_journal_client {
   include ::profile::swh::deploy::journal
 
   $config_file = lookup('swh::deploy::indexer_journal_client::config_file')
-  $config_directory = lookup('swh::conf_directory')
+  $config_directory = lookup('swh::deploy::indexer_journal_client::config_dir')
   $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::indexer_journal_client::config')
 
@@ -18,6 +18,13 @@ class profile::swh::deploy::indexer_journal_client {
   package {$packages:
     ensure => 'present',
     notify => Service[$service_name],
+  }
+
+  file {$config_directory:
+    ensure  => directory,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
   }
 
   file {$config_path:
