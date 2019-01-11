@@ -11,6 +11,6 @@ class profile::swh::deploy::base_indexer {
 
   $packages = ['python3-swh.indexer']
   package {$packages:
-    ensure => 'latest',
+    ensure => 'present',
   }
 }
