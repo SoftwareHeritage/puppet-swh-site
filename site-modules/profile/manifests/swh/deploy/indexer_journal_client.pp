@@ -38,6 +38,6 @@ class profile::swh::deploy::indexer_journal_client {
     content => template("profile/swh/deploy/journal/${unit_name}.erb"),
   } ~> service {$service_name:
     ensure => running,
-    enable => false,
+    enable => true,
   }
 }
