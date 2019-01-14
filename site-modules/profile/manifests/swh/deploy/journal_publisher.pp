@@ -30,6 +30,6 @@ class profile::swh::deploy::journal_publisher {
     content => template('profile/swh/deploy/journal/swh-journal-publisher.service.erb'),
   } ~> service {$service_name:
     ensure => running,
-    enable => false,
+    enable => true,
   }
 }
