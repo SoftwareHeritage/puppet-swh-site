@@ -1692,6 +1692,7 @@ swh::deploy::webapp::config:
     args:
       url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
   grecaptcha:
+    activated: true
     validation_url: https://www.google.com/recaptcha/api/siteverify
     site_key: 6Le0l2wUAAAAAHgtL_aJmIfnow8pFB62sAoG8B7m
     private_key: "%{hiera('swh::deploy::webapp::config::grecaptcha::private_key')}"
