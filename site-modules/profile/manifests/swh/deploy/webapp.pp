@@ -46,15 +46,31 @@ class profile::swh::deploy::webapp {
     }
   }
 
-  include ::gunicorn
-
   $services = ['gunicorn-swh-webapp', 'gunicorn-swh-storage']
 
-  package {$swh_packages:
-    ensure  => latest,
-    require => Apt::Source['softwareheritage'],
-    notify  => Service[$services],
+  $task_backported_packages = lookup('swh::deploy::webapp::backported_packages')
+  $pinned_packages = $task_backported_packages[$::lsbdistcodename]
+  if $pinned_packages {
+    ::apt::pin {'swh-web':
+      explanation => 'Pin swh.web dependencies to backports',
+      codename    => "${::lsbdistcodename}-backports",
+      packages    => $pinned_packages,
+      priority    => 990,
+    }
+    -> package {$swh_packages:
+      ensure  => latest,
+      require => Apt::Source['softwareheritage'],
+      notify  => Service[$services],
+    }
+  } else {
+    package {$swh_packages:
+      ensure  => latest,
+      require => Apt::Source['softwareheritage'],
+      notify  => Service[$services],
+    }
   }
+
+  include ::gunicorn
 
   file {$conf_directory:
     ensure => directory,
