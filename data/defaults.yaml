@@ -2093,7 +2093,7 @@ swh::deploy::worker::swh_indexer::ctags::config:
   workdir: /tmp/swh/indexer.ctags/
   tools:
     name: 'universal-ctags'
-    version: '~git7859817b'
+    version: '0+git20181215-2'
     configuration:
       command_line: "ctags --fields=+lnz --sort=no --links=no --output-format=json <filepath>"
   languages:
