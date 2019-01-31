@@ -1028,6 +1028,7 @@ phabricator::mysql::conf::innodb_buffer_pool_size: 4G
 phabricator::mysql::conf::innodb_file_per_table: TRUE
 phabricator::mysql::conf::innodb_flush_method: O_DIRECT
 phabricator::mysql::conf::innodb_log_file_size: 1G
+phabricator::mysql::conf::max_connections: 16384
 
 phabricator::php::fpm_listen: 127.0.0.1:9001
 phabricator::php::max_file_size: 128M

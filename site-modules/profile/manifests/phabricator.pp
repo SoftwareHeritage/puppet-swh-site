@@ -18,6 +18,7 @@ class profile::phabricator {
   $phabricator_db_innodb_file_per_table = lookup('phabricator::mysql::conf::innodb_file_per_table')
   $phabricator_db_innodb_flush_method = lookup('phabricator::mysql::conf::innodb_flush_method')
   $phabricator_db_innodb_log_file_size = lookup('phabricator::mysql::conf::innodb_log_file_size')
+  $phabricator_db_max_connections = lookup('phabricator::mysql::conf::max_connections')
 
   $phabricator_fpm_listen = lookup('phabricator::php::fpm_listen')
   $phabricator_max_size = lookup('phabricator::php::max_file_size')
@@ -125,6 +126,7 @@ class profile::phabricator {
         innodb_file_per_table   => $phabricator_db_innodb_file_per_table,
         innodb_flush_method     => $phabricator_db_innodb_flush_method,
         innodb_log_file_size    => $phabricator_db_innodb_log_file_size,
+        max_connections         => $phabricator_db_max_connections,
       }
     }
   }
