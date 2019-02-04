@@ -15,6 +15,11 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_fossology_license', 'swh_indexer_content_fossology_license_range']
 
+  $packages = ['fossology-nomossa']
+  package {$packages:
+    ensure => 'present',
+  }
+
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_fossology_license':
     ensure       => present,
     concurrency  => $concurrency,
@@ -26,6 +31,7 @@ class profile::swh::deploy::worker::swh_indexer_fossology_license {
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],
       File[$config_path],
+      Package[$packages],
     ],
   }
 
