@@ -1,9 +1,9 @@
 # Deployment of swh-scheduler related utilities
 class profile::swh::deploy::scheduler {
-  $conf_file = lookup('swh::deploy::scheduler::conf_file')
+  $config_file = lookup('swh::deploy::scheduler::conf_file')
   $user = lookup('swh::deploy::scheduler::user')
   $group = lookup('swh::deploy::scheduler::group')
-  $database = lookup('swh::deploy::scheduler::database')
+  $config = lookup('swh::deploy::scheduler::config')
 
   $task_broker = lookup('swh::deploy::scheduler::task_broker')
   $task_packages = lookup('swh::deploy::scheduler::task_packages')
@@ -47,15 +47,12 @@ class profile::swh::deploy::scheduler {
     notify => Service[$services],
   }
 
-  # Template uses variables
-  #  - $database
-  #
-  file {$conf_file:
+  file {$config_file:
     ensure  => present,
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/scheduler/scheduler.ini.erb'),
+    content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$services],
   }
 
@@ -98,7 +95,7 @@ class profile::swh::deploy::scheduler {
     require => [
       Package[$packages],
       Package[$task_packages],
-      File[$conf_file],
+      File[$config_file],
       File[$worker_conf_file],
       Systemd::Unit_File[$runner_unit_name],
     ],
@@ -109,7 +106,7 @@ class profile::swh::deploy::scheduler {
     enable  => true,
     require => [
       Package[$packages],
-      File[$conf_file],
+      File[$config_file],
       File[$worker_conf_file],
       Systemd::Unit_File[$listener_unit_name],
     ],
