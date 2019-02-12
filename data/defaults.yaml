@@ -1718,6 +1718,7 @@ swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::task_broker::password in private data
 swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::scheduler::listener::log_level: INFO
+swh::deploy::scheduler::runner::log_level: INFO
 swh::deploy::scheduler::config:
   scheduler:
     cls: local

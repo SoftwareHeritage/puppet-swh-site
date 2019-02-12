@@ -11,7 +11,7 @@ After=network.target rabbitmq-server.service
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/bin/sh -c 'while true; do echo running pending tasks at `/bin/date`...; /usr/bin/python3 -m swh.scheduler.celery_backend.runner; sleep 10; done'
+ExecStart=/usr/bin/swh-scheduler --config-file <%= @config_file %> --log-level <%= @runner_log_level %> runner --period 10
 Restart=always
 RestartSec=10
 
