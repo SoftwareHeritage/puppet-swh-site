@@ -11,7 +11,7 @@ After=network.target rabbitmq-server.service
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/python3 -m swh.scheduler.celery_backend.listener
+ExecStart=/usr/bin/swh-scheduler --config-file <%= @config_file %> --log-level <%= @listener_log_level %> listener
 Restart=always
 RestartSec=10
 

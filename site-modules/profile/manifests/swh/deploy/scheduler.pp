@@ -5,6 +5,7 @@ class profile::swh::deploy::scheduler {
   $group = lookup('swh::deploy::scheduler::group')
   $config = lookup('swh::deploy::scheduler::config')
 
+  $listener_log_level = lookup('swh::deploy::scheduler::listener::log_level')
   $task_broker = lookup('swh::deploy::scheduler::task_broker')
   $task_packages = lookup('swh::deploy::scheduler::task_packages')
   $task_modules = lookup('swh::deploy::scheduler::task_modules')
