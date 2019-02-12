@@ -3,8 +3,4 @@ dar::backup::exclude:
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
 
-swh::deploy::scheduler::remote::config:
-  scheduler:
-    cls: local
-    args:
-      db: "%{hiera('swh::deploy::scheduler::database')}"
+swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"

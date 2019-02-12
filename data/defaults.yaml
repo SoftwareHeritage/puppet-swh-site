@@ -1708,6 +1708,13 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/entity/
   - /api/1/provenance/
 
+# local configuration for the scheduler
+swh::deploy::scheduler::config::local: &swh_scheduler_local_config
+  scheduler:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
@@ -1720,10 +1727,10 @@ swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::s
 swh::deploy::scheduler::listener::log_level: INFO
 swh::deploy::scheduler::runner::log_level: INFO
 swh::deploy::scheduler::config:
-  scheduler:
-    cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+  <<: *swh_scheduler_local_config
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+
 swh::deploy::scheduler::task_packages:
   - python3-swh.lister
   - python3-swh.loader.debian
