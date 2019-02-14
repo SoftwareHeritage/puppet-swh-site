@@ -16,7 +16,7 @@ class profile::swh::deploy::worker::swh_indexer_revision_metadata {
   $task_queues = ['swh_indexer_revision_metadata']
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_revision_metadata':
-    ensure       => present,
+    ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
     task_broker  => $task_broker,
