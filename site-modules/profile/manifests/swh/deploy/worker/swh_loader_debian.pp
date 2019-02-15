@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::swh_loader_debian {
   $loglevel = lookup('swh::deploy::worker::swh_loader_debian::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_loader_debian::task_broker')
 
-  $config_file = '/etc/softwareheritage/loader/debian.yml'
+  $config_file = lookup('swh::deploy::worker::swh_loader_debian::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_debian::config')
 
   $task_modules = ['swh.loader.debian.tasks']
@@ -16,7 +16,7 @@ class profile::swh::deploy::worker::swh_loader_debian {
     ensure => 'present',
   }
 
-  ::profile::swh::deploy::worker::instance {'swh_loader_debian':
+  ::profile::swh::deploy::worker::instance {'loader_debian':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
