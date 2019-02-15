@@ -7,14 +7,12 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
   $task_broker = lookup('swh::deploy::worker::swh_loader_git_disk::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_loader_git_disk::config_file')
-  $config_directory = lookup('swh::conf_directory')
-  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_loader_git_disk::config')
 
   $task_modules = ['swh.loader.git.tasks']
   $task_queues = ['swh_loader_git_express', 'swh_loader_git_archive']
 
-  $service_name = 'swh_loader_git_disk'
+  $service_name = 'loader_git_disk'
 
   Package[$::profile::swh::deploy::base_loader_git::packages] ~> Service["swh-worker@$service_name"]
 
@@ -27,11 +25,11 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
     task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::base_loader_git'],
-      File[$config_path],
+      File[$config_file],
     ],
   }
 
-  file {$config_path:
+  file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
     group   => 'swhworker',

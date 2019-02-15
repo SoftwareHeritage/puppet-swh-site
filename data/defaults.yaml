@@ -1921,13 +1921,23 @@ swh::deploy::worker::swh_lister_debian::config:
       - swh.lister.debian.tasks.DebianListerTask
       - swh_lister_debian
 
-swh::deploy::worker::swh_loader_git_disk::config_file: "loader/git-disk.yml"
+swh::deploy::worker::swh_loader_git_disk::config_file: "%{hiera('swh::conf_directory')}/loader_git_disk.yml"
 swh::deploy::worker::swh_loader_git_disk::concurrency: 2
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
 swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git_disk::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.loader.git.tasks
+    task_queues:
+      - swh.loader.git.tasks.LoadDiskGitRepository
+      - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
+      - swh_loader_git_express
+      - swh_loader_git_archive
+
 
 swh::deploy::worker::swh_loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
 swh::deploy::worker::swh_loader_mercurial::concurrency: 1
