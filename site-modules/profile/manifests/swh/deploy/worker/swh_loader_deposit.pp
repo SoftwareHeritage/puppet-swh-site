@@ -5,7 +5,7 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $task_broker = lookup('swh::deploy::worker::swh_loader_deposit::task_broker')
 
   $deposit_config_directory = lookup('swh::deploy::deposit::conf_directory')
-  $config_file = lookup('swh::deploy::worker::swh_loader_deposit::swh_conf_file')
+  $config_file = lookup('swh::deploy::worker::swh_loader_deposit::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_deposit::config')
 
   $task_modules = ['swh.deposit.loader.tasks']
@@ -14,7 +14,7 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $packages = ['python3-swh.deposit.loader']
   $private_tmp = lookup('swh::deploy::worker::swh_loader_deposit::private_tmp')
 
-  $service_name = 'swh_loader_deposit'
+  $service_name = 'loader_deposit'
 
   package {$packages:
     ensure => 'latest',
@@ -49,9 +49,6 @@ class profile::swh::deploy::worker::swh_loader_deposit {
     group   => 'swhdev',
     mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
-    require      => [
-      File[$deposit_config_directory],
-    ],
   }
 
   $swh_client_conf_file = lookup('swh::deploy::deposit::client::swh_conf_file')

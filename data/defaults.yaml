@@ -1541,8 +1541,7 @@ swh::deploy::deposit::settings_private_data:
     password: "%{hiera('swh::deploy::storage::db::password')}"
   media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
-swh::deploy::worker::swh_loader_deposit::swh_conf_dir: "%{hiera('swh::conf_directory')}/loader"
-swh::deploy::worker::swh_loader_deposit::swh_conf_file: "%{hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_dir')}/deposit.yml"
+swh::deploy::worker::swh_loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::swh_loader_deposit::concurrency: 2
 swh::deploy::worker::swh_loader_deposit::private_tmp: true
 swh::deploy::worker::swh_loader_deposit::loglevel: info
@@ -1550,6 +1549,15 @@ swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::wor
 swh::deploy::worker::swh_loader_deposit::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   extraction_dir: /tmp/swh.loader.deposit/
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.deposit.loader.tasks
+    task_queues:
+      - swh.deposit.loader.tasks.LoadDepositArchiveTsk
+      - swh.deposit.loader.tasks.ChecksDepositTsk
+      - swh_loader_deposit
+      - swh_checker_deposit
 
 swh::deploy::deposit::client::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/client.yml"
 # deposit_basic_auth_swhworker_{username|password} in private_data
