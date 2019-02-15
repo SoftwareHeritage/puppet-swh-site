@@ -8,8 +8,6 @@ class profile::swh::deploy::worker::swh_indexer_origin_intrinsic_metadata {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file')
-  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
-  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config')
 
   $task_modules = ['swh.indexer.tasks']
@@ -25,11 +23,11 @@ class profile::swh::deploy::worker::swh_indexer_origin_intrinsic_metadata {
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],
-      File[$config_path],
+      File[$config_file],
     ],
   }
 
-  file {$config_path:
+  file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
     group   => 'swhdev',

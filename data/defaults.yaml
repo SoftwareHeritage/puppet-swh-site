@@ -2023,7 +2023,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
 
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
+swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::concurrency: 2
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::loglevel: info
 # Contains a password: in private data
