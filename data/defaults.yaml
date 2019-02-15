@@ -2085,7 +2085,7 @@ swh::deploy::worker::swh_indexer::rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::swh_indexer::fossology_license::config_file: "fossology_license.yml"
+swh::deploy::worker::swh_indexer::fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
 swh::deploy::worker::swh_indexer::fossology_license::concurrency: 1
 swh::deploy::worker::swh_indexer::fossology_license::loglevel: info
 # Contains a password: in private data
@@ -2100,6 +2100,13 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     version: '3.1.0rc2-31-ga2cbb8c'
     configuration:
       command_line: "nomossa <filepath>"
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.ContentFossologyLicense
+      - swh.indexer.tasks.ContentRangeFossologyLicense
 
 swh::deploy::worker::swh_indexer::language::config_file: "language.yml"
 swh::deploy::worker::swh_indexer::language::concurrency: 3
