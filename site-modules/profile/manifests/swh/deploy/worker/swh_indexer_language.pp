@@ -14,7 +14,7 @@ class profile::swh::deploy::worker::swh_indexer_language {
   $task_queues = ['swh_indexer_content_language']
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_language':
-    ensure       => present,
+    ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
     task_broker  => $task_broker,
