@@ -1865,7 +1865,7 @@ swh::deploy::worker::instances:
   - swh_lister_debian
   - swh_lister_github
 
-swh::deploy::worker::swh_loader_git::config_file: "loader/git.yml"
+swh::deploy::worker::swh_loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::swh_loader_git::concurrency: 2
 swh::deploy::worker::swh_loader_git::loglevel: info
 swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
@@ -1874,6 +1874,13 @@ swh::deploy::worker::swh_loader_git::config:
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.loader.git.tasks
+    task_queues:
+      - swh.loader.git.tasks.UpdateGitRepository
+      - swh_loader_git
 
 swh::deploy::worker::swh_loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
 swh::deploy::worker::swh_loader_debian::concurrency: 1
