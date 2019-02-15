@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::swh_lister_pypi {
   $loglevel = lookup('swh::deploy::worker::swh_lister_pypi::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_lister_pypi::task_broker')
 
-  $config_file = '/etc/softwareheritage/lister-pypi.yml'
+  $config_file = lookup('swh::deploy::worker::swh_lister_pypi::config_file')
   $config = lookup('swh::deploy::worker::swh_lister_pypi::config', Hash, 'deep')
 
   $task_modules = ['swh.lister.pypi.tasks']
@@ -12,7 +12,7 @@ class profile::swh::deploy::worker::swh_lister_pypi {
 
   include ::profile::swh::deploy::base_lister
 
-  ::profile::swh::deploy::worker::instance {'swh_lister_pypi':
+  ::profile::swh::deploy::worker::instance {'lister_pypi':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,

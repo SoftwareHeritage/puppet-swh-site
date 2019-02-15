@@ -1971,6 +1971,7 @@ swh::deploy::worker::swh_lister_gitlab::config:
       - swh_lister_gitlab_discover
       - swh_lister_gitlab_refresh
 
+swh::deploy::worker::swh_lister_pypi::config_file: "%{hiera('swh::conf_directory')}/lister_pypi.yml"
 swh::deploy::worker::swh_lister_pypi::concurrency: 1
 swh::deploy::worker::swh_lister_pypi::loglevel: warning
 # Contains a password: in private data
@@ -1987,6 +1988,13 @@ swh::deploy::worker::swh_lister_pypi::config:
     args:
       db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_pypi::db::user')}:%{hiera('swh::deploy::worker::swh_lister_pypi::db::password')}@%{hiera('swh::deploy::worker::swh_lister_pypi::db::host')}/%{hiera('swh::deploy::worker::swh_lister_pypi::db::dbname')}"
   # credentials in private data
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.lister.pypi.tasks
+    task_queues:
+      - swh.lister.pypi.tasks.PyPIListerTask
+      - swh_lister_pypi_refresh
 
 swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
 swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
