@@ -1943,6 +1943,7 @@ swh::deploy::worker::swh_lister_github::config:
       - swh_lister_github_discover
       - swh_lister_github_refresh
 
+swh::deploy::worker::swh_lister_gitlab::config_file: "%{hiera('swh::conf_directory')}/lister_gitlab.yml"
 swh::deploy::worker::swh_lister_gitlab::concurrency: 1
 swh::deploy::worker::swh_lister_gitlab::loglevel: warning
 # Contains a password: in private data
@@ -1959,6 +1960,16 @@ swh::deploy::worker::swh_lister_gitlab::config:
     args:
       db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::swh_lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::swh_lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::swh_lister_gitlab::db::dbname')}"
   # credentials in private data
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.lister.gitlab.tasks
+    task_queues:
+      - swh.lister.gitlab.tasks.IncrementalGitLabLister
+      - swh.lister.gitlab.tasks.RangeGitLabLister
+      - swh.lister.gitlab.tasks.FullGitLabRelister
+      - swh_lister_gitlab_discover
+      - swh_lister_gitlab_refresh
 
 swh::deploy::worker::swh_lister_pypi::concurrency: 1
 swh::deploy::worker::swh_lister_pypi::loglevel: warning
