@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::swh_loader_pypi {
   $loglevel = lookup('swh::deploy::worker::swh_loader_pypi::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_loader_pypi::task_broker')
 
-  $config_file = '/etc/softwareheritage/loader/pypi.yml'
+  $config_file = lookup('swh::deploy::worker::swh_loader_pypi::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_pypi::config')
 
   $task_modules = ['swh.loader.pypi.tasks']
@@ -17,7 +17,7 @@ class profile::swh::deploy::worker::swh_loader_pypi {
     ensure => 'latest',
   }
 
-  ::profile::swh::deploy::worker::instance {'swh_loader_pypi':
+  ::profile::swh::deploy::worker::instance {'loader_pypi':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,

@@ -1918,12 +1918,20 @@ swh::deploy::worker::swh_loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   reduce_effort: False
 
+swh::deploy::worker::swh_loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::swh_loader_pypi::concurrency: 1
 swh::deploy::worker::swh_loader_pypi::private_tmp: true
 swh::deploy::worker::swh_loader_pypi::loglevel: info
 swh::deploy::worker::swh_loader_pypi::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_pypi::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.loader.pypi.tasks
+    task_queues:
+      - swh.loader.pypi.tasks.LoadPyPI
+      - swh_loader_pypi
 
 swh::deploy::worker::swh_loader_svn::concurrency: 1
 swh::deploy::worker::swh_loader_svn::private_tmp: true
