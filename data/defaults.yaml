@@ -2012,7 +2012,7 @@ swh::deploy::indexer_journal_client::config:
   consumer_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 
-swh::deploy::worker::swh_indexer::mimetype::config_file: "mimetype.yml"
+swh::deploy::worker::swh_indexer::mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
 swh::deploy::worker::swh_indexer::mimetype::concurrency: 1
 swh::deploy::worker::swh_indexer::mimetype::loglevel: info
 # Contains a password: in private data
@@ -2022,6 +2022,13 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.ContentMimetype
+      - swh.indexer.tasks.ContentRangeMimetype
 
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
 swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::concurrency: 2

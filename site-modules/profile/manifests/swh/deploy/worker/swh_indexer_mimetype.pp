@@ -8,14 +8,12 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
   $task_broker = lookup('swh::deploy::worker::swh_indexer::mimetype::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::mimetype::config_file')
-  $config_directory = lookup('swh::deploy::base_indexer::config_directory')
-  $config_path = "${config_directory}/${config_file}"
   $config = lookup('swh::deploy::worker::swh_indexer::mimetype::config')
 
   $task_modules = ['swh.indexer.tasks']
   $task_queues = ['swh_indexer_content_mimetype', 'swh_indexer_content_mimetype_range']
 
-  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'swh_indexer_mimetype':
+  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_mimetype':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
@@ -25,11 +23,11 @@ class profile::swh::deploy::worker::swh_indexer_mimetype {
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],
-      File[$config_path],
+      File[$config_file],
     ],
   }
 
-  file {$config_path:
+  file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
     group   => 'swhdev',
