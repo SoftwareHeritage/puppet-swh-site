@@ -19,7 +19,7 @@ class profile::swh::deploy::worker::swh_indexer_ctags {
   }
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_ctags':
-    ensure       => present,
+    ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
     task_broker  => $task_broker,
