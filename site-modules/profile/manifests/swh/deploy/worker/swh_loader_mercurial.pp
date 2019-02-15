@@ -6,13 +6,13 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
   $loglevel = lookup('swh::deploy::worker::swh_loader_mercurial::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_loader_mercurial::task_broker')
 
-  $config_file = '/etc/softwareheritage/loader/hg.yml'
+  $config_file = lookup('swh::deploy::worker::swh_loader_mercurial::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_mercurial::config')
 
   $task_modules = ['swh.loader.mercurial.tasks']
   $task_queues = ['swh_loader_mercurial', 'swh_loader_mercurial_archive']
 
-  $service_name = 'swh_loader_mercurial'
+  $service_name = 'loader_mercurial'
   $private_tmp = lookup('swh::deploy::worker::swh_loader_mercurial::private_tmp')
 
   $packages = ['python3-swh.loader.mercurial']

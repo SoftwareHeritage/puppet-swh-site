@@ -1910,6 +1910,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
 
+swh::deploy::worker::swh_loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
 swh::deploy::worker::swh_loader_mercurial::concurrency: 1
 swh::deploy::worker::swh_loader_mercurial::private_tmp: true
 swh::deploy::worker::swh_loader_mercurial::loglevel: info
@@ -1917,6 +1918,15 @@ swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::w
 swh::deploy::worker::swh_loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   reduce_effort: False
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_modules:
+      - swh.loader.mercurial.tasks
+    task_queues:
+      - swh.loader.mercurial.tasks.LoadMercurial
+      - swh.loader.mercurial.tasks.LoadArchiveMercurial
+      - swh_loader_mercurial
+      - swh_loader_mercurial_archive
 
 swh::deploy::worker::swh_loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::swh_loader_pypi::concurrency: 1
