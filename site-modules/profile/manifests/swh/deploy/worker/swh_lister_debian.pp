@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::swh_lister_debian {
   $loglevel = lookup('swh::deploy::worker::swh_lister_debian::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_lister_debian::task_broker')
 
-  $config_file = '/etc/softwareheritage/lister-debian.yml'
+  $config_file = lookup('swh::deploy::worker::swh_lister_debian::config_file')
   $config = lookup('swh::deploy::worker::swh_lister_debian::config', Hash, 'deep')
 
   $task_modules = ['swh.lister.debian.tasks']
@@ -12,7 +12,7 @@ class profile::swh::deploy::worker::swh_lister_debian {
 
   include ::profile::swh::deploy::base_lister
 
-  ::profile::swh::deploy::worker::instance {'swh_lister_debian':
+  ::profile::swh::deploy::worker::instance {'lister_debian':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
