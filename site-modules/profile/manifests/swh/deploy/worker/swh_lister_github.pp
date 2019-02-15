@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::swh_lister_github {
   $loglevel = lookup('swh::deploy::worker::swh_lister_github::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_lister_github::task_broker')
 
-  $config_file = '/etc/softwareheritage/lister-github.com.yml'
+  $config_file = lookup('swh::deploy::worker::swh_lister_github::config_file')
   $config = lookup('swh::deploy::worker::swh_lister_github::config', Hash, 'deep')
 
   $task_modules = ['swh.lister.github.tasks']
@@ -12,7 +12,7 @@ class profile::swh::deploy::worker::swh_lister_github {
 
   include ::profile::swh::deploy::base_lister
 
-  ::profile::swh::deploy::worker::instance {'swh_lister_github':
+  ::profile::swh::deploy::worker::instance {'lister_github':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
