@@ -18,7 +18,7 @@ class profile::swh::deploy::worker::swh_loader_svn {
     ensure => 'latest',
   }
 
-  ::profile::swh::deploy::worker::instance {'swh_loader_svn':
+  ::profile::swh::deploy::worker::instance {'loader_svn':
     ensure        => present,
     concurrency   => $concurrency,
     loglevel      => $loglevel,
