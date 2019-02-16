@@ -1889,11 +1889,8 @@ swh::deploy::worker::swh_loader_debian::task_broker: "%{hiera('swh::deploy::work
 swh::deploy::worker::swh_loader_debian::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
-    celery:
+  lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
+  celery:
     task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
     task_modules:
       - swh.loader.debian.tasks
