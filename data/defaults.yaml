@@ -1550,7 +1550,7 @@ swh::deploy::worker::swh_loader_deposit::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.deposit.loader.tasks
     task_queues:
@@ -1875,7 +1875,7 @@ swh::deploy::worker::swh_loader_git::config:
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.git.tasks
     task_queues:
@@ -1891,7 +1891,7 @@ swh::deploy::worker::swh_loader_debian::config:
   directory_packet_size: 100
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.debian.tasks
     task_queues:
@@ -1911,7 +1911,7 @@ swh::deploy::worker::swh_lister_debian::config:
     args:
       db: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.debian.tasks
     task_queues:
@@ -1926,7 +1926,7 @@ swh::deploy::worker::swh_loader_git_disk::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.git.tasks
     task_queues:
@@ -1945,7 +1945,7 @@ swh::deploy::worker::swh_loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   reduce_effort: False
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.mercurial.tasks
     task_queues:
@@ -1962,7 +1962,7 @@ swh::deploy::worker::swh_loader_pypi::task_broker: "%{hiera('swh::deploy::worker
 swh::deploy::worker::swh_loader_pypi::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.pypi.tasks
     task_queues:
@@ -1979,7 +1979,7 @@ swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker:
 swh::deploy::worker::swh_loader_svn::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.loader.svn.tasks
     task_queues:
@@ -2007,7 +2007,7 @@ swh::deploy::worker::swh_lister_github::config:
       db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
   # credentials in private data
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.github.tasks
     task_queues:
@@ -2035,7 +2035,7 @@ swh::deploy::worker::swh_lister_gitlab::config:
       db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::swh_lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::swh_lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::swh_lister_gitlab::db::dbname')}"
   # credentials in private data
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.gitlab.tasks
     task_queues:
@@ -2063,7 +2063,7 @@ swh::deploy::worker::swh_lister_pypi::config:
       db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_pypi::db::user')}:%{hiera('swh::deploy::worker::swh_lister_pypi::db::password')}@%{hiera('swh::deploy::worker::swh_lister_pypi::db::host')}/%{hiera('swh::deploy::worker::swh_lister_pypi::db::dbname')}"
   # credentials in private data
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.pypi.tasks
     task_queues:
@@ -2127,7 +2127,7 @@ swh::deploy::worker::swh_indexer::mimetype::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.indexer.tasks
     task_queues:
@@ -2146,7 +2146,7 @@ swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.indexer.tasks
     task_queues:
@@ -2206,7 +2206,7 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
     configuration:
       command_line: "nomossa <filepath>"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.indexer.tasks
     task_queues:
@@ -2230,7 +2230,7 @@ swh::deploy::worker::swh_indexer::language::config:
       debian-package: "python3-pygments"
       max_content_size: 10240
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.indexer.tasks
     task_queues:
@@ -2252,7 +2252,7 @@ swh::deploy::worker::swh_indexer::ctags::config:
     configuration:
       command_line: "ctags --fields=+lnz --sort=no --links=no --output-format=json <filepath>"
   celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.indexer.tasks
     task_queues:
