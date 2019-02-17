@@ -1883,7 +1883,7 @@ swh::deploy::worker::swh_loader_git::config:
       - swh_loader_git
 
 swh::deploy::worker::swh_loader_git_disk::config_file: "%{hiera('swh::conf_directory')}/loader_git_disk.yml"
-swh::deploy::worker::swh_loader_git_disk::concurrency: 2
+swh::deploy::worker::swh_loader_git_disk::concurrency: 1
 swh::deploy::worker::swh_loader_git_disk::loglevel: info
 swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 swh::deploy::worker::swh_loader_git_disk::config:
