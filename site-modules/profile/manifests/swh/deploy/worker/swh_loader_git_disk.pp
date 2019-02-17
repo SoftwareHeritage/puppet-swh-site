@@ -17,7 +17,7 @@ class profile::swh::deploy::worker::swh_loader_git_disk {
   Package[$::profile::swh::deploy::base_loader_git::packages] ~> Service["swh-worker@$service_name"]
 
   ::profile::swh::deploy::worker::instance {$service_name:
-    ensure       => running,
+    ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
     task_broker  => $task_broker,
