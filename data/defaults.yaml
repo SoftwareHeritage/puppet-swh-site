@@ -1881,23 +1881,9 @@ swh::deploy::worker::swh_loader_git::config:
     task_queues:
       - swh.loader.git.tasks.UpdateGitRepository
       - swh_loader_git
-
-swh::deploy::worker::swh_loader_git_disk::config_file: "%{hiera('swh::conf_directory')}/loader_git_disk.yml"
-swh::deploy::worker::swh_loader_git_disk::concurrency: 1
-swh::deploy::worker::swh_loader_git_disk::loglevel: info
-swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_git_disk::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  directory_packet_size: 100
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.git.tasks
-    task_queues:
+      # loader-git-disk
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
-      - swh_loader_git_express
-      - swh_loader_git_archive
 
 swh::deploy::worker::swh_loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
 swh::deploy::worker::swh_loader_debian::concurrency: 1
