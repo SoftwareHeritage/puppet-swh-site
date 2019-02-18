@@ -2643,6 +2643,7 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
+swh::deploy::worker::swh_vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
 swh::deploy::worker::swh_vault_cooker::concurrency: 20
 swh::deploy::worker::swh_vault_cooker::loglevel: info
 swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
@@ -2650,6 +2651,13 @@ swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory'
 swh::deploy::worker::swh_vault_cooker::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault_url: "http://orangerie:%{hiera('swh::remote_service::vault::port')}/"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.vault.cooking_tasks
+    task_queues:
+      - swh.vault.cooking_tasks.SWHCookingTask
+      - swh.vault.cooking_tasks.SWHBatchCookingTask
 
 desktop::printers:
   MFP_C:
