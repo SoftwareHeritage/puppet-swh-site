@@ -1546,6 +1546,7 @@ swh::deploy::worker::swh_loader_deposit::concurrency: 2
 swh::deploy::worker::swh_loader_deposit::private_tmp: true
 swh::deploy::worker::swh_loader_deposit::loglevel: info
 swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
+# deposit_basic_auth_swhworker_{username|password} in private_data
 swh::deploy::worker::swh_loader_deposit::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   extraction_dir: /tmp/swh.loader.deposit/
@@ -1558,10 +1559,7 @@ swh::deploy::worker::swh_loader_deposit::config:
       - swh.deposit.loader.tasks.ChecksDepositTsk
       - swh_loader_deposit
       - swh_checker_deposit
-
-swh::deploy::deposit::client::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/client.yml"
-# deposit_basic_auth_swhworker_{username|password} in private_data
-swh::deploy::deposit::client::settings_private_data:
+  # FIXME: Create a dedicated client subsection
   url: https://deposit.softwareheritage.org
   auth:
     username: "%{hiera('deposit_basic_auth_swhworker_username')}"

@@ -4,7 +4,6 @@ class profile::swh::deploy::worker::swh_loader_deposit {
   $loglevel = lookup('swh::deploy::worker::swh_loader_deposit::loglevel')
   $task_broker = lookup('swh::deploy::worker::swh_loader_deposit::task_broker')
 
-  $deposit_config_directory = lookup('swh::deploy::deposit::conf_directory')
   $config_file = lookup('swh::deploy::worker::swh_loader_deposit::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_deposit::config')
 
@@ -36,13 +35,6 @@ class profile::swh::deploy::worker::swh_loader_deposit {
     ],
   }
 
-  file {$deposit_config_directory:
-    ensure => directory,
-    owner  => 'swhworker',
-    group  => 'swhdev',
-    mode   => '0750',
-  }
-
   file {$config_file:
     ensure  => 'present',
     owner   => 'swhworker',
@@ -51,12 +43,4 @@ class profile::swh::deploy::worker::swh_loader_deposit {
     content => inline_template("<%= @config.to_yaml %>\n"),
   }
 
-  $swh_client_conf_file = lookup('swh::deploy::deposit::client::swh_conf_file')
-  $swh_client_config = lookup('swh::deploy::deposit::client::settings_private_data')
-  file {$swh_client_conf_file:
-    owner   => 'swhworker',
-    group   => 'swhdev',
-    mode    => '0640',
-    content => inline_template("<%= @swh_client_config.to_yaml %>\n"),
-  }
 }
