@@ -2095,11 +2095,11 @@ swh::deploy::indexer_journal_client::config:
   consumer_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 
-swh::deploy::worker::indexer_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
-swh::deploy::worker::indexer_mimetype::concurrency: 1
-swh::deploy::worker::indexer_mimetype::loglevel: info
+swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
+swh::deploy::worker::indexer_content_mimetype::concurrency: 1
+swh::deploy::worker::indexer_content_mimetype::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::indexer_mimetype::config:
+swh::deploy::worker::indexer_content_mimetype::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
@@ -2165,11 +2165,11 @@ swh::deploy::worker::indexer_fossology_license::config:
       - swh.indexer.tasks.ContentRangeFossologyLicense
       - swh_indexer_content_fossology_license_range
 
-swh::deploy::worker::indexer_language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
-swh::deploy::worker::indexer_language::concurrency: 3
-swh::deploy::worker::indexer_language::loglevel: info
+swh::deploy::worker::indexer_content_language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
+swh::deploy::worker::indexer_content_language::concurrency: 3
+swh::deploy::worker::indexer_content_language::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::indexer_language::config:
+swh::deploy::worker::indexer_content_language::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   tools:
@@ -2186,12 +2186,12 @@ swh::deploy::worker::indexer_language::config:
     task_queues:
       - swh.indexer.tasks.ContentLanguage
 
-swh::deploy::worker::indexer_ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
-swh::deploy::worker::indexer_ctags::concurrency: 2
-swh::deploy::worker::indexer_ctags::loglevel: info
+swh::deploy::worker::indexer_content_ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
+swh::deploy::worker::indexer_content_ctags::concurrency: 2
+swh::deploy::worker::indexer_content_ctags::loglevel: info
 # Contains a password: in private data
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
-swh::deploy::worker::indexer_ctags::config:
+swh::deploy::worker::indexer_content_ctags::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   workdir: /tmp/swh/indexer.ctags/
