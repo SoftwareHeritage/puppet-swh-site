@@ -6,7 +6,7 @@ class profile::swh::deploy::worker::storage_archiver {
   $max_tasks_per_child = lookup('swh::deploy::worker::storage_archiver::max_tasks_per_child')
   $loglevel = lookup('swh::deploy::worker::storage_archiver::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::storage_archiver::conf_file')
+  $config_file = lookup('swh::deploy::worker::storage_archiver::config_file')
   $config = lookup('swh::deploy::worker::storage_archiver::config')
 
   ::profile::swh::deploy::worker::instance {'storage_archiver':
