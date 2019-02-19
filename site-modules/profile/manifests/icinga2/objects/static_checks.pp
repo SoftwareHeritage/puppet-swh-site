@@ -14,6 +14,17 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::icinga2::object::host {'softwareheritage.org':
+    import        => ['generic-host'],
+    check_command => 'hostalive4',
+    address       => 'softwareheritage.org',
+    target        => $checks_file,
+    vars          => {
+      ping_wrta => 150,
+      ping_crta => 300,
+    },
+  }
+
   ::icinga2::object::service {'Software Heritage Homepage':
     import        => ['generic-service'],
     host_name     => 'www.softwareheritage.org',
@@ -25,6 +36,19 @@ class profile::icinga2::objects::static_checks {
       http_ssl    => true,
       http_sni    => true,
       http_string => '<title>Software Heritage</title>',
+    },
+  }
+
+  ::icinga2::object::service {'Software Heritage Homepage (redirect to www)':
+    import        => ['generic-service'],
+    host_name     => 'softwareheritage.org',
+    check_command => 'http',
+    target        => $checks_file,
+    vars          => {
+      http_vhost  => 'softwareheritage.org',
+      http_uri    => '/',
+      http_ssl    => true,
+      http_sni    => true,
     },
   }
 
