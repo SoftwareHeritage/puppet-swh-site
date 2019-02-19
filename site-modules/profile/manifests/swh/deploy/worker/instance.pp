@@ -1,8 +1,6 @@
 # Instance of a worker
 define profile::swh::deploy::worker::instance (
   $ensure = present,
-  $concurrency = 10,
-  $loglevel = 'info',
   $max_tasks_per_child = 5,
   $instance_name = $title,
   $limit_no_file = undef,
@@ -12,6 +10,10 @@ define profile::swh::deploy::worker::instance (
 
   $service_basename = "swh-worker@${instance_name}"
   $service_name = "${service_basename}.service"
+  $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
+  $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
+  $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
+  $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, 'deep')
 
   case $ensure {
     'present', 'running': {
@@ -29,6 +31,17 @@ define profile::swh::deploy::worker::instance (
       if $ensure == 'running' {
         service {$service_basename:
           ensure  => $ensure,
+          require => [
+            File[$config_file],
+          ]
+        }
+
+        file {$config_file:
+          ensure  => 'present',
+          owner   => 'swhworker',
+          group   => 'swhworker',
+          mode    => '0644',
+          content => inline_template("<%= @config.to_yaml %>\n"),
         }
       }
     }
