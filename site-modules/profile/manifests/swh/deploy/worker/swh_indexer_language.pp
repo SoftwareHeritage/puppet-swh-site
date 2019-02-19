@@ -1,16 +1,13 @@
 # Deployment for swh-indexer-language
 
-class profile::swh::deploy::worker::swh_indexer_language {
+class profile::swh::deploy::worker::indexer_language {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::swh_indexer::language::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_indexer::language::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer::language::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer::language::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_indexer::language::config_file')
-  $config = lookup('swh::deploy::worker::swh_indexer::language::config')
-
-  $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_content_language']
+  $config_file = lookup('swh::deploy::worker::indexer::language::config_file')
+  $config = lookup('swh::deploy::worker::indexer::language::config')
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_language':
     ensure       => 'stopped',

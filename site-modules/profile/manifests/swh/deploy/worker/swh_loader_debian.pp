@@ -1,10 +1,10 @@
 # Deployment for swh-loader-debian
-class profile::swh::deploy::worker::swh_loader_debian {
-  $concurrency = lookup('swh::deploy::worker::swh_loader_debian::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_debian::loglevel')
+class profile::swh::deploy::worker::loader_debian {
+  $concurrency = lookup('swh::deploy::worker::loader_debian::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_debian::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_loader_debian::config_file')
-  $config = lookup('swh::deploy::worker::swh_loader_debian::config')
+  $config_file = lookup('swh::deploy::worker::loader_debian::config_file')
+  $config = lookup('swh::deploy::worker::loader_debian::config')
 
   $packages = ['python3-swh.loader.debian']
 

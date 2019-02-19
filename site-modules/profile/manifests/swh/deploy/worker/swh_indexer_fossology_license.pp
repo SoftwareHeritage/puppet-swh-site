@@ -1,13 +1,13 @@
 # Deployment for swh-indexer-fossology-license
 
-class profile::swh::deploy::worker::swh_indexer_fossology_license {
+class profile::swh::deploy::worker::indexer_fossology_license {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::swh_indexer::fossology_license::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_indexer::fossology_license::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer::fossology_license::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer::fossology_license::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_indexer::fossology_license::config_file')
-  $config = lookup('swh::deploy::worker::swh_indexer::fossology_license::config')
+  $config_file = lookup('swh::deploy::worker::indexer::fossology_license::config_file')
+  $config = lookup('swh::deploy::worker::indexer::fossology_license::config')
 
   $packages = ['fossology-nomossa']
   package {$packages:

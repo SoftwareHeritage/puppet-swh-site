@@ -1459,7 +1459,7 @@ swh::deploy::journal_simple_checker_producer::config:
     - origin
     - origin_visit
 
-swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/content_updater.yml"
+swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::storage_archiver::conf_directory')}/content_updater.yml"
 swh::deploy::archiver_content_updater::user: swhstorage
 swh::deploy::archiver_content_updater::group: swhstorage
 swh::deploy::archiver_content_updater::config:
@@ -1473,7 +1473,7 @@ swh::deploy::archiver_content_updater::config:
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
   sources_present:
     - uffizi
 
@@ -1543,12 +1543,12 @@ swh::deploy::deposit::settings_private_data:
     password: "%{hiera('swh::deploy::storage::db::password')}"
   media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
-swh::deploy::worker::swh_loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
-swh::deploy::worker::swh_loader_deposit::concurrency: 2
-swh::deploy::worker::swh_loader_deposit::private_tmp: true
-swh::deploy::worker::swh_loader_deposit::loglevel: info
+swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
+swh::deploy::worker::loader_deposit::concurrency: 2
+swh::deploy::worker::loader_deposit::private_tmp: true
+swh::deploy::worker::loader_deposit::loglevel: info
 # deposit_basic_auth_swhworker_{username|password} in private_data
-swh::deploy::worker::swh_loader_deposit::config:
+swh::deploy::worker::loader_deposit::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
@@ -1607,10 +1607,10 @@ swh::deploy::objstorage_archive_notifier_checker::user: "%{hiera('swh::deploy::o
 swh::deploy::objstorage_archive_notifier_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
 swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
 swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
-swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')}"
-swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')}"
-swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}"
-swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::storage_archiver::db::host')}"
+swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::storage_archiver::db::dbname')}"
+swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::storage_archiver::db::user')}"
+swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
 swh::deploy::objstorage_archive_notifier_checker::config:
   storage:
     cls: pathslicing
@@ -1623,7 +1623,7 @@ swh::deploy::objstorage_archive_notifier_checker::config:
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
 
 swh::deploy::webapp::backported_packages:
   stretch:
@@ -1859,15 +1859,15 @@ swh::deploy::loader_debian::db::dbname: lister-debian
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
-  - swh_loader_debian
-  - swh_loader_git
+  - loader_debian
+  - loader_git
   - swh_lister_debian
   - swh_lister_github
 
-swh::deploy::worker::swh_loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
-swh::deploy::worker::swh_loader_git::concurrency: 2
-swh::deploy::worker::swh_loader_git::loglevel: info
-swh::deploy::worker::swh_loader_git::config:
+swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
+swh::deploy::worker::loader_git::concurrency: 2
+swh::deploy::worker::loader_git::loglevel: info
+swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
@@ -1883,10 +1883,10 @@ swh::deploy::worker::swh_loader_git::config:
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
-swh::deploy::worker::swh_loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
-swh::deploy::worker::swh_loader_debian::concurrency: 1
-swh::deploy::worker::swh_loader_debian::loglevel: info
-swh::deploy::worker::swh_loader_debian::config:
+swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
+swh::deploy::worker::loader_debian::concurrency: 1
+swh::deploy::worker::loader_debian::loglevel: info
+swh::deploy::worker::loader_debian::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   directory_packet_size: 100
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
@@ -1899,10 +1899,10 @@ swh::deploy::worker::swh_loader_debian::config:
       - swh_loader_debian
 
 
-swh::deploy::worker::swh_lister_debian::config_file: "%{hiera('swh::conf_directory')}/lister_debian.yml"
-swh::deploy::worker::swh_lister_debian::concurrency: 1
-swh::deploy::worker::swh_lister_debian::loglevel: info
-swh::deploy::worker::swh_lister_debian::config:
+swh::deploy::worker::lister_debian::config_file: "%{hiera('swh::conf_directory')}/lister_debian.yml"
+swh::deploy::worker::lister_debian::concurrency: 1
+swh::deploy::worker::lister_debian::loglevel: info
+swh::deploy::worker::lister_debian::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister:
@@ -1917,11 +1917,11 @@ swh::deploy::worker::swh_lister_debian::config:
       - swh.lister.debian.tasks.DebianListerTask
       - swh_lister_debian
 
-swh::deploy::worker::swh_loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
-swh::deploy::worker::swh_loader_mercurial::concurrency: 1
-swh::deploy::worker::swh_loader_mercurial::private_tmp: true
-swh::deploy::worker::swh_loader_mercurial::loglevel: info
-swh::deploy::worker::swh_loader_mercurial::config:
+swh::deploy::worker::loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
+swh::deploy::worker::loader_mercurial::concurrency: 1
+swh::deploy::worker::loader_mercurial::private_tmp: true
+swh::deploy::worker::loader_mercurial::loglevel: info
+swh::deploy::worker::loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   reduce_effort: False
   celery:
@@ -1934,11 +1934,11 @@ swh::deploy::worker::swh_loader_mercurial::config:
       - swh_loader_mercurial
       - swh_loader_mercurial_archive
 
-swh::deploy::worker::swh_loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
-swh::deploy::worker::swh_loader_pypi::concurrency: 1
-swh::deploy::worker::swh_loader_pypi::private_tmp: true
-swh::deploy::worker::swh_loader_pypi::loglevel: info
-swh::deploy::worker::swh_loader_pypi::config:
+swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
+swh::deploy::worker::loader_pypi::concurrency: 1
+swh::deploy::worker::loader_pypi::private_tmp: true
+swh::deploy::worker::loader_pypi::loglevel: info
+swh::deploy::worker::loader_pypi::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1948,13 +1948,13 @@ swh::deploy::worker::swh_loader_pypi::config:
       - swh.loader.pypi.tasks.LoadPyPI
       - swh_loader_pypi
 
-swh::deploy::worker::swh_loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
-swh::deploy::worker::swh_loader_svn::concurrency: 1
-swh::deploy::worker::swh_loader_svn::private_tmp: true
-swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
-swh::deploy::worker::swh_loader_svn::loglevel: info
+swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
+swh::deploy::worker::loader_svn::concurrency: 1
+swh::deploy::worker::loader_svn::private_tmp: true
+swh::deploy::worker::loader_svn::limit_no_file: 8192
+swh::deploy::worker::loader_svn::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_loader_svn::config:
+swh::deploy::worker::loader_svn::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1967,21 +1967,21 @@ swh::deploy::worker::swh_loader_svn::config:
       - swh_loader_svn
       - swh_loader_svn_mount_and_load
 
-swh::deploy::worker::swh_lister_github::config_file: "%{hiera('swh::conf_directory')}/lister_github.yml"
-swh::deploy::worker::swh_lister_github::concurrency: 1
-swh::deploy::worker::swh_lister_github::loglevel: warning
+swh::deploy::worker::lister_github::config_file: "%{hiera('swh::conf_directory')}/lister_github.yml"
+swh::deploy::worker::lister_github::concurrency: 1
+swh::deploy::worker::lister_github::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::swh_lister_github::db::host: db
-swh::deploy::worker::swh_lister_github::db::dbname: lister-github
-swh::deploy::worker::swh_lister_github::db::user: lister-github
-#swh::deploy::worker::swh_lister_github::db::password in private data
-swh::deploy::worker::swh_lister_github::config:
+swh::deploy::worker::lister_github::db::host: db
+swh::deploy::worker::lister_github::db::dbname: lister-github
+swh::deploy::worker::lister_github::db::user: lister-github
+#swh::deploy::worker::lister_github::db::password in private data
+swh::deploy::worker::lister_github::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_github::db::user')}:%{hiera('swh::deploy::worker::lister_github::db::password')}@%{hiera('swh::deploy::worker::lister_github::db::host')}/%{hiera('swh::deploy::worker::lister_github::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1994,21 +1994,21 @@ swh::deploy::worker::swh_lister_github::config:
       - swh_lister_github_discover
       - swh_lister_github_refresh
 
-swh::deploy::worker::swh_lister_gitlab::config_file: "%{hiera('swh::conf_directory')}/lister_gitlab.yml"
-swh::deploy::worker::swh_lister_gitlab::concurrency: 1
-swh::deploy::worker::swh_lister_gitlab::loglevel: warning
+swh::deploy::worker::lister_gitlab::config_file: "%{hiera('swh::conf_directory')}/lister_gitlab.yml"
+swh::deploy::worker::lister_gitlab::concurrency: 1
+swh::deploy::worker::lister_gitlab::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::swh_lister_gitlab::db::host: db
-swh::deploy::worker::swh_lister_gitlab::db::dbname: lister-gitlab
-swh::deploy::worker::swh_lister_gitlab::db::user: lister-gitlab
-#swh::deploy::worker::swh_lister_gitlab::db::password in private data
-swh::deploy::worker::swh_lister_gitlab::config:
+swh::deploy::worker::lister_gitlab::db::host: db
+swh::deploy::worker::lister_gitlab::db::dbname: lister-gitlab
+swh::deploy::worker::lister_gitlab::db::user: lister-gitlab
+#swh::deploy::worker::lister_gitlab::db::password in private data
+swh::deploy::worker::lister_gitlab::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::swh_lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::swh_lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::swh_lister_gitlab::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::lister_gitlab::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2021,21 +2021,21 @@ swh::deploy::worker::swh_lister_gitlab::config:
       - swh_lister_gitlab_discover
       - swh_lister_gitlab_refresh
 
-swh::deploy::worker::swh_lister_pypi::config_file: "%{hiera('swh::conf_directory')}/lister_pypi.yml"
-swh::deploy::worker::swh_lister_pypi::concurrency: 1
-swh::deploy::worker::swh_lister_pypi::loglevel: warning
+swh::deploy::worker::lister_pypi::config_file: "%{hiera('swh::conf_directory')}/lister_pypi.yml"
+swh::deploy::worker::lister_pypi::concurrency: 1
+swh::deploy::worker::lister_pypi::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::swh_lister_pypi::db::host: db
-swh::deploy::worker::swh_lister_pypi::db::dbname: lister-pypi
-swh::deploy::worker::swh_lister_pypi::db::user: lister-pypi
-#swh::deploy::worker::swh_lister_pypi::db::password in private data
-swh::deploy::worker::swh_lister_pypi::config:
+swh::deploy::worker::lister_pypi::db::host: db
+swh::deploy::worker::lister_pypi::db::dbname: lister-pypi
+swh::deploy::worker::lister_pypi::db::user: lister-pypi
+#swh::deploy::worker::lister_pypi::db::password in private data
+swh::deploy::worker::lister_pypi::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::swh_lister_pypi::db::user')}:%{hiera('swh::deploy::worker::swh_lister_pypi::db::password')}@%{hiera('swh::deploy::worker::swh_lister_pypi::db::host')}/%{hiera('swh::deploy::worker::swh_lister_pypi::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_pypi::db::user')}:%{hiera('swh::deploy::worker::lister_pypi::db::password')}@%{hiera('swh::deploy::worker::lister_pypi::db::host')}/%{hiera('swh::deploy::worker::lister_pypi::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2045,28 +2045,28 @@ swh::deploy::worker::swh_lister_pypi::config:
       - swh.lister.pypi.tasks.PyPIListerTask
       - swh_lister_pypi_refresh
 
-swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
-swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
-swh::deploy::worker::swh_storage_archiver::archival_max_age: 3600
-swh::deploy::worker::swh_storage_archiver::max_queue_length: 100000
-swh::deploy::worker::swh_storage_archiver::retention_policy: 3
-swh::deploy::worker::swh_storage_archiver::batch_max_size: 5
-swh::deploy::worker::swh_storage_archiver::db::host: db
-swh::deploy::worker::swh_storage_archiver::db::dbname: softwareheritage-archiver
-swh::deploy::worker::swh_storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
-swh::deploy::worker::swh_storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
-swh::deploy::worker::swh_storage_archiver::concurrency: 10
-swh::deploy::worker::swh_storage_archiver::max_tasks_per_child: 500
-swh::deploy::worker::swh_storage_archiver::loglevel: info
+swh::deploy::worker::storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
+swh::deploy::worker::storage_archiver::conf_file: "%{hiera('swh::deploy::worker::storage_archiver::conf_directory')}/worker.yml"
+swh::deploy::worker::storage_archiver::archival_max_age: 3600
+swh::deploy::worker::storage_archiver::max_queue_length: 100000
+swh::deploy::worker::storage_archiver::retention_policy: 3
+swh::deploy::worker::storage_archiver::batch_max_size: 5
+swh::deploy::worker::storage_archiver::db::host: db
+swh::deploy::worker::storage_archiver::db::dbname: softwareheritage-archiver
+swh::deploy::worker::storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
+swh::deploy::worker::storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::worker::storage_archiver::concurrency: 10
+swh::deploy::worker::storage_archiver::max_tasks_per_child: 500
+swh::deploy::worker::storage_archiver::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_storage_archiver::config:
-  archival_max_age: "%{hiera('swh::deploy::worker::swh_storage_archiver::archival_max_age')}"
-  retention_policy: "%{hiera('swh::deploy::worker::swh_storage_archiver::retention_policy')}"
-  batch_max_size: "%{hiera('swh::deploy::worker::swh_storage_archiver::batch_max_size')}"
+swh::deploy::worker::storage_archiver::config:
+  archival_max_age: "%{hiera('swh::deploy::worker::storage_archiver::archival_max_age')}"
+  retention_policy: "%{hiera('swh::deploy::worker::storage_archiver::retention_policy')}"
+  batch_max_size: "%{hiera('swh::deploy::worker::storage_archiver::batch_max_size')}"
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
   storages:
     - host: uffizi
       <<: *swh_objstorage_config_uffizi
@@ -2077,7 +2077,7 @@ swh::deploy::worker::swh_storage_archiver::config:
   sources:
     - uffizi
     - banco
-  max_queue_length: "%{hiera('swh::deploy::worker::swh_storage_archiver::max_queue_length')}"
+  max_queue_length: "%{hiera('swh::deploy::worker::storage_archiver::max_queue_length')}"
 
 swh::deploy::base_indexer::config_directory: "%{hiera('swh::conf_directory')}/indexer"
 
@@ -2090,11 +2090,11 @@ swh::deploy::indexer_journal_client::config:
   consumer_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 
-swh::deploy::worker::swh_indexer::mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
-swh::deploy::worker::swh_indexer::mimetype::concurrency: 1
-swh::deploy::worker::swh_indexer::mimetype::loglevel: info
+swh::deploy::worker::indexer::mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
+swh::deploy::worker::indexer::mimetype::concurrency: 1
+swh::deploy::worker::indexer::mimetype::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::mimetype::config:
+swh::deploy::worker::indexer::mimetype::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
@@ -2108,11 +2108,11 @@ swh::deploy::worker::swh_indexer::mimetype::config:
       - swh.indexer.tasks.ContentRangeMimetype
       - swh_indexer_content_mimetype_range
 
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::concurrency: 2
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::loglevel: info
+swh::deploy::worker::indexer::origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
+swh::deploy::worker::indexer::origin_intrinsic_metadata::concurrency: 2
+swh::deploy::worker::indexer::origin_intrinsic_metadata::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config:
+swh::deploy::worker::indexer::origin_intrinsic_metadata::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
@@ -2124,11 +2124,11 @@ swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config:
     task_queues:
       - swh.indexer.tasks.OriginMetadata
 
-swh::deploy::worker::swh_indexer::rehash::config_file: "rehash.yml"
-swh::deploy::worker::swh_indexer::rehash::concurrency: 5
-swh::deploy::worker::swh_indexer::rehash::loglevel: info
+swh::deploy::worker::indexer::rehash::config_file: "rehash.yml"
+swh::deploy::worker::indexer::rehash::concurrency: 5
+swh::deploy::worker::indexer::rehash::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::rehash::config:
+swh::deploy::worker::indexer::rehash::config:
   # Needs write access: explicitly configured to use uffizi
   storage: "%{alias('swh::remote_service::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
@@ -2137,11 +2137,11 @@ swh::deploy::worker::swh_indexer::rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::swh_indexer::fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
-swh::deploy::worker::swh_indexer::fossology_license::concurrency: 1
-swh::deploy::worker::swh_indexer::fossology_license::loglevel: info
+swh::deploy::worker::indexer::fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
+swh::deploy::worker::indexer::fossology_license::concurrency: 1
+swh::deploy::worker::indexer::fossology_license::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::fossology_license::config:
+swh::deploy::worker::indexer::fossology_license::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
@@ -2160,11 +2160,11 @@ swh::deploy::worker::swh_indexer::fossology_license::config:
       - swh.indexer.tasks.ContentRangeFossologyLicense
       - swh_indexer_content_fossology_license_range
 
-swh::deploy::worker::swh_indexer::language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
-swh::deploy::worker::swh_indexer::language::concurrency: 3
-swh::deploy::worker::swh_indexer::language::loglevel: info
+swh::deploy::worker::indexer::language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
+swh::deploy::worker::indexer::language::concurrency: 3
+swh::deploy::worker::indexer::language::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::language::config:
+swh::deploy::worker::indexer::language::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   tools:
@@ -2181,12 +2181,12 @@ swh::deploy::worker::swh_indexer::language::config:
     task_queues:
       - swh.indexer.tasks.ContentLanguage
 
-swh::deploy::worker::swh_indexer::ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
-swh::deploy::worker::swh_indexer::ctags::concurrency: 2
-swh::deploy::worker::swh_indexer::ctags::loglevel: info
+swh::deploy::worker::indexer::ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
+swh::deploy::worker::indexer::ctags::concurrency: 2
+swh::deploy::worker::indexer::ctags::loglevel: info
 # Contains a password: in private data
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
-swh::deploy::worker::swh_indexer::ctags::config:
+swh::deploy::worker::indexer::ctags::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   workdir: /tmp/swh/indexer.ctags/
@@ -2604,11 +2604,11 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
-swh::deploy::worker::swh_vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
-swh::deploy::worker::swh_vault_cooker::concurrency: 20
-swh::deploy::worker::swh_vault_cooker::loglevel: info
-swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
-swh::deploy::worker::swh_vault_cooker::config:
+swh::deploy::worker::vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
+swh::deploy::worker::vault_cooker::concurrency: 20
+swh::deploy::worker::vault_cooker::loglevel: info
+swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
+swh::deploy::worker::vault_cooker::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault:
     cls: remote

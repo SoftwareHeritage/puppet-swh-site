@@ -1,12 +1,12 @@
 # Deployment for swh-loader-pypi
-class profile::swh::deploy::worker::swh_loader_pypi {
-  $concurrency = lookup('swh::deploy::worker::swh_loader_pypi::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_pypi::loglevel')
+class profile::swh::deploy::worker::loader_pypi {
+  $concurrency = lookup('swh::deploy::worker::loader_pypi::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_pypi::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_loader_pypi::config_file')
-  $config = lookup('swh::deploy::worker::swh_loader_pypi::config')
+  $config_file = lookup('swh::deploy::worker::loader_pypi::config_file')
+  $config = lookup('swh::deploy::worker::loader_pypi::config')
 
-  $private_tmp = lookup('swh::deploy::worker::swh_loader_pypi::private_tmp')
+  $private_tmp = lookup('swh::deploy::worker::loader_pypi::private_tmp')
 
   $packages = ['python3-swh.loader.pypi']
 

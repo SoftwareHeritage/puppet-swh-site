@@ -1,10 +1,10 @@
 # Deployment for swh-lister-gitlab
-class profile::swh::deploy::worker::swh_lister_gitlab {
-  $concurrency = lookup('swh::deploy::worker::swh_lister_gitlab::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_lister_gitlab::loglevel')
+class profile::swh::deploy::worker::lister_gitlab {
+  $concurrency = lookup('swh::deploy::worker::lister_gitlab::concurrency')
+  $loglevel = lookup('swh::deploy::worker::lister_gitlab::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_lister_gitlab::config_file')
-  $config = lookup('swh::deploy::worker::swh_lister_gitlab::config', Hash, 'deep')
+  $config_file = lookup('swh::deploy::worker::lister_gitlab::config_file')
+  $config = lookup('swh::deploy::worker::lister_gitlab::config', Hash, 'deep')
 
   include ::profile::swh::deploy::base_lister
 

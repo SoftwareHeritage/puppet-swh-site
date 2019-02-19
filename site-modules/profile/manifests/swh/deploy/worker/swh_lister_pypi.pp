@@ -1,10 +1,10 @@
 # Deployment for swh-lister-pypi
-class profile::swh::deploy::worker::swh_lister_pypi {
-  $concurrency = lookup('swh::deploy::worker::swh_lister_pypi::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_lister_pypi::loglevel')
+class profile::swh::deploy::worker::lister_pypi {
+  $concurrency = lookup('swh::deploy::worker::lister_pypi::concurrency')
+  $loglevel = lookup('swh::deploy::worker::lister_pypi::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_lister_pypi::config_file')
-  $config = lookup('swh::deploy::worker::swh_lister_pypi::config', Hash, 'deep')
+  $config_file = lookup('swh::deploy::worker::lister_pypi::config_file')
+  $config = lookup('swh::deploy::worker::lister_pypi::config', Hash, 'deep')
 
   include ::profile::swh::deploy::base_lister
 

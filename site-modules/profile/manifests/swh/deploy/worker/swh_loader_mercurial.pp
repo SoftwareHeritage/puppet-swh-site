@@ -1,15 +1,15 @@
 # Deployment for swh-loader-mercurial (disk)
-class profile::swh::deploy::worker::swh_loader_mercurial {
+class profile::swh::deploy::worker::loader_mercurial {
   include ::profile::swh::deploy::base_loader_git
 
-  $concurrency = lookup('swh::deploy::worker::swh_loader_mercurial::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_mercurial::loglevel')
+  $concurrency = lookup('swh::deploy::worker::loader_mercurial::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_mercurial::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_loader_mercurial::config_file')
-  $config = lookup('swh::deploy::worker::swh_loader_mercurial::config')
+  $config_file = lookup('swh::deploy::worker::loader_mercurial::config_file')
+  $config = lookup('swh::deploy::worker::loader_mercurial::config')
 
   $service_name = 'loader_mercurial'
-  $private_tmp = lookup('swh::deploy::worker::swh_loader_mercurial::private_tmp')
+  $private_tmp = lookup('swh::deploy::worker::loader_mercurial::private_tmp')
 
   $packages = ['python3-swh.loader.mercurial']
 

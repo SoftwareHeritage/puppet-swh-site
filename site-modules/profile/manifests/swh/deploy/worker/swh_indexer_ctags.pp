@@ -1,13 +1,13 @@
 # Deployment for swh-indexer-ctags
 
-class profile::swh::deploy::worker::swh_indexer_ctags {
+class profile::swh::deploy::worker::indexer_ctags {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::swh_indexer::ctags::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_indexer::ctags::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer::ctags::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer::ctags::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_indexer::ctags::config_file')
-  $config = lookup('swh::deploy::worker::swh_indexer::ctags::config')
+  $config_file = lookup('swh::deploy::worker::indexer::ctags::config_file')
+  $config = lookup('swh::deploy::worker::indexer::ctags::config')
 
   $packages = ['universal-ctags']
   package {$packages:

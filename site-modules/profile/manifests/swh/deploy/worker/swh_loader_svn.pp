@@ -1,14 +1,14 @@
 # Deployment for swh-loader-svn
-class profile::swh::deploy::worker::swh_loader_svn {
-  $concurrency = lookup('swh::deploy::worker::swh_loader_svn::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_svn::loglevel')
+class profile::swh::deploy::worker::loader_svn {
+  $concurrency = lookup('swh::deploy::worker::loader_svn::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_svn::loglevel')
 
   $config_file = '/etc/softwareheritage/loader/svn.yml'
-  $config = lookup('swh::deploy::worker::swh_loader_svn::config')
+  $config = lookup('swh::deploy::worker::loader_svn::config')
 
   $packages = ['python3-swh.loader.svn']
-  $limit_no_file = lookup('swh::deploy::worker::swh_loader_svn::limit_no_file')
-  $private_tmp = lookup('swh::deploy::worker::swh_loader_svn::private_tmp')
+  $limit_no_file = lookup('swh::deploy::worker::loader_svn::limit_no_file')
+  $private_tmp = lookup('swh::deploy::worker::loader_svn::private_tmp')
 
   package {$packages:
     ensure => 'latest',

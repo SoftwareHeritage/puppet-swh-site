@@ -21,13 +21,13 @@ internal_network: 192.168.100.0/24
 smtp::relayhost: '[smtp.inria.fr]'
 
 swh::deploy::worker::instances:
-  - swh_lister_debian
-  - swh_lister_github
-  - swh_lister_gitlab
-  - swh_lister_pypi
-  - swh_loader_debian
-  - swh_loader_deposit
-  - swh_loader_git
-  - swh_loader_mercurial
-  - swh_loader_pypi
-  - swh_loader_svn
+  - lister_debian
+  - lister_github
+  - lister_gitlab
+  - lister_pypi
+  - loader_debian
+  - loader_deposit
+  - loader_git
+  - loader_mercurial
+  - loader_pypi
+  - loader_svn

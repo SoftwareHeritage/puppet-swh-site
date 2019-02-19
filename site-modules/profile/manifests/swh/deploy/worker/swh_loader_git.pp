@@ -1,12 +1,12 @@
 # Deployment for swh-loader-git (remote)
-class profile::swh::deploy::worker::swh_loader_git {
+class profile::swh::deploy::worker::loader_git {
   include ::profile::swh::deploy::base_loader_git
 
-  $concurrency = lookup('swh::deploy::worker::swh_loader_git::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_git::loglevel')
+  $concurrency = lookup('swh::deploy::worker::loader_git::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_git::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_loader_git::config_file')
-  $config = lookup('swh::deploy::worker::swh_loader_git::config')
+  $config_file = lookup('swh::deploy::worker::loader_git::config_file')
+  $config = lookup('swh::deploy::worker::loader_git::config')
 
   ::profile::swh::deploy::worker::instance {'loader_git':
     ensure       => present,

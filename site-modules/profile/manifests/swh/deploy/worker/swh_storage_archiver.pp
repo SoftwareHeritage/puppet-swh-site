@@ -1,15 +1,15 @@
 # Deployment for swh-storage-archiver
-class profile::swh::deploy::worker::swh_storage_archiver {
+class profile::swh::deploy::worker::storage_archiver {
   include ::profile::swh::deploy::archiver
 
-  $concurrency = lookup('swh::deploy::worker::swh_storage_archiver::concurrency')
-  $max_tasks_per_child = lookup('swh::deploy::worker::swh_storage_archiver::max_tasks_per_child')
-  $loglevel = lookup('swh::deploy::worker::swh_storage_archiver::loglevel')
+  $concurrency = lookup('swh::deploy::worker::storage_archiver::concurrency')
+  $max_tasks_per_child = lookup('swh::deploy::worker::storage_archiver::max_tasks_per_child')
+  $loglevel = lookup('swh::deploy::worker::storage_archiver::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_storage_archiver::conf_file')
-  $config = lookup('swh::deploy::worker::swh_storage_archiver::config')
+  $config_file = lookup('swh::deploy::worker::storage_archiver::conf_file')
+  $config = lookup('swh::deploy::worker::storage_archiver::config')
 
-  ::profile::swh::deploy::worker::instance {'swh_storage_archiver':
+  ::profile::swh::deploy::worker::instance {'storage_archiver':
     ensure              => present,
     concurrency         => $concurrency,
     loglevel            => $loglevel,

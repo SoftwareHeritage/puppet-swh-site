@@ -1,10 +1,10 @@
 # Deployment for swh-lister-debian
-class profile::swh::deploy::worker::swh_lister_debian {
-  $concurrency = lookup('swh::deploy::worker::swh_lister_debian::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_lister_debian::loglevel')
+class profile::swh::deploy::worker::lister_debian {
+  $concurrency = lookup('swh::deploy::worker::lister_debian::concurrency')
+  $loglevel = lookup('swh::deploy::worker::lister_debian::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_lister_debian::config_file')
-  $config = lookup('swh::deploy::worker::swh_lister_debian::config', Hash, 'deep')
+  $config_file = lookup('swh::deploy::worker::lister_debian::config_file')
+  $config = lookup('swh::deploy::worker::lister_debian::config', Hash, 'deep')
 
   include ::profile::swh::deploy::base_lister
 

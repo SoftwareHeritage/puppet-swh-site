@@ -1,13 +1,13 @@
 # Deployment for swh-loader-deposit
-class profile::swh::deploy::worker::swh_loader_deposit {
-  $concurrency = lookup('swh::deploy::worker::swh_loader_deposit::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_loader_deposit::loglevel')
+class profile::swh::deploy::worker::loader_deposit {
+  $concurrency = lookup('swh::deploy::worker::loader_deposit::concurrency')
+  $loglevel = lookup('swh::deploy::worker::loader_deposit::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_loader_deposit::config_file')
-  $config = lookup('swh::deploy::worker::swh_loader_deposit::config')
+  $config_file = lookup('swh::deploy::worker::loader_deposit::config_file')
+  $config = lookup('swh::deploy::worker::loader_deposit::config')
 
   $packages = ['python3-swh.deposit.loader']
-  $private_tmp = lookup('swh::deploy::worker::swh_loader_deposit::private_tmp')
+  $private_tmp = lookup('swh::deploy::worker::loader_deposit::private_tmp')
 
   $service_name = 'loader_deposit'
 

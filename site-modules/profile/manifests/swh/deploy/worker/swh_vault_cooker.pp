@@ -1,13 +1,13 @@
 # Deployment of a vault cooker
 
-class profile::swh::deploy::worker::swh_vault_cooker {
+class profile::swh::deploy::worker::vault_cooker {
   include ::profile::swh::deploy::base_vault
 
-  $concurrency = lookup('swh::deploy::worker::swh_vault_cooker::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_vault_cooker::loglevel')
+  $concurrency = lookup('swh::deploy::worker::vault_cooker::concurrency')
+  $loglevel = lookup('swh::deploy::worker::vault_cooker::loglevel')
 
-  $conf_file = lookup('swh::deploy::worker::swh_vault_cooker::config_file')
-  $config = lookup('swh::deploy::worker::swh_vault_cooker::config')
+  $conf_file = lookup('swh::deploy::worker::vault_cooker::config_file')
+  $config = lookup('swh::deploy::worker::vault_cooker::config')
 
   ::profile::swh::deploy::worker::instance {'vault_cooker':
     ensure       => present,

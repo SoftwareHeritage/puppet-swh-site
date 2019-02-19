@@ -1,10 +1,10 @@
 # Deployment for swh-lister-github
-class profile::swh::deploy::worker::swh_lister_github {
-  $concurrency = lookup('swh::deploy::worker::swh_lister_github::concurrency')
-  $loglevel = lookup('swh::deploy::worker::swh_lister_github::loglevel')
+class profile::swh::deploy::worker::lister_github {
+  $concurrency = lookup('swh::deploy::worker::lister_github::concurrency')
+  $loglevel = lookup('swh::deploy::worker::lister_github::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::swh_lister_github::config_file')
-  $config = lookup('swh::deploy::worker::swh_lister_github::config', Hash, 'deep')
+  $config_file = lookup('swh::deploy::worker::lister_github::config_file')
+  $config = lookup('swh::deploy::worker::lister_github::config', Hash, 'deep')
 
   include ::profile::swh::deploy::base_lister
 
