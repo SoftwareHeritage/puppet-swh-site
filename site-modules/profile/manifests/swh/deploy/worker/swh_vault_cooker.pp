@@ -5,21 +5,14 @@ class profile::swh::deploy::worker::swh_vault_cooker {
 
   $concurrency = lookup('swh::deploy::worker::swh_vault_cooker::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_vault_cooker::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_vault_cooker::task_broker')
 
   $conf_file = lookup('swh::deploy::worker::swh_vault_cooker::config_file')
   $config = lookup('swh::deploy::worker::swh_vault_cooker::config')
-
-  $task_modules = ['swh.vault.cooking_tasks']
-  $task_queues = ['swh_vault_cooking', 'swh_vault_batch_cooking']
 
   ::profile::swh::deploy::worker::instance {'vault_cooker':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Package[$packages],
       File[$conf_file],

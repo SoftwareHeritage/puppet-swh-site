@@ -5,21 +5,14 @@ class profile::swh::deploy::worker::swh_indexer_origin_intrinsic_metadata {
 
   $concurrency = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config_file')
   $config = lookup('swh::deploy::worker::swh_indexer::origin_intrinsic_metadata::config')
-
-  $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_origin_intrinsic_metadata']
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_origin_intrinsic_metadata':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],

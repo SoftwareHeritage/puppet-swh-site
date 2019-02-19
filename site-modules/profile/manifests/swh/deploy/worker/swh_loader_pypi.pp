@@ -2,13 +2,10 @@
 class profile::swh::deploy::worker::swh_loader_pypi {
   $concurrency = lookup('swh::deploy::worker::swh_loader_pypi::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_loader_pypi::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_loader_pypi::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_loader_pypi::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_pypi::config')
 
-  $task_modules = ['swh.loader.pypi.tasks']
-  $task_queues = ['swh_loader_pypi']
   $private_tmp = lookup('swh::deploy::worker::swh_loader_pypi::private_tmp')
 
   $packages = ['python3-swh.loader.pypi']
@@ -21,9 +18,6 @@ class profile::swh::deploy::worker::swh_loader_pypi {
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     private_tmp  => $private_tmp,
     require      => [
       Package[$packages],

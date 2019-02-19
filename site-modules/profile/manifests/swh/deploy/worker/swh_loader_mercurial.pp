@@ -4,13 +4,9 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
 
   $concurrency = lookup('swh::deploy::worker::swh_loader_mercurial::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_loader_mercurial::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_loader_mercurial::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_loader_mercurial::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_mercurial::config')
-
-  $task_modules = ['swh.loader.mercurial.tasks']
-  $task_queues = ['swh_loader_mercurial', 'swh_loader_mercurial_archive']
 
   $service_name = 'loader_mercurial'
   $private_tmp = lookup('swh::deploy::worker::swh_loader_mercurial::private_tmp')
@@ -26,9 +22,6 @@ class profile::swh::deploy::worker::swh_loader_mercurial {
     ensure       => running,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     private_tmp  => $private_tmp,
     require      => [
       File[$config_file],

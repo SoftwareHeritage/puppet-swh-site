@@ -2,13 +2,9 @@
 class profile::swh::deploy::worker::swh_loader_debian {
   $concurrency = lookup('swh::deploy::worker::swh_loader_debian::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_loader_debian::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_loader_debian::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_loader_debian::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_debian::config')
-
-  $task_modules = ['swh.loader.debian.tasks']
-  $task_queues = ['swh_loader_debian']
 
   $packages = ['python3-swh.loader.debian']
 
@@ -20,9 +16,6 @@ class profile::swh::deploy::worker::swh_loader_debian {
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Package[$packages],
       File[$config_file],

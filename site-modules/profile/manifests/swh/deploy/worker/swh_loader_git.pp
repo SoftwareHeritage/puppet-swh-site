@@ -4,21 +4,14 @@ class profile::swh::deploy::worker::swh_loader_git {
 
   $concurrency = lookup('swh::deploy::worker::swh_loader_git::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_loader_git::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_loader_git::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_loader_git::config_file')
   $config = lookup('swh::deploy::worker::swh_loader_git::config')
-
-  $task_modules = ['swh.loader.git.tasks']
-  $task_queues = ['swh_loader_git']
 
   ::profile::swh::deploy::worker::instance {'loader_git':
     ensure       => present,
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::base_loader_git'],
       File[$config_file],

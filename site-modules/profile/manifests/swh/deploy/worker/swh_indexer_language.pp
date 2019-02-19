@@ -5,7 +5,6 @@ class profile::swh::deploy::worker::swh_indexer_language {
 
   $concurrency = lookup('swh::deploy::worker::swh_indexer::language::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_indexer::language::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_indexer::language::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::language::config_file')
   $config = lookup('swh::deploy::worker::swh_indexer::language::config')
@@ -17,9 +16,6 @@ class profile::swh::deploy::worker::swh_indexer_language {
     ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],

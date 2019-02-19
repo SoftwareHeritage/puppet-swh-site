@@ -5,13 +5,9 @@ class profile::swh::deploy::worker::swh_indexer_ctags {
 
   $concurrency = lookup('swh::deploy::worker::swh_indexer::ctags::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_indexer::ctags::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_indexer::ctags::task_broker')
 
   $config_file = lookup('swh::deploy::worker::swh_indexer::ctags::config_file')
   $config = lookup('swh::deploy::worker::swh_indexer::ctags::config')
-
-  $task_modules = ['swh.indexer.tasks']
-  $task_queues = ['swh_indexer_content_ctags']
 
   $packages = ['universal-ctags']
   package {$packages:
@@ -22,9 +18,6 @@ class profile::swh::deploy::worker::swh_indexer_ctags {
     ensure       => 'stopped',
     concurrency  => $concurrency,
     loglevel     => $loglevel,
-    task_broker  => $task_broker,
-    task_modules => $task_modules,
-    task_queues  => $task_queues,
     require      => [
       Class['profile::swh::deploy::indexer'],
       Class['profile::swh::deploy::objstorage_cloud'],

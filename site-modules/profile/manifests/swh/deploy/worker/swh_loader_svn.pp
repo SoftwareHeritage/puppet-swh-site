@@ -2,13 +2,9 @@
 class profile::swh::deploy::worker::swh_loader_svn {
   $concurrency = lookup('swh::deploy::worker::swh_loader_svn::concurrency')
   $loglevel = lookup('swh::deploy::worker::swh_loader_svn::loglevel')
-  $task_broker = lookup('swh::deploy::worker::swh_loader_svn::task_broker')
 
   $config_file = '/etc/softwareheritage/loader/svn.yml'
   $config = lookup('swh::deploy::worker::swh_loader_svn::config')
-
-  $task_modules = ['swh.loader.svn.tasks']
-  $task_queues = ['swh_loader_svn', 'swh_loader_svn_mount_and_load']
 
   $packages = ['python3-swh.loader.svn']
   $limit_no_file = lookup('swh::deploy::worker::swh_loader_svn::limit_no_file')
@@ -22,9 +18,6 @@ class profile::swh::deploy::worker::swh_loader_svn {
     ensure        => present,
     concurrency   => $concurrency,
     loglevel      => $loglevel,
-    task_broker   => $task_broker,
-    task_modules  => $task_modules,
-    task_queues   => $task_queues,
     limit_no_file => $limit_no_file,
     private_tmp   => $private_tmp,
     require       => [
