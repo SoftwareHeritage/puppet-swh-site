@@ -3,11 +3,11 @@
 class profile::swh::deploy::worker::indexer_origin_intrinsic_metadata {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::indexer::origin_intrinsic_metadata::concurrency')
-  $loglevel = lookup('swh::deploy::worker::indexer::origin_intrinsic_metadata::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::indexer::origin_intrinsic_metadata::config_file')
-  $config = lookup('swh::deploy::worker::indexer::origin_intrinsic_metadata::config')
+  $config_file = lookup('swh::deploy::worker::indexer_origin_intrinsic_metadata::config_file')
+  $config = lookup('swh::deploy::worker::indexer_origin_intrinsic_metadata::config')
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_origin_intrinsic_metadata':
     ensure       => present,

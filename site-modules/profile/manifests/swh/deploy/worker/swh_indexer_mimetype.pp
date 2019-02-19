@@ -3,11 +3,11 @@
 class profile::swh::deploy::worker::indexer_mimetype {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::indexer::mimetype::concurrency')
-  $loglevel = lookup('swh::deploy::worker::indexer::mimetype::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer_mimetype::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer_mimetype::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::indexer::mimetype::config_file')
-  $config = lookup('swh::deploy::worker::indexer::mimetype::config')
+  $config_file = lookup('swh::deploy::worker::indexer_mimetype::config_file')
+  $config = lookup('swh::deploy::worker::indexer_mimetype::config')
 
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_mimetype':
     ensure       => present,

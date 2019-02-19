@@ -3,11 +3,11 @@
 class profile::swh::deploy::worker::indexer_ctags {
   include ::profile::swh::deploy::indexer
 
-  $concurrency = lookup('swh::deploy::worker::indexer::ctags::concurrency')
-  $loglevel = lookup('swh::deploy::worker::indexer::ctags::loglevel')
+  $concurrency = lookup('swh::deploy::worker::indexer_ctags::concurrency')
+  $loglevel = lookup('swh::deploy::worker::indexer_ctags::loglevel')
 
-  $config_file = lookup('swh::deploy::worker::indexer::ctags::config_file')
-  $config = lookup('swh::deploy::worker::indexer::ctags::config')
+  $config_file = lookup('swh::deploy::worker::indexer_ctags::config_file')
+  $config = lookup('swh::deploy::worker::indexer_ctags::config')
 
   $packages = ['universal-ctags']
   package {$packages:
