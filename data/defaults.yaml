@@ -1861,8 +1861,8 @@ swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::work
 swh::deploy::worker::instances:
   - loader_debian
   - loader_git
-  - swh_lister_debian
-  - swh_lister_github
+  - lister_debian
+  - lister_github
 
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 2
