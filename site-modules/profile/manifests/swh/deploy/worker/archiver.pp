@@ -1,6 +1,6 @@
 # Deployment for archiver (content)
 class profile::swh::deploy::worker::archiver {
-  include ::profile::swh::deploy::archiver
+  include ::profile::swh::deploy::base_archiver
 
   $max_tasks_per_child = lookup('swh::deploy::worker::archiver::max_tasks_per_child')
 

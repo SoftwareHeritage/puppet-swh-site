@@ -1,7 +1,7 @@
 # Deployment of the swh.storage.archiver.updater
 
 class profile::swh::deploy::archiver_content_updater {
-  include profile::swh::deploy::archiver
+  include profile::swh::deploy::base_archiver
 
   $conf_file = lookup('swh::deploy::archiver_content_updater::conf_file')
   $user = lookup('swh::deploy::archiver_content_updater::user')
