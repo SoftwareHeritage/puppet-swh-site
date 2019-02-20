@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::loader_deposit {
   $private_tmp = lookup('swh::deploy::worker::loader_deposit::private_tmp')
 
   package {$packages:
-    ensure => 'latest',
+    ensure => 'present',
   }
 
   # This installs the swh-worker@$service_name service

@@ -5,7 +5,7 @@ class profile::swh::deploy::worker::loader_pypi {
   $packages = ['python3-swh.loader.pypi']
 
   package {$packages:
-    ensure => 'latest',
+    ensure => 'present',
   }
 
   ::profile::swh::deploy::worker::instance {'loader_pypi':

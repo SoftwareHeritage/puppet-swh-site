@@ -5,7 +5,7 @@ class profile::swh::deploy::worker::loader_svn {
   $private_tmp = lookup('swh::deploy::worker::loader_svn::private_tmp')
 
   package {$packages:
-    ensure => 'latest',
+    ensure => 'present',
   }
 
   ::profile::swh::deploy::worker::instance {'loader_svn':

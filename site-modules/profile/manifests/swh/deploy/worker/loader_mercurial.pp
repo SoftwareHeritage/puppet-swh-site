@@ -4,7 +4,7 @@ class profile::swh::deploy::worker::loader_mercurial {
   $packages = ['python3-swh.loader.mercurial']
 
   package {$packages:
-    ensure => 'latest',
+    ensure => 'present',
   }
 
   ::profile::swh::deploy::worker::instance {'loader_mercurial':
