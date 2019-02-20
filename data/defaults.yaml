@@ -1516,13 +1516,12 @@ swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
   - /1/private/deposits/
 
-swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
-swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
-swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/private.yml"
+swh::deploy::deposit::config_directory: "%{hiera('swh::conf_directory')}/deposit"
+swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_directory')}/server.yml"
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-# test configuration
+# swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
   tool:
@@ -1531,17 +1530,15 @@ swh::deploy::deposit::config:
     configuration:
       sword_version: 2
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-
-# swh::deploy::deposit::runtime_secret_key in private data
-swh::deploy::deposit::settings_private_data:
-  secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
-  db:
-    host: db
-    port: 5432
-    name: softwareheritage-deposit
-    user: swhstorage
-    password: "%{hiera('swh::deploy::storage::db::password')}"
-  media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
+  private:
+    secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
+    db:
+      host: db
+      port: 5432
+      name: softwareheritage-deposit
+      user: swhstorage
+      password: "%{hiera('swh::deploy::storage::db::password')}"
+    media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 2
