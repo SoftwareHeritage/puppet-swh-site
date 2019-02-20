@@ -42,7 +42,7 @@ ceph::client_keyrings:
       - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
 
 swh::deploy::worker::instances:
-  - storage_archiver
+  - archiver
 
 icinga2::host::vars:
   load: high

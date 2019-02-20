@@ -1459,7 +1459,7 @@ swh::deploy::journal_simple_checker_producer::config:
     - origin
     - origin_visit
 
-swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::storage_archiver::conf_directory')}/content_updater.yml"
+swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::archiver::conf_directory')}/content_updater.yml"
 swh::deploy::archiver_content_updater::user: swhstorage
 swh::deploy::archiver_content_updater::group: swhstorage
 swh::deploy::archiver_content_updater::config:
@@ -1473,7 +1473,7 @@ swh::deploy::archiver_content_updater::config:
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
   sources_present:
     - uffizi
 
@@ -1607,10 +1607,10 @@ swh::deploy::objstorage_archive_notifier_checker::user: "%{hiera('swh::deploy::o
 swh::deploy::objstorage_archive_notifier_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
 swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
 swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
-swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::storage_archiver::db::host')}"
-swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::storage_archiver::db::dbname')}"
-swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::storage_archiver::db::user')}"
-swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
+swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::archiver::db::host')}"
+swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::archiver::db::dbname')}"
+swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::archiver::db::user')}"
+swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::archiver::db::password')}"
 swh::deploy::objstorage_archive_notifier_checker::config:
   storage:
     cls: pathslicing
@@ -1623,7 +1623,7 @@ swh::deploy::objstorage_archive_notifier_checker::config:
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
 
 swh::deploy::webapp::backported_packages:
   stretch:
@@ -2045,27 +2045,27 @@ swh::deploy::worker::lister_pypi::config:
       - swh.lister.pypi.tasks.PyPIListerTask
       - swh_lister_pypi_refresh
 
-swh::deploy::worker::storage_archiver::config_file: "%{hiera('swh::conf_directory')}/storage_archiver.yml"
-swh::deploy::worker::storage_archiver::archival_max_age: 3600
-swh::deploy::worker::storage_archiver::max_queue_length: 100000
-swh::deploy::worker::storage_archiver::retention_policy: 3
-swh::deploy::worker::storage_archiver::batch_max_size: 5
-swh::deploy::worker::storage_archiver::db::host: db
-swh::deploy::worker::storage_archiver::db::dbname: softwareheritage-archiver
-swh::deploy::worker::storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
-swh::deploy::worker::storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
-swh::deploy::worker::storage_archiver::concurrency: 10
-swh::deploy::worker::storage_archiver::max_tasks_per_child: 500
-swh::deploy::worker::storage_archiver::loglevel: info
+swh::deploy::worker::archiver::config_file: "%{hiera('swh::conf_directory')}/archiver.yml"
+swh::deploy::worker::archiver::archival_max_age: 3600
+swh::deploy::worker::archiver::max_queue_length: 100000
+swh::deploy::worker::archiver::retention_policy: 3
+swh::deploy::worker::archiver::batch_max_size: 5
+swh::deploy::worker::archiver::db::host: db
+swh::deploy::worker::archiver::db::dbname: softwareheritage-archiver
+swh::deploy::worker::archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
+swh::deploy::worker::archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
+swh::deploy::worker::archiver::concurrency: 10
+swh::deploy::worker::archiver::max_tasks_per_child: 500
+swh::deploy::worker::archiver::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::storage_archiver::config:
-  archival_max_age: "%{hiera('swh::deploy::worker::storage_archiver::archival_max_age')}"
-  retention_policy: "%{hiera('swh::deploy::worker::storage_archiver::retention_policy')}"
-  batch_max_size: "%{hiera('swh::deploy::worker::storage_archiver::batch_max_size')}"
+swh::deploy::worker::archiver::config:
+  archival_max_age: "%{hiera('swh::deploy::worker::archiver::archival_max_age')}"
+  retention_policy: "%{hiera('swh::deploy::worker::archiver::retention_policy')}"
+  batch_max_size: "%{hiera('swh::deploy::worker::archiver::batch_max_size')}"
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::storage_archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
   storages:
     - host: uffizi
       <<: *swh_objstorage_config_uffizi
@@ -2076,7 +2076,7 @@ swh::deploy::worker::storage_archiver::config:
   sources:
     - uffizi
     - banco
-  max_queue_length: "%{hiera('swh::deploy::worker::storage_archiver::max_queue_length')}"
+  max_queue_length: "%{hiera('swh::deploy::worker::archiver::max_queue_length')}"
   celery:
     task_modules:
       - swh.archiver.tasks
