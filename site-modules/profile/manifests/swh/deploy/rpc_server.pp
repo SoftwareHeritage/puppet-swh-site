@@ -87,11 +87,14 @@ define profile::swh::deploy::rpc_server (
   }
 
   ::gunicorn::instance {$service_name:
-    ensure     => enabled,
-    user       => $user,
-    group      => $group,
-    executable => $executable,
-    settings   => {
+    ensure      => enabled,
+    user        => $user,
+    group       => $group,
+    executable  => $executable,
+    environment => {
+      'SWH_CONFIG_FILENAME' => $conf_file,
+    },
+    settings    => {
       bind                => $gunicorn_unix_socket,
       workers             => $backend_workers,
       worker_class        => $gunicorn_worker_class,
