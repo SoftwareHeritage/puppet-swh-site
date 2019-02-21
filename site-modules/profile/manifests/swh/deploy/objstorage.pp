@@ -19,7 +19,7 @@ class profile::swh::deploy::objstorage {
   }
 
   ::profile::swh::deploy::rpc_server {'objstorage':
-    executable => 'swh.objstorage.api.server:app',
+    executable => 'swh.objstorage.api.wsgi',
     worker     => 'async',
   }
 }
