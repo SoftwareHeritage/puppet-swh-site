@@ -6,7 +6,7 @@ class profile::swh::deploy::storage {
   package {'python3-swh.storage':
     ensure => 'present',
   } ~> ::profile::swh::deploy::rpc_server {'storage':
-    executable        => 'swh.storage.api.server:run_from_webserver',
+    executable        => 'swh.storage.api.wsgi',
     worker            => 'sync',
     http_check_string => '<title>Software Heritage storage server</title>'
   }
