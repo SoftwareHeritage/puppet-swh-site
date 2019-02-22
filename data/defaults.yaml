@@ -2161,6 +2161,7 @@ swh::deploy::worker::indexer_fossology_license::config:
       - swh.indexer.tasks.ContentFossologyLicense
       - swh.indexer.tasks.ContentRangeFossologyLicense
       - swh_indexer_content_fossology_license_range
+  write_batch_size: 1000
 
 swh::deploy::worker::indexer_content_language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
 swh::deploy::worker::indexer_content_language::concurrency: 3
