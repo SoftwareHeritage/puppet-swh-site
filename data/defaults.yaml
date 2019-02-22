@@ -2102,6 +2102,13 @@ swh::deploy::worker::indexer_content_mimetype::config:
       - swh.indexer.tasks.ContentMimetype
       - swh.indexer.tasks.ContentRangeMimetype
       - swh_indexer_content_mimetype_range
+  tools:
+    name: file,
+    version: 1:5.30-1+deb9u1,
+    configuration:
+      type: library
+      debian-package: python3-magic
+  write_batch_size: 1000
 
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
 swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 2
