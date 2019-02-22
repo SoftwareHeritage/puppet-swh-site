@@ -1268,6 +1268,14 @@ swh::remote_service::objstorage::config::banco::readonly:
     filters_conf:
       - type: readonly
 
+swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
+  cls: multiplexer
+  args:
+    objstorages:
+      - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::uffizi::readonly')}"
+
 swh::remote_service::objstorage::config::localhost:
   cls: remote
   args:
