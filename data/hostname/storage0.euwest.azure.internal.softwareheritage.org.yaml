@@ -19,6 +19,23 @@ swh::deploy::indexer::storage::config:
     args:
       db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
-swh::deploy::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
+  cls: multiplexer
+  args:
+    objstorages:
+      - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::uffizi::readonly')}"
+
+swh::deploy::objstorage::config:
+  objstorage:
+    <<: *swh_azure_readonly_with_fallback
+
+swh::deploy::storage::config:
+  storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::worker::instances: []
