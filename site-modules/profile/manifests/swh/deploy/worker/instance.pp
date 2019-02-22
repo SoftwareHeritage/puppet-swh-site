@@ -28,6 +28,14 @@ define profile::swh::deploy::worker::instance (
         content  => template('profile/swh/deploy/worker/parameters.conf.erb'),
       }
 
+      file {$config_file:
+        ensure  => 'present',
+        owner   => 'swhworker',
+        group   => 'swhworker',
+        mode    => '0644',
+        content => inline_template("<%= @config.to_yaml %>\n"),
+      }
+
       if $ensure == 'running' {
         service {$service_basename:
           ensure  => $ensure,
@@ -36,13 +44,6 @@ define profile::swh::deploy::worker::instance (
           ]
         }
 
-        file {$config_file:
-          ensure  => 'present',
-          owner   => 'swhworker',
-          group   => 'swhworker',
-          mode    => '0644',
-          content => inline_template("<%= @config.to_yaml %>\n"),
-        }
       }
     }
     default: {
