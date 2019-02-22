@@ -2092,7 +2092,7 @@ swh::deploy::worker::indexer_content_mimetype::loglevel: info
 swh::deploy::worker::indexer_content_mimetype::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2117,7 +2117,7 @@ swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel: info
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2145,7 +2145,7 @@ swh::deploy::worker::indexer_fossology_license::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_fossology_license::config:
   indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
   storage: "%{alias('swh::remote_service::storage::config::azure')}"
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
