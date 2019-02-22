@@ -1484,10 +1484,11 @@ swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:2/2:4/4:6
 swh::deploy::objstorage::config:
-  cls: pathslicing
-  args:
-    root: "%{hiera('swh::deploy::objstorage::directory')}"
-    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  objstorage:
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::objstorage::directory')}"
+      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
   max_client_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
