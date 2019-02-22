@@ -1,6 +1,6 @@
 # Deployment for swh-indexer-ctags
 
-class profile::swh::deploy::worker::indexer_ctags {
+class profile::swh::deploy::worker::indexer_content_ctags {
   include ::profile::swh::deploy::indexer
 
   $packages = ['universal-ctags']

@@ -13,7 +13,7 @@ dns::forwarder_insecure: false
 internal_network: 192.168.200.0/21
 
 swh::deploy::worker::instances:
-  - indexer_mimetype
+  - indexer_content_mimetype
   - indexer_fossology_license
   - indexer_origin_intrinsic_metadata
 
