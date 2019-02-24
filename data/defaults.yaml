@@ -2112,7 +2112,7 @@ swh::deploy::worker::indexer_content_mimetype::config:
       - swh_indexer_content_mimetype_range
   tools:
     name: file
-    version: 1:5.30-1+deb9u1,
+    version: 1:5.30-1+deb9u1
     configuration:
       type: library
       debian-package: python3-magic
