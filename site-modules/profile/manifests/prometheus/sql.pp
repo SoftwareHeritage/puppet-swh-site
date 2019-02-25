@@ -1,6 +1,8 @@
 # Deployment of prometheus SQL exporter
 
 class profile::prometheus::sql {
+  include profile::prometheus::base
+
   $exporter_name = 'sql'
   $package_name = "prometheus-${exporter_name}-exporter"
   $service_name = $package_name

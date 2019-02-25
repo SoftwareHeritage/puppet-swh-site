@@ -1,6 +1,6 @@
 # Configure the Prometheus server
 class profile::prometheus::server {
-  include profile::prometheus::apt_config
+  include profile::prometheus::base
 
   $config_dir = '/etc/prometheus'
   $config_file = "${config_dir}/prometheus.yml"

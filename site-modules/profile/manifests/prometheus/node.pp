@@ -1,6 +1,6 @@
 # Prometheus configuration for nodes
 class profile::prometheus::node {
-  include profile::prometheus::apt_config
+  include profile::prometheus::base
 
   $defaults_file = '/etc/default/prometheus-node-exporter'
 

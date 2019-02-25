@@ -1,6 +1,6 @@
 # Prometheus configuration for statsd exporter
 class profile::prometheus::statsd {
-  include profile::prometheus::apt_config
+  include profile::prometheus::base
 
   $defaults_file = '/etc/default/prometheus-statsd-exporter'
   $mapping_config_file = '/etc/prometheus/statsd_exporter_mapping.yml'
