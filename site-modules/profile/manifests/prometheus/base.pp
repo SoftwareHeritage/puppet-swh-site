@@ -1,5 +1,5 @@
 # Base configuration for all prometheus exporters
-class profile::prometheus::statsd {
+class profile::prometheus::base {
   include profile::prometheus::apt_config
 
   file {'/etc/prometheus':
