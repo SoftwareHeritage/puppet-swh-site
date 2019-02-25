@@ -2136,14 +2136,7 @@ swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
   tools:
     name: swh-metadata-detector
     version: 0.0.2
-    configuration:
-      type: local
-      context:
-        - CodemetaMapping
-        - MavenMapping
-        - GemspecMapping
-        - NpmMapping
-        - PythonPkginfoMapping
+    configuration: {}
 
 swh::deploy::worker::indexer_rehash::config_file: "rehash.yml"
 swh::deploy::worker::indexer_rehash::concurrency: 5
