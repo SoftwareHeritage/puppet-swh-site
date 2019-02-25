@@ -6,6 +6,7 @@ class role::swh_base {
   include profile::resolv_conf
   include profile::munin::node
   include profile::prometheus::node
+  include profile::prometheus::statsd
   include profile::icinga2
   include profile::rsyslog
 

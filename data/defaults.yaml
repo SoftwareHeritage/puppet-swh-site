@@ -3102,6 +3102,40 @@ prometheus::node::scripts:
       specification:
         minute: fqdn_rand
 
+prometheus::statsd::listen_network: "%{lookup('internal_network')}"
+prometheus::statsd::listen_port: 9102
+prometheus::statsd::defaults_config: {}
+prometheus::statsd::statsd_listen_tcp: 127.0.0.1:8125
+prometheus::statsd::statsd_listen_udp: 127.0.0.1:8125
+prometheus::statsd::mapping:
+  defaults:
+    timer_type: histogram
+    buckets:
+      - .005
+      - .01
+      - .025
+      - .05
+      - .1
+      - .25
+      - .5
+      - .75
+      - 1
+      - 2
+      - 5
+      - 10
+      - 15
+      - 30
+      - 45
+      - 60
+      - 120
+      - 300
+      - 600
+      - 900
+      - 1800
+      - 2700
+      - 3600
+      - 7200
+
 prometheus::sql::listen_network: "%{lookup('internal_network')}"
 prometheus::sql::listen_port: 9237
 prometheus::sql::config_snippets:
