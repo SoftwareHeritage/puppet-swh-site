@@ -1160,6 +1160,13 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
  - "o=packages.sury.org"                                                # PHP backports (tate)
 
+
+
+
+#####################################################################################################
+# Remote service configurations
+
+# Default ports
 swh::remote_service::storage::port: 5002
 swh::remote_service::objstorage::port: 5003
 swh::remote_service::webapp::port: 5004
@@ -1168,6 +1175,31 @@ swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 5008
 
+
+# Default backend services. Override in specific sites if needed. Configurations
+# are split between read-only (the default) and writable storages. In most cases
+# overrides should only happen for read-only services.
+
+swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+swh::remote_service::objstorage::config_as_dict:
+  banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
+  uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+  azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
+swh::remote_service::storage::config::writable: "%{alias('swh::remote_service::storage::config::uffizi')}"
+
+swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::uffizi')}"
+swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::uffizi')}"
+
+swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+
+swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::orangerie')}"
+swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::orangerie')}"
+
+# Objstorage backend configurations
 swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
   cls: azure-prefixed
   args:
@@ -1281,12 +1313,8 @@ swh::remote_service::objstorage::config::localhost:
   args:
     url: "http://127.0.0.1:%{hiera('swh::remote_service::objstorage::port')}/"
 
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
-swh::remote_service::objstorage::config_as_dict:
-  banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
-  uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
-  azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
 
+# Storage backend configurations
 swh::remote_service::storage::config::uffizi:
   cls: remote
   args:
@@ -1302,22 +1330,34 @@ swh::remote_service::storage::config::localhost:
   args:
     url: "http://localhost:%{hiera('swh::remote_service::storage::port')}/"
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
 
-swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
+# Indexer backend configurations
+swh::remote_service::indexer::config::uffizi:
   cls: remote
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
-swh::indexer::storage::config::azure:
+swh::remote_service::indexer::config::azure:
   cls: remote
   args:
     url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
-swh::remote_service::scheduler::config::saatchi: &swh_scheduler_remote_config_saatchi
+
+# Scheduler backend configurations
+swh::remote_service::scheduler::config::saatchi:
   cls: remote
   args:
     url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+
+
+# Vault backend configurations
+swh::remote_service::vault::config::orangerie:
+  cls: remote
+  args:
+    url: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
+
+# End remote service configurations
+#####################################################################################################
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
@@ -1375,7 +1415,10 @@ swh::deploy::indexer::storage::backend::server_names:
   - localhost
   - "::1"
 swh::deploy::indexer::storage::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+  indexer_storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
 swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
@@ -1412,7 +1455,7 @@ swh::deploy::vault::backend::server_names:
   - "::1"
 swh::deploy::vault::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   cache:
     cls: pathslicing
     args:
@@ -1530,7 +1573,7 @@ swh::deploy::deposit::config:
     version: '0.0.1'
     configuration:
       sword_version: 2
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
@@ -1547,7 +1590,7 @@ swh::deploy::worker::loader_deposit::private_tmp: true
 swh::deploy::worker::loader_deposit::loglevel: info
 # deposit_basic_auth_swhworker_{username|password} in private_data
 swh::deploy::worker::loader_deposit::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1648,18 +1691,15 @@ swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
-swh::deploy::webapp::indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
 # in private data:
 # swh::deploy::webapp::config::grecaptcha::private_key
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
-  storage:
-    cls: remote
-    args:
-      url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
-  vault: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
-  indexer_storage: "%{alias('swh::deploy::webapp::indexer_storage')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 1048576
@@ -1693,10 +1733,6 @@ swh::deploy::webapp::config:
           - 128.93.193.29
           - 131.107.174.0/24
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
-  scheduler:
-    cls: remote
-    args:
-      url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
   grecaptcha:
     activated: true
     validation_url: https://www.google.com/recaptcha/api/siteverify
@@ -1785,8 +1821,7 @@ swh::deploy::scheduler::remote::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
-swh::deploy::scheduler::remote::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
 swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
@@ -1825,7 +1860,7 @@ swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
 swh::deploy::scheduler::updater::writer::timer_period: "00/4:00"
 swh::deploy::scheduler::updater::writer::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   scheduler_updater:
     scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
     cache_read_limit: 1000
@@ -1866,7 +1901,7 @@ swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/l
 swh::deploy::worker::loader_git::concurrency: 2
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
@@ -1885,7 +1920,7 @@ swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')
 swh::deploy::worker::loader_debian::concurrency: 1
 swh::deploy::worker::loader_debian::loglevel: info
 swh::deploy::worker::loader_debian::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   directory_packet_size: 100
   lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
   celery:
@@ -1901,8 +1936,8 @@ swh::deploy::worker::lister_debian::config_file: "%{hiera('swh::conf_directory')
 swh::deploy::worker::lister_debian::concurrency: 1
 swh::deploy::worker::lister_debian::loglevel: info
 swh::deploy::worker::lister_debian::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   lister:
     cls: local
     args:
@@ -1920,7 +1955,7 @@ swh::deploy::worker::loader_mercurial::concurrency: 1
 swh::deploy::worker::loader_mercurial::private_tmp: true
 swh::deploy::worker::loader_mercurial::loglevel: info
 swh::deploy::worker::loader_mercurial::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   reduce_effort: False
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1937,7 +1972,7 @@ swh::deploy::worker::loader_pypi::concurrency: 1
 swh::deploy::worker::loader_pypi::private_tmp: true
 swh::deploy::worker::loader_pypi::loglevel: info
 swh::deploy::worker::loader_pypi::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1953,7 +1988,7 @@ swh::deploy::worker::loader_svn::limit_no_file: 8192
 swh::deploy::worker::loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::loader_svn::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1974,8 +2009,8 @@ swh::deploy::worker::lister_github::db::dbname: lister-github
 swh::deploy::worker::lister_github::db::user: lister-github
 #swh::deploy::worker::lister_github::db::password in private data
 swh::deploy::worker::lister_github::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   lister:
     cls: local
     args:
@@ -2001,8 +2036,8 @@ swh::deploy::worker::lister_gitlab::db::dbname: lister-gitlab
 swh::deploy::worker::lister_gitlab::db::user: lister-gitlab
 #swh::deploy::worker::lister_gitlab::db::password in private data
 swh::deploy::worker::lister_gitlab::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   lister:
     cls: local
     args:
@@ -2028,8 +2063,8 @@ swh::deploy::worker::lister_pypi::db::dbname: lister-pypi
 swh::deploy::worker::lister_pypi::db::user: lister-pypi
 #swh::deploy::worker::lister_pypi::db::password in private data
 swh::deploy::worker::lister_pypi::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   lister:
     cls: local
     args:
@@ -2091,17 +2126,17 @@ swh::deploy::indexer_journal_client::config:
   brokers:
     - getty.internal.softwareheritage.org
   consumer_id: swh.indexer.journal_client
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
 
 swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
 swh::deploy::worker::indexer_content_mimetype::concurrency: 1
 swh::deploy::worker::indexer_content_mimetype::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_content_mimetype::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
-  storage: "%{alias('swh::remote_service::storage::config::azure')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -2123,10 +2158,10 @@ swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 2
 swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
-  storage: "%{alias('swh::remote_service::storage::config::azure')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -2143,8 +2178,7 @@ swh::deploy::worker::indexer_rehash::concurrency: 5
 swh::deploy::worker::indexer_rehash::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_rehash::config:
-  # Needs write access: explicitly configured to use uffizi
-  storage: "%{alias('swh::remote_service::storage::config::uffizi')}"
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   compute_checksums:
     - blake2s256
@@ -2156,9 +2190,9 @@ swh::deploy::worker::indexer_fossology_license::concurrency: 1
 swh::deploy::worker::indexer_fossology_license::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_fossology_license::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
-  storage: "%{alias('swh::remote_service::storage::config::azure')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
     name: 'nomos'
@@ -2180,7 +2214,7 @@ swh::deploy::worker::indexer_content_language::concurrency: 3
 swh::deploy::worker::indexer_content_language::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_content_language::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   tools:
     name: 'pygments'
@@ -2202,7 +2236,7 @@ swh::deploy::worker::indexer_content_ctags::loglevel: info
 # Contains a password: in private data
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
 swh::deploy::worker::indexer_content_ctags::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   workdir: /tmp/swh/indexer.ctags/
   tools:
@@ -2625,10 +2659,7 @@ swh::deploy::worker::vault_cooker::loglevel: info
 swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::vault_cooker::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  vault:
-    cls: remote
-    args:
-      url: "http://orangerie:%{hiera('swh::remote_service::vault::port')}/"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
