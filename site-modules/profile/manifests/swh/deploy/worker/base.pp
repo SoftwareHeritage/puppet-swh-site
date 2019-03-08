@@ -31,12 +31,7 @@ class profile::swh::deploy::worker::base {
   }
 
   file {$systemd_generator:
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/profile/swh/deploy/worker/swh-worker-generator',
+    ensure => 'absent',
     notify => Class['systemd::systemctl::daemon_reload'],
   }
-
 }

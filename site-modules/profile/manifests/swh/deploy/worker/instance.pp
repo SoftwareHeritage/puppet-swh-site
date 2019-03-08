@@ -37,13 +37,17 @@ define profile::swh::deploy::worker::instance (
       }
 
       if $ensure == 'running' {
-        service {$service_basename:
-          ensure  => $ensure,
-          require => [
-            File[$config_file],
-          ]
-        }
+        $service_ensure = 'running'
+      } else {
+        $service_ensure = undef
+      }
 
+      service {$service_basename:
+        ensure  => $service_ensure,
+        enable  => true,
+        require => [
+          File[$config_file],
+        ]
       }
     }
     default: {
