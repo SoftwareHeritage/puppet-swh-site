@@ -65,7 +65,7 @@ mod 'extlib',
 
 mod 'grafana',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-grafana',
-    :tag => 'v4.2.0'
+    :tag => 'v6.0.0'
 
 mod 'hitch',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-hitch',
