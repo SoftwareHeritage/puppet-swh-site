@@ -119,7 +119,7 @@ class profile::swh::deploy::scheduler {
 
   ::profile::swh::deploy::rpc_server {'scheduler':
     config_key => 'scheduler::remote',
-    executable => 'swh.scheduler.api.wsgi',
+    executable => 'swh.scheduler.api.server:run_from_webserver',
   }
 
   # task archival cron
