@@ -10,9 +10,25 @@ class profile::swh::deploy::journal {
     mode   => '0644',
   }
 
-  $package_name = 'python3-swh.journal'
+  $swh_packages = ['python3-swh.journal']
 
-  package {$package_name:
-    ensure => latest,
+  $task_backported_packages = lookup('swh::deploy::journal::backported_packages')
+  $pinned_packages = $task_backported_packages[$::lsbdistcodename]
+  if $pinned_packages {
+    ::apt::pin {'swh-journal':
+      explanation => 'Pin swh.journal dependencies to backports',
+      codename    => "${::lsbdistcodename}-backports",
+      packages    => $pinned_packages,
+      priority    => 990,
+    }
+    -> package {$swh_packages:
+      ensure  => latest,
+      require => Apt::Source['softwareheritage'],
+    }
+  } else {
+    package {$swh_packages:
+      ensure  => latest,
+      require => Apt::Source['softwareheritage'],
+    }
   }
 }

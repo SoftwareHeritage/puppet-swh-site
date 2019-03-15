@@ -1468,6 +1468,10 @@ swh::deploy::vault::config:
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
+swh::deploy::journal::backported_packages:
+  stretch:
+    - python3-msgpack
+
 swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/publisher.yml"
 swh::deploy::journal_publisher::user: swhstorage
 swh::deploy::journal_publisher::group: swhstorage
