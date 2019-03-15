@@ -2154,7 +2154,7 @@ swh::deploy::worker::indexer_content_mimetype::config:
   write_batch_size: 1000
 
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
-swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 2
+swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 4
 swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
