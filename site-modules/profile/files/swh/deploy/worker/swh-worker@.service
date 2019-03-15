@@ -8,8 +8,7 @@ Group=swhworker
 
 Type=simple
 Environment=SWH_CONFIG_FILENAME=/etc/softwareheritage/%i.yml
-# deprecated (kept for retrocompatibility)
-Environment=SWH_WORKER_INSTANCE=%i
+Environment=SWH_LOG_TARGET=journal
 Environment=CONCURRENCY=10
 Environment=MAX_TASKS_PER_CHILD=5
 Environment=LOGLEVEL=info

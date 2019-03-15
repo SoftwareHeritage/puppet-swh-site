@@ -93,6 +93,7 @@ define profile::swh::deploy::rpc_server (
     executable  => $executable,
     environment => {
       'SWH_CONFIG_FILENAME' => $conf_file,
+      'SWH_LOG_TARGET'      => 'journal',
     },
     settings    => {
       bind                => $gunicorn_unix_socket,
