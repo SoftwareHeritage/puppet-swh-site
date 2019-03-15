@@ -22,12 +22,12 @@ class profile::swh::deploy::journal {
       priority    => 990,
     }
     -> package {$swh_packages:
-      ensure  => latest,
+      ensure  => present,
       require => Apt::Source['softwareheritage'],
     }
   } else {
     package {$swh_packages:
-      ensure  => latest,
+      ensure  => present,
       require => Apt::Source['softwareheritage'],
     }
   }
