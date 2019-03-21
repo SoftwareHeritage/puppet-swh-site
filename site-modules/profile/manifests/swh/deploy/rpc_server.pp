@@ -30,6 +30,8 @@ define profile::swh::deploy::rpc_server (
 
   $instance_config = lookup("swh::deploy::${config_key}::config")
 
+  $gunicorn_statsd_host = lookup('gunicorn::statsd::host')
+
   include ::gunicorn
 
   case $worker {
@@ -104,6 +106,8 @@ define profile::swh::deploy::rpc_server (
       keepalive           => $backend_http_keepalive,
       max_requests        => $backend_max_requests,
       max_requests_jitter => $backend_max_requests_jitter,
+      statsd_host         => $gunicorn_statsd_host,
+      statsd_prefix       => $service_name,
     },
   }
 
