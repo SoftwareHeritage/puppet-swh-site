@@ -1538,7 +1538,7 @@ swh::deploy::objstorage::config:
     args:
       root: "%{hiera('swh::deploy::objstorage::directory')}"
       slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-  max_client_size: 1073741824  # 1 GiB
+  client_max_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
 swh::deploy::objstorage::backend::listen::port: "%{alias('swh::remote_service::objstorage::port')}"
