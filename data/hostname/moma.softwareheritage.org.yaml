@@ -13,8 +13,8 @@ networks:
 dar::backup::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::storage::db::host: somerset
-swh::deploy::storage::db::port: 5433
+swh::deploy::storage::db::host: prado
+swh::deploy::storage::db::port: 5432
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
