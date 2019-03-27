@@ -27,32 +27,29 @@ class profile::swh::apt_config {
     default => 'main',
   }
 
+  include profile::swh::apt_config::backports
+
   ::apt::source {'debian':
     location => $debian_mirror,
     release  => $::lsbdistcodename,
     repos    => $repos,
   }
 
-  ::apt::source {'debian-updates':
-    location => $debian_mirror,
-    release  => "${::lsbdistcodename}-updates",
-    repos    => $repos,
-  }
-
-  ::apt::source {'debian-security':
-    location => $debian_security_mirror,
-    release  => "${::lsbdistcodename}/updates",
-    repos    => $repos,
-  }
-
-  if $::lsbdistcodename == 'stretch' {
-    class {'::apt::backports':
-      pin      => 100,
+  if $::lsbdistcodename != 'sid' {
+    ::apt::source {'debian-updates':
       location => $debian_mirror,
+      release  => "${::lsbdistcodename}-updates",
       repos    => $repos,
     }
+
+    ::apt::source {'debian-security':
+      location => $debian_security_mirror,
+      release  => "${::lsbdistcodename}/updates",
+      repos    => $repos,
+    }
+
   } else {
-    ::apt::source {'backports':
+    ::apt::source {['debian-updates', 'debian-security']:
       ensure => absent,
     }
   }

@@ -1102,6 +1102,13 @@ swh::apt_config::swh_repository::hostname: debian.softwareheritage.org
 swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_repository::hostname')}/"
 swh::apt_config::enable_non_free: false
 
+swh::apt_config::backported_packages:
+  stretch:
+    # For swh.scheduler
+    - python3-msgpack
+    # T1609
+    - python3-urllib3
+
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
 debian_repository::owner::homedir: /home/swhdebianrepo
@@ -1469,10 +1476,6 @@ swh::deploy::vault::config:
       db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
-
-swh::deploy::journal::backported_packages:
-  stretch:
-    - python3-msgpack
 
 swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/publisher.yml"
 swh::deploy::journal_publisher::user: swhstorage
