@@ -127,6 +127,7 @@ class profile::phabricator {
         innodb_flush_method     => $phabricator_db_innodb_flush_method,
         innodb_log_file_size    => $phabricator_db_innodb_log_file_size,
         max_connections         => $phabricator_db_max_connections,
+        local_infile            => 0,
       }
     }
   }
@@ -155,6 +156,7 @@ class profile::phabricator {
       post_max_size                 => $phabricator_max_size,
       upload_max_filesize           => $phabricator_max_size,
       'opcache.validate_timestamps' => $phabricator_opcache_validate_timestamps,
+      'mysqli.allow_local_infile'   => 0,
     },
   }
 
