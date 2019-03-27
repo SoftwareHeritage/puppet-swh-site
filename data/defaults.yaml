@@ -1108,6 +1108,8 @@ swh::apt_config::backported_packages:
     - python3-msgpack
     # T1609
     - python3-urllib3
+    - python3-requests
+    - python3-chardet
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
