@@ -23,7 +23,35 @@ class profile::kafka::broker {
     'zookeeper.connect' => $zookeeper_connect_string,
   }
 
+  include ::profile::prometheus::jmx
+
+  $exporter = $::profile::prometheus::jmx::jar_path
+
+  $exporter_network = lookup('prometheus::kafka::listen_network', Optional[String], 'first', undef)
+  $exporter_address = lookup('prometheus::kafka::listen_address', Optional[String], 'first', undef)
+  $actual_exporter_address = pick($exporter_address, ip_for_network($exporter_network))
+  $exporter_port = lookup('prometheus::kafka::listen_port')
+  $target = "${actual_exporter_address}:${exporter_port}"
+
+  $exporter_config = "${::profile::prometheus::jmx::base_directory}/kafka.yml"
+
+  file {$exporter_config:
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/profile/kafka/jmx_exporter.yml',
+  }
+
   class {'::kafka::broker':
-    config => $kafka_config,
+    config  => $kafka_config,
+    opts    => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
+    require => [
+      File[$exporter],
+      File[$exporter_config],
+    ],
+  }
+
+  ::profile::prometheus::export_scrape_config {'kafka':
+    target => $target,
   }
 }

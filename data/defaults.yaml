@@ -3196,6 +3196,11 @@ prometheus::sql::config_snippets:
   - replication
   - wal
 
+prometheus::jmx::version: 0.11.0
+
+prometheus::kafka::listen_network: "%{lookup('internal_network')}"
+prometheus::kafka::listen_port: 7071
+
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data
