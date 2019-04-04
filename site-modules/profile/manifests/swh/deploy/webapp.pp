@@ -129,11 +129,11 @@ class profile::swh::deploy::webapp {
   include ::apache::mod::headers
 
   ::apache::vhost {"${vhost_name}_non-ssl":
-    servername    => $vhost_name,
-    serveraliases => $vhost_aliases,
-    port          => $vhost_port,
-    docroot       => $vhost_docroot,
-    proxy_pass    => [
+    servername      => $vhost_name,
+    serveraliases   => $vhost_aliases,
+    port            => $vhost_port,
+    docroot         => $vhost_docroot,
+    proxy_pass      => [
       { path => '/static',
         url  => '!',
       },
@@ -147,7 +147,7 @@ class profile::swh::deploy::webapp {
         url  => "http://${backend_listen_address}/",
       },
     ],
-    directories   => [
+    directories     => [
       { path     => '/api',
         provider => 'location',
         allow    => 'from all',
@@ -158,7 +158,7 @@ class profile::swh::deploy::webapp {
         options => ['-Indexes'],
       },
     ] + $endpoint_directories,
-    aliases       => [
+    aliases         => [
       { alias => '/static',
         path  => $static_dir,
       },
@@ -166,7 +166,9 @@ class profile::swh::deploy::webapp {
         path  => "${static_dir}/robots.txt",
       },
     ],
-    require       => [
+    # work around fix for CVE-2019-0220 introduced in Apache2 2.4.25-3+deb9u7
+    custom_fragment => 'MergeSlashes off',
+    require         => [
       File[$vhost_basic_auth_file],
     ],
   }
