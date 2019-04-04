@@ -959,6 +959,9 @@ bind::resource_records:
   ddouard-desktop/A:
     record: ddouard-desktop.internal.softwareheritage.org
     data: 192.168.101.162
+  vlorentz-desktop/A:
+    record: vlorentz-desktop.internal.softwareheritage.org
+    data: 192.168.101.166
 
 bind::resource_records::default_data:
   type: A
