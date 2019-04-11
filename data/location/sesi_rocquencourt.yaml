@@ -24,6 +24,7 @@ swh::deploy::worker::instances:
   - lister_debian
   - lister_github
   - lister_gitlab
+  - lister_npm
   - lister_pypi
   - loader_debian
   - loader_deposit
