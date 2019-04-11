@@ -1805,6 +1805,7 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.pypi
   - python3-swh.loader.svn
   - python3-swh.loader.tar
+  - python3-swh.loader.npm
   - python3-swh.deposit.loader
   - python3-swh.indexer
   - python3-swh.vault
@@ -2005,6 +2006,19 @@ swh::deploy::worker::loader_pypi::config:
     task_queues:
       - swh.loader.pypi.tasks.LoadPyPI
       - swh_loader_pypi
+
+swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
+swh::deploy::worker::loader_npm::concurrency: 1
+swh::deploy::worker::loader_npm::private_tmp: true
+swh::deploy::worker::loader_npm::loglevel: info
+swh::deploy::worker::loader_npm::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.npm.tasks
+    task_queues:
+      - swh.loader.npm.tasks.LoadNpm
 
 swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
 swh::deploy::worker::loader_svn::concurrency: 1
