@@ -2033,9 +2033,9 @@ swh::deploy::worker::loader_svn::config:
     task_modules:
       - swh.loader.svn.tasks
     task_queues:
-      - swh.loader.svn.tasks.LoadSvnrepository
-      - swh.loader.svn.tasks.MountAndLoadSvnrepository
-      - swh.loader.svn.tasks.DumpMountAndLoadSvnrepository
+      - swh.loader.svn.tasks.LoadSvnRepository
+      - swh.loader.svn.tasks.MountAndLoadSvnRepository
+      - swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
       - swh_loader_svn
       - swh_loader_svn_mount_and_load
 
