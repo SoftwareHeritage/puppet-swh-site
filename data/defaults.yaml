@@ -1473,24 +1473,6 @@ swh::deploy::vault::config:
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
-swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/publisher.yml"
-swh::deploy::journal_publisher::user: swhstorage
-swh::deploy::journal_publisher::group: swhstorage
-swh::deploy::journal_publisher::config:
-  brokers:
-    - getty.internal.softwareheritage.org
-  temporary_prefix: swh.tmp_journal.new
-  final_prefix: swh.journal.objects
-  consumer_id: swh.journal.publisher
-  publisher_id: swh.journal.publisher
-  object_types:
-    - content
-    - revision
-    - release
-    - origin_visit
-  max_messages: 1000
-  storage: "%{alias('swh::remote_service::storage::config')}"
-
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
 swh::deploy::journal_simple_checker_producer::group: swhstorage
