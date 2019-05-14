@@ -2764,13 +2764,14 @@ zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
-kafka::version: '1.0.1'
-kafka::scala_version: '2.11'
+kafka::version: '2.2.0'
+kafka::scala_version: '2.12'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
 kafka::broker_config:
   broker.id: "%{alias('kafka::broker_id')}"
   log.dirs: /srv/kafka/logdir
+  inter.broker.protocol.version: '1.0'
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
 
 kafka::brokers:
