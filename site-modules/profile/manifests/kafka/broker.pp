@@ -26,6 +26,16 @@ class profile::kafka::broker {
     'broker.id'         => $broker_id
   }
 
+  $kafka_logdirs = lookup('kafka::logdirs', Array)
+  $kafka_logdirs.each |$logdir| {
+    file {$logdir:
+      ensure  => directory,
+      owner   => 'kafka',
+      group   => 'kafka',
+      mode    => '0750',
+    } -> Service['kafka']
+  }
+
   include ::profile::prometheus::jmx
 
   $exporter = $::profile::prometheus::jmx::jar_path

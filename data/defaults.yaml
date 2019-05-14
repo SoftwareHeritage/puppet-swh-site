@@ -2743,8 +2743,10 @@ kafka::version: '2.2.0'
 kafka::scala_version: '2.12'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
+kafka::logdirs:
+  - /srv/kafka/logdir
 kafka::broker_config:
-  log.dirs: /srv/kafka/logdir
+  log.dirs: "%{alias('kafka::logdirs')}"
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
 
 kafka::brokers:
