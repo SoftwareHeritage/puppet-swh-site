@@ -35,11 +35,7 @@ node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
 
-node
-  'esnode1.internal.softwareheritage.org',
-  'esnode2.internal.softwareheritage.org',
-  'esnode3.internal.softwareheritage.org'
-{
+node /^esnode\d+.(internal.)?softwareheritage.org$/ {
   include role::swh_elasticsearch
 }
 
