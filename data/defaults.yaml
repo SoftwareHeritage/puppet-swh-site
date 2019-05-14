@@ -433,6 +433,7 @@ users:
     groups:
       - swhdev
       - swhteam
+      - swhscheduler
     authorized_keys:
       david.douard@sdfa3.org:
         type: ssh-rsa
