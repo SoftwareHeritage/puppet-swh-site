@@ -2742,7 +2742,6 @@ kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
 kafka::broker_config:
   log.dirs: /srv/kafka/logdir
-  inter.broker.protocol.version: '1.0'
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
 
 kafka::brokers:
