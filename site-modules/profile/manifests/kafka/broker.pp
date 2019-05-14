@@ -19,8 +19,11 @@ class profile::kafka::broker {
     ','
   )
 
+  $broker_id = lookup('kafka::brokers', Hash)[$::swh_hostname['internal_fqdn']]['id']
+
   $kafka_config = $base_kafka_config + {
     'zookeeper.connect' => $zookeeper_connect_string,
+    'broker.id'         => $broker_id
   }
 
   include ::profile::prometheus::jmx

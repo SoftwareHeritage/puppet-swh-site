@@ -2769,7 +2769,6 @@ kafka::scala_version: '2.12'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
 kafka::broker_config:
-  broker.id: "%{alias('kafka::broker_id')}"
   log.dirs: /srv/kafka/logdir
   inter.broker.protocol.version: '1.0'
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
