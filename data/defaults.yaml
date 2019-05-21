@@ -1372,6 +1372,12 @@ swh::remote_service::vault::config::orangerie:
   args:
     url: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
 
+# Vault backend configuration on azure
+swh::remote_service::vault::config::azure:
+  cls: remote
+  args:
+    url: "http://vangogh.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
+
 # End remote service configurations
 #####################################################################################################
 
