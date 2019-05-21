@@ -1436,6 +1436,14 @@ swh::deploy::indexer::storage::config:
     args:
       db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
+swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
+# Default cache (orangerie/orangeriedev) is a pathslicing objstorage
+swh::deploy::vault::config::cache:
+  cls: pathslicing
+  args:
+    root: "%{hiera('swh::base_directory')}/vault_cache"
+    slicing: "0:1/1:5"
+
 swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
@@ -1444,7 +1452,6 @@ swh::deploy::vault::db::host: prado
 swh::deploy::vault::db::port: 5434
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
-swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 swh::deploy::vault::backend::listen::host: 127.0.0.1
 swh::deploy::vault::backend::listen::port: "%{alias('swh::remote_service::vault::port')}"
 swh::deploy::vault::backend::workers: 4
@@ -1462,11 +1469,7 @@ swh::deploy::vault::backend::server_names:
 swh::deploy::vault::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  cache:
-    cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::vault::cache')}"
-      slicing: "0:1/1:5"
+  cache: "%{alias('swh::deploy::vault::config::cache')}"
   vault:
     cls: local
     args:
