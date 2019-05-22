@@ -19,3 +19,7 @@ swh::deploy::worker::instances:
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
 swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::azure')}"
+
+# Add extra needed package to run on azure
+packages:
+  - python3-swh.objstorage.cloud
