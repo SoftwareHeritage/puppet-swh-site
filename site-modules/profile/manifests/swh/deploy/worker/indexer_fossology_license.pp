@@ -11,7 +11,6 @@ class profile::swh::deploy::worker::indexer_fossology_license {
     ensure       => present,
     require      => [
       Class['profile::swh::deploy::indexer'],
-      Class['profile::swh::deploy::objstorage_cloud'],
       Package[$packages],
     ],
   }

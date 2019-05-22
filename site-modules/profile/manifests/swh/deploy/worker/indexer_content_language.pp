@@ -8,7 +8,6 @@ class profile::swh::deploy::worker::indexer_content_language {
     loglevel     => $loglevel,
     require      => [
       Class['profile::swh::deploy::indexer'],
-      Class['profile::swh::deploy::objstorage_cloud'],
     ],
   }
 }

@@ -7,7 +7,6 @@ class profile::swh::deploy::worker::indexer_origin_intrinsic_metadata {
     ensure       => present,
     require      => [
       Class['profile::swh::deploy::indexer'],
-      Class['profile::swh::deploy::objstorage_cloud'],
     ],
   }
 }

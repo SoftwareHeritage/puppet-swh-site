@@ -6,8 +6,7 @@ class profile::swh::deploy::worker::indexer_content_mimetype {
   Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_mimetype':
     ensure       => present,
     require      => [
-      Class['profile::swh::deploy::indexer'],
-      Class['profile::swh::deploy::objstorage_cloud'],
+      Class['profile::swh::deploy::indexer']
     ],
   }
 }
