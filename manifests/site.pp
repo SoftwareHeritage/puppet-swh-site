@@ -31,6 +31,10 @@ node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
   include role::swh_database
 }
 
+node 'belvedere.internal.softwareheritage.org' {
+  include role::swh_database
+}
+
 node 'banco.softwareheritage.org' {
   include role::swh_backup
 }
