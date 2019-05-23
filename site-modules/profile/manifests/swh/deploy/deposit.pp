@@ -38,7 +38,7 @@ class profile::swh::deploy::deposit {
   include ::gunicorn
 
   package {$swh_packages:
-    ensure  => latest,
+    ensure  => present,
     require => Apt::Source['softwareheritage'],
     notify  => Service['gunicorn-swh-deposit'],
   }
