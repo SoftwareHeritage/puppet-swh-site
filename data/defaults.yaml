@@ -1367,12 +1367,6 @@ swh::remote_service::scheduler::config::saatchi:
 
 
 # Vault backend configurations
-swh::remote_service::vault::config::orangerie:
-  cls: remote
-  args:
-    url: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
-
-# Vault backend configuration on azure
 swh::remote_service::vault::config::azure:
   cls: remote
   args:
