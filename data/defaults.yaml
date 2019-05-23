@@ -2247,27 +2247,6 @@ swh::deploy::worker::indexer_fossology_license::config:
       - swh_indexer_content_fossology_license_range
   write_batch_size: 1000
 
-swh::deploy::worker::indexer_content_language::config_file: "%{hiera('swh::conf_directory')}/indexer_content_language.yml"
-swh::deploy::worker::indexer_content_language::concurrency: 3
-swh::deploy::worker::indexer_content_language::loglevel: info
-# Contains a password: in private data
-swh::deploy::worker::indexer_content_language::config:
-  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  tools:
-    name: 'pygments'
-    version: '2.0.1+dfsg-1.1+deb8u1'
-    configuration:
-      type: "library"
-      debian-package: "python3-pygments"
-      max_content_size: 10240
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.indexer.tasks
-    task_queues:
-      - swh.indexer.tasks.ContentLanguage
-
 swh::deploy::worker::indexer_content_ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
 swh::deploy::worker::indexer_content_ctags::concurrency: 2
 swh::deploy::worker::indexer_content_ctags::loglevel: info
