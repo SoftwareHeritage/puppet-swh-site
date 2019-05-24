@@ -1873,6 +1873,7 @@ swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/back
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::archive::config:
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   storage_nodes:
     - host: esnode2.internal.softwareheritage.org
       port: 9200
