@@ -1717,6 +1717,8 @@ swh::deploy::webapp::config:
           # OpenAIRE
           - 213.135.60.145
           - 213.135.60.146
+          # DINSIC
+          - 37.187.137.47
       swh_vault_cooking:
         limiter_rate:
           default: 120/h
