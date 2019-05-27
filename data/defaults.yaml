@@ -1448,8 +1448,8 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::db::host: prado
-swh::deploy::vault::db::port: 5434
+swh::deploy::vault::db::host: belvedere
+swh::deploy::vault::db::port: 5432
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 swh::deploy::vault::backend::listen::host: 127.0.0.1
@@ -1556,6 +1556,10 @@ swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_direct
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
+swh::deploy::storage::db::host: belvedere
+swh::deploy::storage::db::port: 5432
+swh::deploy::storage::db::dbname: softwareheritage-deposit
+swh::deploy::storage::db::dbuser: swhstorage
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
@@ -1568,10 +1572,10 @@ swh::deploy::deposit::config:
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
-      host: db
-      port: 5432
-      name: softwareheritage-deposit
-      user: swhstorage
+      host: "%{hiera('swh::deploy::storage::db::host')}"
+      port: "%{hiera('swh::deploy::storage::db::port')}"
+      name: "%{hiera('swh::deploy::storage::db::dbname')}"
+      user: "%{hiera('swh::deploy::storage::db::dbuser')}"
       password: "%{hiera('swh::deploy::storage::db::password')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
@@ -1759,7 +1763,7 @@ swh::deploy::scheduler::config::local: &swh_scheduler_local_config
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
-swh::deploy::scheduler::db::host: db
+swh::deploy::scheduler::db::host: belvedere
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
@@ -1829,7 +1833,7 @@ swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_director
 swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
 swh::deploy::scheduler::updater::backend::user: swhscheduler
 swh::deploy::scheduler::updater::backend::group: swhscheduler
-swh::deploy::scheduler::updater::backend::db::host: db.internal.softwareheritage.org
+swh::deploy::scheduler::updater::backend::db::host: belvedere.internal.softwareheritage.org
 swh::deploy::scheduler::updater::backend::db::port: 5432
 swh::deploy::scheduler::updater::backend::db::dbname: softwareheritage-scheduler-updater
 swh::deploy::scheduler::updater::backend::db::user: swhscheduler
@@ -1886,7 +1890,7 @@ swh::deploy::scheduler::archive::config:
     sniff_on_connection_fail: True
     http_compress: false
 
-swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
+swh::deploy::loader_debian::db::host: belvedere.internal.softwareheritage.org
 swh::deploy::loader_debian::db::port: 5432
 swh::deploy::loader_debian::db::user: lister-debian
 # in private data: swh::deploy::loader_debian::db::password
@@ -2020,7 +2024,7 @@ swh::deploy::worker::lister_github::config_file: "%{hiera('swh::conf_directory')
 swh::deploy::worker::lister_github::concurrency: 1
 swh::deploy::worker::lister_github::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::lister_github::db::host: db
+swh::deploy::worker::lister_github::db::host: belvedere
 swh::deploy::worker::lister_github::db::dbname: lister-github
 swh::deploy::worker::lister_github::db::user: lister-github
 #swh::deploy::worker::lister_github::db::password in private data
@@ -2047,7 +2051,7 @@ swh::deploy::worker::lister_gitlab::config_file: "%{hiera('swh::conf_directory')
 swh::deploy::worker::lister_gitlab::concurrency: 1
 swh::deploy::worker::lister_gitlab::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::lister_gitlab::db::host: db
+swh::deploy::worker::lister_gitlab::db::host: belvedere
 swh::deploy::worker::lister_gitlab::db::dbname: lister-gitlab
 swh::deploy::worker::lister_gitlab::db::user: lister-gitlab
 #swh::deploy::worker::lister_gitlab::db::password in private data
@@ -2074,7 +2078,7 @@ swh::deploy::worker::lister_pypi::config_file: "%{hiera('swh::conf_directory')}/
 swh::deploy::worker::lister_pypi::concurrency: 1
 swh::deploy::worker::lister_pypi::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::lister_pypi::db::host: db
+swh::deploy::worker::lister_pypi::db::host: belvedere
 swh::deploy::worker::lister_pypi::db::dbname: lister-pypi
 swh::deploy::worker::lister_pypi::db::user: lister-pypi
 #swh::deploy::worker::lister_pypi::db::password in private data
@@ -2098,7 +2102,7 @@ swh::deploy::worker::lister_npm::config_file: "%{hiera('swh::conf_directory')}/l
 swh::deploy::worker::lister_npm::concurrency: 1
 swh::deploy::worker::lister_npm::loglevel: warning
 # Contains a password: in private data
-swh::deploy::worker::lister_npm::db::host: db
+swh::deploy::worker::lister_npm::db::host: belvedere
 swh::deploy::worker::lister_npm::db::dbname: lister-npm
 swh::deploy::worker::lister_npm::db::user: lister-npm
 #swh::deploy::worker::lister_npm::db::password in private data
@@ -2122,7 +2126,7 @@ swh::deploy::worker::archiver::archival_max_age: 3600
 swh::deploy::worker::archiver::max_queue_length: 100000
 swh::deploy::worker::archiver::retention_policy: 3
 swh::deploy::worker::archiver::batch_max_size: 5
-swh::deploy::worker::archiver::db::host: db
+swh::deploy::worker::archiver::db::host: belvedere
 swh::deploy::worker::archiver::db::dbname: softwareheritage-archiver
 swh::deploy::worker::archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
 swh::deploy::worker::archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
