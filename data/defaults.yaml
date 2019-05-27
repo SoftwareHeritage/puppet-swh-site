@@ -1375,6 +1375,11 @@ swh::remote_service::vault::config::azure:
 # End remote service configurations
 #####################################################################################################
 
+swh::deploy::db::pgbouncer::port: 5432
+swh::deploy::db::main::port: 5433
+swh::deploy::db::secondary::port: 5434
+swh::deploy::db::hdd::port: 5435
+
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
 swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
@@ -1449,7 +1454,7 @@ swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/s
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
 swh::deploy::vault::db::host: belvedere
-swh::deploy::vault::db::port: 5432
+swh::deploy::vault::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 swh::deploy::vault::backend::listen::host: 127.0.0.1
@@ -1556,10 +1561,10 @@ swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_direct
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-swh::deploy::storage::db::host: belvedere
-swh::deploy::storage::db::port: 5432
-swh::deploy::storage::db::dbname: softwareheritage-deposit
-swh::deploy::storage::db::dbuser: swhstorage
+swh::deploy::deposit::db::host: belvedere
+swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::deposit::db::dbname: softwareheritage-deposit
+swh::deploy::deposit::db::dbuser: swhstorage
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
@@ -1572,10 +1577,10 @@ swh::deploy::deposit::config:
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
-      host: "%{hiera('swh::deploy::storage::db::host')}"
-      port: "%{hiera('swh::deploy::storage::db::port')}"
-      name: "%{hiera('swh::deploy::storage::db::dbname')}"
-      user: "%{hiera('swh::deploy::storage::db::dbuser')}"
+      host: "%{hiera('swh::deploy::deposit::db::host')}"
+      port: "%{hiera('swh::deploy::deposit::db::port')}"
+      name: "%{hiera('swh::deploy::deposit::db::dbname')}"
+      user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
       password: "%{hiera('swh::deploy::storage::db::password')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
@@ -1758,12 +1763,13 @@ swh::deploy::scheduler::config::local: &swh_scheduler_local_config
   scheduler:
     cls: local
     args:
-      db: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+      db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
 swh::deploy::scheduler::db::host: belvedere
+swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
@@ -1834,11 +1840,11 @@ swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::sche
 swh::deploy::scheduler::updater::backend::user: swhscheduler
 swh::deploy::scheduler::updater::backend::group: swhscheduler
 swh::deploy::scheduler::updater::backend::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::scheduler::updater::backend::db::port: 5432
+swh::deploy::scheduler::updater::backend::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::scheduler::updater::backend::db::dbname: softwareheritage-scheduler-updater
 swh::deploy::scheduler::updater::backend::db::user: swhscheduler
 swh::deploy::scheduler::updater::backend::config:
-  scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
+  scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} port=%{hiera('swh::deploy::scheduler::updater::backend::db::port')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
   cache_read_limit: 1000
 
 swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir: "%{hiera('swh::conf_directory')}/backend"
@@ -1891,7 +1897,7 @@ swh::deploy::scheduler::archive::config:
     http_compress: false
 
 swh::deploy::loader_debian::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::loader_debian::db::port: 5432
+swh::deploy::loader_debian::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::loader_debian::db::user: lister-debian
 # in private data: swh::deploy::loader_debian::db::password
 swh::deploy::loader_debian::db::dbname: lister-debian
@@ -2025,6 +2031,7 @@ swh::deploy::worker::lister_github::concurrency: 1
 swh::deploy::worker::lister_github::loglevel: warning
 # Contains a password: in private data
 swh::deploy::worker::lister_github::db::host: belvedere
+swh::deploy::worker::lister_github::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::worker::lister_github::db::dbname: lister-github
 swh::deploy::worker::lister_github::db::user: lister-github
 #swh::deploy::worker::lister_github::db::password in private data
@@ -2034,7 +2041,7 @@ swh::deploy::worker::lister_github::config:
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_github::db::user')}:%{hiera('swh::deploy::worker::lister_github::db::password')}@%{hiera('swh::deploy::worker::lister_github::db::host')}/%{hiera('swh::deploy::worker::lister_github::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_github::db::user')}:%{hiera('swh::deploy::worker::lister_github::db::password')}@%{hiera('swh::deploy::worker::lister_github::db::host')}:%{hiera('swh::deploy::worker::lister_github::db::port')}/%{hiera('swh::deploy::worker::lister_github::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2052,6 +2059,7 @@ swh::deploy::worker::lister_gitlab::concurrency: 1
 swh::deploy::worker::lister_gitlab::loglevel: warning
 # Contains a password: in private data
 swh::deploy::worker::lister_gitlab::db::host: belvedere
+swh::deploy::worker::lister_gitlab::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::worker::lister_gitlab::db::dbname: lister-gitlab
 swh::deploy::worker::lister_gitlab::db::user: lister-gitlab
 #swh::deploy::worker::lister_gitlab::db::password in private data
@@ -2061,7 +2069,7 @@ swh::deploy::worker::lister_gitlab::config:
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::lister_gitlab::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::lister_gitlab::db::host')}:%{hiera('swh::deploy::worker::lister_gitlab::db::port')}/%{hiera('swh::deploy::worker::lister_gitlab::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2079,6 +2087,7 @@ swh::deploy::worker::lister_pypi::concurrency: 1
 swh::deploy::worker::lister_pypi::loglevel: warning
 # Contains a password: in private data
 swh::deploy::worker::lister_pypi::db::host: belvedere
+swh::deploy::worker::lister_pypi::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::worker::lister_pypi::db::dbname: lister-pypi
 swh::deploy::worker::lister_pypi::db::user: lister-pypi
 #swh::deploy::worker::lister_pypi::db::password in private data
@@ -2088,7 +2097,7 @@ swh::deploy::worker::lister_pypi::config:
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_pypi::db::user')}:%{hiera('swh::deploy::worker::lister_pypi::db::password')}@%{hiera('swh::deploy::worker::lister_pypi::db::host')}/%{hiera('swh::deploy::worker::lister_pypi::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_pypi::db::user')}:%{hiera('swh::deploy::worker::lister_pypi::db::password')}@%{hiera('swh::deploy::worker::lister_pypi::db::host')}:%{hiera('swh::deploy::worker::lister_pypi::db::port')}/%{hiera('swh::deploy::worker::lister_pypi::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2103,6 +2112,7 @@ swh::deploy::worker::lister_npm::concurrency: 1
 swh::deploy::worker::lister_npm::loglevel: warning
 # Contains a password: in private data
 swh::deploy::worker::lister_npm::db::host: belvedere
+swh::deploy::worker::lister_npm::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::worker::lister_npm::db::dbname: lister-npm
 swh::deploy::worker::lister_npm::db::user: lister-npm
 #swh::deploy::worker::lister_npm::db::password in private data
@@ -2112,7 +2122,7 @@ swh::deploy::worker::lister_npm::config:
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_npm::db::user')}:%{hiera('swh::deploy::worker::lister_npm::db::password')}@%{hiera('swh::deploy::worker::lister_npm::db::host')}/%{hiera('swh::deploy::worker::lister_npm::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister_npm::db::user')}:%{hiera('swh::deploy::worker::lister_npm::db::password')}@%{hiera('swh::deploy::worker::lister_npm::db::host')}:%{hiera('swh::deploy::worker::lister_npm::db::port')}/%{hiera('swh::deploy::worker::lister_npm::db::dbname')}"
   # credentials in private data
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2127,6 +2137,7 @@ swh::deploy::worker::archiver::max_queue_length: 100000
 swh::deploy::worker::archiver::retention_policy: 3
 swh::deploy::worker::archiver::batch_max_size: 5
 swh::deploy::worker::archiver::db::host: belvedere
+swh::deploy::worker::archiver::db::port: "%{alias('swh::deploy::db::secondary::port')}"
 swh::deploy::worker::archiver::db::dbname: softwareheritage-archiver
 swh::deploy::worker::archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
 swh::deploy::worker::archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
@@ -2141,7 +2152,7 @@ swh::deploy::worker::archiver::config:
   archiver_storage:
     cls: db
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
+      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} port=%{hiera('swh::deploy::worker::archiver::db::port')} user=%{hiera('swh::deploy::worker::archiver::db::user')} dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
   storages:
     - host: uffizi
       <<: *swh_objstorage_config_uffizi
