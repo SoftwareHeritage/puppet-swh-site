@@ -1898,19 +1898,25 @@ swh::deploy::scheduler::archive::config:
     sniff_on_connection_fail: True
     http_compress: false
 
-swh::deploy::loader_debian::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::loader_debian::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::loader_debian::db::user: lister-debian
-# in private data: swh::deploy::loader_debian::db::password
-swh::deploy::loader_debian::db::dbname: lister-debian
+# Main lister configuration
+swh::deploy::worker::lister::db::user: swh-lister
+swh::deploy::worker::lister::db::name: swh-lister
+swh::deploy::worker::lister::db::host: belvedere.internal.softwareheritage.org
+swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+# swh::deploy::worker::lister::db::password in private data
+
+swh::deploy::worker::loader_debian::db::host: belvedere.internal.softwareheritage.org
+swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+# in private data: swh::deploy::worker::loader_debian::db::password
+swh::deploy::worker::loader_debian::db::user: "%{alias('swh::deploy::worker::lister::db::user')}"
+swh::deploy::worker::loader_debian::db::dbname: "%{alias('swh::deploy::worker::lister::db::name')}"
 
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
   - loader_debian
   - loader_git
-  - lister_debian
-  - lister_github
+  - lister
 
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 2
@@ -1937,7 +1943,7 @@ swh::deploy::worker::loader_debian::loglevel: info
 swh::deploy::worker::loader_debian::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   directory_packet_size: 100
-  lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::loader_debian::db::user')}:%{hiera('swh::deploy::worker::loader_debian::db::password')}@%{hiera('swh::deploy::worker::loader_debian::db::host')}:%{hiera('swh::deploy::worker::loader_debian::db::port')}/%{hiera('swh::deploy::worker::loader_debian::db::dbname')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1946,24 +1952,35 @@ swh::deploy::worker::loader_debian::config:
       - swh.loader.debian.tasks.LoadDebianPackage
       - swh_loader_debian
 
-
-swh::deploy::worker::lister_debian::config_file: "%{hiera('swh::conf_directory')}/lister_debian.yml"
-swh::deploy::worker::lister_debian::concurrency: 1
-swh::deploy::worker::lister_debian::loglevel: info
-swh::deploy::worker::lister_debian::config:
+swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
+swh::deploy::worker::lister::concurrency: 5
+swh::deploy::worker::lister::loglevel: warning
+swh::deploy::worker::lister::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::worker::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.debian.tasks
+      - swh.lister.github.tasks
+      - swh.lister.gitlab.tasks
+      - swh.lister.npm.tasks
+      - swh.lister.pypi.tasks
     task_queues:
       - swh.lister.debian.tasks.DebianListerTask
-      - swh_lister_debian
+      - swh.lister.github.tasks.IncrementalGitHubLister
+      - swh.lister.github.tasks.RangeGitHubLister
+      - swh.lister.github.tasks.FullGitHubRelister
+      - swh.lister.gitlab.tasks.IncrementalGitLabLister
+      - swh.lister.gitlab.tasks.RangeGitLabLister
+      - swh.lister.gitlab.tasks.FullGitLabRelister
+      - swh.lister.npm.tasks.NpmListerTask
+      - swh.lister.pypi.tasks.PyPIListerTask
+  credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
 swh::deploy::worker::loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
 swh::deploy::worker::loader_mercurial::concurrency: 1
@@ -2028,110 +2045,6 @@ swh::deploy::worker::loader_svn::config:
       - swh_loader_svn
       - swh_loader_svn_mount_and_load
 
-swh::deploy::worker::lister_github::config_file: "%{hiera('swh::conf_directory')}/lister_github.yml"
-swh::deploy::worker::lister_github::concurrency: 1
-swh::deploy::worker::lister_github::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::lister_github::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::lister_github::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::worker::lister_github::db::dbname: lister-github
-swh::deploy::worker::lister_github::db::user: lister-github
-#swh::deploy::worker::lister_github::db::password in private data
-swh::deploy::worker::lister_github::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_github::db::user')}:%{hiera('swh::deploy::worker::lister_github::db::password')}@%{hiera('swh::deploy::worker::lister_github::db::host')}:%{hiera('swh::deploy::worker::lister_github::db::port')}/%{hiera('swh::deploy::worker::lister_github::db::dbname')}"
-  # credentials in private data
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.lister.github.tasks
-    task_queues:
-      - swh.lister.github.tasks.IncrementalGitHubLister
-      - swh.lister.github.tasks.RangeGitHubLister
-      - swh.lister.github.tasks.FullGitHubRelister
-      - swh_lister_github_discover
-      - swh_lister_github_refresh
-
-swh::deploy::worker::lister_gitlab::config_file: "%{hiera('swh::conf_directory')}/lister_gitlab.yml"
-swh::deploy::worker::lister_gitlab::concurrency: 1
-swh::deploy::worker::lister_gitlab::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::lister_gitlab::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::lister_gitlab::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::worker::lister_gitlab::db::dbname: lister-gitlab
-swh::deploy::worker::lister_gitlab::db::user: lister-gitlab
-#swh::deploy::worker::lister_gitlab::db::password in private data
-swh::deploy::worker::lister_gitlab::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::lister_gitlab::db::host')}:%{hiera('swh::deploy::worker::lister_gitlab::db::port')}/%{hiera('swh::deploy::worker::lister_gitlab::db::dbname')}"
-  # credentials in private data
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.lister.gitlab.tasks
-    task_queues:
-      - swh.lister.gitlab.tasks.IncrementalGitLabLister
-      - swh.lister.gitlab.tasks.RangeGitLabLister
-      - swh.lister.gitlab.tasks.FullGitLabRelister
-      - swh_lister_gitlab_discover
-      - swh_lister_gitlab_refresh
-
-swh::deploy::worker::lister_pypi::config_file: "%{hiera('swh::conf_directory')}/lister_pypi.yml"
-swh::deploy::worker::lister_pypi::concurrency: 1
-swh::deploy::worker::lister_pypi::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::lister_pypi::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::lister_pypi::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::worker::lister_pypi::db::dbname: lister-pypi
-swh::deploy::worker::lister_pypi::db::user: lister-pypi
-#swh::deploy::worker::lister_pypi::db::password in private data
-swh::deploy::worker::lister_pypi::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_pypi::db::user')}:%{hiera('swh::deploy::worker::lister_pypi::db::password')}@%{hiera('swh::deploy::worker::lister_pypi::db::host')}:%{hiera('swh::deploy::worker::lister_pypi::db::port')}/%{hiera('swh::deploy::worker::lister_pypi::db::dbname')}"
-  # credentials in private data
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.lister.pypi.tasks
-    task_queues:
-      - swh.lister.pypi.tasks.PyPIListerTask
-      - swh_lister_pypi_refresh
-
-swh::deploy::worker::lister_npm::config_file: "%{hiera('swh::conf_directory')}/lister_npm.yml"
-swh::deploy::worker::lister_npm::concurrency: 1
-swh::deploy::worker::lister_npm::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::lister_npm::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::lister_npm::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::worker::lister_npm::db::dbname: lister-npm
-swh::deploy::worker::lister_npm::db::user: lister-npm
-#swh::deploy::worker::lister_npm::db::password in private data
-swh::deploy::worker::lister_npm::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister_npm::db::user')}:%{hiera('swh::deploy::worker::lister_npm::db::password')}@%{hiera('swh::deploy::worker::lister_npm::db::host')}:%{hiera('swh::deploy::worker::lister_npm::db::port')}/%{hiera('swh::deploy::worker::lister_npm::db::dbname')}"
-  # credentials in private data
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.lister.npm.tasks
-    task_queues:
-      - swh.lister.npm.tasks.NpmListerTask
 
 swh::deploy::worker::archiver::config_file: "%{hiera('swh::conf_directory')}/archiver.yml"
 swh::deploy::worker::archiver::archival_max_age: 3600
