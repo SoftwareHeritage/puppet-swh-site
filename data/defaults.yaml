@@ -862,7 +862,7 @@ bind::resource_records:
   db/CNAME:
     type: CNAME
     record: db.internal.softwareheritage.org
-    data: prado.internal.softwareheritage.org.
+    data: belvedere.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
