@@ -2046,46 +2046,6 @@ swh::deploy::worker::loader_svn::config:
       - swh_loader_svn_mount_and_load
 
 
-swh::deploy::worker::archiver::config_file: "%{hiera('swh::conf_directory')}/archiver.yml"
-swh::deploy::worker::archiver::archival_max_age: 3600
-swh::deploy::worker::archiver::max_queue_length: 100000
-swh::deploy::worker::archiver::retention_policy: 3
-swh::deploy::worker::archiver::batch_max_size: 5
-swh::deploy::worker::archiver::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::archiver::db::port: "%{alias('swh::deploy::db::secondary::port')}"
-swh::deploy::worker::archiver::db::dbname: softwareheritage-archiver
-swh::deploy::worker::archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
-swh::deploy::worker::archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
-swh::deploy::worker::archiver::concurrency: 10
-swh::deploy::worker::archiver::max_tasks_per_child: 500
-swh::deploy::worker::archiver::loglevel: info
-# Contains a password: in private data
-swh::deploy::worker::archiver::config:
-  archival_max_age: "%{hiera('swh::deploy::worker::archiver::archival_max_age')}"
-  retention_policy: "%{hiera('swh::deploy::worker::archiver::retention_policy')}"
-  batch_max_size: "%{hiera('swh::deploy::worker::archiver::batch_max_size')}"
-  archiver_storage:
-    cls: db
-    args:
-      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} port=%{hiera('swh::deploy::worker::archiver::db::port')} user=%{hiera('swh::deploy::worker::archiver::db::user')} dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
-  storages:
-    - host: uffizi
-      <<: *swh_objstorage_config_uffizi
-    - host: banco
-      <<: *swh_objstorage_config_banco
-    - host: azure
-      <<: *swh_objstorage_config_azure
-  sources:
-    - uffizi
-    - banco
-  max_queue_length: "%{hiera('swh::deploy::worker::archiver::max_queue_length')}"
-  celery:
-    task_modules:
-      - swh.archiver.tasks
-    task_queues:
-      - swh.archiver.tasks.SWHArchiverWithRetentionPolicyTask
-      - swh.archiver.tasks.SWHArchiverToBackendTask
-
 swh::deploy::base_indexer::config_directory: "%{hiera('swh::conf_directory')}/indexer"
 
 swh::deploy::indexer_journal_client::config_file: "journal_client.yml"

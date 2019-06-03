@@ -45,9 +45,6 @@ ceph::client_keyrings:
     keys:
       - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
 
-swh::deploy::worker::instances:
-  - archiver
-
 icinga2::host::vars:
   load: high
   disks:
