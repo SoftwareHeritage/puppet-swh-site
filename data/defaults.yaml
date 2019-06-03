@@ -1498,24 +1498,6 @@ swh::deploy::journal_simple_checker_producer::config:
     - origin
     - origin_visit
 
-swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::archiver::conf_directory')}/content_updater.yml"
-swh::deploy::archiver_content_updater::user: swhstorage
-swh::deploy::archiver_content_updater::group: swhstorage
-swh::deploy::archiver_content_updater::config:
-  brokers:
-    - getty.internal.softwareheritage.org
-  auto_offset_reset: earliest
-  topic_prefix: swh.journal.objects
-  consumer_id: swh.journal.archiver.content.updater
-  object_types:
-    - content
-  archiver_storage:
-    cls: db
-    args:
-      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
-  sources_present:
-    - uffizi
-
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/server.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
@@ -1641,30 +1623,6 @@ swh::deploy::objstorage_repair_checker::config:
   batch_size: 1000
   log_tag: objstorage.checker.repair
   backup_storages: "%{alias('swh::remote_service::objstorage::config_as_dict')}"
-
-swh::deploy::objstorage_archive_notifier_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_archive_notifier_checker::conf_file: "%{hiera('swh::deploy::objstorage_archive_notifier_checker::conf_directory')}/archive_notifier_checker.yml"
-swh::deploy::objstorage_archive_notifier_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_archive_notifier_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
-swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
-swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::archiver::db::host')}"
-swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::archiver::db::dbname')}"
-swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::archiver::db::user')}"
-swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::archiver::db::password')}"
-swh::deploy::objstorage_archive_notifier_checker::config:
-  storage:
-    cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::objstorage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-  batch_size: 1000
-  log_tag: objstorage.checker.archive_notifier
-  storage_name: this-must-be-overriden-on-a-per-host-basis
-  archiver_storage:
-    cls: db
-    args:
-      dbconn: "host=%{hiera('swh::deploy::worker::archiver::db::host')} user=%{hiera('swh::deploy::worker::archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::archiver::db::dbname')} password=%{hiera('swh::deploy::worker::archiver::db::password')}"
 
 swh::deploy::webapp::backported_packages:
   stretch:
