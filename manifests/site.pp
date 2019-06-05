@@ -33,6 +33,7 @@ node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
 
 node 'belvedere.internal.softwareheritage.org' {
   include role::swh_database
+  include profile::pgbouncer
 }
 
 node 'banco.softwareheritage.org' {

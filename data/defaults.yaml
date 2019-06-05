@@ -1380,6 +1380,63 @@ swh::deploy::db::main::port: 5433
 swh::deploy::db::secondary::port: 5434
 swh::deploy::db::hdd::port: 5435
 
+swh::deploy::db::pgbouncer::user::login: postgres
+
+pgbouncer::config_params:
+  logfile: /var/log/postgresql/pgbouncer.log
+  pidfile: /var/run/postgresql/pgbouncer.pid
+  unix_socket_dir: /var/run/postgresql
+  client_tls_sslmode: allow
+  client_tls_ca_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
+  client_tls_key_file: /etc/ssl/private/ssl-cert-snakeoil.key
+  client_tls_cert_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
+  server_tls_sslmode: allow
+  listen_port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+  listen_addr:
+    - 127.0.0.1
+    - 192.168.100.210
+  auth_type: "hba"
+  auth_file: /etc/pgbouncer/userlist.txt
+  auth_hba_file: /etc/postgresql/11/secondary/pg_hba.conf
+  admin_users:
+    - "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    - olasd
+  pool_mode: session
+  server_reset_query: DISCARD ALL
+  max_client_conn: 2000
+  default_pool_size: 2000
+  max_db_connections: 2000
+  max_user_connections: 2000
+  log_connections: 0
+  log_disconnections: 0
+
+# swh::deploy::db::pgbouncer::user::password in private data
+pgbouncer::userlist:
+  - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    password: "%{hiera('swh::deploy::db::pgbouncer::user::password')}"
+
+pgbouncer::databases:
+  # swh
+  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: prado.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"
+  # swh-deposit
+  - source_db: "%{hiera('swh::deploy::deposit::db::dbname')}"
+    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port:  "%{hiera('swh::deploy::deposit::db::port')}"
+  # swh-scheduler
+  - source_db: "%{hiera('swh::deploy::scheduler::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port:  "%{hiera('swh::deploy::scheduler::db::port')}"
+  # swh-scheduler-updater
+  - source_db: "%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::updater::backend::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port:  "%{hiera('swh::deploy::scheduler::updater::backend::db::port')}"
+
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
 swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
