@@ -43,11 +43,11 @@ node /^esnode\d+.(internal.)?softwareheritage.org$/ {
   include role::swh_elasticsearch
 }
 
-node /^(unibo-test|orangeriedev).(internal.)?softwareheritage.org$/ {
+node /^(unibo-test).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
 
-node /^(unibo-prod|orangerie|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
+node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }
 
