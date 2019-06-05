@@ -119,6 +119,10 @@ mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
     :ref => '5.3.0'
 
+mod 'pgbouncer',
+    :git => 'https://forge.softwareheritage.org/source/puppet-covermymeds-pgbouncer',
+    :ref => '0.3.3'
+
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet',
     :tag => '8.2.0'
