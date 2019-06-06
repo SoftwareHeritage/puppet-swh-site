@@ -1439,6 +1439,16 @@ pgbouncer::databases:
     host: "%{hiera('swh::deploy::scheduler::updater::backend::db::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port:  "%{hiera('swh::deploy::scheduler::updater::backend::db::port')}"
+  # swh-vault
+  - source_db: "%{hiera('swh::deploy::vault::db::dbname')}"
+    host: "%{hiera('swh::deploy::vault::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port:  "%{hiera('swh::deploy::vault::db::port')}"
+  # swh-lister
+  - source_db: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port:  "%{hiera('swh::deploy::worker::lister::db::port')}"
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
