@@ -16,3 +16,7 @@ pgbouncer::databases:
     host: somerset.internal.softwareheritage.org
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::main::port')}"
+  - source_db: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"
