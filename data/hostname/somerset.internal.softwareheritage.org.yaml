@@ -7,3 +7,12 @@ icinga2::host::vars:
 
 prometheus::sql::config_snippets:
   - swh-indexer
+
+pgbouncer::auth_hba_file: /etc/postgresql/10/replica/pg_hba.conf
+pgbouncer::listen_addr: 192.168.100.103
+pgbouncer::databases:
+  # swh
+  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"

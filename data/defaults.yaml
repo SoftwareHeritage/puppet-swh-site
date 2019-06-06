@@ -1394,10 +1394,10 @@ pgbouncer::config_params:
   listen_port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
   listen_addr:
     - 127.0.0.1
-    - 192.168.100.210
+    - "%{hiera('pgbouncer::listen_addr')}"
   auth_type: "hba"
   auth_file: /etc/pgbouncer/userlist.txt
-  auth_hba_file: /etc/postgresql/11/secondary/pg_hba.conf
+  auth_hba_file: "%{hiera('pgbouncer::auth_hba_file')}"
   admin_users:
     - "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     - olasd
@@ -1418,37 +1418,7 @@ pgbouncer::userlist:
   - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     password: "%{hiera('swh::deploy::db::pgbouncer::user::password')}"
 
-pgbouncer::databases:
-  # swh
-  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
-    host: prado.internal.softwareheritage.org
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  # swh-deposit
-  - source_db: "%{hiera('swh::deploy::deposit::db::dbname')}"
-    host: "%{hiera('swh::deploy::deposit::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port:  "%{hiera('swh::deploy::deposit::db::port')}"
-  # swh-scheduler
-  - source_db: "%{hiera('swh::deploy::scheduler::db::dbname')}"
-    host: "%{hiera('swh::deploy::scheduler::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port:  "%{hiera('swh::deploy::scheduler::db::port')}"
-  # swh-scheduler-updater
-  - source_db: "%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')}"
-    host: "%{hiera('swh::deploy::scheduler::updater::backend::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port:  "%{hiera('swh::deploy::scheduler::updater::backend::db::port')}"
-  # swh-vault
-  - source_db: "%{hiera('swh::deploy::vault::db::dbname')}"
-    host: "%{hiera('swh::deploy::vault::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port:  "%{hiera('swh::deploy::vault::db::port')}"
-  # swh-lister
-  - source_db: "%{hiera('swh::deploy::worker::lister::db::name')}"
-    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port:  "%{hiera('swh::deploy::worker::lister::db::port')}"
+pgbouncer::databases: []
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
