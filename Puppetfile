@@ -121,7 +121,7 @@ mod 'postgresql',
 
 mod 'pgbouncer',
     :git => 'https://forge.softwareheritage.org/source/puppet-covermymeds-pgbouncer',
-    :ref => '0.3.3'
+    :ref => '9ec0d8a1255bbb309c2ff38f229167209cad496b'
 
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet',
