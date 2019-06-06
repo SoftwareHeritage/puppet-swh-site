@@ -1410,6 +1410,9 @@ pgbouncer::config_params:
   log_connections: 0
   log_disconnections: 0
 
+pgbouncer::user: postgres
+pgbouncer::group: postgres
+
 # swh::deploy::db::pgbouncer::user::password in private data
 pgbouncer::userlist:
   - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"

@@ -3,6 +3,8 @@ class profile::pgbouncer {
   $config_params = lookup('pgbouncer::config_params')
   $userlist = lookup('pgbouncer::userlist')
   $databases = lookup('pgbouncer::databases')
+  $pgbouncer_user = lookup('pgbouncer::user')
+  $pgbouncer_group = lookup('pgbouncer::group')
 
   # Need format manipulation (expected format in pgbouncer class is {key,
   # value} with no nested data)
@@ -18,5 +20,7 @@ class profile::pgbouncer {
     config_params => $expected_config_params,
     userlist      => $userlist,
     databases     => $databases,
+    user          => $pgbouncer_user,
+    group         => $pgbouncer_group,
   }
 }
