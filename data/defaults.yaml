@@ -1428,8 +1428,8 @@ swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
-swh::deploy::storage::db::host: db
-swh::deploy::storage::db::port: 5432
+swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
@@ -1493,8 +1493,8 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::vault::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::vault::db::host: db.internal.softwareheritage.org
+swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 swh::deploy::vault::backend::listen::host: 127.0.0.1
@@ -1583,8 +1583,8 @@ swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_direct
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-swh::deploy::deposit::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::deposit::db::host: db.internal.softwareheritage.org
+swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
 # swh::deploy::deposit::runtime_secret_key in private data
@@ -1768,8 +1768,8 @@ swh::deploy::scheduler::config::local: &swh_scheduler_local_config
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
-swh::deploy::scheduler::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::scheduler::db::host: db.internal.softwareheritage.org
+swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
@@ -1839,8 +1839,8 @@ swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_director
 swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
 swh::deploy::scheduler::updater::backend::user: swhscheduler
 swh::deploy::scheduler::updater::backend::group: swhscheduler
-swh::deploy::scheduler::updater::backend::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::scheduler::updater::backend::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::scheduler::updater::backend::db::host: db.internal.softwareheritage.org
+swh::deploy::scheduler::updater::backend::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::updater::backend::db::dbname: softwareheritage-scheduler-updater
 swh::deploy::scheduler::updater::backend::db::user: swhscheduler
 swh::deploy::scheduler::updater::backend::config:
@@ -1899,12 +1899,12 @@ swh::deploy::scheduler::archive::config:
 # Main lister configuration
 swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
-swh::deploy::worker::lister::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::worker::lister::db::host: db.internal.softwareheritage.org
+swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 # swh::deploy::worker::lister::db::password in private data
 
-swh::deploy::worker::loader_debian::db::host: belvedere.internal.softwareheritage.org
-swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::secondary::port')}"
+swh::deploy::worker::loader_debian::db::host: db.internal.softwareheritage.org
+swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 # in private data: swh::deploy::worker::loader_debian::db::password
 swh::deploy::worker::loader_debian::db::user: "%{alias('swh::deploy::worker::lister::db::user')}"
 swh::deploy::worker::loader_debian::db::dbname: "%{alias('swh::deploy::worker::lister::db::name')}"
