@@ -1457,8 +1457,8 @@ swh::deploy::storage::config:
 swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
-swh::deploy::indexer::storage::db::host: somerset
-swh::deploy::indexer::storage::db::port: 5434
+swh::deploy::indexer::storage::db::host: somerset.internal.softwareheritage.org
+swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
 swh::deploy::indexer::storage::backend::listen::host: 127.0.0.1
