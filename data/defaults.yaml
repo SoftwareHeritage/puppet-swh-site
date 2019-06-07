@@ -81,6 +81,9 @@ smtp::mail_aliases:
   - user: vlorentz
     aliases:
       - valentin.lorentz@inria.fr
+  - user: haltode
+    aliases:
+      - haltode@gmail.com
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -452,6 +455,17 @@ users:
       vlorentz@softwareheritage.org:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIIjJoY4XBTTNsxLVF/sUKBI4WGR2AIiR9qfMdspnsRfJ
+  haltode:
+    uid: 1022
+    full_name: Thibault Allancon
+    shell: /usr/bin/zsh
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      haltode@gmail.com:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIORGwY56PpvgwMWqDei718PPriV6U7LL5JMPJWS7zTcg
 
 groups:
   adm:
