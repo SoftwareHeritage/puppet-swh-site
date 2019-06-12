@@ -9,7 +9,7 @@ class profile::swh::deploy::worker::loader_deposit {
 
   # This installs the swh-worker@$service_name service
   ::profile::swh::deploy::worker::instance {'loader_deposit':
-    ensure       => running,
+    ensure       => 'present',
     private_tmp  => $private_tmp,
     require      => [
       Package[$packages],

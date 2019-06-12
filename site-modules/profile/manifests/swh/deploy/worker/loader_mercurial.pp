@@ -8,7 +8,7 @@ class profile::swh::deploy::worker::loader_mercurial {
   }
 
   ::profile::swh::deploy::worker::instance {'loader_mercurial':
-    ensure       => running,
+    ensure       => 'present',
     private_tmp  => $private_tmp,
     require      => [
       Package[$packages],
