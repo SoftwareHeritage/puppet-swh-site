@@ -1,3 +1,7 @@
+prometheus::sql::config_snippets:
+  - swh-scheduler
+  - swh-storage
+
 pgbouncer::auth_hba_file: /etc/postgresql/11/secondary/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.210
 pgbouncer::databases:
