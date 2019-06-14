@@ -2727,40 +2727,6 @@ postgresql::apt_config::pgdg::key: |
   =s3DI
   -----END PGP PUBLIC KEY BLOCK-----
 
-postgresql::apt_config::pglogical::mirror: 'http://packages.2ndquadrant.com/pglogical/apt/'
-postgresql::apt_config::pglogical::keyid: 855AF5C7B897656417FA73D65D941908AA7A6805
-postgresql::apt_config::pglogical::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  
-  mQENBFUQs34BCADT3W0Nnf0E0/2LGU4Afzg4dAViJqqhOLBwuWUS6Np+ZqCK6beY
-  E46KS/CowwBmca9stm5oJbcpz2WCNxnb6OGlgxQnYEaVl4z6bDRDJ3BdiIbcjdYM
-  cutJupmZbrlvfnf30AcQXc6RCZ/x/53CDuCXyrO7djkBkoolJFQbzfy0HcRnNRVp
-  x3LrsTkTaajDwsenRjq5NJDAnVaMvq+Jmsl0pJoIbiPNIUA2oNKptINlZWIvS7Ha
-  LYT6sLZxWwuUYhbrpb2EiF8Gx3D4WYf6Wm2h6GLYZkKIagfTsvN/tRPw+5SvIMAd
-  yVeVWbu77k0i8Om+RQ6wA1FOtZbAVfp8/YxrABEBAAG0P0JEUiBBcHQgU2lnbmlu
-  ZyBLZXkgZm9yIDJuZFF1YWRyYW50IDxwYWNrYWdlcnNAMm5kcXVhZHJhbnQuY29t
-  PokBPQQTAQoAJwIbAwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgAUCWNNnkQUJB4Ub
-  EQAKCRBdlBkIqnpoBR6ACACAaDLPvfknZT7+LrumSIuTM0VqJDPsJykCwWhvjoDb
-  k2EfLYcqMxVQKEKQtGueSN06DSlfARQmAcoNLw0J5OG6Aw+vv53NmIusvDkTVI28
-  TbsdwoWffpY5dcN39KovFsVsIgGROsBTsW1cL0MaeSuwMobaRGorGFKfOwH+xvMc
-  wjG0wzPoBP85nMulEmqXqPNjRq++NdWnutmc3uGTr8C0dViTlG5F/lYLQ7scsPDi
-  zBdDg+YPhehX0hG6RUtQsdYMUbzL5Bd51NgmI7gw5Xk61e3N2yDlSNMfdaY+G6tX
-  jP20hXMNuCRSc1ICNu3hKg/VDxVwYsSBRLJZJ/tlHTtiuQENBFUQs34BCAC8FxMX
-  v+UBEnLk1qcayhSsECnatkAoDDaKjuUWc7mPBhcwo6C3buFbPtHRKV88uAYy8MtY
-  291+zMeO+ZVD6bOVnmXvs/HD6Hn9XIq8DX4LBNu1kKycxQ8BghJCpb5qQgDaxgYI
-  tWMI66xdaHlPyIhyCZGuv9Dx6T4gR6PUdRLy9kVR1V603B0LHhBbYjSLb6aAmc8w
-  o7uJJuToN6L/FxKM2asV9L7uacmaq5JhY658LFBexhaTQuih6JYFW3DHxtW527+S
-  lwXEPtpDrQIvE5hJqrDQX22hF/oiS+gnIE2T22aCIr6+Cwdxys/l104qjcS5YV2T
-  DujsmHOsvCCL7/QFABEBAAGJASUEGAEKAA8CGwwFAljTZ5oFCQeFGxoACgkQXZQZ
-  CKp6aAX1+wf/dDQi/3/mv0kGg/5B8NazRIYQ01pmTqW5Czot+3iorssa6fycsLBi
-  Pd30EQF++26x2hFqxEpvCyBuN1YoU1XlSJJacv80Um8jzdRY10mLGrttcnNFE8TU
-  xeEXa1rOnoHx45rt5qY8IyOODFkhbHfyBzcxeNtFtvkqT/ZRubj0lzC3Yjvm2xOc
-  yfIBhvAX93diiaFkg/BKhSkCxognvJnb6KLBwPZ6f6czDvcICvuxWnaT8jfK1610
-  YwvZiujRAX8bedODRO+AkokOus7TLPgDx69e9i1SkFjlaaYag/FSLEDsCzKDqim8
-  2lBkSxP5ZrLrfAkji+bmAWtpWifTMgeP0Q==
-  =8MHy
-  -----END PGP PUBLIC KEY BLOCK-----
-
 icinga2::apt_config::mirror: 'http://packages.icinga.com/debian'
 icinga2::apt_config::keyid: F51A91A5EE001AA5D77D53C4C6E319C334410682
 icinga2::apt_config::key: |
