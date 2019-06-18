@@ -10,4 +10,12 @@ class profile::swh::deploy::storage {
     worker            => 'sync',
     http_check_string => '<title>Software Heritage storage server</title>'
   }
+
+  $storage_config = lookup('swh::deploy::storage::config')['storage']
+
+  if ($storage_config['cls'] == 'local'
+      and $storage_config['args']['journal_writer']
+      and $storage_config['args']['journal_writer']['cls'] == 'kafka') {
+    include ::profile::swh::deploy::journal
+  }
 }
