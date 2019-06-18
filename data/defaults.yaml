@@ -1995,7 +1995,6 @@ swh::deploy::worker::lister::config:
       - swh.lister.gnu.tasks.GNUListerTask
       - swh.lister.npm.tasks.NpmListerTask
       - swh.lister.phabricator.tasks.FullPhabricatorLister
-      - swh.lister.phabricator.tasks.IncrementalPhabricatorLister
       - swh.lister.pypi.tasks.PyPIListerTask
   credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
