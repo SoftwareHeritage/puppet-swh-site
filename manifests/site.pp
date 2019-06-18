@@ -27,12 +27,7 @@ node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
 
-node /^(prado|somerset).(internal.)?softwareheritage.org$/ {
-  include role::swh_database
-  include profile::pgbouncer
-}
-
-node 'belvedere.internal.softwareheritage.org' {
+node /^(belvedere|somerset).(internal.)?softwareheritage.org$/ {
   include role::swh_database
   include profile::pgbouncer
 }
