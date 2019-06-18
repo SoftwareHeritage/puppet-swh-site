@@ -1536,12 +1536,18 @@ swh::deploy::vault::config:
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
+swh::deploy::journal::brokers:
+  - esnode1.internal.softwareheritage.org
+  - esnode2.internal.softwareheritage.org
+  - esnode3.internal.softwareheritage.org
+
+swh::deploy::journal::prefix: swh.journal.objects
+
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
 swh::deploy::journal_simple_checker_producer::group: swhstorage
 swh::deploy::journal_simple_checker_producer::config:
-  brokers:
-    - getty.internal.softwareheritage.org
+  brokers: "%{alias('swh::deploy::journal::brokers')}"
   temporary_prefix: swh.tmp_journal.new
   storage_dbconn: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   object_types:
@@ -2062,8 +2068,7 @@ swh::deploy::indexer_journal_client::config_file: "journal_client.yml"
 swh::deploy::indexer_journal_client::user: swhstorage
 swh::deploy::indexer_journal_client::group: swhstorage
 swh::deploy::indexer_journal_client::config:
-  brokers:
-    - getty.internal.softwareheritage.org
+  brokers: "${alias('swh::deploy::journal::brokers')}"
   consumer_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
 
