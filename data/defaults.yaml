@@ -1704,7 +1704,6 @@ swh::deploy::webapp::config::allowed_hosts:
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
 # in private data:
-# swh::deploy::webapp::config::grecaptcha::private_key
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
@@ -1756,11 +1755,6 @@ swh::deploy::webapp::config:
           - 213.135.60.145
           - 213.135.60.146
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
-  grecaptcha:
-    activated: true
-    validation_url: https://www.google.com/recaptcha/api/siteverify
-    site_key: 6Le0l2wUAAAAAHgtL_aJmIfnow8pFB62sAoG8B7m
-    private_key: "%{hiera('swh::deploy::webapp::config::grecaptcha::private_key')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
   deposit:
     private_api_url: https://deposit.softwareheritage.org/1/private/
