@@ -54,7 +54,11 @@ class profile::munin::master {
     directories => [
       { 'path'       => '/usr/lib/munin/cgi',
         'options'    => '+ExecCGI',
-        'sethandler' => 'fcgid-script' },
+        'sethandler' => 'fcgid-script'
+      },
+      { 'path'       => "${export_path}",
+        'options'    => '+Indexes',  # allow listing
+      }
     ],
   }
 

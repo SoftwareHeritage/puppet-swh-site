@@ -44,7 +44,7 @@ class profile::stats_web {
     docroot              => $vhost_docroot,
     proxy_pass           => {
       path => '/',
-      url  => 'http://munin.internal.softwareheritage.org/'
+      url  => 'http://munin.internal.softwareheritage.org/export/'
     },
     require              => [
         File[$ssl_cert],
