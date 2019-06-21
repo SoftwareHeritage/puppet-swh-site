@@ -42,6 +42,10 @@ class profile::stats_web {
     ssl_key              => $ssl_key,
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
+    proxy_pass           => {
+      path => '/',
+      url  => 'http://munin.internal.softwareheritage.org/'
+    },
     require              => [
         File[$ssl_cert],
         File[$ssl_chain],
