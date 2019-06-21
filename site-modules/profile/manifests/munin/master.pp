@@ -8,6 +8,15 @@ class profile::munin::master {
     extra_config => ["cgiurl_graph http://$master_hostname"],
   }
 
+  $export_path = lookup('stats_export::export_path')
+
+  file {$export_path:
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+  } ~> Apache::Vhost[$master_hostname]
+
   include ::profile::apache::common
   include ::apache::mod::rewrite
   include ::apache::mod::fcgid
@@ -21,6 +30,7 @@ class profile::munin::master {
         rewrite_rule => [
           '^/favicon.ico /etc/munin/static/favicon.ico [L]',
           '^/static/(.*) /etc/munin/static/$1          [L]',
+          "^/export/(.*) ${export_path}/\$1       [L]",
         ],
       },
       {

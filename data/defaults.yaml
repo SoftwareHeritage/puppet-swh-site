@@ -2648,12 +2648,8 @@ kafka::brokers:
   esnode3.internal.softwareheritage.org:
     id: 13
 
-stats_export::vhost::name: stats.export.softwareheritage.org
-stats_export::vhost::docroot: "/var/www/%{hiera('stats_export::vhost::name')}"
-stats_export::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-stats_export::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+stats_export::export_path: "/var/www/html/export"
+stats_export::export_file: "%{hiera('stats_export::export_path')}/history_counters.json"
 
 postgresql::apt_config::pgdg::mirror: 'http://apt.postgresql.org/pub/repos/apt/'
 postgresql::apt_config::pgdg::keyid: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
