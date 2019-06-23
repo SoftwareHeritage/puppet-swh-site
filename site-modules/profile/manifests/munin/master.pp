@@ -8,12 +8,20 @@ class profile::munin::master {
     extra_config => ["cgiurl_graph http://$master_hostname"],
   }
 
+  $docroot = '/var/www/html'
   $export_path = lookup('stats_export::export_path')
+
+  file {$docroot:
+    ensure  => directory,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0755',
+  } ~> File[$export_path]
 
   file {$export_path:
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
+    owner   => 'www-data',
+    group   => 'www-data',
     mode    => '0755',
   } ~> Apache::Vhost[$master_hostname]
 
@@ -23,7 +31,7 @@ class profile::munin::master {
 
   apache::vhost { $master_hostname:
     port        => 80,
-    docroot     => '/var/www/html',
+    docroot     => $docroot,
     rewrites    => [
       {
         comment      => 'static resources',
