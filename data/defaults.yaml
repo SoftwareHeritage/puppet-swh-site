@@ -1002,6 +1002,7 @@ dar::backup::exclude:
  - run
  - srv/backups
  - srv/elasticsearch
+ - srv/postgres-backups
  - srv/remote-backups
  - srv/softwareheritage/objects
  - srv/softwareheritage/postgres
