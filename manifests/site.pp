@@ -1,5 +1,6 @@
 node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
+  include role::postgresql_client
 }
 
 node /^(orsay|beaubourg|hypervisor\d+)\.(internal\.)?softwareheritage\.org$/
