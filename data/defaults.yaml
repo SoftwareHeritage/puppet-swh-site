@@ -1979,6 +1979,7 @@ swh::deploy::worker::lister::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
+      - swh.lister.bitbucket.tasks
       - swh.lister.debian.tasks
       - swh.lister.github.tasks
       - swh.lister.gitlab.tasks
@@ -1987,6 +1988,8 @@ swh::deploy::worker::lister::config:
       - swh.lister.phabricator.tasks
       - swh.lister.pypi.tasks
     task_queues:
+      - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
+      - swh.lister.bitbucket.tasks.FullBitBucketRelister
       - swh.lister.debian.tasks.DebianListerTask
       - swh.lister.github.tasks.IncrementalGitHubLister
       - swh.lister.github.tasks.RangeGitHubLister
