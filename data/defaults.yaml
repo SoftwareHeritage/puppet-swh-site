@@ -1814,6 +1814,7 @@ swh::deploy::scheduler::backported_packages:
   jessie:
     - python3-sqlalchemy
 swh::deploy::scheduler::task_modules:
+  - swh.lister.bitbucket.tasks
   - swh.lister.debian.tasks
   - swh.lister.github.tasks
   - swh.lister.gitlab.tasks
