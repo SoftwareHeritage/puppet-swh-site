@@ -1981,7 +1981,7 @@ swh::deploy::worker::lister::config:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
       - swh.lister.bitbucket.tasks
-      - swh.Lister.cgit.tasks
+      - swh.lister.cgit.tasks
       - swh.lister.debian.tasks
       - swh.lister.github.tasks
       - swh.lister.gitlab.tasks
