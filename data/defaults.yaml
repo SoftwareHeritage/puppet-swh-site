@@ -1001,8 +1001,8 @@ dar::backup::exclude:
  - proc
  - run
  - srv/backups
+ - srv/db-backups
  - srv/elasticsearch
- - srv/postgres-backups
  - srv/remote-backups
  - srv/softwareheritage/objects
  - srv/softwareheritage/postgres
