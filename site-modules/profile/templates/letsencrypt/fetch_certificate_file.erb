@@ -1,0 +1,13 @@
+<%=
+  dir = scope().call_function('lookup', ['letsencrypt::certificates::exported_directory'])
+  filename = "#{dir}/#{@basename}/#{@filename}"
+  begin
+    out = File.read(filename)
+  rescue Errno::ENOENT => e
+    out = "File not found: #{filename}\n"
+  rescue Errno::EACCES => e
+    out = "Permission denied : #{filename}\n"
+  end
+
+  out
+%>

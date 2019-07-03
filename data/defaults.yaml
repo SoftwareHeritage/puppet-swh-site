@@ -824,6 +824,8 @@ letsencrypt::gandi_livedns_hook::config:
       api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
       sharing_id: "%{alias('gandi::softwareheritage_org::sharing_id')}"
 
+letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
+letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
   stats_export:
     domains:
