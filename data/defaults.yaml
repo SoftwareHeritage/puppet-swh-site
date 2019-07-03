@@ -1708,6 +1708,8 @@ swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
+  - base.softwareheritage.org
+  - archive.internal.softwareheritage.org
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
 # in private data:
