@@ -17,8 +17,9 @@ class profile::letsencrypt {
     $domains = $settings['domains']
     ::letsencrypt::certonly {$key:
       domains         => $domains,
-      plugin          => 'standalone',
+      custom_plugin   => true,
       additional_args => [
+        '--authenticator manual',
         '--preferred-challenges dns',
         "--manual-auth-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} auth'",
         "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
