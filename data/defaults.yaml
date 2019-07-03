@@ -813,6 +813,20 @@ ssl:
       hS+1NGClXwmgmkMd1L8tRNaN2v11y18WoA5hwnA9Ng==
       -----END CERTIFICATE-----
 
+
+letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
+letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
+
+letsencrypt::gandi_livedns_hook::config:
+  gandi_api: https://dns.api.gandi.net/api/v5/
+  zones:
+    softwareheritage.org:
+      api_key: "%{alias('gandi::softwareheritage.org::api_key')}"
+      sharing_id: "%{alias('gandi::softwareheritage.org::sharing_id')}"
+
+letsencrypt::certificates: {}
+
+
 bind::update_key: local-update
 
 bind::zones:

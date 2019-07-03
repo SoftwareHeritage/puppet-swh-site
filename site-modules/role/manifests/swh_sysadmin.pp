@@ -7,6 +7,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::prometheus::sql
 
   include profile::puppet::master
+  include profile::letsencrypt
 
   include profile::icinga2::icingaweb2
 
