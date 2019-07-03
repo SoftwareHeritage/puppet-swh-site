@@ -10,7 +10,7 @@ After=network.target
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/python3 -m swh.indexer.journal_client
+ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client
 Restart=always
 RestartSec=10
 
