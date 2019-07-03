@@ -2096,8 +2096,9 @@ swh::deploy::indexer_journal_client::config_file: "journal_client.yml"
 swh::deploy::indexer_journal_client::user: swhstorage
 swh::deploy::indexer_journal_client::group: swhstorage
 swh::deploy::indexer_journal_client::config:
-  brokers: "%{alias('swh::deploy::journal::brokers')}"
-  consumer_id: swh.indexer.journal_client
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
 
 swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
