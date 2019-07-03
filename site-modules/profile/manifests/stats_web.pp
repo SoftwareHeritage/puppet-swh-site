@@ -15,7 +15,6 @@ class profile::stats_web {
   }
 
   include ::profile::apache::common
-  include ::profile::ssl
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
@@ -25,10 +24,9 @@ class profile::stats_web {
     redirect_dest   => "https://${vhost_name}/",
   }
 
-  $ssl_cert_name = 'stats_export_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+  $ssl_cert_name = 'stats_export'
+  ::profile::letsencrypt::certificate {$ssl_cert_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($ssl_cert_name)
 
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
@@ -37,9 +35,9 @@ class profile::stats_web {
     ssl_protocol         => $vhost_ssl_protocol,
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
     ssl_cipher           => $vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_chain            => $ssl_chain,
-    ssl_key              => $ssl_key,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
     proxy_pass           => {
@@ -47,7 +45,7 @@ class profile::stats_web {
       url  => 'http://munin.internal.softwareheritage.org/export/'
     },
     require              => [
-        File[$ssl_cert],
+        Profile::Letsencrypt::Certificate[$ssl_cert_name],
         File[$ssl_chain],
         File[$ssl_key],
      ],
