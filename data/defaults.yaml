@@ -824,7 +824,11 @@ letsencrypt::gandi_livedns_hook::config:
       api_key: "%{alias('gandi::softwareheritage.org::api_key')}"
       sharing_id: "%{alias('gandi::softwareheritage.org::sharing_id')}"
 
-letsencrypt::certificates: {}
+letsencrypt::certificates:
+  stats_export:
+    domains:
+      - stats.export.softwareheritage.org
+      - pergamon.softwareheritage.org
 
 
 bind::update_key: local-update
