@@ -821,8 +821,8 @@ letsencrypt::gandi_livedns_hook::config:
   gandi_api: https://dns.api.gandi.net/api/v5/
   zones:
     softwareheritage.org:
-      api_key: "%{alias('gandi::softwareheritage.org::api_key')}"
-      sharing_id: "%{alias('gandi::softwareheritage.org::sharing_id')}"
+      api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
+      sharing_id: "%{alias('gandi::softwareheritage_org::sharing_id')}"
 
 letsencrypt::certificates:
   stats_export:
