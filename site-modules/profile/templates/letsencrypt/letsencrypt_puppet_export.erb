@@ -14,5 +14,5 @@ basename=$(basename "$RENEWED_LINEAGE")
 destdir="$puppet_cert_root/$basename"
 
 rm -rf "$destdir"
-cp -a "$RENEWED_LINEAGE" "$destdir"
-chown -r puppet: "$destdir"
+cp -rL "$RENEWED_LINEAGE" "$destdir"
+chown -R puppet: "$destdir"
