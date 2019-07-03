@@ -21,6 +21,7 @@ class profile::letsencrypt {
       additional_args => [
         '--authenticator manual',
         '--preferred-challenges dns',
+        '--manual-public-ip-logging-ok',
         "--manual-auth-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} auth'",
         "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
       ],
