@@ -5,7 +5,7 @@ class profile::prometheus::node {
   $defaults_file = '/etc/default/prometheus-node-exporter'
 
   package {'prometheus-node-exporter':
-    ensure => latest,
+    ensure => present,
     notify => Service['prometheus-node-exporter'],
   }
 

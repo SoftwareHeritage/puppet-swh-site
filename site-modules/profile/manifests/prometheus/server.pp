@@ -60,7 +60,7 @@ class profile::prometheus::server {
   }
 
   package {'prometheus':
-    ensure => latest,
+    ensure => present,
     notify => Service['prometheus'],
   }
 

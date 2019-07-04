@@ -5,7 +5,7 @@ class profile::swh::deploy::scheduler_updater {
   $scheduler_updater_packages = ['python3-swh.scheduler.updater']
 
   package {$scheduler_updater_packages:
-    ensure => latest,
+    ensure => present,
   }
 
   $backend_conf_dir = lookup('swh::deploy::scheduler::updater::backend::conf_dir')

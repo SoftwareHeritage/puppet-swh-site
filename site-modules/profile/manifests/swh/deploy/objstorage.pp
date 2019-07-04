@@ -6,7 +6,7 @@ class profile::swh::deploy::objstorage {
   $swh_packages = ['python3-swh.objstorage']
 
   package {$swh_packages:
-    ensure  => latest,
+    ensure  => present,
     require => Apt::Source['softwareheritage'],
   }
   Package[$swh_packages] ~> Service['gunicorn-swh-objstorage']
