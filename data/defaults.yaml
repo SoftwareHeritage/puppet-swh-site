@@ -824,6 +824,11 @@ letsencrypt::gandi_livedns_hook::config:
       api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
       sharing_id: "%{alias('gandi::softwareheritage_org::sharing_id')}"
 
+letsencrypt::gandi_paas_hook::config:
+  gandi_xmlrpc: https://rpc.gandi.net/xmlrpc/
+  zone_keys:
+    softwareheritage.org: "%{alias('gandi::softwareheritage_org::xmlrpc_key')}"
+
 letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
 letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
@@ -831,6 +836,10 @@ letsencrypt::certificates:
     domains:
       - stats.export.softwareheritage.org
       - pergamon.softwareheritage.org
+  www-dev:
+    domains:
+      - www-dev.softwareheritage.org
+    deploy_hook: gandi_paas
 
 
 bind::update_key: local-update

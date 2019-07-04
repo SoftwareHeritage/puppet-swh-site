@@ -1,0 +1,105 @@
+#!/usr/bin/python3
+#
+# Copyright (C) 2019 The Software Heritage developers
+# See the AUTHORS file at the top-level directory of this distribution
+# License: GNU General Public License version 3, or any later version
+# See top-level LICENSE file for more information
+
+import logging
+import os
+import xmlrpc.client
+
+import yaml
+
+
+logger = logging.getLogger(__name__)
+
+
+CONFIG_FILE = os.environ.get(
+    'CERTBOT_GANDI_CONFIG',
+    '<%= @hook_configfile %>',
+)
+
+CONFIG = None
+DEFAULT_CONFIG = {
+    # Default: OT&E environment
+    'gandi_xmlrpc': 'https://rpc.ote.gandi.net/xmlrpc/',
+    # Production environment
+    # 'gandi_xmlrpc': 'https://rpc.gandi.net/xmlrpc/',
+    'zone_keys': {},
+}
+
+
+def load_config():
+    """Load the hook configuration from CONFIG_FILE"""
+    global CONFIG
+
+    if CONFIG is not None:
+        return
+
+    try:
+        with open(CONFIG_FILE, 'r') as f:
+            CONFIG = yaml.safe_load(f)
+            return True
+    except Exception as e:
+        logger.warning(
+            'Could not open configuration file %s: %s', CONFIG_FILE, e
+        )
+        CONFIG = DEFAULT_CONFIG
+        return False
+
+
+def get_key_for_domain(domain):
+    """Retrieve the XML-RPC key for the zone containing `domain`."""
+    labels = domain.split('.')
+    for i in range(len(labels)):
+        zone = '.'.join(labels[i:])
+        if zone in CONFIG['zone_keys']:
+            return CONFIG['zone_keys'][zone]
+    else:
+        logger.error(
+            'Could not find zone for domain %s, available zones: %s',
+            domain, ', '.join(CONFIG['zones'].keys()),
+        )
+
+
+def get_certificate_data(basepath):
+    """Get the certificate data from basepath into a Gandi-compatible format.
+
+    https://doc.rpc.gandi.net/cert/reference.html#SSLCreateParams
+    """
+
+    fullchain = open(os.path.join(basepath, 'fullchain.pem')).read()
+    privkey = open(os.path.join(basepath, 'privkey.pem')).read()
+
+    return {
+        'crt': fullchain,
+        'key': privkey,
+    }
+
+
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+
+    load_config()
+
+    renewed_domains = os.environ['RENEWED_DOMAINS'].split()
+    base_path = os.environ['RENEWED_LINEAGE']
+
+    certificate_data = get_certificate_data(base_path)
+
+    rpc_client = xmlrpc.client.ServerProxy(CONFIG['gandi_xmlrpc'])
+
+    processed_api_keys = set()
+    for domain in renewed_domains:
+        api_key = get_key_for_domain(domain)
+        if not api_key or api_key in processed_api_keys:
+            continue
+
+        try:
+            ret = rpc_client.cert.hosted.create(certificate_data)
+        except Exception:
+            logger.exception('Failed pushing certificate')
+        else:
+            logger.info('Successfully pushed certificate with id %s',
+                        ret['id'])
