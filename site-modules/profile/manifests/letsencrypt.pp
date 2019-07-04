@@ -20,19 +20,22 @@ class profile::letsencrypt {
 
     include "::profile::letsencrypt::${deploy_hook}_hook"
     $deploy_hook_path = getvar("profile::letsencrypt::${deploy_hook}_hook::hook_path")
+    $deploy_hook_extra_opts = getvar("profile::letsencrypt::${deploy_hook}_hook::hook_extra_opts")
 
     File[$deploy_hook_path]
     -> ::letsencrypt::certonly {$key:
-      domains              => $domains,
-      custom_plugin        => true,
-      additional_args      => [
-        '--authenticator manual',
-        '--preferred-challenges dns',
-        '--manual-public-ip-logging-ok',
-        "--manual-auth-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} auth'",
-        "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
-        "--deploy-hook '${deploy_hook_path}'",
-      ],
+      * => deep_merge({
+        domains         => $domains,
+        custom_plugin   => true,
+        additional_args => [
+          '--authenticator manual',
+          '--preferred-challenges dns',
+          '--manual-public-ip-logging-ok',
+          "--manual-auth-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} auth'",
+          "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
+          "--deploy-hook '${deploy_hook_path}'",
+        ],
+      }, $deploy_hook_extra_opts)
     } -> Profile::Letsencrypt::Certificate <| title == $key |>
   }
 }

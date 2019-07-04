@@ -1,6 +1,7 @@
 # Certbot deploy hook to copy certificates to a puppet-accessible path
 
 class profile::letsencrypt::puppet_export_hook {
+  $hook_extra_opts = {}
   $hook_path = '/usr/local/bin/letsencrypt_puppet_export'
   file {$hook_path:
     owner   => 'root',
