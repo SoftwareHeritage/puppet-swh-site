@@ -97,7 +97,7 @@ if __name__ == '__main__':
             continue
 
         try:
-            ret = rpc_client.cert.hosted.create(certificate_data)
+            ret = rpc_client.cert.hosted.create(api_key, certificate_data)
         except Exception:
             logger.exception('Failed pushing certificate')
         else:
