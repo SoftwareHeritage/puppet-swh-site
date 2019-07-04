@@ -3,7 +3,6 @@
 class profile::letsencrypt {
   include ::profile::letsencrypt::apt_config
   include ::profile::letsencrypt::gandi_livedns_hook
-  include ::profile::letsencrypt::puppet_export_hook
 
   class {'letsencrypt':
     config => {
@@ -16,7 +15,14 @@ class profile::letsencrypt {
 
   $certificates.each |$key, $settings| {
     $domains = $settings['domains']
-    ::letsencrypt::certonly {$key:
+
+    $deploy_hook = pick($settings['deploy_hook'], 'puppet_export')
+
+    include "::profile::letsencrypt::${deploy_hook}_hook"
+    $deploy_hook_path = getvar("profile::letsencrypt::${deploy_hook}_hook::hook_path")
+
+    File[$deploy_hook_path]
+    -> ::letsencrypt::certonly {$key:
       domains              => $domains,
       custom_plugin        => true,
       additional_args      => [
@@ -25,7 +31,7 @@ class profile::letsencrypt {
         '--manual-public-ip-logging-ok',
         "--manual-auth-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} auth'",
         "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
-        "--deploy-hook '${::profile::letsencrypt::puppet_export_hook::hook_path}'",
+        "--deploy-hook '${deploy_hook_path}'",
       ],
     } -> Profile::Letsencrypt::Certificate <| title == $key |>
   }
