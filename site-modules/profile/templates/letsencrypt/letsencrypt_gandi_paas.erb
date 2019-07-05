@@ -101,5 +101,6 @@ if __name__ == '__main__':
         except Exception:
             logger.exception('Failed pushing certificate')
         else:
+            processed_api_keys.add(api_key)
             logger.info('Successfully pushed certificate with id %s',
                         ret['id'])
