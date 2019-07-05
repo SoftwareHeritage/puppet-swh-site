@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# banco has many *slow* CPU cores
+PARALLELISM=3
+COMPRESSION=1
+
+DATE=`/bin/date +%Y-%m-%d`
+
+export PGHOST=belvedere.internal.softwareheritage.org
+export PGPORT=5434
+export PGUSER=<%= @pg_backup_user %>
+export PGPASSWORD=<%= @pg_backup_password %>
+
+DB_LIST=`/usr/bin/psql template1 -t -c	\
+	"SELECT datname from pg_database WHERE datname NOT IN ('postgres', 'template0', 'template1');"`
+
+cd ${TARGET_DIR}
+
+for database in ${DB_LIST}
+do
+	echo "dumping database ${database}"
+	/usr/bin/pg_dump -Fd -j ${PARALLELISM} -Z ${COMPRESSION} -f pgdump-${DATE}.${database} -d ${database} -w
+done
