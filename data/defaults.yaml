@@ -840,6 +840,18 @@ letsencrypt::certificates:
     domains:
       - www-dev.softwareheritage.org
     deploy_hook: gandi_paas
+  www:
+    domains:
+      - softwareheritage.org
+      - www.softwareheritage.org
+    deploy_hook: gandi_paas
+  gandi-redirects:
+    domains:
+      - softwareheritage.org
+      - sponsors.softwareheritage.org
+      - sponsorship.softwareheritage.org
+      - testimonials.softwareheritage.org
+    deploy_hook: gandi_paas
 
 
 bind::update_key: local-update
