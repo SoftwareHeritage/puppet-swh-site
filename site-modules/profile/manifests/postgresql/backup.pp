@@ -1,8 +1,8 @@
 class profile::postgresql::backup {
 	include profile::postgresql::client
 
-	$pg_backup_user = %{hiera('swh::deploy::db::pgbouncer::user::login')}
-	$pg_backup_password = %{hiera('swh::deploy::db::pgbouncer::user::password')}
+	$pg_backup_user = lookup('swh::deploy::db::pgbouncer::user::login')
+	$pg_backup_password = lookup('swh::deploy::db::pgbouncer::user::password')
 
 	file { '/usr/local/bin/pg_cluster_backup.sh':
 		ensure	=> file,

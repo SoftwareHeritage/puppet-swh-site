@@ -1,6 +1,9 @@
 #!/bin/sh
 
+TARGET_DIR=/srv/storage/space/postgres_secondary
+
 # banco has many *slow* CPU cores
+# A full backup of the secondary cluster takes ~= 40 minutes with p=3 and c=1
 PARALLELISM=3
 COMPRESSION=1
 
