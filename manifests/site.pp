@@ -1,6 +1,12 @@
+# old node, to be decommissionned
 node 'louvre.softwareheritage.org' {
   include role::swh_hypervisor_master
   include role::postgresql_client
+}
+
+# new node, bare metal server
+node 'louvre.internal.softwareheritage.org' {
+  include role::swh_server
 }
 
 node /^(orsay|beaubourg|hypervisor\d+)\.(internal\.)?softwareheritage\.org$/
