@@ -863,6 +863,10 @@ bind::zones:
     domain: 100.168.192.in-addr.arpa
   101.168.192.in-addr.arpa:
     domain: 101.168.192.in-addr.arpa
+  internal.staging.swh.network:
+    domain: internal.staging.swh.network
+  128.168.192.in-addr.arpa:
+    domain: 128.168.192.in-addr.arpa
   200.168.192.in-addr.arpa:
     domain: 200.168.192.in-addr.arpa
   201.168.192.in-addr.arpa:
