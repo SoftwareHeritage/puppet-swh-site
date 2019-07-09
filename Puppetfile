@@ -73,7 +73,7 @@ mod 'hitch',
 
 mod 'icinga2',
     :git => 'https://forge.softwareheritage.org/source/puppet-icinga-icinga2',
-    :tag => 'v1.3.5'
+    :tag => 'v2.1.1'
 
 mod 'icingaweb2',
     :git => 'https://forge.softwareheritage.org/source/puppet-icinga-icingaweb2',
