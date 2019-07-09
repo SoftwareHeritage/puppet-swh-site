@@ -28,7 +28,6 @@ class profile::icinga2::agent {
   }
 
   class { '::icinga2::feature::api':
-    pki             => 'puppet',
     accept_config   => true,
     accept_commands => true,
     zones           => {
