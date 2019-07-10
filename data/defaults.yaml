@@ -974,10 +974,6 @@ bind::resource_records:
   esnode3/A:
     record: esnode3.internal.softwareheritage.org
     data: 192.168.100.63
-# Temporary until decommissionned
-  louvre-bare-metal/A:
-    record: louvre-bare-metal.internal.softwareheritage.org
-    data: 192.168.100.3
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
