@@ -1,10 +1,3 @@
-# old node, to be decommissionned
-node 'louvre.softwareheritage.org' {
-  include role::swh_hypervisor_master
-  include role::postgresql_client
-}
-
-# new node, bare metal server
 node 'louvre.internal.softwareheritage.org' {
   include role::swh_server
 }
@@ -56,7 +49,11 @@ node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }
 
-node /^(uffizi|storage\d+\.[^.]+\.azure).(internal.)?softwareheritage.org$/ {
+node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
+  include role::swh_storage_baremetal
+}
+
+node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_storage
 }
 
