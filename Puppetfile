@@ -89,7 +89,7 @@ mod 'java',
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
-    :ref => 'v5.0.0'
+    :ref => 'v5.3.0'
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
