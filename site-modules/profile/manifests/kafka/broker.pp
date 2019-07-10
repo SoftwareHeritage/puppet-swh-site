@@ -67,6 +67,13 @@ class profile::kafka::broker {
     ],
   }
 
+  ::systemd::dropin_file {"kafka/restart.conf":
+    ensure   => present,
+    unit     => "kafka.service",
+    filename => 'restart.conf',
+    content  => "[Service]\nRestart=on-failure\nRestartSec=5\n",
+  }
+
   ::profile::prometheus::export_scrape_config {'kafka':
     target => $target,
   }
