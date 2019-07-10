@@ -1784,6 +1784,12 @@ swh::deploy::webapp::config:
           - 213.135.60.146
           # DINSIC
           - 37.187.137.47
+      swh_api_origin_visit_latest:
+        # This endpoint gets called a lot (by default, up to 70 times
+        # per origin search), so it deserves a much higher rate-limit
+        # than the rest of the API.
+        limiter_rate:
+          default: 700/m
       swh_vault_cooking:
         limiter_rate:
           default: 120/h
