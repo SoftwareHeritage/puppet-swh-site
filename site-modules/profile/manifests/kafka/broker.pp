@@ -58,9 +58,10 @@ class profile::kafka::broker {
   }
 
   class {'::kafka::broker':
-    config  => $kafka_config,
-    opts    => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
-    require => [
+    config       => $kafka_config,
+    opts         => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
+    limit_nofile => '65536',
+    require      => [
       File[$exporter],
       File[$exporter_config],
     ],
