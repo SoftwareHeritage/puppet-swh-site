@@ -21,6 +21,7 @@ internal_network: 192.168.100.0/24
 smtp::relayhost: '[smtp.inria.fr]'
 
 swh::deploy::worker::instances:
+  - checker_deposit
   - lister
   - loader_debian
   - loader_deposit

@@ -1669,7 +1669,7 @@ swh::deploy::deposit::config:
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
-swh::deploy::worker::loader_deposit::concurrency: 2
+swh::deploy::worker::loader_deposit::concurrency: 1
 swh::deploy::worker::loader_deposit::private_tmp: true
 swh::deploy::worker::loader_deposit::loglevel: info
 # deposit_basic_auth_swhworker_{username|password} in private_data
@@ -1682,10 +1682,25 @@ swh::deploy::worker::loader_deposit::config:
       - swh.deposit.loader.tasks
     task_queues:
       - swh.deposit.loader.tasks.LoadDepositArchiveTsk
+  url: https://deposit.softwareheritage.org
+  auth:
+    username: "%{hiera('deposit_basic_auth_swhworker_username')}"
+    password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+
+swh::deploy::worker::checker_deposit::config_file: "%{hiera('swh::conf_directory')}/checker_deposit.yml"
+swh::deploy::worker::checker_deposit::concurrency: 1
+swh::deploy::worker::checker_deposit::private_tmp: true
+swh::deploy::worker::checker_deposit::loglevel: info
+# deposit_basic_auth_swhworker_{username|password} in private_data
+swh::deploy::worker::checker_deposit::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  extraction_dir: /tmp/swh.checker.deposit/
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.deposit.loader.tasks
+    task_queues:
       - swh.deposit.loader.tasks.ChecksDepositTsk
-      - swh_loader_deposit
-      - swh_checker_deposit
-  # FIXME: Create a dedicated client subsection
   url: https://deposit.softwareheritage.org
   auth:
     username: "%{hiera('deposit_basic_auth_swhworker_username')}"
