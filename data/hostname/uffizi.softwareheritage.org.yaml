@@ -1,5 +1,8 @@
 dar::backup::exclude:
   - srv/softwareheritage/annex
+  - data
+  - mnt
+  - tank
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
