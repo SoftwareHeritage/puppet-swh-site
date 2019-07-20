@@ -1,7 +1,8 @@
 dar::backup::exclude:
-  - srv/softwareheritage/annex
+  - annex
   - data
   - mnt
+  - srv/softwareheritage/annex
   - tank
 
 # Deploy the storage server as a public resource
