@@ -1,0 +1,37 @@
+networks:
+  private:
+    interface: eth0
+    address: 192.168.100.125
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
+
+# Deploy the storage server as a public resource
+swh::deploy::storage::backend::listen::host: 0.0.0.0
+swh::deploy::storage::backend::workers: 4
+swh::deploy::storage::backend::max_requests: 100
+swh::deploy::storage::backend::max_requests_jitter: 10
+swh::deploy::storage::config:
+  storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+      objstorage:
+        cls: pathslicing
+        args:
+          root: "%{hiera('swh::deploy::storage::directory')}"
+          slicing: "0:1/1:5"
+
+# Deploy the indexer storage server as a public resource
+swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
+swh::deploy::indexer::storage::backend::workers: 4
+swh::deploy::indexer::storage::config:
+  indexer_storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+
+# open objstorage api
+swh::deploy::objstorage::backend::listen::host: 0.0.0.0
+swh::deploy::objstorage::backend::workers: 4
+
+nginx::worker_processes: 4

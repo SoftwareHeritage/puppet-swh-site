@@ -58,6 +58,10 @@ node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_storage
 }
 
+node /^storage0\.internal\.staging\.swh\.network$/ {
+  include role::swh_base_storage
+}
+
 node /^getty.(internal.)?softwareheritage.org$/ {
   include role::swh_eventlog
 }
