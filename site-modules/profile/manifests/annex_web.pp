@@ -80,6 +80,8 @@ class profile::annex_web {
     owner   => 'root',
     group   => 'www-data',
     mode    => '0640',
+    # FIXME: this seems wrong, should be double quote to expand the variable
+    # don't want to break existing behavior though
     content => '$annex_vhost_basic_auth_content',
   }
 
