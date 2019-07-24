@@ -1,0 +1,25 @@
+---
+dns::forward_zones:
+  'staging.internal.softwareheritage.org':
+    - 192.168.100.29
+  'internal.softwareheritage.org.':
+    - 192.168.100.29
+  '100.168.192.in-addr.arpa.':
+    - 192.168.100.29
+  '101.168.192.in-addr.arpa.':
+    - 192.168.100.29
+
+dns::forwarders:
+  - 193.51.196.130
+  - 193.51.196.131
+dns::forwarder_insecure: true
+
+ntp::servers:
+  - sesi-ntp1.inria.fr
+  - sesi-ntp2.inria.fr
+
+internal_network: 192.168.100.0/24
+
+smtp::relayhost: '[smtp.inria.fr]'
+
+swh::deploy::worker::instances: []
