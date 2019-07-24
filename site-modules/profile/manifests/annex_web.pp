@@ -46,6 +46,7 @@ class profile::annex_web {
                              'path'     => $annex_vhost_docroot,
                              'require'  => 'all granted',
                              'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+                              custom_fragment => 'IndexIgnore private provenance-index',
                              },
                              {  # hide (annex) .git directory
                              'path'     => '.*/\.git/?$',
@@ -59,7 +60,7 @@ class profile::annex_web {
                              'auth_user_file' => $annex_vhost_provenance_basic_auth_file,
                              'auth_require'   => 'valid-user',
                              'index_options'  => 'FancyIndexing',
-                             'readme_name'    => 'readme.txt',
+                              custom_fragment => 'ReadmeName readme.txt',
                              },
                             ],
     require              => [
