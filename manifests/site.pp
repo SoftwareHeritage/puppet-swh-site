@@ -33,6 +33,10 @@ node /^(belvedere|somerset).(internal.)?softwareheritage.org$/ {
   include profile::pgbouncer
 }
 
+node /^db0.internal.staging.swh.network$/ {
+  include role::swh_database
+}
+
 node 'banco.softwareheritage.org' {
   include role::swh_backup
   include role::postgresql_backup

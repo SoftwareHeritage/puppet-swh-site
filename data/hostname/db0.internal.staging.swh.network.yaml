@@ -1,0 +1,10 @@
+---
+networks:
+  private:
+    interface: eth0
+    address: 192.168.100.126
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
+
+dar::backup::exclude:
+  - srv/softwareheritage/postgres
