@@ -2,7 +2,7 @@ require 'puppet'
 require 'socket'
 
 domain_names = [
-  ".internal.softwareheritage.org"
+  ".internal.softwareheritage.org",
   ".internal.staging.swh.network"
 ]
 
