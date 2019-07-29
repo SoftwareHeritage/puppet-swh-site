@@ -9,13 +9,21 @@ class profile::munin::stats_export {
     ensure => present,
   }
 
-  file {'/usr/local/bin/export-rrd':
+  file {'/usr/local/bin/export-archive_counters.py':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => 'puppet:///modules/profile/munin/stats_export/export-rrd',
+    source  => 'puppet:///modules/profile/stats_exporter/export-archive_counters.py',
     require => Package[$packages],
+  }
+
+  file {'/usr/local/share/swh-date/history-counters.munin.json':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/stats_exporter/history-counters.munin.json',
   }
 
   cron {'stats_export':
