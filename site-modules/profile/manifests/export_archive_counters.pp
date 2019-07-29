@@ -1,5 +1,5 @@
 # stats_export master class
-class profile::munin::stats_export {
+class profile::export_archive_counters {
   $export_path = lookup('stats_export::export_path')
   $export_file = lookup('stats_export::export_file')
 
@@ -18,7 +18,7 @@ class profile::munin::stats_export {
     require => Package[$packages],
   }
 
-  file {'/usr/local/share/swh-date/history-counters.munin.json':
+  file {'/usr/local/share/swh-data/history-counters.munin.json':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -35,8 +35,5 @@ class profile::munin::stats_export {
     month    => '*',
     monthday => '*',
     weekday  => '*',
-    require  => [
-      File['/usr/local/bin/export-rrd'],
-    ],
   }
 }

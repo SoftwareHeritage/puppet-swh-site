@@ -9,6 +9,7 @@ node /^(orsay|beaubourg|hypervisor\d+)\.(internal\.)?softwareheritage\.org$/
 
 node 'pergamon.softwareheritage.org' {
   include role::swh_sysadmin
+  include profile::export_archive_counters
 }
 
 node 'tate.softwareheritage.org' {
