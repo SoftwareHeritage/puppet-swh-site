@@ -37,7 +37,7 @@ class profile::export_archive_counters {
     weekday  => '*',
     require  => [
       File['/usr/local/bin/export-archive_counters.py'],
-      File['/usr/local/share/swh-date/history-counters.munin.json'],
+      File['/usr/local/share/swh-data/history-counters.munin.json'],
     ],
   }
 }
