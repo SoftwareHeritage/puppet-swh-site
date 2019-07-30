@@ -2726,7 +2726,7 @@ kafka::brokers:
     id: 13
 
 # Real exported files from munin
-stats_export::export_path: "/var/www/html/export"
+stats_export::export_path: "/var/www/stats.export.softwareheritage.org"
 stats_export::export_file: "%{hiera('stats_export::export_path')}/history_counters.json"
 
 # Exposed through the following host's apache venv
