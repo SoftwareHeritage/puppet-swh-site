@@ -29,7 +29,7 @@ class profile::export_archive_counters {
   cron {'stats_export':
     ensure   => present,
     user     => 'www-data',
-    command  => "/usr/local/bin/export-archive_counters.py' > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
+    command  => "/usr/local/bin/export-archive_counters.py > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
     hour     => fqdn_rand(24, 'stats_export_hour'),
     minute   => fqdn_rand(60, 'stats_export_minute'),
     month    => '*',
