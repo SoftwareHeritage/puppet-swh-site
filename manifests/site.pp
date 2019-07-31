@@ -114,6 +114,12 @@ node 'munin0.internal.softwareheritage.org' {
   include role::swh_munin_master
 }
 
+node 'gateway.internal.staging.swh.network' {
+  include role::swh_base
+  include profile::network
+  include profile::puppet::agent
+}
+
 node 'giverny.softwareheritage.org' {
   include role::swh_desktop
 }
