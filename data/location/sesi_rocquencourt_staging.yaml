@@ -18,7 +18,7 @@ ntp::servers:
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
 
-internal_network: 192.168.100.0/24
+internal_network: 192.168.128.0/24
 
 smtp::relayhost: '[smtp.inria.fr]'
 
