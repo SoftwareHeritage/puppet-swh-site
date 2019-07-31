@@ -1,9 +1,9 @@
 networks:
-  private:
+  default:
     interface: eth0
-    address: 192.168.100.125
+    address: 192.168.128.2
     netmask: 255.255.255.0
-    gateway: 192.168.100.1
+    gateway: 192.168.128.1
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
