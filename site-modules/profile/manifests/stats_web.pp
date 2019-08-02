@@ -40,10 +40,6 @@ class profile::stats_web {
     ssl_key              => $cert_paths['privkey'],
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
-    proxy_pass           => {
-      path => '/',
-      url  => 'http://munin.internal.softwareheritage.org/export/'
-    },
     require              => [
         Profile::Letsencrypt::Certificate[$ssl_cert_name],
         File[$ssl_chain],
