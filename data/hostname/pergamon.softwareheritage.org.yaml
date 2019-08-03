@@ -20,6 +20,23 @@ networks:
     address: 192.168.100.29
     netmask: 255.255.255.0
     gateway: 192.168.100.1
+    ups:
+      - "ip route add 192.168.101.0/24 via 192.168.100.1"
+      - "ip route add 192.168.200.0/21 via 192.168.100.1"
+      - "ip route add 192.168.128.0/24 via 192.168.100.125"
+      - "ip rule add from 192.168.100.29 table private"
+      - "ip route add 192.168.100.0/24 src 192.168.100.29 dev eth1 table private"
+      - "ip route add default via 192.168.100.1 dev eth1 table private"
+      - 'ip route flush cache'
+    downs:
+      - "ip route del default via 192.168.100.1 dev eth1 table private"
+      - "ip route del 192.168.100.0/24 src 192.168.100.29 dev eth1 table private"
+      - "ip rule del from 192.168.100.29 table private"
+      - "ip route del 192.168.128.0/24 via 192.168.100.125"
+      - "ip route del 192.168.200.0/24 via 192.168.100.1"
+      - "ip route del 192.168.101.0/24 via 192.168.100.1"
+      - 'ip route flush cache'
+
   default:
     interface: eth0
     address: 128.93.193.29
