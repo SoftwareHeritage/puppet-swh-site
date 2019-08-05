@@ -1,6 +1,6 @@
 ---
 dns::forward_zones:
-  'staging.internal.softwareheritage.org':
+  'internal.staging.swh.network':
     - 192.168.100.29
   'internal.softwareheritage.org.':
     - 192.168.100.29
