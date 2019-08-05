@@ -115,9 +115,7 @@ node /^db0.internal.staging.swh.network$/ {
 }
 
 node 'gateway.internal.staging.swh.network' {
-  include role::swh_base
-  include profile::network
-  include profile::puppet::agent
+  include role::swh_gateway
 }
 
 node /^storage0\.internal\.staging\.swh\.network$/ {
