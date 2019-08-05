@@ -33,10 +33,6 @@ node /^(belvedere|somerset).(internal.)?softwareheritage.org$/ {
   include profile::pgbouncer
 }
 
-node /^db0.internal.staging.swh.network$/ {
-  include role::swh_base_database
-}
-
 node 'banco.softwareheritage.org' {
   include role::swh_backup
   include role::postgresql_backup
@@ -60,10 +56,6 @@ node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
 
 node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_storage
-}
-
-node /^storage0\.internal\.staging\.swh\.network$/ {
-  include role::swh_base_storage
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
@@ -114,14 +106,22 @@ node 'munin0.internal.softwareheritage.org' {
   include role::swh_munin_master
 }
 
+node 'giverny.softwareheritage.org' {
+  include role::swh_desktop
+}
+
+node /^db0.internal.staging.swh.network$/ {
+  include role::swh_base_database
+}
+
 node 'gateway.internal.staging.swh.network' {
   include role::swh_base
   include profile::network
   include profile::puppet::agent
 }
 
-node 'giverny.softwareheritage.org' {
-  include role::swh_desktop
+node /^storage0\.internal\.staging\.swh\.network$/ {
+  include role::swh_base_storage
 }
 
 node default {
