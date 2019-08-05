@@ -2742,7 +2742,7 @@ postgresql::apt_config::pgdg::keyid: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 postgresql::apt_config::pgdg::key: |
   -----BEGIN PGP PUBLIC KEY BLOCK-----
   Version: GnuPG v1
-
+  
   mQINBE6XR8IBEACVdDKT2HEH1IyHzXkb4nIWAY7echjRxo7MTcj4vbXAyBKOfjja
   UrBEJWHN6fjKJXOYWXHLIYg0hOGeW9qcSiaa1/rYIbOzjfGfhE4x0Y+NJHS1db0V
   G6GUj3qXaeyqIJGS2z7m0Thy4Lgr/LpZlZ78Nf1fliSzBlMo1sV7PpP/7zUO+aA4
