@@ -12,5 +12,7 @@ hierarchy:
     backend: yaml
   - name: "location/%{::location}"
     backend: yaml
+  - name: defaults_security
+    backend: yaml
   - name: defaults
     backend: yaml
