@@ -34,7 +34,7 @@ node /^(belvedere|somerset).(internal.)?softwareheritage.org$/ {
 }
 
 node /^db0.internal.staging.swh.network$/ {
-  include role::swh_database
+  include role::swh_base_database
 }
 
 node 'banco.softwareheritage.org' {
