@@ -1443,6 +1443,7 @@ swh::deploy::deposit::db::host: db.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
+swh::deploy::deposit::db::passwd: "%{alias('swh::deploy::storage::db::password')}"
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
@@ -1459,7 +1460,7 @@ swh::deploy::deposit::config:
       port: "%{hiera('swh::deploy::deposit::db::port')}"
       name: "%{hiera('swh::deploy::deposit::db::dbname')}"
       user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
-      password: "%{hiera('swh::deploy::storage::db::password')}"
+      password: "%{hiera('swh::deploy::deposit::db::passwd')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
@@ -2851,3 +2852,47 @@ weekly_report_bot::cron:
   minute: 0
   hour: 12
   weekday: fri
+
+swh::dbs::all:
+  - alias: swh
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::storage::db::host')}"
+    user: "%{hiera('swh::deploy::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+  - alias: swh-deposit
+    name: "%{hiera('swh::deploy::deposit::db::dbname')}"
+    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::deposit::db::passwd')}"
+  - alias: swh-scheduler
+    name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    user: "%{hiera('swh::deploy::scheduler::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
+  - alias: swh-vault
+    name: "%{hiera('swh::deploy::vault::db::dbname')}"
+    host: "%{hiera('swh::deploy::vault::db::host')}"
+    user: "%{hiera('swh::deploy::vault::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::vault::db::password')}"
+  - alias: swh-lister
+    name: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
+    user: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::worker::lister::db::password')}"
+  - alias: swh-replica
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+  - alias: swh-indexer
+    name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
+    user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::indexer::password')}"
