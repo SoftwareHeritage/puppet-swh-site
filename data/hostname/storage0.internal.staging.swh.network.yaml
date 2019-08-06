@@ -11,7 +11,7 @@ swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
 
 swh::deploy::indexer::storage::db::host: db0.internal.staging.swh.network
-swh::deploy::indexer::storage::db::port: 5433
+swh::deploy::indexer::storage::db::port: 5432
 swh::deploy::indexer::storage::db::user: swh-indexer
 swh::deploy::indexer::storage::db::dbname: swh-indexer
 
