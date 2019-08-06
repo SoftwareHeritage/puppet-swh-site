@@ -8,14 +8,18 @@ class profile::postgresql::server {
 
   $postgres_pass = lookup('swh::deploy::db::postgres::password')
   $server_port = lookup('postgres::server::port')
-  $server_addresses = lookup('postgres::server::listen_addresses')
+  $server_addresses = lookup('postgres::server::listen_addresses').join(',')
+  # allow access through credentials
+  $network_access = lookup('postgres::server::network_access').map | $nwk | {
+      "host all all ${nwk} md5"
+  }
 
   class { 'postgresql::server':
     ip_mask_allow_all_users    => '0.0.0.0/0',
-    ipv4acls                   => ['hostssl all guest 192.168.128.0/24 cert'],
+    ipv4acls                   => $network_access,
     postgres_password          => $postgres_pass,
     port                       => $server_port,
-    listen_addresses           => $server_addresses,
+    listen_addresses           => [$server_addresses],
   }
 
   $guest = 'guest'

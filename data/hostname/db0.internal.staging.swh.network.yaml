@@ -21,6 +21,9 @@ postgres::server::port: 5433
 postgres::server::listen_addresses:
   - localhost
   - 192.168.128.3
+postgres::server::network_access:
+  - 192.168.100.0/24
+  - 192.168.128.0/24
 
 pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
 pgbouncer::listen_addr: 192.168.128.3
