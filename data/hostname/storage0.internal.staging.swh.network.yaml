@@ -5,6 +5,16 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.128.1
 
+swh::deploy::storage::db::host: db0.internal.staging.swh.network
+swh::deploy::storage::db::port: 5432
+swh::deploy::storage::db::user: swh
+swh::deploy::storage::db::dbname: swh
+
+swh::deploy::indexer::storage::db::host: db0.internal.staging.swh.network
+swh::deploy::indexer::storage::db::port: 5433
+swh::deploy::indexer::storage::db::user: swh-indexer
+swh::deploy::indexer::storage::db::dbname: swh-indexer
+
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 4
