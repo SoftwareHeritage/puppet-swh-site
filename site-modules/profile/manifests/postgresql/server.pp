@@ -6,12 +6,14 @@ class profile::postgresql::server {
     version             => '11',
   }
 
+  $postgres_pass = lookup('swh::deploy::db::postgres::password')
+
   class { 'postgresql::server':
     ip_mask_deny_postgres_user => '0.0.0.0/32',
     ip_mask_allow_all_users    => '0.0.0.0/0',
     ipv4acls                   => ['hostssl all guest 192.168.128.0/24 cert'],
-    postgres_password          => lookup('swh::deploy::db::postgres::password'),
-    port                       => 5433
+    postgres_password          => $postgres_pass,
+    port                       => 5433,
   }
 
   $guest = 'guest'

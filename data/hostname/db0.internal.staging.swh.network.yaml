@@ -17,23 +17,23 @@ swh::dbs:
     name: swh-scheduler
     user: swh-scheduler
 
-pgbouncer::auth_hba_file: /etc/postgresql/11/replica/pg_hba.conf
+pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
 pgbouncer::listen_addr: 192.168.128.3
 pgbouncer::databases:
   # swh
   - source_db: swh
     host: db0.internal.staging.swh.network
-    auth_user: swh
+    auth_user: postgres
     port: 5433
     alias: staging-swh
   - source_db: swh-indexer
     host: db0.internal.staging.swh.network
-    auth_user: swh-indexer
+    auth_user: postgres
     port: 5433
     alias: staging-swh-indexer
   - source_db: swh-scheduler
     host: db0.internal.staging.swh.network
-    auth_user: swh-scheduler
+    auth_user: postgres
     port: 5433
     alias: staging-swh-scheduler
 
