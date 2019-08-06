@@ -19,7 +19,10 @@ swh::deploy::storage::config:
         cls: pathslicing
         args:
           root: "%{hiera('swh::deploy::storage::directory')}"
-          slicing: "0:1/1:5"
+          slicing: "%{hiera('swh::deploy::storage::directory')}"
+
+swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::objstorage::slicing: 0:1/1:5
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
