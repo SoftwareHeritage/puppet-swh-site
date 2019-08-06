@@ -803,6 +803,15 @@ bind::resource_records:
   vlorentz-desktop/A:
     record: vlorentz-desktop.internal.softwareheritage.org
     data: 192.168.101.166
+  gateway/A:
+    record: gateway.internal.staging.swh.network
+    data: 192.168.128.1
+  storage0/A:
+    record: storage0.internal.staging.swh.network
+    data: 192.168.128.2
+  db0/A:
+    record: db0.internal.staging.swh.network
+    data: 192.168.128.3
 
 bind::resource_records::default_data:
   type: A
