@@ -17,6 +17,11 @@ swh::dbs:
     name: swh-scheduler
     user: swh-scheduler
 
+postgres::server::port: 5433
+postgres::server::listen_addresses:
+  - localhost
+  - 192.168.128.3
+
 pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
 pgbouncer::listen_addr: 192.168.128.3
 pgbouncer::databases:
