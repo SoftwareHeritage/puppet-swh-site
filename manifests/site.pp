@@ -114,6 +114,7 @@ node /^db0.internal.staging.swh.network$/ {
   include role::swh_base_database
   include profile::postgresql::server
   include profile::pgbouncer
+  include ::profile::devel::postgres
 }
 
 node 'gateway.internal.staging.swh.network' {
