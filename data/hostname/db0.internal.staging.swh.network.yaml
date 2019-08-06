@@ -6,5 +6,16 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.128.1
 
+swh::dbs:
+  storage:
+    name: swh
+    user: swh
+  indexer:
+    name: swh-indexer
+    user: swh-indexer
+  scheduler:
+    name: swh-scheduler
+    user: swh-scheduler
+
 dar::backup::exclude:
   - srv/softwareheritage/postgres
