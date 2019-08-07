@@ -110,14 +110,14 @@ node 'giverny.softwareheritage.org' {
   include role::swh_desktop
 }
 
-node /^db0.internal.staging.swh.network$/ {
+node 'db0.internal.staging.swh.network' {
   include role::swh_base_database
   include profile::postgresql::server
   include profile::pgbouncer
   include ::profile::devel::postgres
 }
 
-node scheduler0.internal.staging.swh.network {
+node 'scheduler0.internal.staging.swh.network' {
   include role::swh_scheduler
   include ::profile::devel::postgres
 }
@@ -126,7 +126,7 @@ node 'gateway.internal.staging.swh.network' {
   include role::swh_gateway
 }
 
-node /^storage0\.internal\.staging\.swh\.network$/ {
+node 'storage0.internal.staging.swh.network' {
   include role::swh_base_storage
   include ::profile::devel::postgres
 }
