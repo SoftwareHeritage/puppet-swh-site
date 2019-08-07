@@ -4,14 +4,31 @@ class profile::rabbitmq {
   $rabbitmq_user = lookup('rabbitmq::monitoring::user')
   $rabbitmq_password = lookup('rabbitmq::monitoring::password')
 
-  package {'rabbitmq-server':
-    ensure => installed
+  $rabbitmq_vhost = '/'
+  $rabbitmq_enable_guest = lookup('rabbitmq::enable::guest')
+
+  class { 'rabbitmq':
+    delete_guest_user => ! $rabbitmq_enable_guest,
+    repos_ensure      => true,
+    package_apt_pin   => 900,
+    service_manage    => true,
+    port              => 5672,
+    admin_enable      => true,
+  }
+  -> rabbitmq_user { $rabbitmq_user:
+    admin    => true,
+    password => $rabbitmq_password,
+    provider => 'rabbitmqctl',
+  }
+  -> rabbitmq_vhost { $rabbitmq_vhost:
+    provider => 'rabbitmqctl',
   }
 
-  service {'rabbitmq-server':
-    ensure  => 'running',
-    enable  => true,
-    require => Package['rabbitmq-server'],
+  rabbitmq_user_permissions { "${rabbitmq_user}@${rabbitmq_vhost}":
+    configure_permission => '.*',
+    read_permission      => '.*',
+    write_permission     => '.*',
+    provider             => 'rabbitmqctl',
   }
 
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'

@@ -541,6 +541,7 @@ munin::plugins::rabbitmq::messages_crit: 20000000
 munin::plugins::rabbitmq::queue_memory_warn: 1073741824 # 1GB
 munin::plugins::rabbitmq::queue_memory_crit: 2147483648 # 2GB
 
+rabbitmq::enable::guest: false
 rabbitmq::monitoring::user: swhdev
 # rabbitmq::monitoring::password in private data
 
