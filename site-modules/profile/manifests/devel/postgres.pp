@@ -17,14 +17,14 @@ class profile::devel::postgres {
       $home = "/home/${user}"
     }
 
-    file {"/${home}/.pg_service.conf":
+    file {"${home}/.pg_service.conf":
       ensure  => file,
       content => template('profile/postgres/pg_service.conf.erb'),
       user => $user,
       group => $user,
       mode => '0400',
     }
-    file {"/${user}/.pgpass":
+    file {"${home}/.pgpass":
       ensure  => file,
       content => template('profile/postgres/pgpass.conf.erb'),
       user => $user,
