@@ -1,0 +1,11 @@
+networks:
+  default:
+    interface: eth0
+    address: 192.168.128.4
+    netmask: 255.255.255.0
+    gateway: 192.168.128.1
+
+dar::backup::exclude:
+  - var/lib/rabbitmq
+
+swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0

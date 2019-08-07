@@ -117,6 +117,11 @@ node /^db0.internal.staging.swh.network$/ {
   include ::profile::devel::postgres
 }
 
+node scheduler0.internal.staging.swh.network {
+  include role::swh_scheduler
+  include ::profile::devel::postgres
+}
+
 node 'gateway.internal.staging.swh.network' {
   include role::swh_gateway
 }
