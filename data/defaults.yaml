@@ -2858,7 +2858,6 @@ weekly_report_bot::cron:
 
 swh::postgres::service::users:
   - root
-  - postgres
   - zack
   - ardumont
 
