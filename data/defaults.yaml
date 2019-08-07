@@ -815,6 +815,18 @@ bind::resource_records:
   scheduler0/A:
     record: scheduler0.internal.staging.swh.network
     data: 192.168.128.4
+  worker0/A:
+    record: worker0.internal.staging.swh.network
+    data: 192.168.128.5
+  worker1/A:
+    record: worker1.internal.staging.swh.network
+    data: 192.168.128.6
+  deposit/A:
+    record: deposit.internal.staging.swh.network
+    data: 192.168.128.7
+  webapp/A:
+    record: webapp.internal.staging.swh.network
+    data: 192.168.128.8
 
 bind::resource_records::default_data:
   type: A
