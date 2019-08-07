@@ -3,6 +3,9 @@ class profile::rabbitmq {
 
   $rabbitmq_user = lookup('rabbitmq::monitoring::user')
   $rabbitmq_password = lookup('rabbitmq::monitoring::password')
+  # FIXME: improve this
+  $rabbitmq_consumer = 'swhconsumer'
+  $rabbitmq_consumer_pass = lookup('swh::deploy::worker::task_broker::password')
 
   $rabbitmq_vhost = '/'
   $rabbitmq_enable_guest = lookup('rabbitmq::enable::guest')
@@ -14,10 +17,16 @@ class profile::rabbitmq {
     service_manage    => true,
     port              => 5672,
     admin_enable      => true,
+    node_ip_address   => '0.0.0.0',
   }
   -> rabbitmq_user { $rabbitmq_user:
     admin    => true,
     password => $rabbitmq_password,
+    provider => 'rabbitmqctl',
+  }
+  -> rabbitmq_user { $rabbitmq_consumer:
+    admin    => true,
+    password => $rabbitmq_consumer_pass,
     provider => 'rabbitmqctl',
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
