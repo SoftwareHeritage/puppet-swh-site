@@ -46,12 +46,32 @@ swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scheduler::db::user: swh-scheduler
 
 swh::deploy::worker::instances:
-  - checker_deposit
-  - lister
-  - loader_debian
-  - loader_deposit
   - loader_git
-  - loader_mercurial
-  - loader_npm
-  - loader_pypi
-  - loader_svn
+
+#### Rabbitmq instance to use
+# swh::deploy::worker::task_broker::password in private data
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672//"
+
+#### Storage service to use
+
+swh::remote_service::storage::config::storage0:
+  cls: remote
+  args:
+    url: "http://storage0.internal.staging.swh.network:%{hiera('swh::remote_service::storage::port')}/"
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::storage0')}"
+swh::remote_service::storage::config::writable: "%{alias('swh::remote_service::storage::config::storage0')}"
+
+swh::deploy::worker::loader_git::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  save_data: false
+  directory_packet_size: 100
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.git.tasks
+    task_queues:
+      - swh.loader.git.tasks.UpdateGitRepository
+      - swh.loader.git.tasks.LoadDiskGitRepository
+      - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
+

@@ -131,7 +131,7 @@ node 'storage0.internal.staging.swh.network' {
   include ::profile::devel::postgres
 }
 
-node /^worker\d+\.internal\.staging\.swh\.network$/ {
+node /^worker\d\.internal\.staging\.swh\.network$/ {
   include role::swh_worker_inria
 }
 
