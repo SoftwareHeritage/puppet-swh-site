@@ -812,6 +812,9 @@ bind::resource_records:
   db0/A:
     record: db0.internal.staging.swh.network
     data: 192.168.128.3
+  scheduler0/A:
+    record: scheduler0.internal.staging.swh.network
+    data: 192.168.128.4
 
 bind::resource_records::default_data:
   type: A
