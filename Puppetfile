@@ -139,6 +139,10 @@ mod 'memcached',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-memcached',
     :ref => 'v3.1.0'
 
+mod 'rabbitmq',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq.git',
+    :ref => 'v9.0.0'
+
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',
     :ref => 'v3.3.0'
