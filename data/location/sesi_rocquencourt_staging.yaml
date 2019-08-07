@@ -30,4 +30,19 @@ internal_network: 192.168.128.0/24
 
 smtp::relayhost: '[smtp.inria.fr]'
 
+swh::deploy::storage::db::host: db0.internal.staging.swh.network
+swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::storage::db::user: swh
+swh::deploy::storage::db::dbname: swh
+
+swh::deploy::indexer::storage::db::host: db0.internal.staging.swh.network
+swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::indexer::storage::db::user: swh-indexer
+swh::deploy::indexer::storage::db::dbname: swh-indexer
+
+swh::deploy::scheduler::db::host: db0.internal.staging.swh.network
+swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::scheduler::db::dbname: swh-scheduler
+swh::deploy::scheduler::db::user: swh-scheduler
+
 swh::deploy::worker::instances: []
