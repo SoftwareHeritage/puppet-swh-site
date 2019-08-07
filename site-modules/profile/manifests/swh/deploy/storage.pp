@@ -8,7 +8,7 @@ class profile::swh::deploy::storage {
   } ~> ::profile::swh::deploy::rpc_server {'storage':
     executable        => 'swh.storage.api.wsgi',
     worker            => 'sync',
-    http_check_string => '<title>Software Heritage storage server</title>'
+    http_check_string => '<title>Software Heritage storage server</title>',
   }
 
   $storage_config = lookup('swh::deploy::storage::config')['storage']

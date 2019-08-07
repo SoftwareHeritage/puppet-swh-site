@@ -123,6 +123,7 @@ node 'gateway.internal.staging.swh.network' {
 
 node /^storage0\.internal\.staging\.swh\.network$/ {
   include role::swh_base_storage
+  include ::profile::devel::postgres
 }
 
 node default {
