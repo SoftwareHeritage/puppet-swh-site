@@ -5,6 +5,9 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.128.1
 
+swh::postgres::service::users:
+  - swhstorage
+
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 4
