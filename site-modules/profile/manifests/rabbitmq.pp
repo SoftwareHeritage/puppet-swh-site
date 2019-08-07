@@ -12,8 +12,6 @@ class profile::rabbitmq {
 
   class { 'rabbitmq':
     delete_guest_user => ! $rabbitmq_enable_guest,
-    repos_ensure      => true,
-    package_apt_pin   => 900,
     service_manage    => true,
     port              => 5672,
     admin_enable      => true,
