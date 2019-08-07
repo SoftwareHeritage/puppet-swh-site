@@ -23,15 +23,19 @@ class profile::rabbitmq {
     provider => 'rabbitmqctl',
   }
   -> rabbitmq_user { $rabbitmq_consumer:
-    admin    => true,
     password => $rabbitmq_consumer_pass,
     provider => 'rabbitmqctl',
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',
   }
-
-  rabbitmq_user_permissions { "${rabbitmq_user}@${rabbitmq_vhost}":
+  -> rabbitmq_user_permissions { "${rabbitmq_user}@${rabbitmq_vhost}":
+    configure_permission => '.*',
+    read_permission      => '.*',
+    write_permission     => '.*',
+    provider             => 'rabbitmqctl',
+  }
+  -> rabbitmq_user_permissions { "${rabbitmq_consumer}@${rabbitmq_vhost}":
     configure_permission => '.*',
     read_permission      => '.*',
     write_permission     => '.*',
