@@ -45,4 +45,13 @@ swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scheduler::db::user: swh-scheduler
 
-swh::deploy::worker::instances: []
+swh::deploy::worker::instances:
+  - checker_deposit
+  - lister
+  - loader_debian
+  - loader_deposit
+  - loader_git
+  - loader_mercurial
+  - loader_npm
+  - loader_pypi
+  - loader_svn
