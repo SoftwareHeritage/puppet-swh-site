@@ -2857,8 +2857,11 @@ weekly_report_bot::cron:
   weekday: fri
 
 swh::postgres::service::users:
+  - root
+  - postgres
   - zack
   - ardumont
+
 swh::postgres::service::dbs:
   - alias: swh
     name: "%{hiera('swh::deploy::storage::db::dbname')}"
