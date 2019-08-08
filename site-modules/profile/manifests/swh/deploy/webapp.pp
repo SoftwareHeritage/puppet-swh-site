@@ -46,7 +46,7 @@ class profile::swh::deploy::webapp {
     }
   }
 
-  $services = ['gunicorn-swh-webapp', 'gunicorn-swh-storage']
+  $services = ['gunicorn-swh-webapp']
 
   $task_backported_packages = lookup('swh::deploy::webapp::backported_packages')
   $pinned_packages = $task_backported_packages[$::lsbdistcodename]
