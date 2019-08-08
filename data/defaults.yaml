@@ -1555,6 +1555,7 @@ swh::deploy::webapp::backported_packages:
   stretch:
     - python3-django
     - python-django-common
+swh::deploy::deposit::backported_packages: "%{alias('swh::deploy::webapp::backported_packages')}"
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"

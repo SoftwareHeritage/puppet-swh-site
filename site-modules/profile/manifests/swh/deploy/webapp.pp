@@ -16,7 +16,6 @@ class profile::swh::deploy::webapp {
   $backend_http_timeout = lookup('swh::deploy::webapp::backend::http_timeout')
   $backend_reload_mercy = lookup('swh::deploy::webapp::backend::reload_mercy')
 
-  $swh_packages = ['python3-swh.web']
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
   $varnish_http_port = lookup('varnish::http_port')
@@ -47,28 +46,11 @@ class profile::swh::deploy::webapp {
     }
   }
 
-  $services = ['gunicorn-swh-webapp']
-
-  $task_backported_packages = lookup('swh::deploy::webapp::backported_packages')
-  $pinned_packages = $task_backported_packages[$::lsbdistcodename]
-  if $pinned_packages {
-    ::apt::pin {'swh-web':
-      explanation => 'Pin swh.web dependencies to backports',
-      codename    => "${::lsbdistcodename}-backports",
-      packages    => $pinned_packages,
-      priority    => 990,
-    }
-    -> package {$swh_packages:
-      ensure  => latest,
-      require => Apt::Source['softwareheritage'],
-      notify  => Service[$services],
-    }
-  } else {
-    package {$swh_packages:
-      ensure  => latest,
-      require => Apt::Source['softwareheritage'],
-      notify  => Service[$services],
-    }
+  # Install the necessary deps
+  ::profile::swh::deploy::install_web_deps { 'swh-web':
+    services      => ['gunicorn-swh-webapp'],
+    backport_list => 'swh::deploy::webapp::backported_packages',
+    swh_packages  => ['python3-swh.web'],
   }
 
   include ::gunicorn

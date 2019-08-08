@@ -37,10 +37,12 @@ class profile::swh::deploy::deposit {
 
   include ::gunicorn
 
-  package {$swh_packages:
-    ensure  => present,
-    require => Apt::Source['softwareheritage'],
-    notify  => Service['gunicorn-swh-deposit'],
+  # Install the necessary deps
+  ::profile::swh::deploy::install_web_deps { 'swh-deposit':
+    services      => ['gunicorn-swh-deposit'],
+    backport_list => 'swh::deploy::deposit::backported_packages',
+    # FIXME: should be fixed in the deposit package
+    swh_packages  => ['python3-django', 'python3-djangorestframework', 'python3-swh.deposit'],
   }
 
   file {$config_directory:
