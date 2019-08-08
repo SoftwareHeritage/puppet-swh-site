@@ -33,6 +33,7 @@ class profile::swh::deploy::webapp {
   $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
 
   $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
+  $production_db_file = lookup('swh::deploy::webapp::production_db')
 
   $locked_endpoints = lookup('swh::deploy::webapp::locked_endpoints', Array, 'unique')
 
@@ -86,6 +87,13 @@ class profile::swh::deploy::webapp {
     mode   => '0770',
   }
 
+  file {"$conf_log_dir/swh-web.log":
+    ensure => present,
+    owner  => $user,
+    group  => $group,
+    mode   => '0770',
+  }
+
   file {$vhost_docroot:
     ensure => directory,
     owner  => 'root',
@@ -104,9 +112,16 @@ class profile::swh::deploy::webapp {
 
   file {$production_db_dir:
     ensure => directory,
-    owner  => 'swhwebapp',
+    owner  => $user,
     group  => $group,
     mode   => '0755',
+  }
+
+  file {$production_db_file:
+    ensure => present,
+    owner  => $user,
+    group  => $group,
+    mode   => '0664',
   }
 
   ::gunicorn::instance {'swh-webapp':
