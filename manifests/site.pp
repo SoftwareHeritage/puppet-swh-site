@@ -140,6 +140,10 @@ node 'webapp.internal.staging.swh.network' {
   include profile::network
 }
 
+node 'deposit.internal.staging.swh.network' {
+  include role::swh_deposit
+}
+
 node default {
   include role::swh_base
   include profile::puppet::agent

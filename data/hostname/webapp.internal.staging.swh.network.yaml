@@ -21,3 +21,37 @@ swh::deploy::webapp::vhost::aliases:
 swh::deploy::webapp::config::allowed_hosts:
   - webapp.staging.swh.network
   - webapp.staging.softwareheritage.org
+
+
+swh::deploy::webapp::backend::workers: 16
+swh::deploy::webapp::backend::http_keepalive: 5
+swh::deploy::webapp::backend::http_timeout: 3600
+swh::deploy::webapp::backend::reload_mercy: 3600
+
+# in private data:
+# deposit_basic_auth_swhworker_username
+# deposit_basic_auth_swhworker_password
+swh::deploy::webapp::config:
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
+  secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
+  content_display_max_size: 1048576
+  throttling:
+    cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
+    scopes:
+      swh_api:
+        limiter_rate:
+          default: 120/h
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 129.168.128.0/24
+  allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
+  production_db: "%{hiera('swh::deploy::webapp::production_db')}"
+  deposit:
+    private_api_url: https://deposit.internal.swh.staging/1/private/
+    private_api_user: "%{hiera('deposit_basic_auth_swhworker_username')}"
+    private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"
