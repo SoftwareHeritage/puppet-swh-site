@@ -551,12 +551,17 @@ rabbitmq::server::users:
   - name: swhdev
     is_admin: true
     password: "%{hiera('rabbitmq::monitoring::password')}"
+    tags:
+      - administrator
   - name: swhconsumer
     is_admin: false
     password: "%{hiera('swh::deploy::worker::task_broker::password')}"
+    tags: []
   - name: swhproducer
     is_admin: false
     password: "%{hiera('swh::deploy::scheduler::task_broker::password')}"
+    tags:
+      - management
 
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 puppet::master::puppetdb: pergamon.internal.softwareheritage.org

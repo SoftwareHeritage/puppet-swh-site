@@ -26,6 +26,7 @@ class profile::rabbitmq {
     rabbitmq_user { $username:
       admin    => $user['is_admin'],
       password => $user['password'],
+      tags     => $user['tags'],
       provider => 'rabbitmqctl',
     }
     -> rabbitmq_user_permissions { "${username}@${rabbitmq_vhost}":
