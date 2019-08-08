@@ -7,11 +7,15 @@ class profile::rabbitmq {
   $users = lookup('rabbitmq::server::users')
 
   class { 'rabbitmq':
-    delete_guest_user => ! $rabbitmq_enable_guest,
     service_manage    => true,
     port              => 5672,
     admin_enable      => true,
     node_ip_address   => '0.0.0.0',
+    config_variables  => {
+      vm_memory_high_watermark => 0.6,
+    },
+    heartbeat         => 0,
+    delete_guest_user => ! $rabbitmq_enable_guest,
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',
