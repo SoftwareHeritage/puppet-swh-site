@@ -1458,6 +1458,9 @@ swh::deploy::deposit::db::host: db.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
+swh::deploy::deposit::config::allowed_hosts:
+  - deposit.internal.softwareheritage.org
+
 # swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
@@ -1468,6 +1471,7 @@ swh::deploy::deposit::config:
     configuration:
       sword_version: 2
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  allowed_hosts: "%{alias('swh::deploy::deposit::config::allowed_hosts')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
