@@ -142,6 +142,9 @@ node 'webapp.internal.staging.swh.network' {
 
 node 'deposit.internal.staging.swh.network' {
   include role::swh_deposit
+  include profile::postgresql::server
+  include profile::pgbouncer
+  include ::profile::devel::postgres
 }
 
 node default {

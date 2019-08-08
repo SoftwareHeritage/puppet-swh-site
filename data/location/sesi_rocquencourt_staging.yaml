@@ -45,6 +45,11 @@ swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scheduler::db::user: swh-scheduler
 
+swh::deploy::deposit::db::host: db0.internal.staging.swh.network
+swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::deposit::db::dbuser: swh-deposit
+swh::deploy::deposit::db::dbname: swh-deposit
+
 swh::deploy::worker::instances:
   - loader_git
 

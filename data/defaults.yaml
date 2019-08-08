@@ -2944,4 +2944,10 @@ swh::postgres::service::dbs:
     user: swh-scheduler
     port: 5432
     passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
+  - alias: staging-swh-deposit
+    name: swh-deposit
+    host: deposit.internal.staging.swh.network
+    user: swh-deposit
+    port: 5432
+    passwd: "%{hiera('swh::deploy::db::deposit::password')}"
 
