@@ -1,8 +1,4 @@
-# expansion of role::swh_api
-# -network: incompatible with Azure infrastructure
-# -deposit: not need for it
-
-class role::swh_api_azure inherits role::swh_server {
+class role::swh_base_api inherits role::swh_server {
   include profile::puppet::agent
 
   # Web UI

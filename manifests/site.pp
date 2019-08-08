@@ -21,7 +21,7 @@ node 'moma.softwareheritage.org' {
 }
 
 node 'webapp0.softwareheritage.org' {
-  include role::swh_api_azure
+  include role::swh_base_api
 }
 
 node 'saatchi.internal.softwareheritage.org' {
