@@ -1351,7 +1351,7 @@ swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 swh::deploy::vault::config::cache:
   cls: pathslicing
   args:
-    root: "%{hiera('swh::base_directory')}/vault_cache"
+    root: "%{hiera('swh::deploy::vault::cache')}"
     slicing: "0:1/1:5"
 
 swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
