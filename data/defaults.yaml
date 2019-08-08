@@ -1554,6 +1554,7 @@ swh::deploy::objstorage_repair_checker::config:
 swh::deploy::webapp::backported_packages:
   stretch:
     - python3-django
+    - python-django-common
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
