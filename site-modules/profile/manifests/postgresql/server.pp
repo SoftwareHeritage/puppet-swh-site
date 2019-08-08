@@ -46,12 +46,5 @@ class profile::postgresql::server {
       db          => $db_name,
       role        => $guest,
     }
-    # guest user has read access on tables
-    postgresql::server::table_grant { $db_name:
-      privilege   => 'select',
-      db          => $db_name,
-      role        => $guest,
-      table       => 'all',
-    }
   }
 }
