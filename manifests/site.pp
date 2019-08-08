@@ -135,6 +135,11 @@ node /^worker\d\.internal\.staging\.swh\.network$/ {
   include role::swh_worker_inria
 }
 
+node 'webapp.internal.staging.swh.network' {
+  include role::swh_base_api
+  include profile::network
+}
+
 node default {
   include role::swh_base
   include profile::puppet::agent

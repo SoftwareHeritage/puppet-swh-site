@@ -1,0 +1,23 @@
+networks:
+  default:
+    interface: eth0
+    address: 192.168.128.8
+    netmask: 255.255.255.0
+    gateway: 192.168.128.1
+
+hitch::frontend: "[*]:443"
+hitch::proxy_support: true
+
+varnish::http_port: 80
+apache::http_port: 9080
+
+# Disable default vhost on port 80
+apache::default_vhost: false
+
+swh::deploy::webapp::vhost::name: webapp.staging.swh.network
+swh::deploy::webapp::vhost::aliases:
+  - webapp.staging.softwareheritage.org
+
+swh::deploy::webapp::config::allowed_hosts:
+  - webapp.staging.swh.network
+  - webapp.staging.softwareheritage.org
