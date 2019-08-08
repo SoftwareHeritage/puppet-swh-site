@@ -1458,7 +1458,7 @@ swh::deploy::deposit::db::host: db.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
-swh::deploy::deposit::db::passwd: "%{alias('swh::deploy::storage::db::password')}"
+# swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
@@ -1475,7 +1475,7 @@ swh::deploy::deposit::config:
       port: "%{hiera('swh::deploy::deposit::db::port')}"
       name: "%{hiera('swh::deploy::deposit::db::dbname')}"
       user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
-      password: "%{hiera('swh::deploy::deposit::db::passwd')}"
+      password: "%{hiera('swh::deploy::deposit::db::password')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
@@ -2886,7 +2886,7 @@ swh::postgres::service::dbs:
     host: "%{hiera('swh::deploy::deposit::db::host')}"
     user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::deposit::db::passwd')}"
+    passwd: "%{hiera('swh::deploy::deposit::db::password')}"
   - alias: swh-scheduler
     name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
     host: "%{hiera('swh::deploy::scheduler::db::host')}"
