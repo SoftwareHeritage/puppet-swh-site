@@ -551,8 +551,7 @@ rabbitmq::server::users:
   - name: swhdev
     is_admin: true
     password: "%{hiera('rabbitmq::monitoring::password')}"
-    tags:
-      - administrator
+    tags: []
   - name: swhconsumer
     is_admin: false
     password: "%{hiera('swh::deploy::worker::task_broker::password')}"
