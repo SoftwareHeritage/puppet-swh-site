@@ -75,7 +75,7 @@ swh::remote_service::storage::config::writable: "%{alias('swh::remote_service::s
 swh::remote_service::vault::config::vault0:
   cls: remote
   args:
-    url: "http://vault0.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
+    url: "http://vault.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
 swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
 swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
