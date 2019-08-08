@@ -1,14 +1,10 @@
 class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
 
-  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
-  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
-  # FIXME: improve this
-  $rabbitmq_consumer = 'swhconsumer'
-  $rabbitmq_consumer_pass = lookup('swh::deploy::worker::task_broker::password')
-
   $rabbitmq_vhost = '/'
   $rabbitmq_enable_guest = lookup('rabbitmq::enable::guest')
+
+  $users = lookup('rabbitmq::server::users')
 
   class { 'rabbitmq':
     delete_guest_user => ! $rabbitmq_enable_guest,
@@ -17,31 +13,24 @@ class profile::rabbitmq {
     admin_enable      => true,
     node_ip_address   => '0.0.0.0',
   }
-  -> rabbitmq_user { $rabbitmq_user:
-    admin    => true,
-    password => $rabbitmq_password,
-    provider => 'rabbitmqctl',
-  }
-  -> rabbitmq_user { $rabbitmq_consumer:
-    password => $rabbitmq_consumer_pass,
-    provider => 'rabbitmqctl',
-  }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',
   }
-  -> rabbitmq_user_permissions { "${rabbitmq_user}@${rabbitmq_vhost}":
-    configure_permission => '.*',
-    read_permission      => '.*',
-    write_permission     => '.*',
-    provider             => 'rabbitmqctl',
-  }
-  -> rabbitmq_user_permissions { "${rabbitmq_consumer}@${rabbitmq_vhost}":
-    configure_permission => '.*',
-    read_permission      => '.*',
-    write_permission     => '.*',
-    provider             => 'rabbitmqctl',
-  }
 
+  each ( $users ) | $user | {
+    $username = $user['name']
+    rabbitmq_user { $username:
+      admin    => $user['is_admin'],
+      password => $user['password'],
+      provider => 'rabbitmqctl',
+    }
+    -> rabbitmq_user_permissions { "${username}@${rabbitmq_vhost}":
+      configure_permission => '.*',
+      read_permission      => '.*',
+      write_permission     => '.*',
+      provider             => 'rabbitmqctl',
+    }
+  }
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":

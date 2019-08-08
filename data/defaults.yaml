@@ -542,8 +542,21 @@ munin::plugins::rabbitmq::queue_memory_warn: 1073741824 # 1GB
 munin::plugins::rabbitmq::queue_memory_crit: 2147483648 # 2GB
 
 rabbitmq::enable::guest: false
-rabbitmq::monitoring::user: swhdev
-# rabbitmq::monitoring::password in private data
+# following password key in private data
+# - rabbitmq::monitoring::password
+# - swh::deploy::worker::task_broker::password
+# - swh::deploy::scheduler::task_broker::password
+rabbitmq::server::users:
+  # monitoring user
+  - name: swhdev
+    is_admin: true
+    password: "%{hiera('rabbitmq::monitoring::password')}"
+  - name: swhconsumer
+    is_admin: false
+    password: "%{hiera('swh::deploy::worker::task_broker::password')}"
+  - name: swhproducer
+    is_admin: false
+    password: "%{hiera('swh::deploy::scheduler::task_broker::password')}"
 
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 puppet::master::puppetdb: pergamon.internal.softwareheritage.org
