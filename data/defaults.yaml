@@ -827,6 +827,9 @@ bind::resource_records:
   webapp/A:
     record: webapp.internal.staging.swh.network
     data: 192.168.128.8
+  vault/A:
+    record: vault.internal.staging.swh.network
+    data: 192.168.128.9
 
 bind::resource_records::default_data:
   type: A
