@@ -4,9 +4,18 @@ class profile::swh::deploy::storage {
   include ::profile::swh::deploy::base_storage
 
   package {'python3-swh.storage':
-    ensure => 'latest',
+    ensure => 'present',
   } ~> ::profile::swh::deploy::rpc_server {'storage':
-    executable => 'swh.storage.api.server:run_from_webserver',
-    worker     => 'sync',
+    executable        => 'swh.storage.api.wsgi',
+    worker            => 'sync',
+    http_check_string => '<title>Software Heritage storage server</title>',
+  }
+
+  $storage_config = lookup('swh::deploy::storage::config')['storage']
+
+  if ($storage_config['cls'] == 'local'
+      and $storage_config['args']['journal_writer']
+      and $storage_config['args']['journal_writer']['cls'] == 'kafka') {
+    include ::profile::swh::deploy::journal
   }
 }

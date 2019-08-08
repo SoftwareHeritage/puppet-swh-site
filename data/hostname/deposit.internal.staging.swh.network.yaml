@@ -1,0 +1,52 @@
+networks:
+  default:
+    interface: eth0
+    address: 192.168.128.7
+    netmask: 255.255.255.0
+    gateway: 192.168.128.1
+
+## db setup
+
+postgres::server::port: 5433
+postgres::server::listen_addresses:
+  - localhost
+  - 192.168.128.7
+postgres::server::network_access:
+  - 192.168.100.0/24
+  - 192.168.128.0/24
+
+# Dbs to create
+swh::dbs:
+  deposit:
+    name: swh-deposit
+    user: swh-deposit
+
+pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
+pgbouncer::listen_addr: 192.168.128.7
+pgbouncer::databases:
+  - source_db: swh-deposit
+    host: deposit.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-deposit
+
+## frontend
+
+hitch::frontend: "[*]:443"
+hitch::proxy_support: true
+
+varnish::http_port: 80
+apache::http_port: 9080
+
+# Disable default vhost on port 80
+apache::default_vhost: false
+
+## deposit
+
+swh::deploy::deposit::media_root_directory: /tmp/swh-deposit
+swh::deploy::deposit::vhost::name: deposit.internal.staging.swh.network
+swh::deploy::deposit::vhost::aliases: [
+  deposit.staging.swh.network
+]
+swh::deploy::deposit::config::allowed_hosts:
+  - deposit.internal.staging.swh.network

@@ -5,22 +5,18 @@ dar::backup::exclude:
 icinga2::host::vars:
   load: high
 
-prometheus::sql::exporter::extra_config:
-  - name: "SoftwareHeritageIndexerCounters"
-    interval: '1h'
-    connections:
-    - 'postgres://postgres@:5434/softwareheritage-indexer?sslmode=disable'
-    queries:
-    - name: "swh_indexer_count"
-      help: "Indexer count per type"
-      labels:
-        - "mimetype"
-        - "fossology_license"
-      values:
-        - "count_mimetype"
-        - "count_fossology_license"
-      query:  |
-               select 'mimetype',
-                      (select count(*) from content_mimetype) as count_mimetype,
-                      'fossology_license',
-                      (select count(*) from content_fossology_license) as count_fossology_license;
+prometheus::sql::config_snippets:
+  - swh-indexer
+
+pgbouncer::auth_hba_file: /etc/postgresql/11/replica/pg_hba.conf
+pgbouncer::listen_addr: 192.168.100.103
+pgbouncer::databases:
+  # swh
+  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"
+  - source_db: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"

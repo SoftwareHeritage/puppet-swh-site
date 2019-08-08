@@ -16,7 +16,6 @@ class profile::swh::deploy::webapp {
   $backend_http_timeout = lookup('swh::deploy::webapp::backend::http_timeout')
   $backend_reload_mercy = lookup('swh::deploy::webapp::backend::reload_mercy')
 
-  $swh_packages = ['python3-swh.web']
   $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
   $varnish_http_port = lookup('varnish::http_port')
@@ -33,6 +32,7 @@ class profile::swh::deploy::webapp {
   $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
 
   $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
+  $production_db_file = lookup('swh::deploy::webapp::production_db')
 
   $locked_endpoints = lookup('swh::deploy::webapp::locked_endpoints', Array, 'unique')
 
@@ -46,15 +46,14 @@ class profile::swh::deploy::webapp {
     }
   }
 
-  include ::gunicorn
-
-  $services = ['gunicorn-swh-webapp', 'gunicorn-swh-storage']
-
-  package {$swh_packages:
-    ensure  => latest,
-    require => Apt::Source['softwareheritage'],
-    notify  => Service[$services],
+  # Install the necessary deps
+  ::profile::swh::deploy::install_web_deps { 'swh-web':
+    services      => ['gunicorn-swh-webapp'],
+    backport_list => 'swh::deploy::webapp::backported_packages',
+    swh_packages  => ['python3-swh.web'],
   }
+
+  include ::gunicorn
 
   file {$conf_directory:
     ensure => directory,
@@ -66,6 +65,13 @@ class profile::swh::deploy::webapp {
   file {$conf_log_dir:
     ensure => directory,
     owner  => 'root',
+    group  => $group,
+    mode   => '0770',
+  }
+
+  file {"$conf_log_dir/swh-web.log":
+    ensure => present,
+    owner  => $user,
     group  => $group,
     mode   => '0770',
   }
@@ -88,9 +94,16 @@ class profile::swh::deploy::webapp {
 
   file {$production_db_dir:
     ensure => directory,
-    owner  => 'swhwebapp',
+    owner  => $user,
     group  => $group,
     mode   => '0755',
+  }
+
+  file {$production_db_file:
+    ensure => present,
+    owner  => $user,
+    group  => $group,
+    mode   => '0664',
   }
 
   ::gunicorn::instance {'swh-webapp':
@@ -113,11 +126,11 @@ class profile::swh::deploy::webapp {
   include ::apache::mod::headers
 
   ::apache::vhost {"${vhost_name}_non-ssl":
-    servername    => $vhost_name,
-    serveraliases => $vhost_aliases,
-    port          => $vhost_port,
-    docroot       => $vhost_docroot,
-    proxy_pass    => [
+    servername      => $vhost_name,
+    serveraliases   => $vhost_aliases,
+    port            => $vhost_port,
+    docroot         => $vhost_docroot,
+    proxy_pass      => [
       { path => '/static',
         url  => '!',
       },
@@ -131,7 +144,7 @@ class profile::swh::deploy::webapp {
         url  => "http://${backend_listen_address}/",
       },
     ],
-    directories   => [
+    directories     => [
       { path     => '/api',
         provider => 'location',
         allow    => 'from all',
@@ -142,7 +155,7 @@ class profile::swh::deploy::webapp {
         options => ['-Indexes'],
       },
     ] + $endpoint_directories,
-    aliases       => [
+    aliases         => [
       { alias => '/static',
         path  => $static_dir,
       },
@@ -150,7 +163,9 @@ class profile::swh::deploy::webapp {
         path  => "${static_dir}/robots.txt",
       },
     ],
-    require       => [
+    # work around fix for CVE-2019-0220 introduced in Apache2 2.4.25-3+deb9u7
+    custom_fragment => 'MergeSlashes off',
+    require         => [
       File[$vhost_basic_auth_file],
     ],
   }

@@ -7,30 +7,114 @@ class profile::debian_repository {
     ensure => installed,
   }
 
-  $repository_basepath =  lookup('debian_repository::basepath')
+  $basepath =  lookup('debian_repository::basepath')
 
-  $repository_vhost_name = lookup('debian_repository::vhost::name')
-  $repository_vhost_aliases = lookup('debian_repository::vhost::aliases')
-  $repository_vhost_docroot = lookup('debian_repository::vhost::docroot')
-  $repository_vhost_docroot_owner = lookup('debian_repository::vhost::docroot_owner')
-  $repository_vhost_docroot_group = lookup('debian_repository::vhost::docroot_group')
-  $repository_vhost_docroot_mode = lookup('debian_repository::vhost::docroot_mode')
-  $repository_vhost_ssl_protocol = lookup('debian_repository::vhost::ssl_protocol')
-  $repository_vhost_ssl_honorcipherorder = lookup('debian_repository::vhost::ssl_honorcipherorder')
-  $repository_vhost_ssl_cipher = lookup('debian_repository::vhost::ssl_cipher')
-  $repository_vhost_hsts_header = lookup('debian_repository::vhost::hsts_header')
+  $owner = lookup('debian_repository::owner')
+  $group = lookup('debian_repository::group')
+  $mode = lookup('debian_repository::mode')
+
+  $owner_homedir = lookup('debian_repository::owner::homedir')
+
+  user {$owner:
+    ensure => present,
+    system => true,
+    home   => $owner_homedir,
+  }
+  -> file {$owner_homedir:
+    ensure => 'directory',
+    owner  => $owner,
+    group  => $owner,
+    mode   => '0750',
+  }
+  -> file {"${owner_homedir}/.ssh":
+    ensure => 'directory',
+    owner  => $owner,
+    group  => $owner,
+    mode   => '0700',
+  }
+
+  $authorized_keys = lookup('debian_repository::ssh_authorized_keys', Hash)
+  each($authorized_keys) |$name, $key| {
+    ssh_authorized_key { "${owner} ${name}":
+      ensure  => 'present',
+      user    => $owner,
+      key     => $key['key'],
+      type    => $key['type'],
+      require => File["${owner_homedir}/.ssh"],
+    }
+  }
+
+  file {$basepath:
+    ensure => 'directory',
+    owner  => $owner,
+    group  => $group,
+    mode   => $mode,
+  }
+
+  $incoming = "${basepath}/incoming"
+
+  file {$incoming:
+    ensure => 'directory',
+    owner  => $owner,
+    group  => $group,
+    mode   => $mode,
+  }
+
+  $gpg_keys = lookup('debian_repository::gpg_keys', Array)
+
+  $gpg_raw_command = 'gpg --batch --pinentry-mode loopback'
+  each($gpg_keys) |$keyid| {
+    exec {"debian repository gpg key ${keyid}":
+      path    => ['/usr/bin'],
+      command => "${gpg_raw_command} --recv-keys ${keyid}",
+      user    => $owner,
+      unless  => "${gpg_raw_command} --list-keys ${keyid}",
+    }
+
+    profile::cron::d {"debrepo-keyring-refresh-${keyid}":
+      target      => 'debrepo-keyring-refresh',
+      user        => $owner,
+      command     => "chronic ${gpg_raw_command} --recv-keys ${keyid}",
+      random_seed => "debrepo-keyring-${keyid}",
+      minute      => 'fqdn_rand',
+      hour        => 'fqdn_rand',
+    }
+  }
+
+  file {"$basepath/conf":
+    ensure => 'directory',
+    owner  => $owner,
+    group  => $group,
+    mode   => $mode,
+  }
+
+  file {"$basepath/conf/uploaders":
+    ensure  => 'file',
+    owner   => $owner,
+    group   => $group,
+    mode    => '0644',
+    content => template('profile/debian_repository/uploaders.erb')
+  }
+
+  $vhost_name = lookup('debian_repository::vhost::name')
+  $vhost_aliases = lookup('debian_repository::vhost::aliases')
+  $vhost_docroot = lookup('debian_repository::vhost::docroot')
+  $vhost_ssl_protocol = lookup('debian_repository::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('debian_repository::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('debian_repository::vhost::ssl_cipher')
+  $vhost_hsts_header = lookup('debian_repository::vhost::hsts_header')
 
   include ::profile::ssl
   include ::profile::apache::common
 
-  ::apache::vhost {"${repository_vhost_name}_non-ssl":
-    servername      => $repository_vhost_name,
-    serveraliases   => $repository_vhost_aliases,
+  ::apache::vhost {"${vhost_name}_non-ssl":
+    servername      => $vhost_name,
+    serveraliases   => $vhost_aliases,
     port            => '80',
-    docroot         => $repository_vhost_docroot,
-    manage_docroot  => false,  # will be managed by the SSL resource
+    docroot         => $vhost_docroot,
+    manage_docroot  => false,
     redirect_status => 'permanent',
-    redirect_dest   => "https://${repository_vhost_name}/",
+    redirect_dest   => "https://${vhost_name}/",
   }
 
   $ssl_cert_name = 'star_softwareheritage_org'
@@ -38,24 +122,22 @@ class profile::debian_repository {
   $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
   $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
 
-  ::apache::vhost {"${repository_vhost_name}_ssl":
-    servername           => $repository_vhost_name,
+  ::apache::vhost {"${vhost_name}_ssl":
+    servername           => $vhost_name,
     port                 => '443',
     ssl                  => true,
-    ssl_protocol         => $repository_vhost_ssl_protocol,
-    ssl_honorcipherorder => $repository_vhost_ssl_honorcipherorder,
-    ssl_cipher           => $repository_vhost_ssl_cipher,
+    ssl_protocol         => $vhost_ssl_protocol,
+    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+    ssl_cipher           => $vhost_ssl_cipher,
     ssl_cert             => $ssl_cert,
     ssl_chain            => $ssl_chain,
     ssl_key              => $ssl_key,
-    headers              => [$repository_vhost_hsts_header],
-    docroot              => $repository_vhost_docroot,
-    docroot_owner        => $repository_vhost_docroot_owner,
-    docroot_group        => $repository_vhost_docroot_group,
-    docroot_mode         => $repository_vhost_docroot_mode,
+    headers              => [$vhost_hsts_header],
+    docroot              => $vhost_docroot,
+    manage_docroot       => false,
     directories          => [
       {
-        path    => $repository_vhost_docroot,
+        path    => $vhost_docroot,
         require => 'all granted',
         options => ['Indexes', 'FollowSymLinks', 'MultiViews'],
       },
@@ -75,8 +157,8 @@ class profile::debian_repository {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address => $repository_vhost_name,
-      http_vhost   => $repository_vhost_name,
+      http_address => $vhost_name,
+      http_vhost   => $vhost_name,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -89,8 +171,8 @@ class profile::debian_repository {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address    => $repository_vhost_name,
-      http_vhost      => $repository_vhost_name,
+      http_address    => $vhost_name,
+      http_vhost      => $vhost_name,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -106,8 +188,8 @@ class profile::debian_repository {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address     => $repository_vhost_name,
-      http_vhost       => $repository_vhost_name,
+      http_address     => $vhost_name,
+      http_vhost       => $vhost_name,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 60,

@@ -13,10 +13,7 @@ networks:
 dar::backup::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::storage::db::host: somerset
-swh::deploy::storage::db::port: 5433
-
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
@@ -35,3 +32,5 @@ swh::deploy::webapp::vhost::name: archive.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
   - base.softwareheritage.org
   - archive.internal.softwareheritage.org
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::localhost')}"

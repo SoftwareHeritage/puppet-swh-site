@@ -25,7 +25,7 @@ mod 'uwsgi',
 
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt',
-    :tag => '4.5.1'
+    :tag => 'v7.0.1'
 
 mod 'archive',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-archive',
@@ -73,7 +73,7 @@ mod 'extlib',
 
 mod 'grafana',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-grafana',
-    :tag => 'v4.2.0'
+    :tag => 'v6.0.0'
 
 mod 'hitch',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-hitch',
@@ -97,7 +97,11 @@ mod 'java',
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
-    :ref => 'v5.0.0'
+    :ref => 'v5.3.0'
+
+mod 'letsencrypt',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
+    :ref => 'v4.0.0'
 
 mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',
@@ -127,6 +131,10 @@ mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
     :ref => '5.3.0'
 
+mod 'pgbouncer',
+    :git => 'https://forge.softwareheritage.org/source/puppet-covermymeds-pgbouncer',
+    :ref => '9ec0d8a1255bbb309c2ff38f229167209cad496b'
+
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet',
     :tag => '8.2.0'
@@ -138,6 +146,10 @@ mod 'puppetdb',
 mod 'memcached',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-memcached',
     :ref => 'v3.1.0'
+
+mod 'rabbitmq',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq.git',
+    :ref => 'v9.0.0'
 
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',

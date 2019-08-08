@@ -11,13 +11,5 @@ swh::deploy::webapp::vhost::name: webapp0.softwareheritage.org
 swh::deploy::webapp::vhost::aliases:
   - webapp0.softwareheritage.org
 
-swh::deploy::storage::config:
-  storage: "%{alias('swh::remote_service::storage::config::azure')}"
-
-swh::deploy::indexer::storage::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::azure')}"
-
 swh::deploy::webapp::config::allowed_hosts:
   - webapp0.softwareheritage.org
-
-swh::deploy::webapp::indexer_storage: "%{alias('swh::indexer::storage::config::azure')}"

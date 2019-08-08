@@ -4,8 +4,7 @@
 
 [Unit]
 Description=Phabricator Notification Daemon
-Requires=network.target mysql.service apache2.service
-After=network.target mysql.service apache2.service
+After=network.target mariadb.service apache2.service
 Before=phabricator-phd.service
 
 [Service]

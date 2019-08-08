@@ -7,18 +7,19 @@ dns::forward_zones:
   '101.168.192.in-addr.arpa.':
     - 192.168.200.22
 
-dns::forwarders:
-  - 168.63.129.16
-dns::forwarder_insecure: true
+dns::forwarders: []
+dns::forwarder_insecure: false
 
 internal_network: 192.168.200.0/21
 
 swh::deploy::worker::instances:
-  - swh_indexer_rehash
-  - swh_indexer_mimetype
-  - swh_indexer_fossology_license
-  - swh_indexer_orchestrator
-  - swh_indexer_orchestrator_text
+  - indexer_content_mimetype
+  - indexer_fossology_license
+  - indexer_origin_intrinsic_metadata
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::azure')}"
+
+# Add extra needed package to run on azure
+packages:
+  - python3-swh.objstorage.cloud

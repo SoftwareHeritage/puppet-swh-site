@@ -10,9 +10,10 @@ class profile::swh::deploy::journal {
     mode   => '0644',
   }
 
-  $package_name = 'python3-swh.journal'
+  $swh_packages = ['python3-swh.journal']
 
-  package {$package_name:
-    ensure => latest,
+  package {$swh_packages:
+    ensure  => present,
+    require => Apt::Source['softwareheritage'],
   }
 }

@@ -1,12 +1,6 @@
 # Instance of a worker
 define profile::swh::deploy::worker::instance (
   $ensure = present,
-  $task_broker = '',
-  $task_modules = [],
-  $task_queues = [],
-  $task_soft_time_limit = 0,
-  $concurrency = 10,
-  $loglevel = 'info',
   $max_tasks_per_child = 5,
   $instance_name = $title,
   $limit_no_file = undef,
@@ -16,8 +10,10 @@ define profile::swh::deploy::worker::instance (
 
   $service_basename = "swh-worker@${instance_name}"
   $service_name = "${service_basename}.service"
-  $config_directory = '/etc/softwareheritage/worker'
-  $instance_config = "${config_directory}/${instance_name}.ini"
+  $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
+  $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
+  $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
+  $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, 'deep')
 
   case $ensure {
     'present', 'running': {
@@ -32,32 +28,29 @@ define profile::swh::deploy::worker::instance (
         content  => template('profile/swh/deploy/worker/parameters.conf.erb'),
       }
 
-      # Uses variables
-      # - $task_broker
-      # - $task_modules
-      # - $task_queues
-      # - $task_soft_time_limit
-      file {$instance_config:
-        ensure  => present,
+      file {$config_file:
+        ensure  => 'present',
         owner   => 'swhworker',
-        group   => 'swhdev',
-        # contains a password for the broker
-        mode    => '0640',
-        content => template('profile/swh/deploy/worker/instance_config.ini.erb'),
+        group   => 'swhworker',
+        mode    => '0644',
+        content => inline_template("<%= @config.to_yaml %>\n"),
       }
+
       if $ensure == 'running' {
-        service {$service_basename:
-          ensure  => $ensure,
-          require => [
-            File[$instance_config],
-          ],
-        }
+        $service_ensure = 'running'
+      } else {
+        $service_ensure = undef
+      }
+
+      service {$service_basename:
+        ensure  => $service_ensure,
+        enable  => true,
+        require => [
+          File[$config_file],
+        ]
       }
     }
     default: {
-      file {$instance_config:
-        ensure => absent,
-      }
       ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => absent,
         unit     => $service_name,

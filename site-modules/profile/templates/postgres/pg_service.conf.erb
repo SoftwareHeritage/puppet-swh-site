@@ -1,6 +1,14 @@
 # This file is managed by puppet. Local modifications will be overwritten.
 
-[swh]
-dbname=softwareheritage
-host=db.internal.softwareheritage.org
+<% @dbs.each do |db| -%>
+[<%= db['alias'] %>]
+dbname=<%= dname=db['name'] %>
+host=<%= host=db['host'] %>
+port=<%= port=db['port'] %>
 user=guest
+[admin-<%= db['alias'] %>]
+dbname=<%= dname=db['name'] %>
+host=<%= host=db['host'] %>
+port=<%= port=db['port'] %>
+user=<%= port=db['user'] %>
+<% end %>

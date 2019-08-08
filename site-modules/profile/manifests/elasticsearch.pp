@@ -16,8 +16,9 @@ class profile::elasticsearch {
 
   # Elasticsearch official package installation instructions:
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html
-  $keyid =  lookup('elastic::apt_config::keyid')
-  $key =    lookup('elastic::apt_config::key')
+  $keyid =   lookup('elastic::apt_config::keyid')
+  $key =     lookup('elastic::apt_config::key')
+  $version = lookup('elastic::elk_version')
 
   apt::source { 'elastic-6.x':
     location => 'https://artifacts.elastic.co/packages/6.x/apt',
@@ -30,12 +31,12 @@ class profile::elasticsearch {
   }
 
   package { 'elasticsearch':
-    ensure => '6.3.2',
+    ensure => $version,
   }
 
   apt::pin { 'elasticsearch':
     packages => 'elasticsearch elasticsearch-oss',
-    version => '6.3.2',
+    version => $version,
     priority => 1001,
   }
 

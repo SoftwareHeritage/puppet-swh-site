@@ -26,4 +26,12 @@ class profile::puppet::master {
     content => template('profile/puppet/swh-puppet-master-deploy.sh.erb'),
   }
 
+  file { '/usr/local/sbin/swh-puppet-master-clean-certificate':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('profile/puppet/swh-puppet-master-clean-certificate.sh.erb'),
+  }
+
 }

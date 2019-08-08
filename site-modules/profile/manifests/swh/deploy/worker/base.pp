@@ -7,7 +7,6 @@ class profile::swh::deploy::worker::base {
   $systemd_unit_name = 'swh-worker.service'
   $systemd_slice_name = 'system-swh\x2dworker.slice'
   $systemd_generator = '/lib/systemd/system-generators/swh-worker-generator'
-  $config_directory = '/etc/softwareheritage/worker'
 
   package {'python3-swh.scheduler':
     ensure => installed,
@@ -32,21 +31,7 @@ class profile::swh::deploy::worker::base {
   }
 
   file {$systemd_generator:
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/profile/swh/deploy/worker/swh-worker-generator',
+    ensure => 'absent',
     notify => Class['systemd::systemctl::daemon_reload'],
   }
-
-  file {$config_directory:
-    ensure  => 'directory',
-    owner   => 'swhworker',
-    group   => 'swhdev',
-    mode    => '0644',
-    purge   => true,
-    recurse => true,
-  }
-
 }

@@ -1,5 +1,6 @@
 class profile::swh::deploy::base_vault {
   $conf_directory = lookup('swh::deploy::vault::conf_directory')
+  $group = lookup('swh::deploy::vault::group')
 
   file {$conf_directory:
     ensure => directory,

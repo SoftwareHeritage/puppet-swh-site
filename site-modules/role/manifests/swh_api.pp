@@ -1,10 +1,7 @@
-class role::swh_api inherits role::swh_server {
+class role::swh_api inherits role::swh_base_api {
   include profile::network
-  include profile::puppet::agent
 
-  # Web UI
-  include profile::memcached
-  include profile::swh::deploy::storage
-  include profile::swh::deploy::webapp
+  # Extra deposit and storage services
   include profile::swh::deploy::deposit
+  include profile::swh::deploy::storage
 }

@@ -2,9 +2,3 @@ dar::backup::exclude:
   - var/lib/rabbitmq
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
-
-swh::deploy::scheduler::remote::config:
-  scheduler:
-    cls: local
-    args:
-      scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"

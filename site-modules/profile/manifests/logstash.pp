@@ -4,8 +4,9 @@ class profile::logstash {
     ensure => 'present',
   }
 
-  $keyid =  lookup('elastic::apt_config::keyid')
-  $key =    lookup('elastic::apt_config::key')
+  $keyid =   lookup('elastic::apt_config::keyid')
+  $key =     lookup('elastic::apt_config::key')
+  $version = sprintf("1:%s-1", lookup('elastic::elk_version'))
 
   apt::source { 'elastic-6.x':
     location => 'https://artifacts.elastic.co/packages/6.x/apt',
@@ -18,7 +19,13 @@ class profile::logstash {
   }
 
   package { 'logstash':
-    ensure => '1:6.3.2-1',
+    ensure => $version,
+  }
+
+  apt::pin { 'logstash':
+    packages => 'logstash',
+    version  => $version,
+    priority => 1001,
   }
 
   file { '/etc/logstash/conf.d/input.conf':

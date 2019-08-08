@@ -1,8 +1,5 @@
 ssh::port: 7022
 
-# open objstorage api
-swh::deploy::objstorage::backend::listen::host: 0.0.0.0
-swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::vault::cache')}"
 
 swh::deploy::vault::db::host: orangeriedev
@@ -12,6 +9,7 @@ swh::deploy::vault::backend::listen::host: 0.0.0.0
 # because they have the same queue names.
 #
 # swh::deploy::worker::instances:
-#   - swh_vault_cooker
-# swh::deploy::worker::swh_vault_cooker::vault_url: "http://orangeriedev.internal.softwareheritage.org:5005/"
+#   - vault_cooker
+# swh::deploy::worker::vault_cooker::vault_url: "http://orangeriedev.internal.softwareheritage.org:5005/"
 swh::deploy::worker::instances: []
+swh::deploy::vault::db::port: 5432

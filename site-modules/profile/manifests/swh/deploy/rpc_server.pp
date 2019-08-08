@@ -30,6 +30,8 @@ define profile::swh::deploy::rpc_server (
 
   $instance_config = lookup("swh::deploy::${config_key}::config")
 
+  $gunicorn_statsd_host = lookup('gunicorn::statsd::host')
+
   include ::gunicorn
 
   case $worker {
@@ -87,11 +89,15 @@ define profile::swh::deploy::rpc_server (
   }
 
   ::gunicorn::instance {$service_name:
-    ensure     => enabled,
-    user       => $user,
-    group      => $group,
-    executable => $executable,
-    settings   => {
+    ensure      => enabled,
+    user        => $user,
+    group       => $group,
+    executable  => $executable,
+    environment => {
+      'SWH_CONFIG_FILENAME' => $conf_file,
+      'SWH_LOG_TARGET'      => 'journal',
+    },
+    settings    => {
       bind                => $gunicorn_unix_socket,
       workers             => $backend_workers,
       worker_class        => $gunicorn_worker_class,
@@ -100,6 +106,8 @@ define profile::swh::deploy::rpc_server (
       keepalive           => $backend_http_keepalive,
       max_requests        => $backend_max_requests,
       max_requests_jitter => $backend_max_requests_jitter,
+      statsd_host         => $gunicorn_statsd_host,
+      statsd_prefix       => $service_name,
     },
   }
 
@@ -116,6 +124,7 @@ define profile::swh::deploy::rpc_server (
       http_vhost   => '127.0.0.1',
       http_port    => $backend_listen_port,
       http_uri     => '/',
+      http_header => ['Accept: application/json'],
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
@@ -132,6 +141,7 @@ define profile::swh::deploy::rpc_server (
         http_vhost  => $::swh_hostname['internal_fqdn'],
         http_port   => $backend_listen_port,
         http_uri    => '/',
+        http_header => ['Accept: application/json'],
         http_string => $http_check_string,
       },
       target        => $icinga_checks_file,

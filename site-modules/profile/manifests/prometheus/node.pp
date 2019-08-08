@@ -1,11 +1,11 @@
 # Prometheus configuration for nodes
 class profile::prometheus::node {
-  include profile::prometheus::apt_config
+  include profile::prometheus::base
 
   $defaults_file = '/etc/default/prometheus-node-exporter'
 
   package {'prometheus-node-exporter':
-    ensure => latest,
+    ensure => present,
     notify => Service['prometheus-node-exporter'],
   }
 
@@ -50,6 +50,44 @@ class profile::prometheus::node {
     content => template('profile/prometheus/node/prometheus-node-exporter.defaults.erb'),
     require => Package['prometheus-node-exporter'],
     notify  => Service['prometheus-node-exporter'],
+  }
+
+  $textfile_directory = lookup('prometheus::node::textfile_directory')
+  $scripts = lookup('prometheus::node::scripts', Hash, 'deep')
+  $scripts_directory = lookup('prometheus::node::scripts::directory')
+
+  file {$scripts_directory:
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0700',
+    recurse => true,
+    purge   => true,
+    require => Package['prometheus-node-exporter'],
+  }
+
+  each($scripts) |$script, $data| {
+    file {"${scripts_directory}/${script}":
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0700',
+      content => template("profile/prometheus/node/scripts/${script}.erb"),
+    }
+    if $data['mode'] == 'cron' {
+      cron {"prometheus-node-exporter-${script}":
+        ensure => absent,
+        user   => $data['cron']['user'],
+      }
+
+      profile::cron::d {"prometheus-node-exporter-${script}":
+        target      => 'prometheus',
+        user        => $data['cron']['user'],
+        command     => "chronic ${scripts_directory}/${script}",
+        random_seed => "prometheus-node-exporter-${script}",
+        *           => $data['cron']['specification'],
+      }
+    }
   }
 
   profile::prometheus::export_scrape_config {'node':

@@ -1,4 +1,7 @@
 ---
+### See also defaults_security.yaml for public key/cert fingerprint blocks
+###
+
 dns::local_cache: true
 dns::nameservers:
   - 127.0.0.1
@@ -81,6 +84,9 @@ smtp::mail_aliases:
   - user: vlorentz
     aliases:
       - valentin.lorentz@inria.fr
+  - user: haltode
+    aliases:
+      - haltode@gmail.com
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -201,6 +207,9 @@ users:
       root@louvre:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDMLEWHlUQldlvZs5rg0y42lRNAfOhD+6pmO8a73DzpJWHTqvAlfteLpU78IPjSacB4dO5ish1E/1RX/HC+Bt8p2v4RBqbCnVLx2w+Hx4ahWu6qbeTVmTz+U++1SQrHnL08fSlhT0OekCw0lRZM2sQq21FZi6+vul97Ecikag4Xaw6Qfumylu94pM3t05uzTUlKk1+6VMCjhT8dlSe8VS8OirVQpE/OqYtTMAWtQaMXGHPCsqDdYRAKzkJ8GjH7ydZmX5VCRyqS0RvPKAlcJfLCs5HBtv0u5rbeGtiHhuzhj/j3YgS/6NJOC2mUfcetcDOMPLnhkKpnF0vUAzTsJ7aR
+      root@banco:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIDcljv9eR52wJsu9yYan6/riIQw70lQuyz+Qt0XpGXMs
   zack:
     uid: 1000
     full_name: Stefano Zacchiroli
@@ -430,6 +439,7 @@ users:
     groups:
       - swhdev
       - swhteam
+      - swhscheduler
     authorized_keys:
       david.douard@sdfa3.org:
         type: ssh-rsa
@@ -445,6 +455,20 @@ users:
       valentin.lorentz@inria.fr:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAILsRMQjrrfUjX1ka9e6YlyMyDvTC+qk5a21Fp9yXYI7p
+      vlorentz@softwareheritage.org:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIIjJoY4XBTTNsxLVF/sUKBI4WGR2AIiR9qfMdspnsRfJ
+  haltode:
+    uid: 1022
+    full_name: Thibault Allancon
+    shell: /usr/bin/zsh
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      haltode@gmail.com:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIORGwY56PpvgwMWqDei718PPriV6U7LL5JMPJWS7zTcg
 
 groups:
   adm:
@@ -482,6 +506,8 @@ groups:
   swhvault:
     gid: 1019
 
+gunicorn::statsd::host: 127.0.0.1:8125
+
 munin::node::allow:
   - 192.168.100.20
 
@@ -515,8 +541,26 @@ munin::plugins::rabbitmq::messages_crit: 20000000
 munin::plugins::rabbitmq::queue_memory_warn: 1073741824 # 1GB
 munin::plugins::rabbitmq::queue_memory_crit: 2147483648 # 2GB
 
-rabbitmq::monitoring::user: swhdev
-# rabbitmq::monitoring::password in private data
+rabbitmq::enable::guest: false
+# following password key in private data
+# - rabbitmq::monitoring::password
+# - swh::deploy::worker::task_broker::password
+# - swh::deploy::scheduler::task_broker::password
+rabbitmq::server::users:
+  # monitoring user
+  - name: swhdev
+    is_admin: true
+    password: "%{hiera('rabbitmq::monitoring::password')}"
+    tags: []
+  - name: swhconsumer
+    is_admin: false
+    password: "%{hiera('swh::deploy::worker::task_broker::password')}"
+    tags: []
+  - name: swhproducer
+    is_admin: false
+    password: "%{hiera('swh::deploy::scheduler::task_broker::password')}"
+    tags:
+      - management
 
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 puppet::master::puppetdb: pergamon.internal.softwareheritage.org
@@ -569,226 +613,45 @@ varnish::storage_size: 256m
 varnish::storage_file: /var/lib/varnish/varnish_storage.bin
 # varnish::secret in private-data
 
-ssl:
-  star_softwareheritage_org:
-    certificate: |
-      -----BEGIN CERTIFICATE-----
-      MIIIXzCCB0egAwIBAgIQDPHPysLFk3NJoSYi+mieNDANBgkqhkiG9w0BAQsFADBk
-      MQswCQYDVQQGEwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJ
-      QW1zdGVyZGFtMQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wg
-      Q0EgMzAeFw0xODA5MjcwMDAwMDBaFw0yMDEyMzAwMDAwMDBaMIGQMQswCQYDVQQG
-      EwJGUjEVMBMGA1UEBxMMUm9jcXVlbmNvdXJ0MUkwRwYDVQQKE0BJbnN0aXR1dCBO
-      YXRpb25hbCBkZSBSZWNoZXJjaGUgZW4gSW5mb3JtYXRpcXVlIGV0IGVuIEF1dG9t
-      YXRpcXVlMR8wHQYDVQQDDBYqLnNvZnR3YXJlaGVyaXRhZ2Uub3JnMIICIjANBgkq
-      hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA5CWwZR0vKg7KRxYon/cqja0mpVjXAKMV
-      KyUQFvTRoY/fD07t51Z5nC0pBi4VxjVJKFN8UO6fX0kJhy4Lp+ErsOPw80YcCMq1
-      86W9Vo6DG2kqjHp0TnsUm+wu2J8F9fQR/HfANx7rflSs2CzBvf2nr0u4HevnCzk+
-      zxky+j+YS9l2Xx5Svz/DTbVpHn162Sf+03g908dsLs2nq3IJbJnzkNkSWpizq/aE
-      Ud/vocQEK66tKN5NLfHezljDQBbK8cySUaX6BFjPRmDcw25rKDgClMIGbYA7P7Hl
-      fswcrsxNxAtwa9ZDTnPW5zRp9aeVcm5NT57vzKZGGsRt+aEzeq+IvcIR9RCQOgIP
-      G3Dzjva0eunppslXOz8hiZd86Omo38yfFi6xJS3qH6nMSItdKa+4yxKCMVlJkx00
-      WtsovY7kfYFpzJfd9Mk7jTBdmD5WRcBiatFGNgaqXstuVHS1CGK2qs5+iOiaXOdn
-      6glIJgN/dKcgA6nvBIYDguvgYU59HxS56Dq9PqdpFy1B6Qghu2Zj4P5iJG+Gl+fP
-      aK0WG5ISsdsr6QGLcJnD3Zjk5F68vo/on1xm3Zk+v7mHlps2BLgxUiP3D5vTpUgY
-      L0xqKfbjDr65R0s7CxZZmXdOUsHgo7P99BKUYiM3Tw9G4AOkFJPLP2OrbLckdmmO
-      K4Iwxhbj4H8CAwEAAaOCA94wggPaMB8GA1UdIwQYMBaAFGf9iCAUJ5jHCdIlGbvp
-      URFjdVBiMB0GA1UdDgQWBBRf7/Wq5kiF/QnNu0Bxe2q6bZjeTDA3BgNVHREEMDAu
-      ghYqLnNvZnR3YXJlaGVyaXRhZ2Uub3JnghRzb2Z0d2FyZWhlcml0YWdlLm9yZzAO
-      BgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMGsG
-      A1UdHwRkMGIwL6AtoCuGKWh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9URVJFTkFT
-      U0xDQTMuY3JsMC+gLaArhilodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVEVSRU5B
-      U1NMQ0EzLmNybDBMBgNVHSAERTBDMDcGCWCGSAGG/WwBATAqMCgGCCsGAQUFBwIB
-      FhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMAgGBmeBDAECAjBuBggrBgEF
-      BQcBAQRiMGAwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTA4
-      BggrBgEFBQcwAoYsaHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1RFUkVOQVNT
-      TENBMy5jcnQwDAYDVR0TAQH/BAIwADCCAfUGCisGAQQB1nkCBAIEggHlBIIB4QHf
-      AHYApLkJkLQYWBSHuxOizGdwCjw1mAT5G9+443fNDsgN3BAAAAFmG53a8gAABAMA
-      RzBFAiEA4FsESbszMapP/1928EYdqTnGxwDpAnjibblmY4Qb4nkCIF/dTJoCbDnO
-      0LSLS+P5bc9cAkgGAyXBwpvB8+ZJszctAHYAh3W/51l8+IxDmV+9827/Vo1HVjb/
-      SrVgwbTq/16ggw8AAAFmG53bzwAABAMARzBFAiEAlpn5W7rsxL6urq8S3tMw9Hr+
-      cZaWAg7dp6kolPecYMECIDFDDBElmoHXCzW35kQXzGxgwrj/ns1nrbc7T5PzjcKw
-      AHUAu9nfvB+KcbWTlCOXqpJ7RzhXlQqrUugakJZkNo4e0YUAAAFmG53b9AAABAMA
-      RjBEAiA8F7P2NjU/AXfguds8cWDRqJsuVpF3qrzVZ4hnlTBeuQIgFohcpNsjkcY3
-      hsgDI6j2VMuk5TVLd/2ehdtaT8lUX/kAdgBvU3asMfAxGdiZAKRRFf93FRwR2QLB
-      ACkGjbIImjfZEwAAAWYbndzFAAAEAwBHMEUCIEwt+EUHkqPBraADN4jCGF6tfzp6
-      LcAIOWt4m/8OMM4pAiEA8m3u/w219RAamjShsaguGbQfxRZGcQcVc0++zXilApYw
-      DQYJKoZIhvcNAQELBQADggEBAKr3KUfjEWsIk1umodHo8Cck49TgioNy6e8w9ajW
-      9Sp3FB/MRskWtL3NU64CecMJlvgJrZogUv+eZlquLCnTiKQdmTY0xYVmt+igT9ca
-      o907aEc2puEHDm8KsCvwLM6nbVPR03nEaj/P6aSM42eordzcWyQY5+uy69r1yfus
-      gVwJjm9aq+EX7KoK+HDE/fF8BOuHxoWzuTxbKTGjD7lEwMi+MdFGwhX/WEOu3Um8
-      MZzX4bRVAgtJNbbrBRYQ1D2gSA+VAmXEBJhYV5UboNWgGE6EwMwTOCTyhpAjHZdy
-      3yFaxgRObjDQEO/LMG+/iDKMUV1T2onVux89LEpaEzeJcnA=
-      -----END CERTIFICATE-----
-    ca_bundle: |
-      -----BEGIN CERTIFICATE-----
-      MIIE+zCCA+OgAwIBAgIQCHC8xa8/25Wakctq7u/kZTANBgkqhkiG9w0BAQsFADBl
-      MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-      d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJv
-      b3QgQ0EwHhcNMTQxMTE4MTIwMDAwWhcNMjQxMTE4MTIwMDAwWjBkMQswCQYDVQQG
-      EwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJQW1zdGVyZGFt
-      MQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wgQ0EgMzCCASIw
-      DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMV2Dw/ZQyk7bG3RR63eEL8jwnio
-      Snc18SNb4EweQefCMQC9iDdFdd25AhCAHo/tZCMERaegOTuBTc9jP8JJ/yKeiLDS
-      lrlcinQfkioq8hLIt2hUtVhBgUBoBhpPhSn7tU08D08/QJYbzqjMXjX/ZJj1dd10
-      VAWgNhEEEiRVY++Udy538RV27tOkWUUhn6i+0SftCuirOMo/h9Ha8Y+5Cx9E5+Ct
-      85XCFk3shKM6ktTPxn3mvcsaQE+zVLHzj28NHuO+SaNW5Ae8jafOHbBbV1bRxBz8
-      mGXRzUYvkZS/RYVJ+G1ShxwCVgEnFqtyLvRx5GG1IKD6JmlqCvGrn223zyUCAwEA
-      AaOCAaYwggGiMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/BAQDAgGGMHkG
-      CCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQu
-      Y29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGln
-      aUNlcnRBc3N1cmVkSURSb290Q0EuY3J0MIGBBgNVHR8EejB4MDqgOKA2hjRodHRw
-      Oi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3Js
-      MDqgOKA2hjRodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVk
-      SURSb290Q0EuY3JsMD0GA1UdIAQ2MDQwMgYEVR0gADAqMCgGCCsGAQUFBwIBFhxo
-      dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMB0GA1UdDgQWBBRn/YggFCeYxwnS
-      JRm76VERY3VQYjAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzANBgkq
-      hkiG9w0BAQsFAAOCAQEAqSg1esR71tonHqyYzyc2TxEydHTmQN0dzfJodzWvs4xd
-      xgS/FfQjZ4u5b5cE60adws3J0aSugS7JurHogNAcyTnBVnZZbJx946nw09E02DxJ
-      WYsamM6/xvLYMDX/6W9doK867mZTrqqMaci+mqege9iCSzMTyAfzd9fzZM2eY/lC
-      J1OuEDOJcjcV8b73HjWizsMt8tey5gvHacDlH198aZt+ziYaM0TDuncFO7pdP0GJ
-      +hY77gRuW6xWS++McPJKe1e9GW6LNgdUJi2GCZQfXzer8CM/jyxflp5HcahE3qm5
-      hS+1NGClXwmgmkMd1L8tRNaN2v11y18WoA5hwnA9Ng==
-      -----END CERTIFICATE-----
-  star_internal_softwareheritage_org:
-    certificate: |
-      -----BEGIN CERTIFICATE-----
-      MIIGsDCCBZigAwIBAgIQD1wiwe+Cg9VcwL5QrB+UqzANBgkqhkiG9w0BAQsFADBk
-      MQswCQYDVQQGEwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJ
-      QW1zdGVyZGFtMQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wg
-      Q0EgMzAeFw0xNTEwMTUwMDAwMDBaFw0xODEwMTkxMjAwMDBaMIHIMQswCQYDVQQG
-      EwJGUjERMA8GA1UECBMIWXZlbGluZXMxFTATBgNVBAcTDFJvY3F1ZW5jb3VydDFJ
-      MEcGA1UEChNASW5zdGl0dXQgTmF0aW9uYWwgZGUgUmVjaGVyY2hlIGVuIEluZm9y
-      bWF0aXF1ZSBldCBlbiBBdXRvbWF0aXF1ZTEaMBgGA1UECxMRU29mdHdhcmUgSGVy
-      aXRhZ2UxKDAmBgNVBAMMHyouaW50ZXJuYWwuc29mdHdhcmVoZXJpdGFnZS5vcmcw
-      ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDxz6BsVNPDk1fSAltRCwiU
-      0iZtd+10WKJL+tgPmv/s3+WgIqj5+hQ/iZsAc7Y45yQo4yU+PsDq+BIFR2yt5rtk
-      B0Xz4sNHAo585IEvWvf3wAULf6GQ17o2XRxN5IZfNgLfRy6jQjeIbiFmO5M2g6To
-      Fl+MMAuK0+u9u6az41eBl1etTe7QjGaL+B45kfLyLeBB4rhusEQSPRTrGrdrgdEt
-      di9jedDjbMkV2B197D7CZHqKRR3B+yuRwgd/t/OqIBpN0M//kPE6AJzpLN2B4Z6L
-      HGSeyprQleFkS3d7hAlZal/9di8C+38bAGmTW8dQLGwFeYTHN6hBuMYm0y4Yk32W
-      423rPZuguA3j2sIxOuIExKmlMDzuGociy3npfjTvWCi/6ESo0hkImnrWKUZ0eyFH
-      h52DsPC6ePhou4qh+KdwObxJmYgS69YhHgrsfZokbbWy/hj6N6dAFmTYJQ9hcrpr
-      x2CHHAmbd7J8gTInMDHlUMJ1vcL11coRpmfevMiaK4szZwzRfI+xsevVeHRusxpC
-      ErrtW+T+9rSfFVIROjXirD4uok8R3UTMpwNOhPQtKTHN/8v9Cvp5BzY0XNnRiVFc
-      lL/4YezG+YO6r4GieWEJyLyB7R/JRJbSuCJLzzqZek4twESiV7mtKe2P1clUF1z+
-      O1+pLFUaRSSgpGxypDgIXQIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAUZ/2IIBQn
-      mMcJ0iUZu+lREWN1UGIwHQYDVR0OBBYEFEZAY+NxWfpgt+qo+0pdRQ5uTsPeMEkG
-      A1UdEQRCMECCHyouaW50ZXJuYWwuc29mdHdhcmVoZXJpdGFnZS5vcmeCHWludGVy
-      bmFsLnNvZnR3YXJlaGVyaXRhZ2Uub3JnMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUE
-      FjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwawYDVR0fBGQwYjAvoC2gK4YpaHR0cDov
-      L2NybDMuZGlnaWNlcnQuY29tL1RFUkVOQVNTTENBMy5jcmwwL6AtoCuGKWh0dHA6
-      Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9URVJFTkFTU0xDQTMuY3JsMEwGA1UdIARFMEMw
-      NwYJYIZIAYb9bAEBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vd3d3LmRpZ2ljZXJ0
-      LmNvbS9DUFMwCAYGZ4EMAQICMG4GCCsGAQUFBwEBBGIwYDAkBggrBgEFBQcwAYYY
-      aHR0cDovL29jc3AuZGlnaWNlcnQuY29tMDgGCCsGAQUFBzAChixodHRwOi8vY2Fj
-      ZXJ0cy5kaWdpY2VydC5jb20vVEVSRU5BU1NMQ0EzLmNydDAMBgNVHRMBAf8EAjAA
-      MA0GCSqGSIb3DQEBCwUAA4IBAQBt7fVm/+sNa5VkhdxfiSSAqrqrjrNPI2izU3Bs
-      fNrN+o7buLGTmA83WJaJsX74kdegqsmT5J3qBO/RDNpvIJqeGBQdDO2L4tRCHxSZ
-      mJ0o7GKFfWY01hF6J6jSHzOehpL/UQ37U1Kh3l7GLBkOhPubV9wkG5jMLlrYNCAd
-      gY59W84hH9QCV+oO44F4Q3bdwTcXrZuQ3tpyqqgukmrCm0TcK7pOa5FWZ4r6ZIWe
-      RNpor8OyVqmMj8U2NX2478LsyE4Ut6NrtdOQHnVVFgPlsuiQgTUfqgL5XCMQw4vz
-      5vNH/vho0zTFoJjB68mos1xazWNYqC+QmKXcsFWeodct9l3F
-      -----END CERTIFICATE-----
-    ca_bundle: |
-      -----BEGIN CERTIFICATE-----
-      MIIE+zCCA+OgAwIBAgIQCHC8xa8/25Wakctq7u/kZTANBgkqhkiG9w0BAQsFADBl
-      MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-      d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJv
-      b3QgQ0EwHhcNMTQxMTE4MTIwMDAwWhcNMjQxMTE4MTIwMDAwWjBkMQswCQYDVQQG
-      EwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJQW1zdGVyZGFt
-      MQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wgQ0EgMzCCASIw
-      DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMV2Dw/ZQyk7bG3RR63eEL8jwnio
-      Snc18SNb4EweQefCMQC9iDdFdd25AhCAHo/tZCMERaegOTuBTc9jP8JJ/yKeiLDS
-      lrlcinQfkioq8hLIt2hUtVhBgUBoBhpPhSn7tU08D08/QJYbzqjMXjX/ZJj1dd10
-      VAWgNhEEEiRVY++Udy538RV27tOkWUUhn6i+0SftCuirOMo/h9Ha8Y+5Cx9E5+Ct
-      85XCFk3shKM6ktTPxn3mvcsaQE+zVLHzj28NHuO+SaNW5Ae8jafOHbBbV1bRxBz8
-      mGXRzUYvkZS/RYVJ+G1ShxwCVgEnFqtyLvRx5GG1IKD6JmlqCvGrn223zyUCAwEA
-      AaOCAaYwggGiMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/BAQDAgGGMHkG
-      CCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQu
-      Y29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGln
-      aUNlcnRBc3N1cmVkSURSb290Q0EuY3J0MIGBBgNVHR8EejB4MDqgOKA2hjRodHRw
-      Oi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3Js
-      MDqgOKA2hjRodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVk
-      SURSb290Q0EuY3JsMD0GA1UdIAQ2MDQwMgYEVR0gADAqMCgGCCsGAQUFBwIBFhxo
-      dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMB0GA1UdDgQWBBRn/YggFCeYxwnS
-      JRm76VERY3VQYjAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzANBgkq
-      hkiG9w0BAQsFAAOCAQEAqSg1esR71tonHqyYzyc2TxEydHTmQN0dzfJodzWvs4xd
-      xgS/FfQjZ4u5b5cE60adws3J0aSugS7JurHogNAcyTnBVnZZbJx946nw09E02DxJ
-      WYsamM6/xvLYMDX/6W9doK867mZTrqqMaci+mqege9iCSzMTyAfzd9fzZM2eY/lC
-      J1OuEDOJcjcV8b73HjWizsMt8tey5gvHacDlH198aZt+ziYaM0TDuncFO7pdP0GJ
-      +hY77gRuW6xWS++McPJKe1e9GW6LNgdUJi2GCZQfXzer8CM/jyxflp5HcahE3qm5
-      hS+1NGClXwmgmkMd1L8tRNaN2v11y18WoA5hwnA9Ng==
-      -----END CERTIFICATE-----
-  stats_export_softwareheritage_org:
-    certificate: |
-      -----BEGIN CERTIFICATE-----
-      MIIGtDCCBZygAwIBAgIQBdh1rlqVNqqDtC3ToOG6zjANBgkqhkiG9w0BAQ0FADBk
-      MQswCQYDVQQGEwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJ
-      QW1zdGVyZGFtMQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wg
-      Q0EgMzAeFw0xNjA2MjAwMDAwMDBaFw0xOTA2MjUxMjAwMDBaMIHKMQswCQYDVQQG
-      EwJGUjERMA8GA1UECBMIWXZlbGluZXMxFTATBgNVBAcTDFJvY3F1ZW5jb3VydDFJ
-      MEcGA1UEChNASW5zdGl0dXQgTmF0aW9uYWwgZGUgUmVjaGVyY2hlIGVuIEluZm9y
-      bWF0aXF1ZSBldCBlbiBBdXRvbWF0aXF1ZTEaMBgGA1UECxMRU29mdHdhcmUgSGVy
-      aXRhZ2UxKjAoBgNVBAMTIXN0YXRzLmV4cG9ydC5zb2Z0d2FyZWhlcml0YWdlLm9y
-      ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOzz90M9R26tzSSGdU6w
-      Hy4xXP9mInZvR4JWa4TYgSIosvC+N6pZpV1PM3ZWR3RlJ6Mn5yyQ3uNJQnuHeqEX
-      X3Yq6xrloylgoE/bW+6rStv+MhCka7zkcbpZ900RMK6Uun7dlBxqW6+Y0e9Z0NZY
-      7RW+R4w1MqcUR0kJ6pwM+bYIXtUkgpUi6aXLg7LhNoufkxcYnBDZe3GTYNeFdEUN
-      /NjbqxVcLRO7DNTszwpLoT+6Dg0lmbu2/ZROJg0c+YYzIvWGiSCxkP0jlra6W8EO
-      j9aXWp/7+lvX0qWsLNYxfnOb5QDQVDqbuIZuqjsFFgXgueS6cEJRWhgZaAeVeZif
-      HidHLWdpGHlQgqG+EwE3iaLJPOrGQqtNUwk6DEJpyhQCu9Fc78irolk9eyccgfQr
-      7YEuxN2yukFwutQy7QP1/6CWtCovwwNw0/l1vmbFd2hcOmyq/DzOXeBkAHo8e5+t
-      EG+nN5Mk5vUI/OkQLO24/6IHge3uN2zXcDaqwAgQ/06TVCbdCrwzDFuhpt27EHDp
-      PvpD/751z7axqrIemXM5lDXgnG7QbQHN74P1n+g3fkVljBuWF2L1mfXBDRogslPI
-      VvYHql3QLIkHEvx2gTq/O2piVt3awlQqqXJmnURUMgf8acYfMc2QhFNmRIeorS1W
-      z6LXHohQRiVvVhmjlVpPa7mXAgMBAAGjggH5MIIB9TAfBgNVHSMEGDAWgBRn/Ygg
-      FCeYxwnSJRm76VERY3VQYjAdBgNVHQ4EFgQUb7Uzk+Q4+Zg/alPyn1AodsDoSbMw
-      SwYDVR0RBEQwQoIhc3RhdHMuZXhwb3J0LnNvZnR3YXJlaGVyaXRhZ2Uub3Jngh1w
-      ZXJnYW1vbi5zb2Z0d2FyZWhlcml0YWdlLm9yZzAOBgNVHQ8BAf8EBAMCBaAwHQYD
-      VR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMGsGA1UdHwRkMGIwL6AtoCuGKWh0
-      dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9URVJFTkFTU0xDQTMuY3JsMC+gLaArhilo
-      dHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVEVSRU5BU1NMQ0EzLmNybDBMBgNVHSAE
-      RTBDMDcGCWCGSAGG/WwBATAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdp
-      Y2VydC5jb20vQ1BTMAgGBmeBDAECAjBuBggrBgEFBQcBAQRiMGAwJAYIKwYBBQUH
-      MAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTA4BggrBgEFBQcwAoYsaHR0cDov
-      L2NhY2VydHMuZGlnaWNlcnQuY29tL1RFUkVOQVNTTENBMy5jcnQwDAYDVR0TAQH/
-      BAIwADANBgkqhkiG9w0BAQ0FAAOCAQEAUjG+ZmlzgZwiXp5xJqdbG8EZ9Dh7+utY
-      ZXkWlr2VsDzGNt9dLcht0FxfjozOoizpIdldLFkjW2OkNIQhChBpiLQ6gFn79B9/
-      iNSZONQUpI1sqCLaOnOLbTHza0zi3Is+MBKjwxBVAcUERVjJbu5YSEm/Dle5IpUw
-      S8K5A7iwFIBQywLOySvz9P1c+MFqMLackEmlVM+vnF6axqQtMgOhscM06GW5bZdy
-      UnamhLXOIr+/Z9B+voB080qZZUn8DqFxP7og8au9IYKP5zLqTxTKayYX3qSXl+QT
-      NpzEGsZavMjzG7fNmQ8bTnEimThnqLbLAcgqWMmy/LBFRvabwHan4w==
-      -----END CERTIFICATE-----
-    ca_bundle: |
-      -----BEGIN CERTIFICATE-----
-      MIIE+zCCA+OgAwIBAgIQCHC8xa8/25Wakctq7u/kZTANBgkqhkiG9w0BAQsFADBl
-      MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-      d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJv
-      b3QgQ0EwHhcNMTQxMTE4MTIwMDAwWhcNMjQxMTE4MTIwMDAwWjBkMQswCQYDVQQG
-      EwJOTDEWMBQGA1UECBMNTm9vcmQtSG9sbGFuZDESMBAGA1UEBxMJQW1zdGVyZGFt
-      MQ8wDQYDVQQKEwZURVJFTkExGDAWBgNVBAMTD1RFUkVOQSBTU0wgQ0EgMzCCASIw
-      DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMV2Dw/ZQyk7bG3RR63eEL8jwnio
-      Snc18SNb4EweQefCMQC9iDdFdd25AhCAHo/tZCMERaegOTuBTc9jP8JJ/yKeiLDS
-      lrlcinQfkioq8hLIt2hUtVhBgUBoBhpPhSn7tU08D08/QJYbzqjMXjX/ZJj1dd10
-      VAWgNhEEEiRVY++Udy538RV27tOkWUUhn6i+0SftCuirOMo/h9Ha8Y+5Cx9E5+Ct
-      85XCFk3shKM6ktTPxn3mvcsaQE+zVLHzj28NHuO+SaNW5Ae8jafOHbBbV1bRxBz8
-      mGXRzUYvkZS/RYVJ+G1ShxwCVgEnFqtyLvRx5GG1IKD6JmlqCvGrn223zyUCAwEA
-      AaOCAaYwggGiMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/BAQDAgGGMHkG
-      CCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQu
-      Y29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGln
-      aUNlcnRBc3N1cmVkSURSb290Q0EuY3J0MIGBBgNVHR8EejB4MDqgOKA2hjRodHRw
-      Oi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURSb290Q0EuY3Js
-      MDqgOKA2hjRodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVk
-      SURSb290Q0EuY3JsMD0GA1UdIAQ2MDQwMgYEVR0gADAqMCgGCCsGAQUFBwIBFhxo
-      dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMB0GA1UdDgQWBBRn/YggFCeYxwnS
-      JRm76VERY3VQYjAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzANBgkq
-      hkiG9w0BAQsFAAOCAQEAqSg1esR71tonHqyYzyc2TxEydHTmQN0dzfJodzWvs4xd
-      xgS/FfQjZ4u5b5cE60adws3J0aSugS7JurHogNAcyTnBVnZZbJx946nw09E02DxJ
-      WYsamM6/xvLYMDX/6W9doK867mZTrqqMaci+mqege9iCSzMTyAfzd9fzZM2eY/lC
-      J1OuEDOJcjcV8b73HjWizsMt8tey5gvHacDlH198aZt+ziYaM0TDuncFO7pdP0GJ
-      +hY77gRuW6xWS++McPJKe1e9GW6LNgdUJi2GCZQfXzer8CM/jyxflp5HcahE3qm5
-      hS+1NGClXwmgmkMd1L8tRNaN2v11y18WoA5hwnA9Ng==
-      -----END CERTIFICATE-----
+letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
+letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
+
+letsencrypt::gandi_livedns_hook::config:
+  gandi_api: https://dns.api.gandi.net/api/v5/
+  zones:
+    softwareheritage.org:
+      api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
+      sharing_id: "%{alias('gandi::softwareheritage_org::sharing_id')}"
+
+letsencrypt::gandi_paas_hook::config:
+  gandi_xmlrpc: https://rpc.gandi.net/xmlrpc/
+  zone_keys:
+    softwareheritage.org: "%{alias('gandi::softwareheritage_org::xmlrpc_key')}"
+
+letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
+letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
+letsencrypt::certificates:
+  stats_export:
+    domains:
+      - stats.export.softwareheritage.org
+      - pergamon.softwareheritage.org
+  www-dev:
+    domains:
+      - www-dev.softwareheritage.org
+    deploy_hook: gandi_paas
+  www:
+    domains:
+      - softwareheritage.org
+      - www.softwareheritage.org
+    deploy_hook: gandi_paas
+  gandi-redirects:
+    domains:
+      - softwareheritage.org
+      - sponsors.softwareheritage.org
+      - sponsorship.softwareheritage.org
+      - testimonials.softwareheritage.org
+    deploy_hook: gandi_paas
+
 
 bind::update_key: local-update
 
@@ -799,6 +662,10 @@ bind::zones:
     domain: 100.168.192.in-addr.arpa
   101.168.192.in-addr.arpa:
     domain: 101.168.192.in-addr.arpa
+  internal.staging.swh.network:
+    domain: internal.staging.swh.network
+  128.168.192.in-addr.arpa:
+    domain: 128.168.192.in-addr.arpa
   200.168.192.in-addr.arpa:
     domain: 200.168.192.in-addr.arpa
   201.168.192.in-addr.arpa:
@@ -853,7 +720,7 @@ bind::resource_records:
   db/CNAME:
     type: CNAME
     record: db.internal.softwareheritage.org
-    data: prado.internal.softwareheritage.org.
+    data: belvedere.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
@@ -951,6 +818,36 @@ bind::resource_records:
   ddouard-desktop/A:
     record: ddouard-desktop.internal.softwareheritage.org
     data: 192.168.101.162
+  vlorentz-desktop/A:
+    record: vlorentz-desktop.internal.softwareheritage.org
+    data: 192.168.101.166
+  gateway/A:
+    record: gateway.internal.staging.swh.network
+    data: 192.168.128.1
+  storage0/A:
+    record: storage0.internal.staging.swh.network
+    data: 192.168.128.2
+  db0/A:
+    record: db0.internal.staging.swh.network
+    data: 192.168.128.3
+  scheduler0/A:
+    record: scheduler0.internal.staging.swh.network
+    data: 192.168.128.4
+  worker0/A:
+    record: worker0.internal.staging.swh.network
+    data: 192.168.128.5
+  worker1/A:
+    record: worker1.internal.staging.swh.network
+    data: 192.168.128.6
+  deposit/A:
+    record: deposit.internal.staging.swh.network
+    data: 192.168.128.7
+  webapp/A:
+    record: webapp.internal.staging.swh.network
+    data: 192.168.128.8
+  vault/A:
+    record: vault.internal.staging.swh.network
+    data: 192.168.128.9
 
 bind::resource_records::default_data:
   type: A
@@ -975,6 +872,7 @@ dar::backup::exclude:
  - proc
  - run
  - srv/backups
+ - srv/db-backups
  - srv/elasticsearch
  - srv/remote-backups
  - srv/softwareheritage/objects
@@ -992,18 +890,15 @@ dar::backup::exclude:
 dar::backup::options:
  - -zbzip2
 
-dar::cron::hour: 0
-dar::cron::minute: fqdn_rand
-dar::cron::month: '*'
-dar::cron::monthday: '*'
-dar::cron::weekday: '*'
+dar::cron:
+  hour: 0
+  minute: fqdn_rand
 
 dar_server::backup::storage: /srv/remote-backups
-dar_server::cron::hour: '0-4'
-dar_server::cron::minute: '*/10'
-dar_server::cron::month: '*'
-dar_server::cron::monthday: '*'
-dar_server::cron::weekday: '*'
+dar_server::central_host: uffizi.softwareheritage.org
+dar_server::cron:
+  hour: '0-4'
+  minute: '*/10'
 
 phabricator::basepath: /srv/phabricator
 phabricator::user: phabricator
@@ -1025,6 +920,7 @@ phabricator::mysql::conf::innodb_buffer_pool_size: 4G
 phabricator::mysql::conf::innodb_file_per_table: TRUE
 phabricator::mysql::conf::innodb_flush_method: O_DIRECT
 phabricator::mysql::conf::innodb_log_file_size: 1G
+phabricator::mysql::conf::max_connections: 16384
 
 phabricator::php::fpm_listen: 127.0.0.1:9001
 phabricator::php::max_file_size: 128M
@@ -1072,8 +968,9 @@ annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 docs::basepath: /srv/softwareheritage/docs
 docs::vhost::name: docs.softwareheritage.org
 docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot"
-docs::vhost::docroot_group: "swhdev"
-docs::vhost::docroot_mode: "2775"
+docs::vhost::docroot_owner: "jenkins-push-docs"
+docs::vhost::docroot_group: "www-data"
+docs::vhost::docroot_mode: "2755"
 docs::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 docs::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 docs::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
@@ -1095,14 +992,52 @@ swh::apt_config::swh_repository::hostname: debian.softwareheritage.org
 swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_repository::hostname')}/"
 swh::apt_config::enable_non_free: false
 
+swh::apt_config::backported_packages:
+  stretch:
+    # For swh.scheduler
+    - python3-msgpack
+    # T1609
+    - python3-urllib3
+    - python3-requests
+    - python3-chardet
+    - python3-idna
+
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
+debian_repository::owner: swhdebianrepo
+debian_repository::owner::homedir: /home/swhdebianrepo
+debian_repository::group: swhdev
+debian_repository::mode: "02775"
+
+debian_repository::ssh_authorized_keys:
+  nicolasd@darboux:
+    type: ssh-rsa
+    key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ1TCpfzrvxLhEMhxjbxqPDCwY0nazIr1cyIbhGD2bUdAbZqVMdNtr7MeDnlLIKrIPJWuvltauvLNkYU0iLc1jMntdBCBM3hgXjmTyDtc8XvXseeBp5tDqccYNR/cnDUuweNcL5tfeu5kzaAg3DFi5Dsncs5hQK5KQ8CPKWcacPjEk4ir9gdFrtKG1rZmg/wi7YbfxrJYWzb171hdV13gSgyXdsG5UAFsNyxsKSztulcLKxvbmDgYbzytr38FK2udRk7WuqPbtEAW1zV4yrBXBSB/uw8EAMi+wwvLTwyUcEl4u0CTlhREljUx8LhYrsQUCrBcmoPAmlnLCD5Q9XrGH
+  jenkins@thyssen:
+    type: ssh-rsa
+    key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCrfYnl8v4QK1ClkPMHO4WiPqgLVoOGpOPFUvg3WehMo8xMQ9e/EeZddQn96mhHkbbC5HCWEVK1VwafpIeadaMHnypdGhpapncYPpoKItxmf1IwVtlt/h8OYai5pTMCgkuOHjhnQdO20Amr9WMkoRZ/K7v/GijIZ6svvgWiYKfDnu0s1ziFYIT5rEA5hL9SqNJTlKdy2H68/7mmTii9NpBsGWQYDOjcrwELNOI5EUgQSOzmeKxecPkABfh/dezp6jmrv/2x7bm7LT46d+rnVDqVRiUrLVnLhrZCmZDxXfbEmftTdAoK8U/wjLreanRxKOc7arYRyKu0RbAaejPejzgR
+
+debian_repository::gpg_keys:
+  # olasd
+  - 791F12396630DD71FD364375B8E5087766475AAF
+  # zack
+  - 4900707DDC5C07F2DECB02839C31503C6D866396
+  # ardumont
+  - BF00203D741AC9D546A8BE0752E2E9840D10C3B8
+  # anlambert
+  - 91FAF3F5CDE011E4FDF4CBF2D026E5C2F802586D
+  # seirl
+  - 225CD9E3FA9374BDF6E057042F8984858B1A9945
+  # vlorentz
+  - 379043E3DF96D3237E6782AC0E082B40E4376B1E
+  # ddouard
+  - 7DC7325EF1A6226AB6C3D7E32388A3BF6F0A6938
+  # jenkins-debian1
+  - 1F4BDC445E30C7066324D7B3D7D3329147AE3148
+
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
 debian_repository::vhost::aliases:
   - debian.internal.softwareheritage.org
 debian_repository::vhost::docroot: "%{hiera('debian_repository::basepath')}"
-debian_repository::vhost::docroot_owner: root
-debian_repository::vhost::docroot_group: swhdev
-debian_repository::vhost::docroot_mode: "02775"
 debian_repository::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 debian_repository::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 debian_repository::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
@@ -1127,6 +1062,13 @@ swh::apt_config::unattended_upgraes::origins:
  - "o=Proxmox,n=%{::lsbdistcodename}"                                   # Proxmox repository
  - "o=packages.sury.org"                                                # PHP backports (tate)
 
+
+
+
+#####################################################################################################
+# Remote service configurations
+
+# Default ports
 swh::remote_service::storage::port: 5002
 swh::remote_service::objstorage::port: 5003
 swh::remote_service::webapp::port: 5004
@@ -1135,6 +1077,31 @@ swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 5008
 
+
+# Default backend services. Override in specific sites if needed. Configurations
+# are split between read-only (the default) and writable storages. In most cases
+# overrides should only happen for read-only services.
+
+swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
+swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+swh::remote_service::objstorage::config_as_dict:
+  banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
+  uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+  azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
+swh::remote_service::storage::config::writable: "%{alias('swh::remote_service::storage::config::uffizi')}"
+
+swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::uffizi')}"
+swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::uffizi')}"
+
+swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+
+swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::azure')}"
+swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::azure')}"
+
+# Objstorage backend configurations
 swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
   cls: azure-prefixed
   args:
@@ -1235,7 +1202,7 @@ swh::remote_service::objstorage::config::banco::readonly:
     filters_conf:
       - type: readonly
 
-swh::remote_service::objstorage::config::azure_readonly_with_fallback:
+swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
   cls: multiplexer
   args:
     objstorages:
@@ -1248,12 +1215,8 @@ swh::remote_service::objstorage::config::localhost:
   args:
     url: "http://127.0.0.1:%{hiera('swh::remote_service::objstorage::port')}/"
 
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
-swh::remote_service::objstorage::config_as_dict:
-  banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
-  uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
-  azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
 
+# Storage backend configurations
 swh::remote_service::storage::config::uffizi:
   cls: remote
   args:
@@ -1269,22 +1232,79 @@ swh::remote_service::storage::config::localhost:
   args:
     url: "http://localhost:%{hiera('swh::remote_service::storage::port')}/"
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
 
-swh::indexer::storage::config::uffizi: &swh_indexer_storage_config_uffizi
+# Indexer backend configurations
+swh::remote_service::indexer::config::uffizi:
   cls: remote
   args:
     url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
-swh::indexer::storage::config::azure:
+swh::remote_service::indexer::config::azure:
   cls: remote
   args:
     url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
-swh::remote_service::scheduler::config::saatchi: &swh_scheduler_remote_config_saatchi
+
+# Scheduler backend configurations
+swh::remote_service::scheduler::config::saatchi:
   cls: remote
   args:
     url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+
+
+# Vault backend configurations
+swh::remote_service::vault::config::azure:
+  cls: remote
+  args:
+    url: "http://vangogh.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
+
+# End remote service configurations
+#####################################################################################################
+
+swh::deploy::db::pgbouncer::port: 5432
+swh::deploy::db::main::port: 5433
+swh::deploy::db::secondary::port: 5434
+swh::deploy::db::hdd::port: 5435
+
+swh::deploy::db::pgbouncer::user::login: postgres
+
+pgbouncer::config_params:
+  logfile: /var/log/postgresql/pgbouncer.log
+  pidfile: /var/run/postgresql/pgbouncer.pid
+  unix_socket_dir: /var/run/postgresql
+  client_tls_sslmode: allow
+  client_tls_ca_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
+  client_tls_key_file: /etc/ssl/private/ssl-cert-snakeoil.key
+  client_tls_cert_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
+  server_tls_sslmode: allow
+  listen_port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+  listen_addr:
+    - 127.0.0.1
+    - "%{hiera('pgbouncer::listen_addr')}"
+  auth_type: "hba"
+  auth_file: /etc/pgbouncer/userlist.txt
+  auth_hba_file: "%{hiera('pgbouncer::auth_hba_file')}"
+  admin_users:
+    - "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    - olasd
+  pool_mode: session
+  server_reset_query: DISCARD ALL
+  max_client_conn: 2000
+  default_pool_size: 2000
+  max_db_connections: 2000
+  max_user_connections: 2000
+  log_connections: 0
+  log_disconnections: 0
+
+pgbouncer::user: postgres
+pgbouncer::group: postgres
+
+# swh::deploy::db::pgbouncer::user::password in private data
+pgbouncer::userlist:
+  - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    password: "%{hiera('swh::deploy::db::pgbouncer::user::password')}"
+
+pgbouncer::databases: []
 
 swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
@@ -1294,8 +1314,8 @@ swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
-swh::deploy::storage::db::host: db
-swh::deploy::storage::db::port: 5432
+swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
 swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
@@ -1323,8 +1343,8 @@ swh::deploy::storage::config:
 swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
-swh::deploy::indexer::storage::db::host: somerset
-swh::deploy::indexer::storage::db::port: 5434
+swh::deploy::indexer::storage::db::host: somerset.internal.softwareheritage.org
+swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
 swh::deploy::indexer::storage::backend::listen::host: 127.0.0.1
@@ -1342,27 +1362,27 @@ swh::deploy::indexer::storage::backend::server_names:
   - localhost
   - "::1"
 swh::deploy::indexer::storage::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+  indexer_storage:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
-swh::deploy::storage_listener::conf_directory: "%{hiera('swh::conf_directory')}/storage"
-swh::deploy::storage_listener::conf_file: "%{hiera('swh::deploy::storage_listener::conf_directory')}/listener.ini"
-swh::deploy::storage_listener::user: swhstorage
-swh::deploy::storage_listener::group: swhstorage
-swh::deploy::storage_listener::database: host=db user=guest dbname=softwareheritage
-swh::deploy::storage_listener::topic_prefix: swh.tmp_journal.new
-swh::deploy::storage_listener::kafka_brokers:
-  - getty.internal.softwareheritage.org
-swh::deploy::storage_listener::poll_timeout: 10
+swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
+# Default cache (orangerie/orangeriedev) is a pathslicing objstorage
+swh::deploy::vault::config::cache:
+  cls: pathslicing
+  args:
+    root: "%{hiera('swh::deploy::vault::cache')}"
+    slicing: "0:1/1:5"
 
 swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::db::host: orangerie
-swh::deploy::vault::db::port: 5432
-swh::deploy::vault::db::user: swhvault
-swh::deploy::vault::db::dbname: swhvault
-swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
+swh::deploy::vault::db::host: db.internal.softwareheritage.org
+swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::vault::db::user: swh-vault
+swh::deploy::vault::db::dbname: swh-vault
 swh::deploy::vault::backend::listen::host: 127.0.0.1
 swh::deploy::vault::backend::listen::port: "%{alias('swh::remote_service::vault::port')}"
 swh::deploy::vault::backend::workers: 4
@@ -1379,40 +1399,27 @@ swh::deploy::vault::backend::server_names:
   - "::1"
 swh::deploy::vault::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  cache:
-    cls: pathslicing
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  cache: "%{alias('swh::deploy::vault::config::cache')}"
+  vault:
+    cls: local
     args:
-      root: "%{hiera('swh::deploy::vault::cache')}"
-      slicing: "0:1/1:5"
-  db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
-  scheduling_db: "%{hiera('swh::deploy::scheduler::database')}"
-
+      db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
-swh::deploy::journal_publisher::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/publisher.yml"
-swh::deploy::journal_publisher::user: swhstorage
-swh::deploy::journal_publisher::group: swhstorage
-swh::deploy::journal_publisher::config:
-  brokers:
-    - getty.internal.softwareheritage.org
-  temporary_prefix: swh.tmp_journal.new
-  final_prefix: swh.journal.objects
-  consumer_id: swh.journal.publisher
-  publisher_id: swh.journal.publisher
-  object_types:
-    - content
-    - revision
-    - release
-  max_messages: 1000
-  storage: "%{alias('swh::remote_service::storage::config')}"
+swh::deploy::journal::brokers:
+  - esnode1.internal.softwareheritage.org
+  - esnode2.internal.softwareheritage.org
+  - esnode3.internal.softwareheritage.org
+
+swh::deploy::journal::prefix: swh.journal.objects
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
 swh::deploy::journal_simple_checker_producer::group: swhstorage
 swh::deploy::journal_simple_checker_producer::config:
-  brokers:
-    - getty.internal.softwareheritage.org
+  brokers: "%{alias('swh::deploy::journal::brokers')}"
   temporary_prefix: swh.tmp_journal.new
   storage_dbconn: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   object_types:
@@ -1423,24 +1430,6 @@ swh::deploy::journal_simple_checker_producer::config:
     - origin
     - origin_visit
 
-swh::deploy::archiver_content_updater::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/content_updater.yml"
-swh::deploy::archiver_content_updater::user: swhstorage
-swh::deploy::archiver_content_updater::group: swhstorage
-swh::deploy::archiver_content_updater::config:
-  brokers:
-    - getty.internal.softwareheritage.org
-  auto_offset_reset: earliest
-  topic_prefix: swh.journal.objects
-  consumer_id: swh.journal.archiver.content.updater
-  object_types:
-    - content
-  archiver_storage:
-    cls: db
-    args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
-  sources_present:
-    - uffizi
-
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/server.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
@@ -1448,11 +1437,12 @@ swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:2/2:4/4:6
 swh::deploy::objstorage::config:
-  cls: pathslicing
-  args:
-    root: "%{hiera('swh::deploy::objstorage::directory')}"
-    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-  max_client_size: 1073741824  # 1 GiB
+  objstorage:
+    cls: pathslicing
+    args:
+      root: "%{hiera('swh::deploy::objstorage::directory')}"
+      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  client_max_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
 swh::deploy::objstorage::backend::listen::port: "%{alias('swh::remote_service::objstorage::port')}"
@@ -1480,13 +1470,20 @@ swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
   - /1/private/deposits/
 
-swh::deploy::deposit::conf_directory: "%{hiera('swh::conf_directory')}/deposit"
-swh::deploy::deposit::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/server.yml"
-swh::deploy::deposit::settings_private_data_file: "%{hiera('swh::deploy::deposit::conf_directory')}/private.yml"
+swh::deploy::deposit::config_directory: "%{hiera('swh::conf_directory')}/deposit"
+swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_directory')}/server.yml"
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-# test configuration
+swh::deploy::deposit::db::host: db.internal.softwareheritage.org
+swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::deposit::db::dbname: softwareheritage-deposit
+swh::deploy::deposit::db::dbuser: swhstorage
+swh::deploy::deposit::config::allowed_hosts:
+  - deposit.internal.softwareheritage.org
+
+# swh::deploy::deposit::db::password: in private data
+# swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
   tool:
@@ -1494,32 +1491,51 @@ swh::deploy::deposit::config:
     version: '0.0.1'
     configuration:
       sword_version: 2
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  allowed_hosts: "%{alias('swh::deploy::deposit::config::allowed_hosts')}"
+  private:
+    secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
+    db:
+      host: "%{hiera('swh::deploy::deposit::db::host')}"
+      port: "%{hiera('swh::deploy::deposit::db::port')}"
+      name: "%{hiera('swh::deploy::deposit::db::dbname')}"
+      user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
+      password: "%{hiera('swh::deploy::deposit::db::password')}"
+    media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
 
-# swh::deploy::deposit::runtime_secret_key in private data
-swh::deploy::deposit::settings_private_data:
-  secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
-  db:
-    host: db
-    port: 5432
-    name: softwareheritage-deposit
-    user: swhstorage
-    password: "%{hiera('swh::deploy::storage::db::password')}"
-  media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
-
-swh::deploy::worker::swh_loader_deposit::swh_conf_dir: "%{hiera('swh::conf_directory')}/loader"
-swh::deploy::worker::swh_loader_deposit::swh_conf_file: "%{hiera('swh::deploy::worker::swh_loader_deposit::swh_conf_dir')}/deposit.yml"
-swh::deploy::worker::swh_loader_deposit::concurrency: 2
-swh::deploy::worker::swh_loader_deposit::private_tmp: true
-swh::deploy::worker::swh_loader_deposit::loglevel: info
-swh::deploy::worker::swh_loader_deposit::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_deposit::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  extraction_dir: /tmp/swh.loader.deposit/
-
-swh::deploy::deposit::client::swh_conf_file: "%{hiera('swh::deploy::deposit::conf_directory')}/client.yml"
+swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
+swh::deploy::worker::loader_deposit::concurrency: 1
+swh::deploy::worker::loader_deposit::private_tmp: true
+swh::deploy::worker::loader_deposit::loglevel: info
 # deposit_basic_auth_swhworker_{username|password} in private_data
-swh::deploy::deposit::client::settings_private_data:
+swh::deploy::worker::loader_deposit::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  extraction_dir: /tmp/swh.loader.deposit/
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.deposit.loader.tasks
+    task_queues:
+      - swh.deposit.loader.tasks.LoadDepositArchiveTsk
+  url: https://deposit.softwareheritage.org
+  auth:
+    username: "%{hiera('deposit_basic_auth_swhworker_username')}"
+    password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+
+swh::deploy::worker::checker_deposit::config_file: "%{hiera('swh::conf_directory')}/checker_deposit.yml"
+swh::deploy::worker::checker_deposit::concurrency: 1
+swh::deploy::worker::checker_deposit::private_tmp: true
+swh::deploy::worker::checker_deposit::loglevel: info
+# deposit_basic_auth_swhworker_{username|password} in private_data
+swh::deploy::worker::checker_deposit::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  extraction_dir: /tmp/swh.checker.deposit/
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.deposit.loader.tasks
+    task_queues:
+      - swh.deposit.loader.tasks.ChecksDepositTsk
   url: https://deposit.softwareheritage.org
   auth:
     username: "%{hiera('deposit_basic_auth_swhworker_username')}"
@@ -1560,30 +1576,11 @@ swh::deploy::objstorage_repair_checker::config:
   log_tag: objstorage.checker.repair
   backup_storages: "%{alias('swh::remote_service::objstorage::config_as_dict')}"
 
-swh::deploy::objstorage_archive_notifier_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_archive_notifier_checker::conf_file: "%{hiera('swh::deploy::objstorage_archive_notifier_checker::conf_directory')}/archive_notifier_checker.yml"
-swh::deploy::objstorage_archive_notifier_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_archive_notifier_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_archive_notifier_checker::log_tag: objstorage.checker.archive_notifier
-swh::deploy::objstorage_archive_notifier_checker::storage_name: this-must-be-overriden-on-a-host-basis
-swh::deploy::objstorage_archive_notifier_checker::db::host: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')}"
-swh::deploy::objstorage_archive_notifier_checker::db::dbname: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')}"
-swh::deploy::objstorage_archive_notifier_checker::db::user: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}"
-swh::deploy::objstorage_archive_notifier_checker::db::password: "%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
-swh::deploy::objstorage_archive_notifier_checker::config:
-  storage:
-    cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::objstorage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-  batch_size: 1000
-  log_tag: objstorage.checker.archive_notifier
-  storage_name: this-must-be-overriden-on-a-per-host-basis
-  archiver_storage:
-    cls: db
-    args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
-
+swh::deploy::webapp::backported_packages:
+  stretch:
+    - python3-django
+    - python-django-common
+swh::deploy::deposit::backported_packages: "%{alias('swh::deploy::webapp::backported_packages')}"
 
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
@@ -1604,20 +1601,18 @@ swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
+  - base.softwareheritage.org
+  - archive.internal.softwareheritage.org
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
-swh::deploy::webapp::indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
 # in private data:
-# swh::deploy::webapp::config::grecaptcha::private_key
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
-  storage:
-    cls: remote
-    args:
-      url: "http://127.0.0.1:%{hiera('swh::remote_service::storage::port')}/"
-  vault: "http://orangerie.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
-  indexer_storage: "%{alias('swh::deploy::webapp::indexer_storage')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 1048576
@@ -1631,6 +1626,18 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+          - 131.107.174.0/24
+          # OpenAIRE
+          - 213.135.60.145
+          - 213.135.60.146
+          # DINSIC
+          - 37.187.137.47
+      swh_api_origin_visit_latest:
+        # This endpoint gets called a lot (by default, up to 70 times
+        # per origin search), so it deserves a much higher rate-limit
+        # than the rest of the API.
+        limiter_rate:
+          default: 700/m
       swh_vault_cooking:
         limiter_rate:
           default: 120/h
@@ -1639,6 +1646,10 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+          - 131.107.174.0/24
+          # OpenAIRE
+          - 213.135.60.145
+          - 213.135.60.146
       swh_save_origin:
         limiter_rate:
           default: 120/h
@@ -1647,15 +1658,11 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 128.93.193.29
+          - 131.107.174.0/24
+          # OpenAIRE
+          - 213.135.60.145
+          - 213.135.60.146
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
-  scheduler:
-    cls: remote
-    args:
-      url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
-  grecaptcha:
-    validation_url: https://www.google.com/recaptcha/api/siteverify
-    site_key: 6Le0l2wUAAAAAHgtL_aJmIfnow8pFB62sAoG8B7m
-    private_key: "%{hiera('swh::deploy::webapp::config::grecaptcha::private_key')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
   deposit:
     private_api_url: https://deposit.softwareheritage.org/1/private/
@@ -1667,16 +1674,30 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/entity/
   - /api/1/provenance/
 
-swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.ini"
+# local configuration for the scheduler
+swh::deploy::scheduler::config::local: &swh_scheduler_local_config
+  scheduler:
+    cls: local
+    args:
+      db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+
+swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
-swh::deploy::scheduler::db::host: db
+swh::deploy::scheduler::db::host: db.internal.softwareheritage.org
+swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
-swh::deploy::scheduler::database: "host=%{hiera('swh::deploy::scheduler::db::host')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 # swh::deploy::scheduler::task_broker::password in private data
 swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672//"
+swh::deploy::scheduler::listener::log_level: INFO
+swh::deploy::scheduler::runner::log_level: INFO
+swh::deploy::scheduler::config:
+  <<: *swh_scheduler_local_config
+  celery:
+    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+
 swh::deploy::scheduler::task_packages:
   - python3-swh.lister
   - python3-swh.loader.debian
@@ -1686,6 +1707,7 @@ swh::deploy::scheduler::task_packages:
   - python3-swh.loader.pypi
   - python3-swh.loader.svn
   - python3-swh.loader.tar
+  - python3-swh.loader.npm
   - python3-swh.deposit.loader
   - python3-swh.indexer
   - python3-swh.vault
@@ -1693,9 +1715,12 @@ swh::deploy::scheduler::backported_packages:
   jessie:
     - python3-sqlalchemy
 swh::deploy::scheduler::task_modules:
+  - swh.lister.bitbucket.tasks
+  - swh.lister.cgit.tasks
   - swh.lister.debian.tasks
   - swh.lister.github.tasks
   - swh.lister.gitlab.tasks
+  - swh.lister.npm.tasks
   - swh.lister.pypi.tasks
   - swh.loader.debian.tasks
   - swh.loader.dir.tasks
@@ -1726,19 +1751,18 @@ swh::deploy::scheduler::remote::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
-swh::deploy::scheduler::remote::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
 swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
 swh::deploy::scheduler::updater::backend::user: swhscheduler
 swh::deploy::scheduler::updater::backend::group: swhscheduler
 swh::deploy::scheduler::updater::backend::db::host: db.internal.softwareheritage.org
-swh::deploy::scheduler::updater::backend::db::port: 5432
+swh::deploy::scheduler::updater::backend::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::updater::backend::db::dbname: softwareheritage-scheduler-updater
 swh::deploy::scheduler::updater::backend::db::user: swhscheduler
 swh::deploy::scheduler::updater::backend::config:
-  scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
+  scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} port=%{hiera('swh::deploy::scheduler::updater::backend::db::port')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
   cache_read_limit: 1000
 
 swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir: "%{hiera('swh::conf_directory')}/backend"
@@ -1766,7 +1790,7 @@ swh::deploy::scheduler::updater::writer::group: swhscheduler
 # systemd-analyze calendar "*-*-* *:00:00"
 swh::deploy::scheduler::updater::writer::timer_period: "00/4:00"
 swh::deploy::scheduler::updater::writer::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   scheduler_updater:
     scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
     cache_read_limit: 1000
@@ -1777,6 +1801,7 @@ swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/back
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::archive::config:
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   storage_nodes:
     - host: esnode2.internal.softwareheritage.org
       port: 9200
@@ -1789,249 +1814,276 @@ swh::deploy::scheduler::archive::config:
     sniff_on_connection_fail: True
     http_compress: false
 
-swh::deploy::loader_debian::db::host: db.internal.softwareheritage.org
-swh::deploy::loader_debian::db::port: 5432
-swh::deploy::loader_debian::db::user: lister-debian
-# in private data: swh::deploy::loader_debian::db::password
-swh::deploy::loader_debian::db::dbname: lister-debian
+# Main lister configuration
+swh::deploy::worker::lister::db::user: swh-lister
+swh::deploy::worker::lister::db::name: swh-lister
+swh::deploy::worker::lister::db::host: db.internal.softwareheritage.org
+swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+# swh::deploy::worker::lister::db::password in private data
+
+swh::deploy::worker::loader_debian::db::host: db.internal.softwareheritage.org
+swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+# in private data: swh::deploy::worker::loader_debian::db::password
+swh::deploy::worker::loader_debian::db::user: "%{alias('swh::deploy::worker::lister::db::user')}"
+swh::deploy::worker::loader_debian::db::dbname: "%{alias('swh::deploy::worker::lister::db::name')}"
 
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
-  - swh_loader_debian
-  - swh_loader_git
-  - swh_lister_debian
-  - swh_lister_github
+  - loader_debian
+  - loader_git
+  - lister
 
-swh::deploy::worker::swh_loader_git::concurrency: 2
-swh::deploy::worker::swh_loader_git::loglevel: info
-swh::deploy::worker::swh_loader_git::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_git::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
+swh::deploy::worker::loader_git::concurrency: 1
+swh::deploy::worker::loader_git::loglevel: info
+swh::deploy::worker::loader_git::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   save_data: true
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.git.tasks
+    task_queues:
+      - swh.loader.git.tasks.UpdateGitRepository
+      - swh_loader_git
+      # loader-git-disk
+      - swh.loader.git.tasks.LoadDiskGitRepository
+      - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
-swh::deploy::worker::swh_loader_debian::concurrency: 1
-swh::deploy::worker::swh_loader_debian::loglevel: info
-swh::deploy::worker::swh_loader_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_debian::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
+swh::deploy::worker::loader_debian::concurrency: 1
+swh::deploy::worker::loader_debian::loglevel: info
+swh::deploy::worker::loader_debian::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   directory_packet_size: 100
-  lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
+  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::loader_debian::db::user')}:%{hiera('swh::deploy::worker::loader_debian::db::password')}@%{hiera('swh::deploy::worker::loader_debian::db::host')}:%{hiera('swh::deploy::worker::loader_debian::db::port')}/%{hiera('swh::deploy::worker::loader_debian::db::dbname')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.debian.tasks
+    task_queues:
+      - swh.loader.debian.tasks.LoadDebianPackage
+      - swh_loader_debian
 
-swh::deploy::worker::swh_lister_debian::concurrency: 1
-swh::deploy::worker::swh_lister_debian::loglevel: info
-swh::deploy::worker::swh_lister_debian::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_lister_debian::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  lister_db_url: "postgresql://%{hiera('swh::deploy::loader_debian::db::user')}:%{hiera('swh::deploy::loader_debian::db::password')}@%{hiera('swh::deploy::loader_debian::db::host')}:%{hiera('swh::deploy::loader_debian::db::port')}/%{hiera('swh::deploy::loader_debian::db::dbname')}"
-
-swh::deploy::worker::swh_loader_git_disk::concurrency: 2
-swh::deploy::worker::swh_loader_git_disk::loglevel: info
-swh::deploy::worker::swh_loader_git_disk::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_git_disk::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  directory_packet_size: 100
-
-swh::deploy::worker::swh_loader_mercurial::concurrency: 1
-swh::deploy::worker::swh_loader_mercurial::private_tmp: true
-swh::deploy::worker::swh_loader_mercurial::loglevel: info
-swh::deploy::worker::swh_loader_mercurial::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_mercurial::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  reduce_effort: False
-
-swh::deploy::worker::swh_loader_pypi::concurrency: 1
-swh::deploy::worker::swh_loader_pypi::private_tmp: true
-swh::deploy::worker::swh_loader_pypi::loglevel: info
-swh::deploy::worker::swh_loader_pypi::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_pypi::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-
-swh::deploy::worker::swh_loader_svn::concurrency: 1
-swh::deploy::worker::swh_loader_svn::private_tmp: true
-swh::deploy::worker::swh_loader_svn::limit_no_file: 8192
-swh::deploy::worker::swh_loader_svn::loglevel: info
-# Contains a password: in private data
-swh::deploy::worker::swh_loader_svn::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_loader_svn::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-
-swh::deploy::worker::swh_lister_github::concurrency: 1
-swh::deploy::worker::swh_lister_github::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::swh_lister_github::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_lister_github::db::host: db
-swh::deploy::worker::swh_lister_github::db::dbname: lister-github
-swh::deploy::worker::swh_lister_github::db::user: lister-github
-#swh::deploy::worker::swh_lister_github::db::password in private data
-swh::deploy::worker::swh_lister_github::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_github::db::user')}:%{hiera('swh::deploy::worker::swh_lister_github::db::password')}@%{hiera('swh::deploy::worker::swh_lister_github::db::host')}/%{hiera('swh::deploy::worker::swh_lister_github::db::dbname')}"
-  # credentials in private data
-
-swh::deploy::worker::swh_lister_gitlab::concurrency: 1
-swh::deploy::worker::swh_lister_gitlab::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::swh_lister_gitlab::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_lister_gitlab::db::host: db
-swh::deploy::worker::swh_lister_gitlab::db::dbname: lister-gitlab
-swh::deploy::worker::swh_lister_gitlab::db::user: lister-gitlab
-#swh::deploy::worker::swh_lister_gitlab::db::password in private data
-swh::deploy::worker::swh_lister_gitlab::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_gitlab::db::user')}:%{hiera('swh::deploy::worker::swh_lister_gitlab::db::password')}@%{hiera('swh::deploy::worker::swh_lister_gitlab::db::host')}/%{hiera('swh::deploy::worker::swh_lister_gitlab::db::dbname')}"
-  # credentials in private data
-
-swh::deploy::worker::swh_lister_pypi::concurrency: 1
-swh::deploy::worker::swh_lister_pypi::loglevel: warning
-# Contains a password: in private data
-swh::deploy::worker::swh_lister_pypi::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_lister_pypi::db::host: db
-swh::deploy::worker::swh_lister_pypi::db::dbname: lister-pypi
-swh::deploy::worker::swh_lister_pypi::db::user: lister-pypi
-#swh::deploy::worker::swh_lister_pypi::db::password in private data
-swh::deploy::worker::swh_lister_pypi::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-  lister_db_url: "postgresql://%{hiera('swh::deploy::worker::swh_lister_pypi::db::user')}:%{hiera('swh::deploy::worker::swh_lister_pypi::db::password')}@%{hiera('swh::deploy::worker::swh_lister_pypi::db::host')}/%{hiera('swh::deploy::worker::swh_lister_pypi::db::dbname')}"
-  # credentials in private data
-
-swh::deploy::worker::swh_storage_archiver::conf_directory: "%{hiera('swh::conf_directory')}/archiver"
-swh::deploy::worker::swh_storage_archiver::conf_file: "%{hiera('swh::deploy::worker::swh_storage_archiver::conf_directory')}/worker.yml"
-swh::deploy::worker::swh_storage_archiver::archival_max_age: 3600
-swh::deploy::worker::swh_storage_archiver::max_queue_length: 100000
-swh::deploy::worker::swh_storage_archiver::retention_policy: 3
-swh::deploy::worker::swh_storage_archiver::batch_max_size: 5
-swh::deploy::worker::swh_storage_archiver::db::host: db
-swh::deploy::worker::swh_storage_archiver::db::dbname: softwareheritage-archiver
-swh::deploy::worker::swh_storage_archiver::db::user: "%{hiera('swh::deploy::storage::db::user')}"
-swh::deploy::worker::swh_storage_archiver::db::password: "%{hiera('swh::deploy::storage::db::password')}"
-swh::deploy::worker::swh_storage_archiver::concurrency: 10
-swh::deploy::worker::swh_storage_archiver::max_tasks_per_child: 500
-swh::deploy::worker::swh_storage_archiver::loglevel: info
-# Contains a password: in private data
-swh::deploy::worker::swh_storage_archiver::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_storage_archiver::config:
-  archival_max_age: "%{hiera('swh::deploy::worker::swh_storage_archiver::archival_max_age')}"
-  retention_policy: "%{hiera('swh::deploy::worker::swh_storage_archiver::retention_policy')}"
-  batch_max_size: "%{hiera('swh::deploy::worker::swh_storage_archiver::batch_max_size')}"
-  archiver_storage:
-    cls: db
+swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
+swh::deploy::worker::lister::concurrency: 5
+swh::deploy::worker::lister::loglevel: warning
+swh::deploy::worker::lister::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  lister:
+    cls: local
     args:
-      dbconn: "host=%{hiera('swh::deploy::worker::swh_storage_archiver::db::host')} user=%{hiera('swh::deploy::worker::swh_storage_archiver::db::user')}  dbname=%{hiera('swh::deploy::worker::swh_storage_archiver::db::dbname')} password=%{hiera('swh::deploy::worker::swh_storage_archiver::db::password')}"
-  storages:
-    - host: uffizi
-      <<: *swh_objstorage_config_uffizi
-    - host: banco
-      <<: *swh_objstorage_config_banco
-    - host: azure
-      <<: *swh_objstorage_config_azure
-  sources:
-    - uffizi
-    - banco
-  max_queue_length: "%{hiera('swh::deploy::worker::swh_storage_archiver::max_queue_length')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::worker::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.lister.bitbucket.tasks
+      - swh.lister.cgit.tasks
+      - swh.lister.debian.tasks
+      - swh.lister.github.tasks
+      - swh.lister.gitlab.tasks
+      - swh.lister.gnu.tasks
+      - swh.lister.npm.tasks
+      - swh.lister.phabricator.tasks
+      - swh.lister.pypi.tasks
+    task_queues:
+      - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
+      - swh.lister.bitbucket.tasks.FullBitBucketRelister
+      - swh.lister.cgit.tasks.CGitListerTask
+      - swh.lister.debian.tasks.DebianListerTask
+      - swh.lister.github.tasks.IncrementalGitHubLister
+      - swh.lister.github.tasks.RangeGitHubLister
+      - swh.lister.github.tasks.FullGitHubRelister
+      - swh.lister.gitlab.tasks.IncrementalGitLabLister
+      - swh.lister.gitlab.tasks.RangeGitLabLister
+      - swh.lister.gitlab.tasks.FullGitLabRelister
+      - swh.lister.gnu.tasks.GNUListerTask
+      - swh.lister.npm.tasks.NpmListerTask
+      - swh.lister.phabricator.tasks.FullPhabricatorLister
+      - swh.lister.pypi.tasks.PyPIListerTask
+  credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
-swh::deploy::worker::swh_indexer::orchestrator::concurrency: 2
-swh::deploy::worker::swh_indexer::orchestrator::loglevel: info
-swh::deploy::worker::swh_indexer::orchestrator::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::orchestrator::config:
-  indexers:
-    mimetype:
-      batch_size: 100
-      check_presence: false
+swh::deploy::worker::loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
+swh::deploy::worker::loader_mercurial::concurrency: 1
+swh::deploy::worker::loader_mercurial::private_tmp: true
+swh::deploy::worker::loader_mercurial::loglevel: info
+swh::deploy::worker::loader_mercurial::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  reduce_effort: False
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.mercurial.tasks
+    task_queues:
+      - swh.loader.mercurial.tasks.LoadMercurial
+      - swh.loader.mercurial.tasks.LoadArchiveMercurial
+      - swh_loader_mercurial
+      - swh_loader_mercurial_archive
 
-swh::deploy::worker::swh_indexer::orchestrator_text::concurrency: 2
-swh::deploy::worker::swh_indexer::orchestrator_text::loglevel: info
-swh::deploy::worker::swh_indexer::orchestrator_text::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::orchestrator_text::config:
-  indexers:
-    fossology_license:
-      batch_size: 100
-      check_presence: false
+swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
+swh::deploy::worker::loader_pypi::concurrency: 1
+swh::deploy::worker::loader_pypi::private_tmp: true
+swh::deploy::worker::loader_pypi::loglevel: info
+swh::deploy::worker::loader_pypi::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.pypi.tasks
+    task_queues:
+      - swh.loader.pypi.tasks.LoadPyPI
+      - swh_loader_pypi
 
-swh::deploy::worker::swh_indexer::base::concurrency: 2
-swh::deploy::worker::swh_indexer::base::loglevel: info
+swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
+swh::deploy::worker::loader_npm::concurrency: 1
+swh::deploy::worker::loader_npm::private_tmp: true
+swh::deploy::worker::loader_npm::loglevel: info
+swh::deploy::worker::loader_npm::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.npm.tasks
+    task_queues:
+      - swh.loader.npm.tasks.LoadNpm
+
+swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
+swh::deploy::worker::loader_svn::concurrency: 1
+swh::deploy::worker::loader_svn::private_tmp: true
+swh::deploy::worker::loader_svn::limit_no_file: 8192
+swh::deploy::worker::loader_svn::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::base::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::base::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+swh::deploy::worker::loader_svn::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.svn.tasks
+    task_queues:
+      - swh.loader.svn.tasks.LoadSvnRepository
+      - swh.loader.svn.tasks.MountAndLoadSvnRepository
+      - swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
+      - swh_loader_svn
+      - swh_loader_svn_mount_and_load
+
+
+swh::deploy::base_indexer::config_directory: "%{hiera('swh::conf_directory')}/indexer"
+
+swh::deploy::indexer_journal_client::config_file: "journal_client.yml"
+swh::deploy::indexer_journal_client::user: swhstorage
+swh::deploy::indexer_journal_client::group: swhstorage
+swh::deploy::indexer_journal_client::config:
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.indexer.journal_client
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+
+swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
+swh::deploy::worker::indexer_content_mimetype::concurrency: 1
+swh::deploy::worker::indexer_content_mimetype::loglevel: info
+# Contains a password: in private data
+swh::deploy::worker::indexer_content_mimetype::config:
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.ContentMimetype
+      - swh.indexer.tasks.ContentRangeMimetype
+      - swh_indexer_content_mimetype_range
+  tools:
+    name: file
+    version: 1:5.30-1+deb9u1
+    configuration:
+      type: library
+      debian-package: python3-magic
+  write_batch_size: 1000
 
-swh::deploy::worker::swh_indexer::mimetype::concurrency: 6
-swh::deploy::worker::swh_indexer::mimetype::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+swh::deploy::worker::indexer_origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
+swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 1
+swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::mimetype::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::mimetype::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  destination_queue: swh.indexer.tasks.SWHOrchestratorTextContentsTask
-  rescheduling_task: swh.indexer.tasks.SWHContentMimetypeTask
+  storage: "%{alias('swh::remote_service::storage::config')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.OriginMetadata
+  tools:
+    name: swh-metadata-detector
+    version: 0.0.2
+    configuration: {}
 
-swh::deploy::worker::swh_indexer::rehash::concurrency: 5
-swh::deploy::worker::swh_indexer::rehash::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+swh::deploy::worker::indexer_rehash::config_file: "rehash.yml"
+swh::deploy::worker::indexer_rehash::concurrency: 5
+swh::deploy::worker::indexer_rehash::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::rehash::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::rehash::config:
-  # Needs write access: explicitly configured to use uffizi
-  storage: "%{alias('swh::remote_service::storage::config::uffizi')}"
+swh::deploy::worker::indexer_rehash::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   compute_checksums:
     - blake2s256
-  rescheduling_task: swh.indexer.tasks.SWHRecomputeChecksumsTask
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::swh_indexer::fossology_license::concurrency: 7
-swh::deploy::worker::swh_indexer::fossology_license::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+swh::deploy::worker::indexer_fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
+swh::deploy::worker::indexer_fossology_license::concurrency: 1
+swh::deploy::worker::indexer_fossology_license::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::fossology_license::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::fossology_license::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+swh::deploy::worker::indexer_fossology_license::config:
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  rescheduling_task: swh.indexer.tasks.SWHContentFossologyLicenseTask
+  storage: "%{alias('swh::remote_service::storage::config')}"
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
     name: 'nomos'
     version: '3.1.0rc2-31-ga2cbb8c'
     configuration:
       command_line: "nomossa <filepath>"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.ContentFossologyLicense
+      - swh.indexer.tasks.ContentRangeFossologyLicense
+      - swh_indexer_content_fossology_license_range
+  write_batch_size: 1000
 
-swh::deploy::worker::swh_indexer::language::concurrency: 3
-swh::deploy::worker::swh_indexer::language::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
+swh::deploy::worker::indexer_content_ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
+swh::deploy::worker::indexer_content_ctags::concurrency: 2
+swh::deploy::worker::indexer_content_ctags::loglevel: info
 # Contains a password: in private data
-swh::deploy::worker::swh_indexer::language::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_indexer::language::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  rescheduling_task: swh.indexer.tasks.SWHContentLanguageTask
-  tools:
-    name: 'pygments'
-    version: '2.0.1+dfsg-1.1+deb8u1'
-    configuration:
-      type: "library"
-      debian-package: "python3-pygments"
-      max_content_size: 10240
-
-swh::deploy::worker::swh_indexer::ctags::concurrency: 2
-swh::deploy::worker::swh_indexer::ctags::loglevel: "%{hiera('swh::deploy::worker::swh_indexer::base::loglevel')}"
-# Contains a password: in private data
-swh::deploy::worker::swh_indexer::ctags::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
 # objstorage configuration from swh::azure_objstorage::config is merged in the manifest
-swh::deploy::worker::swh_indexer::ctags::config:
-  indexer_storage: "%{alias('swh::indexer::storage::config::uffizi')}"
+swh::deploy::worker::indexer_content_ctags::config:
+  indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   workdir: /tmp/swh/indexer.ctags/
   tools:
     name: 'universal-ctags'
-    version: '~git7859817b'
+    version: '0+git20181215-2'
     configuration:
       command_line: "ctags --fields=+lnz --sort=no --links=no --output-format=json <filepath>"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.indexer.tasks
+    task_queues:
+      - swh.indexer.tasks.Ctags
+
   languages:
     abap: ''
     abnf: ''
@@ -2434,13 +2486,20 @@ swh::deploy::worker::swh_indexer::ctags::config:
     zephir: Zephir
     unknown: ''
 
-swh::deploy::worker::swh_vault_cooker::concurrency: 20
-swh::deploy::worker::swh_vault_cooker::loglevel: info
-swh::deploy::worker::swh_vault_cooker::task_broker: "%{hiera('swh::deploy::worker::task_broker')}"
-swh::deploy::worker::swh_vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
-swh::deploy::worker::swh_vault_cooker::config:
+swh::deploy::worker::vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
+swh::deploy::worker::vault_cooker::concurrency: 20
+swh::deploy::worker::vault_cooker::loglevel: info
+swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
+swh::deploy::worker::vault_cooker::config:
   storage: "%{alias('swh::remote_service::storage::config')}"
-  vault_url: "http://orangerie:%{hiera('swh::remote_service::vault::port')}/"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.vault.cooking_tasks
+    task_queues:
+      - swh.vault.cooking_tasks.SWHCookingTask
+      - swh.vault.cooking_tasks.SWHBatchCookingTask
 
 desktop::printers:
   MFP_C:
@@ -2471,168 +2530,45 @@ desktop::printers::cups_usernames:
 
 zookeeper::servers:
   1: getty.internal.softwareheritage.org
+  11: esnode1.internal.softwareheritage.org
+  12: esnode2.internal.softwareheritage.org
+  13: esnode3.internal.softwareheritage.org
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
-kafka::version: '1.0.1'
-kafka::scala_version: '2.11'
+kafka::version: '2.2.0'
+kafka::scala_version: '2.12'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
+kafka::logdirs:
+  - /srv/kafka/logdir
 kafka::broker_config:
-  broker.id: "%{alias('kafka::broker_id')}"
-  log.dirs: /srv/kafka/logdir
+  log.dirs: "%{alias('kafka::logdirs')}"
 kafka::zookeeper::chroot: '/kafka/softwareheritage'
 
 kafka::brokers:
   getty.internal.softwareheritage.org:
     id: 1
+  esnode1.internal.softwareheritage.org:
+    id: 11
+  esnode2.internal.softwareheritage.org:
+    id: 12
+  esnode3.internal.softwareheritage.org:
+    id: 13
 
+# Real exported files from munin
+stats_export::export_path: "/var/www/stats.export.softwareheritage.org"
+stats_export::export_file: "%{hiera('stats_export::export_path')}/history_counters.json"
+
+# Exposed through the following host's apache venv
 stats_export::vhost::name: stats.export.softwareheritage.org
 stats_export::vhost::docroot: "/var/www/%{hiera('stats_export::vhost::name')}"
 stats_export::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 stats_export::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-
-postgresql::apt_config::pgdg::mirror: 'http://apt.postgresql.org/pub/repos/apt/'
-postgresql::apt_config::pgdg::keyid: B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-postgresql::apt_config::pgdg::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  Version: GnuPG v1
-
-  mQINBE6XR8IBEACVdDKT2HEH1IyHzXkb4nIWAY7echjRxo7MTcj4vbXAyBKOfjja
-  UrBEJWHN6fjKJXOYWXHLIYg0hOGeW9qcSiaa1/rYIbOzjfGfhE4x0Y+NJHS1db0V
-  G6GUj3qXaeyqIJGS2z7m0Thy4Lgr/LpZlZ78Nf1fliSzBlMo1sV7PpP/7zUO+aA4
-  bKa8Rio3weMXQOZgclzgeSdqtwKnyKTQdXY5MkH1QXyFIk1nTfWwyqpJjHlgtwMi
-  c2cxjqG5nnV9rIYlTTjYG6RBglq0SmzF/raBnF4Lwjxq4qRqvRllBXdFu5+2pMfC
-  IZ10HPRdqDCTN60DUix+BTzBUT30NzaLhZbOMT5RvQtvTVgWpeIn20i2NrPWNCUh
-  hj490dKDLpK/v+A5/i8zPvN4c6MkDHi1FZfaoz3863dylUBR3Ip26oM0hHXf4/2U
-  A/oA4pCl2W0hc4aNtozjKHkVjRx5Q8/hVYu+39csFWxo6YSB/KgIEw+0W8DiTII3
-  RQj/OlD68ZDmGLyQPiJvaEtY9fDrcSpI0Esm0i4sjkNbuuh0Cvwwwqo5EF1zfkVj
-  Tqz2REYQGMJGc5LUbIpk5sMHo1HWV038TWxlDRwtOdzw08zQA6BeWe9FOokRPeR2
-  AqhyaJJwOZJodKZ76S+LDwFkTLzEKnYPCzkoRwLrEdNt1M7wQBThnC5z6wARAQAB
-  tBxQb3N0Z3JlU1FMIERlYmlhbiBSZXBvc2l0b3J5iQI9BBMBCAAnAhsDBQsJCAcD
-  BRUKCQgLBRYCAwEAAh4BAheABQJS6RUZBQkOhCctAAoJEH/MfUaszEz4zmQP/2ad
-  HtuaXL5Xu3C3NGLha/aQb9iSJC8z5vN55HMCpsWlmslCBuEr+qR+oZvPkvwh0Io/
-  8hQl/qN54DMNifRwVL2n2eG52yNERie9BrAMK2kNFZZCH4OxlMN0876BmDuNq2U6
-  7vUtCv+pxT+g9R1LvlPgLCTjS3m+qMqUICJ310BMT2cpYlJx3YqXouFkdWBVurI0
-  pGU/+QtydcJALz5eZbzlbYSPWbOm2ZSS2cLrCsVNFDOAbYLtUn955yXB5s4rIscE
-  vTzBxPgID1iBknnPzdu2tCpk07yJleiupxI1yXstCtvhGCbiAbGFDaKzhgcAxSIX
-  0ZPahpaYLdCkcoLlfgD+ar4K8veSK2LazrhO99O0onRG0p7zuXszXphO4E/WdbTO
-  yDD35qCqYeAX6TaB+2l4kIdVqPgoXT/doWVLUK2NjZtd3JpMWI0OGYDFn2DAvgwP
-  xqKEoGTOYuoWKssnwLlA/ZMETegak27gFAKfoQlmHjeA/PLC2KRYd6Wg2DSifhn+
-  2MouoE4XFfeekVBQx98rOQ5NLwy/TYlsHXm1n0RW86ETN3chj/PPWjsi80t5oepx
-  82azRoVu95LJUkHpPLYyqwfueoVzp2+B2hJU2Rg7w+cJq64TfeJG8hrc93MnSKIb
-  zTvXfdPtvYdHhhA2LYu4+5mh5ASlAMJXD7zIOZt2iEYEEBEIAAYFAk6XSO4ACgkQ
-  xa93SlhRC1qmjwCg9U7U+XN7Gc/dhY/eymJqmzUGT/gAn0guvoX75Y+BsZlI6dWn
-  qaFU6N8HiQIcBBABCAAGBQJOl0kLAAoJEExaa6sS0qeuBfEP/3AnLrcKx+dFKERX
-  o4NBCGWr+i1CnowupKS3rm2xLbmiB969szG5TxnOIvnjECqPz6skK3HkV3jTZaju
-  v3sR6M2ItpnrncWuiLnYcCSDp9TEMpCWzTEgtrBlKdVuTNTeRGILeIcvqoZX5w+u
-  i0eBvvbeRbHEyUsvOEnYjrqoAjqUJj5FUZtR1+V9fnZp8zDgpOSxx0LomnFdKnhj
-  uyXAQlRCA6/roVNR9ruRjxTR5ubteZ9ubTsVYr2/eMYOjQ46LhAgR+3Alblu/WHB
-  MR/9F9//RuOa43R5Sjx9TiFCYol+Ozk8XRt3QGweEH51YkSYY3oRbHBb2Fkql6N6
-  YFqlLBL7/aiWnNmRDEs/cdpo9HpFsbjOv4RlsSXQfvvfOayHpT5nO1UQFzoyMVpJ
-  615zwmQDJT5Qy7uvr2eQYRV9AXt8t/H+xjQsRZCc5YVmeAo91qIzI/tA2gtXik49
-  6yeziZbfUvcZzuzjjxFExss4DSAwMgorvBeIbiz2k2qXukbqcTjB2XqAlZasd6Ll
-  nLXpQdqDV3McYkP/MvttWh3w+J/woiBcA7yEI5e3YJk97uS6+ssbqLEd0CcdT+qz
-  +Waw0z/ZIU99Lfh2Qm77OT6vr//Zulw5ovjZVO2boRIcve7S97gQ4KC+G/+QaRS+
-  VPZ67j5UMxqtT/Y4+NHcQGgwF/1iiQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
-  AwEAAh4BAheABQJQeSssBQkDwxbfAAoJEH/MfUaszEz4bgkP/0AI0UgDgkNNqplA
-  IpE/pkwem2jgGpJGKurh2xDu6j2ZL+BPzPhzyCeMHZwTXkkI373TXGQQP8dIa+RD
-  HAZ3iijw4+ISdKWpziEUJjUk04UMPTlN+dYJt2EHLQDD0VLtX0yQC/wLmVEH/REp
-  oclbVjZR/+ehwX2IxOIlXmkZJDSycl975FnSUjMAvyzty8P9DN0fIrQ7Ju+BfMOM
-  TnUkOdp0kRUYez7pxbURJfkM0NxAP1geACI91aISBpFg3zxQs1d3MmUIhJ4wHvYB
-  uaR7Fx1FkLAxWddre/OCYJBsjucE9uqc04rgKVjN5P/VfqNxyUoB+YZ+8Lk4t03p
-  RBcD9XzcyOYlFLWXbcWxTn1jJ2QMqRIWi5lzZIOMw5B+OK9LLPX0dAwIFGr9WtuV
-  J2zp+D4CBEMtn4Byh8EaQsttHeqAkpZoMlrEeNBDz2L7RquPQNmiuom15nb7xU/k
-  7PGfqtkpBaaGBV9tJkdp7BdH27dZXx+uT+uHbpMXkRrXliHjWpAw+NGwADh/Pjmq
-  ExlQSdgAiXy1TTOdzxKH7WrwMFGDK0fddKr8GH3f+Oq4eOoNRa6/UhTCmBPbryCS
-  IA7EAd0Aae9YaLlOB+eTORg/F1EWLPm34kKSRtae3gfHuY2cdUmoDVnOF8C9hc0P
-  bL65G4NWPt+fW7lIj+0+kF19s2PviQI9BBMBCAAnAhsDBQsJCAcDBRUKCQgLBRYC
-  AwEAAh4BAheABQJRKm2VBQkINsBBAAoJEH/MfUaszEz4RTEP/1sQHyjHaUiAPaCA
-  v8jw/3SaWP/g8qLjpY6ROjLnDMvwKwRAoxUwcIv4/TWDOMpwJN+CJIbjXsXNYvf9
-  OX+UTOvq4iwi4ADrAAw2xw+Jomc6EsYla+hkN2FzGzhpXfZFfUsuphjY3FKL+4hX
-  H+R8ucNwIz3yrkfc17MMn8yFNWFzm4omU9/JeeaafwUoLxlULL2zY7H3+QmxCl0u
-  6t8VvlszdEFhemLHzVYRY0Ro/ISrR78CnANNsMIy3i11U5uvdeWVCoWV1BXNLzOD
-  4+BIDbMB/Do8PQCWiliSGZi8lvmj/sKbumMFQonMQWOfQswTtqTyQ3yhUM1LaxK5
-  PYq13rggi3rA8oq8SYb/KNCQL5pzACji4TRVK0kNpvtxJxe84X8+9IB1vhBvF/Ji
-  /xDd/3VDNPY+k1a47cON0S8Qc8DA3mq4hRfcgvuWy7ZxoMY7AfSJOhleb9+PzRBB
-  n9agYgMxZg1RUWZazQ5KuoJqbxpwOYVFja/stItNS4xsmi0lh2I4MNlBEDqnFLUx
-  SvTDc22c3uJlWhzBM/f2jH19uUeqm4jaggob3iJvJmK+Q7Ns3WcfhuWwCnc1+58d
-  iFAMRUCRBPeFS0qd56QGk1r97B6+3UfLUslCfaaA8IMOFvQSHJwDO87xWGyxeRTY
-  IIP9up4xwgje9LB7fMxsSkCDTHOk
-  =s3DI
-  -----END PGP PUBLIC KEY BLOCK-----
-
-postgresql::apt_config::pglogical::mirror: 'http://packages.2ndquadrant.com/pglogical/apt/'
-postgresql::apt_config::pglogical::keyid: 855AF5C7B897656417FA73D65D941908AA7A6805
-postgresql::apt_config::pglogical::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  
-  mQENBFUQs34BCADT3W0Nnf0E0/2LGU4Afzg4dAViJqqhOLBwuWUS6Np+ZqCK6beY
-  E46KS/CowwBmca9stm5oJbcpz2WCNxnb6OGlgxQnYEaVl4z6bDRDJ3BdiIbcjdYM
-  cutJupmZbrlvfnf30AcQXc6RCZ/x/53CDuCXyrO7djkBkoolJFQbzfy0HcRnNRVp
-  x3LrsTkTaajDwsenRjq5NJDAnVaMvq+Jmsl0pJoIbiPNIUA2oNKptINlZWIvS7Ha
-  LYT6sLZxWwuUYhbrpb2EiF8Gx3D4WYf6Wm2h6GLYZkKIagfTsvN/tRPw+5SvIMAd
-  yVeVWbu77k0i8Om+RQ6wA1FOtZbAVfp8/YxrABEBAAG0P0JEUiBBcHQgU2lnbmlu
-  ZyBLZXkgZm9yIDJuZFF1YWRyYW50IDxwYWNrYWdlcnNAMm5kcXVhZHJhbnQuY29t
-  PokBPQQTAQoAJwIbAwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgAUCWNNnkQUJB4Ub
-  EQAKCRBdlBkIqnpoBR6ACACAaDLPvfknZT7+LrumSIuTM0VqJDPsJykCwWhvjoDb
-  k2EfLYcqMxVQKEKQtGueSN06DSlfARQmAcoNLw0J5OG6Aw+vv53NmIusvDkTVI28
-  TbsdwoWffpY5dcN39KovFsVsIgGROsBTsW1cL0MaeSuwMobaRGorGFKfOwH+xvMc
-  wjG0wzPoBP85nMulEmqXqPNjRq++NdWnutmc3uGTr8C0dViTlG5F/lYLQ7scsPDi
-  zBdDg+YPhehX0hG6RUtQsdYMUbzL5Bd51NgmI7gw5Xk61e3N2yDlSNMfdaY+G6tX
-  jP20hXMNuCRSc1ICNu3hKg/VDxVwYsSBRLJZJ/tlHTtiuQENBFUQs34BCAC8FxMX
-  v+UBEnLk1qcayhSsECnatkAoDDaKjuUWc7mPBhcwo6C3buFbPtHRKV88uAYy8MtY
-  291+zMeO+ZVD6bOVnmXvs/HD6Hn9XIq8DX4LBNu1kKycxQ8BghJCpb5qQgDaxgYI
-  tWMI66xdaHlPyIhyCZGuv9Dx6T4gR6PUdRLy9kVR1V603B0LHhBbYjSLb6aAmc8w
-  o7uJJuToN6L/FxKM2asV9L7uacmaq5JhY658LFBexhaTQuih6JYFW3DHxtW527+S
-  lwXEPtpDrQIvE5hJqrDQX22hF/oiS+gnIE2T22aCIr6+Cwdxys/l104qjcS5YV2T
-  DujsmHOsvCCL7/QFABEBAAGJASUEGAEKAA8CGwwFAljTZ5oFCQeFGxoACgkQXZQZ
-  CKp6aAX1+wf/dDQi/3/mv0kGg/5B8NazRIYQ01pmTqW5Czot+3iorssa6fycsLBi
-  Pd30EQF++26x2hFqxEpvCyBuN1YoU1XlSJJacv80Um8jzdRY10mLGrttcnNFE8TU
-  xeEXa1rOnoHx45rt5qY8IyOODFkhbHfyBzcxeNtFtvkqT/ZRubj0lzC3Yjvm2xOc
-  yfIBhvAX93diiaFkg/BKhSkCxognvJnb6KLBwPZ6f6czDvcICvuxWnaT8jfK1610
-  YwvZiujRAX8bedODRO+AkokOus7TLPgDx69e9i1SkFjlaaYag/FSLEDsCzKDqim8
-  2lBkSxP5ZrLrfAkji+bmAWtpWifTMgeP0Q==
-  =8MHy
-  -----END PGP PUBLIC KEY BLOCK-----
-
-icinga2::apt_config::mirror: 'http://packages.icinga.com/debian'
-icinga2::apt_config::keyid: F51A91A5EE001AA5D77D53C4C6E319C334410682
-icinga2::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  Version: GnuPG v2.0.19 (GNU/Linux)
-  
-  mQGiBFKHzk4RBACSHMIFTtfw4ZsNKAA03Gf5t7ovsKWnS7kcMYleAidypqhOmkGg
-  0petiYsMPYT+MOepCJFGNzwQwJhZrdLUxxMSWay4Xj0ArgpD9vbvU+gj8Tb02l+x
-  SqNGP8jXMV5UnK4gZsrYGLUPvx47uNNYRIRJAGOPYTvohhnFJiG402dzlwCg4u5I
-  1RdFplkp9JM6vNM9VBIAmcED/2jr7UQGsPs8YOiPkskGHLh/zXgO8SvcNAxCLgbp
-  BjGcF4Iso/A2TAI/2KGJW6kBW/Paf722ltU6s/6mutdXJppgNAz5nfpEt4uZKZyu
-  oSWf77179B2B/Wl1BsX/Oc3chscAgQb2pD/qPF/VYRJU+hvdQkq1zfi6cVsxyREV
-  k+IwA/46nXh51CQxE29ayuy1BoIOxezvuXFUXZ8rP6aCh4KaiN9AJoy7pBieCzsq
-  d7rPEeGIzBjI+yhEu8p92W6KWzL0xduWfYg9I7a2GTk8CaLX2OCLuwnKd7RVDyyZ
-  yzRjWs0T5U7SRAWspLStYxMdKert9lLyQiRHtLwmlgBPqa0gh7Q+SWNpbmdhIE9w
-  ZW4gU291cmNlIE1vbml0b3JpbmcgKEJ1aWxkIHNlcnZlcikgPGluZm9AaWNpbmdh
-  Lm9yZz6IYAQTEQIAIAUCUofOTgIbAwYLCQgHAwIEFQIIAwQWAgMBAh4BAheAAAoJ
-  EMbjGcM0QQaCgSQAnRjXdbsyqziqhmxfAKffNJYuMPwdAKCS/IRCVyQzApFBtIBQ
-  1xuoym/4C7kCDQRSh85OEAgAvPwjlURCi8z6+7i60no4n16dNcSzd6AT8Kizpv2r
-  9BmNBff/GNYGnHyob/DMtmO2esEuVG8w62rO9m1wzzXzjbtmtU7NZ1Tg+C+reU2I
-  GNVu3SYtEVK/UTJHAhLcgry9yD99610tYPN2Fx33Efse94mXOreBfCvDsmFGSc7j
-  GVNCWXpMR3jTYyGj1igYd5ztOzG63D8gPyOucTTl+RWN/G9EoGBv6sWqk5eCd1Fs
-  JlWyQX4BJn3YsCZx3uj1DWL0dAl2zqcn6m1M4oj1ozW47MqM/efKOcV6VvCs9SL8
-  F/NFvZcH4LKzeupCQ5jEONqcTlVlnLlIqId95Z4DI4AV9wADBQf/S6sKA4oH49tD
-  Yb5xAfUyEp5ben05TzUJbXs0Z7hfRQzy9+vQbWGamWLgg3QRUVPx1e4IT+W5vEm5
-  dggNTMEwlLMI7izCPDcD32B5oxNVxlfj428KGllYWCFj+edY+xKTvw/PHnn+drKs
-  LE65Gwx4BPHm9EqWHIBX6aPzbgbJZZ06f6jWVBi/N7e/5n8lkxXqS23DBKemapyu
-  S1i56sH7mQSMaRZP/iiOroAJemPNxv1IQkykxw2woWMmTLKLMCD/i+4DxejE50tK
-  dxaOLTc4HDCsattw/RVJO6fwE414IXHMv330z4HKWJevMQ+CmQGfswvCwgeBP9n8
-  PItLjBQAXIhJBBgRAgAJBQJSh85OAhsMAAoJEMbjGcM0QQaCzpAAmwUNoRyySf9p
-  5G3/2UD1PMueIwOtAKDVVDXEq5LJPVg4iafNu0SRMwgP0Q==
-  =icbY
-  -----END PGP PUBLIC KEY BLOCK-----
 
 
 icinga2::role: agent
@@ -2802,62 +2738,6 @@ nginx::names_hash_bucket_size: 128
 nginx::names_hash_max_size: 1024
 nginx::worker_processes: "%{::processorcount}"
 
-php::version: '7.1'
-php::apt_config::mirror: https://packages.sury.org/php/
-php::apt_config::keyid: DF3D585DB8F0EB658690A554AC0E47584A7A714D
-php::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  
-  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
-  =0VaR
-  -----END PGP PUBLIC KEY BLOCK-----
-
 prometheus::server::defaults_config:
   web:
     enable_admin_api: true
@@ -2875,6 +2755,7 @@ prometheus::server::certname: pergamon.softwareheritage.org
 
 prometheus::node::listen_network: "%{lookup('internal_network')}"
 prometheus::node::listen_port: 9100
+prometheus::node::textfile_directory: /var/lib/prometheus/node-exporter
 prometheus::node::defaults_config:
   collector:
     diskstats:
@@ -2889,14 +2770,69 @@ prometheus::node::defaults_config:
     netdev:
       ignored_devices: "^lo$"
     textfile:
-      directory: /var/lib/prometheus/node-exporter
+      directory: "%{lookup('prometheus::node::textfile_directory')}"
+
+prometheus::node::scripts::directory: /var/lib/prometheus/node-exporter-scripts
+prometheus::node::scripts:
+  puppet-classes:
+    mode: cron
+    cron:
+      user: root
+      specification:
+        minute: fqdn_rand
+  apt:
+    mode: cron
+    cron:
+      user: root
+      specification:
+        minute: fqdn_rand
+
+prometheus::statsd::listen_network: "%{lookup('internal_network')}"
+prometheus::statsd::listen_port: 9102
+prometheus::statsd::defaults_config: {}
+prometheus::statsd::statsd_listen_tcp: 127.0.0.1:8125
+prometheus::statsd::statsd_listen_udp: 127.0.0.1:8125
+prometheus::statsd::mapping:
+  defaults:
+    timer_type: histogram
+    buckets:
+      - .005
+      - .01
+      - .025
+      - .05
+      - .1
+      - .25
+      - .5
+      - .75
+      - 1
+      - 2
+      - 5
+      - 10
+      - 15
+      - 30
+      - 45
+      - 60
+      - 120
+      - 300
+      - 600
+      - 900
+      - 1800
+      - 2700
+      - 3600
+      - 7200
 
 prometheus::sql::listen_network: "%{lookup('internal_network')}"
 prometheus::sql::listen_port: 9237
+prometheus::sql::config_snippets:
+  - activity
+  - queries
+  - replication
+  - wal
 
-# extra sql exporter configuration per host
-# (cf. somerset.internal.softwareheritage.org.yml)
-# prometheus::sql::exporter::extra_config: []
+prometheus::jmx::version: 0.11.0
+
+prometheus::kafka::listen_network: "%{lookup('internal_network')}"
+prometheus::kafka::listen_port: 7071
 
 grafana::db::database: grafana
 grafana::db::username: grafana
@@ -2920,6 +2856,10 @@ grafana::config:
     enabled: true
     org_name: Software Heritage
     org_role: Viewer
+  smtp:
+    enabled: true
+    skip_verify: true
+    from_address: grafana@softwareheritage.org
 
 grafana::objects::organizations:
   - name: Software Heritage
@@ -2935,6 +2875,8 @@ grafana::objects::datasources:
     access_mode: proxy
     is_default: true
 
+java::distribution: jre
+
 jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
 
 jenkins::vhost::name: jenkins.softwareheritage.org
@@ -2943,284 +2885,86 @@ jenkins::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 jenkins::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 jenkins::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
-jenkins::apt_config::mirror: https://pkg.jenkins.io/debian-stable
-jenkins::apt_config::keyid: 150FDE3F7787E7D11EF4E12A9B7D32F2D50582E6
-jenkins::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  Version: GnuPG v1
-  
-  mQGiBEmFQG0RBACXScOxb6BTV6rQE/tcJopAEWsdvmE0jNIRWjDDzB7HovX6Anrq
-  n7+Vq4spAReSFbBVaYiiOx2cGDymj2dyx2i9NAI/9/cQXJOU+RPdDzHVlO1Edksp
-  5rKn0cGPWY5sLxRf8s/tO5oyKgwCVgTaB5a8gBHaoGms3nNC4YYf+lqlpwCgjbti
-  3u1iMIx6Rs+dG0+xw1oi5FUD/2tLJMx7vCUQHhPRupeYFPoD8vWpcbGb5nHfHi4U
-  8/x4qZspAIwvXtGw0UBHildGpqe9onp22Syadn/7JgMWhHoFw5Ke/rTMlxREL7pa
-  TiXuagD2G84tjJ66oJP1FigslJzrnG61y85V7THL61OFqDg6IOP4onbsdqHby4VD
-  zZj9A/9uQxIn5250AGLNpARStAcNPJNJbHOQuv0iF3vnG8uO7/oscB0TYb8/juxr
-  hs9GdSN0U0BxENR+8KWy5lttpqLMKlKRknQYy34UstQiyFgAQ9Epncu9uIbVDgWt
-  y7utnqXN033EyYkcWx5EhLAgHkC7wSzeSWABV3JSXN7CeeOif7QiS29oc3VrZSBL
-  YXdhZ3VjaGkgPGtrQGtvaHN1a2Uub3JnPohjBBMRAgAjAhsDBgsJCAcDAgQVAggD
-  BBYCAwECHgECF4AFAko/7vYCGQEACgkQm30y8tUFguabhgCgi54IQR4rpJZ/uUHe
-  ZB879zUWTQwAniQDBO+Zly7Fsvm0Mcvqvl02UzxCiGAEExECACAFAkmFQG0CGwMG
-  CwkIBwMCBBUCCAMEFgIDAQIeAQIXgAAKCRCbfTLy1QWC5qtXAJ9hPRisOhkexWXJ
-  nXQMl9cOTvm4LgCdGint1TONoZ2I4JtOiFzOmeP3ju3RzcvNyQEQAAEBAAAAAAAA
-  AAAAAAAA/9j/4AAQSkZJRgABAQEAYABgAAD/4QBgRXhpZgAASUkqAAgAAAAEADEB
-  AgAZAAAAPgAAABBRAQABAAAAAUOQABFRBAABAAAAEgsAABJRBAABAAAAEgsAAAAA
-  AABNYWNyb21lZGlhIEZpcmV3b3JrcyA0LjAAAP/bAEMACAYGBwYFCAcHBwkJCAoM
-  FA0MCwsMGRITDxQdGh8eHRocHCAkLicgIiwjHBwoNyksMDE0NDQfJzk9ODI8LjM0
-  Mv/bAEMBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy
-  MjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/AABEIAK4AlgMBIgACEQEDEQH/xAAfAAAB
-  BQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0B
-  AgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygp
-  KjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImK
-  kpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj
-  5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJ
-  Cgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGh
-  scEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZ
-  WmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1
-  tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEA
-  AhEDEQA/APcBI/8Afb86XzH/AL7fnUYpwqRknmN/fP50u9v7x/OmCgUASb2/vH86
-  Xe394/nTBS0AP3t/eP50u4+p/OmUopgO3H1NO3H1NR5xThQA7cfWlyfU0ylFMQ/J
-  9aXPvTKdQAuaM0lLQAtJmiigAzRSdqKAKApwpopc1mUOpRSUopgKKWkFLQAueKzr
-  zXbCwk2Tzxq3cFwK8v8Aih8V30aaTQ9DKtegYnuTyIvZR3b+VfP1/q17fzvLc3Ms
-  sjHJZ2JJNGr2HZdT6j8U/FbR/DcKsM3VxLkpGh6AetcI37Ql4Zcx6LAYx2aUgmvD
-  1ju7obgJHA7nmmmG4TqjDHtS+ZXL1sfVPhT4yeH/ABFNHaXYbS71zhVnYGNz6B+n
-  4HFejK2RmvhJJSDiTj6ivYvht8XptE8rSPEEklxpxwkFyTue39j6p+op3a3Javsf
-  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
-  miigAptL0pO9AEi8RfU0mM8560H/AFaikzx+NMBxx0H40zOeaU8KffikHSgCxC+y
-  LPqaKYeAq+gooHc//9mIYAQTEQIAIAUCSj/3IAIbAwYLCQgHAwIEFQIIAwQWAgMB
-  Ah4BAheAAAoJEJt9MvLVBYLmt2sAnRUJQoS4J/5+LW+Iy3tUYMTsR8aLAJ9gp9qD
-  YbGfdcFG+HeSbh/PEwrqbLQzS29oc3VrZSBLYXdhZ3VjaGkgPGtvaHN1a2Uua2F3
-  YWd1Y2hpQGNsb3VkYmVlcy5jb20+iGIEExECACIFAk0GnroCGwMGCwkIBwMCBhUI
-  AgkKCwQWAgMBAh4BAheAAAoJEJt9MvLVBYLmfugAnRb1qac6CqRaNUhHbzd1m/5S
-  niNzAJ9NJUC2Fjk7uEyvQ5bDJ+hAFbkQVLQpS29oc3VrZSBLYXdhZ3VjaGkgPGtv
-  aHN1a2VAY2xvdWRiZWVzLmNvbT6IYgQTEQIAIgUCVh045AIbAwYLCQgHAwIGFQgC
-  CQoLBBYCAwECHgECF4AACgkQm30y8tUFguZVLgCdElQ2ydLBp33/9SFyVEz3cFMk
-  0DkAn2qWsQlPT549lAqeSnkhCOcGJAx0tCxLb2hzdWtlIEthd2FndWNoaSA8a2th
-  d2FndWNoaUBjbG91ZGJlZXMuY29tPohiBBMRAgAiBQJWHTjzAhsDBgsJCAcDAgYV
-  CAIJCgsEFgIDAQIeAQIXgAAKCRCbfTLy1QWC5sMTAKCA5kH0uH0x0HoTuxjrU740
-  pU/53gCfaFWE6s7nBFMkJ3RyxjtZBGnY2Jm5Ag0ESYVAbRAIAOoBdaCKKzjKL3qi
-  zdBmYrnzT2iONNOeUgKBvO2tPnlwxVMMFz1Kd7JFCULRxL4zXPgOjqWPzWw0l0mI
-  E+pNhgDX57FMW+znMLE8icM/eG+pfEdM/XjZc3WF3O3ndHuyafw7TDI75EIFRvjh
-  702S6y8F3lQ/cl7jj2GelcnhY7dxUwWbiCHGzsRGWkCLk1MSxVV0zx2odtkm2TyB
-  vN0AcfTJuIBeZbIsUZkO64qIUCSqb9aV53uJ3o35w/HXTt3AFyXA/HN8RgoSonVg
-  MMegOXJ/HjTXbLXnd7mwbJqH8g8Fiussx8b5aaLCvmcJfS2bA5zK6S4T3iFvMkJf
-  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
-  =fBn8
-  -----END PGP PUBLIC KEY BLOCK-----
+jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agent.jar"
+jenkins::agent::jnlp::url: "%{hiera('jenkins::backend::url')}computer/%{::swh_hostname.internal_fqdn}/slave-agent.jnlp"
+# jenkins::agent::jnlp::token in private_data
 
-docker::apt_config::mirror: https://download.docker.com/linux/debian
-docker::apt_config::keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-docker::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  
-  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
-  YT90qFF93M3v01BbxP+EIY2/9tiIPbrd
-  =0YYh
-  -----END PGP PUBLIC KEY BLOCK-----
-  
-elastic::apt_config::keyid: 46095ACC8548582C1A2699A9D27D666CD88E42B4
-elastic::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  Version: GnuPG v2.0.14 (GNU/Linux)
-  
-  mQENBFI3HsoBCADXDtbNJnxbPqB1vDNtCsqhe49vFYsZN9IOZsZXgp7aHjh6CJBD
-  A+bGFOwyhbd7at35jQjWAw1O3cfYsKAmFy+Ar3LHCMkV3oZspJACTIgCrwnkic/9
-  CUliQe324qvObU2QRtP4Fl0zWcfb/S8UYzWXWIFuJqMvE9MaRY1bwUBvzoqavLGZ
-  j3SF1SPO+TB5QrHkrQHBsmX+Jda6d4Ylt8/t6CvMwgQNlrlzIO9WT+YN6zS+sqHd
-  1YK/aY5qhoLNhp9G/HxhcSVCkLq8SStj1ZZ1S9juBPoXV1ZWNbxFNGwOh/NYGldD
-  2kmBf3YgCqeLzHahsAEpvAm8TBa7Q9W21C8vABEBAAG0RUVsYXN0aWNzZWFyY2gg
-  KEVsYXN0aWNzZWFyY2ggU2lnbmluZyBLZXkpIDxkZXZfb3BzQGVsYXN0aWNzZWFy
-  Y2gub3JnPokBOAQTAQIAIgUCUjceygIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgEC
-  F4AACgkQ0n1mbNiOQrRzjAgAlTUQ1mgo3nK6BGXbj4XAJvuZDG0HILiUt+pPnz75
-  nsf0NWhqR4yGFlmpuctgCmTD+HzYtV9fp9qW/bwVuJCNtKXk3sdzYABY+Yl0Cez/
-  7C2GuGCOlbn0luCNT9BxJnh4mC9h/cKI3y5jvZ7wavwe41teqG14V+EoFSn3NPKm
-  TxcDTFrV7SmVPxCBcQze00cJhprKxkuZMPPVqpBS+JfDQtzUQD/LSFfhHj9eD+Xe
-  8d7sw+XvxB2aN4gnTlRzjL1nTRp0h2/IOGkqYfIG9rWmSLNlxhB2t+c0RsjdGM4/
-  eRlPWylFbVMc5pmDpItrkWSnzBfkmXL3vO2X3WvwmSFiQbkBDQRSNx7KAQgA5JUl
-  zcMW5/cuyZR8alSacKqhSbvoSqqbzHKcUQZmlzNMKGTABFG1yRx9r+wa/fvqP6OT
-  RzRDvVS/cycws8YX7Ddum7x8uI95b9ye1/Xy5noPEm8cD+hplnpU+PBQZJ5XJ2I+
-  1l9Nixx47wPGXeClLqcdn0ayd+v+Rwf3/XUJrvccG2YZUiQ4jWZkoxsA07xx7Bj+
-  Lt8/FKG7sHRFvePFU0ZS6JFx9GJqjSBbHRRkam+4emW3uWgVfZxuwcUCn1ayNgRt
-  KiFv9jQrg2TIWEvzYx9tywTCxc+FFMWAlbCzi+m4WD+QUWWfDQ009U/WM0ks0Kww
-  EwSk/UDuToxGnKU2dQARAQABiQEfBBgBAgAJBQJSNx7KAhsMAAoJENJ9ZmzYjkK0
-  c3MIAIE9hAR20mqJWLcsxLtrRs6uNF1VrpB+4n/55QU7oxA1iVBO6IFu4qgsF12J
-  TavnJ5MLaETlggXY+zDef9syTPXoQctpzcaNVDmedwo1SiL03uMoblOvWpMR/Y0j
-  6rm7IgrMWUDXDPvoPGjMl2q1iTeyHkMZEyUJ8SKsaHh4jV9wp9KmC8C+9CwMukL7
-  vM5w8cgvJoAwsp3Fn59AxWthN3XJYcnMfStkIuWgR7U2r+a210W6vnUxU4oN0PmM
-  cursYPyeV0NX/KQeUeNMwGTFB6QHS/anRaGQewijkrYYoTNtfllxIu9XYmiBERQ/
-  qPDlGRlOgVTd9xUfHFkzB52c70E=
-  =92oX
-  -----END PGP PUBLIC KEY BLOCK-----
-  
-hwraid_levert::apt_config::keyid: 0073C11919A641464163F7116005210E23B3D3B4
-hwraid_levert::apt_config::key: |
-  -----BEGIN PGP PUBLIC KEY BLOCK-----
-  Version: GnuPG v1.4.12 (GNU/Linux)
-  
-  mQENBFHwGLoBCADGXHFostxbz4UzGFYtmox4pvyN1gMhq2KCuQ6f+FESa4HTd9L6
-  XVhXWPCad3cdxBIls+41+AdZTWxWMu7DUdy8nMU1Ikfw6JeHcSx97G5BdxBVMjK4
-  iMGfPdLfDgWf4BQ2h0dnTEWobt31WaqgNiNjNrKktqbymmF94pwYkwL53ydIA4zl
-  8ZQRZooFigkS9WdoKjh30Pv/SWakILSLcSQFHK0dvSkeGd1NxT9dMNPAXXqLom4+
-  7kCc0s04sS+0DwW16b0Hpb46mtsR9kzOnrE/Smj24uOGzNZen0oCc2Y7bfZlyaN+
-  RlTkWEze7lemc4Byup/QWkhT0Er8F8uxexy5ABEBAAG0PEhXUmFpZCAoaHR0cDov
-  L2h3cmFpZC5sZS12ZXJ0Lm5ldCkgPHJvb3RAaHdyYWlkLmxlLXZlcnQubmV0PokB
-  OAQTAQIAIgUCUfAYugIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQYAUh
-  DiOz07Rc4Af+N3dEZZHzLNVTjQ0+fCyeg8/flWOkR8DhP10cyoJhSHFTZRdXVshn
-  kP4VmmUycVeURh76DmrIRe/9Oyca6aGXccRMqvq+HMgBPVwD5qNhcJPIuzqEvmlO
-  6UIeW2ydil/v1pWu740fGntyFRQcsfqjReVPXw9K588F7MDMyL+31vLm6aorLSzR
-  hvLhOmGisTs0wg2Oz9f4muauRy6cpQPw/Zi/P/F4WkQYscbHrSbhszj6OIg/vftR
-  UbZ7QB26/+40B0ag4JzLpmj3scFxf/WdUl5LXazqhsbkurk7huV41BNKXi1+BS3c
-  x6pFzWEHpiuG1j7U/nScGzEQpsMlUW9D+rkBDQRR8Bi6AQgAuhH1H0VLwcROI/5n
-  9yTxSbTIZbyhUan3raAbit3pgo0zLagfUtp3vULVnm5ISqQcYFGLZoE1MUkmjGOL
-  38W0lsIiZTaKOKXxBbLlPhhrvlXnNWAG/S1wnq7K+DV179KCTkUzaLRDbHvv999j
-  9odBRtAkiTnCfHTMCN4AhydEejNxtlzJo4E5FecH4reimLI5euUdTltgCjixrbsa
-  KbQftYpSMdXnLy2+00QZoXu0U/h4WZcMhOSEEiyGP9BY6m5G76n03HIeQ6eALDFu
-  ryAgO+SB9rBrm/VN0kR/TZq0iA3uzLHC7zCw2aImipkr+rIuJOku0wH9MyowBbia
-  bQtnCQARAQABiQEfBBgBAgAJBQJR8Bi6AhsMAAoJEGAFIQ4js9O0d5YH/3fNQgsC
-  LvD0g2wdoksv5bG9CUOi9Bs0JHqI0LhXmPvMsbDojZ+zZle7KWNfK2227mWhmoG1
-  WLujJSmTtxhEO1fXIdYjlDfk2uLJKuFi2wQX9n8dFDUmKY3CUJgeVZof1uQ/5C3D
-  O06CcuOtf2d/+iijuW112aV1q1hoQqw71ojTET0iIV6lD/0i1eEBSSe1Ohb9yTGR
-  VxTVrB78zU9hih4/Oq8wJT/Fv25aO1MDSc26CXAg0JA6IWvKal3BSPNhtz4L4FIg
-  lXleArf9oJqxDO3TsV5zcLyxsIuRuxyP0+AKdSQUqv0dFi4Jf79OmvOmgwydhHjY
-  +f7quLbwiiDmPbU=
-  =Yv6D
-  -----END PGP PUBLIC KEY BLOCK-----
+weekly_report_bot::user: nobody
+weekly_report_bot::cron:
+  minute: 0
+  hour: 12
+  weekday: fri
+
+swh::postgres::service::users:
+  - root
+  - zack
+  - ardumont
+
+swh::postgres::service::dbs:
+  - alias: swh
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::storage::db::host')}"
+    user: "%{hiera('swh::deploy::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+  - alias: swh-deposit
+    name: "%{hiera('swh::deploy::deposit::db::dbname')}"
+    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::deposit::db::password')}"
+  - alias: swh-scheduler
+    name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    user: "%{hiera('swh::deploy::scheduler::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
+  - alias: swh-vault
+    name: "%{hiera('swh::deploy::vault::db::dbname')}"
+    host: "%{hiera('swh::deploy::vault::db::host')}"
+    user: "%{hiera('swh::deploy::vault::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::vault::db::password')}"
+  - alias: swh-lister
+    name: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
+    user: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::worker::lister::db::password')}"
+  - alias: swh-replica
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+  - alias: swh-indexer
+    name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
+    user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    passwd: "%{hiera('swh::deploy::db::indexer::password')}"
+  - alias: staging-swh
+    name: swh
+    host: db0.internal.staging.swh.network
+    user: swh
+    port: 5432
+    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+  - alias: staging-swh-indexer
+    name: swh-indexer
+    host: db0.internal.staging.swh.network
+    user: swh-indexer
+    port: 5432
+    passwd: "%{hiera('swh::deploy::db::indexer::password')}"
+  - alias: staging-swh-scheduler
+    name: swh-scheduler
+    host: db0.internal.staging.swh.network
+    user: swh-scheduler
+    port: 5432
+    passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
+  - alias: staging-swh-deposit
+    name: swh-deposit
+    host: deposit.internal.staging.swh.network
+    user: swh-deposit
+    port: 5432
+    passwd: "%{hiera('swh::deploy::db::deposit::password')}"
+

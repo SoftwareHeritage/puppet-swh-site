@@ -1,19 +1,41 @@
 class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
 
-  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
-  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
+  $rabbitmq_vhost = '/'
+  $rabbitmq_enable_guest = lookup('rabbitmq::enable::guest')
 
-  package {'rabbitmq-server':
-    ensure => installed
+  $users = lookup('rabbitmq::server::users')
+
+  class { 'rabbitmq':
+    service_manage    => true,
+    port              => 5672,
+    admin_enable      => true,
+    node_ip_address   => '0.0.0.0',
+    config_variables  => {
+      vm_memory_high_watermark => 0.6,
+    },
+    heartbeat         => 0,
+    delete_guest_user => ! $rabbitmq_enable_guest,
+  }
+  -> rabbitmq_vhost { $rabbitmq_vhost:
+    provider => 'rabbitmqctl',
   }
 
-  service {'rabbitmq-server':
-    ensure  => 'running',
-    enable  => true,
-    require => Package['rabbitmq-server'],
+  each ( $users ) | $user | {
+    $username = $user['name']
+    rabbitmq_user { $username:
+      admin    => $user['is_admin'],
+      password => $user['password'],
+      tags     => $user['tags'],
+      provider => 'rabbitmqctl',
+    }
+    -> rabbitmq_user_permissions { "${username}@${rabbitmq_vhost}":
+      configure_permission => '.*',
+      read_permission      => '.*',
+      write_permission     => '.*',
+      provider             => 'rabbitmqctl',
+    }
   }
-
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":

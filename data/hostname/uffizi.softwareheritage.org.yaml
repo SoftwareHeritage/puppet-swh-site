@@ -1,5 +1,9 @@
 dar::backup::exclude:
+  - annex
+  - data
+  - mnt
   - srv/softwareheritage/annex
+  - tank
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
@@ -12,14 +16,20 @@ swh::deploy::storage::config:
     args:
       db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage:
-        cls: striping
+        cls: multiplexer
         args:
           objstorages:
             - cls: pathslicing
               args:
                 root: "%{hiera('swh::deploy::storage::directory')}"
                 slicing: "0:2/2:4/4:6"
-            - "%{alias('swh::remote_service::objstorage::config::banco')}"
+            - "%{alias('swh::remote_service::objstorage::config::azure')}"
+      journal_writer:
+        cls: kafka
+        args:
+          brokers: "%{alias('swh::deploy::journal::brokers')}"
+          prefix: "%{alias('swh::deploy::journal::prefix')}"
+          client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
@@ -44,9 +54,6 @@ ceph::client_keyrings:
     mode: '0640'
     keys:
       - "%{alias('swh::deploy::objstorage::ceph::rados_id')}"
-
-swh::deploy::worker::instances:
-  - swh_storage_archiver
 
 icinga2::host::vars:
   load: high
@@ -104,3 +111,7 @@ icinga2::host::vars:
       disk_cfree: '3%'
 
 nginx::worker_processes: 16
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode

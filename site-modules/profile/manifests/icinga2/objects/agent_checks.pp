@@ -25,6 +25,27 @@ class profile::icinga2::objects::agent_checks {
       sudo => true,
       sudo_user => 'journalbeat',
     },
+    'check_newest_file_age' => {
+      arguments => {
+        '-d' => '$check_directory$',
+        '-w' => '$check_directory_warn_age$',
+        '-c' => '$check_directory_crit_age$',
+        '-W' => {
+          'set_if' => '$check_directory_missing_warn$',
+        },
+        '-C' => {
+          'set_if' => '$check_directory_missing_crit$',
+        },
+      },
+      vars => {
+        'check_directory_warn_age' => 26,
+        'check_directory_crit_age' => 52,
+        'check_directory_missing_warn' => false,
+        'check_directory_missing_crit' => true,
+      },
+      sudo => true,
+      sudo_user => 'root',
+    },
   }
 
   $swh_plugin_dir = '/usr/lib/nagios/plugins/swh'

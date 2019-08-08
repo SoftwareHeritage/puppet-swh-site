@@ -1,9 +1,12 @@
 # Deployment of swh-scheduler related utilities
 class profile::swh::deploy::scheduler {
-  $conf_file = lookup('swh::deploy::scheduler::conf_file')
+  $config_file = lookup('swh::deploy::scheduler::conf_file')
   $user = lookup('swh::deploy::scheduler::user')
   $group = lookup('swh::deploy::scheduler::group')
-  $database = lookup('swh::deploy::scheduler::database')
+  $config = lookup('swh::deploy::scheduler::config')
+
+  $listener_log_level = lookup('swh::deploy::scheduler::listener::log_level')
+  $runner_log_level = lookup('swh::deploy::scheduler::runner::log_level')
 
   $task_broker = lookup('swh::deploy::scheduler::task_broker')
   $task_packages = lookup('swh::deploy::scheduler::task_packages')
@@ -47,15 +50,12 @@ class profile::swh::deploy::scheduler {
     notify => Service[$services],
   }
 
-  # Template uses variables
-  #  - $database
-  #
-  file {$conf_file:
+  file {$config_file:
     ensure  => present,
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => template('profile/swh/deploy/scheduler/scheduler.ini.erb'),
+    content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$services],
   }
 
@@ -98,7 +98,7 @@ class profile::swh::deploy::scheduler {
     require => [
       Package[$packages],
       Package[$task_packages],
-      File[$conf_file],
+      File[$config_file],
       File[$worker_conf_file],
       Systemd::Unit_File[$runner_unit_name],
     ],
@@ -109,7 +109,7 @@ class profile::swh::deploy::scheduler {
     enable  => true,
     require => [
       Package[$packages],
-      File[$conf_file],
+      File[$config_file],
       File[$worker_conf_file],
       Systemd::Unit_File[$listener_unit_name],
     ],
@@ -119,7 +119,7 @@ class profile::swh::deploy::scheduler {
 
   ::profile::swh::deploy::rpc_server {'scheduler':
     config_key => 'scheduler::remote',
-    executable => 'swh.scheduler.api.server:run_from_webserver',
+    executable => 'swh.scheduler.api.wsgi',
   }
 
   # task archival cron
@@ -149,7 +149,7 @@ class profile::swh::deploy::scheduler {
   cron {'archive_completed_oneshot_and_disabled_recurring_tasks':
     ensure   => present,
     user     => $user,
-    command  => "/usr/bin/python3 -m swh.scheduler.cli task archive",
+    command  => "/usr/bin/swh scheduler --config-file ${archive_config_file} task archive",
     hour     => '*',
     minute   => fqdn_rand(60, 'archival_tasks_minute'),
     require  => [

@@ -18,6 +18,7 @@ class profile::phabricator {
   $phabricator_db_innodb_file_per_table = lookup('phabricator::mysql::conf::innodb_file_per_table')
   $phabricator_db_innodb_flush_method = lookup('phabricator::mysql::conf::innodb_flush_method')
   $phabricator_db_innodb_log_file_size = lookup('phabricator::mysql::conf::innodb_log_file_size')
+  $phabricator_db_max_connections = lookup('phabricator::mysql::conf::max_connections')
 
   $phabricator_fpm_listen = lookup('phabricator::php::fpm_listen')
   $phabricator_max_size = lookup('phabricator::php::max_file_size')
@@ -125,6 +126,8 @@ class profile::phabricator {
         innodb_file_per_table   => $phabricator_db_innodb_file_per_table,
         innodb_flush_method     => $phabricator_db_innodb_flush_method,
         innodb_log_file_size    => $phabricator_db_innodb_log_file_size,
+        max_connections         => $phabricator_db_max_connections,
+        local_infile            => 0,
       }
     }
   }
@@ -153,6 +156,7 @@ class profile::phabricator {
       post_max_size                 => $phabricator_max_size,
       upload_max_filesize           => $phabricator_max_size,
       'opcache.validate_timestamps' => $phabricator_opcache_validate_timestamps,
+      'mysqli.allow_local_infile'   => 0,
     },
   }
 
@@ -301,5 +305,17 @@ class profile::phabricator {
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
+  }
+
+  each($::ssh) |$algo, $data| {
+    $real_algo = $algo ? {
+      'ecdsa' => 'ecdsa-sha2-nistp256',
+      default => $algo,
+    }
+    @@sshkey {"phabricator-${::fqdn}-${real_algo}":
+      host_aliases => [$phabricator_vhost_name],
+      type         => $real_algo,
+      key          => $data['key'],
+    }
   }
 }

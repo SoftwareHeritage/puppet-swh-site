@@ -1,0 +1,7 @@
+# This file is managed by puppet. Local modifications will be overwritten.
+
+#hostname:port:database:username:password
+<% @dbs.each do |db| -%>
+<%= host=db['host'] %>:<%= db['port'] %>:<%= db['name'] %>:guest:guest
+<%= host=db['host'] %>:<%= db['port'] %>:<%= db['name'] %>:<%= db['user'] %>:<%= db['passwd'] %>
+<% end %>

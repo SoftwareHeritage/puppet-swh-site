@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+outfile="<%= @textfile_directory %>/<%= @script %>.prom"
+tmpfile=`mktemp $outfile.XXXXXX`
+
+cleanup() {
+    rm -f $tmpfile
+    exit
+}
+
+trap cleanup INT TERM EXIT
+
+{
+echo '# HELP puppet_class Puppet classes in use on this host'
+echo '# TYPE puppet_class gauge'
+sort /var/lib/puppet/state/classes.txt | while read cls; do
+  echo "puppet_class{class=\"$cls\"} 1"
+done
+} > $tmpfile
+
+chmod 644 $tmpfile
+mv $tmpfile $outfile

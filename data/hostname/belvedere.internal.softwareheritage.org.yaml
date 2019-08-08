@@ -1,0 +1,37 @@
+prometheus::sql::config_snippets:
+  - swh-scheduler
+  - swh-storage
+
+pgbouncer::auth_hba_file: /etc/postgresql/11/secondary/pg_hba.conf
+pgbouncer::listen_addr: 192.168.100.210
+pgbouncer::databases:
+  # swh
+  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: belvedere.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"
+  # swh-deposit
+  - source_db: "%{hiera('swh::deploy::deposit::db::dbname')}"
+    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"
+  # swh-scheduler
+  - source_db: "%{hiera('swh::deploy::scheduler::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"
+  # swh-scheduler-updater
+  - source_db: "%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::updater::backend::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"
+  # swh-vault
+  - source_db: "%{hiera('swh::deploy::vault::db::dbname')}"
+    host: "%{hiera('swh::deploy::vault::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"
+  # swh-lister
+  - source_db: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::secondary::port')}"

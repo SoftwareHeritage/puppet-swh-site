@@ -5,3 +5,6 @@ users:
   ddouard:
     groups:
       - sudo
+
+dar::backup::exclude:
+  - /var/lib/docker/

@@ -1,0 +1,56 @@
+---
+networks:
+  default:
+    interface: eth0
+    address: 192.168.128.3
+    netmask: 255.255.255.0
+    gateway: 192.168.128.1
+
+swh::dbs:
+  storage:
+    name: swh
+    user: swh
+  indexer:
+    name: swh-indexer
+    user: swh-indexer
+  scheduler:
+    name: swh-scheduler
+    user: swh-scheduler
+  vault:
+    name: swh-vault
+    user: swh-vault
+
+postgres::server::port: 5433
+postgres::server::listen_addresses:
+  - localhost
+  - 192.168.128.3
+postgres::server::network_access:
+  - 192.168.100.0/24
+  - 192.168.128.0/24
+
+pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
+pgbouncer::listen_addr: 192.168.128.3
+pgbouncer::databases:
+  - source_db: swh
+    host: db0.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh
+  - source_db: swh-indexer
+    host: db0.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-indexer
+  - source_db: swh-scheduler
+    host: db0.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-scheduler
+  - source_db: swh-vault
+    host: db0.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-vault
+
+dar::backup::exclude:
+  - srv/softwareheritage/postgres

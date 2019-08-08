@@ -6,7 +6,9 @@ class profile::annex_web {
   $annex_vhost_name = lookup('annex::vhost::name')
   $annex_vhost_docroot = lookup('annex::vhost::docroot')
   $annex_vhost_basic_auth_file = "${annex_basepath}/http_auth"
+  $annex_vhost_provenance_basic_auth_file = "${annex_basepath}/http_auth_provenance"
   $annex_vhost_basic_auth_content = lookup('annex::vhost::basic_auth_content')
+  $annex_vhost_provenance_basic_auth_content = lookup('annex::vhost::provenance::basic_auth_content')
   $annex_vhost_ssl_protocol = lookup('annex::vhost::ssl_protocol')
   $annex_vhost_ssl_honorcipherorder = lookup('annex::vhost::ssl_honorcipherorder')
   $annex_vhost_ssl_cipher = lookup('annex::vhost::ssl_cipher')
@@ -44,12 +46,23 @@ class profile::annex_web {
                              'path'     => $annex_vhost_docroot,
                              'require'  => 'all granted',
                              'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+                              custom_fragment => 'IndexIgnore private provenance-index',
                              },
                              {  # hide (annex) .git directory
                              'path'     => '.*/\.git/?$',
                              'provider' => 'directorymatch',
                              'require'  => 'all denied',
-                             }],
+                             },
+                             {  # 'basic' provenance-index authentication
+                             'path'           => "$annex_vhost_docroot/provenance-index",
+                             'auth_type'      => 'basic',
+                             'auth_name'      => 'SWH - Password Required',
+                             'auth_user_file' => $annex_vhost_provenance_basic_auth_file,
+                             'auth_require'   => 'valid-user',
+                             'index_options'  => 'FancyIndexing',
+                              custom_fragment => 'ReadmeName readme.txt',
+                             },
+                            ],
     require              => [
         File[$ssl_cert],
         File[$ssl_chain],
@@ -68,7 +81,17 @@ class profile::annex_web {
     owner   => 'root',
     group   => 'www-data',
     mode    => '0640',
+    # FIXME: this seems wrong, should be double quote to expand the variable
+    # don't want to break existing behavior though
     content => '$annex_vhost_basic_auth_content',
+  }
+
+  file {$annex_vhost_provenance_basic_auth_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'www-data',
+    mode    => '0640',
+    content => "$annex_vhost_provenance_basic_auth_content",
   }
 
 

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Export renewed letsencrypt certificates to the puppet vardir, and make them
+# accessible to the puppet user.
+# Script managed by the ::profile::letsencrypt::puppet_export_hook puppet class
+
+set -e
+
+umask 077
+
+puppet_cert_root=<%= scope().call_function('lookup', ['letsencrypt::certificates::exported_directory']) %>
+
+basename=$(basename "$RENEWED_LINEAGE")
+destdir="$puppet_cert_root/$basename"
+
+rm -rf "$destdir"
+cp -rL "$RENEWED_LINEAGE" "$destdir"
+chown -R puppet: "$destdir"

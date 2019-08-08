@@ -1,0 +1,15 @@
+# File managed by puppet (module profile::prometheus::sql)
+# Changes will be overwritten.
+
+[Unit]
+# forget default config file location
+ConditionPathExists=
+# wait for PostgreSQL to start up
+After=postgresql.service
+# If no PostgreSQL cluster exist, we dont't start.
+ConditionPathExistsGlob=/etc/postgresql/*/*/postgresql.conf
+
+[Service]
+# before starting the sql exporter, generate config (as root)
+PermissionsStartOnly=true
+ExecStartPre=<%= @config_updater %> <%= @config_snippet_dir %> <%= @config_file %>

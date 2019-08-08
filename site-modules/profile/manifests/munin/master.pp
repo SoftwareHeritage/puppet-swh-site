@@ -12,9 +12,18 @@ class profile::munin::master {
   include ::apache::mod::rewrite
   include ::apache::mod::fcgid
 
+  $docroot = '/var/www/html'
+
+  file {$docroot:
+    ensure  => directory,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0755',
+  }
+
   apache::vhost { $master_hostname:
     port        => 80,
-    docroot     => '/var/www/html',
+    docroot     => $docroot,
     rewrites    => [
       {
         comment      => 'static resources',
@@ -44,7 +53,11 @@ class profile::munin::master {
     directories => [
       { 'path'       => '/usr/lib/munin/cgi',
         'options'    => '+ExecCGI',
-        'sethandler' => 'fcgid-script' },
+        'sethandler' => 'fcgid-script'
+      },
+      { 'path'       => "${export_path}",
+        'options'    => '+Indexes',  # allow listing
+      }
     ],
   }
 

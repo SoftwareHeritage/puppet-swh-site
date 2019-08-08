@@ -1,9 +1,8 @@
 # Deployment of the swh.deposit server
 
 class profile::swh::deploy::deposit {
-  $conf_directory = lookup('swh::deploy::deposit::conf_directory')
-
-  $swh_conf_file = lookup('swh::deploy::deposit::swh_conf_file')
+  $config_directory = lookup('swh::deploy::deposit::config_directory')
+  $config_file = lookup('swh::deploy::deposit::config_file')
   $user = lookup('swh::deploy::deposit::user')
   $group = lookup('swh::deploy::deposit::group')
   $swh_conf_raw = lookup('swh::deploy::deposit::config')
@@ -11,10 +10,6 @@ class profile::swh::deploy::deposit {
   $swh_packages = ['python3-swh.deposit']
 
   $static_dir = '/usr/lib/python3/dist-packages/swh/deposit/static'
-
-  # private data file to read from swh.deposit.settings.production
-  $settings_private_data_file = lookup('swh::deploy::deposit::settings_private_data_file')
-  $settings_private_data = lookup('swh::deploy::deposit::settings_private_data')
 
   $backend_listen_host = lookup('swh::deploy::deposit::backend::listen::host')
   $backend_listen_port = lookup('swh::deploy::deposit::backend::listen::port')
@@ -29,7 +24,7 @@ class profile::swh::deploy::deposit {
   $vhost_port = lookup('apache::http_port')
   $vhost_aliases = lookup('swh::deploy::deposit::vhost::aliases')
   $vhost_docroot = lookup('swh::deploy::deposit::vhost::docroot')
-  $vhost_basic_auth_file = "${conf_directory}/http_auth"
+  $vhost_basic_auth_file = "${config_directory}/http_auth"
   # swh::deploy::deposit::vhost::basic_auth_content in private
   $vhost_basic_auth_content = lookup('swh::deploy::deposit::vhost::basic_auth_content')
   $vhost_ssl_port = lookup('apache::https_port')
@@ -42,13 +37,15 @@ class profile::swh::deploy::deposit {
 
   include ::gunicorn
 
-  package {$swh_packages:
-    ensure  => latest,
-    require => Apt::Source['softwareheritage'],
-    notify  => Service['gunicorn-swh-deposit'],
+  # Install the necessary deps
+  ::profile::swh::deploy::install_web_deps { 'swh-deposit':
+    services      => ['gunicorn-swh-deposit'],
+    backport_list => 'swh::deploy::deposit::backported_packages',
+    # FIXME: should be fixed in the deposit package
+    swh_packages  => ['python3-django', 'python3-djangorestframework', 'python3-swh.deposit'],
   }
 
-  file {$conf_directory:
+  file {$config_directory:
     ensure => directory,
     owner  => 'root',
     group  => $group,
@@ -56,7 +53,7 @@ class profile::swh::deploy::deposit {
   }
 
   # swh's configuration part (upload size, etc...)
-  file {$swh_conf_file:
+  file {$config_file:
     ensure  => present,
     owner   => 'root',
     group   => $group,
@@ -72,21 +69,15 @@ class profile::swh::deploy::deposit {
     mode   => '2750',
   }
 
-  # swh's private configuration part (db, secret key, media_root)
-  file {$settings_private_data_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => $group,
-    mode    => '0640',
-    content => inline_template("<%= @settings_private_data.to_yaml %>\n"),
-    notify  => Service['gunicorn-swh-deposit'],
-  }
-
   ::gunicorn::instance {'swh-deposit':
     ensure     => enabled,
     user       => $user,
     group      => $group,
     executable => 'swh.deposit.wsgi',
+    environment => {
+      'SWH_CONFIG_FILENAME'    => $config_file,
+      'DJANGO_SETTINGS_MODULE' => 'swh.deposit.settings.production',
+    },
     settings   => {
       bind             => $backend_listen_address,
       workers          => $backend_workers,

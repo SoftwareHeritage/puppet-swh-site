@@ -1,0 +1,23 @@
+networks:
+  default:
+    interface: eth0
+    address: 192.168.128.4
+    netmask: 255.255.255.0
+    gateway: 192.168.128.1
+
+dar::backup::exclude:
+  - var/lib/rabbitmq
+
+swh::postgres::service::users:
+  - swhscheduler
+
+rabbitmq::enable::guest: true
+
+swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
+swh::deploy::scheduler::task_broker: "amqp://guest:guest@127.0.0.1:5672//"
+swh::deploy::scheduler::config::local: &swh_scheduler_local_config
+  scheduler:
+    cls: local
+    args:
+      db: service=admin-staging-swh-scheduler
+

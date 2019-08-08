@@ -26,7 +26,7 @@ class profile::swh::deploy::journal_simple_checker_producer {
   #  - $user
   #  - $group
   #
-  ::systemd::unit {$unit_name:
+  ::systemd::unit_file {$unit_name:
     ensure  => present,
     content => template('profile/swh/deploy/journal/swh-journal-simple-checker-producer.service.erb'),
   } ~> service {$service_name:

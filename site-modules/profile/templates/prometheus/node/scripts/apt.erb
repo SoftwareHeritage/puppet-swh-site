@@ -1,0 +1,195 @@
+#!/usr/bin/python3
+
+from collections import defaultdict, namedtuple
+import os
+import shutil
+import sys
+import tempfile
+
+import apt
+
+
+IS_ROOT = os.getuid() == 0
+
+Labels = namedtuple('Labels', ['change_type', 'arch', 'origin'])
+
+
+def update_cache(cache):
+    """Update the apt cache (equivalent to apt-get update)"""
+    cache.update()
+    cache.open(None)
+
+
+def get_package_autoremoves(cache):
+    """Get the packages that can be autoremoved"""
+    for package in cache:
+        if package.is_auto_removable:
+            yield package
+
+
+def get_package_upgrades(cache, *, dist_upgrade=False):
+    """Get the packages that need an upgrade.
+
+    If dist_upgrade is true, pretend you're performing a dist-upgrade instead
+    of a plain upgrade.
+
+    """
+    cache.upgrade(dist_upgrade=dist_upgrade)
+    return cache.get_changes()
+
+
+def origin_id(origin):
+    """Get an identifier for the given origin
+
+    Filters out missing and/or bogus labels
+    """
+    if origin.label in ('', None, 'stable'):
+        if not origin.origin:
+            return origin.site
+        return origin.origin
+    return origin.label
+
+
+def pick_origin(origins):
+    """Pick an origin from the list of origins to set the label"""
+    origins = list(sorted(origins))
+    if len(origins) == 1:
+        return origins[0]
+    for origin in origins:
+        if origin.startswith('Debian'):
+            return origin
+    else:
+        return origins[0]
+
+
+def group_changes(changes):
+    """Group the changes by type, architecture, origin"""
+    groups = defaultdict(list)
+
+    for package in changes:
+        if not package.marked_delete:
+            if not package.installed:
+                change_type = 'install'
+            elif package.candidate > package.installed:
+                change_type = 'upgrade'
+            elif package.candidate < package.installed:
+                change_type = 'downgrade'
+            else:
+                change_type = 'keep'
+            origin_ids = {origin_id(origin)
+                          for origin in package.candidate.origins}
+        else:
+            change_type = 'removal'
+            origin_ids = {''}
+        architecture = package.architecture()
+
+        if len(origin_ids) != 1:
+            print(
+                'Multiple origins for package %s: %s' %
+                (package.candidate, ', '.join(origin_ids)),
+                file=sys.stderr,
+            )
+
+        labels = Labels(change_type, architecture, pick_origin(origin_ids))
+        groups[labels].append(package)
+
+    return groups
+
+
+def print_prometheus_metric(metric, value, **labels):
+    """Print the given prometheus metric"""
+    labels = '' if not labels else '{%s}' % ','.join(
+        '%s="%s"' % (key, value.replace('"', r'\"'))
+        for key, value in sorted(labels.items())
+    )
+    print('%s%s %d' % (metric, labels, value))
+
+
+def format_upgrades_pending(upgrade_groups, dist_upgrade_groups):
+    """Format the upgrade groups for consumption by prometheus"""
+    def print_apt_upgrades(value, **labels):
+        return print_prometheus_metric('apt_upgrades_pending', value, **labels)
+
+    print('# HELP apt_upgrades_pending Apt package pending upgrades by origin, arch and change type.')
+    print('# TYPE apt_upgrades_pending gauge')
+
+    if not upgrade_groups and not dist_upgrade_groups:
+        print_apt_upgrades(0, origin="", arch="", change_type="", upgrade_type="")
+        return
+
+    for labels, packages in upgrade_groups.items():
+        print_apt_upgrades(
+            len(packages),
+            upgrade_type='upgrade',
+            **labels._asdict(),
+        )
+    for labels, packages in dist_upgrade_groups.items():
+        value = len(packages) - len(upgrade_groups[labels])
+        if not value:
+            continue
+        print_apt_upgrades(
+            value,
+            upgrade_type='dist-upgrade',
+            **labels._asdict(),
+        )
+
+
+def get_reboot_required():
+    """Check if the /run/reboot-required file exists"""
+    return os.path.exists('/run/reboot-required')
+
+
+if __name__ == '__main__':
+    (fd, filename) = tempfile.mkstemp(
+        dir="<%= @textfile_directory %>",
+        prefix="<%= @script %>.prom.",
+    )
+    try:
+        sys.stdout = os.fdopen(fd, 'w')
+        cache = apt.Cache()
+        if IS_ROOT:
+            print('# HELP apt_cache_update_failed Whether the apt cache update failed')
+            try:
+                update_cache(cache)
+            except Exception:
+                print_prometheus_metric('apt_cache_update_failed', 1)
+            else:
+                print_prometheus_metric('apt_cache_update_failed', 0)
+
+        upgrades = get_package_upgrades(cache, dist_upgrade=False)
+        upgrade_groups = group_changes(upgrades)
+        cache.clear()
+        upgrades = get_package_upgrades(cache, dist_upgrade=True)
+        dist_upgrade_groups = group_changes(upgrades)
+
+        format_upgrades_pending(upgrade_groups, dist_upgrade_groups)
+
+        cache.clear()
+        print()
+        print(
+            '# HELP apt_autoremovals_pending Apt packages that can be '
+            'autoremoved.'
+        )
+        print('# TYPE apt_autoremovals_pending gauge')
+        print_prometheus_metric(
+            'apt_autoremovals_pending',
+            len(list(get_package_autoremoves(cache)))
+        )
+
+        print()
+        print(
+            '# HELP node_reboot_required Node reboot is required for software '
+            'updates.'
+        )
+        print('# TYPE node_reboot_required gauge')
+        print_prometheus_metric(
+            'node_reboot_required',
+            int(get_reboot_required()),
+        )
+        sys.stdout.flush()
+    except Exception:
+        os.remove(filename)
+        raise
+    else:
+        os.chmod(fd, 0o0644)
+        shutil.move(filename, "<%= @textfile_directory %>/<%= @script %>.prom")
