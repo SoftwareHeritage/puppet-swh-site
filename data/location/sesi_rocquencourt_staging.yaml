@@ -65,8 +65,8 @@ swh::remote_service::vault::config::vault0:
   cls: remote
   args:
     url: "http://vault0.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
-swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::azure')}"
-swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::azure')}"
+swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
+swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
 swh::remote_service::indexer::config::storage0:
   cls: remote

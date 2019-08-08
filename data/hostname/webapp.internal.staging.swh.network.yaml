@@ -50,6 +50,32 @@ swh::deploy::webapp::config:
           - 127.0.0.0/8
           - 192.168.100.0/23
           - 129.168.128.0/24
+      swh_api_origin_visit_latest:
+        # This endpoint gets called a lot (by default, up to 70 times
+        # per origin search), so it deserves a much higher rate-limit
+        # than the rest of the API.
+        limiter_rate:
+          default: 700/m
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 192.168.128.0/24
+      swh_vault_cooking:
+        limiter_rate:
+          default: 120/h
+          GET: 60/m
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 192.168.128.0/24
+      swh_save_origin:
+        limiter_rate:
+          default: 120/h
+          POST: 10/h
+        exempted_networks:
+          - 127.0.0.0/8
+          - 192.168.100.0/23
+          - 129.168.128.0/24
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
   deposit:
