@@ -57,6 +57,7 @@ swh::deploy::vault::db::dbname: swh-vault
 
 swh::deploy::worker::instances:
   - loader_git
+  - vault_cooker
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
