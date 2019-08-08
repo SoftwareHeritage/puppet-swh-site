@@ -14,14 +14,15 @@ apache::http_port: 9080
 # Disable default vhost on port 80
 apache::default_vhost: false
 
-swh::deploy::webapp::vhost::name: webapp.staging.swh.network
+swh::deploy::webapp::vhost::name: webapp.internal.staging.swh.network
 swh::deploy::webapp::vhost::aliases:
-  - webapp.staging.softwareheritage.org
-
-swh::deploy::webapp::config::allowed_hosts:
   - webapp.staging.swh.network
   - webapp.staging.softwareheritage.org
 
+swh::deploy::webapp::config::allowed_hosts:
+  - webapp.internal.staging.swh.network
+  - webapp.staging.swh.network
+  - webapp.staging.softwareheritage.org
 
 swh::deploy::webapp::backend::workers: 16
 swh::deploy::webapp::backend::http_keepalive: 5
