@@ -48,3 +48,5 @@ swh::deploy::deposit::vhost::name: deposit.internal.staging.swh.network
 swh::deploy::deposit::vhost::aliases: [
   deposit.staging.swh.network
 ]
+swh::deploy::deposit::config::allowed_hosts:
+  - deposit.internal.staging.swh.network
