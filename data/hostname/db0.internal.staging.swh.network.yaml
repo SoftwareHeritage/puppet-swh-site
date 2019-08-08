@@ -16,6 +16,9 @@ swh::dbs:
   scheduler:
     name: swh-scheduler
     user: swh-scheduler
+  vault:
+    name: swh-vault
+    user: swh-vault
 
 postgres::server::port: 5433
 postgres::server::listen_addresses:
@@ -43,6 +46,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-scheduler
+  - source_db: swh-vault
+    host: db0.internal.staging.swh.network
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-vault
 
 dar::backup::exclude:
   - srv/softwareheritage/postgres

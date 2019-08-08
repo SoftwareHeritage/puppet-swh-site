@@ -1,0 +1,12 @@
+# open vault api
+swh::deploy::vault::backend::listen::host: 0.0.0.0
+
+swh::deploy::worker::instances:
+  - vault_cooker
+
+swh::deploy::vault::backend::workers: 4
+swh::deploy::vault::backend::reload_mercy: 3600
+swh::deploy::vault::backend::http_keepalive: 5
+swh::deploy::vault::backend::http_timeout: 3600
+swh::deploy::vault::backend::max_requests: 10000
+swh::deploy::vault::backend::max_requests_jitter: 1000

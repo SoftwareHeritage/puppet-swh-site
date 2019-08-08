@@ -147,6 +147,10 @@ node 'deposit.internal.staging.swh.network' {
   include ::profile::devel::postgres
 }
 
+node 'vault.internal.staging.swh.network' {
+  include role::swh_vault
+}
+
 node default {
   include role::swh_base
   include profile::puppet::agent

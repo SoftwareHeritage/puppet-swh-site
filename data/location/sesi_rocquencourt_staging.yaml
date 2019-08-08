@@ -50,6 +50,11 @@ swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbuser: swh-deposit
 swh::deploy::deposit::db::dbname: swh-deposit
 
+swh::deploy::vault::db::host: db0.internal.staging.swh.network
+swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::vault::db::user: swh-vault
+swh::deploy::vault::db::dbname: swh-vault
+
 swh::deploy::worker::instances:
   - loader_git
 
