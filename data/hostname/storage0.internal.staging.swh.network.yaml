@@ -8,6 +8,12 @@ networks:
 swh::postgres::service::users:
   - swhstorage
 
+# open objstorage api
+swh::deploy::objstorage::backend::listen::host: 0.0.0.0
+swh::deploy::objstorage::backend::workers: 4
+swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::objstorage::slicing: 0:1/1:5
+
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 4
@@ -22,10 +28,7 @@ swh::deploy::storage::config:
         cls: pathslicing
         args:
           root: "%{hiera('swh::deploy::storage::directory')}"
-          slicing: "%{hiera('swh::deploy::storage::directory')}"
-
-swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
-swh::deploy::objstorage::slicing: 0:1/1:5
+          slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
@@ -35,9 +38,5 @@ swh::deploy::indexer::storage::config:
     cls: local
     args:
       db: service=admin-staging-swh-indexer
-
-# open objstorage api
-swh::deploy::objstorage::backend::listen::host: 0.0.0.0
-swh::deploy::objstorage::backend::workers: 4
 
 nginx::worker_processes: 4
