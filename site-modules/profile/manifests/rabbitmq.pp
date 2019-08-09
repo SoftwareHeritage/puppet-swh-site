@@ -11,6 +11,7 @@ class profile::rabbitmq {
     port              => 5672,
     admin_enable      => true,
     node_ip_address   => '0.0.0.0',
+    interface         => '0.0.0.0',
     config_variables  => {
       vm_memory_high_watermark => 0.6,
     },
