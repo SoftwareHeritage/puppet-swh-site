@@ -19,7 +19,7 @@ def get_timestamp_history(label):
     rrd_data = []
     now = int(time.time())
     url = 'http://pergamon.internal.softwareheritage.org:9090/api/v1/query_range?'
-    url = url + 'query=sum(sql_swh_archive_object_count) by (object_type)'
+    url = url + 'query=sum(sql_swh_archive_object_count{object_type="%s"})' % label
     url = url + '&start=1544543227&end=%s&step=12h' % now
 
     # We only want to process timevalues for Source files
