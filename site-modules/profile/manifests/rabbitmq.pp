@@ -2,7 +2,6 @@ class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
 
   $rabbitmq_vhost = '/'
-  $rabbitmq_enable_guest = lookup('rabbitmq::enable::guest')
 
   $users = lookup('rabbitmq::server::users')
 
@@ -16,7 +15,6 @@ class profile::rabbitmq {
       vm_memory_high_watermark => 0.6,
     },
     heartbeat         => 0,
-    delete_guest_user => ! $rabbitmq_enable_guest,
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',
