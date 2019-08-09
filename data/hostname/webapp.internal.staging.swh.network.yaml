@@ -79,6 +79,6 @@ swh::deploy::webapp::config:
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
   deposit:
-    private_api_url: https://deposit.internal.swh.staging/1/private/
+    private_api_url: "%{hiera('swh::deploy::webapp::deposit::private::url')}"
     private_api_user: "%{hiera('deposit_basic_auth_swhworker_username')}"
     private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"

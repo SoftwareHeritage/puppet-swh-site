@@ -96,6 +96,8 @@ swh::remote_service::scheduler::config::scheduler0:
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 
+swh::deploy::webapp::deposit::private::url: http://deposit.internal.staging.swh.network/1/private/
+
 swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   save_data: false
