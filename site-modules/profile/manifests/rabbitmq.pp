@@ -35,6 +35,10 @@ class profile::rabbitmq {
       provider             => 'rabbitmqctl',
     }
   }
+
+  # monitoring user for the icinga check
+  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
+  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
