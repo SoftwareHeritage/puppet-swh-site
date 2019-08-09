@@ -2,6 +2,8 @@ class profile::rabbitmq {
   include ::profile::munin::plugins::rabbitmq
 
   $rabbitmq_vhost = '/'
+  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
+  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
 
   $users = lookup('rabbitmq::server::users')
 
@@ -37,8 +39,6 @@ class profile::rabbitmq {
   }
 
   # monitoring user for the icinga check
-  $rabbitmq_user = lookup('rabbitmq::monitoring::user')
-  $rabbitmq_password = lookup('rabbitmq::monitoring::password')
   $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
@@ -48,7 +48,7 @@ class profile::rabbitmq {
     check_command => 'rabbitmq_server',
     vars          => {
       rabbitmq_port     => 15672,
-      rabbitmq_vhost    => '/',
+      rabbitmq_vhost    => $rabbitmq_vhost,
       rabbitmq_node     => $::hostname,
       rabbitmq_user     => $rabbitmq_user,
       rabbitmq_password => $rabbitmq_password,
