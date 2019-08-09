@@ -14,29 +14,20 @@ swh::deploy::objstorage::backend::workers: 4
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:1/1:5
 
+swh::remote_service::objstorage::config:
+  cls: pathslicing
+  args:
+    root: "%{hiera('swh::deploy::storage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::max_requests: 100
 swh::deploy::storage::backend::max_requests_jitter: 10
-swh::deploy::storage::config:
-  storage:
-    cls: local
-    args:
-      db: service=admin-staging-swh
-      objstorage:
-        cls: pathslicing
-        args:
-          root: "%{hiera('swh::deploy::storage::directory')}"
-          slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
 swh::deploy::indexer::storage::backend::workers: 4
-swh::deploy::indexer::storage::config:
-  indexer_storage:
-    cls: local
-    args:
-      db: service=admin-staging-swh-indexer
 
 nginx::worker_processes: 4
