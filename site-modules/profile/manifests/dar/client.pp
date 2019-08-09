@@ -1,49 +1,53 @@
 class profile::dar::client {
   include ::dar
 
-  $dar_remote_hostname = $::swh_hostname['short']
-  $dar_backup_name = $::hostname
+  $backup_enable = lookup('dar::backup::enable')
 
-  $backup_cron = profile::cron_rand(lookup('dar::cron', Hash), 'backup')
+  if $backup_enable {
+    $dar_remote_hostname = $::swh_hostname['short']
+    $dar_backup_name = $::hostname
 
-  dar::backup { $dar_backup_name:
-    backup_storage   => lookup('dar::backup::storage'),
-    keep_backups     => lookup('dar::backup::num_backups'),
-    backup_base      => lookup('dar::backup::base'),
-    backup_selection => lookup('dar::backup::select'),
-    backup_exclusion => lookup('dar::backup::exclude', Array, 'unique'),
-    backup_options   => lookup('dar::backup::options'),
-    *                => $backup_cron,
-  }
+    $backup_cron = profile::cron_rand(lookup('dar::cron', Hash), 'backup')
 
-  $server_cron = profile::cron_rand(lookup('dar_server::cron', Hash), 'backup_server')
+    dar::backup { $dar_backup_name:
+      backup_storage   => lookup('dar::backup::storage'),
+      keep_backups     => lookup('dar::backup::num_backups'),
+      backup_base      => lookup('dar::backup::base'),
+      backup_selection => lookup('dar::backup::select'),
+      backup_exclusion => lookup('dar::backup::exclude', Array, 'unique'),
+      backup_options   => lookup('dar::backup::options'),
+      *                => $backup_cron,
+    }
 
-  $dir_for_fetched_backups = lookup('dar_server::backup::storage')
-  $central_backup_host = lookup('dar_server::central_host')
+    $server_cron = profile::cron_rand(lookup('dar_server::cron', Hash), 'backup_server')
 
-  # Export a remote backup to the backup server
-  @@dar::remote_backup { "${dar_remote_hostname}.${dar_backup_name}":
-    remote_backup_storage => lookup('dar::backup::storage'),
-    remote_backup_host    => $dar_remote_hostname,
-    remote_backup_name    => $dar_backup_name,
-    local_backup_storage  => $dir_for_fetched_backups,
-    *                     => $server_cron,
-  }
+    $dir_for_fetched_backups = lookup('dar_server::backup::storage')
+    $central_backup_host = lookup('dar_server::central_host')
 
-  # Export an icinga check to verify backup freshness
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
-  $checked_directory = "${dir_for_fetched_backups}/${dar_remote_hostname}"
+    # Export a remote backup to the backup server
+    @@dar::remote_backup { "${dar_remote_hostname}.${dar_backup_name}":
+      remote_backup_storage => lookup('dar::backup::storage'),
+      remote_backup_host    => $dar_remote_hostname,
+      remote_backup_name    => $dar_backup_name,
+      local_backup_storage  => $dir_for_fetched_backups,
+      *                     => $server_cron,
+    }
 
-  @@::icinga2::object::service {"backup freshness for ${dar_remote_hostname}":
-    service_name     => 'backup freshness',
-    import           => ['generic-service'],
-    host_name        => $::fqdn,
-    command_endpoint => $central_backup_host,
-    check_command    => 'check_newest_file_age',
-    vars             => {
-      check_directory => $checked_directory,
-    },
-    target           => $icinga_checks_file,
-    tag              => 'icinga2::exported',
+    # Export an icinga check to verify backup freshness
+    $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+    $checked_directory = "${dir_for_fetched_backups}/${dar_remote_hostname}"
+
+    @@::icinga2::object::service {"backup freshness for ${dar_remote_hostname}":
+      service_name     => 'backup freshness',
+      import           => ['generic-service'],
+      host_name        => $::fqdn,
+      command_endpoint => $central_backup_host,
+      check_command    => 'check_newest_file_age',
+      vars             => {
+        check_directory => $checked_directory,
+      },
+      target           => $icinga_checks_file,
+      tag              => 'icinga2::exported',
+    }
   }
 }

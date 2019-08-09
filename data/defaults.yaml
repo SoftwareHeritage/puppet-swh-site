@@ -863,6 +863,7 @@ bind::autogenerate:
   - 192.168.100.0/24
   - 192.168.200.0/21
 
+dar::backup::enable: true
 dar::backup::storage: /srv/backups
 dar::backup::num_backups: 1
 dar::backup::base: /
