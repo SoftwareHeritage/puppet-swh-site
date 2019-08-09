@@ -11,8 +11,6 @@ dar::backup::exclude:
 swh::postgres::service::users:
   - swhscheduler
 
-rabbitmq::enable::guest: true
-
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
 swh::deploy::scheduler::task_broker: "amqp://guest:guest@127.0.0.1:5672//"
 
