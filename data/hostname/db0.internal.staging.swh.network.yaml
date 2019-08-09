@@ -10,7 +10,7 @@ swh::dbs:
   storage:
     name: swh
     user: swh
-  indexer:
+  indexer::storage:
     name: swh-indexer
     user: swh-indexer
   scheduler:

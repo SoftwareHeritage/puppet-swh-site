@@ -30,7 +30,7 @@ class profile::postgresql::server {
   $dbs = lookup('swh::dbs')
   each($dbs) | $db_type, $db_config | {
     # db_type in {storage, indexer, scheduler, etc...}
-    $db_pass = lookup("swh::deploy::db::${db_type}::password")
+    $db_pass = lookup("swh::deploy::${db_type}::db::password")
     $db_name = $db_config['name']
     $db_user = $db_config['user']
 

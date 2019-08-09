@@ -2910,7 +2910,7 @@ swh::postgres::service::dbs:
     host: "%{hiera('swh::deploy::storage::db::host')}"
     user: "%{hiera('swh::deploy::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+    passwd: "%{hiera('swh::deploy::storage::db::password')}"
   - alias: swh-deposit
     name: "%{hiera('swh::deploy::deposit::db::dbname')}"
     host: "%{hiera('swh::deploy::deposit::db::host')}"
@@ -2922,7 +2922,7 @@ swh::postgres::service::dbs:
     host: "%{hiera('swh::deploy::scheduler::db::host')}"
     user: "%{hiera('swh::deploy::scheduler::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
+    passwd: "%{hiera('swh::deploy::scheduler::db::password')}"
   - alias: swh-vault
     name: "%{hiera('swh::deploy::vault::db::dbname')}"
     host: "%{hiera('swh::deploy::vault::db::host')}"
@@ -2940,10 +2940,10 @@ swh::postgres::service::dbs:
     host: somerset.internal.softwareheritage.org
     user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::db::storage::password')}"
+    passwd: "%{hiera('swh::deploy::storage::db::password')}"
   - alias: swh-indexer
     name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::db::indexer::password')}"
+    passwd: "%{hiera('swh::deploy::indexer::storage::db::password')}"
