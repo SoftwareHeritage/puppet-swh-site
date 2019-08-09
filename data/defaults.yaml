@@ -2944,28 +2944,3 @@ swh::postgres::service::dbs:
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::db::indexer::password')}"
-  - alias: staging-swh
-    name: swh
-    host: db0.internal.staging.swh.network
-    user: swh
-    port: 5432
-    passwd: "%{hiera('swh::deploy::db::storage::password')}"
-  - alias: staging-swh-indexer
-    name: swh-indexer
-    host: db0.internal.staging.swh.network
-    user: swh-indexer
-    port: 5432
-    passwd: "%{hiera('swh::deploy::db::indexer::password')}"
-  - alias: staging-swh-scheduler
-    name: swh-scheduler
-    host: db0.internal.staging.swh.network
-    user: swh-scheduler
-    port: 5432
-    passwd: "%{hiera('swh::deploy::db::scheduler::password')}"
-  - alias: staging-swh-deposit
-    name: swh-deposit
-    host: deposit.internal.staging.swh.network
-    user: swh-deposit
-    port: 5432
-    passwd: "%{hiera('swh::deploy::db::deposit::password')}"
-
