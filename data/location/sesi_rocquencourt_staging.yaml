@@ -1,4 +1,6 @@
 ---
+dar::backup::enable: false
+
 dns::local_cache: false
 dns::nameservers:
   - 192.168.100.29
