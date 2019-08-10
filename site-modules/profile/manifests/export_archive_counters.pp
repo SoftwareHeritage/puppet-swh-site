@@ -31,10 +31,14 @@ class profile::export_archive_counters {
     source  => "puppet:///modules/profile/stats_exporter/${history_data_name}",
   }
 
+  $server = "pergamon.internal.softwareheritage.org"
+  $port = 9090
+
+  $command_get_data = "${script_path} --server ${server} --port ${port} --history-data-file ${history_data_path}"
   cron {'stats_export':
     ensure   => present,
     user     => 'www-data',
-    command  => "${script_path} > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
+    command  => "${command_get_data} > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
     hour     => fqdn_rand(24, 'stats_export_hour'),
     minute   => fqdn_rand(60, 'stats_export_minute'),
     month    => '*',
