@@ -9,35 +9,40 @@ class profile::export_archive_counters {
     ensure => present,
   }
 
-  file {'/usr/local/bin/export-archive_counters.py':
+  $script_name = 'export_archive_counters.py'
+  $script_path = "/usr/local/bin/${script_name}"
+
+  file {$script_path:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => 'puppet:///modules/profile/stats_exporter/export-archive_counters.py',
+    source  => "puppet:///modules/profile/stats_exporter/${script_name}",
     require => Package[$packages],
   }
 
-  file {'/usr/local/share/swh-data/history-counters.munin.json':
+  $history_data_name = 'history-counters.munin.json'
+  $history_data_path = "/usr/local/share/swh-data/${history_data_name}"
+  file {$history_data_path:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///modules/profile/stats_exporter/history-counters.munin.json',
+    source  => "puppet:///modules/profile/stats_exporter/${history_data_name}",
   }
 
   cron {'stats_export':
     ensure   => present,
     user     => 'www-data',
-    command  => "/usr/local/bin/export-archive_counters.py > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
+    command  => "${script_path} > ${export_file}.tmp && /bin/mv ${export_file}.tmp ${export_file}",
     hour     => fqdn_rand(24, 'stats_export_hour'),
     minute   => fqdn_rand(60, 'stats_export_minute'),
     month    => '*',
     monthday => '*',
     weekday  => '*',
     require  => [
-      File['/usr/local/bin/export-archive_counters.py'],
-      File['/usr/local/share/swh-data/history-counters.munin.json'],
+      File[$script_path],
+      File[$history_data_path],
     ],
   }
 }
