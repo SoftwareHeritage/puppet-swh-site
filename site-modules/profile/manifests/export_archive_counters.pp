@@ -3,7 +3,7 @@ class profile::export_archive_counters {
   $export_path = lookup('stats_export::export_path')
   $export_file = lookup('stats_export::export_file')
 
-  $packages = ['python3-click']
+  $packages = ['python3-click', 'python3-requests']
 
   package {$packages:
     ensure => present,
