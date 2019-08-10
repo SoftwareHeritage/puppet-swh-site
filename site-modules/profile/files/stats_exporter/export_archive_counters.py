@@ -4,6 +4,8 @@ import requests
 import json
 import time
 
+import click
+
 
 def adapt_format(item):
     """Javascript expects timestamps to be in milliseconds
@@ -21,8 +23,16 @@ def adapt_format(item):
     return [timestamp*1000, float(counter_value)]
 
 
-def compute_url(label, server='pergamon.internal.softwareheritage.org', port=9090):
+def compute_url(server, port, label):
     """Compute the api url to request data from, specific to a label.
+
+    Args:
+        server (str): Prometheus server
+        port (int): Prometheus server port
+        label (str): object_type/label data
+
+    Returns:
+        The api url to fetch the label's data
 
     """
     now = int(time.time())
@@ -30,7 +40,7 @@ def compute_url(label, server='pergamon.internal.softwareheritage.org', port=909
     return url
 
 
-def history_data(history_data_file="/usr/local/share/swh-data/history-counters.munin.json"):
+def history_data(history_data_file):
     """Retrieve the history from the history_data_file
 
     Args:
@@ -45,26 +55,43 @@ def history_data(history_data_file="/usr/local/share/swh-data/history-counters.m
         return json.load(f)
 
 
-def get_timestamp_history(label):
+def get_timestamp_history(server, port, label):
     """Given a label, retrieve its associated graph data.
 
     Args:
+        server (str): Prometheus server
+        port (int): Prometheus server port
         label (str): Label object in {content, origin, revision}
+
+    Returns:
+        The label's graph data from the prometheur server:port.
+
     """
     result = []
-    url = compute_url(label)
+    url = compute_url(server, port, label)
     response = requests.get(url)
     if response.ok:
         data = response.json()
         # data answer format:
         # {"status":"success","data":{"result":[{"values":[[1544586427,"5375557897"]...  # noqa
         # Prometheus-provided data has to be adapted to js expectations
-        result = [adapt_format(i) for i in
-            data['data']['result'][0]['values']]
+        result = [adapt_format(i)
+                  for i in data['data']['result'][0]['values']]
     return result
 
 
-def main():
+@click.command()
+@click.option('--server', '-s',
+              default='pergamon.internal.softwareheritage.org',
+              help="Prometheus instance")
+@click.option('--port', '-p',
+              default=9090,
+              type=click.INT,
+              help='Prometheus instance service port')
+@click.option('--history-data-file', '-d',
+              type=click.Path(exists=True),
+              help="History data file with data types to reuse")
+def main(server, port, history_data_file):
     """Compute the history graph data for the label/object_type {content,
     revision, origin}.
 
@@ -76,14 +103,15 @@ def main():
 
     """
     result = {}
-    hist_data = history_data()
+    hist_data = history_data(history_data_file)
     # for content, we retrieve existing data and merges with the new one
-    result['content'] = hist_data['content'] + get_timestamp_history('content')
+    content_data = get_timestamp_history(server, port, 'content')
+    result['content'] = hist_data['content'] + content_data
     for label in ['origin', 'revision']:
-        result[label] = get_timestamp_history(label)
-    return result
+        result[label] = get_timestamp_history(server, port, label)
+
+    print(json.dumps(result))
 
 
 if __name__ == '__main__':
-    r = main()
-    print(json.dumps(r))
+    main()
