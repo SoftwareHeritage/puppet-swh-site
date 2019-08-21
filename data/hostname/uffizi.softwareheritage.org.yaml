@@ -106,9 +106,6 @@ icinga2::host::vars:
     disk /srv/storage/f:
       disk_wfree: '5%'
       disk_cfree: '3%'
-    disk /srv/storage/space/mirrors/gitorious.org/mnt:
-      disk_wfree: '5%'
-      disk_cfree: '3%'
 
 nginx::worker_processes: 16
 
