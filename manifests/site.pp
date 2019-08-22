@@ -42,6 +42,10 @@ node /^esnode\d+.(internal.)?softwareheritage.org$/ {
   include role::swh_elasticsearch
 }
 
+node /^kafka\d+\./ {
+  include role::swh_kafka_broker
+}
+
 node /^(unibo-test).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
