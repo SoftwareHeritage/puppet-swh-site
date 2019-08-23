@@ -11,17 +11,25 @@ class profile::kafka::broker {
 
   $base_kafka_config = lookup('kafka::broker_config', Hash)
 
-  $zookeeper_chroot = lookup('kafka::zookeeper::chroot')
-  $zookeeper_servers = lookup('zookeeper::servers', Hash)
+  $kafka_clusters = lookup('kafka::clusters', Hash)
+
+  $kafka_cluster = $kafka_clusters.filter |$cluster, $data| {
+    member($data['brokers'].keys(), $::swh_hostname['internal_fqdn'])
+  }.keys()[0]
+
+  $kafka_cluster_config = $kafka_clusters[$kafka_cluster]
+
+  $zookeeper_chroot = $kafka_cluster_config['zookeeper::chroot']
+  $zookeeper_servers = $kafka_cluster_config['zookeeper::servers']
   $zookeeper_port = lookup('zookeeper::client_port', Integer)
   $zookeeper_server_string = join(
-    $zookeeper_servers.map |$id, $server| {"${server}:${zookeeper_port}"},
+    $zookeeper_servers.map |$server| {"${server}:${zookeeper_port}"},
     ','
   )
 
   $zookeeper_connect_string = "${zookeeper_server_string}${zookeeper_chroot}"
 
-  $broker_id = lookup('kafka::brokers', Hash)[$::swh_hostname['internal_fqdn']]['id']
+  $broker_id = $kafka_cluster_config['brokers'][$::swh_hostname['internal_fqdn']]['id']
 
   $kafka_config = $base_kafka_config + {
     'zookeeper.connect' => $zookeeper_connect_string,
