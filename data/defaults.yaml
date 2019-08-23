@@ -2537,6 +2537,8 @@ zookeeper::clusters:
     11: esnode1.internal.softwareheritage.org
     12: esnode2.internal.softwareheritage.org
     13: esnode3.internal.softwareheritage.org
+  azure:
+    1: kafka01.euwest.azure.internal.softwareheritage.org
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
@@ -2569,6 +2571,13 @@ kafka::clusters:
         id: 12
       esnode3.internal.softwareheritage.org:
         id: 13
+  azure:
+    zookeeper::chroot: '/kafka/softwareheritage'
+    zookeeper::servers:
+      - kafka01.euwest.azure.internal.softwareheritage.org
+    brokers:
+      kafka01.euwest.azure.internal.softwareheritage.org:
+        id: 1
 
 
 # Real exported files from munin
