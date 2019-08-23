@@ -68,5 +68,6 @@ class profile::swh::apt_config {
     allow_unsigned => true,
   }
 
+  Package['apt-transport-https'] -> Class['apt']
   Package['apt-transport-https'] -> Class['apt::update'] -> Package <| title != 'apt-transport-https' |>
 }
