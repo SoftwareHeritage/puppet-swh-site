@@ -1461,6 +1461,7 @@ swh::deploy::objstorage::backend::server_names:
   - "::1"
 
 swh::deploy::deposit::vhost::name: deposit.softwareheritage.org
+swh::deploy::deposit::url: https://deposit.softwareheritage.org
 swh::deploy::deposit::vhost::aliases: []
 swh::deploy::deposit::vhost::docroot: "/var/www/%{hiera('swh::deploy::deposit::vhost::name')}"
 swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
@@ -1517,7 +1518,7 @@ swh::deploy::worker::loader_deposit::config:
       - swh.deposit.loader.tasks
     task_queues:
       - swh.deposit.loader.tasks.LoadDepositArchiveTsk
-  url: https://deposit.softwareheritage.org
+  url: "%{alias('swh::deploy::deposit::url')}"
   auth:
     username: "%{hiera('deposit_basic_auth_swhworker_username')}"
     password: "%{hiera('deposit_basic_auth_swhworker_password')}"
@@ -1536,7 +1537,7 @@ swh::deploy::worker::checker_deposit::config:
       - swh.deposit.loader.tasks
     task_queues:
       - swh.deposit.loader.tasks.ChecksDepositTsk
-  url: https://deposit.softwareheritage.org
+  url: "%{alias('swh::deploy::deposit::url')}"
   auth:
     username: "%{hiera('deposit_basic_auth_swhworker_username')}"
     password: "%{hiera('deposit_basic_auth_swhworker_password')}"
@@ -1605,7 +1606,7 @@ swh::deploy::webapp::config::allowed_hosts:
   - archive.internal.softwareheritage.org
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
-swh::deploy::webapp::deposit::private::url: https://deposit.softwareheritage.org/1/private/
+swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::url')}/1/private/"
 swh::deploy::webapp::config::throttling:
   cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
   scopes:
