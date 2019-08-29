@@ -7,8 +7,6 @@ class profile::swh::deploy::deposit {
   $group = lookup('swh::deploy::deposit::group')
   $swh_conf_raw = lookup('swh::deploy::deposit::config')
 
-  $swh_packages = ['python3-swh.deposit']
-
   $static_dir = '/usr/lib/python3/dist-packages/swh/deposit/static'
 
   $backend_listen_host = lookup('swh::deploy::deposit::backend::listen::host')
