@@ -18,6 +18,7 @@ class profile::swh::deploy::deposit {
   $backend_http_timeout = lookup('swh::deploy::deposit::backend::http_timeout')
   $backend_reload_mercy = lookup('swh::deploy::deposit::backend::reload_mercy')
 
+  $vhost_url = lookup('swh::deploy::deposit::url')
   $vhost_name = lookup('swh::deploy::deposit::vhost::name')
   $vhost_port = lookup('apache::http_port')
   $vhost_aliases = lookup('swh::deploy::deposit::vhost::aliases')
@@ -149,9 +150,13 @@ class profile::swh::deploy::deposit {
   realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
 
   include ::profile::varnish
-  ::profile::varnish::vhost {$vhost_name:
-    aliases      => $vhost_aliases,
-    hsts_max_age => lookup('strict_transport_security::max_age'),
+  $url_scheme = split($vhost_url, ':')[0]
+
+  if $url_scheme == 'https' {
+    ::profile::varnish::vhost {$vhost_name:
+      aliases      => $vhost_aliases,
+      hsts_max_age => lookup('strict_transport_security::max_age'),
+    }
   }
 
   file {$vhost_basic_auth_file:
