@@ -1669,6 +1669,7 @@ swh::deploy::webapp::config:
   throttling: "%{alias('swh::deploy::webapp::config::throttling')}"
   allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
+  es_workers_index_url: "%{alias('swh::deploy::webapp::config::es_workers_index_url')}"
   deposit:
     private_api_url: "%{hiera('swh::deploy::webapp::deposit::private::url')}"
     private_api_user: "%{hiera('deposit_basic_auth_swhworker_username')}"
