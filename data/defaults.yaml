@@ -1604,6 +1604,7 @@ swh::deploy::webapp::config::allowed_hosts:
   - archive.softwareheritage.org
   - base.softwareheritage.org
   - archive.internal.softwareheritage.org
+swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
 swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::url')}/1/private/"
