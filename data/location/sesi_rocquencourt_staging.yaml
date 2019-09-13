@@ -63,6 +63,7 @@ swh::deploy::worker::instances:
   - loader_git
   - vault_cooker
   - lister
+  - indexer_origin_intrinsic_metadata
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
