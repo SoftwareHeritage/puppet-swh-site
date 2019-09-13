@@ -155,6 +155,10 @@ node 'vault.internal.staging.swh.network' {
   include role::swh_vault
 }
 
+node 'journal0.internal.staging.swh.network' {
+  include role::swh_eventlog
+}
+
 node default {
   include role::swh_base
   include profile::puppet::agent

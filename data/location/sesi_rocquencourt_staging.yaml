@@ -114,3 +114,5 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
+swh::deploy::journal::brokers:
+  - kafka0.internal.staging.swh.network
