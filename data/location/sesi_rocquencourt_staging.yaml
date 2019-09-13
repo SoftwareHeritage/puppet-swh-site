@@ -119,4 +119,4 @@ zookeeper::clusters:
     1: journal0.internal.softwareheritage.org
 
 swh::deploy::journal::brokers:
-  - kafka0.internal.staging.swh.network
+  - journal0.internal.staging.swh.network
