@@ -116,7 +116,16 @@ swh::deploy::worker::loader_git::config:
 
 zookeeper::clusters:
   rocquencourt:
-    1: journal0.internal.softwareheritage.org
+    1: journal0.internal.staging.swh.network
+
+kafka::clusters:
+  rocquencourt:
+    zookeeper::chroot: '/kafka/softwareheritage'
+    zookeeper::servers:
+      - journal0.internal.staging.swh.network
+    brokers:
+      journal0.internal.staging.swh.network:
+        id: 1
 
 swh::deploy::journal::brokers:
   - journal0.internal.staging.swh.network
