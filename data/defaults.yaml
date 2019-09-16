@@ -1920,6 +1920,7 @@ swh::deploy::worker::loader_mercurial::loglevel: info
 swh::deploy::worker::loader_mercurial::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   reduce_effort: False
+  clone_timeout_seconds: 7200
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
