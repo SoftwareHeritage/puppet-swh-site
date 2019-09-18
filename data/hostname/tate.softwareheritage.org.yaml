@@ -4,7 +4,7 @@ smtp::virtual_aliases:
 smtp::mail_aliases:
   - user: "%{hiera('phabricator::user')}"
     aliases:
-      - "\"| %{hiera('phabricator::basepath')}/phabricator/scripts/mail/mail_handler.php\""
+      - "| %{hiera('phabricator::basepath')}/phabricator/scripts/mail/mail_handler.php"
 
 ssh::port: 2222
 
