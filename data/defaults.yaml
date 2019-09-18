@@ -2507,6 +2507,7 @@ swh::deploy::worker::vault_cooker::config:
     task_queues:
       - swh.vault.cooking_tasks.SWHCookingTask
       - swh.vault.cooking_tasks.SWHBatchCookingTask
+  max_bundle_size: 1073741824  # 1GiB
 
 desktop::printers:
   MFP_C:
