@@ -12,8 +12,27 @@ class profile::swh::deploy::journal {
 
   $swh_packages = ['python3-swh.journal']
 
-  package {$swh_packages:
-    ensure  => present,
-    require => Apt::Source['softwareheritage'],
+  $backported_packages = {
+    'stretch' => ['librdkafka1'],
+  }
+
+  $pinned_packages = $backported_packages[$::lsbdistcodename]
+
+  if $pinned_packages {
+    ::apt::pin {'swh-journal':
+      explanation => 'Pin swh.journal dependencies to backports',
+      codename    => "${::lsbdistcodename}-backports",
+      packages    => $pinned_packages,
+      priority    => 990,
+    }
+    -> package {$swh_packages:
+      ensure => installed,
+      require => Apt::Source['softwareheritage'],
+    }
+  } else {
+    package {$swh_packages:
+      ensure => installed,
+      require => Apt::Source['softwareheritage'],
+    }
   }
 }
