@@ -63,7 +63,7 @@ node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
-  include role::swh_eventlog
+  include role::swh_journal_orchestrator
 }
 
 node /^worker\d+\.(internal\.)?softwareheritage\.org$/ {
