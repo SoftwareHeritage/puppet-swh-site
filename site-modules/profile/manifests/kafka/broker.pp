@@ -2,12 +2,7 @@
 
 class profile::kafka::broker {
   include ::profile::zookeeper
-
-  class {'::kafka':
-    mirror_url    => lookup('kafka::mirror_url'),
-    version       => lookup('kafka::version'),
-    scala_version => lookup('kafka::scala_version'),
-  }
+  include ::profile::kafka
 
   $base_kafka_config = lookup('kafka::broker_config', Hash)
 
