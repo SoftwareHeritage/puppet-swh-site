@@ -43,6 +43,7 @@ class profile::dar::client {
       host_name        => $::fqdn,
       command_endpoint => $central_backup_host,
       check_command    => 'check_newest_file_age',
+      check_interval   => '10h',
       vars             => {
         check_directory => $checked_directory,
       },
