@@ -93,53 +93,69 @@ icinga2::host::vars:
   load: high
   disks:
     disk /srv/softwareheritage/objects-xfs/0:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/1:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/2:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/3:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/4:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/5:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/6:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/7:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/8:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/9:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/a:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/b:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/c:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/d:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/e:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
     disk /srv/softwareheritage/objects-xfs/f:
-      disk_wfree: '1%'
-      disk_cfree: '0%'
+      disk_units: 'GB'
+      disk_wfree: '100'
+      disk_cfree: '50'
 
 nginx::worker_processes: 16
 
