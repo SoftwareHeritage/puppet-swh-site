@@ -46,4 +46,6 @@ class profile::stats_web {
         File[$ssl_key],
      ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 }
