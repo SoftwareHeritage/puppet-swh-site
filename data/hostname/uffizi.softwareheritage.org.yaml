@@ -9,6 +9,9 @@ swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 64
 swh::deploy::storage::backend::max_requests: 500
 swh::deploy::storage::backend::max_requests_jitter: 50
+
+swh::deploy::storage::legacy_directory: /srv/softwareheritage/objects-xfs
+
 swh::deploy::storage::config:
   storage:
     cls: local
@@ -21,7 +24,16 @@ swh::deploy::storage::config:
             - cls: pathslicing
               args:
                 root: "%{hiera('swh::deploy::storage::directory')}"
-                slicing: "0:2/2:4/4:6"
+                slicing: "0:2/0:5"
+            - cls: filtered
+              args:
+                storage_conf:
+                  cls: pathslicing
+                  args:
+                    root: "%{hiera('swh::deploy::storage::legacy_directory')}"
+                    slicing: "0:1/0:2/2:4/4:6"
+                filters_conf:
+                  - type: readonly
             - "%{alias('swh::remote_service::objstorage::config::azure')}"
       journal_writer:
         cls: kafka
@@ -42,6 +54,25 @@ swh::deploy::indexer::storage::config:
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
+swh::deploy::objstorage::config:
+  objstorage:
+    cls: multiplexer
+    args:
+      objstorages:
+        - cls: pathslicing
+          args:
+            root: "%{hiera('swh::deploy::storage::directory')}"
+            slicing: "0:2/0:5"
+        - cls: filtered
+          args:
+            storage_conf:
+              cls: pathslicing
+              args:
+                root: "%{hiera('swh::deploy::storage::legacy_directory')}"
+                slicing: "0:1/0:2/2:4/4:6"
+            filters_conf:
+              - type: readonly
+  client_max_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::ceph::keyring: /etc/softwareheritage/objstorage/ceph-keyring
 swh::deploy::objstorage::ceph::rados_id: swh-contents-rw
