@@ -93,7 +93,7 @@ mod 'inifile',
 
 mod 'java',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java',
-    :tag => '2.4.0'
+    :tag => 'v5.0.1'
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
