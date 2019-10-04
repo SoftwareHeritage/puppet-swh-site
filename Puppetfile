@@ -181,7 +181,7 @@ mod 'unattended_upgrades',
 
 mod 'varnish',
     :git => 'https://forge.softwareheritage.org/source/puppet-claranet-varnish',
-    :ref => '5.0.0'
+    :ref => 'bugfix/systemd-unit'
 
 mod 'vcsrepo',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-vcsrepo',
