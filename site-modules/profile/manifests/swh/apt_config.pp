@@ -56,8 +56,8 @@ class profile::swh::apt_config {
 
   $swh_repository = lookup('swh::apt_config::swh_repository')
   $swh_release = $::lsbdistcodename ? {
-    'buster'  => 'sid',
-    default   => "${::lsbdistcodename}-swh",
+    'bullseye' => 'sid',
+    default    => "${::lsbdistcodename}-swh",
   }
 
   ::apt::source {'softwareheritage':
