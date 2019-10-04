@@ -3,6 +3,7 @@ dar::backup::exclude:
   - data
   - mnt
   - srv/softwareheritage/annex
+  - srv/softwareheritage/objects-xfs
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
