@@ -62,4 +62,10 @@ class profile::systemd_journal::journalbeat {
     ],
   }
 
+  ::apt::pin {'swh-journalbeat':
+    explanation => 'Use journalbeat packages from Software Heritage',
+    packages    => ['journalbeat'],
+    originator  => 'softwareheritage',
+    priority    => 990,
+  }
 }
