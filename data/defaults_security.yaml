@@ -327,7 +327,6 @@ icinga2::apt_config::key: |
   =icbY
   -----END PGP PUBLIC KEY BLOCK-----
 
-php::version: '7.1'
 php::apt_config::mirror: https://packages.sury.org/php/
 php::apt_config::keyid: 15058500A0235D97F5D10063B188E2B695BD4743
 php::apt_config::key: |
