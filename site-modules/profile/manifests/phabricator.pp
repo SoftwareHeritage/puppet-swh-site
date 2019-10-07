@@ -171,6 +171,7 @@ class profile::phabricator {
   ::php::extension {[
     'curl',
     'gd',
+    'mbstring',
   ]:
     provider => 'apt',
   }
