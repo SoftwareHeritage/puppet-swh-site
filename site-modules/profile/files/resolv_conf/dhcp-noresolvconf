@@ -1,0 +1,9 @@
+# Disable modification of /etc/resolv.conf by isc-dhcp-client, according to
+# dhclient-script(8).
+#
+# File managed by puppet (class ::profile::resolv_conf), changes will be lost.
+
+# Override the resolv.conf hook to do nothing
+make_resolv_conf () {
+ :
+}
