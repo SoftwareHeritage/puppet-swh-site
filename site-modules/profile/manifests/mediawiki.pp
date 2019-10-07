@@ -6,6 +6,13 @@ class profile::mediawiki {
 
   include ::profile::php
 
+  ::php::extension {[
+    'xml',
+  ]:
+    provider => 'apt',
+  }
+
+
   ::php::fpm::pool {'mediawiki':
     listen => $mediawiki_fpm_root,
     user   => 'www-data',
