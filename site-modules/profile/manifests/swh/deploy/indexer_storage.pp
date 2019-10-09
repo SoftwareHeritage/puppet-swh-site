@@ -7,7 +7,7 @@ class profile::swh::deploy::indexer_storage {
     ensure => 'present',
   } ~> ::profile::swh::deploy::rpc_server {'indexer-storage':
     config_key        => 'indexer::storage',
-    executable        => 'swh.indexer.storage.api.wsgi',
+    executable        => 'swh.indexer.storage.api.server:make_app_from_configfile()',
     worker            => 'sync',
     http_check_string => 'SWH Indexer Storage API server',
   }
