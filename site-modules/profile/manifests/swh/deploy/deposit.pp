@@ -72,7 +72,7 @@ class profile::swh::deploy::deposit {
     ensure     => enabled,
     user       => $user,
     group      => $group,
-    executable => 'swh.deposit.wsgi',
+    executable => 'django.core.wsgi.get_wsgi_application()',
     environment => {
       'SWH_CONFIG_FILENAME'    => $config_file,
       'DJANGO_SETTINGS_MODULE' => 'swh.deposit.settings.production',
