@@ -110,7 +110,7 @@ class profile::swh::deploy::webapp {
     ensure     => enabled,
     user       => $user,
     group      => $group,
-    executable => 'django.core.wsgi.get_wsgi_application()',
+    executable => 'django.core.wsgi:get_wsgi_application()',
     settings   => {
       bind             => $backend_listen_address,
       workers          => $backend_workers,
