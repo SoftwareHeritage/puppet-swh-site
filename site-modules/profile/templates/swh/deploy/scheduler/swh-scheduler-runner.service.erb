@@ -12,7 +12,7 @@ User=<%= @user %>
 Group=<%= @group %>
 Type=simple
 Environment=SWH_LOG_TARGET=journal
-ExecStart=/usr/bin/swh --log-level <%= @runner_log_level %> scheduler --config-file <%= @config_file %> runner --period 10
+ExecStart=/usr/bin/swh --log-level <%= @runner_log_level %> scheduler --config-file <%= @config_file %> start-runner --period 10
 Restart=always
 RestartSec=10
 

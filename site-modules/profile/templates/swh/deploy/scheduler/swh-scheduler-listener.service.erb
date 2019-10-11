@@ -12,7 +12,7 @@ User=<%= @user %>
 Group=<%= @group %>
 Type=simple
 Environment=SWH_LOG_TARGET=journal
-ExecStart=/usr/bin/swh --log-level <%= @listener_log_level %> scheduler --config-file <%= @config_file %> listener
+ExecStart=/usr/bin/swh --log-level <%= @listener_log_level %> scheduler --config-file <%= @config_file %> start-listener
 Restart=always
 RestartSec=10
 
