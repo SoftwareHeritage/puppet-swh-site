@@ -195,7 +195,7 @@ packages::devel::postgres:
   - postgresql-client
   - postgresql-contrib
   - postgresql-doc
-  - postgresql-plpython3-9.6
+  - postgresql-plpython3-11
 
 users:
   root:
