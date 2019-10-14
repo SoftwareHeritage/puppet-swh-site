@@ -2565,6 +2565,7 @@ kafka::logdirs:
   - /srv/kafka/logdir
 kafka::broker_config:
   log.dirs: "%{alias('kafka::logdirs')}"
+  num.recovery.threads.per.data.dir: 10
 
 kafka::clusters:
   rocquencourt:
