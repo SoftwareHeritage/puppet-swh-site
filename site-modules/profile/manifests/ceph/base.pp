@@ -17,9 +17,15 @@ class profile::ceph::base {
     }
   })
 
-  class {'::ceph::repo':
-    release => $ceph_release,
+  include ::profile::proxmox::apt_keys
+  ::apt::source {'ceph':
+    ensure   => 'present',
+    location => "http://download.proxmox.com/debian/ceph-${ceph_release}",
+    release  => $::lsbdistcodename,
+    tag      => ['ceph', 'proxmox'],
   }
+
+  Apt::Source<| tag == 'ceph' |> -> Package<| tag == 'ceph' |>
 
   class {'::ceph':
     fsid                => $ceph_fsid,
