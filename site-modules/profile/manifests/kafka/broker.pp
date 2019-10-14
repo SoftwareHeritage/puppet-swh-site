@@ -77,6 +77,13 @@ class profile::kafka::broker {
     content  => "[Service]\nRestart=on-failure\nRestartSec=5\n",
   }
 
+  ::systemd::dropin_file {"kafka/stop-timeout.conf":
+    ensure   => present,
+    unit     => "kafka.service",
+    filename => 'stop-timeout.conf',
+    content  => "[Service]\nTimeoutStopSec=infinity\n",
+  }
+
   ::profile::prometheus::export_scrape_config {'kafka':
     target => $target,
   }
