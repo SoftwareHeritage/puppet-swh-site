@@ -2540,7 +2540,6 @@ desktop::printers::cups_usernames:
 
 zookeeper::clusters:
   rocquencourt:
-    1: getty.internal.softwareheritage.org
     11: esnode1.internal.softwareheritage.org
     12: esnode2.internal.softwareheritage.org
     13: esnode3.internal.softwareheritage.org
@@ -2571,13 +2570,10 @@ kafka::clusters:
   rocquencourt:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
-      - getty.internal.softwareheritage.org
       - esnode1.internal.softwareheritage.org
       - esnode2.internal.softwareheritage.org
       - esnode3.internal.softwareheritage.org
     brokers:
-      getty.internal.softwareheritage.org:
-        id: 1
       esnode1.internal.softwareheritage.org:
         id: 11
       esnode2.internal.softwareheritage.org:
