@@ -84,6 +84,13 @@ class profile::kafka::broker {
     content  => "[Service]\nTimeoutStopSec=infinity\n",
   }
 
+  ::systemd::dropin_file {"kafka/exitcode.conf":
+    ensure   => present,
+    unit     => "kafka.service",
+    filename => 'exitcode.conf',
+    content  => "[Service]\nSuccessExitStatus=143\n",
+  }
+
   ::profile::prometheus::export_scrape_config {'kafka':
     target => $target,
   }
