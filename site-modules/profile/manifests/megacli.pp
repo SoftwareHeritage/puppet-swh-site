@@ -8,7 +8,7 @@ class profile::megacli {
 
   apt::source { 'hwraid_levert':
     location => 'http://hwraid.le-vert.net/debian',
-    release  => 'stretch',
+    release  => $::lsbdistcodename,
     repos    => 'main',
     key      => {
       id      => $keyid,
