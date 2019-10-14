@@ -118,6 +118,9 @@ class profile::swh::deploy::webapp {
       timeout          => $backend_http_timeout,
       graceful_timeout => $backend_reload_mercy,
       keepalive        => $backend_http_keepalive,
+    },
+    environment => {
+      'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
     }
   }
 
