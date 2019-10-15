@@ -308,15 +308,20 @@ class profile::phabricator {
     tag           => 'icinga2::exported',
   }
 
+  # Needs refactoring
+  $ssh_known_hosts_dir = '/etc/ssh/puppet_known_hosts'
+  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::fqdn}.keys"
+
   each($::ssh) |$algo, $data| {
     $real_algo = $algo ? {
       'ecdsa' => 'ecdsa-sha2-nistp256',
       default => $algo,
     }
-    @@sshkey {"phabricator-${::fqdn}-${real_algo}":
-      host_aliases => [$phabricator_vhost_name],
-      type         => $real_algo,
-      key          => $data['key'],
+    @@::concat::fragment {"ssh-phabricator-${::fqdn}-${real_algo}":
+      target  => $ssh_known_hosts_target,
+      content => inline_template("<%= @phabricator_vhost_name %> <%= @real_algo %> <%= @data['key'] %>\n"),
+      order   => '20',
+      tag     => 'ssh_known_hosts',
     }
   }
 }
