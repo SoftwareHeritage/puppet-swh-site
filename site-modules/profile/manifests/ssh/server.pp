@@ -45,38 +45,86 @@ class profile::ssh::server {
     }
   }
 
-  each($::ssh) |$algo, $data| {
-    $real_algo = $algo ? {
-      'ecdsa' => 'ecdsa-sha2-nistp256',
-      default => $algo,
-    }
+  # SSH key management
 
-    $aliases = [
-      values($::swh_hostname),
-      ip_for_network(lookup('internal_network')),
-      $::public_ipaddresses,
-    ]
-    .flatten
-    .unique
-    .filter |$x| { !!$x } # filter empty values
-    .map |$x| {
-      case $sshd_port {
-        22: {
-          case $x {
-            /:/: { "[${x}]" } # bracket IPv6 addresses
-            default: { $x }
-          }
+  $ssh_known_hosts_dir = '/etc/ssh/puppet_known_hosts'
+  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::fqdn}.keys"
+
+  $ssh_known_hosts = '/etc/ssh/ssh_known_hosts'
+
+  file {$ssh_known_hosts_dir:
+    ensure  => directory,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    purge   => true,
+    recurse => true,
+    notify  => Exec['update ssh_known_hosts'],
+  }
+
+  @@::concat {$ssh_known_hosts_target:
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    notify => Exec['update ssh_known_hosts'],
+    tag    => 'ssh_known_hosts',
+  }
+
+  @@::concat::fragment {"ssh_known_hosts-header-${::fqdn}":
+    target  => $ssh_known_hosts_target,
+    content => "# Known hosts for ${::fqdn}\n",
+    order   => '00',
+    tag     => 'ssh_known_hosts',
+  }
+
+  @@::concat::fragment {"ssh_known_hosts-footer-${::fqdn}":
+    target  => $ssh_known_hosts_target,
+    content => "# End known hosts for ${::fqdn}\n\n",
+    order   => '99',
+    tag     => 'ssh_known_hosts',
+  }
+
+  exec {'update ssh_known_hosts':
+    command     => "cat ${ssh_known_hosts_dir}/* > ${ssh_known_hosts}",
+    path        => ['/bin', '/usr/bin'],
+    refreshonly => true,
+  }
+
+  $ssh_aliases = [
+    values($::swh_hostname),
+    ip_for_network(lookup('internal_network')),
+    $::public_ipaddresses,
+  ]
+  .flatten
+  .unique
+  .filter |$x| { !!$x } # filter empty values
+  .map |$x| {
+    case $sshd_port {
+      22: {
+        case $x {
+          /:/: { "[${x}]" } # bracket IPv6 addresses
+          default: { $x }
         }
-        default: { "[${x}]:${sshd_port}" } # specify non-default ssh port
       }
-    }
-
-    @@sshkey {"ssh-${::fqdn}-${real_algo}":
-      host_aliases => $aliases,
-      type         => $real_algo,
-      key          => $data['key'],
+      default: { "[${x}]:${sshd_port}" } # specify non-default ssh port
     }
   }
 
-  Sshkey <<| |>>
+  each($::ssh) |$algo, $data| {
+    $real_algo = $algo ? {
+      'ecdsa' => 'ecdsa-sha2-nistp256',
+      default => "ssh-${algo}",
+    }
+
+    @@::concat::fragment {"ssh-${::fqdn}-${real_algo}":
+      target  => $ssh_known_hosts_target,
+      content => inline_template("<%= @ssh_aliases.join(',') %> <%= @real_algo %> <%= @data['key'] %>\n"),
+      order   => '10',
+      tag     => 'ssh_known_hosts',
+    }
+  }
+
+  Concat <<| tag == 'ssh_known_hosts' |>> -> Exec['update ssh_known_hosts']
+  Concat::Fragment <<| tag == 'ssh_known_hosts' |>> -> Exec['update ssh_known_hosts']
 }
