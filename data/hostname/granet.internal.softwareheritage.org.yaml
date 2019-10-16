@@ -1,0 +1,4 @@
+users:
+  seirl:
+    groups:
+      - sudo
