@@ -156,7 +156,7 @@ node 'vault.internal.staging.swh.network' {
 }
 
 node 'journal0.internal.staging.swh.network' {
-  include role::swh_journal_orchestrator
+  include role::swh_journal_allinone
 }
 
 node default {
