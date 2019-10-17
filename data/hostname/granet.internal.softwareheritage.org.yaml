@@ -2,3 +2,6 @@ users:
   seirl:
     groups:
       - sudo
+
+icinga2::host::vars:
+  load: high
