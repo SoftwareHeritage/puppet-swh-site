@@ -834,6 +834,9 @@ bind::resource_records:
   scheduler0/A:
     record: scheduler0.internal.staging.swh.network
     data: 192.168.128.4
+  journal0/A:
+    record: journal0.internal.staging.swh.network
+    data: 192.168.128.10
   worker0/A:
     record: worker0.internal.staging.swh.network
     data: 192.168.128.5
