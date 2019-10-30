@@ -1,7 +1,14 @@
 users:
+  olasd:
+    groups:
+      - docker
   seirl:
     groups:
       - sudo
+      - docker
+  zack:
+    groups:
+      - docker
 
 icinga2::host::vars:
   load: high
