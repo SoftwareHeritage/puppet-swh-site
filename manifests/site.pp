@@ -46,6 +46,10 @@ node /^kafka\d+\./ {
   include role::swh_kafka_broker
 }
 
+node 'granet.internal.softwareheritage.org' {
+  include role::swh_graph_backend
+}
+
 node /^(unibo-test).(internal.)?softwareheritage.org$/ {
   include role::swh_vault_test
 }
