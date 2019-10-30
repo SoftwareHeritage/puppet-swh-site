@@ -25,6 +25,20 @@ class profile::docker {
     enable => true,
   }
 
+  $docker_daemon_config = {
+    dns => lookup('dns::forwarders'),
+  }
+
+  file {'/etc/docker/daemon.json':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/docker/daemon.json.erb'),
+    notify  => Service['docker'],
+    require => Package['docker-ce'],
+  }
+
   group {'docker':
     require => Package['docker-ce'],
   }
