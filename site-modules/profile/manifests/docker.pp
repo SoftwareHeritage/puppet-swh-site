@@ -24,4 +24,8 @@ class profile::docker {
     ensure => running,
     enable => true,
   }
+
+  group {'docker':
+    require => Package['docker-ce'],
+  }
 }
