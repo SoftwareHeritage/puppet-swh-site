@@ -41,12 +41,8 @@ class profile::icinga2::master {
     pki             => 'puppet',
     accept_commands => true,
     zones           => {
-      'NodeName' => {
-        endpoints => ['NodeName'],
-        parent    => $zonename,
-      },
       $zonename => {
-        endpoints => [],
+        endpoints => ['NodeName'],
       }
     },
   }
