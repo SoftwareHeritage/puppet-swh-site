@@ -2994,3 +2994,5 @@ swh::postgres::service::dbs:
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::indexer::storage::db::password')}"
+
+elastic::elk_version: '6.8.4'

@@ -621,7 +621,6 @@ elastic::apt_config::key: |
   qPDlGRlOgVTd9xUfHFkzB52c70E=
   =92oX
   -----END PGP PUBLIC KEY BLOCK-----
-elastic::elk_version: '6.4.2'
   
 hwraid_levert::apt_config::keyid: 0073C11919A641464163F7116005210E23B3D3B4
 hwraid_levert::apt_config::key: |
