@@ -167,7 +167,7 @@ class profile::swh::deploy::deposit {
     content => $vhost_basic_auth_content,
   }
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"swh-deposit api (localhost on ${::fqdn})":
     service_name     => 'swh-deposit api (localhost)',

@@ -46,7 +46,7 @@ class profile::icinga2::master {
         parent    => $zonename,
       },
       $zonename => {
-        endpoints => [$::fqdn],
+        endpoints => [],
       }
     },
   }

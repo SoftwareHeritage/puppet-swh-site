@@ -149,7 +149,7 @@ class profile::debian_repository {
     ],
   }
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"debian repository http redirect on ${::fqdn}":
     service_name  => 'debian repository http redirect',

@@ -53,7 +53,7 @@ class profile::grafana::vhost {
     ],
   }
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"grafana http redirect on ${::fqdn}":
     service_name  => 'grafana http redirect',

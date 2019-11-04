@@ -70,7 +70,7 @@ class profile::icinga2::icingaweb2::vhost {
     ],
   }
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"icingaweb2 http redirect on ${::fqdn}":
     service_name  => 'icingaweb2 http redirect',

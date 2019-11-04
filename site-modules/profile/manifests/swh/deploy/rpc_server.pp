@@ -111,7 +111,7 @@ define profile::swh::deploy::rpc_server (
     },
   }
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"swh-${instance_name} api (localhost on ${::fqdn})":
     service_name     => "swh-${instance_name} api (localhost)",

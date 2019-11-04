@@ -39,7 +39,7 @@ class profile::rabbitmq {
   }
 
   # monitoring user for the icinga check
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
     service_name  => 'rabbitmq server',

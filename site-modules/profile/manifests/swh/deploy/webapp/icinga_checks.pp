@@ -1,7 +1,7 @@
 class profile::swh::deploy::webapp::icinga_checks {
   $vhost_name = $::profile::swh::deploy::webapp::vhost_name
   $vhost_ssl_port = $::profile::swh::deploy::webapp::vhost_ssl_port
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   $checks = {
     'counters'      => {

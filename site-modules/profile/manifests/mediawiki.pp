@@ -33,7 +33,7 @@ class profile::mediawiki {
   $mediawiki_vhost_ssl_cipher = lookup('mediawiki::vhost::ssl_cipher')
   $mediawiki_vhost_hsts_header = lookup('mediawiki::vhost::hsts_header')
 
-  $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   each ($mediawiki_vhosts) |$name, $data| {
     $secret_key = $data['secret_key']

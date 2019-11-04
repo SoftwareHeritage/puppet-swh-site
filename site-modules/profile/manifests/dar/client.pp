@@ -34,7 +34,7 @@ class profile::dar::client {
     }
 
     # Export an icinga check to verify backup freshness
-    $icinga_checks_file = '/etc/icinga2/conf.d/exported-checks.conf'
+    $icinga_checks_file = lookup('icinga2::exported_checks::filename')
     $checked_directory = "${dir_for_fetched_backups}/${dar_remote_hostname}"
 
     @@::icinga2::object::service {"backup freshness for ${dar_remote_hostname}":

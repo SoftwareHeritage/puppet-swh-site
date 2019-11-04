@@ -2689,6 +2689,8 @@ icinga2::apiusers:
     permissions:
       - '*'
 
+icinga2::exported_checks::filename: "/etc/icinga2/zones.d/%{hiera('icinga2::parent_zone')}/exported-checks.conf"
+
 systemd_journal::logstash_hosts:
   - 'logstash.internal.softwareheritage.org:5044'
 
