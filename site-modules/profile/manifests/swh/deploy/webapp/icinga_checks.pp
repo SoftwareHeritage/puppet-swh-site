@@ -6,12 +6,12 @@ class profile::swh::deploy::webapp::icinga_checks {
   $checks = {
     'counters'      => {
       http_uri    => '/api/1/stat/counters/',
-      http_string => '\"content\":',
+      http_string => '"content":',
     },
     'content known' => {
       http_uri    => '/api/1/content/known/search/',
       http_post   => 'q=8624bcdae55baeef00cd11d5dfcfa60f68710a02',
-      http_string => '\"found\":true',
+      http_string => '"found":true',
     },
     'content end to end' => {
       http_uri    => '/browse/content/4dfc4478b1d5f7388b298fdfc06802485bdeae0c/',
