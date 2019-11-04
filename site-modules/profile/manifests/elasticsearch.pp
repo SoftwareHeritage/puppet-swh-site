@@ -40,10 +40,12 @@ class profile::elasticsearch {
     priority => 1001,
   }
 
-  # niofs increases I/O performance and node reliability
-  file_line { 'elasticsearch niofs':
+  # hybridfs is the best of both worlds between niofs and mmapfs. It's the ES
+  # 7.x default.
+  file_line { 'elasticsearch store type':
     ensure => present,
-    line   => 'index.store.type: niofs',
+    line   => 'index.store.type: hybridfs',
+    match  => '^(#\s*)?index\.store\.type:',
     path   => '/etc/elasticsearch/elasticsearch.yml',
   }
 
