@@ -40,8 +40,15 @@ class profile::icinga2::master {
   class { '::icinga2::feature::api':
     pki             => 'puppet',
     accept_commands => true,
-    zones           => {},
-    endpoints       => {},
+    zones           => {
+      'NodeName' => {
+        endpoints => ['NodeName'],
+        parent    => $zonename,
+      },
+      $zonename => {
+        endpoints => [$::fqdn],
+      }
+    },
   }
 
   class { '::icinga2::feature::idopgsql':
@@ -50,15 +57,6 @@ class profile::icinga2::master {
     database      => $icinga2_db_database,
     import_schema => true,
     require       => Postgresql::Server::Db[$icinga2_db_database],
-  }
-
-  @@::icinga2::object::endpoint {$::fqdn:
-    target => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
-  }
-
-  @@::icinga2::object::zone {$zonename:
-    endpoints => [$::fqdn],
-    target    => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
   @@::icinga2::object::host {$::fqdn:
