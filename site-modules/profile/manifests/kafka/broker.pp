@@ -31,6 +31,8 @@ class profile::kafka::broker {
     'broker.id'         => $broker_id
   }
 
+  $heap_opts = $kafka_cluster_config['broker::heap_opts']
+
   $kafka_logdirs = lookup('kafka::logdirs', Array)
   $kafka_logdirs.each |$logdir| {
     file {$logdir:
@@ -64,6 +66,7 @@ class profile::kafka::broker {
     config       => $kafka_config,
     opts         => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
     limit_nofile => '65536',
+    heap_opts    => $heap_opts,
     require      => [
       File[$exporter],
       File[$exporter_config],
