@@ -37,7 +37,7 @@ mod 'bind',
 
 mod 'apache',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
-    :tag => '3.0.0'
+    :tag => 'v5.2.0'
 
 mod 'ceph',
     :git => 'https://forge.softwareheritage.org/source/puppet-openstack-ceph',
