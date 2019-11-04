@@ -137,7 +137,7 @@ mod 'pgbouncer',
 
 mod 'puppet',
     :git => 'https://forge.softwareheritage.org/source/puppet-theforeman-puppet',
-    :tag => '8.2.0'
+    :ref => 'latest_passenger'
 
 mod 'puppetdb',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-puppetdb',
