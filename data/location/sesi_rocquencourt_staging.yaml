@@ -33,27 +33,22 @@ internal_network: 192.168.128.0/24
 smtp::relayhost: '[smtp.inria.fr]'
 
 swh::deploy::storage::db::host: db0.internal.staging.swh.network
-swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
 
 swh::deploy::indexer::storage::db::host: db0.internal.staging.swh.network
-swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::indexer::storage::db::user: swh-indexer
 swh::deploy::indexer::storage::db::dbname: swh-indexer
 
 swh::deploy::scheduler::db::host: db0.internal.staging.swh.network
-swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scheduler::db::user: swh-scheduler
 
 swh::deploy::deposit::db::host: deposit.internal.staging.swh.network
-swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbuser: swh-deposit
 swh::deploy::deposit::db::dbname: swh-deposit
 
 swh::deploy::vault::db::host: db0.internal.staging.swh.network
-swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 
