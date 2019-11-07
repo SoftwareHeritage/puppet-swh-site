@@ -61,7 +61,7 @@ mod 'debconf',
 
 mod 'debnet',
     :git => 'https://forge.softwareheritage.org/source/puppet-trepasi-debnet',
-    :ref => 'v1.5.2'
+    :ref => '8d856df078352a8848a43ca0ee9f2ef9086b343a'
 
 mod 'elasticsearch',
     :git => 'https://forge.softwareheritage.org/source/puppet-elastic-elasticsearch',
@@ -190,4 +190,3 @@ mod 'vcsrepo',
 mod 'zookeeper',
     :git => 'https://forge.softwareheritage.org/source/puppet-deric-zookeeper',
     :ref => 'v0.7.7'
-
