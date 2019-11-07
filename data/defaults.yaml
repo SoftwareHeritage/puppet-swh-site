@@ -1831,7 +1831,7 @@ swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 swh::deploy::worker::lister::db::host: db.internal.softwareheritage.org
 swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-# swh::deploy::worker::lister::db::password in private data
+# swh::deploy::lister::db::password in private data
 
 swh::deploy::worker::loader_debian::db::host: db.internal.softwareheritage.org
 swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
@@ -1889,7 +1889,7 @@ swh::deploy::worker::lister::config:
   lister:
     cls: local
     args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::worker::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
+      db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -2984,7 +2984,7 @@ swh::postgres::service::dbs:
     host: "%{hiera('swh::deploy::worker::lister::db::host')}"
     user: "%{hiera('swh::deploy::worker::lister::db::name')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    passwd: "%{hiera('swh::deploy::worker::lister::db::password')}"
+    passwd: "%{hiera('swh::deploy::lister::db::password')}"
   - alias: swh-replica
     name: "%{hiera('swh::deploy::storage::db::dbname')}"
     host: somerset.internal.softwareheritage.org
