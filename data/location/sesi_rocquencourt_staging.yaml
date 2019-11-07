@@ -52,6 +52,10 @@ swh::deploy::vault::db::host: db0.internal.staging.swh.network
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 
+swh::deploy::worker::lister::db::host: db0.internal.staging.swh.network
+swh::deploy::worker::lister::db::user: swh-lister
+swh::deploy::worker::lister::db::name: swh-lister
+
 swh::deploy::worker::instances:
   - checker_deposit
   - loader_deposit

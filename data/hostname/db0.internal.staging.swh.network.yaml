@@ -19,6 +19,9 @@ swh::dbs:
   vault:
     name: swh-vault
     user: swh-vault
+  lister:
+    name: swh-lister
+    user: swh-lister
 
 postgres::server::port: 5433
 postgres::server::listen_addresses:
@@ -51,6 +54,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-vault
+  - source_db: swh-lister
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-lister
 
 dar::backup::exclude:
   - srv/softwareheritage/postgres
