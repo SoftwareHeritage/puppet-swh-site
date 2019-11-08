@@ -844,6 +844,9 @@ bind::resource_records:
   worker1/A:
     record: worker1.internal.staging.swh.network
     data: 192.168.128.6
+  worker2/A:
+    record: worker2.internal.staging.swh.network
+    data: 192.168.128.11
   deposit/A:
     record: deposit.internal.staging.swh.network
     data: 192.168.128.7
