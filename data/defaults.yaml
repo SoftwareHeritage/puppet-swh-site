@@ -2818,7 +2818,7 @@ prometheus::node::defaults_config:
     diskstats:
       ignored_devices: "^(ram|loop|fd|(h|s|v|xv)d[a-z]|nvme\\d+n\\d+p)\\d+$"
     filesystem:
-      ignored_mount_points: "^/(sys|proc|dev|run|srv/softwareheritage/objects)($|/)"
+      ignored_mount_points: "^/(sys|proc|dev|run|srv/softwareheritage/objects/[0-9a-f][0-9a-f])($|/)"
     systemd: true
     logind: true
     loadavg: true
