@@ -1,10 +1,6 @@
-# Deployment for swh-loader-debian
+# Deployment for loader-debian
 class profile::swh::deploy::worker::loader_debian {
-  $packages = ['python3-swh.loader.debian']
-
-  package {$packages:
-    ensure => 'present',
-  }
+  include ::profile::swh::deploy::loader_package
 
   ::profile::swh::deploy::worker::instance {'loader_debian':
     ensure       => present,
