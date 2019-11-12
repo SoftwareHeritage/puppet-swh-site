@@ -1,18 +1,20 @@
 ---
-version: 4
-datadir: data
+version: 5
+defaults:
+  datadir: data         # datadir by default moved to 'defaults' folder
+  data_hash: yaml_data  # Default backend
 hierarchy:
-  - name: "private/hostname/%{trusted.certname}"
-    backend: yaml
-  - name: "private/location/%{::location}"
-    backend: yaml
-  - name: "private/defaults"
-    backend: yaml
-  - name: "hostname/%{trusted.certname}"
-    backend: yaml
-  - name: "location/%{::location}"
-    backend: yaml
-  - name: defaults_security
-    backend: yaml
-  - name: defaults
-    backend: yaml
+  - path: "private/hostname/%{trusted.certname}.yaml"
+    name: "Per hostname private credentials override"
+  - path: "private/location/%{::location}.yaml"
+    name: "Per location private credentials override"
+  - path: "private/defaults.yaml"
+    name: "Default private credentials"
+  - path: "hostname/%{trusted.certname}.yaml"
+    name: "Per hostname override configuration"
+  - path: "location/%{::location}.yaml"
+    name: "Per location override configuration"
+  - path: "defaults_security.yaml"
+    name: "Public keys configuration"
+  - path: "defaults.yaml"
+    name: "Main default configuration"
