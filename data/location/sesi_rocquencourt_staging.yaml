@@ -130,23 +130,3 @@ kafka::clusters:
 
 swh::deploy::journal::brokers:
   - journal0.internal.staging.swh.network
-
-swh::deploy::worker::loader_debian::config:
-  storage:
-    cls: filter
-    args:
-      storage:
-        cls: buffer
-        args:
-          storage: "%{alias('swh::remote_service::storage::config::writable')}"
-          min_batch_size:
-            content: 100000
-            content_bytes: 104857600
-            directory: 1000
-            revision: 1000
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.tasks
-    task_queues:
-      - swh.loader.package.tasks.LoadDebian
