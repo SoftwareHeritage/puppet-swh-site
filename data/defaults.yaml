@@ -1840,12 +1840,6 @@ swh::deploy::worker::lister::db::host: db.internal.softwareheritage.org
 swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 # swh::deploy::lister::db::password in private data
 
-swh::deploy::worker::loader_debian::db::host: db.internal.softwareheritage.org
-swh::deploy::worker::loader_debian::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-# in private data: swh::deploy::worker::loader_debian::db::password
-swh::deploy::worker::loader_debian::db::user: "%{alias('swh::deploy::worker::lister::db::user')}"
-swh::deploy::worker::loader_debian::db::dbname: "%{alias('swh::deploy::worker::lister::db::name')}"
-
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
 swh::deploy::worker::instances:
