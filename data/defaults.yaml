@@ -1879,7 +1879,7 @@ swh::deploy::worker::loader_debian::config:
         args:
           storage: "%{alias('swh::remote_service::storage::config::writable')}"
           min_batch_size:
-            content: 100000
+            content: 10000
             content_bytes: 104857600
             directory: 1000
             revision: 1000
@@ -1903,7 +1903,7 @@ swh::deploy::worker::loader_archive::config:
         args:
           storage: "%{alias('swh::remote_service::storage::config::writable')}"
           min_batch_size:
-            content: 100000
+            content: 10000
             content_bytes: 104857600
             directory: 1000
             revision: 1000
