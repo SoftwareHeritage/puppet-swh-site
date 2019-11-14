@@ -1873,6 +1873,7 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
 swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
+swh::deploy::worker::loader_debian::private_tmp: true
 swh::deploy::worker::loader_debian::concurrency: 1
 swh::deploy::worker::loader_debian::loglevel: info
 swh::deploy::worker::loader_debian::config:
