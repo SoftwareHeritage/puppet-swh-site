@@ -1890,6 +1890,29 @@ swh::deploy::worker::loader_debian::config:
     task_queues:
       - swh.loader.package.tasks.LoadDebian
 
+swh::deploy::worker::loader_archive::config_file: "%{hiera('swh::conf_directory')}/loader_archive.yml"
+swh::deploy::worker::loader_archive::concurrency: 1
+swh::deploy::worker::loader_archive::loglevel: info
+swh::deploy::worker::loader_archive::config:
+  storage:
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 100000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.loader.package.tasks
+    task_queues:
+      - swh.loader.package.tasks.LoadArchive
+
 swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
 swh::deploy::worker::lister::concurrency: 5
 swh::deploy::worker::lister::loglevel: warning
