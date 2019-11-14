@@ -57,6 +57,7 @@ swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 
 swh::deploy::worker::instances:
+  - loader_archive
   - checker_deposit
   - loader_debian
   - loader_deposit

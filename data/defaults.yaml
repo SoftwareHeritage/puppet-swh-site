@@ -1891,6 +1891,7 @@ swh::deploy::worker::loader_debian::config:
       - swh.loader.package.tasks.LoadDebian
 
 swh::deploy::worker::loader_archive::config_file: "%{hiera('swh::conf_directory')}/loader_archive.yml"
+swh::deploy::worker::loader_archive::private_tmp: true
 swh::deploy::worker::loader_archive::concurrency: 1
 swh::deploy::worker::loader_archive::loglevel: info
 swh::deploy::worker::loader_archive::config:
