@@ -745,6 +745,10 @@ bind::resource_records:
     type: CNAME
     record: faitout.internal.softwareheritage.org
     data: prado.internal.softwareheritage.org.
+  graph/CNAME:
+    type: CNAME
+    record: graph.internal.softwareheritage.org
+    data: granet.internal.softwareheritage.org.
   logstash/CNAME:
     type: CNAME
     record: logstash.internal.softwareheritage.org
