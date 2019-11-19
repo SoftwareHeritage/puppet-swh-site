@@ -23,6 +23,7 @@ smtp::relayhost: '[smtp.inria.fr]'
 swh::deploy::worker::instances:
   - checker_deposit
   - lister
+  - loader_archive
   - loader_debian
   - loader_deposit
   - loader_git
