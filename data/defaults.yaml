@@ -1990,13 +1990,25 @@ swh::deploy::worker::loader_npm::concurrency: 1
 swh::deploy::worker::loader_npm::private_tmp: true
 swh::deploy::worker::loader_npm::loglevel: info
 swh::deploy::worker::loader_npm::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  storage:
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 10000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
+
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.npm.tasks
+      - swh.loader.package.tasks
     task_queues:
-      - swh.loader.npm.tasks.LoadNpm
+      - swh.loader.package.tasks.LoadNpm
 
 swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
 swh::deploy::worker::loader_svn::concurrency: 1
