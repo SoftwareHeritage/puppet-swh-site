@@ -1978,16 +1978,17 @@ swh::deploy::worker::loader_pypi::private_tmp: true
 swh::deploy::worker::loader_pypi::loglevel: info
 swh::deploy::worker::loader_pypi::config:
   storage:
-    cls: pipeline
-    steps:
-      - cls: filter
-      - cls: buffer
-        min_batch_size:
-          content: 10000
-          content_bytes: 104857600
-          directory: 1000
-          revision: 1000
-      - *swh_remote_service_storage_config_writable
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 10000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
