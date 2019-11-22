@@ -1991,10 +1991,9 @@ swh::deploy::worker::loader_pypi::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.pypi.tasks
+      - swh.loader.package.tasks
     task_queues:
-      - swh.loader.pypi.tasks.LoadPyPI
-      - swh_loader_pypi
+      - swh.loader.package.tasks.LoadPyPI
 
 swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
 swh::deploy::worker::loader_npm::concurrency: 1
