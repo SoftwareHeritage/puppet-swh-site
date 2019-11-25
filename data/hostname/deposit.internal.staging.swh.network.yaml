@@ -25,7 +25,7 @@ pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
 pgbouncer::listen_addr: 192.168.128.7
 pgbouncer::databases:
   - source_db: swh-deposit
-    host: deposit.internal.staging.swh.network
+    host: localhost
     auth_user: postgres
     port: 5433
     alias: staging-swh-deposit
