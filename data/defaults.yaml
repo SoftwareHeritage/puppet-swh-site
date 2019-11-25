@@ -1518,6 +1518,7 @@ swh::deploy::deposit::config:
       user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
       password: "%{hiera('swh::deploy::deposit::db::password')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
+  loader-version: 2
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 1
@@ -1530,13 +1531,14 @@ swh::deploy::worker::loader_deposit::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.deposit.loader.tasks
+      - swh.loader.package.tasks
     task_queues:
-      - swh.deposit.loader.tasks.LoadDepositArchiveTsk
-  url: "%{alias('swh::deploy::deposit::url')}"
-  auth:
-    username: "%{hiera('deposit_basic_auth_swhworker_username')}"
-    password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+      - swh.loader.package.tasks.LoadDeposit
+  deposit:
+    url: "%{alias('swh::deploy::webapp::deposit::private::url')}"
+    auth:
+      username: "%{hiera('deposit_basic_auth_swhworker_username')}"
+      password: "%{hiera('deposit_basic_auth_swhworker_password')}"
 
 swh::deploy::worker::checker_deposit::config_file: "%{hiera('swh::conf_directory')}/checker_deposit.yml"
 swh::deploy::worker::checker_deposit::concurrency: 1
