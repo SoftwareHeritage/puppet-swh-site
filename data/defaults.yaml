@@ -1787,50 +1787,6 @@ swh::deploy::scheduler::remote::backend::server_names:
   - "::1"
 swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
-swh::deploy::scheduler::updater::backend::conf_dir: "%{hiera('swh::conf_directory')}/backend"
-swh::deploy::scheduler::updater::backend::conf_file: "%{hiera('swh::deploy::scheduler::updater::backend::conf_dir')}/scheduler-updater.yml"
-swh::deploy::scheduler::updater::backend::user: swhscheduler
-swh::deploy::scheduler::updater::backend::group: swhscheduler
-swh::deploy::scheduler::updater::backend::db::host: db.internal.softwareheritage.org
-swh::deploy::scheduler::updater::backend::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::scheduler::updater::backend::db::dbname: softwareheritage-scheduler-updater
-swh::deploy::scheduler::updater::backend::db::user: swhscheduler
-swh::deploy::scheduler::updater::backend::config:
-  scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} port=%{hiera('swh::deploy::scheduler::updater::backend::db::port')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
-  cache_read_limit: 1000
-
-swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir: "%{hiera('swh::conf_directory')}/backend"
-swh::deploy::scheduler::updater::consumer::ghtorrent::conf_file: "%{hiera('swh::deploy::scheduler::updater::consumer::ghtorrent::conf_dir')}/ghtorrent.yml"
-swh::deploy::scheduler::updater::consumer::user: swhscheduler
-swh::deploy::scheduler::updater::consumer::group: swhscheduler
-
-swh::deploy::scheduler::updater::consumer::ghtorrent::user: streamer
-swh::deploy::scheduler::updater::consumer::ghtorrent::port: 2765
-
-swh::deploy::scheduler::updater::consumer::ghtorrent::config:
-  conn:
-    url: "amqp://%{hiera('swh::deploy::scheduler::updater::consumer::ghtorrent::user')}:%{hiera('swh::deploy::scheduler::updater::consumer::ghtorrent::password')}@localhost:%{hiera('swh::deploy::scheduler::updater::consumer::ghtorrent::port')}"
-    exchange_name: ght-streams
-    routing_key: evt.*.insert
-    queue_name: swh_queue
-  debug: no
-  batch_cache_write: 1000
-  rabbitmq_prefetch_read: 1000
-
-swh::deploy::scheduler::updater::writer::conf_dir: "%{hiera('swh::conf_directory')}/backend"
-swh::deploy::scheduler::updater::writer::conf_file: "%{hiera('swh::deploy::scheduler::updater::writer::conf_dir')}/scheduler-updater-writer.yml"
-swh::deploy::scheduler::updater::writer::user: swhscheduler
-swh::deploy::scheduler::updater::writer::group: swhscheduler
-# systemd-analyze calendar "*-*-* *:00:00"
-swh::deploy::scheduler::updater::writer::timer_period: "00/4:00"
-swh::deploy::scheduler::updater::writer::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  scheduler_updater:
-    scheduling_updater_db: "host=%{hiera('swh::deploy::scheduler::updater::backend::db::host')} dbname=%{hiera('swh::deploy::scheduler::updater::backend::db::dbname')} user=%{hiera('swh::deploy::scheduler::updater::backend::db::user')} password=%{hiera('swh::deploy::scheduler::updater::backend::db::password')}"
-    cache_read_limit: 1000
-  pause: 10
-  verbose: no
-
 swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
