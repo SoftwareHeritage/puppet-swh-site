@@ -1652,6 +1652,9 @@ swh::deploy::webapp::config::throttling:
         - 213.135.60.146
         # DINSIC
         - 37.187.137.47
+    swh_api_origin_search:
+      limiter_rate:
+        default: 10/m
     swh_api_origin_visit_latest:
       # This endpoint gets called a lot (by default, up to 70 times
       # per origin search), so it deserves a much higher rate-limit
