@@ -26,7 +26,7 @@ class profile::docker {
   }
 
   $docker_daemon_config = {
-    dns => lookup('dns::forwarders'),
+    dns => lookup('dns::local_nameservers'),
   }
 
   file {'/etc/docker/daemon.json':
