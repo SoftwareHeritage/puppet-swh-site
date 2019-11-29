@@ -77,7 +77,7 @@ mod 'grafana',
 
 mod 'hitch',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-hitch',
-    :ref => 'feature/additional-config'
+    :ref => 'feature/additional-config-0.1.5'
 
 mod 'icinga2',
     :git => 'https://forge.softwareheritage.org/source/puppet-icinga-icinga2',
