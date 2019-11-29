@@ -13,6 +13,7 @@ dns::forward_zones:
   'internal.softwareheritage.org.': "%{alias('dns::local_nameservers')}"
   '100.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   '101.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
+  '200.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
 
 # dns::forwarders per-location. No Default value
 # dns::local_nameservers per-location. No Default value
