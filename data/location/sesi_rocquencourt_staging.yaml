@@ -15,7 +15,7 @@ dns::forward_zones:
   'internal.softwareheritage.org.': "%{alias('dns::local_nameservers')}"
   '100.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   '101.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
-  'internal.staging.swh.network': "%{alias('dns::local_nameservers')}"
+  'internal.staging.swh.network.': "%{alias('dns::local_nameservers')}"
   '128.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
 
 dns::forwarders:
