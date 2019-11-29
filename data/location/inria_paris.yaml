@@ -1,13 +1,9 @@
 ---
 timezone: Europe/Paris
 
-dns::forward_zones:
-  'internal.softwareheritage.org.':
-    - 192.168.100.29
-  '100.168.192.in-addr.arpa.':
-    - 192.168.100.29
-  '101.168.192.in-addr.arpa.':
-    - 192.168.100.29
+dns::local_nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
 
 dns::forwarders:
   - 128.93.77.234

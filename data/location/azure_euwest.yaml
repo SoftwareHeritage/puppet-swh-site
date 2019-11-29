@@ -1,11 +1,7 @@
 ---
-dns::forward_zones:
-  'internal.softwareheritage.org.':
-    - 192.168.200.22
-  '100.168.192.in-addr.arpa.':
-    - 192.168.200.22
-  '101.168.192.in-addr.arpa.':
-    - 192.168.200.22
+dns::local_nameservers:
+  - 192.168.200.22
+  - 192.168.100.29
 
 dns::forwarders: []
 dns::forwarder_insecure: false

@@ -8,8 +8,14 @@ dns::nameservers:
 dns::search_domains:
   - internal.softwareheritage.org
   - softwareheritage.org
-# dns::forward_zones per-location. No default value
+
+dns::forward_zones:
+  'internal.softwareheritage.org.': "%{alias('dns::local_nameservers')}"
+  '100.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
+  '101.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
+
 # dns::forwarders per-location. No Default value
+# dns::local_nameservers per-location. No Default value
 
 # ntp::servers per-location. Default value:
 ntp::servers:
