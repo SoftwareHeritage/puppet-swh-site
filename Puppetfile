@@ -63,6 +63,10 @@ mod 'debnet',
     :git => 'https://forge.softwareheritage.org/source/puppet-trepasi-debnet',
     :ref => '8d856df078352a8848a43ca0ee9f2ef9086b343a'
 
+mod 'docker',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-docker',
+    :ref => 'v3.8.0'
+
 mod 'elasticsearch',
     :git => 'https://forge.softwareheritage.org/source/puppet-elastic-elasticsearch',
     :ref => '6.2.2'
