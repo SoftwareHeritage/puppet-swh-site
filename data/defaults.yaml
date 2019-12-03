@@ -3038,3 +3038,13 @@ swh::postgres::service::dbs:
     passwd: "%{hiera('swh::deploy::indexer::storage::db::password')}"
 
 elastic::elk_version: '6.8.4'
+
+# sentry::secret_key in private-data
+
+sentry::postgres::host: db.internal.softwareheritage.org
+sentry::postgres::port: 5432
+sentry::postgres::dbname: sentry
+sentry::postgres::user: sentry
+# sentry::postgres::password in private-data
+
+sentry::kafka_cluster: rocquencourt
