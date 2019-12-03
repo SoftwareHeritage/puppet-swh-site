@@ -15,5 +15,5 @@ class profile::jenkins::service {
     enable => true,
   }
 
-  Exec <| tag == 'reload_jenkins' |> ~> Service['jenkins']
+  Docker::System_user <| tag == 'reload_jenkins' |> ~> Service['jenkins']
 }
