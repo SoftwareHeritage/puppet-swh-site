@@ -49,12 +49,6 @@ smtp::mail_aliases:
   - user: ddouard
     aliases:
       - david.douard@sdfa3.org
-  - user: fiendish
-    aliases:
-      - patcherton.fixesthings@gmail.com
-  - user: ftigeot
-    aliases:
-      - ftswh@wolfpond.org
   - user: olasd
     aliases:
       - nicolas+swhinfra@dandrimont.eu
@@ -72,7 +66,6 @@ smtp::mail_aliases:
       - olasd
       - zack
       - ardumont
-      - ftigeot
   - user: seirl
     aliases:
       - antoine.pietri1@gmail.com
@@ -327,11 +320,13 @@ users:
     uid: 2001
     full_name: Jordi Bertran de Balanda
     shell: /bin/false
+    groups: []
     password: "!"
   qcampos:
     uid: 2002
     full_name: Quentin Campos
     shell: /bin/false
+    groups: []
     password: "!"
   gitorious:
     uid: 5000
@@ -342,15 +337,9 @@ users:
   fiendish:
     uid: 1011
     full_name: Avi Kelman
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhstorage
-      - swhteam
-    authorized_keys:
-      avi@Temperance:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAAEAQCi9FEAQZ+WvvuVKjm5EJRgW1xwKfQwndBtZhJ8qqFVpHCl25tQW4ndfHVdr1BJmXVbAKlfsZs/hYBQq6JbTaxHZKGyajNZfuXOQ71CR2pn0XytpcMyt8l893BLOriTLhKoKXNwzjdCY7LmhNWDqR0GHm8C1d6fI7oYG+0PiTQr8cJ8wYvdVH5qrhzKMLJmGIbSOkQxCFYUjpXLk53fsAVyUMTn5SV9CTfMLCQ4nh2IXbbOVC3sIShNINzhNhkRTbHMHmo4Ujmn2jC6qtk3lawCTmrXNn7/mRgfrSkt5fSisSFM1xZ17wBG+zxQbnK00zcTHfDdxBmmsES5lWIndM4CqUwGgBtGGvrHsNS12XTsmvM4FA2DSiiKVLhTTQnG4B0CUcZFJn+dLDk+9IRN2uDbOY7Sg6653cJWYAeZq4YXtmhccCgtz82I5CtPYTMMZJqlHjvcGl9euafKPC196MPcWPXGNsidP/g3BZNncZE/4RgnbQChqiS4juXLB3KtIH6C50g1GZq/azrvZFlzU0Z9kzK99Vw0xPFIfi5wobWEq0JS31BHsd+NIVgm/riZIheb3hi3jyS2+Awm00aLwjEtS+x31xn99WZg2fRp8xpbbiZwMn5QlxarDWV6afySlWRe+iUdRtM2PGMBwSosQcrvKe/rOD27c/Sa5dWPvrrVsKBEATpFcy5XnNEcPxAbYGx0IY4CulVe0EYVH8jSoRhUQn4O41N8St3cmJPFGBfUP5v7/QdXhR8m+6yZKlaFTzdz0ZEcmc/TaCBxxBywuNPiLHZtIBJVuUPGAZC0eidmYK7iva2/a4lhuDXA5mVYm6lQzjdv+mUGqjkEzQ23LCMg3tA+6ewTZwJzoUTTXosgLqVhJ4KchJTbGYdvG7IRQmmyTzRwHkqJej2e+xgdPPY2BFBl3WA+dEle6gMR7FB54ubIrCdJfb5hwVaGlcK3s4KpXapAjHP7jndsPKVSPP8Ax0fqPiCOw3wTIyQGV+ZfLf7PjqpTAQn7a1QA6CUG47p9HqofEqrrQEDyC9vRan7NeD5IVQq7dpgGwx4zEDnR1m2hfuoXzDRM4Vd+uNhC0WotkGJatKZeaoHx8P9VE8zhir2Py71AxellhfvGuzxPJ4XNDRjAenMmSbVURyLFpt6iA2bFeolCCb7qVodKORvquFRQEXTlkAxRj7OiMDzniRfZbtGER9zkXGp9+Sw3gz+igxND5KAzJgt2ubpChF1KyxKEu1QCeZ3n+1pIdeTSZT0rFSnZNYdb/UuIlKgICqxU0sutXIZqY1k5QSFWVNjA60QuWLMDW5CrhouGdFEBCksKDKiJinhcHXiDx93LJYzG2CVPTuW+gka0ZyfS18pN
+    shell: /bin/false
+    groups: []
+    password: "!"
   morane:
     uid: 1012
     full_name: Morane Otilia Gruenpeter
@@ -379,18 +368,9 @@ users:
   ssushant:
     uid: 1014
     full_name: Sushant
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhstorage
-      - swhteam
-    authorized_keys:
-      sushant.mukhija0@gmail.com:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCvWoRsznkpBZpgGd9qjbW8Vt6wrUSKw/0fm+HzQDEUsiajG9Igy9VJcMiU6CwFmXvsRjY5Sm4z7aZLpCn0d73ixmNWHy60UG1mnN+BVdfzxEZFfBiLw/PBaKgTpa00yMQbvszXfAnlo1ttnadCdCYWBBBYCx25HEp7MJyORFbbVkqukmp1rJN1o4zUKX7jkrnMHH/vaNdH+dBJAQP0rP/o6LR6GNeWX4hW8/0VgdVqiqqdHpy8OvB9tXKCwY1YYmr6lecOS20msak4UDA8uvufPc37KtxVcvbOstMTkmkSZ4RBxruNfF/GK/pUfg2e6j6B9JkNX4D22C/8NJWydMNxGsn3HMe6bu2QcQf+QgfqqzHZzcwQitHPF9vHMLg0TJLZNM1lAFSJeJkls4cVW/fko8pGrYouRv2ktcRAdugmfw/3txDuVJXOjjPdbLrI3+8TPYQvvPMBodgoxbDxKduO4qY+j8PmqdjjMWayDkasy2nIVwbJHQlmz687BvIRLv80t3RqeYpkjUBK6vld5RDgiZN+HdtlyLL49M5BuD7Gu+iXCziCmJjV1LfY3H29oJsx1SICnbuSjXpIRO+XnMTkgNuCOHtjnbErQnGq+tb7l1UDVw5xWqbeWcVIq5/vmPZRnIZyMvAAuq8bMPaew5oywAs55esdJ6oVgO6w4DX1OQ==
-      sushant.mukhija0@gmail.com-2:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC4oLTkZZscbdiMZnh/p8VhfEyRKapqRT7L24kTxxL9Y9QWj3DzCQ7tj8SK/0Y+O0NcrZtXZS/Mx/f6qAjuZwp6Vzo3hLcB016gd5+6suFwz5wfwLFlwF6zgRFc9SqlKuVQdfc0aUvkjReUUalvqXioUqAWi633ZCMGmvjI3c7paIaeGtmjJ2TUE/Qm7x/XxURwk02Y+t7yNhGRGeaGBTKW/OZmIkkaFiSA2syHVRB+fdynPcilYhzaKKWs+6OjG4osKGVJaSef02dSSYHXI4D0HcLgVjExDCt2GGp0Q8e3fFo954btoXLpmij+fOJH1DpHKfUFyOkAnGVOz1wM3Y97
+    shell: /bin/false
+    groups: []
+    password: "!"
   anlambert:
     uid: 1015
     full_name: Antoine Lambert
@@ -418,15 +398,9 @@ users:
   ftigeot:
     uid: 1017
     full_name: Francois Tigeot
-    shell: /usr/bin/zsh
-    groups:
-      - adm
-      - swhteam
-      - sudo
-    authorized_keys:
-      ftswh@wolfpond.org:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDXpL8nJw6kUgXSxxO1GrScPWYA7wa1ng7VwF0l1StAVavRGcYpYHdahCYrdIz4QF6fY+HSsUoTwyMHLsmU8tHOK6Urx+EAnUB0t6x0v3wfuwKslAK0hHSgZYGIEkFd4qWX2guHwekIILrSIj+TnlodFMUw5ulCrcGIj8Ss2YZlxXkw8opFLNA22cmrYVwHryv0yfYFejnpBlM9WLA8R8ZKc5Du9Enx5fG0YIFjPH4aaU20W77b+aIQrJTIostANwhSn2TnbhubFklqM314LfgUpVC7+rIe5L5Vk3iY0FHhYN4cBi1DK7NVrw1gwfuBt2Hpjnv/4FRazmn7LM+F0eLdYWzIFVv68vrCtOSSxvUeJtjDYWLWPn/sBJQ8/5yOP3vhxAJAgIvvHnWuGIPVLK9UO6lFGmhaxPP01I8pX/aE7AoRNqFFUXxnkSkSbjLNEGpDSfGVmxnM1fYlqkZzabPFEAbkm2iUKpAEcJWugLMNCGR5Vy2Lspf7DjviNelLvuIOGBeNhY99ecqFLRej0oTf46HHpsaZEWx8zdg7BvAjkCmII8YtZyqYD7tW8P3yEFPkBRhpu+85FwUe+335ZiTPnlR37+QHz4Ax4vBPB3/3q9u+JTXnKqkm3kfiLUcPu1VrwkLBXKr56fnw4+ckUNTVrnkt8/Czz9RghnCM4cD/3w==
+    shell: /bin/false
+    password: "!"
+    groups: []
   swhdeposit:
     uid: 1018
     full_name: SWH Deposit App Account
@@ -2579,7 +2553,6 @@ desktop::printers::cups_usernames:
   olasd: ndandrim
   seirl: apietri
   zack: zacchiro
-  ssushant: ssushant
 
 zookeeper::clusters:
   rocquencourt:
