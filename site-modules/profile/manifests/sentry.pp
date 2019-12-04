@@ -12,7 +12,10 @@ class profile::sentry {
     provider => 'git',
     source   => $onpremise_repo,
     revision => $onpremise_repo_branch,
-    notify   => Exec['run sentry-onpremise install.sh'],
+    notify   => [
+      File_Line['sentry_environment_kafka'],
+      Exec['run sentry-onpremise install.sh'],
+    ],
   }
 
   $requirements_file = "${onpremise_dir}/sentry/requirements.txt"
@@ -67,6 +70,15 @@ class profile::sentry {
     notify  => Exec['run sentry-onpremise install.sh'],
   }
 
+  file_line {'sentry_environment_kafka':
+    ensure  => present,
+    path    => "${onpremise_dir}/.env",
+    match   => '^DEFAULT_BROKERS=',
+    line    => "DEFAULT_BROKERS=${kafka_bootstrap_servers}",
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
   $onpremise_flag = "${onpremise_dir}-installed"
   $onpremise_log = "/var/log/sentry-onpremise-install.log"
 
@@ -84,7 +96,7 @@ class profile::sentry {
     provider    => shell,
     cwd         => $onpremise_dir,
     path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
-    environment => ["DEFAULT_BROKERS=${kafka_bootstrap_servers}", "CI=yes"],
+    environment => ["CI=yes"],
     refreshonly => true,
     require     => [
       Class['profile::docker'],
@@ -99,7 +111,6 @@ class profile::sentry {
     timeout     => 0,
     cwd         => $onpremise_dir,
     path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
-    environment => ["DEFAULT_BROKERS=${kafka_bootstrap_servers}"],
     refreshonly => true,
     require     => [
       Class['profile::docker'],
