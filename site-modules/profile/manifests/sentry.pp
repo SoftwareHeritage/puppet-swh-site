@@ -68,7 +68,7 @@ class profile::sentry {
   }
 
   $onpremise_flag = "${onpremise_dir}-installed"
-  $onpremise_log = "${onpremise_dir}-install.log"
+  $onpremise_log = "/var/log/sentry-onpremise-install.log"
 
   exec {'check sentry-onpremise install flag':
     command  => 'true',
@@ -79,7 +79,7 @@ class profile::sentry {
   }
 
   exec {'run sentry-onpremise install.sh':
-    command     => "rm -f ${onpremise_flag}; (./install.sh && git rev-parse HEAD > ${onpremise_flag}) | tee ${onpremise_log}",
+    command     => "rm -f ${onpremise_flag}; (./install.sh && git rev-parse HEAD > ${onpremise_flag}) | tee -a ${onpremise_log}",
     timeout     => 0,
     provider    => shell,
     cwd         => $onpremise_dir,
