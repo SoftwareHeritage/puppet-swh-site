@@ -1525,9 +1525,9 @@ swh::deploy::worker::loader_deposit::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.package.tasks
+      - swh.loader.package.deposit.tasks
     task_queues:
-      - swh.loader.package.tasks.LoadDeposit
+      - swh.loader.package.deposit.tasks.LoadDeposit
   deposit:
     url: "%{alias('swh::deploy::webapp::deposit::private::url')}"
     auth:
@@ -1843,9 +1843,9 @@ swh::deploy::worker::loader_debian::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.package.tasks
+      - swh.loader.package.debian.tasks
     task_queues:
-      - swh.loader.package.tasks.LoadDebian
+      - swh.loader.package.debian.tasks.LoadDebian
 
 swh::deploy::worker::loader_archive::config_file: "%{hiera('swh::conf_directory')}/loader_archive.yml"
 swh::deploy::worker::loader_archive::private_tmp: true
@@ -1867,9 +1867,9 @@ swh::deploy::worker::loader_archive::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.package.tasks
+      - swh.loader.package.archive.tasks
     task_queues:
-      - swh.loader.package.tasks.LoadArchive
+      - swh.loader.package.archive.tasks.LoadArchive
 
 swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
 swh::deploy::worker::lister::concurrency: 5
@@ -1948,9 +1948,9 @@ swh::deploy::worker::loader_pypi::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.package.tasks
+      - swh.loader.package.pypi.tasks
     task_queues:
-      - swh.loader.package.tasks.LoadPyPI
+      - swh.loader.package.pypi.tasks.LoadPyPI
 
 swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
 swh::deploy::worker::loader_npm::concurrency: 1
@@ -1973,9 +1973,9 @@ swh::deploy::worker::loader_npm::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
-      - swh.loader.package.tasks
+      - swh.loader.package.npm.tasks
     task_queues:
-      - swh.loader.package.tasks.LoadNpm
+      - swh.loader.package.npm.tasks.LoadNpm
 
 swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
 swh::deploy::worker::loader_svn::concurrency: 1
