@@ -620,6 +620,9 @@ letsencrypt::certificates:
     domains:
       - stats.export.softwareheritage.org
       - pergamon.softwareheritage.org
+  jenkins:
+    domains:
+      - jenkins.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
