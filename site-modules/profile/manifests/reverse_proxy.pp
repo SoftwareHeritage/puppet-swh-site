@@ -1,13 +1,14 @@
 # A factored reverse proxy configuration
 define profile::reverse_proxy (
-  String $ssl_cert_name          = $name,
-  Hash $default_proxy_pass_opts  = {},
-  Array[Hash] $extra_proxy_pass  = [],
-  Array[String] $request_headers = [
+  String $ssl_cert_name                 = $name,
+  Hash $default_proxy_pass_opts         = {},
+  Array[Hash] $extra_proxy_pass         = [],
+  Array[String] $request_headers        = [
       'set X-Forwarded-Proto "https"',
       'set X-Forwarded-Port "443"',
   ],
-  Hash $extra_apache_opts        = {},
+  Hash $extra_apache_opts               = {},
+  Optional[String] $icinga_check_string = undef,
 ){
   $backend_url = lookup("${name}::backend::url")
 
@@ -82,6 +83,8 @@ define profile::reverse_proxy (
     tag           => 'icinga2::exported',
   }
 
+  $_icinga_check_string = pick($icinga_check_string, capitalize($name))
+
   @@::icinga2::object::service {"${name} https on ${::fqdn}":
     service_name  => "${name} https",
     import        => ['generic-service'],
@@ -93,7 +96,7 @@ define profile::reverse_proxy (
       http_ssl     => true,
       http_sni     => true,
       http_uri     => '/',
-      http_string  => 'Sentry',
+      http_string  => $_icinga_check_string,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
