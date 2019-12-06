@@ -1,5 +1,4 @@
 class profile::rabbitmq {
-  include ::profile::munin::plugins::rabbitmq
 
   $rabbitmq_vhost = '/'
   $rabbitmq_user = lookup('rabbitmq::monitoring::user')

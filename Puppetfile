@@ -111,10 +111,6 @@ mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',
     :ref => 'v2.5.0'
 
-mod 'munin',
-    :git => 'https://forge.softwareheritage.org/source/puppet-ssm-munin',
-    :ref => '0.1.0'
-
 mod 'mysql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-mysql',
     :ref => '5.3.0'

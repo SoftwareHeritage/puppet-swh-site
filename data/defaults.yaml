@@ -491,38 +491,7 @@ groups:
 
 gunicorn::statsd::host: 127.0.0.1:8125
 
-munin::node::allow:
-  - 192.168.100.20
-
-munin::node::network: "%{lookup('internal_network')}"
-
-munin::node::plugins::enable:
-  - apt
-  - postfix_mailvolume
-  - postfix_mailqueue
-
-munin::node::plugins::disable:
-  - apt_all
-  - df_inode
-  - entropy
-  - exim_mailstats
-  - exim_mailqueue
-  - interrupts
-  - irqstats
-  - netstat
-  - nfs4_client
-  - nfsd4
-  - open_files
-  - open_inodes
-  - proc_pri
-  - vmstat
-
 munin::master::hostname: munin.internal.softwareheritage.org
-
-munin::plugins::rabbitmq::messages_warn: 18000000
-munin::plugins::rabbitmq::messages_crit: 20000000
-munin::plugins::rabbitmq::queue_memory_warn: 1073741824 # 1GB
-munin::plugins::rabbitmq::queue_memory_crit: 2147483648 # 2GB
 
 rabbitmq::monitoring::user: swhdev
 # following password key in private data
@@ -745,13 +714,6 @@ bind::resource_records:
   logstash0/A:
     record: logstash0.internal.softwareheritage.org
     data: 192.168.100.19
-  munin/CNAME:
-    type: CNAME
-    record: munin.internal.softwareheritage.org
-    data: munin0.internal.softwareheritage.org.
-  munin0/A:
-    record: munin0.internal.softwareheritage.org
-    data: 192.168.100.20
   kibana/CNAME:
     type: CNAME
     record: kibana.internal.softwareheritage.org
