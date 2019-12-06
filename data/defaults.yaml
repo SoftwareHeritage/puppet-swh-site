@@ -29,8 +29,10 @@ ntp::servers:
 
 sudo::configs: {}
 
-# smtp::relayhost is per-location. Default value:
-smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
+# smtp::relay_hostname is per-location. Default value:
+smtp::relay_hostname: 'pergamon.internal.softwareheritage.org'
+
+smtp::relayhost: "[%{lookup('smtp::relay_hostname')}]"
 smtp::mydestination:
   - "%{::fqdn}"
 smtp::mynetworks:

@@ -14,7 +14,7 @@ ntp::servers:
 
 internal_network: 192.168.100.0/24
 
-smtp::relayhost: '[smtp.inria.fr]'
+smtp::relay_hostname: 'smtp.inria.fr'
 
 swh::deploy::worker::instances:
   - checker_deposit
