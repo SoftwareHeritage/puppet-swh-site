@@ -2992,6 +2992,9 @@ sentry::postgres::user: sentry
 
 sentry::kafka_cluster: rocquencourt
 
+sentry::mail::host: "%{lookup('smtp::relay_hostname')}"
+sentry::mail::from: sentry@softwareheritage.org
+
 sentry::backend::url: http://riverside.internal.softwareheritage.org:9000/
 
 sentry::vhost::name: sentry.softwareheritage.org
