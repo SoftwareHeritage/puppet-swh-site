@@ -1,14 +1,14 @@
 # Base configuration for Let's Encrypt
 
 class profile::letsencrypt {
-  include ::profile::letsencrypt::apt_config
-  include ::profile::letsencrypt::gandi_livedns_hook
+  contain ::profile::letsencrypt::apt_config
+  contain ::profile::letsencrypt::gandi_livedns_hook
 
   class {'letsencrypt':
     config => {
       email  => lookup('letsencrypt::account_email'),
       server => lookup('letsencrypt::server'),
-    }
+    },
   }
 
   $certificates = lookup('letsencrypt::certificates', Hash)
@@ -18,7 +18,7 @@ class profile::letsencrypt {
 
     $deploy_hook = pick($settings['deploy_hook'], 'puppet_export')
 
-    include "::profile::letsencrypt::${deploy_hook}_hook"
+    contain "::profile::letsencrypt::${deploy_hook}_hook"
     $deploy_hook_path = getvar("profile::letsencrypt::${deploy_hook}_hook::hook_path")
     $deploy_hook_extra_opts = getvar("profile::letsencrypt::${deploy_hook}_hook::hook_extra_opts")
 
@@ -35,7 +35,9 @@ class profile::letsencrypt {
           "--manual-cleanup-hook '${::profile::letsencrypt::gandi_livedns_hook::hook_path} cleanup'",
           "--deploy-hook '${deploy_hook_path}'",
         ],
-      }, $deploy_hook_extra_opts)
-    } -> Profile::Letsencrypt::Certificate <| title == $key |>
+      }, $deploy_hook_extra_opts),
+    }
   }
+
+  Letsencrypt::Certonly <| |> -> Profile::Letsencrypt::Certificate <| |>
 }
