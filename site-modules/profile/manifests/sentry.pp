@@ -34,6 +34,7 @@ class profile::sentry {
 
   # variables for config.yml
   $secret_key = lookup('sentry::secret_key')
+  $vhost_name = lookup('sentry::vhost::name')
 
   file {$config_yml:
     ensure => present,
