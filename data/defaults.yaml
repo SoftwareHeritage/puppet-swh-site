@@ -2992,6 +2992,8 @@ sentry::postgres::user: sentry
 
 sentry::kafka_cluster: rocquencourt
 
+sentry::admin_email: sysop+sentry@softwareheritage.org
+
 sentry::mail::host: "%{lookup('smtp::relay_hostname')}"
 sentry::mail::from: sentry@softwareheritage.org
 

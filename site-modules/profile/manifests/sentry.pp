@@ -33,10 +33,11 @@ class profile::sentry {
   }
 
   # variables for config.yml
-  $secret_key = lookup('sentry::secret_key')
-  $vhost_name = lookup('sentry::vhost::name')
-  $mail_host  = lookup('sentry::mail::host')
-  $mail_from  = lookup('sentry::mail::from')
+  $admin_email = lookup('sentry::admin_email')
+  $secret_key  = lookup('sentry::secret_key')
+  $vhost_name  = lookup('sentry::vhost::name')
+  $mail_host   = lookup('sentry::mail::host')
+  $mail_from   = lookup('sentry::mail::from')
 
   file {$config_yml:
     ensure => present,

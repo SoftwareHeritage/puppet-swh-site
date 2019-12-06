@@ -41,6 +41,9 @@ system.secret-key: '<%= @secret_key %>'
 # Sentry URL prefix
 system.url-prefix: 'https://<%= @vhost_name %>'
 
+# Sentry admin email address
+system.admin-email: '<%= @admin_email %>'
+
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis
 # clusters. These clusters can be then referred to by name when configuring
 # backends such as the cache, digests, or TSDB backend.
