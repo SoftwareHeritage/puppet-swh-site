@@ -18,6 +18,16 @@ class profile::puppet::master {
     *                           => $::profile::puppet::base::agent_config,
   }
 
+  # Extra configuration for fileserver
+  $letsencrypt_export_dir = lookup('letsencrypt::certificates::exported_directory')
+  file { '/etc/puppet/fileserver.conf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/puppet/fileserver.conf.erb')
+  }
+
   file { '/usr/local/sbin/swh-puppet-master-deploy':
     ensure  => 'file',
     owner   => 'root',

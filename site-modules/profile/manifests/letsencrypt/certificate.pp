@@ -21,21 +21,21 @@ define profile::letsencrypt::certificate (
 
   ['cert.pem', 'chain.pem', 'fullchain.pem'].each |$filename| {
     file {"${basedir}/${filename}":
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template("profile/letsencrypt/fetch_certificate_file.erb")
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+      source => "puppet:///le_certs/${basename}/${filename}",
     }
   }
 
   ['privkey.pem'].each |$filename| {
     file {"${basedir}/${filename}":
-      ensure  => present,
-      owner   => $privkey_owner,
-      group   => $privkey_group,
-      mode    => $privkey_mode,
-      content => template("profile/letsencrypt/fetch_certificate_file.erb")
+      ensure => present,
+      owner  => $privkey_owner,
+      group  => $privkey_group,
+      mode   => $privkey_mode,
+      source => "puppet:///le_certs/${basename}/${filename}",
     }
   }
 }
