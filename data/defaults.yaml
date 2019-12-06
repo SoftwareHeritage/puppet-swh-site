@@ -623,6 +623,9 @@ letsencrypt::certificates:
   jenkins:
     domains:
       - jenkins.softwareheritage.org
+  sentry:
+    domains:
+      - sentry.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -3024,3 +3027,11 @@ sentry::postgres::user: sentry
 # sentry::postgres::password in private-data
 
 sentry::kafka_cluster: rocquencourt
+
+sentry::backend::url: http://riverside.internal.softwareheritage.org:9000/
+
+sentry::vhost::name: sentry.softwareheritage.org
+sentry::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
