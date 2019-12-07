@@ -4,10 +4,10 @@ class profile::munin::node {
     ensure => stopped,
     enable => false,
   }
-  -> package {'munin-node':
+  -> package {['munin-node', 'munin-plugins-core', 'munin-plugins-extra']:
     ensure => purged,
   }
-  -> file {'/etc/munin':
+  -> file {['/etc/munin', '/var/lib/munin-node', '/var/cache/munin']:
     ensure  => absent,
     recurse => true,
     purge   => true,
