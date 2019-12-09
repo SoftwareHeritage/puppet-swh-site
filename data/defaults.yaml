@@ -117,6 +117,7 @@ packages:
   - tmux
   - vim
   - zsh
+  - zstd
 
 packages::desktop:
   - autojump
