@@ -35,6 +35,7 @@ class profile::kafka::prometheus_consumer_group_exporter {
       group   => 'root',
       mode    => '0644',
       content => template('profile/kafka/prometheus-kafka-consumer-group-exporter.default.erb'),
+      notify  => Service[$service],
     }
 
     service {$service:
