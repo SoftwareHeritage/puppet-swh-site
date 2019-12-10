@@ -2871,6 +2871,10 @@ prometheus::jmx::version: 0.11.0
 prometheus::kafka::listen_network: "%{lookup('internal_network')}"
 prometheus::kafka::listen_port: 7071
 
+prometheus::kafka_consumer_group::listen_network: "%{lookup('internal_network')}"
+prometheus::kafka_consumer_group::base_port: 9208
+
+
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data
