@@ -2,7 +2,7 @@
 class profile::kafka::prometheus_consumer_group_exporter {
 
   $pkg = 'prometheus-kafka-consumer-group-exporter'
-  $defaults_dir = "/etc/defaults/${pkg}"
+  $defaults_dir = "/etc/default/${pkg}"
 
   package {$pkg:
     ensure => 'installed',
