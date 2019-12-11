@@ -37,6 +37,38 @@ class profile::rabbitmq {
     }
   }
 
+  $prometheus_listen_network = lookup('prometheus::rabbitmq::listen_network', Optional[String], 'first', undef)
+  $prometheus_listen_address = lookup('prometheus::rabbitmq::listen_address', Optional[String], 'first', undef)
+  $prometheus_actual_listen_address = pick($prometheus_listen_address, ip_for_network($prometheus_listen_network))
+  $prometheus_listen_port = lookup('prometheus::rabbitmq::listen_port')
+  $prometheus_target = "${prometheus_actual_listen_address}:${prometheus_listen_port}"
+
+  $prometheus_include_vhost = lookup('prometheus::rabbitmq::include_vhost')
+  $prometheus_skip_vhost = lookup('prometheus::rabbitmq::skip_vhost')
+  $prometheus_include_queues = lookup('prometheus::rabbitmq::include_queues')
+  $prometheus_skip_queues = lookup('prometheus::rabbitmq::skip_queues')
+
+  $prometheus_rabbit_capabilities = lookup('prometheus::rabbitmq::rabbit_capabilities', Array[String]).join(',')
+  $prometheus_rabbit_exporters = lookup('prometheus::rabbitmq::rabbit_exporters', Array[String]).join(',')
+  $prometheus_rabbit_timeout = lookup('prometheus::rabbitmq::rabbit_timeout', Integer)
+
+  $prometheus_exclude_metrics = lookup('prometheus::rabbitmq::exclude_metrics', Array[String]).join(',')
+
+  package {'prometheus-rabbitmq-exporter':
+    ensure => 'present',
+  } -> file {'/etc/default/prometheus-rabbitmq-exporter':
+    ensure  => 'present',
+    mode    => '0600', # Contains passwords
+    owner   => 'root',
+    group   => 'root',
+    content => template('profile/rabbitmq/prometheus-rabbitmq-exporter.default.erb'),
+  } ~> service {'prometheus-rabbitmq-exporter':
+    ensure => 'running',
+    enable => true,
+  } -> profile::prometheus::export_scrape_config {'rabbitmq':
+    target => $prometheus_target,
+  }
+
   # monitoring user for the icinga check
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 

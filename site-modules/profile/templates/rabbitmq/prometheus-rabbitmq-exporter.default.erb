@@ -1,0 +1,68 @@
+# Prometheus RabbitMQ exporter configuration
+# File managed by puppet (class profile::rabbitmq); Manual changes will be lost.
+
+# url to rabbitMQ management plugin (must start with http(s)://)
+RABBIT_URL=http://127.0.0.1:15672
+
+# username for rabbitMQ management plugin. User needs monitoring tag!
+RABBIT_USER=<%= @rabbitmq_user %>
+
+# password for rabbitMQ management plugin
+RABBIT_PASSWORD=<%= @rabbitmq_password %>
+
+# location of file with username (useful for docker secrets)
+RABBIT_USER_FILE=""
+
+# location of file with password (useful for docker secrets)
+RABBIT_PASSWORD_FILE=""
+
+# Listening port for the exporter
+PUBLISH_PORT=<%= @prometheus_listen_port %>
+
+# Listening host/IP for the exporter
+PUBLISH_ADDR=<%= @prometheus_actual_listen_address %>
+
+# Log ouput format. TTY and JSON are suported
+OUTPUT_FORMAT=TTY
+
+# log level. possible values: "debug", "info", "warning", "error", "fatal", or "panic"
+LOG_LEVEL=info
+
+# path to root certificate for access management plugin. Just needed if self signed certificate is used. Will be ignored if the file does not exist
+CAFILE=ca.pem
+
+# path to client certificate used to verify the exporter's authenticity. Will be ignored if the file does not exist
+CERTFILE=client-cert.pem
+
+# path to private key used with certificate to verify the exporter's authenticity. Will be ignored if the file does not exist
+KEYFILE=client-key.pem
+
+# true/0 will ignore certificate errors of the management plugin
+SKIPVERIFY=false
+
+# regex, matching vhost names are not exported. First performs INCLUDE_VHOST, then SKIP_VHOST
+SKIP_VHOST=<%= @prometheus_skip_vhost %>
+
+# regex vhost filter. Only queues in matching vhosts are exported
+INCLUDE_VHOST=<%= @prometheus_include_vhost %>
+
+# regex queue filter. Just matching names are exported
+INCLUDE_QUEUES=<%= @prometheus_include_queues %>
+
+# regex, matching queue names are not exported (useful for short-lived rpc queues). First performed INCLUDE, after SKIP
+SKIP_QUEUES=<%= @prometheus_skip_queues %>
+
+# comma-separated list of extended scraping capabilities supported by the target RabbitMQ server
+RABBIT_CAPABILITIES=<%= @prometheus_rabbit_capabilities %>
+
+# List of enabled modules. "connections" and shovel are disabled by default
+RABBIT_EXPORTERS=<%= @prometheus_rabbit_exporters %>
+
+# timeout in seconds for retrieving data from management plugin.
+RABBIT_TIMEOUT=<%= @prometheus_rabbit_timeout %>
+
+# max number of queues before we drop metrics (disabled if set to 0)
+MAX_QUEUES=0
+
+# Metric names to exclude from export. comma-seperated. e.g. "recv_oct, recv_cnt". See exporter_*.go for names
+EXCLUDE_METRICS=<%= @prometheus_exclude_metrics %>

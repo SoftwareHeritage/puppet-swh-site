@@ -2874,6 +2874,26 @@ prometheus::kafka::listen_port: 7071
 prometheus::kafka_consumer_group::listen_network: "%{lookup('internal_network')}"
 prometheus::kafka_consumer_group::base_port: 9208
 
+prometheus::rabbitmq::listen_network: "%{lookup('internal_network')}"
+prometheus::rabbitmq::listen_port: 9419
+
+# Include first, then skip
+prometheus::rabbitmq::include_vhost: .*
+prometheus::rabbitmq::skip_vhost: ^$
+prometheus::rabbitmq::include_queues: .*
+prometheus::rabbitmq::skip_queues: ^(.*\.pidbox|amq-gen.*)$
+
+prometheus::rabbitmq::rabbit_capabilities:
+  - bert
+  - no_sort
+prometheus::rabbitmq::rabbit_exporters:
+  - exchange
+  - node
+  - queue
+prometheus::rabbitmq::rabbit_timeout: 30
+
+prometheus::rabbitmq::exclude_metrics: []
+
 
 grafana::db::database: grafana
 grafana::db::username: grafana
