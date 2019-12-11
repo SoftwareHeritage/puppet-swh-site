@@ -107,19 +107,20 @@ class profile::swh::deploy::webapp {
   }
 
   ::gunicorn::instance {'swh-webapp':
-    ensure     => enabled,
-    user       => $user,
-    group      => $group,
-    executable => 'django.core.wsgi:get_wsgi_application()',
-    settings   => {
-      bind             => $backend_listen_address,
-      workers          => $backend_workers,
-      worker_class     => 'sync',
-      timeout          => $backend_http_timeout,
-      graceful_timeout => $backend_reload_mercy,
-      keepalive        => $backend_http_keepalive,
+    ensure             => enabled,
+    user               => $user,
+    group              => $group,
+    executable         => 'django.core.wsgi:get_wsgi_application()',
+    config_base_module => 'swh.web.gunicorn_config',
+    settings           => {
+      bind               => $backend_listen_address,
+      workers            => $backend_workers,
+      worker_class       => 'sync',
+      timeout            => $backend_http_timeout,
+      graceful_timeout   => $backend_reload_mercy,
+      keepalive          => $backend_http_keepalive,
     },
-    environment => {
+    environment        => {
       'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
     }
   }

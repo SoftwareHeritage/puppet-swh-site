@@ -4,6 +4,7 @@ define profile::swh::deploy::rpc_server (
   String $executable,
   String $instance_name = $name,
   String $config_key = $name,
+  String $gunicorn_config_base_module = 'swh.core.api.gunicorn_config',
   String $http_check_string = "SWH ${capitalize($name)} API server",
   Enum['sync', 'async'] $worker = 'sync',
 ) {
@@ -89,15 +90,16 @@ define profile::swh::deploy::rpc_server (
   }
 
   ::gunicorn::instance {$service_name:
-    ensure      => enabled,
-    user        => $user,
-    group       => $group,
-    executable  => $executable,
-    environment => {
+    ensure             => enabled,
+    user               => $user,
+    group              => $group,
+    executable         => $executable,
+    config_base_module => $gunicorn_config_base_module,
+    environment        => {
       'SWH_CONFIG_FILENAME' => $conf_file,
       'SWH_LOG_TARGET'      => 'journal',
     },
-    settings    => {
+    settings           => {
       bind                => $gunicorn_unix_socket,
       workers             => $backend_workers,
       worker_class        => $gunicorn_worker_class,
