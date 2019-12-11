@@ -2881,7 +2881,7 @@ prometheus::rabbitmq::listen_port: 9419
 prometheus::rabbitmq::include_vhost: .*
 prometheus::rabbitmq::skip_vhost: ^$
 prometheus::rabbitmq::include_queues: .*
-prometheus::rabbitmq::skip_queues: ^(.*\.pidbox|amq-gen.*)$
+prometheus::rabbitmq::skip_queues: ^(.*\.pidbox|amq\.gen.*|.*\.tasks\.ping)$
 
 prometheus::rabbitmq::rabbit_capabilities:
   - bert
