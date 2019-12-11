@@ -1492,6 +1492,7 @@ swh::deploy::worker::loader_deposit::config:
             content_bytes: 104857600
             directory: 1000
             revision: 1000
+            release: 1000
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1811,6 +1812,7 @@ swh::deploy::worker::loader_debian::config:
             content_bytes: 104857600
             directory: 1000
             revision: 1000
+            release: 1000
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1835,6 +1837,7 @@ swh::deploy::worker::loader_archive::config:
             content_bytes: 104857600
             directory: 1000
             revision: 1000
+            release: 1000
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1916,6 +1919,7 @@ swh::deploy::worker::loader_pypi::config:
             content_bytes: 104857600
             directory: 1000
             revision: 1000
+            release: 1000
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1940,7 +1944,7 @@ swh::deploy::worker::loader_npm::config:
             content_bytes: 104857600
             directory: 1000
             revision: 1000
-
+            release: 1000
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
