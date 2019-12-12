@@ -1493,6 +1493,7 @@ swh::deploy::worker::loader_deposit::config:
             directory: 1000
             revision: 1000
             release: 1000
+  max_content_size: 104857600
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -1780,7 +1781,20 @@ swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/l
 swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  storage:
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 10000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
+            release: 1000
+  max_content_size: 104857600
   save_data: false
   save_data_path: /srv/storage/space/data/sharded_packfiles
   directory_packet_size: 100
@@ -1790,7 +1804,6 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks
     task_queues:
       - swh.loader.git.tasks.UpdateGitRepository
-      - swh_loader_git
       # loader-git-disk
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
@@ -1813,6 +1826,7 @@ swh::deploy::worker::loader_debian::config:
             directory: 1000
             revision: 1000
             release: 1000
+  max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1838,6 +1852,7 @@ swh::deploy::worker::loader_archive::config:
             directory: 1000
             revision: 1000
             release: 1000
+  max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1889,7 +1904,20 @@ swh::deploy::worker::loader_mercurial::concurrency: 1
 swh::deploy::worker::loader_mercurial::private_tmp: true
 swh::deploy::worker::loader_mercurial::loglevel: info
 swh::deploy::worker::loader_mercurial::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  storage:
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 10000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
+            release: 1000
+  max_content_size: 104857600
   reduce_effort: False
   clone_timeout_seconds: 7200
   celery:
@@ -1899,8 +1927,6 @@ swh::deploy::worker::loader_mercurial::config:
     task_queues:
       - swh.loader.mercurial.tasks.LoadMercurial
       - swh.loader.mercurial.tasks.LoadArchiveMercurial
-      - swh_loader_mercurial
-      - swh_loader_mercurial_archive
 
 swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::loader_pypi::concurrency: 1
@@ -1920,6 +1946,7 @@ swh::deploy::worker::loader_pypi::config:
             directory: 1000
             revision: 1000
             release: 1000
+  max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1945,6 +1972,7 @@ swh::deploy::worker::loader_npm::config:
             directory: 1000
             revision: 1000
             release: 1000
+  max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1959,7 +1987,20 @@ swh::deploy::worker::loader_svn::limit_no_file: 8192
 swh::deploy::worker::loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::loader_svn::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  storage:
+    cls: filter
+    args:
+      storage:
+        cls: buffer
+        args:
+          storage: "%{alias('swh::remote_service::storage::config::writable')}"
+          min_batch_size:
+            content: 10000
+            content_bytes: 104857600
+            directory: 1000
+            revision: 1000
+            release: 1000
+  max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_modules:
@@ -1968,9 +2009,6 @@ swh::deploy::worker::loader_svn::config:
       - swh.loader.svn.tasks.LoadSvnRepository
       - swh.loader.svn.tasks.MountAndLoadSvnRepository
       - swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
-      - swh_loader_svn
-      - swh_loader_svn_mount_and_load
-
 
 swh::deploy::base_indexer::config_directory: "%{hiera('swh::conf_directory')}/indexer"
 
