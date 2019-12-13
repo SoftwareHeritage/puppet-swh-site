@@ -126,3 +126,5 @@ kafka::clusters:
 
 swh::deploy::journal::brokers:
   - journal0.internal.staging.swh.network
+
+prometheus::static_environment: staging

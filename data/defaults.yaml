@@ -2832,6 +2832,11 @@ prometheus::server::listen_network: "%{lookup('internal_network')}"
 prometheus::server::listen_port: 9090
 prometheus::server::certname: pergamon.softwareheritage.org
 
+prometheus::static_environment: production
+prometheus::static_labels:
+  instance: "%{::swh_hostname.internal_fqdn}"
+  environment: "%{lookup('prometheus::static_environment')}"
+
 prometheus::node::listen_network: "%{lookup('internal_network')}"
 prometheus::node::listen_port: 9100
 prometheus::node::textfile_directory: /var/lib/prometheus/node-exporter

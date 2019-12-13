@@ -5,10 +5,13 @@ define profile::prometheus::export_scrape_config (
   Optional[String] $prometheus_server = undef,
   Hash[String, String] $labels = {},
 ) {
+
+  $static_labels = lookup('prometheus::static_labels', Hash)
+
   @@profile::prometheus::scrape_config {"${facts['swh_hostname']['short']}_${name}":
     prometheus_server => pick($prometheus_server, lookup('prometheus::server::certname')),
     target            => $target,
     job               => $job,
-    labels            => $labels,
+    labels            => $static_labels + $labels,
   }
 }
