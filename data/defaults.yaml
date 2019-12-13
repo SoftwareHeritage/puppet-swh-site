@@ -1759,6 +1759,7 @@ swh::deploy::scheduler::archive::config:
         port: 9200
       - host: esnode1.internal.softwareheritage.org
         port: 9200
+    index_name_prefix: swh-tasks
     client_options:
       sniff_on_start: false
       sniff_on_connection_fail: True
