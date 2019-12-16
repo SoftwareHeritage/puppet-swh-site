@@ -9,9 +9,6 @@ class profile::swh::deploy::scheduler {
   $runner_log_level = lookup('swh::deploy::scheduler::runner::log_level')
 
   $task_broker = lookup('swh::deploy::scheduler::task_broker')
-  $task_packages = lookup('swh::deploy::scheduler::task_packages')
-  $task_modules = lookup('swh::deploy::scheduler::task_modules')
-  $task_backported_packages = lookup('swh::deploy::scheduler::backported_packages')
 
   $sentry_dsn = lookup('swh::deploy::scheduler::sentry_dsn', Optional[String], 'first', undef)
 
@@ -27,25 +24,6 @@ class profile::swh::deploy::scheduler {
 
   $packages = ['python3-swh.scheduler']
   $services = [$listener_service_name, $runner_service_name]
-
-  $pinned_packages = $task_backported_packages[$::lsbdistcodename]
-  if $pinned_packages {
-    ::apt::pin {'swh-scheduler':
-      explanation => 'Pin swh.scheduler dependencies to backports',
-      codename    => "${::lsbdistcodename}-backports",
-      packages    => $pinned_packages,
-      priority    => 990,
-    }
-    -> package {$task_packages:
-      ensure => installed,
-      notify => Service[$runner_service_name],
-    }
-  } else {
-    package {$task_packages:
-      ensure => installed,
-      notify => Service[$runner_service_name],
-    }
-  }
 
   package {$packages:
     ensure => installed,
@@ -101,7 +79,6 @@ class profile::swh::deploy::scheduler {
     enable  => true,
     require => [
       Package[$packages],
-      Package[$task_packages],
       File[$config_file],
       File[$worker_conf_file],
       Systemd::Unit_File[$runner_unit_name],
