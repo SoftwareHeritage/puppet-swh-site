@@ -3,6 +3,7 @@ define profile::swh::deploy::worker::instance (
   $ensure = present,
   $max_tasks_per_child = 5,
   $instance_name = $title,
+  $sentry_name = $title,
   $limit_no_file = undef,
   $private_tmp = undef)
 {
@@ -15,12 +16,15 @@ define profile::swh::deploy::worker::instance (
   $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
   $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, 'deep')
 
+  $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
+
   case $ensure {
     'present', 'running': {
       # Uses variables
       # - $concurrency
       # - $loglevel
       # - $max_tasks_per_child
+      # - $sentry_dsn
       ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => present,
         unit     => $service_name,

@@ -5,6 +5,9 @@
 Environment=CONCURRENCY=<%= @concurrency %>
 Environment=MAX_TASKS_PER_CHILD=<%= @max_tasks_per_child %>
 Environment=LOGLEVEL=<%= @loglevel %>
+<%- if !@sentry_dsn.nil? and !@sentry_dsn.empty? -%>
+Environment=SWH_SENTRY_DSN=<%= @sentry_dsn %>
+<%- end -%>
 <% if @limit_no_file %>
 LimitNOFILE=<%= @limit_no_file %>
 <% end %>

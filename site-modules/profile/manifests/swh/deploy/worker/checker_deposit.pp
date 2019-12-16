@@ -9,6 +9,7 @@ class profile::swh::deploy::worker::checker_deposit {
   $private_tmp = lookup('swh::deploy::worker::checker_deposit::private_tmp')
   ::profile::swh::deploy::worker::instance {'checker_deposit':
     ensure       => 'present',
+    sentry_name  => 'deposit',
     private_tmp  => $private_tmp,
   }
 }
