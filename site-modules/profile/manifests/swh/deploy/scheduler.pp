@@ -20,8 +20,6 @@ class profile::swh::deploy::scheduler {
   $runner_unit_name = "${runner_service_name}.service"
   $runner_unit_template = "profile/swh/deploy/scheduler/${runner_service_name}.service.erb"
 
-  $worker_conf_file = '/etc/softwareheritage/worker.ini'
-
   $packages = ['python3-swh.scheduler']
   $services = [$listener_service_name, $runner_service_name]
 
@@ -39,17 +37,10 @@ class profile::swh::deploy::scheduler {
     notify  => Service[$services],
   }
 
-  # Template uses variables
-  #  - $task_broker
-  #  - $task_modules
-  #
+  # purge legacy config file
+  $worker_conf_file = '/etc/softwareheritage/worker.ini'
   file {$worker_conf_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => $group,
-    mode    => '0640',
-    content => template('profile/swh/deploy/scheduler/worker.ini.erb'),
-    notify  => Service[$runner_service_name],
+    ensure  => absent,
   }
 
   # Template uses variables
@@ -80,7 +71,6 @@ class profile::swh::deploy::scheduler {
     require => [
       Package[$packages],
       File[$config_file],
-      File[$worker_conf_file],
       Systemd::Unit_File[$runner_unit_name],
     ],
   }
@@ -91,7 +81,6 @@ class profile::swh::deploy::scheduler {
     require => [
       Package[$packages],
       File[$config_file],
-      File[$worker_conf_file],
       Systemd::Unit_File[$listener_unit_name],
     ],
   }
