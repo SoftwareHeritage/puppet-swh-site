@@ -13,6 +13,8 @@ class profile::swh::deploy::scheduler {
   $task_modules = lookup('swh::deploy::scheduler::task_modules')
   $task_backported_packages = lookup('swh::deploy::scheduler::backported_packages')
 
+  $sentry_dsn = lookup('swh::deploy::scheduler::sentry_dsn', Optional[String], 'first', undef)
+
   $listener_service_name = 'swh-scheduler-listener'
   $listener_unit_name = "${listener_service_name}.service"
   $listener_unit_template = "profile/swh/deploy/scheduler/${listener_service_name}.service.erb"
@@ -75,6 +77,7 @@ class profile::swh::deploy::scheduler {
   # Template uses variables
   #  - $user
   #  - $group
+  #  - $sentry_dsn
   #
   ::systemd::unit_file {$listener_unit_name:
     ensure  => present,
@@ -85,6 +88,7 @@ class profile::swh::deploy::scheduler {
   # Template uses variables
   #  - $user
   #  - $group
+  #  - $sentry_dsn
   #
   ::systemd::unit_file {$runner_unit_name:
     ensure  => present,
