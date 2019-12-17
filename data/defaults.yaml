@@ -1719,19 +1719,21 @@ swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}
 swh::deploy::scheduler::archive::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   elasticsearch:
-    index_name_prefix: swh-tasks
-    storage_nodes:
-      - host: esnode2.internal.softwareheritage.org
-        port: 9200
-      - host: esnode3.internal.softwareheritage.org
-        port: 9200
-      - host: esnode1.internal.softwareheritage.org
-        port: 9200
-    client_options:
-      sniff_on_start: false
-      sniff_on_connection_fail: true
-      http_compress: false
-      sniffer_timeout: 60
+    cls: local
+    args:
+      index_name_prefix: swh-tasks
+      storage_nodes:
+        - host: esnode2.internal.softwareheritage.org
+          port: 9200
+        - host: esnode3.internal.softwareheritage.org
+          port: 9200
+        - host: esnode1.internal.softwareheritage.org
+          port: 9200
+      client_options:
+        sniff_on_start: false
+        sniff_on_connection_fail: true
+        http_compress: false
+        sniffer_timeout: 60
 
 # Main lister configuration
 swh::deploy::worker::lister::db::user: swh-lister
