@@ -117,7 +117,7 @@ class profile::swh::deploy::scheduler {
   }
 
   cron {'archive_completed_oneshot_and_disabled_recurring_tasks':
-    ensure   => absent,
+    ensure   => present,
     user     => $user,
     command  => "/usr/bin/swh scheduler --config-file ${archive_config_file} task archive",
     hour     => '*',
