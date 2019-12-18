@@ -120,8 +120,9 @@ class profile::swh::deploy::scheduler {
     ensure   => present,
     user     => $user,
     command  => "/usr/bin/swh scheduler --config-file ${archive_config_file} task archive",
-    hour     => '*',
-    minute   => fqdn_rand(60, 'archival_tasks_minute'),
+    day      => '1',
+    hour     => '0',
+    minute   => '0',
     require  => [
       Package[$packages],
       File[$archive_config_file],
