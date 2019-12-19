@@ -25,3 +25,9 @@ apache::rewrite_domains:
     ssl_cert_name: star_softwareheritage_org
     rewrites:
       - "^.*$ https://wiki.softwareheritage.org/index.php?title=Working_groups"
+
+
+dar::backup::exclude:
+  - /var/lib/mysql
+
+
