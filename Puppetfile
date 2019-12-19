@@ -39,6 +39,10 @@ mod 'apache',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
     :tag => 'v5.2.0'
 
+mod 'cassandra',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-cassandra',
+    :ref => 'master'
+
 mod 'ceph',
     :git => 'https://forge.softwareheritage.org/source/puppet-openstack-ceph',
     :ref => 'master'

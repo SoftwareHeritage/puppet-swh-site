@@ -46,6 +46,10 @@ node /^kafka\d+\./ {
   include role::swh_kafka_broker
 }
 
+node /^cassandra\d+\./ {
+  include role::swh_cassandra_node
+}
+
 node 'granet.internal.softwareheritage.org' {
   include role::swh_graph_backend
 }
