@@ -11,6 +11,7 @@ class profile::swh::deploy::worker::loader_pypi {
   ::profile::swh::deploy::worker::instance {'loader_pypi':
     ensure       => present,
     private_tmp  => $private_tmp,
+    sentry_name  => 'loader_core',
     require      => [
       Package[$packages],
     ],

@@ -11,6 +11,7 @@ class profile::swh::deploy::worker::loader_npm {
   ::profile::swh::deploy::worker::instance {'loader_npm':
     ensure       => present,
     private_tmp  => $private_tmp,
+    sentry_name  => 'loader_core',
     require      => [
       Package[$packages],
     ],

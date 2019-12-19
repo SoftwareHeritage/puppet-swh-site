@@ -10,6 +10,7 @@ class profile::swh::deploy::worker::loader_debian {
 
   ::profile::swh::deploy::worker::instance {'loader_debian':
     ensure       => present,
+    sentry_name  => 'loader_core',
     private_tmp  => $private_tmp,
     require      => [
       Package[$packages],
