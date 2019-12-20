@@ -3292,7 +3292,7 @@ cassandra::baseline_settings:
   # Constantly re-preparing statements is a performance penalty.
   #
   # Default value ("auto") is 1/256th of the heap or 10MB, whichever is greater
-  prepared_statements_cache_size_mb:
+  #prepared_statements_cache_size_mb:
   
   # Maximum size of the Thrift prepared statement cache
   #
@@ -3301,7 +3301,7 @@ cassandra::baseline_settings:
   # See description of 'prepared_statements_cache_size_mb' above for more information.
   #
   # Default value ("auto") is 1/256th of the heap or 10MB, whichever is greater
-  thrift_prepared_statements_cache_size_mb:
+  #thrift_prepared_statements_cache_size_mb:
   
   # Maximum size of the key cache in memory.
   #
@@ -3315,7 +3315,7 @@ cassandra::baseline_settings:
   # NOTE: if you reduce the size, you may not get you hottest keys loaded on startup.
   #
   # Default value is empty to make it "auto" (min(5% of Heap (in MB), 100MB)). Set to 0 to disable key cache.
-  key_cache_size_in_mb:
+  #key_cache_size_in_mb:
   
   # Duration in seconds after which Cassandra should
   # save the key cache. Caches are saved to saved_caches_directory as
@@ -3379,7 +3379,7 @@ cassandra::baseline_settings:
   #
   # Default value is empty to make it "auto" (min(2.5% of Heap (in MB), 50MB)). Set to 0 to disable counter cache.
   # NOTE: if you perform counter deletes and rely on low gcgs, you should disable the counter cache.
-  counter_cache_size_in_mb:
+  #counter_cache_size_in_mb:
   
   # Duration in seconds after which Cassandra should
   # save the counter cache (keys only). Caches are saved to saved_caches_directory as
@@ -3571,7 +3571,7 @@ cassandra::baseline_settings:
   # shrink their index summaries in order to meet this limit.  However, this
   # is a best-effort process. In extreme conditions Cassandra may need to use
   # more than this amount of memory.
-  index_summary_capacity_in_mb:
+  #index_summary_capacity_in_mb:
   
   # How frequently index summaries should be resampled.  This is done
   # periodically to redistribute memory from the fixed-size pool to sstables

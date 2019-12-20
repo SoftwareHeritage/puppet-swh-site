@@ -38,4 +38,13 @@ class profile::cassandra::node {
     hints_directory       => $hintsdir,
     settings              => $cluster_settings + $listen_settings,
   }
+
+  file {'/etc/cassandra/jvm.options':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/cassandra/jvm.options',
+    require => Class['cassandra'],
+  }
 }
