@@ -52,4 +52,19 @@ class profile::cassandra::node {
     source  => 'puppet:///modules/profile/cassandra/jvm.options',
     require => Package['cassandra'],
   }
+
+  file {'/etc/udev/rules.d/99-cassandra.rules':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/cassandra/99-cassandra.rules',
+    notify  => Exec['cassandra-reload-udev-rules'],
+  }
+
+  exec {'cassandra-reload-udev-rules':
+    command     => 'udevadm control --reload-rules',
+    refreshonly => true,
+    path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+  }
 }
