@@ -1,14 +1,11 @@
 ###########################################################################
-#                         jvm-server.options                              #
+#                             jvm.options                                 #
 #                                                                         #
 # - all flags defined here will be used by cassandra to startup the JVM   #
 # - one flag should be specified per line                                 #
 # - lines that do not start with '-' will be ignored                      #
 # - only static flags are accepted (no variables or parameters)           #
 # - dynamic flags will be appended to these on cassandra-env              #
-#                                                                         #
-# See jvm8-server.options and jvm11-server.options for Java version       #
-# specific options.                                                       #
 ###########################################################################
 
 ######################
@@ -56,8 +53,17 @@
 # before joining the ring.
 #-Dcassandra.ring_delay_ms=ms
 
+# Set the port for the Thrift RPC service, which is used for client connections. (Default: 9160)
+#-Dcassandra.rpc_port=port
+
 # Set the SSL port for encrypted communication. (Default: 7001)
 #-Dcassandra.ssl_storage_port=port
+
+# Enable or disable the native transport server. See start_native_transport in cassandra.yaml.
+# cassandra.start_native_transport=true|false
+
+# Enable or disable the Thrift RPC server. (Default: true)
+#-Dcassandra.start_rpc=true/false
 
 # Set the port for inter-node communication. (Default: 7000)
 #-Dcassandra.storage_port=port
@@ -79,9 +85,6 @@
 # 10000 rows per page.
 #-Dcassandra.force_default_indexing_page_size=true
 
-# Imposes an upper bound on hint lifetime below the normal min gc_grace_seconds
-#-Dcassandra.maxHintTTL=max_hint_ttl_in_seconds
-
 ########################
 # GENERAL JVM SETTINGS #
 ########################
@@ -89,13 +92,14 @@
 # enable assertions. highly suggested for correct application functionality.
 -ea
 
-# disable assertions for net.openhft.** because it runs out of memory by design
-# if enabled and run for more than just brief testing
--da:net.openhft...
-
 # enable thread priorities, primarily so we can give periodic tasks
 # a lower priority to avoid interfering with client workload
 -XX:+UseThreadPriorities
+
+# allows lowering thread priority without being root on linux - probably
+# not necessary on Windows but doesn't harm anything.
+# see http://tech.stolsvik.com/2010/01/linux-java-thread-priorities-workar
+-XX:ThreadPriorityPolicy=42
 
 # Enable heap-dump if there's an OOM
 -XX:+HeapDumpOnOutOfMemoryError
@@ -189,19 +193,14 @@
 # * CAP_NOWARN: same as previous, except that the client warning will not be emitted.
 #
 #-Dcassandra.expiration_date_overflow_policy=REJECT
-###########################################################################
-#                         jvm11-server.options                            #
-#                                                                         #
-# See jvm-server.options. This file is specific for Java 11 and newer.    #
-###########################################################################
 
 #################
 #  GC SETTINGS  #
 #################
 
-
-
 ### CMS Settings
+
+-XX:+UseParNewGC
 -XX:+UseConcMarkSweepGC
 -XX:+CMSParallelRemarkEnabled
 -XX:SurvivorRatio=8
@@ -211,16 +210,13 @@
 -XX:CMSWaitDuration=10000
 -XX:+CMSParallelInitialMarkEnabled
 -XX:+CMSEdenChunksRecordAlways
-## some JVMs will fill up their heap when accessed via JMX, see CASSANDRA-6541
+# some JVMs will fill up their heap when accessed via JMX, see CASSANDRA-6541
 -XX:+CMSClassUnloadingEnabled
 
+### G1 Settings (experimental, comment previous section and uncomment section below to enable)
 
-
-### G1 Settings
 ## Use the Hotspot garbage-first collector.
 #-XX:+UseG1GC
-#-XX:+ParallelRefProcEnabled
-
 #
 ## Have the JVM do less remembered set work during STW, instead
 ## preferring concurrent GC. Reduces p99.9 latency.
@@ -232,6 +228,7 @@
 #-XX:MaxGCPauseMillis=500
 
 ## Optional G1 Settings
+
 # Save CPU time on large (>= 16GB) heaps by delaying region scanning
 # until the heap is 70% full. The default in Hotspot 8u40 is 40%.
 #-XX:InitiatingHeapOccupancyPercent=70
@@ -244,44 +241,16 @@
 # Setting both to the same value can reduce STW durations.
 #-XX:ConcGCThreads=16
 
-
-### JPMS
-
--Djdk.attach.allowAttachSelf=true
---add-exports java.base/jdk.internal.misc=ALL-UNNAMED
---add-exports java.base/jdk.internal.ref=ALL-UNNAMED
---add-exports java.base/sun.nio.ch=ALL-UNNAMED
---add-exports java.management.rmi/com.sun.jmx.remote.internal.rmi=ALL-UNNAMED
---add-exports java.rmi/sun.rmi.registry=ALL-UNNAMED
---add-exports java.rmi/sun.rmi.server=ALL-UNNAMED
---add-exports java.sql/java.sql=ALL-UNNAMED
-
---add-opens java.base/java.lang.module=ALL-UNNAMED
---add-opens java.base/jdk.internal.loader=ALL-UNNAMED
---add-opens java.base/jdk.internal.ref=ALL-UNNAMED
---add-opens java.base/jdk.internal.reflect=ALL-UNNAMED
---add-opens java.base/jdk.internal.math=ALL-UNNAMED
---add-opens java.base/jdk.internal.module=ALL-UNNAMED
---add-opens java.base/jdk.internal.util.jar=ALL-UNNAMED
---add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
-
-
 ### GC logging options -- uncomment to enable
 
-# Java 11 (and newer) GC logging options:
-# See description of https://bugs.openjdk.java.net/browse/JDK-8046148 for details about the syntax
-# The following is the equivalent to -XX:+PrintGCDetails -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M
-#-Xlog:gc=info,heap*=trace,age*=debug,safepoint=info,promotion*=trace:file=/var/log/cassandra/gc.log:time,uptime,pid,tid,level:filecount=10,filesize=10485760
-
-# Notes for Java 8 migration:
-#
-# -XX:+PrintGCDetails                   maps to -Xlog:gc*:... - i.e. add a '*' after "gc"
-# -XX:+PrintGCDateStamps                maps to decorator 'time'
-#
-# -XX:+PrintHeapAtGC                    maps to 'heap' with level 'trace'
-# -XX:+PrintTenuringDistribution        maps to 'age' with level 'debug'
-# -XX:+PrintGCApplicationStoppedTime    maps to 'safepoint' with level 'info'
-# -XX:+PrintPromotionFailure            maps to 'promotion' with level 'trace'
-# -XX:PrintFLSStatistics=1              maps to 'freelist' with level 'trace'
-
-# The newline in the end of file is intentional
+-XX:+PrintGCDetails
+-XX:+PrintGCDateStamps
+-XX:+PrintHeapAtGC
+-XX:+PrintTenuringDistribution
+-XX:+PrintGCApplicationStoppedTime
+-XX:+PrintPromotionFailure
+#-XX:PrintFLSStatistics=1
+#-Xloggc:/var/log/cassandra/gc.log
+-XX:+UseGCLogFileRotation
+-XX:NumberOfGCLogFiles=10
+-XX:GCLogFileSize=10M

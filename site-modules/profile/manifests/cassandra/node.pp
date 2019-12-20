@@ -1,10 +1,6 @@
 # Definition of a cassandra node
 class profile::cassandra::node {
-  $release = lookup('cassandra::release')
-
-  class {'::cassandra::apache_repo':
-    release => $release,
-  }
+  include profile::cassandra::apt_config
 
   $basedir = '/srv/cassandra'
   $commitlogdir = "${basedir}/commitlog"
@@ -31,7 +27,10 @@ class profile::cassandra::node {
     rpc_address    => $actual_listen_address
   }
 
-  class {'::cassandra':
+  package {'openjdk-8-jre-headless':
+    ensure => 'installed',
+  }
+  -> class {'::cassandra':
     baseline_settings     => $baseline_settings,
     commitlog_directory   => $commitlogdir,
     data_file_directories => [$datadir],
@@ -45,6 +44,6 @@ class profile::cassandra::node {
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/profile/cassandra/jvm.options',
-    require => Class['cassandra'],
+    require => Package['cassandra'],
   }
 }
