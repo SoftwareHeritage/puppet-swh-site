@@ -1,0 +1,19 @@
+[Unit]
+Description=Cassandra
+After=network.target
+
+[Service]
+User=cassandra
+Group=cassandra
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+EnvironmentFile=-/etc/default/cassandra
+ExecStart=/usr/sbin/cassandra -f
+LimitNOFILE=100000
+LimitMEMLOCK=infinity
+LimitNPROC=32768
+LimitAS=infinity
+Restart=on-failure
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

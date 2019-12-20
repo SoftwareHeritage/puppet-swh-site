@@ -27,6 +27,11 @@ class profile::cassandra::node {
     rpc_address    => $actual_listen_address
   }
 
+  ::systemd::unit_file {'cassandra.service':
+    source => 'puppet:///modules/profile/cassandra/cassandra.service',
+    notify => Service['cassandra'],
+  }
+
   package {'openjdk-8-jre-headless':
     ensure => 'installed',
   }
@@ -36,6 +41,7 @@ class profile::cassandra::node {
     data_file_directories => [$datadir],
     hints_directory       => $hintsdir,
     settings              => $cluster_settings + $listen_settings,
+    require               => Systemd::Unit_file['cassandra.service'],
   }
 
   file {'/etc/cassandra/jvm.options':
