@@ -157,7 +157,7 @@ mod 'rabbitmq',
 
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',
-    :ref => 'v3.3.0'
+    :ref => 'v4.1.0'
 
 mod 'ssh',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-ssh',
