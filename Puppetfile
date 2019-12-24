@@ -181,7 +181,7 @@ mod 'timezone',
 
 mod 'unattended_upgrades',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-unattended_upgrades',
-    :ref => 'v3.1.0'
+    :ref => 'v4.0.0'
 
 mod 'varnish',
     :git => 'https://forge.softwareheritage.org/source/puppet-claranet-varnish',
