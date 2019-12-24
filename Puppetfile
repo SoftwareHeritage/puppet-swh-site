@@ -193,4 +193,4 @@ mod 'vcsrepo',
 
 mod 'zookeeper',
     :git => 'https://forge.softwareheritage.org/source/puppet-deric-zookeeper',
-    :ref => 'v0.7.7'
+    :ref => 'v0.8.7'

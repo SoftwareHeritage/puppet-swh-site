@@ -2541,16 +2541,16 @@ desktop::printers::cups_usernames:
 
 zookeeper::clusters:
   rocquencourt:
-    11: esnode1.internal.softwareheritage.org
-    12: esnode2.internal.softwareheritage.org
-    13: esnode3.internal.softwareheritage.org
+    '11': esnode1.internal.softwareheritage.org
+    '12': esnode2.internal.softwareheritage.org
+    '13': esnode3.internal.softwareheritage.org
   azure:
-    1: kafka01.euwest.azure.internal.softwareheritage.org
-    2: kafka02.euwest.azure.internal.softwareheritage.org
-    3: kafka03.euwest.azure.internal.softwareheritage.org
-    4: kafka04.euwest.azure.internal.softwareheritage.org
-    5: kafka05.euwest.azure.internal.softwareheritage.org
-    6: kafka06.euwest.azure.internal.softwareheritage.org
+    '1': kafka01.euwest.azure.internal.softwareheritage.org
+    '2': kafka02.euwest.azure.internal.softwareheritage.org
+    '3': kafka03.euwest.azure.internal.softwareheritage.org
+    '4': kafka04.euwest.azure.internal.softwareheritage.org
+    '5': kafka05.euwest.azure.internal.softwareheritage.org
+    '6': kafka06.euwest.azure.internal.softwareheritage.org
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
