@@ -149,7 +149,7 @@ mod 'puppetdb',
 
 mod 'memcached',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-memcached',
-    :ref => 'v3.1.0'
+    :ref => 'v3.4.0'
 
 mod 'rabbitmq',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq',
