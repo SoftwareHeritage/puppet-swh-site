@@ -29,7 +29,7 @@ mod 'apt',
 
 mod 'archive',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-archive',
-    :tag => 'v2.3.0'
+    :tag => 'v4.4.0'
 
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind',
@@ -101,7 +101,7 @@ mod 'inifile',
 
 mod 'java',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java',
-    :tag => 'v5.0.1'
+    :tag => 'v6.0.0'
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
