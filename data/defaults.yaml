@@ -4227,3 +4227,12 @@ cassandra::clusters:
       - class_name: org.apache.cassandra.locator.SimpleSeedProvider
         parameters:
           - seeds: 192.168.200.27  # cassandra01.euwest.azure.internal.softwareheritage.org
+
+borg::repository_user: borg
+borg::repository_group: borg
+
+borg::base_path: /srv/borg
+borg::repository_path: "%{lookup('borg::base_path')}/repositories"
+borg::repository_server: banco.internal.softwareheritage.org
+
+borg::encryption: repokey-blake2
