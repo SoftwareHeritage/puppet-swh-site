@@ -109,7 +109,7 @@ mod 'kafka',
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
-    :ref => 'v4.0.0'
+    :ref => 'v5.0.0'
 
 mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',
