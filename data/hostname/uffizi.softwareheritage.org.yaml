@@ -44,7 +44,8 @@ swh::deploy::storage::config:
           brokers: "%{alias('swh::deploy::journal::brokers')}"
           prefix: "%{alias('swh::deploy::journal::prefix')}"
           client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
-          message.max.bytes: 1000000000
+          producer_config:
+            message.max.bytes: 1000000000
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
