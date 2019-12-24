@@ -165,7 +165,7 @@ mod 'ssh',
 
 mod 'stdlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-stdlib',
-    :ref => '4.25.0'
+    :ref => 'v6.2.0'
 
 mod 'sudo',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-sudo',
