@@ -189,7 +189,7 @@ mod 'varnish',
 
 mod 'vcsrepo',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-vcsrepo',
-    :ref => 'v3.0.0'
+    :ref => 'v3.1.0'
 
 mod 'zookeeper',
     :git => 'https://forge.softwareheritage.org/source/puppet-deric-zookeeper',
