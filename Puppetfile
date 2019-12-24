@@ -23,6 +23,10 @@ mod 'uwsgi',
     :branch => :control_branch,
     :default_branch => 'master'
 
+mod 'apache',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
+    :tag => 'v5.3.0'
+
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt',
     :tag => 'v7.3.0'
@@ -34,10 +38,6 @@ mod 'archive',
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind',
     :ref => '7.4.0'
-
-mod 'apache',
-    :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
-    :tag => 'v5.2.0'
 
 mod 'cassandra',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-cassandra',
