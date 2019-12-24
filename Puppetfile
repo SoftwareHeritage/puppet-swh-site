@@ -161,7 +161,7 @@ mod 'resolv_conf',
 
 mod 'ssh',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-ssh',
-    :ref => 'v3.0.1'
+    :ref => 'v6.0.0'
 
 mod 'stdlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-stdlib',
