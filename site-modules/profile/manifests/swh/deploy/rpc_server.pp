@@ -60,7 +60,7 @@ define profile::swh::deploy::rpc_server (
 
   ::nginx::resource::upstream {"swh-${instance_name}-gunicorn":
     members               => {
-      'gunicorn' => {
+      "gunicorn-${instance_name}" => {
         server => $gunicorn_unix_socket,
       },
     },
