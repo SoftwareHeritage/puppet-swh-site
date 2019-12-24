@@ -169,7 +169,7 @@ mod 'stdlib',
 
 mod 'sudo',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-sudo',
-    :ref => 'v5.0.0'
+    :ref => 'v6.0.0'
 
 mod 'systemd',
     :git => 'https://forge.softwareheritage.org/source/puppet-camptocamp-systemd',
