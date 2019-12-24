@@ -117,7 +117,7 @@ mod 'locales',
 
 mod 'mysql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-mysql',
-    :ref => '5.3.0'
+    :ref => 'v10.3.0'
 
 mod 'nginx',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-nginx',
