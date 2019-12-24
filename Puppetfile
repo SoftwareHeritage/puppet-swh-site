@@ -153,7 +153,7 @@ mod 'memcached',
 
 mod 'rabbitmq',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq',
-    :ref => 'v9.0.0'
+    :ref => 'v10.0.0'
 
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',
