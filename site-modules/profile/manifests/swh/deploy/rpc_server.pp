@@ -59,10 +59,11 @@ define profile::swh::deploy::rpc_server (
   }
 
   ::nginx::resource::upstream {"swh-${instance_name}-gunicorn":
-    upstream_fail_timeout => 0,
-    members               => [
-      $gunicorn_unix_socket,
-    ],
+    members               => {
+      'gunicorn' => {
+        server => $gunicorn_unix_socket,
+      },
+    },
   }
 
   # Default server on listen_port: return 444 for wrong domain name
