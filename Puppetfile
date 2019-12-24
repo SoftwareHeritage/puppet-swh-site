@@ -73,7 +73,7 @@ mod 'docker',
 
 mod 'elasticsearch',
     :git => 'https://forge.softwareheritage.org/source/puppet-elastic-elasticsearch',
-    :ref => '6.2.2'
+    :ref => '6.4.0'
 
 mod 'extlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-extlib',
