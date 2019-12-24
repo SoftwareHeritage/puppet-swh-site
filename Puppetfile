@@ -33,7 +33,7 @@ mod 'archive',
 
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind',
-    :ref => '7.3.1'
+    :ref => '7.4.0'
 
 mod 'apache',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
