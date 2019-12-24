@@ -125,7 +125,7 @@ mod 'nginx',
 
 mod 'ntp',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-ntp',
-    :ref => '6.4.1'
+    :ref => 'v8.2.0'
 
 mod 'php',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-php',
