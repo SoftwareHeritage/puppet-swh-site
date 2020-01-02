@@ -1,11 +1,11 @@
-# Parameters for rsyslog
+# Disable rsyslog
 class profile::rsyslog {
+  service {'rsyslog':
+    ensure => 'stopped',
+    enable => 'false',
+  }
 
-    file_line {'rsyslog maxsize':
-	path    => '/etc/logrotate.d/rsyslog',
-	match	=> 'maxsize 100M',
-	line    => '	maxsize 100M',
-	after	=> 'weekly',
-    }
-
+  -> package {'rsyslog':
+    ensure => 'purged',
+  }
 }
