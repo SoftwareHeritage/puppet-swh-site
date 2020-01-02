@@ -68,4 +68,12 @@ class profile::systemd_journal::journalbeat {
     originator  => 'softwareheritage',
     priority    => 990,
   }
+
+  profile::cron::d {'logrotate-journal':
+    target  => 'logrotate-journal',
+    command => 'chronic sh -c "/usr/lib/nagios/plugins/swh/check_journal && journalctl --vacuum-time=\'7 days\'"',
+    user    => 'root',
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand',
+  }
 }
