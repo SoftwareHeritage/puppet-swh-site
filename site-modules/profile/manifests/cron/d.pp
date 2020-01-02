@@ -51,7 +51,7 @@ define profile::cron::d(
       pick_default($value, '*'),
       $_str_values[$field],
       $_int_limits[$field],
-      $random_seed,
+      pick($random_seed, $title),
     )
   }
 
