@@ -42,8 +42,6 @@ class profile::stats_web {
     docroot              => $vhost_docroot,
     require              => [
         Profile::Letsencrypt::Certificate[$ssl_cert_name],
-        File[$ssl_chain],
-        File[$ssl_key],
      ],
   }
 
