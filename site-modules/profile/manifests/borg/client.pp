@@ -68,7 +68,15 @@ class profile::borg::client {
     },
   }
 
+  file {'/etc/borgmatic':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0600',
+  }
+
   file {'/etc/borgmatic/config.yml':
+    ensure  => 'present',
     owner   => 'root',
     group   => 'root',
     mode    => '0600',  # contains passphrase
