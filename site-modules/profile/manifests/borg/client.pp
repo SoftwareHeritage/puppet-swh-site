@@ -75,7 +75,7 @@ class profile::borg::client {
     mode   => '0600',
   }
 
-  file {'/etc/borgmatic/config.yml':
+  file {'/etc/borgmatic/config.yaml':
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
