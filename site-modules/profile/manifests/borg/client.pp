@@ -6,7 +6,7 @@ class profile::borg::client {
   $fqdn = $::swh_hostname['internal_fqdn']
 
   $seed = lookup('borg::passphrase::seed')
-  $passphrase = Sensitive(seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}"))
+  $passphrase = seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}")
 
   $encryption = lookup('borg::encryption')
 
@@ -56,7 +56,7 @@ class profile::borg::client {
     },
     storage => {
       ssh_command           => "ssh -i ${ssh_key_file}",
-      encryption_passphrase => $passphrase.unwrap,
+      encryption_passphrase => $passphrase,
       borg_base_directory   => $base_dir,
       archive_name_format   => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
     },

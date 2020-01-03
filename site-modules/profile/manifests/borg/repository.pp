@@ -1,10 +1,10 @@
 # Definition of a Borg Backup repository server
 
 define profile::borg::repository (
-  String            $encryption,
-  Sensitive[String] $passphrase,
-  String            $authorized_key,
-  String            $fqdn            = $title,
+  String $encryption,
+  String $passphrase,
+  String $authorized_key,
+  String $fqdn            = $title,
 ){
   include profile::borg::repository_base
 
@@ -16,7 +16,7 @@ define profile::borg::repository (
     user        => $user,
     path        => ['/bin', '/usr/bin'],
     creates     => $fullpath,
-    environment => "BORG_PASSPHRASE=${passphrase.unwrap}",
+    environment => "BORG_PASSPHRASE=${passphrase}",
     require     => Package['borgbackup'],
   }
 
