@@ -12,13 +12,12 @@ define profile::borg::repository (
   $fullpath = "${profile::borg::repository_base::repository_path}/${fqdn}"
   $borg_authorized_keys = $profile::borg::repository_base::authorized_keys
 
-  exec {"borg create --encryption=${encryption} ${fullpath}":
+  exec {"borg init --encryption=${encryption} ${fullpath}":
     user        => $user,
     path        => ['/bin', '/usr/bin'],
     creates     => $fullpath,
-    environment => {
-      'BORG_PASSPHRASE' => $passphrase.unwrap,
-    },
+    environment => "BORG_PASSPHRASE=${passphrase.unwrap}",
+    require     => Package['borgbackup'],
   }
 
   ::concat::fragment {"borg-authorized-keys-${fullpath}":
