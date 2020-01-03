@@ -14,4 +14,7 @@ forward-zone:
 <% forwarders.each do |forwarder| -%>
     forward-addr: <%= forwarder %>
 <% end -%>
+<% if zone.end_with?("in-addr.arpa.") -%>
+server: local-zone: "<%= zone %>" nodefault
+<% end -%>
 <% end -%>
