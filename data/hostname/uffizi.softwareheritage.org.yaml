@@ -1,4 +1,4 @@
-dar::backup::exclude:
+backups::exclude:
   - annex
   - data
   - mnt

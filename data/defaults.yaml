@@ -829,12 +829,12 @@ bind::autogenerate:
   - 192.168.100.0/24
   - 192.168.200.0/21
 
-dar::backup::enable: true
-dar::backup::storage: /srv/backups
-dar::backup::num_backups: 1
-dar::backup::base: /
-dar::backup::select: [] # empty list = full backup
-dar::backup::exclude:
+backups::enable: true
+backups::storage: /srv/backups
+backups::num_backups: 1
+backups::base: /
+backups::select: [] # empty list = full backup
+backups::exclude:
  - dev
  - proc
  - run
@@ -854,10 +854,10 @@ dar::backup::exclude:
  - var/log/journal
  - var/run
  - var/tmp
-dar::backup::options:
+backups::options:
  - -zbzip2
 
-dar::cron:
+backups::cron:
   hour: 0
   minute: fqdn_rand
 

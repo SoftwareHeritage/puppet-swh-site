@@ -4,7 +4,7 @@ ssh::permitrootlogin: "yes"
 icinga2::host::vars:
   load: high
 
-dar::backup::exclude:
+backups::exclude:
   - srv/containers
 
 swh::apt_config::enable_non_free: true

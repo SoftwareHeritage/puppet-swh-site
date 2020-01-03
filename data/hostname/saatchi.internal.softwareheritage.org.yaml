@@ -1,4 +1,4 @@
-dar::backup::exclude:
+backups::exclude:
   - var/lib/rabbitmq
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0

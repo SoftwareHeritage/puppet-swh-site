@@ -1,2 +1,2 @@
-dar::backup::exclude:
+backups::exclude:
   - srv/kafka

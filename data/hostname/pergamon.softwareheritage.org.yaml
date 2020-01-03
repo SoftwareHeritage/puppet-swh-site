@@ -46,7 +46,7 @@ networks:
 # Set apache MPM to prefork
 apache::mpm_module: prefork
 
-dar::backup::exclude:
+backups::exclude:
   - srv/softwareheritage/annex/annexroot
   - var/lib/prometheus
 

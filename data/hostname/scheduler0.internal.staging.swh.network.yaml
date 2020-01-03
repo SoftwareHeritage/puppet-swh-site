@@ -5,7 +5,7 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.128.1
 
-dar::backup::exclude:
+backups::exclude:
   - var/lib/rabbitmq
 
 swh::postgres::service::users:

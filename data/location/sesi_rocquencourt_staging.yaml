@@ -1,5 +1,5 @@
 ---
-dar::backup::enable: false
+backups::enable: false
 
 dns::local_cache: false
 dns::nameservers:

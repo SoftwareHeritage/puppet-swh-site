@@ -27,7 +27,7 @@ apache::rewrite_domains:
       - "^.*$ https://wiki.softwareheritage.org/index.php?title=Working_groups"
 
 
-dar::backup::exclude:
+backups::exclude:
   - /var/lib/mysql
 
 

@@ -1,7 +1,7 @@
 # Rsnapshot master host
 class profile::rsnapshot::master {
 
-  $backup_exclusion = lookup('dar::backup::exclude', Array, 'unique')
+  $backup_exclusion = lookup('backups::exclude', Array, 'unique')
 
   file {'/etc/rsnapshot.conf':
     content => template('profile/swh/rsnapshot.conf.erb'),

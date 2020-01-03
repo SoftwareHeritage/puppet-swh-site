@@ -60,5 +60,5 @@ pgbouncer::databases:
     port: 5433
     alias: staging-swh-lister
 
-dar::backup::exclude:
+backups::exclude:
   - srv/softwareheritage/postgres

@@ -12,7 +12,7 @@ smtp::mail_aliases:
 
 smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
 
-dar::backup::exclude:
+backups::exclude:
   - srv/barman
   - srv/rsnapshot
   - srv/softwareheritage/annex

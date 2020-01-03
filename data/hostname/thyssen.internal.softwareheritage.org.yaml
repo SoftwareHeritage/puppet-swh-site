@@ -6,5 +6,5 @@ users:
     groups:
       - sudo
 
-dar::backup::exclude:
+backups::exclude:
   - /var/lib/docker/

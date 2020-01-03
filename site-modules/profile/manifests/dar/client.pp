@@ -1,21 +1,21 @@
 class profile::dar::client {
   include ::dar
 
-  $backup_enable = lookup('dar::backup::enable')
+  $backup_enable = lookup('backups::enable')
 
   if $backup_enable {
     $dar_remote_hostname = $::swh_hostname['short']
     $dar_backup_name = $::hostname
 
-    $backup_cron = profile::cron_rand(lookup('dar::cron', Hash), 'backup')
+    $backup_cron = profile::cron_rand(lookup('backups::cron', Hash), 'backup')
 
     dar::backup { $dar_backup_name:
-      backup_storage   => lookup('dar::backup::storage'),
-      keep_backups     => lookup('dar::backup::num_backups'),
-      backup_base      => lookup('dar::backup::base'),
-      backup_selection => lookup('dar::backup::select'),
-      backup_exclusion => lookup('dar::backup::exclude', Array, 'unique'),
-      backup_options   => lookup('dar::backup::options'),
+      backup_storage   => lookup('backups::storage'),
+      keep_backups     => lookup('backups::num_backups'),
+      backup_base      => lookup('backups::base'),
+      backup_selection => lookup('backups::select'),
+      backup_exclusion => lookup('backups::exclude', Array, 'unique'),
+      backup_options   => lookup('backups::options'),
       *                => $backup_cron,
     }
 
@@ -26,7 +26,7 @@ class profile::dar::client {
 
     # Export a remote backup to the backup server
     @@dar::remote_backup { "${dar_remote_hostname}.${dar_backup_name}":
-      remote_backup_storage => lookup('dar::backup::storage'),
+      remote_backup_storage => lookup('backups::storage'),
       remote_backup_host    => $dar_remote_hostname,
       remote_backup_name    => $dar_backup_name,
       local_backup_storage  => $dir_for_fetched_backups,

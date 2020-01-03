@@ -7,7 +7,7 @@ smtp::mynetworks:
 # needed for proxmox-ve
 ssh::permitrootlogin: "yes"
 
-dar::backup::exclude:
+backups::exclude:
   - srv/containers
 
 icinga2::host::vars:

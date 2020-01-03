@@ -10,5 +10,5 @@ networks:
     netmask: 255.255.255.0
     gateway: 128.93.193.254
 
-dar::backup::select:
+backups::select:
   - home
