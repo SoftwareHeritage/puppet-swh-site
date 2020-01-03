@@ -55,6 +55,7 @@ class profile::borg::client {
       exclude_if_present => '.nobackup',
     },
     storage => {
+      ssh_command           => "ssh -i ${ssh_key_file}",
       encryption_passphrase => $passphrase.unwrap,
       borg_base_directory   => $base_dir,
       archive_name_format   => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
