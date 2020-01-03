@@ -67,6 +67,9 @@ class profile::borg::client {
       keep_monthly => 6,
       prefix       => "${fqdn}-",
     },
+    consistency => {
+      prefix       => "${fqdn}-",
+    },
   }
 
   file {'/etc/borgmatic':
