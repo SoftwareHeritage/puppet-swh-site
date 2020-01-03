@@ -23,7 +23,7 @@ define profile::borg::repository (
   ::concat::fragment {"borg-authorized-keys-${fullpath}":
     target  => $borg_authorized_keys,
     order   => '10',
-    content => "command=\"borg serve --restrict-to-path ${fullpath}\",from=\"${fqdn}\",restrict ${authorized_key}\n",
+    content => "command=\"borg serve --restrict-to-path ${fullpath}\",restrict ${authorized_key}\n",
     tag     => 'borg-authorized-keys',
   }
 }
