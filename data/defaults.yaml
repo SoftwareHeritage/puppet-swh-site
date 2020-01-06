@@ -605,6 +605,24 @@ letsencrypt::gandi_paas_hook::config:
 letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
 letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
+  archive_production:
+    domains:
+      - archive.softwareheritage.org
+      - base.softwareheritage.org
+      - archive.internal.softwareheritage.org
+      - webapp0.softwareheritage.org
+  archive_staging:
+    domains:
+      - webapp.staging.swh.network
+      - webapp.internal.staging.swh.network
+  deposit_production:
+    domains:
+      - deposit.softwareheritage.org
+      - deposit.internal.softwareheritage.org
+  deposit_staging:
+    domains:
+      - deposit.staging.swh.network
+      - deposit.internal.staging.swh.network
   stats_export:
     domains:
       - stats.export.softwareheritage.org
