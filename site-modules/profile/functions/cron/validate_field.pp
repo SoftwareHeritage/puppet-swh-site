@@ -136,10 +136,10 @@ function profile::cron::validate_field(
       }
     }
 
-    /^\*\/(\d+)$/: {
+    /^(\*)\/(\d+)$/, /^(fqdn_rand)\/(\d+)$/: {
       $interval_valid = profile::cron::validate_field(
         $field,
-        Integer($1, 10),
+        Integer($2, 10),
         [],
         $int_range,
         $seed,
@@ -147,7 +147,13 @@ function profile::cron::validate_field(
       )
       if empty($interval_valid[1]) {
         $_parsed_interval = $interval_valid[0]
-        return ["*/${_parsed_interval}", []]
+        if $1 == 'fqdn_rand' {
+          $start = $_int_range[0] + fqdn_rand($_parsed_interval - 1, "${seed}_${field}")
+          $end = $_int_range[1] + 1 + $start - $_parsed_interval
+          return ["${start}-${end}/${_parsed_interval}", []]
+        } else {
+          return ["${1}/${_parsed_interval}", []]
+        }
       } else {
         return $interval_valid
       }
