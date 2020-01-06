@@ -593,6 +593,9 @@ letsencrypt::gandi_livedns_hook::config:
     softwareheritage.org:
       api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
       sharing_id: "%{alias('gandi::softwareheritage_org::sharing_id')}"
+    swh.network:
+      api_key: "%{alias('gandi::softwareheritage_org::api_key')}"
+      sharing_id: "%{alias('gandi::swh_network::sharing_id')}"
 
 letsencrypt::gandi_paas_hook::config:
   gandi_xmlrpc: https://rpc.gandi.net/xmlrpc/
