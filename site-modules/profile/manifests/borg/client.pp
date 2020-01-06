@@ -1,117 +1,122 @@
 # Borg backup client setup
 class profile::borg::client {
 
-  include profile::borg::packages
+  $backup_enable = lookup('backups::enable')
 
-  $fqdn = $::swh_hostname['internal_fqdn']
+  if $backup_enable {
 
-  $seed = lookup('borg::passphrase::seed')
-  $passphrase = seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}")
+    include profile::borg::packages
 
-  $encryption = lookup('borg::encryption')
+    $fqdn = $::swh_hostname['internal_fqdn']
 
-  $repo_user = lookup('borg::repository_user')
-  $repo_hostname = lookup('borg::repository_server')
-  $repo_path = lookup('borg::repository_path')
+    $seed = lookup('borg::passphrase::seed')
+    $passphrase = seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}")
 
-  $base_dir = '/var/lib/borg'
+    $encryption = lookup('borg::encryption')
 
-  file {$base_dir:
-    ensure => directory,
-    mode   => '0600',
-    owner  => 'root',
-    group  => 'root',
-  }
+    $repo_user = lookup('borg::repository_user')
+    $repo_hostname = lookup('borg::repository_server')
+    $repo_path = lookup('borg::repository_path')
 
-  $ssh_key_type = 'ed25519'
-  $ssh_key_basename = "id_${ssh_key_type}.borg"
-  $ssh_key_pubname = "${ssh_key_basename}.pub"
-  $ssh_key_file = "/root/.ssh/${ssh_key_basename}"
+    $base_dir = '/var/lib/borg'
 
-  exec {"ssh-keygen -t ${ssh_key_type} -f ${ssh_key_file} -N ''":
-    path    => ['/bin', '/usr/bin'],
-    creates => $ssh_key_file,
-  }
-
-  if $ssh_keys_users and $ssh_keys_users['root'] and $ssh_keys_users['root'][$ssh_key_pubname] {
-    $key = $ssh_keys_users['root'][$ssh_key_pubname]
-    @@profile::borg::repository {$fqdn:
-      passphrase     => $passphrase,
-      encryption     => $encryption,
-      authorized_key => "ssh-${key['type']} ${key['key']} ${key['comment']}",
-      tag            => $repo_hostname,
+    file {$base_dir:
+      ensure => directory,
+      mode   => '0600',
+      owner  => 'root',
+      group  => 'root',
     }
-  }
 
-  $backup_base = lookup('backups::base')
-  $backup_excludes = lookup('backups::exclude', Array, 'unique').map |$d| { "${backup_base}${d}" }
+    $ssh_key_type = 'ed25519'
+    $ssh_key_basename = "id_${ssh_key_type}.borg"
+    $ssh_key_pubname = "${ssh_key_basename}.pub"
+    $ssh_key_file = "/root/.ssh/${ssh_key_basename}"
 
-  $borgmatic_config = {
-    location => {
-      source_directories => [$backup_base],
-      repositories       => ["${repo_user}@${repo_hostname}:${repo_path}/${fqdn}"],
-      exclude_patterns   => $backup_excludes + [$base_dir],
-      exclude_caches     => true,
-      exclude_if_present => '.nobackup',
-    },
-    storage => {
-      ssh_command           => "ssh -i ${ssh_key_file}",
-      encryption_passphrase => $passphrase,
-      borg_base_directory   => $base_dir,
-      archive_name_format   => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
-    },
-    retention => {
-      keep_hourly  => 24,
-      keep_daily   => 7,
-      keep_weekly  => 4,
-      keep_monthly => 6,
-      prefix       => "${fqdn}-",
-    },
-    consistency => {
-      prefix       => "${fqdn}-",
-    },
-  }
+    exec {"ssh-keygen -t ${ssh_key_type} -f ${ssh_key_file} -N ''":
+      path    => ['/bin', '/usr/bin'],
+      creates => $ssh_key_file,
+    }
 
-  file {'/etc/borgmatic':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0600',
-  }
+    if $ssh_keys_users and $ssh_keys_users['root'] and $ssh_keys_users['root'][$ssh_key_pubname] {
+      $key = $ssh_keys_users['root'][$ssh_key_pubname]
+      @@profile::borg::repository {$fqdn:
+        passphrase     => $passphrase,
+        encryption     => $encryption,
+        authorized_key => "ssh-${key['type']} ${key['key']} ${key['comment']}",
+        tag            => $repo_hostname,
+      }
+    }
 
-  file {'/etc/borgmatic/config.yaml':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',  # contains passphrase
-    content => inline_yaml($borgmatic_config),
-    require => Package['borgmatic'],
-  }
+    $backup_base = lookup('backups::base')
+    $backup_excludes = lookup('backups::exclude', Array, 'unique').map |$d| { "${backup_base}${d}" }
+
+    $borgmatic_config = {
+      location => {
+        source_directories => [$backup_base],
+        repositories       => ["${repo_user}@${repo_hostname}:${repo_path}/${fqdn}"],
+        exclude_patterns   => $backup_excludes + [$base_dir],
+        exclude_caches     => true,
+        exclude_if_present => '.nobackup',
+      },
+      storage => {
+        ssh_command           => "ssh -i ${ssh_key_file}",
+        encryption_passphrase => $passphrase,
+        borg_base_directory   => $base_dir,
+        archive_name_format   => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
+      },
+      retention => {
+        keep_hourly  => 24,
+        keep_daily   => 7,
+        keep_weekly  => 4,
+        keep_monthly => 6,
+        prefix       => "${fqdn}-",
+      },
+      consistency => {
+        prefix       => "${fqdn}-",
+      },
+    }
+
+    file {'/etc/borgmatic':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0600',
+    }
+
+    file {'/etc/borgmatic/config.yaml':
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0600',  # contains passphrase
+      content => inline_yaml($borgmatic_config),
+      require => Package['borgmatic'],
+    }
 
 
-  # Generate a static minute and hour on which to run the full borgmatic for the
-  # given host
-  $crontime = profile::cron_rand({
-    minute => 'fqdn_rand',
-    hour   => 'fqdn_rand',
-  }, 'borgmatic')
+    # Generate a static minute and hour on which to run the full borgmatic for the
+    # given host
+    $crontime = profile::cron_rand({
+      minute => 'fqdn_rand',
+      hour   => 'fqdn_rand',
+    }, 'borgmatic')
 
-  # List all other hours in the day
-  $cronhours = delete(range(0, 23), $crontime['hour'])
+    # List all other hours in the day
+    $cronhours = delete(range(0, 23), $crontime['hour'])
 
-  # Run borgmatic create once every hour
-  profile::cron::d {'borgmatic-create':
-    target  => 'borgmatic',
-    minute  => $crontime['minute'],
-    hour    => $cronhours,
-    command => 'borgmatic create',
-  }
+    # Run borgmatic create once every hour
+    profile::cron::d {'borgmatic-create':
+      target  => 'borgmatic',
+      minute  => $crontime['minute'],
+      hour    => $cronhours,
+      command => 'borgmatic create',
+    }
 
-  # Do a full borgmatic run every day
-  profile::cron::d {'borgmatic-full':
-    target  => 'borgmatic',
-    minute  => $crontime['minute'],
-    hour    => $crontime['hour'],
-    command => 'borgmatic',
+    # Do a full borgmatic run every day
+    profile::cron::d {'borgmatic-full':
+      target  => 'borgmatic',
+      minute  => $crontime['minute'],
+      hour    => $crontime['hour'],
+      command => 'borgmatic',
+    }
   }
 }
