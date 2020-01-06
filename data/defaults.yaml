@@ -459,16 +459,16 @@ users:
       haltode@gmail.com:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIORGwY56PpvgwMWqDei718PPriV6U7LL5JMPJWS7zTcg
-    danseraf:
-      uid: 1023
-      full_name: Daniel Serafini
-      groups:
-        - swhdev
-      shell: /usr/bin/fish
-      authorized_keys:
-        me@danieleserafini.eu:
-          type: ssh-rsa
-          key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDJJ0IWAi4ROiEz1+sTOgRu/BVwPkfzRFHIcMwpqs99BIWo7/jSq1WJ4bFhXuCpJhZVb29JyKoR9uwmzmcknyLiNGinh6XipUArVk0KMRG/fYM9mB8AWlj2QLTOZ+bdk5Hsg5tnHAiuXrXFn5sJQBzUJtB8lelPabqThXkCREsZX6vKUYOXoNgz2qV1uceCqcoOqb+RfSCoZbGfYLiy4TD6Wi7QQXTJweTfxN2wvpL9b2oq+1FLEAhFk8bFKCKNZxYXvfXYn19ebQNGYsG4MZ+ncbAIRxH7grhAzwsv3POJAu0747T9aK4pd9vl3/LWqDrEpuWRe+ivD/IVh0pSqgReuBtUzyha1YWTjlhRxJ3PlSDKk4hQjRwdC0LJ6fJ1eR8dFgWNGGjrhunDca1Q4sHu9afZluXE2ueWOREOqPrVdUpA3vRAncY9JgLrryUGjWeOiwfpwjg5806bcl91qiV+PCx3FwqWROtIA0iy+NOCLNNwTmBpUdjqB9y0q9716/c= root@gentoo
+  danseraf:
+    uid: 1023
+    full_name: Daniel Serafini
+    groups:
+      - swhdev
+    shell: /usr/bin/fish
+    authorized_keys:
+      me@danieleserafini.eu:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDJJ0IWAi4ROiEz1+sTOgRu/BVwPkfzRFHIcMwpqs99BIWo7/jSq1WJ4bFhXuCpJhZVb29JyKoR9uwmzmcknyLiNGinh6XipUArVk0KMRG/fYM9mB8AWlj2QLTOZ+bdk5Hsg5tnHAiuXrXFn5sJQBzUJtB8lelPabqThXkCREsZX6vKUYOXoNgz2qV1uceCqcoOqb+RfSCoZbGfYLiy4TD6Wi7QQXTJweTfxN2wvpL9b2oq+1FLEAhFk8bFKCKNZxYXvfXYn19ebQNGYsG4MZ+ncbAIRxH7grhAzwsv3POJAu0747T9aK4pd9vl3/LWqDrEpuWRe+ivD/IVh0pSqgReuBtUzyha1YWTjlhRxJ3PlSDKk4hQjRwdC0LJ6fJ1eR8dFgWNGGjrhunDca1Q4sHu9afZluXE2ueWOREOqPrVdUpA3vRAncY9JgLrryUGjWeOiwfpwjg5806bcl91qiV+PCx3FwqWROtIA0iy+NOCLNNwTmBpUdjqB9y0q9716/c= root@gentoo
 
 groups:
   adm:
