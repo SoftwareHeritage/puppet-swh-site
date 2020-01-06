@@ -87,4 +87,31 @@ class profile::borg::client {
     content => inline_yaml($borgmatic_config),
     require => Package['borgmatic'],
   }
+
+
+  # Generate a static minute and hour on which to run the full borgmatic for the
+  # given host
+  $crontime = profile::cron_rand({
+    minute => 'fqdn_rand',
+    hour   => 'fqdn_rand',
+  }, 'borgmatic')
+
+  # List all other hours in the day
+  $cronhours = delete(range(0, 23), $crontime['hour'])
+
+  # Run borgmatic create once every hour
+  profile::cron::d {'borgmatic-create':
+    target  => 'borgmatic',
+    minute  => $crontime['minute'],
+    hour    => $cronhours,
+    command => 'borgmatic create',
+  }
+
+  # Do a full borgmatic run every day
+  profile::cron::d {'borgmatic-full':
+    target  => 'borgmatic',
+    minute  => $crontime['minute'],
+    hour    => $crontime['hour'],
+    command => 'borgmatic',
+  }
 }
