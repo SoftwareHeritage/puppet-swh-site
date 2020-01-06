@@ -25,6 +25,12 @@ class profile::puppet::base {
     content => template('profile/puppet/swh-puppet-apply.sh.erb'),
   }
 
+  profile::cron::d {'puppet-agent':
+    target  => 'puppet',
+    command => 'puppet agent --onetime --no-daemonize --no-splay --verbose --logdest syslog',
+    minute =>  'fqdn_rand/30',
+  }
+
   # Backported packages
   if $::lsbdistcodename == 'stretch' {
     $pinned_packages = [
