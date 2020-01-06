@@ -37,7 +37,9 @@ class profile::borg::client {
       creates => $ssh_key_file,
     }
 
-    if $ssh_keys_users and $ssh_keys_users['root'] and $ssh_keys_users['root'][$ssh_key_pubname] {
+    $sshkey_installed = $ssh_keys_users and $ssh_keys_users['root'] and $ssh_keys_users['root'][$ssh_key_pubname]
+
+    if $sshkey_installed {
       $key = $ssh_keys_users['root'][$ssh_key_pubname]
       @@profile::borg::repository {$fqdn:
         passphrase     => $passphrase,
@@ -103,20 +105,22 @@ class profile::borg::client {
     # List all other hours in the day
     $cronhours = delete(range(0, 23), $crontime['hour'])
 
-    # Run borgmatic create once every hour
-    profile::cron::d {'borgmatic-create':
-      target  => 'borgmatic',
-      minute  => $crontime['minute'],
-      hour    => $cronhours,
-      command => 'borgmatic create',
-    }
+    if $sshkey_installed {
+      # Run borgmatic create once every hour
+      profile::cron::d {'borgmatic-create':
+        target  => 'borgmatic',
+        minute  => $crontime['minute'],
+        hour    => $cronhours,
+        command => 'borgmatic create',
+      }
 
-    # Do a full borgmatic run every day
-    profile::cron::d {'borgmatic-full':
-      target  => 'borgmatic',
-      minute  => $crontime['minute'],
-      hour    => $crontime['hour'],
-      command => 'borgmatic',
+      # Do a full borgmatic run every day
+      profile::cron::d {'borgmatic-full':
+        target  => 'borgmatic',
+        minute  => $crontime['minute'],
+        hour    => $crontime['hour'],
+        command => 'borgmatic',
+      }
     }
   }
 }
