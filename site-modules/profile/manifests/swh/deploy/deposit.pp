@@ -5,7 +5,7 @@ class profile::swh::deploy::deposit {
   $config_file = lookup('swh::deploy::deposit::config_file')
   $user = lookup('swh::deploy::deposit::user')
   $group = lookup('swh::deploy::deposit::group')
-  $swh_conf_raw = lookup('swh::deploy::deposit::config')
+  $conf_hiera = lookup('swh::deploy::deposit::config')
 
   $static_dir = '/usr/lib/python3/dist-packages/swh/deposit/static'
 
@@ -19,10 +19,21 @@ class profile::swh::deploy::deposit {
   $backend_reload_mercy = lookup('swh::deploy::deposit::backend::reload_mercy')
 
   $vhost_url = lookup('swh::deploy::deposit::url')
-  $vhost_name = lookup('swh::deploy::deposit::vhost::name')
+
+  $cert_name = lookup('swh::deploy::deposit::vhost::letsencrypt_cert')
+  $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
+
+  $full_conf = $conf_hiera + {allowed_hosts => $vhosts}
+
+  if $swh_hostname['fqdn'] in $vhosts {
+    $vhost_name =  $swh_hostname['fqdn']
+  } else {
+    $vhost_name = $vhosts[0]
+  }
+  $vhost_aliases = delete($vhosts, $vhost_name)
+
   $vhost_port = lookup('apache::http_port')
-  $vhost_aliases = lookup('swh::deploy::deposit::vhost::aliases')
-  $vhost_docroot = lookup('swh::deploy::deposit::vhost::docroot')
+  $vhost_docroot = "/var/www/${vhost_name}"
   $vhost_basic_auth_file = "${config_directory}/http_auth"
   # swh::deploy::deposit::vhost::basic_auth_content in private
   $vhost_basic_auth_content = lookup('swh::deploy::deposit::vhost::basic_auth_content')
@@ -57,7 +68,7 @@ class profile::swh::deploy::deposit {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template("<%= @swh_conf_raw.to_yaml %>\n"),
+    content => inline_template("<%= @full_conf.to_yaml %>\n"),
     notify  => Service['gunicorn-swh-deposit'],
   }
 
@@ -144,10 +155,8 @@ class profile::swh::deploy::deposit {
     ]
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
-
   include ::profile::hitch
-  realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
+  realize(::Profile::Hitch::Ssl_cert[$cert_name])
 
   include ::profile::varnish
   $url_scheme = split($vhost_url, ':')[0]

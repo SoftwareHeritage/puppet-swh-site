@@ -44,8 +44,3 @@ apache::default_vhost: false
 ## deposit
 
 swh::deploy::deposit::media_root_directory: /srv/softwareheritage/deposit
-swh::deploy::deposit::vhost::name: deposit.internal.staging.swh.network
-swh::deploy::deposit::vhost::aliases:
-  - deposit.staging.swh.network
-swh::deploy::deposit::config::allowed_hosts:
-  - deposit.internal.staging.swh.network

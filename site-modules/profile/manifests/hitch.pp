@@ -41,6 +41,6 @@ class profile::hitch {
   # Provide virtual resources for each possible hitch TLS certificate
   # Users can realize the resource using
   #   realize(::Profile::Hitch::Ssl_Cert[$cert_name])
-  $ssl_certs = keys(lookup('ssl'))
+  $ssl_certs = keys(lookup('letsencrypt::certificates'))
   @::profile::hitch::ssl_cert {$ssl_certs:}
 }

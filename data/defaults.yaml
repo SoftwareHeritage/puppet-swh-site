@@ -1464,10 +1464,9 @@ swh::deploy::objstorage::backend::server_names:
   - localhost
   - "::1"
 
-swh::deploy::deposit::vhost::name: deposit.softwareheritage.org
+# aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
+swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::url: https://deposit.softwareheritage.org
-swh::deploy::deposit::vhost::aliases: []
-swh::deploy::deposit::vhost::docroot: "/var/www/%{hiera('swh::deploy::deposit::vhost::name')}"
 swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
@@ -1484,8 +1483,6 @@ swh::deploy::deposit::db::host: db.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
-swh::deploy::deposit::config::allowed_hosts:
-  - deposit.internal.softwareheritage.org
 
 # swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data
@@ -1497,7 +1494,6 @@ swh::deploy::deposit::config:
     configuration:
       sword_version: 2
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  allowed_hosts: "%{alias('swh::deploy::deposit::config::allowed_hosts')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
@@ -1614,15 +1610,13 @@ swh::deploy::webapp::backend::http_keepalive: 5
 swh::deploy::webapp::backend::http_timeout: 3600
 swh::deploy::webapp::backend::reload_mercy: 3600
 
-swh::deploy::webapp::vhost::docroot: "/var/www/%{hiera('swh::deploy::webapp::vhost::name')}"
+# aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
+swh::deploy::webapp::vhost::letsencrypt_cert: archive_production
 swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-swh::deploy::webapp::config::allowed_hosts:
-  - archive.softwareheritage.org
-  - base.softwareheritage.org
-  - archive.internal.softwareheritage.org
+
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
@@ -1689,7 +1683,6 @@ swh::deploy::webapp::config:
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 1048576
   throttling: "%{alias('swh::deploy::webapp::config::throttling')}"
-  allowed_hosts: "%{alias('swh::deploy::webapp::config::allowed_hosts')}"
   production_db: "%{hiera('swh::deploy::webapp::production_db')}"
   es_workers_index_url: "%{alias('swh::deploy::webapp::config::es_workers_index_url')}"
   deposit:

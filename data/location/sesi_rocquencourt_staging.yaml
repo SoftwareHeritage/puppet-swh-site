@@ -128,3 +128,6 @@ swh::deploy::journal::brokers:
   - journal0.internal.staging.swh.network
 
 prometheus::static_environment: staging
+swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
+swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
+

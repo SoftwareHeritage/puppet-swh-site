@@ -20,10 +20,20 @@ class profile::swh::deploy::webapp {
 
   $varnish_http_port = lookup('varnish::http_port')
 
-  $vhost_name = lookup('swh::deploy::webapp::vhost::name')
+  $cert_name = lookup('swh::deploy::webapp::vhost::letsencrypt_cert')
+  $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
+
+  $full_webapp_config = $webapp_config + {allowed_hosts => $vhosts}
+
+  if $swh_hostname['fqdn'] in $vhosts {
+    $vhost_name =  $swh_hostname['fqdn']
+  } else {
+    $vhost_name = $vhosts[0]
+  }
+  $vhost_aliases = delete($vhosts, $vhost_name)
+
   $vhost_port = lookup('apache::http_port')
-  $vhost_aliases = lookup('swh::deploy::webapp::vhost::aliases')
-  $vhost_docroot = lookup('swh::deploy::webapp::vhost::docroot')
+  $vhost_docroot = "/var/www/${vhost_name}"
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content', String, 'first', '')
   $vhost_ssl_port = lookup('apache::https_port')
@@ -88,7 +98,7 @@ class profile::swh::deploy::webapp {
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template("<%= @webapp_config.to_yaml %>\n"),
+    content => inline_template("<%= @full_webapp_config.to_yaml %>\n"),
     notify  => Service['gunicorn-swh-webapp'],
   }
 
@@ -183,12 +193,8 @@ class profile::swh::deploy::webapp {
     ],
   }
 
-  $ssl_cert_names = ['star_softwareheritage_org', 'star_internal_softwareheritage_org']
-
   include ::profile::hitch
-  each($ssl_cert_names) |$ssl_cert_name| {
-    realize(::Profile::Hitch::Ssl_cert[$ssl_cert_name])
-  }
+  realize(::Profile::Hitch::Ssl_cert[$cert_name])
 
   include ::profile::varnish
   ::profile::varnish::vhost {$vhost_name:
