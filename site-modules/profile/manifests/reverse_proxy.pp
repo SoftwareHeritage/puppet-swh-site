@@ -9,6 +9,7 @@ define profile::reverse_proxy (
   ],
   Hash $extra_apache_opts               = {},
   Optional[String] $icinga_check_string = undef,
+  Optional[String] $icinga_check_uri    = undef,
 ){
   $backend_url = lookup("${name}::backend::url")
 
@@ -84,6 +85,7 @@ define profile::reverse_proxy (
   }
 
   $_icinga_check_string = pick($icinga_check_string, capitalize($name))
+  $_icinga_check_uri = pick($icinga_check_uri, '/')
 
   @@::icinga2::object::service {"${name} https on ${::fqdn}":
     service_name  => "${name} https",
@@ -95,7 +97,7 @@ define profile::reverse_proxy (
       http_vhost   => $vhost_name,
       http_ssl     => true,
       http_sni     => true,
-      http_uri     => '/',
+      http_uri     => $_icinga_check_uri,
       http_string  => $_icinga_check_string,
     },
     target        => $icinga_checks_file,
