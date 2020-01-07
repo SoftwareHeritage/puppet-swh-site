@@ -2,8 +2,6 @@
 class profile::puppet::master {
   $puppetdb = lookup('puppet::master::puppetdb')
 
-  include ::profile::puppet::base
-
   class { '::puppet':
     server                      => true,
     server_common_modules_path  => '',
@@ -15,7 +13,7 @@ class profile::puppet::master {
     server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
 
-    *                           => $::profile::puppet::base::agent_config,
+    *                           => $::profile::puppet::agent_config,
   }
 
   # Extra configuration for fileserver

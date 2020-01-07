@@ -1,12 +1,23 @@
-# Base puppet configuration for all hosts.
+# Puppet configuration
+class profile::puppet {
+  include ::profile::puppet::apt_config
 
-class profile::puppet::base {
   $puppetmaster = lookup('puppet::master::hostname')
 
   $agent_config = {
     runmode             => 'none',
     pluginsync          => true,
     puppetmaster        => $puppetmaster,
+  }
+
+  $is_puppetmaster = $puppetmaster in values($::swh_hostname)
+
+  if $is_puppetmaster {
+    include ::profile::puppet::master
+  } else {
+    class {'::puppet':
+      * => $agent_config,
+    }
   }
 
   file { '/usr/local/sbin/swh-puppet-test':
@@ -29,32 +40,5 @@ class profile::puppet::base {
     target  => 'puppet',
     command => 'puppet agent --onetime --no-daemonize --no-splay --verbose --logdest syslog',
     minute =>  'fqdn_rand/30',
-  }
-
-  # Backported packages
-  if $::lsbdistcodename == 'stretch' {
-    $pinned_packages = [
-      'facter',
-      'libfacter*',
-      'libleatherman*',
-      'libleatherman-data',
-      'libcpp-hocon*',
-    ]
-  }
-  else {
-    $pinned_packages = undef
-  }
-
-  if $pinned_packages {
-    ::apt::pin {'puppet':
-      explanation => 'Pin puppet dependencies to backports',
-      codename    => "${::lsbdistcodename}-backports",
-      packages    => $pinned_packages,
-      priority    => 990,
-    }
-  } else {
-    ::apt::pin {'puppet':
-      ensure => 'absent',
-    }
   }
 }
