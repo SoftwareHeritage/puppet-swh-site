@@ -1611,6 +1611,7 @@ swh::deploy::webapp::config::throttling:
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
+  search:
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault: "%{alias('swh::remote_service::vault::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
