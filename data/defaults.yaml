@@ -864,11 +864,9 @@ bind::autogenerate:
   - 192.168.100.0/24
   - 192.168.200.0/21
 
+backups::legacy_storage: /srv/backups
 backups::enable: true
-backups::storage: /srv/backups
-backups::num_backups: 1
 backups::base: /
-backups::select: [] # empty list = full backup
 backups::exclude:
  - dev
  - proc
@@ -889,18 +887,6 @@ backups::exclude:
  - var/log/journal
  - var/run
  - var/tmp
-backups::options:
- - -zbzip2
-
-backups::cron:
-  hour: 0
-  minute: fqdn_rand
-
-dar_server::backup::storage: /srv/remote-backups
-dar_server::central_host: uffizi.softwareheritage.org
-dar_server::cron:
-  hour: '0-4'
-  minute: '*/10'
 
 phabricator::basepath: /srv/phabricator
 phabricator::user: phabricator
