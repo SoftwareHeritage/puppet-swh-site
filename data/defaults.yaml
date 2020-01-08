@@ -727,12 +727,6 @@ bind::resource_records:
     type: CNAME
     record: backup.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
-  banco/A:
-    record: banco.internal.softwareheritage.org
-    data: 192.168.100.18
-  beaubourg/A:
-    record: beaubourg.internal.softwareheritage.org
-    data: 192.168.100.32
   icinga/CNAME:
     type: CNAME
     record: icinga.internal.softwareheritage.org
@@ -749,29 +743,17 @@ bind::resource_records:
     type: CNAME
     record: logstash.internal.softwareheritage.org
     data: logstash0.internal.softwareheritage.org.
-  logstash0/A:
-    record: logstash0.internal.softwareheritage.org
-    data: 192.168.100.19
   kibana/CNAME:
     type: CNAME
     record: kibana.internal.softwareheritage.org
     data: banco.internal.softwareheritage.org.
-  kibana0/A:
-    record: kibana0.internal.softwareheritage.org
-    data: 192.168.100.50
   rabbitmq/CNAME:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
     data: saatchi.internal.softwareheritage.org.
-  esnode1/A:
-    record: esnode1.internal.softwareheritage.org
-    data: 192.168.100.61
-  esnode2/A:
-    record: esnode2.internal.softwareheritage.org
-    data: 192.168.100.62
-  esnode3/A:
-    record: esnode3.internal.softwareheritage.org
-    data: 192.168.100.63
+  staging-gateway/A:  # Cannot autogenerate due to limitations in $::swh_hostname fact
+    record: staging-gateway.internal.softwareheritage.org
+    data: 192.168.100.125
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
@@ -816,39 +798,6 @@ bind::resource_records:
   vlorentz-desktop/A:
     record: vlorentz-desktop.internal.softwareheritage.org
     data: 192.168.101.166
-  gateway/A:
-    record: gateway.internal.staging.swh.network
-    data: 192.168.128.1
-  storage0/A:
-    record: storage0.internal.staging.swh.network
-    data: 192.168.128.2
-  db0/A:
-    record: db0.internal.staging.swh.network
-    data: 192.168.128.3
-  scheduler0/A:
-    record: scheduler0.internal.staging.swh.network
-    data: 192.168.128.4
-  journal0/A:
-    record: journal0.internal.staging.swh.network
-    data: 192.168.128.10
-  worker0/A:
-    record: worker0.internal.staging.swh.network
-    data: 192.168.128.5
-  worker1/A:
-    record: worker1.internal.staging.swh.network
-    data: 192.168.128.6
-  worker2/A:
-    record: worker2.internal.staging.swh.network
-    data: 192.168.128.11
-  deposit/A:
-    record: deposit.internal.staging.swh.network
-    data: 192.168.128.7
-  webapp/A:
-    record: webapp.internal.staging.swh.network
-    data: 192.168.128.8
-  vault/A:
-    record: vault.internal.staging.swh.network
-    data: 192.168.128.9
 
 bind::resource_records::default_data:
   type: A
