@@ -116,24 +116,27 @@ class profile::base {
   $bind_autogenerate = lookup('bind::autogenerate')
   $bind_key = lookup('bind::update_key')
 
-  each($bind_autogenerate) |$net| {
+  each($bind_autogenerate) |$net, $domain| {
     $ipaddr = ip_for_network($net)
+
     if $ipaddr {
       $reverse = reverse_ipv4($ipaddr)
-      $fqdn = $::swh_hostname['internal_fqdn']
+      $hostnames = values($::swh_hostname).filter |$hostname| { $hostname[-length($domain),-1] == $domain }
 
-      @@resource_record { "${fqdn}/A":
-        type    => 'A',
-        record  => $fqdn,
-        data    => $ipaddr,
-        keyfile => "/etc/bind/keys/${bind_key}",
-      }
+      $hostnames.unique.each |$fqdn| {
+        @@resource_record { "${fqdn}/A":
+          type    => 'A',
+          record  => $fqdn,
+          data    => $ipaddr,
+          keyfile => "/etc/bind/keys/${bind_key}",
+        }
 
-      @@resource_record { "${fqdn}/PTR":
-        type    => 'PTR',
-        record  => $reverse,
-        data    => "${fqdn}.",
-        keyfile => "/etc/bind/keys/${bind_key}",
+        @@resource_record { "${fqdn}/PTR":
+          type    => 'PTR',
+          record  => $reverse,
+          data    => "${fqdn}.",
+          keyfile => "/etc/bind/keys/${bind_key}",
+        }
       }
     }
   }
