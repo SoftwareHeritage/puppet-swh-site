@@ -5,6 +5,7 @@ class profile::dar::client {
     ensure  => 'absent',
     purge   => true,
     recurse => true,
+    force   => true,
   }
 
   exec {'sed -e /dar\./d -e /swh-dar-backup/d -i /var/spool/cron/crontabs/root':
@@ -20,6 +21,7 @@ class profile::dar::client {
     ensure => absent,
     purge   => true,
     recurse => true,
+    force   => true,
   }
 
   file {'/etc/logrotate.d/swh-dar':
