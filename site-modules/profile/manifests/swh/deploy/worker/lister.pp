@@ -1,6 +1,6 @@
-# Deployment for swh-lister-github
+# Deployment for swh-lister
 class profile::swh::deploy::worker::lister {
-  $packages = ['python3-swh.lister']
+  $packages = ['python3-swh.lister', 'r-base-core', 'r-cran-jsonlite']
 
   package {$packages:
     ensure => present,
