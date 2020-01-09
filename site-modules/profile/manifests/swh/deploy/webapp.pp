@@ -269,4 +269,14 @@ class profile::swh::deploy::webapp {
   }
 
   include ::profile::swh::deploy::webapp::icinga_checks
+
+  profile::prometheus::export_scrape_config {"swh-webapp_${fqdn}":
+    job          => "swh-webapp",
+    target       => "${vhost_name}:443",
+    scheme       => "https",
+    metrics_path => '/metrics/prometheus',
+    labels       => {
+      vhost_name => $vhost_name,
+    },
+  }
 }
