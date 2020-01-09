@@ -4,6 +4,8 @@ define profile::prometheus::export_scrape_config (
   String $job = $name,
   Optional[String] $prometheus_server = undef,
   Hash[String, String] $labels = {},
+  Enum['http', 'https'] $scheme = 'http',
+  String $metrics_path = '/metrics',
 ) {
 
   $static_labels = lookup('prometheus::static_labels', Hash)
@@ -13,5 +15,7 @@ define profile::prometheus::export_scrape_config (
     target            => $target,
     job               => $job,
     labels            => $static_labels + $labels,
+    scheme            => $scheme,
+    metrics_path      => $metrics_path,
   }
 }
