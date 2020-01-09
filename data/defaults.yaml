@@ -2670,6 +2670,11 @@ icinga2::host::vars:
     'disk /':
       disk_partitions: '/'
 
+icinga2::disk::excludes:
+  - ^/srv/containers/
+  - ^/var/lib/docker/overlay2/
+  - ^/run/schroot/
+
 icinga2::apiusers:
   root:
     # password in private data

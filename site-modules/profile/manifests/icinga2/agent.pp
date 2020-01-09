@@ -4,13 +4,16 @@ class profile::icinga2::agent {
   $icinga2_network = lookup('icinga2::network')
   $hiera_host_vars = lookup('icinga2::host::vars', Hash, 'deep')
 
+  $mount_excludes = lookup('icinga2::disk::excludes', Array[String], 'unique')
+
   $parent_zone = lookup('icinga2::parent_zone')
   $parent_endpoints = lookup('icinga2::parent_endpoints')
 
   include profile::icinga2::objects::agent_checks
 
+
   $check_mounts = $::mounts.filter |$mount| {
-    $mount !~ /^\/srv\/containers\// and $mount !~ /^\/var\/lib\/docker\/overlay2\//
+    $mount_excludes.all |$exclude| { !$mount.match($exclude) }
   }
 
   $local_host_vars = {
