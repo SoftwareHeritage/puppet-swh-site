@@ -16,12 +16,10 @@ define profile::prometheus::scrape_config (
     content => inline_yaml(
       [
         {
-          targets      => [$target],
-          labels       => {
+          targets => [$target],
+          labels  => {
             job => $job,
           } + $labels,
-          scheme       => $scheme,
-          metrics_path => $metrics_path,
         },
       ]
     ),
