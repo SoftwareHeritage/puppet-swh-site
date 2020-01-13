@@ -42,4 +42,18 @@ class profile::puppet::master {
     content => template('profile/puppet/swh-puppet-master-clean-certificate.sh.erb'),
   }
 
+  profile::cron::d {'gzip-puppet-reports':
+    target  => 'puppet',
+    command => 'find /var/lib/puppet/reports -type f -not -name *.gz -exec gzip {} \+',
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand/4',
+  }
+
+  profile::cron::d {'purge-puppet-reports':
+    target  => 'puppet',
+    command => 'find /var/lib/puppet/reports -type f -mtime +30 -delete',
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand',
+  }
+
 }
