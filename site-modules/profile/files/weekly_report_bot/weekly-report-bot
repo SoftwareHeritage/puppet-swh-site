@@ -1,17 +1,19 @@
 #!/bin/bash
 
-DEST=swh-team@inria.fr
+DEST=swh-devel@inria.fr
 
 /usr/lib/sendmail -t <<EOF
-From: Weekly report bot <swh-team@inria.fr>
+From: Weekly report bot <swh-devel@inria.fr>
 To: $DEST
 Subject: [Weekly Report] Week $(date +%G/%V)
 
 Beep boop, I'm a bot.
 
-Here's a thread for your weekly reports!
+This thread will contain reports on what the Software Heritage team members did
+over the last week. Please feel free to ask for more details, we'll be glad to
+oblige!
 
 Yours faithfully,
 -- 
-Cron for $(whoami)@$(hostname)
+The Software Heritage weekly report bot
 EOF
