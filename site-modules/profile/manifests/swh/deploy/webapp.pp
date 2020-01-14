@@ -16,7 +16,7 @@ class profile::swh::deploy::webapp {
   $backend_http_timeout = lookup('swh::deploy::webapp::backend::http_timeout')
   $backend_reload_mercy = lookup('swh::deploy::webapp::backend::reload_mercy')
 
-  $static_dir = '/usr/share/swh/web/static'
+  $static_dir = '/usr/lib/python3/dist-packages/swh/web/static'
 
   $varnish_http_port = lookup('varnish::http_port')
 
