@@ -3021,6 +3021,16 @@ swh::postgres::service::dbs:
 
 elastic::elk_version: '7.5.1'
 
+kibana::listen_network: "%{lookup('internal_network')}"
+kibana::server_name: "%{::swh_hostname.internal_fqdn}"
+kibana::config:
+  server.name: "%{alias('kibana::server_name')}"
+  elasticsearch.hosts:
+    - http://esnode1.internal.softwareheritage.org:9200
+    - http://esnode2.internal.softwareheritage.org:9200
+    - http://esnode3.internal.softwareheritage.org:9200
+  kibana.index: .kibana-6
+
 # sentry::secret_key in private-data
 
 sentry::postgres::host: db.internal.softwareheritage.org
