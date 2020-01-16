@@ -2968,6 +2968,16 @@ sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
+
+keycloak::vhost::name: idp.softwareheritage.org
+
+keycloak::postgres::host: db.internal.softwareheritage.org
+keycloak::postgres::port: 5432
+keycloak::postgres::dbname: keycloak
+keycloak::postgres::user: keycloak
+# keycloak::postgres::password in private-data
+
+
 cassandra::release: 311x
 cassandra::cluster: azure
 
