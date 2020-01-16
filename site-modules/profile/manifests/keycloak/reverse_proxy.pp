@@ -5,5 +5,6 @@ class profile::keycloak::reverse_proxy {
     extra_apache_opts => {
       proxy_preserve_host => true,
     },
+    icinga_check_uri  => '/auth/',
   }
 }
