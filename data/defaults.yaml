@@ -2971,6 +2971,8 @@ sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 keycloak::vhost::name: idp.softwareheritage.org
 
+keycloak::backend::port: 8080
+
 keycloak::postgres::host: db.internal.softwareheritage.org
 keycloak::postgres::port: 5432
 keycloak::postgres::dbname: keycloak
