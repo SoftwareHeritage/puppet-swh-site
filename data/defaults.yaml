@@ -2978,6 +2978,9 @@ keycloak::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 keycloak::backend::port: 8080
 keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
 
+keycloak::admin::user: keycloak-admin
+# keycloak::admin::password in private-data
+
 keycloak::postgres::host: db.internal.softwareheritage.org
 keycloak::postgres::port: 5432
 keycloak::postgres::dbname: keycloak

@@ -9,12 +9,19 @@ class profile::keycloak::primary {
   $postgres_user = lookup('keycloak::postgres::user')
   $postgres_password = lookup('keycloak::postgres::password')
 
+  $admin_user = lookup('keycloak::admin::user')
+  $admin_password = lookup('keycloak::admin::password')
+
   class {'::keycloak':
     # Virtual Host settings
     proxy_https          => true,
 
     # Bind address
     http_port            => $backend_port,
+
+    # Admin user settings
+    admin_user           => $admin_user,
+    admin_user_password  => $admin_password,
 
     # Database settings
     datasource_driver    => 'postgresql',
