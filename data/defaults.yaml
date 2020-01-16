@@ -2970,8 +2970,13 @@ sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 
 keycloak::vhost::name: idp.softwareheritage.org
+keycloak::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+keycloak::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+keycloak::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+keycloak::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 keycloak::backend::port: 8080
+keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
 
 keycloak::postgres::host: db.internal.softwareheritage.org
 keycloak::postgres::port: 5432

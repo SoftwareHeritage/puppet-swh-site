@@ -10,6 +10,9 @@ class profile::keycloak::primary {
   $postgres_password = lookup('keycloak::postgres::password')
 
   class {'::keycloak':
+    # Virtual Host settings
+    proxy_https          => true,
+
     # Bind address
     http_port            => $backend_port,
 
