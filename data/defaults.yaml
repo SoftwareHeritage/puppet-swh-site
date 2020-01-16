@@ -633,6 +633,9 @@ letsencrypt::certificates:
   sentry:
     domains:
       - sentry.softwareheritage.org
+  keycloak:
+    domains:
+      - idp.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
