@@ -79,6 +79,10 @@ class profile::base {
       Package['zsh'] -> User[$name]
     }
 
+    if ($data['shell'] == '/usr/bin/fish') {
+      Package['fish'] -> User[$name]
+    }
+
     if (has_key($groups, $name)) {
       Group[$name] -> User[$name]
     }
