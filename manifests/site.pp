@@ -118,6 +118,10 @@ node 'kibana0.internal.softwareheritage.org' {
   include role::swh_kibana_instance
 }
 
+node 'kelvingrove.internal.softwareheritage.org' {
+  include role::swh_idp_primary
+}
+
 node 'giverny.softwareheritage.org' {
   include role::swh_desktop
 }
