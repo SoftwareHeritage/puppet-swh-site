@@ -169,5 +169,4 @@ node 'journal0.internal.staging.swh.network' {
 
 node default {
   include role::swh_base
-  include profile::puppet::agent
 }
