@@ -11,5 +11,7 @@ class profile::swh::deploy::worker::lister {
     require      => [
       Package['python3-swh.lister'],
     ],
+    merge_policy => 'first',  # do not merge configuration, take the first
+                              # encountered configuration
   }
 }
