@@ -1793,9 +1793,6 @@ swh::deploy::worker::lister::config:
       - swh.lister.cgit.tasks.CGitListerTask
       - swh.lister.cran.tasks.CRANListerTask
       - swh.lister.debian.tasks.DebianListerTask
-      - swh.lister.github.tasks.IncrementalGitHubLister
-      - swh.lister.github.tasks.RangeGitHubLister
-      - swh.lister.github.tasks.FullGitHubRelister
       - swh.lister.gitlab.tasks.IncrementalGitLabLister
       - swh.lister.gitlab.tasks.RangeGitLabLister
       - swh.lister.gitlab.tasks.FullGitLabRelister
