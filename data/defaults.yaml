@@ -1474,8 +1474,6 @@ swh::deploy::worker::loader_deposit::config:
   extraction_dir: /tmp/swh.loader.deposit/
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.deposit.tasks
     task_queues:
       - swh.loader.package.deposit.tasks.LoadDeposit
   deposit:
@@ -1735,8 +1733,6 @@ swh::deploy::worker::loader_git::config:
   directory_packet_size: 100
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.git.tasks
     task_queues:
       - swh.loader.git.tasks.UpdateGitRepository
       # loader-git-disk
@@ -1752,8 +1748,6 @@ swh::deploy::worker::loader_debian::config:
   max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.debian.tasks
     task_queues:
       - swh.loader.package.debian.tasks.LoadDebian
 
@@ -1766,8 +1760,6 @@ swh::deploy::worker::loader_archive::config:
   max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.archive.tasks
     task_queues:
       - swh.loader.package.archive.tasks.LoadArchive
 
@@ -1795,16 +1787,6 @@ swh::deploy::worker::lister::config:
       db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.lister.bitbucket.tasks
-      - swh.lister.cgit.tasks
-      - swh.lister.debian.tasks
-      - swh.lister.github.tasks
-      - swh.lister.gitlab.tasks
-      - swh.lister.gnu.tasks
-      - swh.lister.npm.tasks
-      - swh.lister.phabricator.tasks
-      - swh.lister.pypi.tasks
     task_queues:
       - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
       - swh.lister.bitbucket.tasks.FullBitBucketRelister
@@ -1834,8 +1816,6 @@ swh::deploy::worker::loader_mercurial::config:
   clone_timeout_seconds: 7200
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.mercurial.tasks
     task_queues:
       - swh.loader.mercurial.tasks.LoadMercurial
       - swh.loader.mercurial.tasks.LoadArchiveMercurial
@@ -1849,8 +1829,6 @@ swh::deploy::worker::loader_pypi::config:
   max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.pypi.tasks
     task_queues:
       - swh.loader.package.pypi.tasks.LoadPyPI
 
@@ -1863,8 +1841,6 @@ swh::deploy::worker::loader_npm::config:
   max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.package.npm.tasks
     task_queues:
       - swh.loader.package.npm.tasks.LoadNpm
 
@@ -1879,8 +1855,6 @@ swh::deploy::worker::loader_svn::config:
   max_content_size: 104857600
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.svn.tasks
     task_queues:
       - swh.loader.svn.tasks.LoadSvnRepository
       - swh.loader.svn.tasks.MountAndLoadSvnRepository
