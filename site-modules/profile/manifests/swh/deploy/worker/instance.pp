@@ -5,7 +5,9 @@ define profile::swh::deploy::worker::instance (
   $instance_name = $title,
   $sentry_name = $title,
   $limit_no_file = undef,
-  $private_tmp = undef)
+  $private_tmp = undef,
+  $merge_policy = 'deep',
+)
 {
   include ::profile::swh::deploy::worker::base
 
@@ -14,7 +16,7 @@ define profile::swh::deploy::worker::instance (
   $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
   $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
   $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
-  $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, 'deep')
+  $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy)
 
   $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
 
