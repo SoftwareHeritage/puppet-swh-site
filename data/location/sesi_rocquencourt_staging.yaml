@@ -105,8 +105,6 @@ swh::deploy::worker::loader_git::config:
   directory_packet_size: 100
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.loader.git.tasks
     task_queues:
       - swh.loader.git.tasks.UpdateGitRepository
       - swh.loader.git.tasks.LoadDiskGitRepository
