@@ -90,5 +90,4 @@ class profile::icinga2::objects::static_checks {
     ],
     target        => $checks_file,
   }
-
 }
