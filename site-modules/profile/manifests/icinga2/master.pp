@@ -63,6 +63,13 @@ class profile::icinga2::master {
     target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
+  ::icinga2::object::service {'check-deposit':
+    import           => ['generic-service-check-e2e'],
+    apply            => true,
+    check_command    => 'check-deposit-cmd',
+    target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+  }
+
   ::Icinga2::Object::Host <<| |>>
   ::Icinga2::Object::Endpoint <<| |>>
   ::Icinga2::Object::Zone <<| |>>

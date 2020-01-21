@@ -57,4 +57,12 @@ class profile::icinga2::objects::templates {
       }
     }
   }
+
+  ::icinga2::object::service {'generic-service-check-e2e':
+    template           => true,
+    max_check_attempts => 5,
+    check_interval     => '24h',
+    retry_interval     => '30s',
+    target             => $template_file,
+  }
 }

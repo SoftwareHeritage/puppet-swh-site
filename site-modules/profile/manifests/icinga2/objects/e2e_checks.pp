@@ -16,7 +16,9 @@ class profile::icinga2::objects::e2e_checks {
     ensure => present
   }
 
-  ::icinga2::object::checkcommand {'check_deposit':
+  $template_file = '/etc/icinga2/conf.d/templates.conf'
+
+  ::icinga2::object::checkcommand {'check-deposit-cmd':
     import        => ['plugin-check-command'],
     command       => [
       "/usr/bin/swh", "icinga_plugins", "check-deposit",
@@ -29,6 +31,8 @@ class profile::icinga2::objects::e2e_checks {
       "--archive", "${deposit_archive}",
       "--metadata", "${deposit_metadata}",
     ],
+    # XXX: Should probably be split into usual commands with arguments
+    # arguments => ...
     target        => $checks_file,
     require       => Package[$packages]
   }
