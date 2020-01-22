@@ -1055,8 +1055,8 @@ swh::deploy::worker::storage::pipeline:
           args:
             storage: "%{alias('swh::remote_service::storage::config::writable')}"
             min_batch_size:
-              content: 10000
-              content_bytes: 104857600
+              content: 1000
+              content_bytes: 52428800  # 50 MB
               directory: 1000
               revision: 1000
               release: 1000
