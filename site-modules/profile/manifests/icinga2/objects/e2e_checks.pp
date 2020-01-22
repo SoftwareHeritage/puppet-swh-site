@@ -21,7 +21,7 @@ class profile::icinga2::objects::e2e_checks {
     command       => [
       "/usr/bin/swh", "icinga_plugins", "check-deposit",
       "--server", "${deposit_server}",
-      "--user", "${deposit_user}",
+      "--username", "${deposit_user}",
       "--password", "${deposit_pass}",
       "--collection", "${deposit_collection}",
       "--poll-interval", "${deposit_poll_interval}",
