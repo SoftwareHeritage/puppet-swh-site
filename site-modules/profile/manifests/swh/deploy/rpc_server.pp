@@ -90,17 +90,9 @@ define profile::swh::deploy::rpc_server (
     format_log           => "combined if=\$error_status",
   }
 
-  $base_env = {
-    'SWH_CONFIG_FILENAME' => $conf_file,
-    'SWH_LOG_TARGET'      => 'journal',
-  }
-
   $sentry_dsn = lookup("swh::deploy::${config_key}::sentry_dsn", Optional[String], 'first', undef)
-
-  $env = $sentry_dsn ? {
-    undef   => $base_env,
-    default => $base_env + {'SWH_SENTRY_DSN' => $sentry_dsn},
-  }
+  $sentry_environment = lookup("swh::deploy::${config_key}::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::${config_key}::sentry_swh_package", Optional[String], 'first', undef)
 
   ::gunicorn::instance {$service_name:
     ensure             => enabled,
@@ -108,7 +100,13 @@ define profile::swh::deploy::rpc_server (
     group              => $group,
     executable         => $executable,
     config_base_module => $gunicorn_config_base_module,
-    environment        => $env,
+    environment        => {
+      'SWH_CONFIG_FILENAME'    => $conf_file,
+      'SWH_LOG_TARGET'         => 'journal',
+      'SWH_SENTRY_DSN'         => $sentry_dsn,
+      'SWH_SENTRY_ENVIRONMENT' => $sentry_environment,
+      'SWH_MAIN_PACKAGE'       => $sentry_swh_package,
+    },
     settings           => {
       bind                => $gunicorn_unix_socket,
       workers             => $backend_workers,

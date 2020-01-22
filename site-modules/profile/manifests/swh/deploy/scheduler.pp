@@ -11,6 +11,8 @@ class profile::swh::deploy::scheduler {
   $task_broker = lookup('swh::deploy::scheduler::task_broker')
 
   $sentry_dsn = lookup('swh::deploy::scheduler::sentry_dsn', Optional[String], 'first', undef)
+  $sentry_environment = lookup('swh::deploy::scheduler::sentry_environment', Optional[String], 'first', undef)
+  $sentry_swh_package = lookup('swh::deploy::scheduler::sentry_swh_package', Optional[String], 'first', undef)
 
   $listener_service_name = 'swh-scheduler-listener'
   $listener_unit_name = "${listener_service_name}.service"
@@ -46,7 +48,7 @@ class profile::swh::deploy::scheduler {
   # Template uses variables
   #  - $user
   #  - $group
-  #  - $sentry_dsn
+  #  - $sentry_{dsn,environment,swh_package}
   #
   ::systemd::unit_file {$listener_unit_name:
     ensure  => present,

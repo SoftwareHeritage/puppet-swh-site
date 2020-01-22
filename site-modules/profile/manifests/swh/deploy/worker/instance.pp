@@ -19,6 +19,8 @@ define profile::swh::deploy::worker::instance (
   $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy)
 
   $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::${sentry_name}::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::${sentry_name}::sentry_swh_package", Optional[String], 'first', undef)
 
   case $ensure {
     'present', 'running': {
@@ -26,7 +28,7 @@ define profile::swh::deploy::worker::instance (
       # - $concurrency
       # - $loglevel
       # - $max_tasks_per_child
-      # - $sentry_dsn
+      # - $sentry_{dsn,environment,swh_package}
       ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => present,
         unit     => $service_name,

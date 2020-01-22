@@ -116,16 +116,9 @@ class profile::swh::deploy::webapp {
     mode   => '0664',
   }
 
-  $base_env = {
-    'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
-  }
-
   $sentry_dsn = lookup("swh::deploy::webapp::sentry_dsn", Optional[String], 'first', undef)
-
-  $env = $sentry_dsn ? {
-    undef   => $base_env,
-    default => $base_env + {'SWH_SENTRY_DSN' => $sentry_dsn},
-  }
+  $sentry_environment = lookup("swh::deploy::webapp::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::webapp::sentry_swh_package", Optional[String], 'first', undef)
 
   ::gunicorn::instance {'swh-webapp':
     ensure             => enabled,
@@ -141,7 +134,12 @@ class profile::swh::deploy::webapp {
       graceful_timeout   => $backend_reload_mercy,
       keepalive          => $backend_http_keepalive,
     },
-    environment        => $env,
+    environment        => {
+      'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
+      'SWH_SENTRY_DSN'         => $sentry_dsn,
+      'SWH_SENTRY_ENVIRONMENT' => $sentry_environment,
+      'SWH_MAIN_PACKAGE'       => $sentry_swh_package,
+    },
   }
 
   include ::profile::apache::common

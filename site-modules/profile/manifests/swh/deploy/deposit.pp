@@ -79,6 +79,10 @@ class profile::swh::deploy::deposit {
     mode   => '2750',
   }
 
+  $sentry_dsn = lookup("swh::deploy::deposit::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::deposit::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::deposit::sentry_swh_package", Optional[String], 'first', undef)
+
   ::gunicorn::instance {'swh-deposit':
     ensure     => enabled,
     user       => $user,
@@ -87,6 +91,9 @@ class profile::swh::deploy::deposit {
     environment => {
       'SWH_CONFIG_FILENAME'    => $config_file,
       'DJANGO_SETTINGS_MODULE' => 'swh.deposit.settings.production',
+      'SWH_SENTRY_DSN'         => $sentry_dsn,
+      'SWH_SENTRY_ENVIRONMENT' => $sentry_environment,
+      'SWH_MAIN_PACKAGE'       => $sentry_swh_package,
     },
     settings   => {
       bind             => $backend_listen_address,

@@ -15,6 +15,12 @@ Environment=SWH_LOG_TARGET=journal
 <%- if !@sentry_dsn.empty? -%>
 Environment=SWH_SENTRY_DSN=<%= @sentry_dsn %>
 <%- end -%>
+<%- if !@sentry_environment.empty? -%>
+Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
+<%- end -%>
+<%- if !@sentry_swh_package.empty? -%>
+Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
+<%- end -%>
 ExecStart=/usr/bin/swh --log-level <%= @listener_log_level %> scheduler --config-file <%= @config_file %> start-listener
 Restart=always
 RestartSec=10
