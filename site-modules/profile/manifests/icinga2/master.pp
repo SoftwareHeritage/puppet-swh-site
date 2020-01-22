@@ -66,10 +66,9 @@ class profile::icinga2::master {
   ::icinga2::object::service {'check-deposit':
     import           => ['generic-service-check-e2e'],
     service_name     => 'Check deposit end-to-end',
-    apply            => true,
     check_command    => 'check-deposit-cmd',
-    target           => "/etc/icinga2/zones.d/global-templates/services.conf",
-    assign           => ["host.name in [${::fqdn}]"],
+    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    host_name        => "${::fqdn}",
   }
 
   ::Icinga2::Object::Host <<| |>>
