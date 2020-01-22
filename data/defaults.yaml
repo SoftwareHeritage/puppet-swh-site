@@ -1731,7 +1731,7 @@ swh::deploy::worker::instances:
   - lister
 
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
-swh::deploy::worker::loader_git::concurrency: 1
+swh::deploy::worker::loader_git::concurrency: 4
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"

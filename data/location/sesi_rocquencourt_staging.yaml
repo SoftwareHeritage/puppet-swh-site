@@ -109,6 +109,7 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks.UpdateGitRepository
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
+swh::deploy::worker::loader_git::concurrency: 1
 
 zookeeper::clusters:
   rocquencourt:
