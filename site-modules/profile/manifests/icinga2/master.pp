@@ -68,7 +68,7 @@ class profile::icinga2::master {
     service_name     => 'Check deposit end-to-end',
     apply            => true,
     check_command    => 'check-deposit-cmd',
-    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    target           => "/etc/icinga2/zones.d/global-templates/services.conf",
     assign           => ["host.name in [${::fqdn}]"],
   }
 
