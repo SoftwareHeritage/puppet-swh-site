@@ -67,7 +67,8 @@ class profile::icinga2::master {
     import           => ['generic-service-check-e2e'],
     apply            => true,
     check_command    => 'check-deposit-cmd',
-    target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    assign           => ["host.address == ${::fqdn}"],
   }
 
   ::Icinga2::Object::Host <<| |>>
