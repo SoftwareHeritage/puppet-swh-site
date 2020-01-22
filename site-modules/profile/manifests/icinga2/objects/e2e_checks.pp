@@ -10,6 +10,9 @@ class profile::icinga2::objects::e2e_checks {
   $deposit_archive = lookup('swh::deploy::deposit::e2e:archive')
   $deposit_metadata = lookup('swh::deploy::deposit::e2e:metadata')
 
+  $server_vault = lookup('swh::deploy::vault::e2e::storage')
+  $server_webapp = lookup('swh::deploy::vault::e2e::webapp')
+
   $packages = ["python3-swh.icingaplugins"]
 
   package {$packages:
@@ -31,6 +34,18 @@ class profile::icinga2::objects::e2e_checks {
     ],
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
+    target        => $checks_file,
+    require       => Package[$packages]
+  }
+
+  ::icinga2::object::checkcommand {'check-vault-cmd':
+    import        => ['plugin-check-command'],
+    command       => [
+      "/usr/bin/swh", "icinga_plugins", "check-vault",
+      "--swh-storage-url", "${server_vault}",
+      "--swh-web-url", "${server_webapp}",
+      "directory"
+    ],
     target        => $checks_file,
     require       => Package[$packages]
   }
