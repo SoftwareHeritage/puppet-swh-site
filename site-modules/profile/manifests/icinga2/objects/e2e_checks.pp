@@ -16,8 +16,6 @@ class profile::icinga2::objects::e2e_checks {
     ensure => present
   }
 
-  $template_file = '/etc/icinga2/conf.d/templates.conf'
-
   ::icinga2::object::checkcommand {'check-deposit-cmd':
     import        => ['plugin-check-command'],
     command       => [
