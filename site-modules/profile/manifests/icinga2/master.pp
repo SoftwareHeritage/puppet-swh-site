@@ -69,7 +69,7 @@ class profile::icinga2::master {
     apply            => true,
     check_command    => 'check-deposit-cmd',
     target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
-    assign           => ["host.address == ${::fqdn}"],
+    assign           => ["host.name in [${::fqdn}]"],
   }
 
   ::Icinga2::Object::Host <<| |>>
