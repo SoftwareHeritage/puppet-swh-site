@@ -33,3 +33,5 @@ swh::deploy::storage::config:
       objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::worker::instances: []
+
+swh::deploy::search::backend::listen::host: 0.0.0.0

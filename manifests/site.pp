@@ -68,6 +68,7 @@ node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
 
 node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_base_storage
+  include ::profile::swh::deploy::search
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
