@@ -1485,8 +1485,6 @@ swh::deploy::deposit::config:
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
   loader-version: 2
 
-swh::deploy::loader_deposit::sentry_swh_package: swh.loader.core
-swh::deploy::loader_deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 1
 swh::deploy::worker::loader_deposit::private_tmp: true
@@ -1773,8 +1771,10 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
-swh::deploy::loader_debian::sentry_swh_package: swh.loader.core
-swh::deploy::loader_debian::sentry_environment: "%{alias('swh::deploy::environment')}"
+# for all loader packages
+swh::deploy::loader_core::sentry_swh_package: swh.loader.core
+swh::deploy::loader_core::sentry_environment: "%{hiera('swh::deploy::environment')}"
+
 swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
 swh::deploy::worker::loader_debian::private_tmp: true
 swh::deploy::worker::loader_debian::concurrency: 1
@@ -1787,8 +1787,6 @@ swh::deploy::worker::loader_debian::config:
     task_queues:
       - swh.loader.package.debian.tasks.LoadDebian
 
-swh::deploy::loader_archive::sentry_swh_package: swh.loader.core
-swh::deploy::loader_archive::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_archive::config_file: "%{hiera('swh::conf_directory')}/loader_archive.yml"
 swh::deploy::worker::loader_archive::private_tmp: true
 swh::deploy::worker::loader_archive::concurrency: 1
@@ -1801,8 +1799,6 @@ swh::deploy::worker::loader_archive::config:
     task_queues:
       - swh.loader.package.archive.tasks.LoadArchive
 
-swh::deploy::loader_cran::sentry_swh_package: swh.loader.core
-swh::deploy::loader_cran::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_cran::config_file: "%{hiera('swh::conf_directory')}/loader_cran.yml"
 swh::deploy::worker::loader_cran::private_tmp: true
 swh::deploy::worker::loader_cran::concurrency: 1
@@ -1861,8 +1857,6 @@ swh::deploy::worker::loader_mercurial::config:
       - swh.loader.mercurial.tasks.LoadMercurial
       - swh.loader.mercurial.tasks.LoadArchiveMercurial
 
-swh::deploy::loader_pypi::sentry_swh_package: swh.loader.core
-swh::deploy::loader_pypi::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::loader_pypi::concurrency: 1
 swh::deploy::worker::loader_pypi::private_tmp: true
@@ -1875,8 +1869,6 @@ swh::deploy::worker::loader_pypi::config:
     task_queues:
       - swh.loader.package.pypi.tasks.LoadPyPI
 
-swh::deploy::loader_npm::sentry_swh_package: swh.loader.core
-swh::deploy::loader_npm::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
 swh::deploy::worker::loader_npm::concurrency: 1
 swh::deploy::worker::loader_npm::private_tmp: true
