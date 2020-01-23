@@ -1918,8 +1918,10 @@ swh::deploy::indexer_journal_client::config:
     group_id: swh.indexer.journal_client
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
 
-swh::deploy::indexer_content_mimetype::sentry_swh_package: swh.indexer
-swh::deploy::indexer_content_mimetype::sentry_environment: "%{alias('swh::deploy::environment')}"
+# for all indexers
+swh::deploy::indexer::sentry_swh_package: swh.indexer
+swh::deploy::indexer::sentry_environment: "%{alias('swh::deploy::environment')}"
+
 swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
 swh::deploy::worker::indexer_content_mimetype::concurrency: 1
 swh::deploy::worker::indexer_content_mimetype::loglevel: info
@@ -1944,8 +1946,6 @@ swh::deploy::worker::indexer_content_mimetype::config:
       debian-package: python3-magic
   write_batch_size: 1000
 
-swh::deploy::indexer_origin_intrinsic_metadata::sentry_swh_package: swh.indexer
-swh::deploy::indexer_origin_intrinsic_metadata::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::indexer_origin_intrinsic_metadata::config_file: "%{hiera('swh::conf_directory')}/indexer_origin_intrinsic_metadata.yml"
 swh::deploy::worker::indexer_origin_intrinsic_metadata::concurrency: 1
 swh::deploy::worker::indexer_origin_intrinsic_metadata::loglevel: info
@@ -1966,8 +1966,6 @@ swh::deploy::worker::indexer_origin_intrinsic_metadata::config:
     version: 0.0.2
     configuration: {}
 
-swh::deploy::indexer_rehash::sentry_swh_package: swh.indexer
-swh::deploy::indexer_rehash::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::indexer_rehash::config_file: "rehash.yml"
 swh::deploy::worker::indexer_rehash::concurrency: 5
 swh::deploy::worker::indexer_rehash::loglevel: info
@@ -1980,8 +1978,6 @@ swh::deploy::worker::indexer_rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::indexer_fossology_license::sentry_swh_package: swh.indexer
-swh::deploy::indexer_fossology_license::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::indexer_fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
 swh::deploy::worker::indexer_fossology_license::concurrency: 1
 swh::deploy::worker::indexer_fossology_license::loglevel: info
@@ -2005,8 +2001,6 @@ swh::deploy::worker::indexer_fossology_license::config:
       - swh.indexer.tasks.ContentRangeFossologyLicense
   write_batch_size: 1000
 
-swh::deploy::indexer_content_ctags::sentry_swh_package: swh.indexer
-swh::deploy::indexer_content_ctags::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::indexer_content_ctags::config_file: "%{hiera('swh::conf_directory')}/indexer_content_ctags.yml"
 swh::deploy::worker::indexer_content_ctags::concurrency: 2
 swh::deploy::worker::indexer_content_ctags::loglevel: info
