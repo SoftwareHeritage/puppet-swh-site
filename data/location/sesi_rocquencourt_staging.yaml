@@ -1,4 +1,5 @@
 ---
+swh::deploy::environment: staging
 backups::enable: false
 
 dns::local_cache: false
@@ -129,6 +130,3 @@ swh::deploy::journal::brokers:
 
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
-
-swh::deploy:environment: staging
-
