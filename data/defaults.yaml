@@ -1017,7 +1017,7 @@ swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 5008
-
+swh::remote_service::search::port: 5010
 
 # Default backend services. Override in specific sites if needed. Configurations
 # are split between read-only (the default) and writable storages. In most cases
@@ -1716,6 +1716,14 @@ swh::deploy::scheduler::remote::backend::server_names:
   - "::1"
 swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
+swh::elasticsearch::nodes:
+  - host: esnode2.internal.softwareheritage.org
+    port: 9200
+  - host: esnode3.internal.softwareheritage.org
+    port: 9200
+  - host: esnode1.internal.softwareheritage.org
+    port: 9200
+
 swh::deploy::scheduler::archive::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::archive::conf_file: "%{hiera('swh::deploy::scheduler::archive::conf_dir')}/elastic.yml"
 swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
@@ -1726,12 +1734,7 @@ swh::deploy::scheduler::archive::config:
     args:
       index_name_prefix: swh-tasks
       storage_nodes:
-        - host: esnode2.internal.softwareheritage.org
-          port: 9200
-        - host: esnode3.internal.softwareheritage.org
-          port: 9200
-        - host: esnode1.internal.softwareheritage.org
-          port: 9200
+        "%{alias('swh::elasticsearch::nodes')}"
       client_options:
         sniff_on_start: false
         sniff_on_connection_fail: true
@@ -4193,4 +4196,31 @@ borg::repository_path: "%{lookup('borg::base_path')}/repositories"
 borg::repository_server: banco.internal.softwareheritage.org
 
 borg::encryption: repokey-blake2
+
+swh::deploy::search::sentry_swh_package: swh.search
+swh::deploy::search::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::search::conf_directory: "%{hiera('swh::conf_directory')}"
+swh::deploy::search::conf_file: "%{hiera('swh::deploy::search::conf_directory')}/search.yml"
+swh::deploy::search::user: swhstorage
+swh::deploy::search::group: swhstorage
+swh::deploy::search::config:
+  search:
+    cls: elasticsearch
+    args:
+      hosts: "%{alias('swh::elasticsearch::nodes')}"
+
+swh::deploy::search::backend::listen::host: 127.0.0.1
+swh::deploy::search::backend::listen::port: "%{alias('swh::remote_service::search::port')}"
+swh::deploy::search::backend::workers: 4
+swh::deploy::search::backend::reload_mercy: 3600
+swh::deploy::search::backend::http_keepalive: 5
+swh::deploy::search::backend::http_timeout: 3600
+swh::deploy::search::backend::max_requests: 10000
+swh::deploy::search::backend::max_requests_jitter: 1000
+swh::deploy::search::backend::server_names:
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - "::1"
 
