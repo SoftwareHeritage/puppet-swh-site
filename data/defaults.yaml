@@ -1936,7 +1936,6 @@ swh::deploy::worker::indexer_content_mimetype::config:
     task_queues:
       - swh.indexer.tasks.ContentMimetype
       - swh.indexer.tasks.ContentRangeMimetype
-      - swh_indexer_content_mimetype_range
   tools:
     name: file
     version: 1:5.30-1+deb9u1
@@ -2004,7 +2003,6 @@ swh::deploy::worker::indexer_fossology_license::config:
     task_queues:
       - swh.indexer.tasks.ContentFossologyLicense
       - swh.indexer.tasks.ContentRangeFossologyLicense
-      - swh_indexer_content_fossology_license_range
   write_batch_size: 1000
 
 swh::deploy::indexer_content_ctags::sentry_swh_package: swh.indexer
