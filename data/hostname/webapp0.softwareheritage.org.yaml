@@ -6,3 +6,5 @@ apache::http_port: 9080
 
 # Disable default vhost on port 80
 apache::default_vhost: false
+
+swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::storage0')}"

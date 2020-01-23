@@ -1192,6 +1192,14 @@ swh::remote_service::storage::config::localhost:
   args:
     url: "http://localhost:%{hiera('swh::remote_service::storage::port')}/"
 
+swh::remote_service::search::config::empty: {}
+
+swh::remote_service::search::config::storage0:
+  cls: remote
+  args:
+    url: "http://storage0.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
+
+swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
 
 # Indexer backend configurations
 swh::remote_service::indexer::config::uffizi:
@@ -1645,7 +1653,7 @@ swh::deploy::webapp::config::throttling:
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
-  search: {}
+  search: "%{alias('swh::remote_service::search::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault: "%{alias('swh::remote_service::vault::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
