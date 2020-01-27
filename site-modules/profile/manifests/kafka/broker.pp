@@ -96,6 +96,9 @@ class profile::kafka::broker {
 
   ::profile::prometheus::export_scrape_config {'kafka':
     target => $target,
+    labels => {
+      cluster => $kafka_cluster,
+    }
   }
 
   ::profile::cron::d {'kafka-purge-logs':
