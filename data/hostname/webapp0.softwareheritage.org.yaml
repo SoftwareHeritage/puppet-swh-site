@@ -8,3 +8,16 @@ apache::http_port: 9080
 apache::default_vhost: false
 
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::storage0')}"
+
+swh::remote_service::storage::config:
+  cls: cassandra
+  args:
+    hosts:
+      - cassandra01.euwest.azure.internal.softwareheritage.org
+      - cassandra02.euwest.azure.internal.softwareheritage.org
+      - cassandra03.euwest.azure.internal.softwareheritage.org
+      - cassandra04.euwest.azure.internal.softwareheritage.org
+      - cassandra05.euwest.azure.internal.softwareheritage.org
+      - cassandra06.euwest.azure.internal.softwareheritage.org
+    keyspace: swh_test
+    objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
