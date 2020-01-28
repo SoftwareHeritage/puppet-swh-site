@@ -18,4 +18,8 @@ class profile::swh::deploy::storage {
       and $storage_config['args']['journal_writer']['cls'] == 'kafka') {
     include ::profile::swh::deploy::journal
   }
+
+  if $storage_config['cls'] == 'cassandra' {
+    include ::profile::swh::deploy::storage_cassandra
+  }
 }
