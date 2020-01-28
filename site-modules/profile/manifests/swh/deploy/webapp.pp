@@ -102,6 +102,11 @@ class profile::swh::deploy::webapp {
     notify  => Service['gunicorn-swh-webapp'],
   }
 
+  $storage_cfg = $full_webapp_config['storage']
+  if $storage_cfg['cls'] == 'cassandra' {
+    include ::profile::swh::deploy::storage_cassandra
+  }
+
   file {$production_db_dir:
     ensure => directory,
     owner  => $user,
