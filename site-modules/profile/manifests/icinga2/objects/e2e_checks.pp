@@ -34,7 +34,7 @@ class profile::icinga2::objects::e2e_checks {
     ],
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
-    timeout       => 120,
+    timeout       => 600,
     target        => $checks_file,
     require       => Package[$packages]
   }
