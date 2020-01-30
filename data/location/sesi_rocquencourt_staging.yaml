@@ -100,16 +100,8 @@ swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service:
 
 swh::deploy::deposit::url: http://deposit.internal.staging.swh.network
 
-swh::deploy::worker::loader_git::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  save_data: false
-  directory_packet_size: 100
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_queues:
-      - swh.loader.git.tasks.UpdateGitRepository
-      - swh.loader.git.tasks.LoadDiskGitRepository
-      - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
+# do not save pack
+swh::deploy::worker::loader_git::save_data_path: ""
 swh::deploy::worker::loader_git::concurrency: 1
 
 zookeeper::clusters:

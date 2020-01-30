@@ -1768,11 +1768,12 @@ swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment'
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 4
 swh::deploy::worker::loader_git::loglevel: info
+swh::deploy::worker::loader_git::save_data_path: /srv/storage/space/data/sharded_packfiles
 swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
   max_content_size: 104857600
   save_data: false
-  save_data_path: /srv/storage/space/data/sharded_packfiles
+  save_data_path: "%{alias('swh::deploy::worker::loader_git::save_data_path')}"
   directory_packet_size: 100
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
