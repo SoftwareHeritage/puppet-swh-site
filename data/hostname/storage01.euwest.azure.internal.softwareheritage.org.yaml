@@ -14,8 +14,7 @@ swh::deploy::indexer::storage::db::host: dbreplica1.euwest.azure.internal.softwa
 swh::deploy::indexer::storage::db::port: 5432
 
 swh::deploy::objstorage::config:
-  objstorage:
-    <<: *swh_azure_readonly_with_fallback
+  objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
 
 swh::deploy::storage::config:
   storage:
