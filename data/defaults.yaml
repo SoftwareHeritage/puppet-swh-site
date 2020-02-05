@@ -1187,6 +1187,11 @@ swh::remote_service::storage::config::azure:
   args:
     url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
+swh::remote_service::storage::config::cassandra:
+  cls: remote
+  args:
+    url: "http://storage02.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+
 swh::remote_service::storage::config::localhost:
   cls: remote
   args:
