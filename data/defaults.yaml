@@ -1823,6 +1823,11 @@ swh::deploy::worker::loader_cran::config:
     task_queues:
       - swh.loader.package.cran.tasks.LoadCRAN
 
+swh::deploy::lister::db::local:
+  cls: local
+  args:
+    db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
+
 swh::deploy::lister::sentry_swh_package: swh.lister
 swh::deploy::lister::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
@@ -1831,10 +1836,7 @@ swh::deploy::worker::lister::loglevel: warning
 swh::deploy::worker::lister::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  lister:
-    cls: local
-    args:
-      db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
+  lister: "%{alias('swh::deploy::lister::db::local')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:

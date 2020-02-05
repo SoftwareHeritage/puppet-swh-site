@@ -9,3 +9,15 @@ networks:
     address: 128.93.193.22
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+
+swh::deploy::worker::lister::concurrency: 1
+swh::deploy::worker::lister::config:
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
+  lister: "%{alias('swh::deploy::lister::db::local')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      - swh.lister.github.tasks.IncrementalGitHubLister
+  credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
+
