@@ -66,11 +66,11 @@ node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_storage_baremetal
 }
 
-node /^storage01\.azure\.internal\.softwareheritage\.org$/ {
+node 'storage01.euwest.azure.internal.softwareheritage.org' {
   include role::swh_storage_cloud
 }
 
-node /^storage02\.azure\.internal\.softwareheritage\.org$/ {
+node 'storage02.euwest.azure.internal.softwareheritage.org' {
   include role::swh_storage_cassandra
 }
 
