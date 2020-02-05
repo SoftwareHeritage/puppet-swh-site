@@ -15,3 +15,11 @@ swh::deploy::worker::instances:
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
 swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::azure')}"
+
+swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
+  cls: multiplexer
+  args:
+    objstorages:
+      - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::uffizi::readonly')}"

@@ -66,8 +66,12 @@ node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_storage_baremetal
 }
 
-node /^storage\d+\.[^.]+\.azure\.internal\.softwareheritage\.org$/ {
+node /^storage01\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_storage_cloud
+}
+
+node /^storage02\.azure\.internal\.softwareheritage\.org$/ {
+  include role::swh_storage_cassandra
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
