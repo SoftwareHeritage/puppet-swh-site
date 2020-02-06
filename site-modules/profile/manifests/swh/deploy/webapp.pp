@@ -265,7 +265,7 @@ class profile::swh::deploy::webapp {
       http_port        => $vhost_ssl_port,
       http_ssl         => true,
       http_sni         => true,
-      http_certificate => 60,
+      http_certificate => 15,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
