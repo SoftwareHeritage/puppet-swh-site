@@ -66,14 +66,34 @@ class profile::kafka::broker {
     }
 
     $kafka_tls_config = {
-      'ssl.keystore.location' => $ks_location,
-      'ssl.keystore.password' => $ks_password,
-      'listeners'             => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']},SSL://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['tls_port']}"
+      'ssl.keystore.location'  => $ks_location,
+      'ssl.keystore.password'  => $ks_password,
+      'listeners'              => join([
+        "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
+        "SASL_SSL://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['tls_port']}",
+      ], ','),
+      'sasl.enabled.mechanisms' => 'SCRAM-SHA-256,SCRAM-SHA-512'
     }
+
+    $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
+
+    file {$jaas_config:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'kafka',
+      mode    => '0440',
+      content => template('profile/kafka/kafka_broker_jaas.conf.erb'),
+      notify  => Service['kafka'],
+    }
+
+    $jaas_cli_opts = ["-Djava.security.auth.login.config=${jaas_config}"]
+
   } else {
     $kafka_tls_config = {
-      'listeners'             => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
+      'listeners' => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
     }
+
+    $jaas_cli_opts = []
   }
 
   include ::profile::prometheus::jmx
@@ -97,7 +117,7 @@ class profile::kafka::broker {
 
   class {'::kafka::broker':
     config       => $kafka_config + $kafka_tls_config,
-    opts         => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
+    opts         => join(["-javaagent:${exporter}=${exporter_port}:${exporter_config}"] + $jaas_cli_opts, ' '),
     limit_nofile => '65536',
     heap_opts    => $heap_opts,
     require      => [
