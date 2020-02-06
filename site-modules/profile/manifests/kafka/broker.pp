@@ -174,14 +174,14 @@ class profile::kafka::broker {
   }
 
   ::profile::cron::d {'kafka-purge-logs':
-    command => 'find /var/log/kafka -type f -ctime +60 -exec rm {} \+',
+    command => 'find /var/log/kafka -type f -name *.gz -a -ctime +60 -exec rm {} \+',
     target  => 'kafka',
     minute  => 'fqdn_rand',
     hour    => 2,
   }
 
   ::profile::cron::d {'kafka-zip-logs':
-    command => 'find /var/log/kafka -type f -not -name *.gz -a -ctime +1 -exec gzip {} \+',
+    command => 'find /var/log/kafka -type f -name *.log.* -a -not -name *.gz -a -ctime +1 -exec gzip {} \+',
     target  => 'kafka',
     minute  => 'fqdn_rand',
     hour    => 3,
