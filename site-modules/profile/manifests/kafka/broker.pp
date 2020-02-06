@@ -52,7 +52,7 @@ class profile::kafka::broker {
 
     $ks_password = fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
 
-    $ks_location = '/etc/kafka/broker.ts'
+    $ks_location = '/opt/kafka/config/broker.ks'
 
     java_ks {'kafka:broker':
       ensure       => latest,
