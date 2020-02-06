@@ -65,14 +65,33 @@ class profile::kafka::broker {
       trustcacerts => true,
     }
 
+    $internal_hostname = $swh_hostname['internal_fqdn']
+    $public_hostname = $internal_hostname.regsubst('\.internal', '')
+
+    $plaintext_port = $kafka_cluster_config['plaintext_port']
+    $internal_tls_port = $kafka_cluster_config['internal_tls_port']
+    $public_tls_port = $kafka_cluster_config['public_tls_port']
+
     $kafka_tls_config = {
-      'ssl.keystore.location'  => $ks_location,
-      'ssl.keystore.password'  => $ks_password,
-      'listeners'              => join([
-        "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
-        "SASL_SSL://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['tls_port']}",
+      'ssl.keystore.location'          => $ks_location,
+      'ssl.keystore.password'          => $ks_password,
+      'listeners'                      => join([
+        "INTERNAL_PLAINTEXT://${internal_hostname}:${plaintext_port}",
+        "INTERNAL://${internal_hostname}:${internal_tls_port}",
+        "EXTERNAL://${internal_hostname}:${public_tls_port}",
       ], ','),
-      'sasl.enabled.mechanisms' => 'SCRAM-SHA-256,SCRAM-SHA-512'
+      'advertised.listeners'           => join([
+        "INTERNAL_PLAINTEXT://${internal_hostname}:${plaintext_port}",
+        "INTERNAL://${internal_hostname}:${internal_tls_port}",
+        "EXTERNAL://${public_hostname}:${public_tls_port}",
+      ], ','),
+      'listener.security.protocol.map' => join([
+        'INTERNAL_PLAINTEXT:PLAINTEXT',
+        'INTERNAL:SASL_SSL',
+        'EXTERNAL:SASL_SSL',
+      ], ','),
+      'inter.broker.listener.name'     => 'INTERNAL_PLAINTEXT',
+      'sasl.enabled.mechanisms'        => 'SCRAM-SHA-256,SCRAM-SHA-512',
     }
 
     $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
