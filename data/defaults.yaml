@@ -2547,6 +2547,7 @@ kafka::clusters:
         id: 13
     broker::heap_opts: "-Xmx4G -Xms4G"
     tls: false
+    plaintext_port: 9092
   azure:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
@@ -2571,6 +2572,8 @@ kafka::clusters:
         id: 6
     broker::heap_opts: "-Xmx1G -Xms1G"
     tls: true
+    plaintext_port: 9092
+    tls_port: 9093
 
 
 # Real exported files from munin

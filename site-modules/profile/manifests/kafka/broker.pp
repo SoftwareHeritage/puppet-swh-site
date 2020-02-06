@@ -24,11 +24,12 @@ class profile::kafka::broker {
 
   $zookeeper_connect_string = "${zookeeper_server_string}${zookeeper_chroot}"
 
-  $broker_id = $kafka_cluster_config['brokers'][$::swh_hostname['internal_fqdn']]['id']
+  $broker_config = $kafka_cluster_config['brokers'][$::swh_hostname['internal_fqdn']]
+  $broker_id = $broker_config['id']
 
   $kafka_config = $base_kafka_config + {
     'zookeeper.connect' => $zookeeper_connect_string,
-    'broker.id'         => $broker_id
+    'broker.id'         => $broker_id,
   }
 
   $heap_opts = $kafka_cluster_config['broker::heap_opts']
@@ -63,8 +64,17 @@ class profile::kafka::broker {
       password     => $ks_password,
       trustcacerts => true,
     }
-  }
 
+    $kafka_tls_config = {
+      'ssl.keystore.location' => $ks_location,
+      'ssl.keystore.password' => $ks_password,
+      'listeners'             => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']},SSL://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['tls_port']}"
+    }
+  } else {
+    $kafka_tls_config = {
+      'listeners'             => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
+    }
+  }
 
   include ::profile::prometheus::jmx
 
@@ -86,7 +96,7 @@ class profile::kafka::broker {
   }
 
   class {'::kafka::broker':
-    config       => $kafka_config,
+    config       => $kafka_config + $kafka_tls_config,
     opts         => "-javaagent:${exporter}=${exporter_port}:${exporter_config}",
     limit_nofile => '65536',
     heap_opts    => $heap_opts,
