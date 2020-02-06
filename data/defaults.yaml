@@ -2530,8 +2530,6 @@ kafka::logdirs:
 kafka::broker_config:
   log.dirs: "%{alias('kafka::logdirs')}"
   num.recovery.threads.per.data.dir: 10
-  inter.broker.protocol.version: "2.2"
-  log.message.format.version: "2.2-IV1"
 
 kafka::clusters:
   rocquencourt:
