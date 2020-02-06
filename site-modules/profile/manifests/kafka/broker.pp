@@ -56,7 +56,7 @@ class profile::kafka::broker {
 
     java_ks {'kafka:broker':
       ensure       => latest,
-      certificate  => $cert_paths['chain'],
+      certificate  => $cert_paths['fullchain'],
       private_key  => $cert_paths['privkey'],
       name         => $trusted['certname'],
       target       => $ks_location,
