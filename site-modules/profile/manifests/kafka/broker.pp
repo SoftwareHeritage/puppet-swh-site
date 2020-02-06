@@ -58,6 +58,7 @@ class profile::kafka::broker {
       ensure       => latest,
       certificate  => $cert_paths['chain'],
       private_key  => $cert_paths['privkey'],
+      name         => $trusted['certname'],
       target       => $ks_location,
       password     => $ks_password,
       trustcacerts => true,
