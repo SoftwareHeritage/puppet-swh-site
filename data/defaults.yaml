@@ -2546,6 +2546,7 @@ kafka::clusters:
       esnode3.internal.softwareheritage.org:
         id: 13
     broker::heap_opts: "-Xmx4G -Xms4G"
+    tls: false
   azure:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
@@ -2569,6 +2570,7 @@ kafka::clusters:
       kafka06.euwest.azure.internal.softwareheritage.org:
         id: 6
     broker::heap_opts: "-Xmx1G -Xms1G"
+    tls: true
 
 
 # Real exported files from munin

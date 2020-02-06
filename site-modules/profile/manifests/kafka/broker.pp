@@ -43,6 +43,28 @@ class profile::kafka::broker {
     } -> Service['kafka']
   }
 
+  $do_tls = $kafka_cluster_config['tls']
+
+  if $do_tls {
+    include ::profile::letsencrypt::host_cert
+    $cert_paths = ::profile::letsencrypt::certificate_paths($trusted['certname'])
+    # $cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']
+
+    $ks_password = fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
+
+    $ks_location = '/etc/kafka/broker.ts'
+
+    java_ks {'kafka:broker':
+      ensure       => latest,
+      certificate  => $cert_paths['chain'],
+      private_key  => $cert_paths['privkey'],
+      target       => $ks_location,
+      password     => $ks_password,
+      trustcacerts => true,
+    }
+  }
+
+
   include ::profile::prometheus::jmx
 
   $exporter = $::profile::prometheus::jmx::jar_path
