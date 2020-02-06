@@ -2521,7 +2521,7 @@ zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
-kafka::version: '2.2.0'
+kafka::version: '2.4.0'
 kafka::scala_version: '2.12'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
@@ -2530,6 +2530,7 @@ kafka::logdirs:
 kafka::broker_config:
   log.dirs: "%{alias('kafka::logdirs')}"
   num.recovery.threads.per.data.dir: 10
+  inter.broker.protocol.version: "2.2"
 
 kafka::clusters:
   rocquencourt:
