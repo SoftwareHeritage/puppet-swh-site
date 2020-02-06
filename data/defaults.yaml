@@ -2530,6 +2530,10 @@ kafka::logdirs:
 kafka::broker_config:
   log.dirs: "%{alias('kafka::logdirs')}"
   num.recovery.threads.per.data.dir: 10
+  # Increase zookeeper and replication timeouts
+  # https://cwiki.apache.org/confluence/display/KAFKA/KIP-537%3A+Increase+default+zookeeper+session+timeout will be default in 2.5.0
+  zookeeper.session.timeout.ms: 18000
+  replica.lag.time.max.ms: 30000
 
 kafka::clusters:
   rocquencourt:
