@@ -636,6 +636,30 @@ letsencrypt::certificates:
   keycloak:
     domains:
       - idp.softwareheritage.org
+  kafka01.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka01.euwest.azure.internal.softwareheritage.org
+      - kafka01.euwest.azure.softwareheritage.org
+  kafka02.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka02.euwest.azure.internal.softwareheritage.org
+      - kafka02.euwest.azure.softwareheritage.org
+  kafka03.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka03.euwest.azure.internal.softwareheritage.org
+      - kafka03.euwest.azure.softwareheritage.org
+  kafka04.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka04.euwest.azure.internal.softwareheritage.org
+      - kafka04.euwest.azure.softwareheritage.org
+  kafka05.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka05.euwest.azure.internal.softwareheritage.org
+      - kafka05.euwest.azure.softwareheritage.org
+  kafka06.euwest.azure.internal.softwareheritage.org:
+    domains:
+      - kafka06.euwest.azure.internal.softwareheritage.org
+      - kafka06.euwest.azure.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
