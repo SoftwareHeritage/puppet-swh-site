@@ -103,6 +103,10 @@ mod 'java',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java',
     :tag => 'v6.0.0'
 
+mod 'java_ks',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java_ks',
+    :tag => 'v3.1.0'
+
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
     :ref => 'v5.3.0'
