@@ -2506,6 +2506,8 @@ desktop::printers::cups_usernames:
 zookeeper::clusters:
   rocquencourt:
     '1': zookeeper1.internal.softwareheritage.org
+    '2': zookeeper2.internal.softwareheritage.org
+    '3': zookeeper3.internal.softwareheritage.org
     '11': esnode1.internal.softwareheritage.org
     '12': esnode2.internal.softwareheritage.org
     '13': esnode3.internal.softwareheritage.org
