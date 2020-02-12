@@ -1,0 +1,11 @@
+---
+users:
+  marmoute:
+    uid: 3000
+    full_name: Pierre-Yves David
+    authorized_keys:
+      marmoute@nodosa:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDgDqgHs1q3utmg1rsrVtLVh+W7OgWz+ft1A1e2e8kMZkHfDOtD5niwzd1j4EVegaY5fJygyL2Pnm+wRID4uLIsoG21BW2SA5SwgnCMmNzPE+v/7pCFjJ1koGUrrXFDETaYaFF1cXwQ9veXzm2QMqxQ2pGbz/Yvu3Ihw85EezACehBnr9UzSCJEKQ8b+Bs8Ijr6kAvyvR3CPXfDEzJmxR/wA6uWXUWo+zSNFeOO0n3C1/uqULy5JiiuzSBu8W/q7pQXnYjz9y7nD4isIshDH5whGBQXzkl2G7idt7wRQgr/ADYZbpZHOoJXtjYzHLINNqJ5HqX0GOMssA1fqyBB1u+l
+    groups:
+      - sudo
