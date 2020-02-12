@@ -2505,6 +2505,7 @@ desktop::printers::cups_usernames:
 
 zookeeper::clusters:
   rocquencourt:
+    '1': zookeeper1.internal.softwareheritage.org
     '11': esnode1.internal.softwareheritage.org
     '12': esnode2.internal.softwareheritage.org
     '13': esnode3.internal.softwareheritage.org
@@ -2539,6 +2540,7 @@ kafka::clusters:
   rocquencourt:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
+      - zookeeper1.internal.softwareheritage.org
       - esnode1.internal.softwareheritage.org
       - esnode2.internal.softwareheritage.org
       - esnode3.internal.softwareheritage.org
