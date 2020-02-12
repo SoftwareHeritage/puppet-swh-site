@@ -1,7 +1,6 @@
 # Kafka broker profile
 
 class profile::kafka::broker {
-  include ::profile::zookeeper
   include ::profile::kafka
 
   $base_kafka_config = lookup('kafka::broker_config', Hash)
