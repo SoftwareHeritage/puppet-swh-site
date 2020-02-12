@@ -2508,9 +2508,6 @@ zookeeper::clusters:
     '1': zookeeper1.internal.softwareheritage.org
     '2': zookeeper2.internal.softwareheritage.org
     '3': zookeeper3.internal.softwareheritage.org
-    '11': esnode1.internal.softwareheritage.org
-    '12': esnode2.internal.softwareheritage.org
-    '13': esnode3.internal.softwareheritage.org
   azure:
     '1': kafka01.euwest.azure.internal.softwareheritage.org
     '2': kafka02.euwest.azure.internal.softwareheritage.org
@@ -2543,9 +2540,8 @@ kafka::clusters:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
       - zookeeper1.internal.softwareheritage.org
-      - esnode1.internal.softwareheritage.org
-      - esnode2.internal.softwareheritage.org
-      - esnode3.internal.softwareheritage.org
+      - zookeeper2.internal.softwareheritage.org
+      - zookeeper3.internal.softwareheritage.org
     brokers:
       esnode1.internal.softwareheritage.org:
         id: 11
