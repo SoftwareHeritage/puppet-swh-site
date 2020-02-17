@@ -3062,6 +3062,10 @@ keycloak::postgres::user: keycloak
 cassandra::release: 311x
 cassandra::cluster: azure
 
+cassandra::exporter::version: "0.9.10"
+cassandra::exporter::listen_network: "%{lookup('internal_network')}"
+cassandra::exporter::listen_port: 9500
+
 cassandra::listen_network: "%{lookup('internal_network')}"
 
 cassandra::baseline_settings:

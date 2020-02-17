@@ -27,9 +27,59 @@ class profile::cassandra::node {
     rpc_address    => $actual_listen_address
   }
 
-  ::systemd::unit_file {'cassandra.service':
-    source => 'puppet:///modules/profile/cassandra/cassandra.service',
+  $exporter_version = lookup('cassandra::exporter::version')
+  $exporter_filename = "cassandra-exporter-agent-${exporter_version}.jar"
+  $exporter_url = "https://github.com/instaclustr/cassandra-exporter/releases/download/v${exporter_version}/${exporter_filename}"
+
+  $exporter_base_directory = '/opt/prometheus-cassandra-exporter'
+  $exporter_path = "${exporter_base_directory}/${exporter_filename}"
+  $exporter_config = "/etc/cassandra/cassandra-exporter.options"
+
+  file {$exporter_base_directory:
+    ensure => 'directory',
+    mode   => '0644',
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  file {$exporter_path:
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    source => $exporter_url,
     notify => Service['cassandra'],
+  }
+
+  $exporter_network = lookup('cassandra::exporter::listen_network', Optional[String], 'first', undef)
+  $exporter_address = lookup('cassandra::exporter::listen_address', Optional[String], 'first', undef)
+  $actual_exporter_address = pick($exporter_address, ip_for_network($exporter_network))
+
+  $exporter_port = lookup('cassandra::exporter::listen_port')
+
+  $exporter_target = "${actual_exporter_address}:${exporter_port}"
+
+  file {$exporter_config:
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    content => template('profile/cassandra/cassandra-exporter.options.erb'),
+    notify => Service['cassandra'],
+  }
+
+  ::systemd::unit_file {'cassandra.service':
+    content => template('profile/cassandra/cassandra.service.erb'),
+    notify  => Service['cassandra'],
+    require => [
+      File[$exporter_path],
+      File[$exporter_config],
+    ],
+  }
+
+  ::profile::prometheus::export_scrape_config {'cassandra':
+    target => $exporter_target,
+    labels => {
+      cluster => $cluster,
+    }
   }
 
   package {'openjdk-8-jre-headless':
@@ -51,6 +101,7 @@ class profile::cassandra::node {
     mode    => '0644',
     source  => 'puppet:///modules/profile/cassandra/jvm.options',
     require => Package['cassandra'],
+    notify  => Service['cassandra'],
   }
 
   file {'/etc/udev/rules.d/99-cassandra.rules':
