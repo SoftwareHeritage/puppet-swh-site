@@ -44,9 +44,9 @@ class profile::cassandra::node {
 
   # Use wget to work around https://tickets.puppetlabs.com/browse/PUP-6380
   exec {"wget --quiet ${exporter_url} -O ${exporter_path}":
-    path     => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
-    creates  => $exporter_path,
-    requires => File[$exporter_base_directory],
+    path    => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
+    creates => $exporter_path,
+    require => File[$exporter_base_directory],
   }
 
   $exporter_network = lookup('cassandra::exporter::listen_network', Optional[String], 'first', undef)
