@@ -66,7 +66,8 @@ class profile::cassandra::node {
     notify => Service['cassandra'],
   }
 
-  ::systemd::unit_file {'cassandra.service':
+  Service['cassandra']
+  -> ::systemd::unit_file {'cassandra.service':
     content => template('profile/cassandra/cassandra.service.erb'),
     notify  => Service['cassandra'],
     require => [
@@ -91,7 +92,6 @@ class profile::cassandra::node {
     data_file_directories => [$datadir],
     hints_directory       => $hintsdir,
     settings              => $cluster_settings + $listen_settings,
-    require               => Systemd::Unit_file['cassandra.service'],
   }
 
   file {'/etc/cassandra/jvm.options':
