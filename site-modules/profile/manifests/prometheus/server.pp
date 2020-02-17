@@ -92,7 +92,7 @@ class profile::prometheus::server {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => 'puppet:///profile/prometheus/update-prometheus-config'
+    source  => 'puppet:///modules/profile/prometheus/update-prometheus-config'
   }
 
   exec {'update-prometheus-config':
