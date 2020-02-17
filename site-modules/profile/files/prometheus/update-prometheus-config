@@ -22,7 +22,7 @@ import yaml
 class JobGroup:
     """Job parameters from which to group prometheus jobs"""
 
-    job: str
+    job_name: str
     scrape_interval: Optional[int]
     scrape_timeout: Optional[int]
     metrics_path: Optional[str]
@@ -88,6 +88,8 @@ if __name__ == "__main__":
 
     for conf in load_yaml_from_dir(exported_dir):
         group = JobGroup.from_dict(conf)
+        for key in asdict(group):
+            conf.pop(key, None)
         config_groups[group].append(conf)
 
     with open(base_conffile, "r") as f:

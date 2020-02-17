@@ -16,7 +16,7 @@ define profile::prometheus::scrape_config (
     content => inline_yaml(
       [
         {
-          job          => $job,
+          job_name     => $job,
           targets      => [$target],
           labels       => $labels,
           scheme       => $scheme,
