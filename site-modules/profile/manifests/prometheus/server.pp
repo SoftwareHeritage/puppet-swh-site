@@ -58,6 +58,7 @@ class profile::prometheus::server {
   service {'prometheus':
     ensure  => 'running',
     enable  => true,
+    restart => 'systemctl reload prometheus.service',
     require => [
       Package['prometheus'],
       Exec['update-prometheus-config'],
