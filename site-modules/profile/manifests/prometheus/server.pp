@@ -71,7 +71,7 @@ class profile::prometheus::server {
     group   => 'root',
     mode    => '0644',
     require => Package['prometheus'],
-    notify  => Service['prometheus'],
+    notify  => Exec['update-prometheus-config'],
     content => inline_yaml($full_config),
   }
 
