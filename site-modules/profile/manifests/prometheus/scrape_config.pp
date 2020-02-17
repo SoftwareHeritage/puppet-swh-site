@@ -4,8 +4,8 @@ define profile::prometheus::scrape_config (
   String $target,
   String $job,
   Hash[String, String] $labels = {},
-  Enum['http', 'https'] $scheme = 'http',
-  String $metrics_path = '/metrics',
+  Optional[Enum['http', 'https']] $scheme = undef,
+  Optional[String] $metrics_path = undef,
 ){
   $directory = $profile::prometheus::server::scrape_configs_dir
   file {"${directory}/${name}.yaml":
@@ -16,12 +16,14 @@ define profile::prometheus::scrape_config (
     content => inline_yaml(
       [
         {
-          targets => [$target],
-          labels  => {
-            job => $job,
-          } + $labels,
+          job          => $job,
+          targets      => [$target],
+          labels       => $labels,
+          scheme       => $scheme,
+          metrics_path => $metrics_path
         },
       ]
     ),
+    notify  => Exec['update-prometheus-config'],
   }
 }

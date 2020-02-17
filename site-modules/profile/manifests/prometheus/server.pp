@@ -3,8 +3,10 @@ class profile::prometheus::server {
   include profile::prometheus::base
 
   $config_dir = '/etc/prometheus'
+  $base_config_file = "${config_dir}/prometheus.yml.base"
   $config_file = "${config_dir}/prometheus.yml"
   $defaults_file = '/etc/default/prometheus'
+
   $scrape_configs_dirname = 'exported-configs'
   $scrape_configs_dir = "${config_dir}/${scrape_configs_dirname}"
 
@@ -19,18 +21,7 @@ class profile::prometheus::server {
   $full_config = {
     global         => $global_config,
     rule_files     => $rule_files,
-    scrape_configs => $scrape_configs + [
-      {
-        job_name        => 'exported',
-        file_sd_configs => [
-          {
-            files => [
-              "${scrape_configs_dirname}/*.yaml",
-            ]
-          },
-        ]
-      },
-    ],
+    scrape_configs => $scrape_configs,
     alerting       => {
       alert_relabel_configs => $alert_relabel_configs,
       alertmanagers         => $alertmanagers,
@@ -69,12 +60,12 @@ class profile::prometheus::server {
     enable  => true,
     require => [
       Package['prometheus'],
-      File[$config_file],
+      Exec['update-prometheus-config'],
       File[$defaults_file]
     ],
   }
 
-  file {$config_file:
+  file {$base_config_file:
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -92,6 +83,28 @@ class profile::prometheus::server {
     require => Package['prometheus'],
     recurse => true,
     purge   => true,
+    notify  => Exec['update-prometheus-config'],
+  }
+
+  $update_prometheus_config = '/usr/local/bin/update-prometheus-config'
+  file {$update_prometheus_config:
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => 'puppet:///profile/prometheus/update-prometheus-config'
+  }
+
+  exec {'update-prometheus-config':
+    command     => "${update_prometheus_config} ${base_config_file} ${scrape_configs_dir} ${config_file}",
+    refreshonly => true,
+    require     => [
+      File[$base_config_file],
+      File[$scrape_configs_dir],
+      Package['python3'],
+      Package['python3-yaml'],
+    ],
+    notify => Service['prometheus'],
   }
 
   # Uses $defaults_config

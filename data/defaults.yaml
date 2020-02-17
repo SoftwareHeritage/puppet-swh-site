@@ -115,6 +115,7 @@ packages:
   - ncdu
   - nfs-common
   - python3
+  - python3-yaml
   - ruby-filesystem
   - strace
   - tmux
