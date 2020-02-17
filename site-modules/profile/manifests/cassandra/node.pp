@@ -66,8 +66,7 @@ class profile::cassandra::node {
     notify => Service['cassandra'],
   }
 
-  Service['cassandra']
-  -> ::systemd::unit_file {'cassandra.service':
+  ::systemd::unit_file {'cassandra.service':
     content => template('profile/cassandra/cassandra.service.erb'),
     notify  => Service['cassandra'],
     require => [
