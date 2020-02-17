@@ -43,7 +43,8 @@ class profile::cassandra::node {
   }
 
   # Use wget to work around https://tickets.puppetlabs.com/browse/PUP-6380
-  exec {"wget --quiet ${exporter_url} -O ${exporter_path}":
+  exec {'download-cassandra-exporter':
+    command => "wget --quiet ${exporter_url} -O ${exporter_path}",
     path    => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
     creates => $exporter_path,
     require => File[$exporter_base_directory],
@@ -69,7 +70,7 @@ class profile::cassandra::node {
     content => template('profile/cassandra/cassandra.service.erb'),
     notify  => Service['cassandra'],
     require => [
-      File[$exporter_path],
+      Exec['download-cassandra-exporter'],
       File[$exporter_config],
     ],
   }
