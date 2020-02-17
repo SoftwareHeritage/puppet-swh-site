@@ -94,6 +94,8 @@ if __name__ == "__main__":
     config_groups: Dict[JobGroup, List[Dict[str, Any]]] = defaultdict(list)
 
     for conf in load_yaml_from_dir(exported_dir):
+        if 'job' in conf:
+            conf['job_name'] = conf.pop('job')
         group = JobGroup.from_dict(conf)
         for key in asdict(group):
             conf.pop(key, None)
