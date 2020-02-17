@@ -42,12 +42,11 @@ class profile::cassandra::node {
     group  => 'root',
   }
 
-  file {$exporter_path:
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    source => $exporter_url,
-    notify => Service['cassandra'],
+  # Use wget to work around https://tickets.puppetlabs.com/browse/PUP-6380
+  exec {"wget --quiet ${exporter_url} -O ${exporter_path}":
+    path     => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
+    creates  => $exporter_path,
+    requires => File[$exporter_base_directory],
   }
 
   $exporter_network = lookup('cassandra::exporter::listen_network', Optional[String], 'first', undef)
