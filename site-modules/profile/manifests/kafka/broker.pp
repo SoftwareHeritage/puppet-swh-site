@@ -138,6 +138,17 @@ class profile::kafka::broker {
     opts         => join(["-javaagent:${exporter}=${exporter_port}:${exporter_config}"] + $jaas_cli_opts, ' '),
     limit_nofile => '65536',
     heap_opts    => $heap_opts,
+    env          => {
+      # Deployment options from https://docs.confluent.io/current/kafka/deployment.html
+      'KAFKA_JVM_PERFORMANCE_OPTS' => join([
+        '-server',
+        '-Djava.awt.headless=true',
+        '-XX:MetaspaceSize=96m', '-XX:+UseG1GC',
+        '-XX:+ExplicitGCInvokesConcurrent', '-XX:MaxGCPauseMillis=20',
+        '-XX:InitiatingHeapOccupancyPercent=35', '-XX:G1HeapRegionSize=16M',
+        '-XX:MinMetaspaceFreeRatio=50', '-XX:MaxMetaspaceFreeRatio=80',
+      ], ' '),
+    },
     require      => [
       File[$exporter],
       File[$exporter_config],

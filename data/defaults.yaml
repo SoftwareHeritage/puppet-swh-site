@@ -2550,7 +2550,7 @@ kafka::clusters:
         id: 12
       esnode3.internal.softwareheritage.org:
         id: 13
-    broker::heap_opts: "-Xmx4G -Xms4G"
+    broker::heap_opts: "-Xmx6G -Xms6G"
     tls: false
     plaintext_port: 9092
   azure:
