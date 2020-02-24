@@ -1070,21 +1070,19 @@ swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vau
 
 # Pipeline storage with retry, filter, buffer and finally writable storage
 swh::deploy::worker::storage::pipeline:
-  cls: retry
-  args:
-    storage:
-      cls: filter
-      args:
-        storage:
-          cls: buffer
-          args:
-            storage: "%{alias('swh::remote_service::storage::config::writable')}"
-            min_batch_size:
-              content: 1000
-              content_bytes: 52428800  # 50 MB
-              directory: 1000
-              revision: 1000
-              release: 1000
+  cls: pipeline
+  steps:
+    - cls: validate
+    - cls: retry
+    - cls: filter
+    - cls: buffer
+      min_batch_size:
+        content: 1000
+        content_bytes: 52428800  # 50 MB
+        directory: 1000
+        revision: 1000
+        release: 1000
+    - "%{alias('swh::remote_service::storage::config::writable')}"
 
 # Objstorage backend configurations
 swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
