@@ -1970,7 +1970,6 @@ swh::deploy::worker::indexer_content_mimetype::config:
     task_modules:
       - swh.indexer.tasks
     task_queues:
-      - swh.indexer.tasks.ContentMimetype
       - swh.indexer.tasks.ContentRangeMimetype
   tools:
     name: file
@@ -2031,7 +2030,6 @@ swh::deploy::worker::indexer_fossology_license::config:
     task_modules:
       - swh.indexer.tasks
     task_queues:
-      - swh.indexer.tasks.ContentFossologyLicense
       - swh.indexer.tasks.ContentRangeFossologyLicense
   write_batch_size: 1000
 
