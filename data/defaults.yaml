@@ -68,6 +68,7 @@ smtp::mail_aliases:
       - olasd
       - zack
       - ardumont
+      - ddouard
   - user: seirl
     aliases:
       - antoine.pietri1@gmail.com
@@ -428,6 +429,8 @@ users:
     full_name: David Douard
     shell: /bin/bash
     groups:
+      - adm
+      - sudo
       - swhdev
       - swhteam
       - swhscheduler
