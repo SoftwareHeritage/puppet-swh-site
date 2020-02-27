@@ -64,7 +64,7 @@ swh::deploy::worker::instances:
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
-swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672//"
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672/%2f"
 
 #### Storage/Indexer/Vault/Scheduler services to use in staging area
 

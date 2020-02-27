@@ -1725,7 +1725,7 @@ swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 # swh::deploy::scheduler::task_broker::password in private data
-swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672//"
+swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::scheduler::listener::log_level: INFO
 swh::deploy::scheduler::runner::log_level: INFO
 swh::deploy::scheduler::config:
@@ -1788,7 +1788,7 @@ swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::por
 # swh::deploy::lister::db::password in private data
 
 # swh::deploy::worker::task_broker::password in private data
-swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672//"
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::worker::instances:
   - loader_debian
   - loader_git
