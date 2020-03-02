@@ -1075,7 +1075,6 @@ swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vau
 swh::deploy::worker::storage::pipeline:
   cls: pipeline
   steps:
-    - cls: validate
     - cls: retry
     - cls: filter
     - cls: buffer
