@@ -1,7 +1,8 @@
 # Deploy the Docker daemon
 class profile::docker {
   class {'::docker':
-    dns => lookup('dns::local_nameservers'),
+    dns        => lookup('dns::local_nameservers'),
+    log_driver => 'journald',
   }
 
   group {'docker':
