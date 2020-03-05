@@ -10,6 +10,6 @@ class profile::docker {
   }
 
   file {'/etc/docker/daemon.json':
-    ensure  => 'absent',
+    ensure => 'absent',
   }
 }
