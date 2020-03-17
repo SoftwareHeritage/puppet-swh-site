@@ -1,7 +1,6 @@
 # Instance of a worker
 define profile::swh::deploy::worker::instance (
   $ensure = present,
-  $max_tasks_per_child = 5,
   $instance_name = $title,
   $sentry_name = $title,
   $limit_no_file = undef,
@@ -14,6 +13,7 @@ define profile::swh::deploy::worker::instance (
   $service_basename = "swh-worker@${instance_name}"
   $service_name = "${service_basename}.service"
   $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
+  $max_tasks_per_child = lookup("swh::deploy::worker::${instance_name}::max_tasks_per_child", Integer, first, 5)
   $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
   $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
   $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy)
