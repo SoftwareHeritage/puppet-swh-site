@@ -639,7 +639,7 @@ letsencrypt::certificates:
       - sentry.softwareheritage.org
   keycloak:
     domains:
-      - idp.softwareheritage.org
+      - auth.softwareheritage.org
   kafka01.euwest.azure.internal.softwareheritage.org:
     domains:
       - kafka01.euwest.azure.internal.softwareheritage.org
@@ -2621,7 +2621,7 @@ sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 
-keycloak::vhost::name: idp.softwareheritage.org
+keycloak::vhost::name: auth.softwareheritage.org
 keycloak::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 keycloak::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 keycloak::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
