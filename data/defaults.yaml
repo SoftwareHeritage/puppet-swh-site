@@ -1800,7 +1800,8 @@ swh::deploy::worker::instances:
 swh::deploy::loader_git::sentry_swh_package: swh.loader.git
 swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
-swh::deploy::worker::loader_git::concurrency: 4
+swh::deploy::worker::loader_git::concurrency: 6
+swh::deploy::worker::loader_git::max_tasks_per_child: 100
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::save_data_path: /srv/storage/space/data/sharded_packfiles
 swh::deploy::worker::loader_git::config:
