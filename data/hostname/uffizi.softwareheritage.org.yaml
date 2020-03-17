@@ -7,9 +7,9 @@ backups::exclude:
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 64
-swh::deploy::storage::backend::max_requests: 500
-swh::deploy::storage::backend::max_requests_jitter: 50
+swh::deploy::storage::backend::workers: 96
+swh::deploy::storage::backend::max_requests: 5000
+swh::deploy::storage::backend::max_requests_jitter: 500
 
 swh::deploy::storage::legacy_directory: /srv/softwareheritage/objects-xfs
 
