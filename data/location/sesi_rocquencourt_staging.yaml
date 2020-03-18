@@ -55,6 +55,7 @@ swh::deploy::worker::instances:
   - loader_cran
   - loader_debian
   - loader_deposit
+  - loader_functional
   - loader_git
   - loader_npm
   - loader_pypi
