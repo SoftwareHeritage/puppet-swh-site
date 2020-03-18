@@ -1858,6 +1858,18 @@ swh::deploy::worker::loader_cran::config:
     task_queues:
       - swh.loader.package.cran.tasks.LoadCRAN
 
+swh::deploy::worker::loader_functional::config_file: "%{hiera('swh::conf_directory')}/loader_functional.yml"
+swh::deploy::worker::loader_functional::private_tmp: true
+swh::deploy::worker::loader_functional::concurrency: 1
+swh::deploy::worker::loader_functional::loglevel: info
+swh::deploy::worker::loader_functional::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: 104857600
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      - swh.loader.package.functional.tasks.LoadFunctional
+
 swh::deploy::lister::db::local:
   cls: local
   args:
