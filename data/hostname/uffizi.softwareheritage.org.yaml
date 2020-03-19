@@ -7,7 +7,7 @@ backups::exclude:
 
 # Deploy the storage server as a public resource
 swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 96
+swh::deploy::storage::backend::workers: 128
 swh::deploy::storage::backend::max_requests: 5000
 swh::deploy::storage::backend::max_requests_jitter: 500
 
@@ -160,7 +160,7 @@ icinga2::host::vars:
       disk_wfree: '100'
       disk_cfree: '50'
 
-nginx::worker_processes: 16
+nginx::worker_processes: 32
 
 swh::apt_config::enable_non_free: true
 packages:
