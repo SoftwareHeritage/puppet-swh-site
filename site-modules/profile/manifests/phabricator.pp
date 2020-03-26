@@ -172,6 +172,7 @@ class profile::phabricator {
     'curl',
     'gd',
     'mbstring',
+    'zip',
   ]:
     provider => 'apt',
   }
