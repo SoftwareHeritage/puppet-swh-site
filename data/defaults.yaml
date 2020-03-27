@@ -1868,7 +1868,7 @@ swh::deploy::worker::loader_nixguix::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
-      - swh.loader.package.nixguix.tasks.LoadNixGuix
+      - swh.loader.package.nixguix.tasks.LoadNixguix
 
 swh::deploy::lister::db::local:
   cls: local
