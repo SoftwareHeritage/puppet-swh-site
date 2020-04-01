@@ -33,4 +33,6 @@ class profile::keycloak::primary {
     # Don't manage the PostgreSQL database
     manage_datasource    => false,
   }
+
+  include ::profile::keycloak::resources
 }

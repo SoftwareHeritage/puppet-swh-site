@@ -611,12 +611,14 @@ letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
   archive_production:
     domains:
+      # Should match with keycloak::resources::realms.SoftwareHeritage.clients.swh-web.redirect_uris
       - archive.softwareheritage.org
       - base.softwareheritage.org
       - archive.internal.softwareheritage.org
       - webapp0.softwareheritage.org
   archive_staging:
     domains:
+      # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
       - webapp.staging.swh.network
       - webapp.internal.staging.swh.network
   deposit_production:
@@ -2652,6 +2654,62 @@ keycloak::postgres::dbname: keycloak
 keycloak::postgres::user: keycloak
 # keycloak::postgres::password in private-data
 
+keycloak::resources::realms::common_settings:
+  remember_me: true
+  login_with_email_allowed: true
+  internationalization_enabled: true
+
+keycloak::resources::clients::common_settings:
+  public_client: true
+  default_client_scopes:
+    - profile
+    - email
+    - roles
+    - web-origins
+  optional_client_scopes:
+    - microprofile-jwt
+    - offline_access
+
+keycloak::resources::protocol_mappers::audience:
+    name: audience
+    type: oidc-audience-mapper
+    included_client_audience: __client_id__
+
+keycloak::resources::protocol_mappers::groups:
+    name: groups
+    type: oidc-group-membership-mapper
+    claim_name: groups
+    full_path: true
+
+keycloak::resources::realms:
+  SoftwareHeritage:
+    settings:
+      display_name: Software Heritage
+    clients:
+      swh-web:
+        settings:
+          redirect_uris:
+            # Should match letsencrypt::certificates.archive_production.domains
+            - https://archive.softwareheritage.org/*
+            - https://base.softwareheritage.org/*
+            - https://archive.internal.softwareheritage.org/*
+            - https://webapp0.softwareheritage.org/*
+        protocol_mappers:
+          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
+          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
+  SoftwareHeritageStaging:
+    settings:
+      display_name: Software Heritage (Staging)
+    clients:
+      swh-web:
+        settings:
+          redirect_uris:
+            # Should match letsencrypt::certificates.archive_staging.domains
+            - https://webapp.staging.swh.network/*
+            - https://webapp.internal.staging.swh.network/*
+        protocol_mappers:
+          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
+          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
 
 cassandra::release: 311x
 cassandra::cluster: azure
