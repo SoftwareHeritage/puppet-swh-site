@@ -25,6 +25,8 @@ internal_network: 192.168.128.0/24
 
 smtp::relay_hostname: 'smtp.inria.fr'
 
+swh::deploy::worker::loader_nixguix::loglevel: debug
+
 swh::deploy::storage::db::host: db0.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
