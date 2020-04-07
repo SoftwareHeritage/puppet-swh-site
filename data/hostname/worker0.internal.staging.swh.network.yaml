@@ -4,3 +4,10 @@ networks:
     address: 192.168.128.5
     netmask: 255.255.255.0
     gateway: 192.168.128.1
+
+swh::deploy::worker::storage::pipeline:
+  cls: pipeline
+  steps:
+    - cls: retry
+    - cls: filter
+    - "%{alias('swh::remote_service::storage::config::writable')}"
