@@ -1687,6 +1687,12 @@ swh::deploy::webapp::config::throttling:
         # OpenAIRE
         - 213.135.60.145
         - 213.135.60.146
+swh::deploy::webapp::config::keycloak:
+  # disable OIDC login link in production until the feature got
+  # properly tested in staging
+  server_url: ""
+  # server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
+  realm_name: SoftwareHeritage
 
 # in private data:
 # deposit_basic_auth_swhworker_username
@@ -1709,6 +1715,7 @@ swh::deploy::webapp::config:
     private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"
   client_config:
     sentry_dsn: "%{lookup('swh::deploy::webapp::sentry_dsn')}"
+  keycloak: "%{hiera('swh::deploy::webapp::config::keycloak')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
