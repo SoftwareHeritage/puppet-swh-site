@@ -1608,6 +1608,9 @@ swh::deploy::webapp::backported_packages:
   stretch:
     - python3-django
     - python-django-common
+  buster:
+    - python3-django
+    - python3-typing-extensions
 swh::deploy::deposit::backported_packages: "%{alias('swh::deploy::webapp::backported_packages')}"
 
 swh::deploy::webapp::sentry_swh_package: swh.web
