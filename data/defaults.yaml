@@ -2668,6 +2668,8 @@ keycloak::resources::realms::common_settings:
   remember_me: true
   login_with_email_allowed: true
   internationalization_enabled: true
+  supported_locales:
+    - en
 
 keycloak::resources::clients::common_settings:
   public_client: true
@@ -2681,12 +2683,12 @@ keycloak::resources::clients::common_settings:
     - offline_access
 
 keycloak::resources::protocol_mappers::audience:
-    name: audience
+    resource_name: audience
     type: oidc-audience-mapper
     included_client_audience: __client_id__
 
 keycloak::resources::protocol_mappers::groups:
-    name: groups
+    resource_name: groups
     type: oidc-group-membership-mapper
     claim_name: groups
     full_path: true

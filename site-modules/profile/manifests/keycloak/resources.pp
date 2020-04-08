@@ -61,10 +61,10 @@ class profile::keycloak::resources {
           [$key, $value ? {'__client_id__' => $client_name, default => $value}]
         })
 
-        $protocol_mapper_name = $protocol_mapper_data['name']
+        $protocol_mapper_name = $protocol_mapper_data['resource_name']
         $protocol_mapper_id = fqdn_uuid("${realm_name}.${client_name}.${protocol_mapper_name}")
 
-        keycloak_client_protocol_mapper {"${protocol_mapper_data['name']} for ${client_id} on ${realm_name}":
+        keycloak_client_protocol_mapper {"${protocol_mapper_name} for ${client_id} on ${realm_name}":
           ensure => present,
           id     => $protocol_mapper_id,
           *      => $_pm_data,
