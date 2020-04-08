@@ -1715,7 +1715,7 @@ swh::deploy::webapp::config:
     private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"
   client_config:
     sentry_dsn: "%{lookup('swh::deploy::webapp::sentry_dsn')}"
-  keycloak: "%{hiera('swh::deploy::webapp::config::keycloak')}"
+  keycloak: "%{alias('swh::deploy::webapp::config::keycloak')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
