@@ -3,6 +3,7 @@ users:
   marmoute:
     uid: 3000
     full_name: Pierre-Yves David
+    shell: /bin/bash
     authorized_keys:
       marmoute@nodosa:
         type: ssh-rsa
@@ -12,6 +13,7 @@ users:
   alphare:
     uid: 3001
     full_name: Raphaël Gomès
+    shell: /bin/bash
     authorized_keys:
       alphare@alphare-carbon:
         type: ecdsa-sha2-nistp521
