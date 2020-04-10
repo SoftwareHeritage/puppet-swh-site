@@ -9,3 +9,12 @@ users:
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDgDqgHs1q3utmg1rsrVtLVh+W7OgWz+ft1A1e2e8kMZkHfDOtD5niwzd1j4EVegaY5fJygyL2Pnm+wRID4uLIsoG21BW2SA5SwgnCMmNzPE+v/7pCFjJ1koGUrrXFDETaYaFF1cXwQ9veXzm2QMqxQ2pGbz/Yvu3Ihw85EezACehBnr9UzSCJEKQ8b+Bs8Ijr6kAvyvR3CPXfDEzJmxR/wA6uWXUWo+zSNFeOO0n3C1/uqULy5JiiuzSBu8W/q7pQXnYjz9y7nD4isIshDH5whGBQXzkl2G7idt7wRQgr/ADYZbpZHOoJXtjYzHLINNqJ5HqX0GOMssA1fqyBB1u+l
     groups:
       - sudo
+  alphare:
+    uid: 3001
+    full_name: Raphaël Gomès
+    authorized_keys:
+      alphare@alphare-carbon:
+        type: ecdsa-sha2-nistp521
+        key: AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABmkn2C9tUWukFZieumhLtgM9pUV5IgEK0BDn2nEh1cF/bcvlqmipQyfkr1/GnlBLQ+lbEZDVlrD2WLrGhT2NhYGQBNH9/K92hpuyIWODkjhKt3qGfDXTuRM+hUdpTuzLkBQhVPUdWGjhm/qfHNqy4gd7tThIa4tfcmVFD9JM6sjUQw8w==
+    groups:
+      - sudo
