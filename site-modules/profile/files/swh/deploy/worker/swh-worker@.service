@@ -16,7 +16,7 @@ ExecStart=/usr/bin/python3 -m celery worker -n %i.%%h --app=swh.scheduler.celery
 
 KillMode=process
 KillSignal=SIGTERM
-TimeoutStopSec=0
+TimeoutStopSec=15m
 
 Restart=always
 RestartSec=10
