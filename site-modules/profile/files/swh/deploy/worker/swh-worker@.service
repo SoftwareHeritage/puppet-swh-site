@@ -18,6 +18,8 @@ KillMode=process
 KillSignal=SIGTERM
 TimeoutStopSec=15m
 
+OOMPolicy=kill
+
 Restart=always
 RestartSec=10
 
