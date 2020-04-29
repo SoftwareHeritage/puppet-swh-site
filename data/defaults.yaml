@@ -976,6 +976,9 @@ swh::apt_config::backported_packages:
     - python3-requests
     - python3-chardet
     - python3-idna
+  buster:
+    # More recent systemd for new features like OOMPolicy
+    - src:systemd
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
