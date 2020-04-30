@@ -20,3 +20,6 @@ users:
         key: AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABmkn2C9tUWukFZieumhLtgM9pUV5IgEK0BDn2nEh1cF/bcvlqmipQyfkr1/GnlBLQ+lbEZDVlrD2WLrGhT2NhYGQBNH9/K92hpuyIWODkjhKt3qGfDXTuRM+hUdpTuzLkBQhVPUdWGjhm/qfHNqy4gd7tThIa4tfcmVFD9JM6sjUQw8w==
     groups:
       - sudo
+
+# For zfs-linux
+swh::apt_config::enable_non_free: true
