@@ -41,6 +41,12 @@ class profile::jenkins::agent::sbuild {
     group  => 'jenkins',
   }
 
+  file {'/usr/share/keyrings/extra-repositories':
+    ensure => 'directory',
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+
   exec {'add jenkins user to sbuild group':
     path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
     command => 'gpasswd -a jenkins sbuild',
