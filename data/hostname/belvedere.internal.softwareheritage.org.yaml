@@ -35,3 +35,7 @@ pgbouncer::databases:
     host: 127.0.0.1
     auth_user: postgres
     port: "%{hiera('swh::deploy::db::secondary::port')}"
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
