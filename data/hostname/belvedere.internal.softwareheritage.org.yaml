@@ -39,3 +39,6 @@ pgbouncer::databases:
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
+
+backups::exclude:
+  - data
