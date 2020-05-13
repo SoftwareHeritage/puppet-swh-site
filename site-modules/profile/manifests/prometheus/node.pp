@@ -90,6 +90,14 @@ class profile::prometheus::node {
     }
   }
 
+  profile::cron::d {'node-exporter-cleanup':
+    target      => 'prometheus',
+    user        => 'prometheus',
+    command     => "chronic find ${textfile_directory} -name *.prom* -mtime +1 -exec rm {} \\+",
+    minute      => 'fqdn_rand',
+    hour        => 'fqdn_rand',
+  }
+
   profile::prometheus::export_scrape_config {'node':
     target => $target,
   }
