@@ -95,4 +95,12 @@ class profile::prometheus::sql {
   profile::prometheus::export_scrape_config {'sql':
     target => $listen_address,
   }
+
+  profile::cron::d {'restart-sql-exporter':
+    target  => 'prometheus',
+    user    => 'root',
+    command => "chronic systemctl restart ${service_name}",
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand/4',
+  }
 }
