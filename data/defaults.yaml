@@ -1548,6 +1548,7 @@ swh::deploy::deposit::config:
       password: "%{hiera('swh::deploy::deposit::db::password')}"
     media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
   loader-version: 2
+  storage: "%{hiera('swh::remote_service::storage::config')}"
 
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 1
