@@ -25,6 +25,7 @@ swh::deploy::worker::instances:
   - loader_deposit
   - loader_git
 #  - loader_mercurial
+  - loader_nixguix
   - loader_npm
   - loader_pypi
   - loader_svn
