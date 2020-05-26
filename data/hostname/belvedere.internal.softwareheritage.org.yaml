@@ -42,3 +42,6 @@ packages:
 
 backups::exclude:
   - data
+
+icinga2::host::vars:
+  load: sql
