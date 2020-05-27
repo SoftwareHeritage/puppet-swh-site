@@ -48,6 +48,9 @@ smtp::mail_aliases:
   - user: ardumont
     aliases:
       - antoine.romain.dumont@gmail.com
+  - user: aeviso
+    aliases:
+      - aeviso@sofwareheritage.org
   - user: ddouard
     aliases:
       - david.douard@sdfa3.org
@@ -473,6 +476,14 @@ users:
       me@danieleserafini.eu:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDsQ1QxD/xHOOhCAarH9o3oAfT7YCwxXCAVaazxC1ZMygWZUE95oMu6D2Wib5Q4GBKD35ddclY/l5GsYB5uXbl1UxAFUPe4COqTEt+7deMSWakv46ceb5oHxOkMAF4w400FV1Pi1usk2TpArarOPuxN7yKu54sBACI5HEezn3KOvxPYt/DUAt+XdrfLsiZPyzjOYYezocCV+O1PkivhC99cXHtlwTBRntWTjlyUt9p46U6Uf2G9u88v4v2KopH0sQG7nAYNXN7W14pB925fnDYDHFYUoKDCBbJiQMMKKlQxJZLSfh/KX6kX7OIXOiMclIfmBYAUwDHU3MevdczAIj8JWspUVyRf32B1jnD+H8UnDTCwApCFytcvzDuoYCgiUVk4bDpJOHeb8V4dh6UZt0DFa4iiLsVIX8MjcqaI5TmmvaYgjGPSTLlUsasUJnVqCweQNTiZPhDiqrs258aQvSGf634k10lxmhAAB0xAGVO6Zj1mBjqS+XDJiLzf4mWwm4M= 
+  aeviso:
+    uid: 1024
+    full_name: Andres Ezequiel Viso
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+    authorized_keys: {}
 
 groups:
   adm:
