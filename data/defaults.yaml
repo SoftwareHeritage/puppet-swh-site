@@ -483,7 +483,10 @@ users:
       - swhdev
       - swhteam
     shell: /bin/bash
-    authorized_keys: {}
+    authorized_keys:
+      andres@powerage:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDRnVV1UimkTbAAb1FPxDPAqfyCVSrlB7a1Kq83ZKc6e7tTVmOKA55whZa3KwNBwgZGB8389ejCery+WDqSiRZsirup4UN/VZ5X3XJdnRVPPcpzVuWFivPKBMn6D4LMa9D7moMnV9JC5q9zwMNHZQ4qJbGlW44MzWOi0RnPVd28jsRkL0sMRvz+i3KXFGDNeaVPV0YLB4vS1bmEho/8Tu5NlY/Tzkter9qTNN7QNIAbnq8oQF/lLPFAytE0s61ZtoDcXfznJPXWkIljMCTQHlxeDci9DQWUgQc+A+7qWmqkb3lzDYKQrxRfZtl3hbnR3jrtSfTI+q0Nagh0O4FN2QUj
 
 groups:
   adm:
