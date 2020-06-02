@@ -50,7 +50,7 @@ smtp::mail_aliases:
       - antoine.romain.dumont@gmail.com
   - user: aeviso
     aliases:
-      - aeviso@sofwareheritage.org
+      - aeviso@softwareheritage.org
   - user: ddouard
     aliases:
       - david.douard@sdfa3.org
