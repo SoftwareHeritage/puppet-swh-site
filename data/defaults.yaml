@@ -1690,6 +1690,8 @@ swh::deploy::webapp::config::throttling:
         - 213.135.60.146
         # DINSIC
         - 37.187.137.47
+        # Antoine Eiche
+        - 37.187.96.121
     swh_api_origin_search:
       limiter_rate:
         default: 10/m
@@ -1711,6 +1713,8 @@ swh::deploy::webapp::config::throttling:
         # OpenAIRE
         - 213.135.60.145
         - 213.135.60.146
+        # Antoine Eiche
+        - 37.187.96.121
     swh_save_origin:
       limiter_rate:
         default: 120/h
@@ -1723,6 +1727,8 @@ swh::deploy::webapp::config::throttling:
         # OpenAIRE
         - 213.135.60.145
         - 213.135.60.146
+        # Antoine Eiche
+        - 37.187.96.121
 swh::deploy::webapp::config::keycloak:
   # disable OIDC login link in production until the feature got
   # properly tested in staging
