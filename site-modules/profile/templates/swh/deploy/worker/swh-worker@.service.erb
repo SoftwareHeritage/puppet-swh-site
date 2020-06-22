@@ -12,7 +12,8 @@ Environment=SWH_LOG_TARGET=journal
 Environment=CONCURRENCY=10
 Environment=MAX_TASKS_PER_CHILD=5
 Environment=LOGLEVEL=info
-ExecStart=/usr/bin/python3 -m celery worker -n %i.%%h --app=swh.scheduler.celery_backend.config.app --pool=prefork --events --concurrency=${CONCURRENCY} --maxtasksperchild=${MAX_TASKS_PER_CHILD} -Ofair --loglevel=${LOGLEVEL} --without-gossip --without-mingle --without-heartbeat
+Environment=CELERY_HOSTNAME=<%= @celery_hostname %>
+ExecStart=/usr/bin/python3 -m celery worker -n %i@${CELERY_HOSTNAME} --app=swh.scheduler.celery_backend.config.app --pool=prefork --events --concurrency=${CONCURRENCY} --maxtasksperchild=${MAX_TASKS_PER_CHILD} -Ofair --loglevel=${LOGLEVEL} --without-gossip --without-mingle --without-heartbeat
 
 KillMode=process
 KillSignal=SIGTERM
