@@ -90,8 +90,9 @@ class profile::swh::deploy::scheduler {
   # scheduler rpc server
 
   ::profile::swh::deploy::rpc_server {'scheduler':
-    config_key => 'scheduler::remote',
-    executable => 'swh.scheduler.api.server:make_app_from_configfile()',
+    config_key        => 'scheduler::remote',
+    executable        => 'swh.scheduler.api.server:make_app_from_configfile()',
+    http_check_string => 'Software Heritage scheduler RPC server',
   }
 
   # task archival cron
