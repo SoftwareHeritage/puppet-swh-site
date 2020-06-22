@@ -5,7 +5,7 @@ class profile::icinga2::objects::agent_checks {
       arguments => {
         '-f'  => {
           'value'  => '$journal_cursor_file$',
-          'set_if' => '$journal_cursor_file$',
+          'set_if' => '{{ var filename = macro("$journal_cursor_file$"); return len(filename) > 0 }}',
         },
         '-w'  => '$journal_lag_warn$',
         '-c'  => '$journal_lag_crit$',

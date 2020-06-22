@@ -15,7 +15,7 @@ class profile::icinga2::plugins::rabbitmq {
     '--password' => '$rabbitmq_password$',
     '--vhost' => {
       'value'  => '$rabbitmq_vhost$',
-      'set_if' => '$rabbitmq_vhost$',
+      'set_if' => '{{ var vhost = macro("$rabbitmq_vhost$"); return len(vhost) > 0 }}',
     }
   }
 
