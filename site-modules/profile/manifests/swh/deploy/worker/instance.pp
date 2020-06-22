@@ -22,12 +22,15 @@ define profile::swh::deploy::worker::instance (
   $sentry_environment = lookup("swh::deploy::${sentry_name}::sentry_environment", Optional[String], 'first', undef)
   $sentry_swh_package = lookup("swh::deploy::${sentry_name}::sentry_swh_package", Optional[String], 'first', undef)
 
+  $celery_hostname = $::profile::swh::deploy::worker::base::celery_hostname
+
   case $ensure {
     'present', 'running': {
       # Uses variables
       # - $concurrency
       # - $loglevel
       # - $max_tasks_per_child
+      # - $celery_hostname
       # - $sentry_{dsn,environment,swh_package}
       ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => present,
@@ -57,12 +60,23 @@ define profile::swh::deploy::worker::instance (
           File[$config_file],
         ]
       }
+
+      profile::cron::d {"swh-worker-${instance_name}-autorestart":
+        command => "chronic /usr/local/sbin/swh-worker-ping-restart ${instance_name}@${celery_hostname} ${service_name}",
+        target  => 'swh-worker',
+        minute  => 'fqdn_rand/15',
+      }
     }
     default: {
       ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => absent,
         unit     => $service_name,
         filename => 'parameters.conf',
+      }
+
+
+      file {$config_file:
+        ensure  => absent,
       }
     }
   }
