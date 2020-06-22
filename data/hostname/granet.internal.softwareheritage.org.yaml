@@ -9,6 +9,14 @@ users:
   zack:
     groups:
       - docker
+  vigna:
+    uid: 3000
+    full_name: Sebastiano Vigna
+    shell: /bin/bash
+    authorized_keys:
+      vigna@lithium.docenti.di.unimi.it:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC7k701AQ2dpx/el5CY7UNKMlhemJEPUNcVD+wkF5bQUeGg3en3Y6BPYpkxF0ReFtktvJW62Oc+MJRxKvKlyYWCnmeP/lVQz+TjmLWpgc1Bq3ILc/zPSw2AYpJEjnZx3wWNze6leHsUM45aQsAi8tJ8sL4YqNznncg2Eyw2t/H/NEvJ8cyHQLuPa7XODkhOvVbmdqmVlSVxOnIuzVVz11ILbPIG37oA+TO1nYGhwbfA8eAuNds1GEMjO8sdgiH8t93x+LOjCJgEFq5tIuE07E2i8wKct0LcLiEdnGY/6rdbrrQbu+ktqX/Xw1w0CBFp6MLaUrSFLWFLRMGqhs4l4BWT
 
 icinga2::host::vars:
   load: high
