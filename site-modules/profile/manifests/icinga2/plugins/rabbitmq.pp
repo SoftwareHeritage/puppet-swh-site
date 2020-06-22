@@ -13,10 +13,13 @@ class profile::icinga2::plugins::rabbitmq {
     '--port'     => '$rabbitmq_port$',
     '--user'     => '$rabbitmq_user$',
     '--password' => '$rabbitmq_password$',
+  }
+
+  $vhost_argument = {
     '--vhost' => {
       'value'  => '$rabbitmq_vhost$',
       'set_if' => '{{ var vhost = macro("$rabbitmq_vhost$"); return len(vhost) > 0 }}',
-    }
+    },
   }
 
   $base_vars = {
@@ -27,39 +30,11 @@ class profile::icinga2::plugins::rabbitmq {
   }
 
   $plugins = {
-    rabbitmq_shovels => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
-    },
-    rabbitmq_partition => {
-      arguments => $base_arguments,
+    rabbitmq_aliveness => {
+      arguments => $base_arguments + $vhost_argument,
       vars      => $base_vars,
     },
     rabbitmq_connections => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
-    },
-    rabbitmq_aliveness => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
-    },
-    rabbitmq_cluster => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
-    },
-    rabbitmq_watermark => {
-      arguments => $base_arguments,
-      vars      => $base_vars,
-    },
-    rabbitmq_server => {
-      arguments => $base_arguments + {
-        '--node' => '$rabbitmq_node$',
-      },
-      vars      => $base_vars + {
-        'rabbitmq_node' => '$check_address$',
-      },
-    },
-    rabbitmq_exchange => {
       arguments => $base_arguments,
       vars      => $base_vars,
     },
@@ -71,8 +46,28 @@ class profile::icinga2::plugins::rabbitmq {
       arguments => $base_arguments,
       vars      => $base_vars,
     },
-    rabbitmq_queue => {
+    rabbitmq_partition => {
       arguments => $base_arguments,
+      vars      => $base_vars,
+    },
+    rabbitmq_queue => {
+      arguments => $base_arguments + $vhost_argument,
+      vars      => $base_vars,
+    },
+    rabbitmq_server => {
+      arguments => $base_arguments + {
+        '--node' => '$rabbitmq_node$',
+      },
+      vars      => $base_vars + {
+        'rabbitmq_node' => '$check_address$',
+      },
+    },
+    rabbitmq_shovels => {
+      arguments => $base_arguments,
+      vars      => $base_vars,
+    },
+    rabbitmq_watermark => {
+      arguments => $base_arguments + $vhost_argument,
       vars      => $base_vars,
     },
   }
