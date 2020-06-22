@@ -33,4 +33,11 @@ class profile::swh::deploy::worker::base {
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand/2',
   }
+
+  file {'/usr/local/sbin/swh-worker-ping-restart':
+    source => 'puppet:///profile/swh/deploy/worker/swh-worker-ping-restart',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
 }
