@@ -37,7 +37,7 @@ class profile::swh::deploy::worker::base {
   }
 
   file {'/usr/local/sbin/swh-worker-ping-restart':
-    source => 'puppet:///profile/swh/deploy/worker/swh-worker-ping-restart',
+    source => 'puppet:///modules/profile/swh/deploy/worker/swh-worker-ping-restart',
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
