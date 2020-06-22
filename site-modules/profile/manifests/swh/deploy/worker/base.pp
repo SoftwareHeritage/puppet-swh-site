@@ -1,12 +1,9 @@
 # Base worker profile
 class profile::swh::deploy::worker::base {
 
-  include ::systemd::systemctl::daemon_reload
-
   $systemd_template_unit_name = 'swh-worker@.service'
   $systemd_unit_name = 'swh-worker.service'
   $systemd_slice_name = 'system-swh\x2dworker.slice'
-  $systemd_generator = '/lib/systemd/system-generators/swh-worker-generator'
 
   package {'python3-swh.scheduler':
     ensure => installed,
@@ -28,10 +25,5 @@ class profile::swh::deploy::worker::base {
   ::systemd::unit_file {$systemd_slice_name:
     ensure => 'present',
     source => "puppet:///modules/profile/swh/deploy/worker/${systemd_slice_name}",
-  }
-
-  file {$systemd_generator:
-    ensure => 'absent',
-    notify => Class['systemd::systemctl::daemon_reload'],
   }
 }
