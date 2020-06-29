@@ -2663,7 +2663,7 @@ swh::postgres::service::dbs:
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::indexer::storage::db::password')}"
 
-elastic::elk_version: '7.5.2'
+elastic::elk_version: '7.8.0'
 
 kibana::listen_network: "%{lookup('internal_network')}"
 kibana::server_name: "%{::swh_hostname.internal_fqdn}"
