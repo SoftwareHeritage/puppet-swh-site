@@ -821,9 +821,6 @@ bind::resource_records:
   rdicosmo/A:
     record: rdicosmo.internal.softwareheritage.org
     data: 192.168.101.38
-  petitpalais/A:
-    record: petitpalais.internal.softwareheritage.org
-    data: 192.168.101.154
   grand-palais/A:
     record: grand-palais.internal.softwareheritage.org
     data: 192.168.101.62
@@ -849,6 +846,9 @@ bind::resource_records:
   vlorentz-desktop/A:
     record: vlorentz-desktop.internal.softwareheritage.org
     data: 192.168.101.166
+  oturtle-desktop/A:
+    record: oturtle-desktop.internal.softwareheritage.org
+    data: 192.168.101.222
 
 bind::resource_records::default_data:
   type: A
