@@ -3,6 +3,9 @@ class profile::logstash {
 
   $version = sprintf("1:%s-1", lookup('elastic::elk_version'))
 
+  $elasticsearch_hosts = lookup('logstash::elasticsearch::hosts')
+  $listen_address = ip_for_network(lookup('kibana::listen_network'))
+
   package { 'logstash':
     ensure => $version,
   }

@@ -2665,14 +2665,19 @@ swh::postgres::service::dbs:
 
 elastic::elk_version: '7.8.0'
 
+elasticsearch::hosts:
+    - http://esnode1.internal.softwareheritage.org:9200
+    - http://esnode2.internal.softwareheritage.org:9200
+    - http://esnode3.internal.softwareheritage.org:9200
+
+logstash::listen_network: "%{lookup('internal_network')}"
+logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
+
 kibana::listen_network: "%{lookup('internal_network')}"
 kibana::server_name: "%{::swh_hostname.internal_fqdn}"
 kibana::config:
   server.name: "%{alias('kibana::server_name')}"
-  elasticsearch.hosts:
-    - http://esnode1.internal.softwareheritage.org:9200
-    - http://esnode2.internal.softwareheritage.org:9200
-    - http://esnode3.internal.softwareheritage.org:9200
+  elasticsearch.hosts: "%{alias('elasticsearch::hosts')}"
   kibana.index: .kibana-6
 
 # sentry::secret_key in private-data

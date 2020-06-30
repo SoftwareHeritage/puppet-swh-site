@@ -1,30 +1,6 @@
 output {
-    if [fields][apache_log_type] == "access_log" {
-        elasticsearch {
-                hosts => [
-                        "esnode1.internal.softwareheritage.org:9200",
-                        "esnode2.internal.softwareheritage.org:9200",
-                        "esnode3.internal.softwareheritage.org:9200"
-                ]
-                index => "apache_logs-%{+YYYY.MM.dd}"
-        }
-    } else if "swh-worker@" in [systemd_unit] {
-        elasticsearch {
-                hosts => [
-                        "esnode1.internal.softwareheritage.org:9200",
-                        "esnode2.internal.softwareheritage.org:9200",
-                        "esnode3.internal.softwareheritage.org:9200"
-                ]
-                index => "swh_workers-%{+YYYY.MM.dd}"
-        }
-    } else {
-        elasticsearch {
-                hosts => [
-                        "esnode1.internal.softwareheritage.org:9200",
-                        "esnode2.internal.softwareheritage.org:9200",
-                        "esnode3.internal.softwareheritage.org:9200"
-                ]
-                index => "systemlogs-%{+YYYY.MM.dd}"
-        }
-    }
+  elasticsearch {
+    hosts => <%= @elasticsearch_hosts.to_json %>
+    index => "%{[@metadata][target_index]}"
+  }
 }

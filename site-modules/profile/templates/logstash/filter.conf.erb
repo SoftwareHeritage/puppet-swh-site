@@ -1,10 +1,27 @@
 filter {
   if [fields][apache_log_type] == "access_log" {
-      grok {
-        match => { "message" => "%{COMBINEDAPACHELOG}" }
+    grok {
+      match => { "message" => "%{COMBINEDAPACHELOG}" }
+    }
+    date {
+      match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+    }
+    mutate {
+      add_field => {
+        "[@metadata][target_index]" => "apache_logs-%{+YYYY.MM.dd}"
       }
-      date {
-        match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+    }
+  } else if "swh-worker@" in [systemd_unit] {
+    mutate {
+      add_field => {
+        "[@metadata][target_index]" => "swh_workers-%{+YYYY.MM.dd}"
       }
+    }
+  } else {
+    mutate {
+      add_field => {
+        "[@metadata][target_index]" => "systemlogs-%{+YYYY.MM.dd}"
+      }
+    }
   }
 }
