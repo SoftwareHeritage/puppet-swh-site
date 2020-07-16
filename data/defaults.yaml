@@ -693,6 +693,12 @@ letsencrypt::certificates:
   docs.softwareheritage.org:
     domains:
       - docs.softwareheritage.org
+  intranet.softwareheritage.org:
+    domains:
+      - intranet.softwareheritage.org
+  wiki.softwareheritage.org:
+    domains:
+      - wiki.softwareheritage.org
   icinga.softwareheritage.org:
     domains:
       - icinga.softwareheritage.org
@@ -942,6 +948,7 @@ phabricator::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 mediawiki::php::fpm_listen: 127.0.0.1:9002
 
 mediawiki::vhosts:
+  # Must have matching certificates in letsencrypt::certificates
   intranet.softwareheritage.org:
     swh_logo: /images/9/99/Swh-intranet-logo.png
     mysql:
