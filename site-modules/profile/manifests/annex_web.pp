@@ -14,7 +14,6 @@ class profile::annex_web {
   $annex_vhost_ssl_cipher = lookup('annex::vhost::ssl_cipher')
   $annex_vhost_hsts_header = lookup('annex::vhost::hsts_header')
 
-  include ::profile::ssl
   include ::profile::apache::common
 
   ::apache::vhost {"${annex_vhost_name}_non-ssl":
@@ -25,10 +24,8 @@ class profile::annex_web {
     redirect_dest   => "https://${annex_vhost_name}/",
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+  ::profile::letsencrypt::certificate {$annex_vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($annex_vhost_name)
 
   ::apache::vhost {"${annex_vhost_name}_ssl":
     servername           => $annex_vhost_name,
@@ -37,9 +34,9 @@ class profile::annex_web {
     ssl_protocol         => $annex_vhost_ssl_protocol,
     ssl_honorcipherorder => $annex_vhost_ssl_honorcipherorder,
     ssl_cipher           => $annex_vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_chain            => $ssl_chain,
-    ssl_key              => $ssl_key,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
     headers              => [$annex_vhost_hsts_header],
     docroot              => $annex_vhost_docroot,
     directories          => [{
@@ -77,13 +74,7 @@ class profile::annex_web {
   }
 
   file {$annex_vhost_basic_auth_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'www-data',
-    mode    => '0640',
-    # FIXME: this seems wrong, should be double quote to expand the variable
-    # don't want to break existing behavior though
-    content => '$annex_vhost_basic_auth_content',
+    ensure  => absent,
   }
 
   file {$annex_vhost_provenance_basic_auth_file:
@@ -138,7 +129,7 @@ class profile::annex_web {
       http_vhost       => $annex_vhost_name,
       http_ssl         => true,
       http_sni         => true,
-      http_certificate => 60,
+      http_certificate => 25,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',

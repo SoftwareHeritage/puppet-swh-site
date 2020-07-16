@@ -683,6 +683,9 @@ letsencrypt::certificates:
     domains:
       - kafka06.euwest.azure.internal.softwareheritage.org
       - kafka06.euwest.azure.softwareheritage.org
+  annex.softwareheritage.org:
+    domains:
+      - annex.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -950,6 +953,7 @@ mediawiki::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 mediawiki::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 annex::basepath: /srv/softwareheritage/annex
+# Must have matching certificate in letsencrypt::certificates
 annex::vhost::name: annex.softwareheritage.org
 annex::vhost::docroot: "%{hiera('annex::basepath')}/webroot"
 annex::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
