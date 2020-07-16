@@ -693,6 +693,10 @@ letsencrypt::certificates:
   docs.softwareheritage.org:
     domains:
       - docs.softwareheritage.org
+  icinga.softwareheritage.org:
+    domains:
+      - icinga.softwareheritage.org
+      - icinga.internal.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -2278,6 +2282,7 @@ icinga2::icingaweb2::protected_customvars:
   - community
   - http_auth_pair
 
+# Must have matching certificate in letsencrypt::certificates
 icinga2::icingaweb2::vhost::name: icinga.softwareheritage.org
 icinga2::icingaweb2::vhost::aliases:
   - icinga.internal.softwareheritage.org

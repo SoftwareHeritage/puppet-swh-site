@@ -1,7 +1,6 @@
 # Apache virtual host for icingaweb2
 
 class profile::icinga2::icingaweb2::vhost {
-  include ::profile::ssl
   include ::profile::apache::common
   include ::apache::mod::php
 
@@ -23,21 +22,20 @@ class profile::icinga2::icingaweb2::vhost {
     redirect_dest   => "https://${icingaweb2_vhost_name}/",
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+  ::profile::letsencrypt::certificate {$icingaweb2_vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($icingaweb2_vhost_name)
 
   ::apache::vhost {"${icingaweb2_vhost_name}_ssl":
     servername           => $icingaweb2_vhost_name,
+    serveraliases        => $icingaweb2_vhost_aliases,
     port                 => '443',
     ssl                  => true,
     ssl_protocol         => $icingaweb2_vhost_ssl_protocol,
     ssl_honorcipherorder => $icingaweb2_vhost_ssl_honorcipherorder,
     ssl_cipher           => $icingaweb2_vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_chain            => $ssl_chain,
-    ssl_key              => $ssl_key,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
     headers              => [$icingaweb2_vhost_hsts_header],
     docroot              => $icingaweb2_vhost_docroot,
     manage_docroot       => false,
