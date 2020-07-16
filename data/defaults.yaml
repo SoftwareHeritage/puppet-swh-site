@@ -2745,6 +2745,11 @@ sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
+keycloak::version: 8.0.1
+
+keycloak::swh_theme::repo_url: https://forge.softwareheritage.org/source/swh-keycloak-theme.git
+keycloak::swh_theme::tag: v0.1.1
+
 
 keycloak::vhost::name: auth.softwareheritage.org
 keycloak::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
@@ -2770,6 +2775,9 @@ keycloak::resources::realms::common_settings:
   internationalization_enabled: true
   supported_locales:
     - en
+  account_theme: swh
+  admin_theme: swh
+  login_theme: swh
 
 keycloak::resources::clients::common_settings:
   public_client: true
