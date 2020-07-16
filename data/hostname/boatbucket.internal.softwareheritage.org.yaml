@@ -32,3 +32,5 @@ users:
 groups:
   boatbucket:
     gid: 1024
+  marmoute:
+    gid: 3000
