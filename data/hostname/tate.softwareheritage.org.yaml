@@ -21,8 +21,8 @@ networks:
     gateway: 128.93.193.254
 
 apache::rewrite_domains:
+  # Must have matching certificates in letsencrypt::certificates
   wg.softwareheritage.org:
-    ssl_cert_name: star_softwareheritage_org
     rewrites:
       - "^.*$ https://wiki.softwareheritage.org/index.php?title=Working_groups"
 

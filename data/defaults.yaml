@@ -703,6 +703,9 @@ letsencrypt::certificates:
     domains:
       - icinga.softwareheritage.org
       - icinga.internal.softwareheritage.org
+  wg.softwareheritage.org:
+    domains:
+      - wg.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
