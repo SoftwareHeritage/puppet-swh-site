@@ -709,6 +709,9 @@ letsencrypt::certificates:
   git.softwareheritage.org:
     domains:
       - git.softwareheritage.org
+  forge.softwareheritage.org:
+    domains:
+      - forge.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -944,6 +947,7 @@ phabricator::php::fpm_listen: 127.0.0.1:9001
 phabricator::php::max_file_size: 128M
 phabricator::php::opcache_validate_timestamps: 0
 
+# Must have a matching cert in letsencrypt::domains
 phabricator::vhost::name: forge.softwareheritage.org
 phabricator::vhost::docroot: "%{hiera('phabricator::basepath')}/phabricator/webroot"
 phabricator::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
