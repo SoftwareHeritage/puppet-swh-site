@@ -712,6 +712,9 @@ letsencrypt::certificates:
   forge.softwareheritage.org:
     domains:
       - forge.softwareheritage.org
+  grafana.softwareheritage.org:
+    domains:
+      - grafana.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -2596,6 +2599,7 @@ grafana::db::username: grafana
 # grafana::db::password in private-data
 grafana::backend::port: 3000
 
+# Must have a matching certificate in letsencrypt::certificates
 grafana::vhost::name: grafana.softwareheritage.org
 grafana::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 grafana::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"

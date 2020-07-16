@@ -1,7 +1,6 @@
 # Apache virtual host for grafana
 
 class profile::grafana::vhost {
-  include ::profile::ssl
   include ::profile::apache::common
   include ::apache::mod::proxy
 
@@ -23,10 +22,8 @@ class profile::grafana::vhost {
     redirect_dest   => "https://${grafana_vhost_name}/",
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+  ::profile::letsencrypt::certificate {$grafana_vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($grafana_vhost_name)
 
   ::apache::vhost {"${grafana_vhost_name}_ssl":
     servername           => $grafana_vhost_name,
@@ -35,9 +32,9 @@ class profile::grafana::vhost {
     ssl_protocol         => $grafana_vhost_ssl_protocol,
     ssl_honorcipherorder => $grafana_vhost_ssl_honorcipherorder,
     ssl_cipher           => $grafana_vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_chain            => $ssl_chain,
-    ssl_key              => $ssl_key,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
     headers              => [$grafana_vhost_hsts_header],
     docroot              => $grafana_vhost_docroot,
     manage_docroot       => false,
