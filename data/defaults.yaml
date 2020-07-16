@@ -690,6 +690,9 @@ letsencrypt::certificates:
     domains:
       - debian.softwareheritage.org
       - debian.internal.softwareheritage.org
+  docs.softwareheritage.org:
+    domains:
+      - docs.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -966,6 +969,7 @@ annex::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 docs::basepath: /srv/softwareheritage/docs
+# Must have matching certificate in letsencrypt::certificates
 docs::vhost::name: docs.softwareheritage.org
 docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot"
 docs::vhost::docroot_owner: "jenkins-push-docs"

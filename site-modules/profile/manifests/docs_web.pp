@@ -13,7 +13,6 @@ class profile::docs_web {
   $docs_vhost_ssl_cipher = lookup('docs::vhost::ssl_cipher')
   $docs_vhost_hsts_header = lookup('docs::vhost::hsts_header')
 
-  include ::profile::ssl
   include ::profile::apache::common
 
   ::apache::vhost {"${docs_vhost_name}_non-ssl":
@@ -25,10 +24,8 @@ class profile::docs_web {
     redirect_dest   => "https://${docs_vhost_name}/",
   }
 
-  $ssl_cert_name = 'star_softwareheritage_org'
-  $ssl_cert = $::profile::ssl::certificate_paths[$ssl_cert_name]
-  $ssl_chain   = $::profile::ssl::chain_paths[$ssl_cert_name]
-  $ssl_key  = $::profile::ssl::private_key_paths[$ssl_cert_name]
+  ::profile::letsencrypt::certificate {$docs_vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($docs_vhost_name)
 
   ::apache::vhost {"${docs_vhost_name}_ssl":
     servername           => $docs_vhost_name,
@@ -37,9 +34,9 @@ class profile::docs_web {
     ssl_protocol         => $docs_vhost_ssl_protocol,
     ssl_honorcipherorder => $docs_vhost_ssl_honorcipherorder,
     ssl_cipher           => $docs_vhost_ssl_cipher,
-    ssl_cert             => $ssl_cert,
-    ssl_chain            => $ssl_chain,
-    ssl_key              => $ssl_key,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
     headers              => [$docs_vhost_hsts_header],
     docroot              => $docs_vhost_docroot,
     docroot_owner        => $docs_vhost_docroot_owner,
