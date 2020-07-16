@@ -686,6 +686,10 @@ letsencrypt::certificates:
   annex.softwareheritage.org:
     domains:
       - annex.softwareheritage.org
+  debian.softwareheritage.org:
+    domains:
+      - debian.softwareheritage.org
+      - debian.internal.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org
@@ -1050,6 +1054,7 @@ debian_repository::gpg_keys:
   # jenkins-debian1
   - 1F4BDC445E30C7066324D7B3D7D3329147AE3148
 
+# Must have matching certificate in letsencrypt::certificates
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
 debian_repository::vhost::aliases:
   - debian.internal.softwareheritage.org
