@@ -13,7 +13,6 @@ define profile::reverse_proxy (
 ){
   $backend_url = lookup("${name}::backend::url")
 
-  include ::profile::ssl
   include ::profile::apache::common
   include ::apache::mod::proxy
 
