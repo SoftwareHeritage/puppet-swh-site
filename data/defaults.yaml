@@ -706,6 +706,9 @@ letsencrypt::certificates:
   wg.softwareheritage.org:
     domains:
       - wg.softwareheritage.org
+  git.softwareheritage.org:
+    domains:
+      - git.softwareheritage.org
   www-dev:
     domains:
       - www-dev.softwareheritage.org

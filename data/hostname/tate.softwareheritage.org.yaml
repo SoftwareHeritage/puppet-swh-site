@@ -25,6 +25,9 @@ apache::rewrite_domains:
   wg.softwareheritage.org:
     rewrites:
       - "^.*$ https://wiki.softwareheritage.org/index.php?title=Working_groups"
+  git.softwareheritage.org:
+    rewrites:
+      - "^.*$ https://forge.softwareheritage.org/"
 
 
 backups::exclude:
