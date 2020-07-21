@@ -221,11 +221,13 @@ class profile::phabricator {
       "Authorization \"(.*)\" HTTP_AUTHORIZATION=\$1",
     ],
     require              => [
-        File[$ssl_cert],
-        File[$ssl_chain],
-        File[$ssl_key],
+      File[$cert_paths['cert']],
+      File[$cert_paths['chain']],
+      File[$cert_paths['privkey']],
     ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   file {$phabricator_vhost_basic_auth_file:
     ensure  => absent,
@@ -301,7 +303,7 @@ class profile::phabricator {
       http_vhost       => $phabricator_vhost_name,
       http_ssl         => true,
       http_sni         => true,
-      http_certificate => 60,
+      http_certificate => 25,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',

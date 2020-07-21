@@ -41,8 +41,8 @@ class profile::stats_web {
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
     require              => [
-        Profile::Letsencrypt::Certificate[$ssl_cert_name],
-     ],
+      Profile::Letsencrypt::Certificate[$ssl_cert_name],
+    ],
   }
 
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']

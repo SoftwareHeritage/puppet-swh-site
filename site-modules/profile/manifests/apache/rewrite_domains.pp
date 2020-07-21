@@ -10,7 +10,6 @@ class profile::apache::rewrite_domains {
   $rewrite_domains = lookup('apache::rewrite_domains', Hash, 'deep')
   each($rewrite_domains) |$name, $data| {
 
-
     ::profile::letsencrypt::certificate {$name:}
     $cert_paths = ::profile::letsencrypt::certificate_paths($name)
 
@@ -38,6 +37,13 @@ class profile::apache::rewrite_domains {
       rewrites             => [
         { rewrite_rule => $data['rewrites'], },
       ],
+      require              => [
+        File[$cert_paths['cert']],
+        File[$cert_paths['chain']],
+        File[$cert_paths['privkey']],
+      ],
     }
+
+    File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
   }
 }

@@ -44,11 +44,13 @@ class profile::grafana::vhost {
       },
     ],
     require              => [
-        File[$ssl_cert],
-        File[$ssl_chain],
-        File[$ssl_key],
+      File[$ssl_cert],
+      File[$ssl_chain],
+      File[$ssl_key],
     ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
@@ -93,7 +95,7 @@ class profile::grafana::vhost {
       http_vhost       => $grafana_vhost_name,
       http_ssl         => true,
       http_sni         => true,
-      http_certificate => 60,
+      http_certificate => 25,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',

@@ -61,11 +61,13 @@ class profile::annex_web {
                              },
                             ],
     require              => [
-        File[$ssl_cert],
-        File[$ssl_chain],
-        File[$ssl_key],
+      File[$cert_paths['cert']],
+      File[$cert_paths['chain']],
+      File[$cert_paths['privkey']],
     ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   file {"${annex_vhost_docroot}/public":
     ensure  => link,

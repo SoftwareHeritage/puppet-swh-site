@@ -130,7 +130,7 @@ class profile::mediawiki {
         http_address     => $name,
         http_ssl         => true,
         http_sni         => true,
-        http_certificate => 60,
+        http_certificate => 25,
       },
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',

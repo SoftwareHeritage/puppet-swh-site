@@ -47,15 +47,17 @@ class profile::docs_web {
                              'require'  => 'all granted',
                              'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
                              }],
-    require              => [
-        File[$ssl_cert],
-        File[$ssl_chain],
-        File[$ssl_key],
-    ],
     rewrites => [
         { rewrite_rule => '^/?$ /devel/ [R,L]' },
     ],
+      require              => [
+        File[$cert_paths['cert']],
+        File[$cert_paths['chain']],
+        File[$cert_paths['privkey']],
+      ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
@@ -100,7 +102,7 @@ class profile::docs_web {
       http_vhost       => $docs_vhost_name,
       http_ssl         => true,
       http_sni         => true,
-      http_certificate => 60,
+      http_certificate => 25,
     },
     target        => $icinga_checks_file,
     tag           => 'icinga2::exported',
