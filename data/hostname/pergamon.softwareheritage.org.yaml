@@ -48,6 +48,7 @@ apache::mpm_module: prefork
 
 backups::exclude:
   - srv/softwareheritage/annex/annexroot
+  - srv/softwareheritage/bitbucket-archive
   - var/lib/prometheus
 
 icinga2::role: master
