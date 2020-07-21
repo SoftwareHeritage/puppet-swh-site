@@ -73,6 +73,13 @@ users:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDWk4WLCNPdSthCdYSDGP7UEIzrBigy2q74ux6OjxSd7SxUKObbsVJeV1MLxIrK3DALQEGZuNUn8hPH6NnyuRBoY+5b7KJ1uV4UAZc4CctxLrrq81cS4x71wU6bzNlZH8DFZa5s0WFnskzg1X5KvyNDj/EdJ8a1TbL/wtj8dPw9odcCw82uqT9Dookvn+yAJ6Lld4MJYy03TfQGCufq2aRRbe/wwNTgL01g3FOuOpaXgmNGGyPpUae290M3+2/slqnHmTDTabnAwDFGfgdX3EIZ2janNJN1j9/5sqDmRQt/cpc5GXfZkpuEIm6+PBj2EWPpHuOUOCAJOQ8u/x2m+v1JJ7qtEmp4sKGqRddUROsWJD73z6XA/p3Xd+nfSrxgnFpW/38upttkqh1OVZshv0+8RijK9Ve5NTU2tIQXmFyYniHUJ8CYpDJug/0pOWNy8Jasqk8jt2Qm5mwR4q9v47PR413KAv+mr/VrhECJKbfoExf3djNYekXtYwD/L45dKg2ogFiZOHgzJSqtoUlIy6RY6ylo1/u3PZY+g3HpcDUYCjNigO8Wwc4ACYIS+DvPRYm0/6+rGl/GoHcgWV4sFKXZCkcGPikL/ECIB6i5AFBKArEYtijN86lhw+dKDEEjQHrURqGMkX2v2TQ37KRSVDY7YoC7Bn+aKWKPGvlR0l9nuw==
 
+  boatbucket:
+    uid: 1002
+    full_name: Bitbucket Life Raft
+    shell: /bin/bash
+
 groups:
   jenkins-push-docs:
     gid: 3000
+  boatbucket:
+    gid: 1024
