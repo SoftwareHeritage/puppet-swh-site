@@ -20,6 +20,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::stats_web
   include profile::docs_web
   include profile::debian_repository
+  include profile::bitbucket_archive_web
 
   include profile::sentry::reverse_proxy
 

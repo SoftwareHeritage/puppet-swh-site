@@ -686,6 +686,9 @@ letsencrypt::certificates:
   annex.softwareheritage.org:
     domains:
       - annex.softwareheritage.org
+  bitbucket-archive.softwareheritage.org:
+    domains:
+      - bitbucket-archive.softwareheritage.org
   debian.softwareheritage.org:
     domains:
       - debian.softwareheritage.org
@@ -1003,6 +1006,14 @@ docs::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 docs::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 docs::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 docs::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+# Must have matching certificate in letsencrypt::certificates
+bitbucket_archive::vhost::name: bitbucket-archive.softwareheritage.org
+bitbucket_archive::vhost::docroot: /srv/softwareheritage/bitbucket-archive/webroot
+bitbucket_archive::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+bitbucket_archive::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+bitbucket_archive::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+bitbucket_archive::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 ssh::port: 22
 ssh::permitrootlogin: without-password
