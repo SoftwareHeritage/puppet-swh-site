@@ -14,6 +14,7 @@ class profile::bitbucket_archive_web {
     servername      => $vhost_name,
     port            => '80',
     docroot         => $vhost_docroot,
+    manage_docroot  => false,
     redirect_status => 'permanent',
     redirect_dest   => "https://${vhost_name}/",
   }
@@ -33,6 +34,7 @@ class profile::bitbucket_archive_web {
     ssl_key              => $cert_paths['privkey'],
     headers              => [$vhost_hsts_header],
     docroot              => $vhost_docroot,
+    manage_docroot       => false,
     directories          => [
       {
         'path'     => $vhost_docroot,
