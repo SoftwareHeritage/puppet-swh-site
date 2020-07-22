@@ -6,6 +6,7 @@ icinga2::host::vars:
 
 backups::exclude:
   - srv/containers
+  - mnt/pve
 
 swh::apt_config::enable_non_free: true
 packages:

@@ -1,6 +1,10 @@
+---
 icinga2::host::vars:
   load: high
 
 swh::apt_config::enable_non_free: true
 packages:
   - amd64-microcode
+
+backups::exclude:
+  - mnt/pve
