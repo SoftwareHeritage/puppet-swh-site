@@ -1317,8 +1317,7 @@ swh::remote_service::search::config::empty: {}
 
 swh::remote_service::search::config::storage0:
   cls: remote
-  args:
-    url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
+  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
 
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
 
