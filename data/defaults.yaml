@@ -2093,7 +2093,7 @@ swh::deploy::worker::indexer_content_mimetype::config:
     task_modules:
       - swh.indexer.tasks
     task_queues:
-      - swh.indexer.tasks.ContentRangeMimetype
+      - swh.indexer.tasks.ContentMimetypePartition
   tools:
     name: file
     version: 2:0.4.15-2
@@ -2153,7 +2153,7 @@ swh::deploy::worker::indexer_fossology_license::config:
     task_modules:
       - swh.indexer.tasks
     task_queues:
-      - swh.indexer.tasks.ContentRangeFossologyLicense
+      - swh.indexer.tasks.ContentFossologyLicensePartition
   write_batch_size: 1000
 
 
