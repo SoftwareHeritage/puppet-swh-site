@@ -1973,6 +1973,22 @@ swh::deploy::worker::loader_nixguix::config:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
       - swh.loader.package.nixguix.tasks.LoadNixguix
+  unsupported_file_extensions:
+    - patch
+    - iso
+    - whl
+    - gem
+    - pom
+    - msi
+    - pod
+    - png
+    - rock
+    - ttf
+    - jar
+    - c
+    - el
+    - rpm
+    - diff
 
 swh::deploy::lister::db::local:
   cls: local
