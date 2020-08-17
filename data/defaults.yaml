@@ -258,6 +258,10 @@ users:
       nicolasd@darboux:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ1TCpfzrvxLhEMhxjbxqPDCwY0nazIr1cyIbhGD2bUdAbZqVMdNtr7MeDnlLIKrIPJWuvltauvLNkYU0iLc1jMntdBCBM3hgXjmTyDtc8XvXseeBp5tDqccYNR/cnDUuweNcL5tfeu5kzaAg3DFi5Dsncs5hQK5KQ8CPKWcacPjEk4ir9gdFrtKG1rZmg/wi7YbfxrJYWzb171hdV13gSgyXdsG5UAFsNyxsKSztulcLKxvbmDgYbzytr38FK2udRk7WuqPbtEAW1zV4yrBXBSB/uw8EAMi+wwvLTwyUcEl4u0CTlhREljUx8LhYrsQUCrBcmoPAmlnLCD5Q9XrGH
+      mirzakhani-ed25519:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAID/qk9xQq6KpRbRjMVpMzPM7unmGnJp+i6oQ3a0NA65k
+
   ardumont:
     uid: 1003
     full_name: Antoine R. Dumont
