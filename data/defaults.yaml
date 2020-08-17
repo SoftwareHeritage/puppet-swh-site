@@ -2234,10 +2234,15 @@ desktop::printers::cups_usernames:
   zack: zacchiro
 
 zookeeper::clusters:
-  rocquencourt:
+  rocquencourt_legacy:
     '1': zookeeper1.internal.softwareheritage.org
     '2': zookeeper2.internal.softwareheritage.org
     '3': zookeeper3.internal.softwareheritage.org
+  rocquencourt:
+    '1': kafka1.internal.softwareheritage.org
+    '2': kafka2.internal.softwareheritage.org
+    '3': kafka3.internal.softwareheritage.org
+    '4': kafka4.internal.softwareheritage.org
   azure:
     '1': kafka01.euwest.azure.internal.softwareheritage.org
     '2': kafka02.euwest.azure.internal.softwareheritage.org
@@ -2270,7 +2275,7 @@ kafka::broker_config:
   message.max.bytes: 104857600
 
 kafka::clusters:
-  rocquencourt:
+  rocquencourt_legacy:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
       - zookeeper1.internal.softwareheritage.org
@@ -2286,6 +2291,27 @@ kafka::clusters:
     broker::heap_opts: "-Xmx6G -Xms6G"
     tls: false
     plaintext_port: 9092
+  rocquencourt:
+    zookeeper::chroot: '/kafka/softwareheritage'
+    zookeeper::servers:
+      - kafka1.internal.softwareheritage.org
+      - kafka2.internal.softwareheritage.org
+      - kafka3.internal.softwareheritage.org
+      - kafka4.internal.softwareheritage.org
+    brokers:
+      kafka1.internal.softwareheritage.org:
+        id: 1
+      kafka2.internal.softwareheritage.org:
+        id: 2
+      kafka3.internal.softwareheritage.org:
+        id: 3
+      kafka4.internal.softwareheritage.org:
+        id: 4
+    broker::heap_opts: "-Xmx6G -Xms6G"
+    tls: true
+    plaintext_port: 9092
+    public_tls_port: 9093
+    internal_tls_port: 9094
   azure:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
@@ -2772,7 +2798,7 @@ sentry::postgres::dbname: sentry
 sentry::postgres::user: sentry
 # sentry::postgres::password in private-data
 
-sentry::kafka_cluster: rocquencourt
+sentry::kafka_cluster: rocquencourt_legacy
 
 sentry::admin_email: sysop+sentry@softwareheritage.org
 
