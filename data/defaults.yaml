@@ -663,6 +663,18 @@ letsencrypt::certificates:
   keycloak:
     domains:
       - auth.softwareheritage.org
+  kafka1.internal.softwareheritage.org:
+    domains:
+      - kafka1.internal.softwareheritage.org
+  kafka2.internal.softwareheritage.org:
+    domains:
+      - kafka2.internal.softwareheritage.org
+  kafka3.internal.softwareheritage.org:
+    domains:
+      - kafka3.internal.softwareheritage.org
+  kafka4.internal.softwareheritage.org:
+    domains:
+      - kafka4.internal.softwareheritage.org
   kafka01.euwest.azure.internal.softwareheritage.org:
     domains:
       - kafka01.euwest.azure.internal.softwareheritage.org
