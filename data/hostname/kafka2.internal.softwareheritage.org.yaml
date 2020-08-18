@@ -7,3 +7,15 @@ nginx::worker_processes: 32
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
+
+swh::apt_config::backported_packages:
+  buster:
+    - linux-image-amd64
+    - linux-headers-amd64
+    - libnvpair1linux
+    - libuutil1linux
+    - libzfs2linux
+    - libzpool2linux
+    - zfs-dkms
+    - zfsutils-linux
+    - zfs-zed
