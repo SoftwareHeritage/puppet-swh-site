@@ -1,0 +1,9 @@
+---
+backups::exclude:
+  - srv/kafka
+
+nginx::worker_processes: 32
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
