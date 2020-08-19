@@ -462,6 +462,9 @@ users:
       vlorentz@perso-laptop:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIIjJoY4XBTTNsxLVF/sUKBI4WGR2AIiR9qfMdspnsRfJ
+      vlorentz@pro-laptop:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIND42yBr8C/zKJiQx2I84yIlMNsS9IMTUkdb9GjYgFON
   haltode:
     uid: 1022
     full_name: Thibault Allancon
