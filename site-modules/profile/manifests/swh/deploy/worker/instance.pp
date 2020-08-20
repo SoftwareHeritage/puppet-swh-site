@@ -62,7 +62,7 @@ define profile::swh::deploy::worker::instance (
       }
 
       profile::cron::d {"swh-worker-${instance_name}-autorestart":
-        command => "chronic /usr/local/sbin/swh-worker-ping-restart ${instance_name}@${celery_hostname} ${service_name}",
+        command => "chronic /usr/local/sbin/swh-worker-ping-restart ${instance_name}@${celery_hostname} ${instance_name}",
         target  => 'swh-worker',
         minute  => 'fqdn_rand/15',
         require => File['/usr/local/sbin/swh-worker-ping-restart'],
