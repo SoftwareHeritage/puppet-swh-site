@@ -1079,6 +1079,7 @@ swh::apt_config::backported_packages:
     - systemd-tests
     - udev
     - udev-udeb
+    - python3-typing-extensions
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
