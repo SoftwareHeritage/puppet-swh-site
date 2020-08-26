@@ -113,7 +113,7 @@ mod 'kafka',
 
 mod 'keycloak',
     :git => 'https://forge.softwareheritage.org/source/puppet-treydock-keycloak',
-    :ref => 'v6.10.0'
+    :ref => 'v6.16.0'
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
@@ -141,7 +141,7 @@ mod 'php',
 
 mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
-    :ref => 'v6.3.0'
+    :ref => 'v6.4.0'
 
 mod 'pgbouncer',
     :git => 'https://forge.softwareheritage.org/source/puppet-covermymeds-pgbouncer',

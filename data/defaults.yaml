@@ -2846,9 +2846,13 @@ keycloak::resources::realms::common_settings:
   account_theme: swh
   admin_theme: swh
   login_theme: swh
+  smtp_server_host: localhost
+  smtp_server_from: noreply@softwareheritage.org
+  smtp_server_from_display_name: Software Heritage Authentication Service
 
 keycloak::resources::clients::common_settings:
   public_client: true
+  login_theme: swh
   default_client_scopes:
     - profile
     - email
