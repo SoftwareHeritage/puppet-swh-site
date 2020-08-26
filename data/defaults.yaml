@@ -2817,7 +2817,7 @@ sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 keycloak::version: 8.0.1
 
 keycloak::swh_theme::repo_url: https://forge.softwareheritage.org/source/swh-keycloak-theme.git
-keycloak::swh_theme::tag: v0.2.0
+keycloak::swh_theme::tag: v0.3.0
 
 keycloak::vhost::name: auth.softwareheritage.org
 keycloak::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
@@ -2870,6 +2870,9 @@ keycloak::resources::protocol_mappers::groups:
     full_path: true
 
 keycloak::resources::realms:
+  master:
+    settings:
+      display_name: master
   SoftwareHeritage:
     settings:
       display_name: Software Heritage
