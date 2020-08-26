@@ -1800,10 +1800,7 @@ swh::deploy::webapp::config::throttling:
         # Antoine Eiche
         - 37.187.96.121
 swh::deploy::webapp::config::keycloak:
-  # disable OIDC login link in production until the feature got
-  # properly tested in staging
-  server_url: ""
-  # server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
+  server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: SoftwareHeritage
 
 # in private data:
