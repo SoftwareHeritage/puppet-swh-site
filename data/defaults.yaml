@@ -98,6 +98,12 @@ smtp::mail_aliases:
   - user: danseraf
     aliases:
       - me@danieleserafini.eu
+  - user: vsellier
+    aliases:
+      - vincent.sellier@softwareheritage.org
+  - user: tenma
+    aliases:
+      - nicolas.gattolin@softwareheritage.org
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -497,6 +503,28 @@ users:
       andres@powerage:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDRnVV1UimkTbAAb1FPxDPAqfyCVSrlB7a1Kq83ZKc6e7tTVmOKA55whZa3KwNBwgZGB8389ejCery+WDqSiRZsirup4UN/VZ5X3XJdnRVPPcpzVuWFivPKBMn6D4LMa9D7moMnV9JC5q9zwMNHZQ4qJbGlW44MzWOi0RnPVd28jsRkL0sMRvz+i3KXFGDNeaVPV0YLB4vS1bmEho/8Tu5NlY/Tzkter9qTNN7QNIAbnq8oQF/lLPFAytE0s61ZtoDcXfznJPXWkIljMCTQHlxeDci9DQWUgQc+A+7qWmqkb3lzDYKQrxRfZtl3hbnR3jrtSfTI+q0Nagh0O4FN2QUj
+  vsellier:
+    uid: 1025
+    full_name: Vincent Sellier
+    groups:
+      - swhdev
+      - swhteam
+    shell: /usr/bin/zsh
+    authorized_keys:
+       vsellier@swh-vs1:
+         type: ssh-ed25519
+         key: AAAAC3NzaC1lZDI1NTE5AAAAII5oO0jj/IeV04osZ/iaKBZdnuqdziJD3x1VOhtK9tZY
+  tenma:
+    uid: 1026
+    full_name: Nicolas Gattolin
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+    authorized_keys:
+      tenma@swh-ng1:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIFZ2Ny1YDntm3yHa7yTG+HsZr+HUIMHAi/k/MS6hoKzY
 
 groups:
   adm:
@@ -533,6 +561,10 @@ groups:
     gid: 1018
   swhvault:
     gid: 1019
+  vsellier:
+    gid: 1025
+  tenma:
+    gid: 1026
 
 gunicorn::statsd::host: 127.0.0.1:8125
 
