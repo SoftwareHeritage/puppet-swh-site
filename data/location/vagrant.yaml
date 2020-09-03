@@ -1,0 +1,34 @@
+# forwarder for :
+# - swh network
+# - Inria network
+# - external network
+dns::forwarders:
+  - 192.168.100.29
+  - 192.168.200.22
+  - 128.93.77.234
+  - 1.1.1.1
+dns::forwarder_insecure: true
+
+ntp::servers:
+  - sesi-ntp1.inria.fr
+  - sesi-ntp2.inria.fr
+
+internal_network: 10.168.128.0/16
+
+smtp::relay_hostname: 'none'
+
+swh::deploy::worker::instances:
+  - checker_deposit
+  - lister
+  - loader_archive
+  - loader_cran
+  - loader_debian
+  - loader_deposit
+  - loader_git
+  - loader_mercurial
+  - loader_nixguix
+  - loader_npm
+  - loader_pypi
+  - loader_svn
+
+dns::forward_zones: { }

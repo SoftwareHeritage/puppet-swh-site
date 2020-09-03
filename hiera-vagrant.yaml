@@ -1,0 +1,10 @@
+# global hiera configuration
+# used only on the vagrant environement
+---
+version: 5
+defaults:
+  datadir: data         # datadir by default moved to 'defaults' folder
+  data_hash: yaml_data  # Default backend
+hierarchy:
+  - path: "../environments/%{::environment}/data/vagrant/%{trusted.certname}.yaml"
+    name: "Vagrant overrides by hostnames"
