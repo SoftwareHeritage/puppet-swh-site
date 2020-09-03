@@ -509,6 +509,7 @@ users:
     groups:
       - swhdev
       - swhteam
+      - sudo
     shell: /usr/bin/zsh
     authorized_keys:
        vsellier@swh-vs1:
