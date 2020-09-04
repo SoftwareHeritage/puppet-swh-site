@@ -13,7 +13,7 @@ networks:
 backups::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
+swh::deploy::storage::db::host: db.internal.softwareheritage.org
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
