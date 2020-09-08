@@ -2066,6 +2066,8 @@ swh::deploy::worker::lister::config:
       - swh.lister.gitlab.tasks.RangeGitLabLister
       - swh.lister.gitlab.tasks.FullGitLabRelister
       - swh.lister.gnu.tasks.GNUListerTask
+      - swh.lister.launchpad.tasks.FullLaunchpadLister
+      - swh.lister.launchpad.tasks.IncrementalLaunchpadLister
       - swh.lister.npm.tasks.NpmListerTask
       - swh.lister.phabricator.tasks.FullPhabricatorLister
       - swh.lister.pypi.tasks.PyPIListerTask
