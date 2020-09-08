@@ -1,3 +1,6 @@
 ---
 backups::exclude:
   - srv/softwareheritage/postgres
+
+# for ZFS
+swh::apt_config::enable_non_free: true
