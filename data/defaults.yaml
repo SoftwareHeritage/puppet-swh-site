@@ -1405,7 +1405,7 @@ swh::remote_service::vault::config::azure:
 swh::deploy::db::pgbouncer::port: 5432
 swh::deploy::db::main::port: 5433
 swh::deploy::db::secondary::port: 5434
-swh::deploy::db::hdd::port: 5435
+swh::deploy::db::indexer::port: 5435
 
 swh::deploy::db::pgbouncer::user::login: postgres
 
@@ -1490,7 +1490,7 @@ swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::enviro
 swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
-swh::deploy::indexer::storage::db::host: somerset.internal.softwareheritage.org
+swh::deploy::indexer::storage::db::host: belvedere.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
