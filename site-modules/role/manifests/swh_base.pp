@@ -10,6 +10,9 @@ class role::swh_base {
   include profile::icinga2
   include profile::rsyslog
 
+  if $::virtual == 'physical' {
+    include profile::megacli
+  }
 
   include profile::swh
 }
