@@ -2827,7 +2827,7 @@ kibana::server_name: "%{::swh_hostname.internal_fqdn}"
 kibana::config:
   server.name: "%{alias('kibana::server_name')}"
   elasticsearch.hosts: "%{alias('elasticsearch::hosts')}"
-  kibana.index: .kibana-6
+  kibana.index: .kibana
 
 # sentry::secret_key in private-data
 
