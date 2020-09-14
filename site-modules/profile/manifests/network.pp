@@ -62,6 +62,7 @@ class profile::network {
       method  => $method,
       address => $data['address'],
       netmask => $data['netmask'],
+      mtu     => $data['mtu'],
       gateway => $gateway,
       ups     => pick_default($data['ups'], $_ups, []),
       downs   => pick_default($data['downs'], $_downs, []),
