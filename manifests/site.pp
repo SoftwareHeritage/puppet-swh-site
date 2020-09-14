@@ -2,7 +2,7 @@ node 'louvre.internal.softwareheritage.org' {
   include role::swh_server
 }
 
-node /^(orsay|beaubourg|hypervisor\d+)\.(internal\.)?softwareheritage\.org$/
+node /^(orsay|beaubourg|hypervisor\d+|branly)\.(internal\.)?softwareheritage\.org$/
 {
   include role::swh_hypervisor
 }
