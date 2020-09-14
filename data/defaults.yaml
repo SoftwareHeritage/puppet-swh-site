@@ -1585,9 +1585,10 @@ swh::deploy::vault::config:
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
 swh::deploy::journal::brokers:
-  - esnode1.internal.softwareheritage.org
-  - esnode2.internal.softwareheritage.org
-  - esnode3.internal.softwareheritage.org
+  - kafka1.internal.softwareheritage.org
+  - kafka2.internal.softwareheritage.org
+  - kafka3.internal.softwareheritage.org
+  - kafka4.internal.softwareheritage.org
 
 swh::deploy::journal::prefix: swh.journal.objects
 
