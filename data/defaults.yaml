@@ -1145,6 +1145,8 @@ debian_repository::gpg_keys:
   - 7DC7325EF1A6226AB6C3D7E32388A3BF6F0A6938
   # jenkins-debian1
   - 1F4BDC445E30C7066324D7B3D7D3329147AE3148
+  # vsellier
+  - 89226003C15CBC8C65C189C33F13C434EADAD17D
 
 # Must have matching certificate in letsencrypt::certificates
 debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
