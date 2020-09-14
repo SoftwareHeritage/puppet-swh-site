@@ -1,7 +1,6 @@
 ---
 networks:
-  default:
-    interface: eth0
+  eth0:
     address: 192.168.100.125
     netmask: 255.255.255.0
     gateway: 192.168.100.1
@@ -9,12 +8,9 @@ networks:
       - 'iptables -t nat -A POSTROUTING -s 192.168.128.0/24 -o eth0 -j MASQUERADE'
     downs:
       - 'iptables -t nat -F'
-  private:
-    interface: eth1
+  eth1:
     address: 192.168.128.1
     netmask: 255.255.255.0
-    ups: []
-    downs: []
 
 networks::private_routes:
   vpn:

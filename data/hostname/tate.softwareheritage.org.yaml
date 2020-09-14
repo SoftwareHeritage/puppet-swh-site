@@ -9,16 +9,15 @@ smtp::mail_aliases:
 ssh::port: 2222
 
 networks:
-  private:
-    interface: eth1
-    address: 192.168.100.30
-    netmask: 255.255.255.0
-    gateway: 192.168.100.1
-  default:
-    interface: eth0
+  eth0:
     address: 128.93.193.30
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+  eth1:
+    type: private
+    address: 192.168.100.30
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
 
 apache::rewrite_domains:
   # Must have matching certificates in letsencrypt::certificates

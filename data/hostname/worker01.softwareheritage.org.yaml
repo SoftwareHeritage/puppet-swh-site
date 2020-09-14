@@ -1,11 +1,10 @@
 networks:
-  private:
-    interface: ens19
+  ens19:
+    type: private
     address: 192.168.100.21
     netmask: 255.255.255.0
     gateway: 192.168.100.1
-  default:
-    interface: ens18
+  ens18:
     address: 128.93.193.21
     netmask: 255.255.255.0
     gateway: 128.93.193.254

@@ -15,16 +15,15 @@ smtp::mynetworks:
   - 192.168.200.0/21
 
 networks:
-  private:
-    interface: eth1
-    address: 192.168.100.29
-    netmask: 255.255.255.0
-    gateway: 192.168.100.1
-  default:
-    interface: eth0
+  eth0:
     address: 128.93.193.29
     netmask: 255.255.255.0
     gateway: 128.93.193.254
+  eth1:
+    type: private
+    address: 192.168.100.29
+    netmask: 255.255.255.0
+    gateway: 192.168.100.1
 
 networks::private_routes:
   staging:

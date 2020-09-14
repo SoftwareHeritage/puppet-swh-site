@@ -1,6 +1,4 @@
 # Network configuration for Software Heritage servers
-#
-# Supports one private and one public interface
 class profile::network {
   debnet::iface::loopback { 'lo': }
 
@@ -16,9 +14,11 @@ class profile::network {
 
   $interfaces = lookup('networks')
   $private_routes = lookup('networks::private_routes', Hash, 'deep')
-  each($interfaces) |$label, $data| {
+  each($interfaces) |$interface, $data| {
 
-    if $label == 'private' {
+    $interface_type = pick($data['type'], 'default')
+
+    if $interface_type == 'private' {
       file_line {'private route table':
         ensure => 'present',
         line   => '42 private',
@@ -37,14 +37,14 @@ class profile::network {
 
       $_ups = $routes_up + [
         "ip rule add from ${data['address']} table private",
-        "ip route add 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
-        "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
+        "ip route add 192.168.100.0/24 src ${data['address']} dev ${interface} table private",
+        "ip route add default via ${data['gateway']} dev ${interface} table private",
         'ip route flush cache',
       ]
 
       $_downs = [
-        "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
-        "ip route del 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
+        "ip route del default via ${data['gateway']} dev ${interface} table private",
+        "ip route del 192.168.100.0/24 src ${data['address']} dev ${interface} table private",
         "ip rule del from ${data['address']} table private",
       ] + $routes_down + [
         'ip route flush cache',
@@ -61,7 +61,7 @@ class profile::network {
     }
 
 
-    debnet::iface { $data['interface']:
+    debnet::iface { $interface:
       method  => 'static',
       address => $data['address'],
       netmask => $data['netmask'],
