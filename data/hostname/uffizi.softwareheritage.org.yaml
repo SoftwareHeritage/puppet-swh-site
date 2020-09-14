@@ -44,6 +44,7 @@ swh::deploy::storage::config:
           brokers: "%{alias('swh::deploy::journal::brokers')}"
           prefix: "%{alias('swh::deploy::journal::prefix')}"
           client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
+          anonymize: true
           producer_config:
             message.max.bytes: 1000000000
 
