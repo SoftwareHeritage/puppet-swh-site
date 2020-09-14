@@ -11,12 +11,11 @@ class profile::network {
   # - address: ip address for the node
   # - netmask: netmask
   # - gateway: to use for the network
-  # - ups: Post instruction when the interface is up (should be set to [] when
-  # none)
-  # - downs: Post instructions to run when the interface is teared down (should
-  # be set to [] when none)
+  # - ups: Post instruction when the interface is up
+  # - downs: Post instructions to run when the interface is teared down
 
   $interfaces = lookup('networks')
+  $private_routes = lookup('networks::private_routes', Hash, 'deep')
   each($interfaces) |$label, $data| {
 
     if $label == 'private' {
@@ -26,45 +25,38 @@ class profile::network {
         path   => '/etc/iproute2/rt_tables',
       }
 
-      if $data['ups'] {
-        $ups = $data['ups']
-      } else {
-        $ups = [
-          "ip route add 192.168.101.0/24 via ${data['gateway']}",
-          "ip route add 192.168.200.0/21 via ${data['gateway']}",
-          "ip rule add from ${data['address']} table private",
-          "ip route add 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
-          "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
-          'ip route flush cache',
-        ]
+      $filtered_routes = $private_routes.filter |$route_label, $route_data| { pick($route_data['enabled'], true) }
+
+      $routes_up = $filtered_routes.map |$route_label, $route_data| {
+        "ip route add ${route_data['network']} via ${route_data['gateway']}"
       }
 
-      if $data['downs'] {
-        $downs =  $data['downs']
-      } else {
-        $downs = [
-          "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
-          "ip route del 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
-          "ip rule del from ${data['address']} table private",
-          "ip route del 192.168.200.0/24 via ${data['gateway']}",
-          "ip route del 192.168.101.0/24 via ${data['gateway']}",
-          'ip route flush cache',
-        ]
-      }
+      $routes_down = $filtered_routes.map |$route_label, $route_data| {
+        "ip route del ${route_data['network']} via ${route_data['gateway']}"
+      }.reverse
 
+      $_ups = $routes_up + [
+        "ip rule add from ${data['address']} table private",
+        "ip route add 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
+        "ip route add default via ${data['gateway']} dev ${data['interface']} table private",
+        'ip route flush cache',
+      ]
+
+      $_downs = [
+        "ip route del default via ${data['gateway']} dev ${data['interface']} table private",
+        "ip route del 192.168.100.0/24 src ${data['address']} dev ${data['interface']} table private",
+        "ip rule del from ${data['address']} table private",
+      ] + $routes_down + [
+        'ip route flush cache',
+      ]
+
+      $ups = pick_default($data['ups'], $_ups)
+      $downs = pick_default($data['downs'], $_downs)
       $gateway = undef
-    } else {
-      if $data['ups'] {
-        $ups = $data['ups']
-      } else {
-        $ups = []
-      }
 
-      if $data['downs'] {
-        $downs = $data['downs']
-      } else {
-        $downs = []
-      }
+    } else {
+      $ups = pick_default($data['ups'], [])
+      $downs = pick_default($data['downs'], [])
       $gateway = $data['gateway']
     }
 
