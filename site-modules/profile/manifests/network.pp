@@ -16,7 +16,7 @@ class profile::network {
   $private_routes = lookup('networks::private_routes', Hash, 'deep')
   each($interfaces) |$interface, $data| {
 
-    $interface_type = pick($data['type'], 'default')
+    $interface_type = pick($data['type'], 'static')
 
     if $interface_type == 'private' {
       file_line {'private route table':
@@ -49,25 +49,22 @@ class profile::network {
       ] + $routes_down + [
         'ip route flush cache',
       ]
-
-      $ups = pick_default($data['ups'], $_ups)
-      $downs = pick_default($data['downs'], $_downs)
+      $method = 'static'
       $gateway = undef
-
     } else {
-      $ups = pick_default($data['ups'], [])
-      $downs = pick_default($data['downs'], [])
+      $method = $interface_type
       $gateway = $data['gateway']
+      $_ups = []
+      $_downs = []
     }
 
-
     debnet::iface { $interface:
-      method  => 'static',
+      method  => $method,
       address => $data['address'],
       netmask => $data['netmask'],
       gateway => $gateway,
-      ups     => $ups,
-      downs   => $downs,
+      ups     => pick_default($data['ups'], $_ups, []),
+      downs   => pick_default($data['downs'], $_downs, []),
     }
   }
 }
