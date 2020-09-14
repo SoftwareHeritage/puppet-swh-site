@@ -1,4 +1,8 @@
-# Network configuration for Software Heritage servers
+# Network configuration for Software Heritage servers.
+
+# This class is enabled when the `networks` hiera variable returns a value that
+# is not empty.
+
 class profile::network {
   debnet::iface::loopback { 'lo': }
 

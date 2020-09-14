@@ -1,6 +1,4 @@
 class role::swh_deposit inherits role::swh_server {
-  include profile::network
-
   # Web UI
   include profile::swh::deploy::deposit
 
