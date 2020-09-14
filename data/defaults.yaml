@@ -722,15 +722,19 @@ letsencrypt::certificates:
       - auth.softwareheritage.org
   kafka1.internal.softwareheritage.org:
     domains:
+      - broker1.journal.softwareheritage.org
       - kafka1.internal.softwareheritage.org
   kafka2.internal.softwareheritage.org:
     domains:
+      - broker2.journal.softwareheritage.org
       - kafka2.internal.softwareheritage.org
   kafka3.internal.softwareheritage.org:
     domains:
+      - broker3.journal.softwareheritage.org
       - kafka3.internal.softwareheritage.org
   kafka4.internal.softwareheritage.org:
     domains:
+      - broker4.journal.softwareheritage.org
       - kafka4.internal.softwareheritage.org
   kafka01.euwest.azure.internal.softwareheritage.org:
     domains:
@@ -2363,12 +2367,16 @@ kafka::clusters:
     brokers:
       kafka1.internal.softwareheritage.org:
         id: 1
+        public_hostname: broker1.journal.softwareheritage.org
       kafka2.internal.softwareheritage.org:
         id: 2
+        public_hostname: broker2.journal.softwareheritage.org
       kafka3.internal.softwareheritage.org:
         id: 3
+        public_hostname: broker3.journal.softwareheritage.org
       kafka4.internal.softwareheritage.org:
         id: 4
+        public_hostname: broker4.journal.softwareheritage.org
     broker::heap_opts: "-Xmx6G -Xms6G"
     tls: true
     plaintext_port: 9092

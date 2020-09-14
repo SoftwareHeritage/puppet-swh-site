@@ -26,6 +26,9 @@ class profile::kafka::broker {
   $broker_config = $kafka_cluster_config['brokers'][$::swh_hostname['internal_fqdn']]
   $broker_id = $broker_config['id']
 
+  $internal_hostname = $swh_hostname['internal_fqdn']
+  $public_hostname = pick($broker_config['public_hostname'], $internal_hostname.regsubst('\.internal', ''))
+
   $kafka_config = $base_kafka_config + {
     'zookeeper.connect' => $zookeeper_connect_string,
     'broker.id'         => $broker_id,
@@ -63,9 +66,6 @@ class profile::kafka::broker {
       password     => $ks_password,
       trustcacerts => true,
     }
-
-    $internal_hostname = $swh_hostname['internal_fqdn']
-    $public_hostname = $internal_hostname.regsubst('\.internal', '')
 
     $plaintext_port = $kafka_cluster_config['plaintext_port']
     $internal_tls_port = $kafka_cluster_config['internal_tls_port']
@@ -108,7 +108,7 @@ class profile::kafka::broker {
 
   } else {
     $kafka_tls_config = {
-      'listeners' => "PLAINTEXT://${swh_hostname['internal_fqdn']}:${kafka_cluster_config['plaintext_port']}",
+      'listeners' => "PLAINTEXT://${internal_hostname}:${kafka_cluster_config['plaintext_port']}",
     }
 
     $jaas_cli_opts = []
