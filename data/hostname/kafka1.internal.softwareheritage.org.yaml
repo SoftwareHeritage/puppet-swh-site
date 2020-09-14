@@ -1,10 +1,43 @@
 ---
+networks:
+  ens1f0np0:
+    type: manual
+    mtu: 9000
+  ens1f1np1:
+    type: manual
+    mtu: 9000
+  bond0:
+    type: manual
+    mtu: 9000
+    extras:
+      bond-miimon: 100
+      bond-mode: 802.3ad
+      bond-xmit_hash_policy: layer3+4
+      bond-slaves: ens1f0np0 ens1f1np1
+      bond-lacp-rate: 1
+  vlan440:
+    type: private
+    address: 192.168.100.201
+    netmask: 24
+    gateway: 192.168.100.1
+    extras:
+      vlan-raw-device: bond0
+  vlan1300:
+    type: static
+    address: 128.93.166.48
+    netmask: 26
+    gateway: 128.93.166.62
+    extras:
+      vlan-raw-device: bond0
+
 backups::exclude:
   - srv/kafka
 
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
+  - vlan
+  - ifenslave
 
 swh::apt_config::backported_packages:
   buster:
