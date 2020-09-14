@@ -66,6 +66,7 @@ class profile::network {
       gateway => $gateway,
       ups     => pick_default($data['ups'], $_ups, []),
       downs   => pick_default($data['downs'], $_downs, []),
+      aux_ops => pick_default($data['extras'], {}),
     }
   }
 }
