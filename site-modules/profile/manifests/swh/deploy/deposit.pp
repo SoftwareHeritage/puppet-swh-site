@@ -267,4 +267,10 @@ class profile::swh::deploy::deposit {
     tag           => 'icinga2::exported',
   }
 
+  include profile::filebeat
+  profile::filebeat::log_input { 'deposit-non-ssl-access':
+    paths  => [ '/var/log/apache2/deposit.softwareheritage.org_non-ssl_access.log' ],
+    fields => { 'apache_log_type' => 'access_log', },
+  }
+
 }

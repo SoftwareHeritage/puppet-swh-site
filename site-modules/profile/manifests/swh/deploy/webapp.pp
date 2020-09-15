@@ -282,4 +282,10 @@ class profile::swh::deploy::webapp {
       vhost_name => $vhost_name,
     },
   }
+
+  include profile::filebeat
+  profile::filebeat::log_input { 'webapp-non-ssl-access':
+    paths  => [ '/var/log/apache2/archive.softwareheritage.org_non-ssl_access.log' ],
+    fields => { 'apache_log_type' => 'access_log' },
+  }
 }

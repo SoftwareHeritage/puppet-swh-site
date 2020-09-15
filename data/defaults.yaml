@@ -2505,8 +2505,18 @@ icinga2::apiusers:
 
 icinga2::exported_checks::filename: "/etc/icinga2/zones.d/%{hiera('icinga2::parent_zone')}/exported-checks.conf"
 
-systemd_journal::logstash_hosts:
-  - 'logstash.internal.softwareheritage.org:5044'
+logstash_hosts:
+  - logstash.internal.softwareheritage.org:5044
+
+systemd_journal::logstash_hosts: "%{alias('logstash_hosts')}"
+
+filebeat::config:
+  filebeat.config.inputs:
+    enabled: true
+    path: inputs.d/*.yml
+  output:
+    logstash:
+      hosts: "%{alias('logstash_hosts')}"
 
 memcached::server::bind: 127.0.0.1
 memcached::server::port: 11211
