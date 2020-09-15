@@ -2,15 +2,23 @@
 class profile::network {
   debnet::iface::loopback { 'lo': }
 
-  # The network description is expected to be a dict of key route_label
-  # (values: private, default) and value a dict describing the interface.
-  # The interface dict has the following possible keys:
-  # - interface: interface's name
-  # - address: ip address for the node
-  # - netmask: netmask
-  # - gateway: to use for the network
-  # - ups: Post instruction when the interface is up
-  # - downs: Post instructions to run when the interface is teared down
+  # The `networks` hiera variable is a dict mapping interface names to a
+  # settings dict. Entries of the settings dict with undefined values are not
+  # output in the interface configuration.
+  # The settings dict has the following keys:
+  # - type (defaults to 'static'): the type of the interface as used by
+  #     ifupdown. A special type, 'private', generates a static configuration
+  #     with a separate routing table for the networks defined in the
+  #     `networks::private_routes` hiera variable (e.g. the OpenVPN and azure
+  #     machines).
+  # - address (ip address): ip address to set on the
+  #     interface
+  # - netmask (int or netmask): netmask for the network (e.g. 26 or 255.255.255.192)
+  # - gateway (ip address): address of the gateway to use for the network
+  # - mtu (int): MTU to set for the interface
+  # - extras (dict): extra configuration entries to pass to ifupdown directly
+  # - ups (list[str]): Instructions to run after the interface is brought up
+  # - downs (list[str]): instructions to run when the interface is torn down
 
   $interfaces = lookup('networks')
   $private_routes = lookup('networks::private_routes', Hash, 'deep')
