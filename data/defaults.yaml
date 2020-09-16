@@ -1678,6 +1678,9 @@ swh::deploy::deposit::config:
     version: '0.0.1'
     configuration:
       sword_version: 2
+  provider:
+    provider_type: deposit_client
+    metadata: {}
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
