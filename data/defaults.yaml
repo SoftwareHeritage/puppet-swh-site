@@ -1099,10 +1099,6 @@ swh::base_directory: /srv/softwareheritage
 swh::conf_directory: /etc/softwareheritage
 swh::log_directory: /var/log/softwareheritage
 swh::global_conf::file: "%{hiera('swh::conf_directory')}/global.ini"
-swh::global_conf::contents: |
-  # Managed by puppet (class profile::swh) - modifications will be overwritten
-  [main]
-  log_db =
 
 swh::apt_config::swh_repository::hostname: debian.softwareheritage.org
 swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_repository::hostname')}/"

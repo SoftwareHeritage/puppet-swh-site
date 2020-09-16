@@ -4,7 +4,6 @@ class profile::swh {
   $swh_base_directory = lookup('swh::base_directory')
   $swh_conf_directory = lookup('swh::conf_directory')
   $swh_global_conf_file = lookup('swh::global_conf::file')
-  $swh_global_conf_contents = lookup('swh::global_conf::contents')
   $swh_log_directory = lookup('swh::log_directory')
 
   $swh_logrotate_conf = '/etc/logrotate.d/softwareheritage'
@@ -21,11 +20,10 @@ class profile::swh {
   }
 
   file {$swh_global_conf_file:
-    ensure  => 'file',
+    ensure  => 'absent',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => $swh_global_conf_contents,
   }
 
   file {$swh_logrotate_conf:
