@@ -1243,7 +1243,6 @@ swh::deploy::worker::storage::pipeline:
   cls: pipeline
   steps:
     - cls: retry
-    - cls: filter
     - cls: buffer
       min_batch_size:
         content: 1000
@@ -1251,6 +1250,7 @@ swh::deploy::worker::storage::pipeline:
         directory: 1000
         revision: 1000
         release: 1000
+    - cls: filter
     - "%{alias('swh::remote_service::storage::config::writable')}"
 
 # Objstorage backend configurations
