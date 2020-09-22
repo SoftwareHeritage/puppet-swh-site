@@ -1125,6 +1125,7 @@ swh::apt_config::backported_packages:
     - libudev-dev
     - libudev1
     - libudev1-udeb
+    - libzstd1
     - systemd
     - systemd-container
     - systemd-coredump
