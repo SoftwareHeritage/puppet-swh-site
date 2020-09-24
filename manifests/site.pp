@@ -179,6 +179,10 @@ node 'journal0.internal.staging.swh.network' {
   include role::swh_journal_allinone
 }
 
+node 'bojimans.internal.softwareheritage.org' {
+  include role::swh_netbox
+}
+
 node default {
   include role::swh_base
 }

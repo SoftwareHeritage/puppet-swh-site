@@ -814,7 +814,12 @@ letsencrypt::certificates:
       - sponsorship.softwareheritage.org
       - testimonials.softwareheritage.org
     deploy_hook: gandi_paas
-
+  netbox:
+    domain:
+      - inventory.internal.softwareheritage.org
+  netbox-vagrant:
+    domain:
+      - inventory-vagrant.inventory.softwareheritage.org
 
 bind::update_key: local-update
 
@@ -4205,3 +4210,34 @@ swh::deploy::search::backend::server_names:
   - localhost
   - "::1"
 
+netbox::version: 2.9.3
+netbox::user: netbox
+netbox::db::host: localhost
+netbox::db::port: 5432
+netbox::db::database: netbox
+netbox::db::username: netbox
+# netbox::db::password: in private-data
+netbox::mail::host: "%{lookup('smtp::relay_hostname')}"
+netbox::mail::from: inventory@softwareheritage.org
+netbox::redis::host: localhost
+netbox::redis::port: 6379
+# netbox::redis::password in private-data
+# netbox::redis_cache::password in private-data
+# netbox::secret_key in private-data
+netbox::admin::email: sysop+netbox@softwareheritage.org
+# netbox::admin::password in private-data
+# netbox::admin::api_token in private-data
+netbox::webhook_enabled: true
+netbox::gunicorn::binding: 127.0.0.1
+netbox::gunicorn::port: 8001
+netbox::data_directory: /var/lib/netbox
+netbox::allowed_hosts:
+  - "*"
+  - "localhost"
+netbox::vhost::letsencrypt_cert: netbox
+netbox::vhost::name: inventory.softwareheritage.org
+netbox::backend::url: "http://localhost/%{hiera('netbox::gunicorn::port')}"
+netbox::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+netbox::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+netbox::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+netbox::vhost::hsts_header: "%{hiera('apache::hsts_header')}"

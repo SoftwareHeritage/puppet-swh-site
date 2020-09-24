@@ -163,6 +163,10 @@ mod 'rabbitmq',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq',
     :ref => 'v10.0.0'
 
+mod 'redis',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppet-redis',
+    :ref => 'v6.1.0'
+
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',
     :ref => 'v4.1.0'

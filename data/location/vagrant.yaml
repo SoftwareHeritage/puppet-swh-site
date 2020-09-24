@@ -32,3 +32,6 @@ swh::deploy::worker::instances:
   - loader_svn
 
 dns::forward_zones: { }
+
+netbox::mail::from: inventory+vagrant@softwareheritage.org
+netbox::admin::email: sysop+vagrant@softwareheritage.org
