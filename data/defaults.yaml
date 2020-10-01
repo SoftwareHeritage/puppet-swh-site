@@ -73,6 +73,7 @@ smtp::mail_aliases:
       - zack
       - ardumont
       - ddouard
+      - vsellier
   - user: seirl
     aliases:
       - antoine.pietri1@gmail.com
@@ -84,9 +85,11 @@ smtp::mail_aliases:
       - zack
       - olasd
       - ardumont
+      - vsellier
   - user: swhdeposit
     aliases:
       - ardumont
+      - vsellier
   - user: zack
     aliases:
       - zack@upsilon.cc
