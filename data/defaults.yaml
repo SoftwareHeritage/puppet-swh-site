@@ -913,6 +913,10 @@ bind::resource_records:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
     data: saatchi.internal.softwareheritage.org.
+  inventory/CNAME:
+    type: CNAME
+    record: inventory.internal.softwareheritage.org
+    data: bojimans.internal.softwareheritage.org.
   staging-gateway/A:  # Cannot autogenerate due to limitations in $::swh_hostname fact
     record: staging-gateway.internal.softwareheritage.org
     data: 192.168.100.125
