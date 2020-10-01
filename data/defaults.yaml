@@ -1681,14 +1681,6 @@ swh::deploy::deposit::db::dbuser: swhstorage
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:
   max_upload_size: 209715200
-  tool:
-    name: 'swh-deposit'
-    version: '0.0.1'
-    configuration:
-      sword_version: 2
-  provider:
-    provider_type: deposit_client
-    metadata: {}
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
