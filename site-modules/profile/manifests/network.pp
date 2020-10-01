@@ -4,7 +4,7 @@
 # is not empty.
 
 class profile::network {
-  debnet::iface::loopback { 'lo': }
+  debnet::iface::loopback { 'lo':  }
 
   # The `networks` hiera variable is a dict mapping interface names to a
   # settings dict. Entries of the settings dict with undefined values are not
@@ -15,6 +15,8 @@ class profile::network {
   #     with a separate routing table for the networks defined in the
   #     `networks::private_routes` hiera variable (e.g. the OpenVPN and azure
   #     machines).
+  # - order (int, defaults to 0): allows to control what order the interface blocks
+  #     are in the /etc/network/interfaces file
   # - address (ip address): ip address to set on the
   #     interface
   # - netmask (int or netmask): netmask for the network (e.g. 26 or 255.255.255.192)
@@ -26,6 +28,7 @@ class profile::network {
 
   $interfaces = lookup('networks')
   $private_routes = lookup('networks::private_routes', Hash, 'deep')
+
   each($interfaces) |$interface, $data| {
 
     $interface_type = pick($data['type'], 'static')
@@ -70,8 +73,24 @@ class profile::network {
       $_downs = []
     }
 
+    # These offsets are set by trepasi-debnet
+    $order_offsets = {
+      manual   => 50,
+      static   => 40,
+      dhcp     => 30,
+      loopback => 20,
+      wvdial   => 60,
+    }
+
+    $order = (
+      25                                 # Base order to be inserted after the loopback interface which is order = 20
+      - $order_offsets[$method]          # counteract the built-in offsets
+      + pick_default($data['order'], 0)  # get the order set in the interface stanza
+    )
+
     debnet::iface { $interface:
       method  => $method,
+      order   => $order,
       address => $data['address'],
       netmask => $data['netmask'],
       mtu     => $data['mtu'],
