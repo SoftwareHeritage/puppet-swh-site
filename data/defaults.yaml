@@ -815,11 +815,11 @@ letsencrypt::certificates:
       - testimonials.softwareheritage.org
     deploy_hook: gandi_paas
   netbox:
-    domain:
+    domains:
       - inventory.internal.softwareheritage.org
   netbox-vagrant:
-    domain:
-      - inventory-vagrant.inventory.softwareheritage.org
+    domains:
+      - inventory-vagrant.internal.softwareheritage.org
 
 bind::update_key: local-update
 
