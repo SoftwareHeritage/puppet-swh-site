@@ -52,6 +52,7 @@ class profile::swh::deploy::deposit {
     services      => ['gunicorn-swh-deposit'],
     backport_list => 'swh::deploy::deposit::backported_packages',
     swh_packages  => ['python3-swh.deposit'],
+    ensure        => present,
   }
 
   file {$config_directory:

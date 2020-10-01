@@ -4,6 +4,7 @@ define profile::swh::deploy::install_web_deps (
   String $pin_name      = $name,
   String $backport_list = 'swh::deploy::webapp::backported_packages',
   Array $swh_packages   = ['python3-swh.web'],
+  String $ensure        = latest,
 ) {
   $task_backported_packages = lookup($backport_list)
   $pinned_packages = $task_backported_packages[$::lsbdistcodename]
@@ -15,13 +16,13 @@ define profile::swh::deploy::install_web_deps (
       priority    => 990,
     }
     -> package {$swh_packages:
-      ensure  => latest,
+      ensure  => $ensure,
       require => Apt::Source['softwareheritage'],
       notify  => Service[$services],
     }
   } else {
     package {$swh_packages:
-      ensure  => latest,
+      ensure  => $ensure,
       require => Apt::Source['softwareheritage'],
       notify  => Service[$services],
     }
