@@ -39,6 +39,10 @@ networks:
     extras:
       vlan-raw-device: bond0
 
+# Use direct internet access for DNS
+dns::forwarders: {}
+dns::forwarder_insecure: false
+
 backups::exclude:
   - srv/kafka
 
