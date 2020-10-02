@@ -4235,8 +4235,8 @@ netbox::allowed_hosts:
   - "*"
   - "localhost"
 netbox::vhost::letsencrypt_cert: netbox
-netbox::vhost::name: inventory.softwareheritage.org
-netbox::backend::url: "http://localhost/%{hiera('netbox::gunicorn::port')}"
+netbox::vhost::name: inventory.internal.softwareheritage.org
+netbox::backend::url: "http://localhost:%{hiera('netbox::gunicorn::port')}/"
 netbox::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 netbox::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 netbox::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
