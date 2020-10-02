@@ -15,6 +15,8 @@ ntp::servers:
 
 internal_network: 10.168.128.0/16
 
+networks::private_routes: {}
+
 smtp::relay_hostname: 'none'
 
 swh::deploy::worker::instances:
