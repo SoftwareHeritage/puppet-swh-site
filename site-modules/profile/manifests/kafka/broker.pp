@@ -29,6 +29,11 @@ class profile::kafka::broker {
   $internal_hostname = $swh_hostname['internal_fqdn']
   $public_hostname = pick($broker_config['public_hostname'], $internal_hostname.regsubst('\.internal', ''))
 
+  $internal_listener = $internal_hostname
+  $public_listener_network = pick($kafka_cluster_config['public_listener_network'], lookup('internal_network'))
+  $public_listener = ip_for_network($public_listener_network)
+
+
   $kafka_config = $base_kafka_config + {
     'zookeeper.connect' => $zookeeper_connect_string,
     'broker.id'         => $broker_id,
@@ -75,9 +80,9 @@ class profile::kafka::broker {
       'ssl.keystore.location'          => $ks_location,
       'ssl.keystore.password'          => $ks_password,
       'listeners'                      => join([
-        "INTERNAL_PLAINTEXT://${internal_hostname}:${plaintext_port}",
-        "INTERNAL://${internal_hostname}:${internal_tls_port}",
-        "EXTERNAL://${internal_hostname}:${public_tls_port}",
+        "INTERNAL_PLAINTEXT://${internal_listener}:${plaintext_port}",
+        "INTERNAL://${internal_listener}:${internal_tls_port}",
+        "EXTERNAL://${public_listener}:${public_tls_port}",
       ], ','),
       'advertised.listeners'           => join([
         "INTERNAL_PLAINTEXT://${internal_hostname}:${plaintext_port}",

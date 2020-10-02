@@ -2388,6 +2388,7 @@ kafka::clusters:
     plaintext_port: 9092
     public_tls_port: 9093
     internal_tls_port: 9094
+    public_listener_network: 128.93.166.0/26
   azure:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
