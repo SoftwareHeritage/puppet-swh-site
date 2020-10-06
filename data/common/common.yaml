@@ -17,10 +17,10 @@ dns::forward_zones:
   'internal.staging.swh.network.': "%{alias('dns::local_nameservers')}"
   '128.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
 
-# dns::forwarders per-location. No Default value
-# dns::local_nameservers per-location. No Default value
+# dns::forwarders per-subnet. No Default value
+# dns::local_nameservers per-subnet. No Default value
 
-# ntp::servers per-location. Default value:
+# ntp::servers per-subnet. Default value:
 ntp::servers:
   - 0.debian.pool.ntp.org
   - 1.debian.pool.ntp.org
@@ -29,7 +29,7 @@ ntp::servers:
 
 sudo::configs: {}
 
-# smtp::relay_hostname is per-location. Default value:
+# smtp::relay_hostname is per-subnet. Default value:
 smtp::relay_hostname: 'pergamon.internal.softwareheritage.org'
 
 smtp::relayhost: "[%{lookup('smtp::relay_hostname')}]"
