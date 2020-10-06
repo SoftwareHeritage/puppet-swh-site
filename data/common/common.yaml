@@ -1,5 +1,5 @@
 ---
-### See also defaults_security.yaml for public key/cert fingerprint blocks
+### See also public_keys.yaml for public key/cert fingerprint blocks
 ###
 
 dns::local_cache: true
