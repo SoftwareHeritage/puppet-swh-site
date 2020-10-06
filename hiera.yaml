@@ -5,9 +5,9 @@ defaults:
   data_hash: yaml_data  # Default backend
 hierarchy:
   - path: "private/hostname/%{trusted.certname}.yaml"
-    name: "Per hostname private credentials override"
+    name: "Per hostname credentials"
   - path: "hostname/%{trusted.certname}.yaml"
-    name: "Per hostname override configuration"
+    name: "Per hostname settings"
   - path: "deployments/${::deployment}/${::subnet}.yaml"
     name: "Per-deployment and subnet settings"
   - path: "deployments/${::deployment}/common.yaml"
