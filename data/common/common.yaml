@@ -109,7 +109,7 @@ smtp::mail_aliases:
     aliases:
       - nicolas.gattolin@softwareheritage.org
 
-networks: {}
+networks::manage_interfaces: true
 
 networks::private_routes:
   vpn:

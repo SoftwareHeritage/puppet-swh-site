@@ -14,9 +14,6 @@ class role::swh_base {
     include profile::megacli
   }
 
-  if ! lookup('networks', {default_value => {}}).empty {
-    include profile::network
-  }
-
+  include profile::network
   include profile::swh
 }

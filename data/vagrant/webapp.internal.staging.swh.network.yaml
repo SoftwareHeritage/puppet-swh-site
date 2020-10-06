@@ -1,4 +1,0 @@
-networks:
-    eth0:
-        # vagrant admin interface
-        type: dhcp

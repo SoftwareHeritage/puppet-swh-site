@@ -1,3 +1,4 @@
+---
 # forwarder for :
 # - swh network
 # - Inria network
@@ -12,6 +13,8 @@ dns::forwarder_insecure: true
 ntp::servers:
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
+
+networks::manage_interfaces: false
 
 internal_network: 10.168.128.0/16
 
