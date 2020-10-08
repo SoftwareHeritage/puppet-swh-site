@@ -38,6 +38,34 @@ class profile::keycloak::resources {
       *      => $_full_realm_settings,
     }
 
+    $flows = pick($realm_data['flows'], [])
+
+    $flows.each |$flow_data| {
+      $flow_alias = "${flow_data['name']}-${realm_name}"
+      $flow_id = fqdn_uuid("${flow_data['name']}-${realm_name}")
+      keycloak_flow {"${flow_data['name']} on ${realm_name}" :
+        ensure       => present,
+        alias        => $flow_alias,
+        id           => $flow_id,
+        description  => $flow_data['description'],
+      }
+
+      $flow_executions = pick($flow_data['executions'], {})
+
+      $idx = 0
+      $flow_executions.each |$flow_execution_name, $flow_execution_data| {
+        $flow_execution_id = fqdn_uuid("${flow_execution_name}-${realm_name}")
+        keycloak_flow_execution {"${flow_execution_name} under ${flow_alias} on ${realm_name}" :
+          ensure => present,
+          alias  => "${flow_execution_name}-${realm_name}",
+          id     => $flow_execution_id,
+          index  => $idx,
+          *      => $flow_execution_data,
+        }
+        $idx = $idx + 1
+      }
+    }
+
     $clients = pick($realm_data['clients'], {})
     $realm_client_common_settings = deep_merge($client_common_settings,
                                                pick($realm_data['client_settings'], {}))
