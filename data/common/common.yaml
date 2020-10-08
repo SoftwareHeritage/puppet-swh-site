@@ -2899,7 +2899,9 @@ sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
-keycloak::version: 8.0.1
+# puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
+# until then (https://github.com/treydock/puppet-module-keycloak/pull/154)
+keycloak::version: 10.0.2
 
 keycloak::swh_theme::repo_url: https://forge.softwareheritage.org/source/swh-keycloak-theme.git
 keycloak::swh_theme::tag: v0.3.0
