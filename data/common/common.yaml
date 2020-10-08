@@ -2947,6 +2947,10 @@ keycloak::resources::clients::common_settings:
     - microprofile-jwt
     - offline_access
 
+keycloak::resources::clients::swh_web:::roles:
+  - swh.web.api.throtlling_exempted
+  - swh.web.api.graph
+
 keycloak::resources::protocol_mappers::audience:
     resource_name: audience
     type: oidc-audience-mapper
@@ -2977,6 +2981,7 @@ keycloak::resources::realms:
             - https://base.softwareheritage.org/*
             - https://archive.internal.softwareheritage.org/*
             - https://webapp0.softwareheritage.org/*
+          roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
@@ -2993,6 +2998,7 @@ keycloak::resources::realms:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://webapp.staging.swh.network/*
             - https://webapp.internal.staging.swh.network/*
+          roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
