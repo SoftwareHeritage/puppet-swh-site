@@ -2965,6 +2965,9 @@ keycloak::resources::realms:
   SoftwareHeritage:
     settings:
       display_name: Software Heritage
+      registration_allowed: true
+      reset_password_allowed: true
+      verify_email: true
     clients:
       swh-web:
         settings:
@@ -2980,6 +2983,9 @@ keycloak::resources::realms:
   SoftwareHeritageStaging:
     settings:
       display_name: Software Heritage (Staging)
+      registration_allowed: true
+      reset_password_allowed: true
+      verify_email: true
     clients:
       swh-web:
         settings:

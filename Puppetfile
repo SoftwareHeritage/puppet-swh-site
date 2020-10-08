@@ -113,7 +113,7 @@ mod 'kafka',
 
 mod 'keycloak',
     :git => 'https://forge.softwareheritage.org/source/puppet-treydock-keycloak',
-    :ref => 'v6.16.0'
+    :ref => 'v6.19.0'
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
