@@ -21,6 +21,7 @@ class profile::netbox::reverse_proxy {
         options  => ['Indexes','FollowSymLinks','MultiViews'],
       }
     ]    },
-    icinga_check_uri  => '/login',
+    icinga_check_uri    => '/login',
+    icinga_check_string => 'NetBox',
   }
 }
