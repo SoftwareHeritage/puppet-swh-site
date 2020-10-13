@@ -1021,6 +1021,7 @@ backups::exclude:
 
 phabricator::basepath: /srv/phabricator
 phabricator::user: phabricator
+phabricator::group: phabricator
 phabricator::vcs_user: git
 
 phabricator::notification::client_host: 127.0.0.1

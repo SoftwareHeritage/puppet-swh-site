@@ -2,6 +2,7 @@
 class profile::phabricator {
   $basepath = lookup('phabricator::basepath')
   $install_user = lookup('phabricator::user')
+  $install_group = lookup('phabricator::group')
   $vcs_user = lookup('phabricator::vcs_user')
 
   $db_root_password = lookup('phabricator::mysql::root_password')
@@ -47,12 +48,22 @@ class profile::phabricator {
     $vcs_user     => '0640',
   }
 
+  $groups = {
+    $install_user => $install_group,
+  }
+
+  group {$install_group:
+    ensure => present,
+    system => true,
+  }
+
   each([$install_user, $vcs_user]) |$name| {
     user {$name:
       ensure => present,
       system => true,
       shell  => '/bin/bash',
       home   => $homedirs[$name],
+      gid    => $groups[$name],
     }
 
     file {$homedirs[$name]:
