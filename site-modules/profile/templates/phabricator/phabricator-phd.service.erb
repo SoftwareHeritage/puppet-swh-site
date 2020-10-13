@@ -7,8 +7,8 @@ Description=Phabricator Daemons
 After=network.target mariadb.service apache2.service
 
 [Service]
-User=<%= @phabricator_user %>
-Group=<%= @phabricator_user %>
+User=<%= @install_user %>
+Group=<%= @install_user %>
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
 ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/phd start

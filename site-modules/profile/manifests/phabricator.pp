@@ -1,7 +1,7 @@
 # Setup an instance of phabricator
 class profile::phabricator {
   $phabricator_basepath = lookup('phabricator::basepath')
-  $phabricator_user = lookup('phabricator::user')
+  $install_user = lookup('phabricator::user')
   $phabricator_vcs_user = lookup('phabricator::vcs_user')
 
   $phabricator_db_root_password = lookup('phabricator::mysql::root_password')
@@ -38,16 +38,16 @@ class profile::phabricator {
   $phabricator_vhost_hsts_header = lookup('phabricator::vhost::hsts_header')
 
   $homedirs = {
-    $phabricator_user     => $phabricator_basepath,
+    $install_user         => $phabricator_basepath,
     $phabricator_vcs_user => "${phabricator_basepath}/vcshome",
   }
 
   $homedir_modes = {
-    $phabricator_user     => '0644',
+    $install_user         => '0644',
     $phabricator_vcs_user => '0640',
   }
 
-  each([$phabricator_user, $phabricator_vcs_user]) |$name| {
+  each([$install_user, $phabricator_vcs_user]) |$name| {
     user {$name:
       ensure => present,
       system => true,
@@ -65,12 +65,12 @@ class profile::phabricator {
 
   ::sudo::conf {'phabricator-ssh':
     ensure  => present,
-    content => "${phabricator_vcs_user} ALL=(${phabricator_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg",
+    content => "${phabricator_vcs_user} ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg",
   }
 
   ::sudo::conf {'phabricator-http':
     ensure  => present,
-    content => "www-data ALL=(${phabricator_user}) SETENV: NOPASSWD: /usr/bin/git-http-backend, /usr/bin/hg",
+    content => "www-data ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-http-backend, /usr/bin/hg",
     require => File['/usr/bin/git-http-backend'],
   }
 
@@ -187,8 +187,8 @@ class profile::phabricator {
     servername      => $phabricator_vhost_name,
     port            => '80',
     docroot         => $phabricator_vhost_docroot,
-    docroot_owner   => $phabricator_user,
-    docroot_group   => $phabricator_user,
+    docroot_owner   => $install_user,
+    docroot_group   => $install_user,
     redirect_status => 'permanent',
     redirect_dest   => "https://${phabricator_vhost_name}/",
   }
@@ -209,8 +209,8 @@ class profile::phabricator {
     ssl_key              => $cert_paths['privkey'],
     headers              => [$phabricator_vhost_hsts_header],
     docroot              => $phabricator_vhost_docroot,
-    docroot_owner        => $phabricator_user,
-    docroot_group        => $phabricator_user,
+    docroot_owner        => $install_user,
+    docroot_group        => $install_user,
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
@@ -235,7 +235,7 @@ class profile::phabricator {
 
   # Uses:
     # $phabricator_basepath
-    # $phabricator_user
+    # $install_user
   ::systemd::unit_file {'phabricator-phd.service':
     ensure  => present,
     content => template('profile/phabricator/phabricator-phd.service.erb'),
@@ -246,7 +246,7 @@ class profile::phabricator {
 
   # Uses:
     # $phabricator_basepath
-    # $phabricator_user
+    # $install_user
     # $phabricator_notification_*
   ::systemd::unit_file {'phabricator-aphlict.service':
     ensure  => present,

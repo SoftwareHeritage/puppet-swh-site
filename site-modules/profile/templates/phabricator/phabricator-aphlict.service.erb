@@ -8,8 +8,8 @@ After=network.target mariadb.service apache2.service
 Before=phabricator-phd.service
 
 [Service]
-User=<%= @phabricator_user %>
-Group=<%= @phabricator_user %>
+User=<%= @install_user %>
+Group=<%= @install_user %>
 RuntimeDirectory=phabricator-aphlict
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
