@@ -167,17 +167,18 @@ class profile::phabricator {
   }
 
   $db_ro_users.each |$db_ro_user| {
+    $full_username = "${db_ro_user}@localhost"
     $db_ro_password = fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
-    mysql_user {$db_ro_user:
+    mysql_user {$full_username:
       ensure        => present,
       password_hash => mysql_password($db_password),
     }
 
-    mysql_grant {"${db_ro_user}/${mysql_tables}":
-      user       => $db_ro_user,
+    mysql_grant {"${full_username}/${mysql_tables}":
+      user       => $full_username,
       table      => $mysql_tables,
       privileges => ['SELECT', 'SHOW VIEW'],
-      require    => Mysql_user[$db_ro_user],
+      require    => Mysql_user[$full_username],
     }
 
     $user_definition = $profile::base::users[$db_ro_user]
