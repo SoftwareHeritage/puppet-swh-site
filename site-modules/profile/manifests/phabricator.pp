@@ -1,53 +1,53 @@
 # Setup an instance of phabricator
 class profile::phabricator {
-  $phabricator_basepath = lookup('phabricator::basepath')
+  $basepath = lookup('phabricator::basepath')
   $install_user = lookup('phabricator::user')
-  $phabricator_vcs_user = lookup('phabricator::vcs_user')
+  $vcs_user = lookup('phabricator::vcs_user')
 
-  $phabricator_db_root_password = lookup('phabricator::mysql::root_password')
-  $phabricator_db_basename = lookup('phabricator::mysql::database_prefix')
-  $phabricator_db_user = lookup('phabricator::mysql::username')
-  $phabricator_db_password = lookup('phabricator::mysql::password')
+  $db_root_password = lookup('phabricator::mysql::root_password')
+  $db_basename = lookup('phabricator::mysql::database_prefix')
+  $db_user = lookup('phabricator::mysql::username')
+  $db_password = lookup('phabricator::mysql::password')
 
-  $phabricator_db_max_allowed_packet = lookup('phabricator::mysql::conf::max_allowed_packet')
-  $phabricator_db_sql_mode = lookup('phabricator::mysql::conf::sql_mode')
-  $phabricator_db_ft_stopword_file = lookup('phabricator::mysql::conf::ft_stopword_file')
-  $phabricator_db_ft_min_word_len = lookup('phabricator::mysql::conf::ft_min_word_len')
-  $phabricator_db_ft_boolean_syntax = lookup('phabricator::mysql::conf::ft_boolean_syntax')
-  $phabricator_db_innodb_buffer_pool_size = lookup('phabricator::mysql::conf::innodb_buffer_pool_size')
-  $phabricator_db_innodb_file_per_table = lookup('phabricator::mysql::conf::innodb_file_per_table')
-  $phabricator_db_innodb_flush_method = lookup('phabricator::mysql::conf::innodb_flush_method')
-  $phabricator_db_innodb_log_file_size = lookup('phabricator::mysql::conf::innodb_log_file_size')
-  $phabricator_db_max_connections = lookup('phabricator::mysql::conf::max_connections')
+  $db_max_allowed_packet = lookup('phabricator::mysql::conf::max_allowed_packet')
+  $db_sql_mode = lookup('phabricator::mysql::conf::sql_mode')
+  $db_ft_stopword_file = lookup('phabricator::mysql::conf::ft_stopword_file')
+  $db_ft_min_word_len = lookup('phabricator::mysql::conf::ft_min_word_len')
+  $db_ft_boolean_syntax = lookup('phabricator::mysql::conf::ft_boolean_syntax')
+  $db_innodb_buffer_pool_size = lookup('phabricator::mysql::conf::innodb_buffer_pool_size')
+  $db_innodb_file_per_table = lookup('phabricator::mysql::conf::innodb_file_per_table')
+  $db_innodb_flush_method = lookup('phabricator::mysql::conf::innodb_flush_method')
+  $db_innodb_log_file_size = lookup('phabricator::mysql::conf::innodb_log_file_size')
+  $db_max_connections = lookup('phabricator::mysql::conf::max_connections')
 
-  $phabricator_fpm_listen = lookup('phabricator::php::fpm_listen')
-  $phabricator_max_size = lookup('phabricator::php::max_file_size')
-  $phabricator_opcache_validate_timestamps = lookup('phabricator::php::opcache_validate_timestamps')
+  $fpm_listen = lookup('phabricator::php::fpm_listen')
+  $max_size = lookup('phabricator::php::max_file_size')
+  $opcache_validate_timestamps = lookup('phabricator::php::opcache_validate_timestamps')
 
-  $phabricator_notification_listen = lookup('phabricator::notification::listen')
-  $phabricator_notification_client_host = lookup('phabricator::notification::client_host')
-  $phabricator_notification_client_port = lookup('phabricator::notification::client_port')
+  $notification_listen = lookup('phabricator::notification::listen')
+  $notification_client_host = lookup('phabricator::notification::client_host')
+  $notification_client_port = lookup('phabricator::notification::client_port')
 
-  $phabricator_vhost_name = lookup('phabricator::vhost::name')
-  $phabricator_vhost_docroot = lookup('phabricator::vhost::docroot')
-  $phabricator_vhost_basic_auth_file = "${phabricator_basepath}/http_auth"
-  $phabricator_vhost_basic_auth_content = lookup('phabricator::vhost::basic_auth_content')
-  $phabricator_vhost_ssl_protocol = lookup('phabricator::vhost::ssl_protocol')
-  $phabricator_vhost_ssl_honorcipherorder = lookup('phabricator::vhost::ssl_honorcipherorder')
-  $phabricator_vhost_ssl_cipher = lookup('phabricator::vhost::ssl_cipher')
-  $phabricator_vhost_hsts_header = lookup('phabricator::vhost::hsts_header')
+  $vhost_name = lookup('phabricator::vhost::name')
+  $vhost_docroot = lookup('phabricator::vhost::docroot')
+  $vhost_basic_auth_file = "${basepath}/http_auth"
+  $vhost_basic_auth_content = lookup('phabricator::vhost::basic_auth_content')
+  $vhost_ssl_protocol = lookup('phabricator::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('phabricator::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('phabricator::vhost::ssl_cipher')
+  $vhost_hsts_header = lookup('phabricator::vhost::hsts_header')
 
   $homedirs = {
-    $install_user         => $phabricator_basepath,
-    $phabricator_vcs_user => "${phabricator_basepath}/vcshome",
+    $install_user => $basepath,
+    $vcs_user     => "${basepath}/vcshome",
   }
 
   $homedir_modes = {
-    $install_user         => '0644',
-    $phabricator_vcs_user => '0640',
+    $install_user => '0644',
+    $vcs_user     => '0640',
   }
 
-  each([$install_user, $phabricator_vcs_user]) |$name| {
+  each([$install_user, $vcs_user]) |$name| {
     user {$name:
       ensure => present,
       system => true,
@@ -65,7 +65,7 @@ class profile::phabricator {
 
   ::sudo::conf {'phabricator-ssh':
     ensure  => present,
-    content => "${phabricator_vcs_user} ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg",
+    content => "${vcs_user} ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg",
   }
 
   ::sudo::conf {'phabricator-http':
@@ -79,10 +79,10 @@ class profile::phabricator {
     target => '/usr/lib/git-core/git-http-backend',
   }
 
-  $phabricator_ssh_hook = '/usr/bin/phabricator-ssh-hook.sh'
-  $phabricator_ssh_config = '/etc/ssh/ssh_config.phabricator'
+  $ssh_hook = '/usr/bin/phabricator-ssh-hook.sh'
+  $ssh_config = '/etc/ssh/ssh_config.phabricator'
 
-  file {$phabricator_ssh_hook:
+  file {$ssh_hook:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -90,19 +90,19 @@ class profile::phabricator {
     content => template('profile/phabricator/phabricator-ssh-hook.sh.erb'),
   }
 
-  file {$phabricator_ssh_config:
+  file {$ssh_config:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
     content => template('profile/phabricator/sshd_config.phabricator.erb'),
-    require => File[$phabricator_ssh_hook],
+    require => File[$ssh_hook],
   }
 
   ::systemd::unit_file {'phabricator-sshd.service':
     ensure  => present,
     content => template('profile/phabricator/phabricator-sshd.service.erb'),
-    require => File[$phabricator_ssh_config],
+    require => File[$ssh_config],
   } ~> service {'phabricator-sshd':
     ensure  => 'running',
     enable  => true,
@@ -114,30 +114,30 @@ class profile::phabricator {
   include ::mysql::client
 
   class {'::mysql::server':
-    root_password    => $phabricator_db_root_password,
+    root_password    => $db_root_password,
     override_options => {
       mysqld => {
-        max_allowed_packet      => $phabricator_db_max_allowed_packet,
-        sql_mode                => $phabricator_db_sql_mode,
-        ft_stopword_file        => $phabricator_db_ft_stopword_file,
-        ft_min_word_len         => $phabricator_db_ft_min_word_len,
-        ft_boolean_syntax       => $phabricator_db_ft_boolean_syntax,
-        innodb_buffer_pool_size => $phabricator_db_innodb_buffer_pool_size,
-        innodb_file_per_table   => $phabricator_db_innodb_file_per_table,
-        innodb_flush_method     => $phabricator_db_innodb_flush_method,
-        innodb_log_file_size    => $phabricator_db_innodb_log_file_size,
-        max_connections         => $phabricator_db_max_connections,
+        max_allowed_packet      => $db_max_allowed_packet,
+        sql_mode                => $db_sql_mode,
+        ft_stopword_file        => $db_ft_stopword_file,
+        ft_min_word_len         => $db_ft_min_word_len,
+        ft_boolean_syntax       => $db_ft_boolean_syntax,
+        innodb_buffer_pool_size => $db_innodb_buffer_pool_size,
+        innodb_file_per_table   => $db_innodb_file_per_table,
+        innodb_flush_method     => $db_innodb_flush_method,
+        innodb_log_file_size    => $db_innodb_log_file_size,
+        max_connections         => $db_max_connections,
         local_infile            => 0,
       }
     }
   }
 
-  $mysql_username = "${phabricator_db_user}@localhost"
-  $mysql_tables = "${phabricator_db_basename}_%.*"
+  $mysql_username = "${db_user}@localhost"
+  $mysql_tables = "${db_basename}_%.*"
 
   mysql_user {$mysql_username:
     ensure        => present,
-    password_hash => mysql_password($phabricator_db_password),
+    password_hash => mysql_password($db_password),
   }
 
   mysql_grant {"${mysql_username}/${mysql_tables}":
@@ -150,12 +150,12 @@ class profile::phabricator {
   include ::profile::php
 
   ::php::fpm::pool {'phabricator':
-    listen          => $phabricator_fpm_listen,
+    listen          => $fpm_listen,
     user            => 'www-data',
     php_admin_value => {
-      post_max_size                 => $phabricator_max_size,
-      upload_max_filesize           => $phabricator_max_size,
-      'opcache.validate_timestamps' => $phabricator_opcache_validate_timestamps,
+      post_max_size                 => $max_size,
+      upload_max_filesize           => $max_size,
+      'opcache.validate_timestamps' => $opcache_validate_timestamps,
       'mysqli.allow_local_infile'   => 0,
     },
   }
@@ -183,39 +183,39 @@ class profile::phabricator {
 
   ::apache::mod {'proxy_wstunnel':}
 
-  ::apache::vhost {"${phabricator_vhost_name}_non-ssl":
-    servername      => $phabricator_vhost_name,
+  ::apache::vhost {"${vhost_name}_non-ssl":
+    servername      => $vhost_name,
     port            => '80',
-    docroot         => $phabricator_vhost_docroot,
+    docroot         => $vhost_docroot,
     docroot_owner   => $install_user,
     docroot_group   => $install_user,
     redirect_status => 'permanent',
-    redirect_dest   => "https://${phabricator_vhost_name}/",
+    redirect_dest   => "https://${vhost_name}/",
   }
 
 
-  ::profile::letsencrypt::certificate {$phabricator_vhost_name:}
-  $cert_paths = ::profile::letsencrypt::certificate_paths($phabricator_vhost_name)
+  ::profile::letsencrypt::certificate {$vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($vhost_name)
 
-  ::apache::vhost {"${phabricator_vhost_name}_ssl":
-    servername           => $phabricator_vhost_name,
+  ::apache::vhost {"${vhost_name}_ssl":
+    servername           => $vhost_name,
     port                 => '443',
     ssl                  => true,
-    ssl_protocol         => $phabricator_vhost_ssl_protocol,
-    ssl_honorcipherorder => $phabricator_vhost_ssl_honorcipherorder,
-    ssl_cipher           => $phabricator_vhost_ssl_cipher,
+    ssl_protocol         => $vhost_ssl_protocol,
+    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+    ssl_cipher           => $vhost_ssl_cipher,
     ssl_cert             => $cert_paths['cert'],
     ssl_chain            => $cert_paths['chain'],
     ssl_key              => $cert_paths['privkey'],
-    headers              => [$phabricator_vhost_hsts_header],
-    docroot              => $phabricator_vhost_docroot,
+    headers              => [$vhost_hsts_header],
+    docroot              => $vhost_docroot,
     docroot_owner        => $install_user,
     docroot_group        => $install_user,
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
-      { rewrite_rule => "^/ws/(.*)$ ws://${phabricator_notification_listen}/\$1 [L,P]" },
-      { rewrite_rule => "^(.*)$ fcgi://${phabricator_fpm_listen}${phabricator_vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
+      { rewrite_rule => "^/ws/(.*)$ ws://${notification_listen}/\$1 [L,P]" },
+      { rewrite_rule => "^(.*)$ fcgi://${fpm_listen}${vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
     setenvif             => [
       "Authorization \"(.*)\" HTTP_AUTHORIZATION=\$1",
@@ -229,12 +229,12 @@ class profile::phabricator {
 
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
-  file {$phabricator_vhost_basic_auth_file:
+  file {$vhost_basic_auth_file:
     ensure  => absent,
   }
 
   # Uses:
-    # $phabricator_basepath
+    # $basepath
     # $install_user
   ::systemd::unit_file {'phabricator-phd.service':
     ensure  => present,
@@ -245,9 +245,9 @@ class profile::phabricator {
   }
 
   # Uses:
-    # $phabricator_basepath
+    # $basepath
     # $install_user
-    # $phabricator_notification_*
+    # $notification_*
   ::systemd::unit_file {'phabricator-aphlict.service':
     ensure  => present,
     content => template('profile/phabricator/phabricator-aphlict.service.erb'),
@@ -268,8 +268,8 @@ class profile::phabricator {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address => $phabricator_vhost_name,
-      http_vhost   => $phabricator_vhost_name,
+      http_address => $vhost_name,
+      http_vhost   => $vhost_name,
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
@@ -282,8 +282,8 @@ class profile::phabricator {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address    => $phabricator_vhost_name,
-      http_vhost      => $phabricator_vhost_name,
+      http_address    => $vhost_name,
+      http_vhost      => $vhost_name,
       http_ssl        => true,
       http_sni        => true,
       http_uri        => '/',
@@ -299,8 +299,8 @@ class profile::phabricator {
     host_name     => $::fqdn,
     check_command => 'http',
     vars          => {
-      http_address     => $phabricator_vhost_name,
-      http_vhost       => $phabricator_vhost_name,
+      http_address     => $vhost_name,
+      http_vhost       => $vhost_name,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 25,
@@ -320,7 +320,7 @@ class profile::phabricator {
     }
     @@::concat::fragment {"ssh-phabricator-${::fqdn}-${real_algo}":
       target  => $ssh_known_hosts_target,
-      content => inline_template("<%= @phabricator_vhost_name %> <%= @real_algo %> <%= @data['key'] %>\n"),
+      content => inline_template("<%= @vhost_name %> <%= @real_algo %> <%= @data['key'] %>\n"),
       order   => '20',
       tag     => 'ssh_known_hosts',
     }

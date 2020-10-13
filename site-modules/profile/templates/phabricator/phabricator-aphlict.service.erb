@@ -13,8 +13,8 @@ Group=<%= @install_user %>
 RuntimeDirectory=phabricator-aphlict
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
-ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/aphlict start
-ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/aphlict stop
+ExecStart=<%= @basepath -%>/phabricator/bin/aphlict start
+ExecStop=<%= @basepath -%>/phabricator/bin/aphlict stop
 Restart=always
 RestartSec=5s
 

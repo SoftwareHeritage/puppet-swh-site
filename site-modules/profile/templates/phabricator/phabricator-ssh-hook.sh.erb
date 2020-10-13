@@ -5,10 +5,10 @@
 # Managed by puppet class profile::phabricator
 # Changes will be overwritten
 
-VCSUSER="<%= @phabricator_vcs_user %>"
+VCSUSER="<%= @vcs_user %>"
 
 # NOTE: Replace this with the path to your Phabricator directory.
-ROOT="<%= @phabricator_basepath %>/phabricator"
+ROOT="<%= @basepath %>/phabricator"
 
 if [ "$1" != "$VCSUSER" ];
 then

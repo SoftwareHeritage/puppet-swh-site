@@ -11,8 +11,8 @@ User=<%= @install_user %>
 Group=<%= @install_user %>
 Type=forking
 Environment="PATH=/sbin:/usr/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
-ExecStart=<%= @phabricator_basepath -%>/phabricator/bin/phd start
-ExecStop=<%= @phabricator_basepath -%>/phabricator/bin/phd stop
+ExecStart=<%= @basepath -%>/phabricator/bin/phd start
+ExecStop=<%= @basepath -%>/phabricator/bin/phd stop
 Restart=always
 RestartSec=5s
 
