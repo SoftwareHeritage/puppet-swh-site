@@ -32,4 +32,3 @@ apache::rewrite_domains:
 backups::exclude:
   - /var/lib/mysql
 
-

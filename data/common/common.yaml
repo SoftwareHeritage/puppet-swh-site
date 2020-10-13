@@ -1030,6 +1030,8 @@ phabricator::notification::listen: "%{hiera('phabricator::notification::client_h
 
 phabricator::mysql::database_prefix: phabricator
 phabricator::mysql::username: phabricator
+phabricator::mysql::readonly_usernames: []
+# phabricator::mysql::readonly_password_seed in private data
 
 phabricator::mysql::conf::max_allowed_packet: 33554432
 phabricator::mysql::conf::sql_mode: STRICT_ALL_TABLES

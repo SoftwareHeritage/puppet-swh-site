@@ -10,6 +10,10 @@ class profile::phabricator {
   $db_user = lookup('phabricator::mysql::username')
   $db_password = lookup('phabricator::mysql::password')
 
+  $db_ro_users = lookup('phabricator::mysql::readonly_usernames')
+  $db_ro_pass_seed = lookup('phabricator::mysql::readonly_password_seed')
+
+
   $db_max_allowed_packet = lookup('phabricator::mysql::conf::max_allowed_packet')
   $db_sql_mode = lookup('phabricator::mysql::conf::sql_mode')
   $db_ft_stopword_file = lookup('phabricator::mysql::conf::ft_stopword_file')
@@ -156,6 +160,21 @@ class profile::phabricator {
     table      => $mysql_tables,
     privileges => ['ALL'],
     require    => Mysql_user[$mysql_username],
+  }
+
+  $db_ro_users.each |$db_ro_user| {
+    $db_ro_password = fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
+    mysql_user {$db_ro_user:
+      ensure        => present,
+      password_hash => mysql_password($db_password),
+    }
+
+    mysql_grant {"${db_ro_user}/${mysql_tables}":
+      user       => $db_ro_user,
+      table      => $mysql_tables,
+      privileges => ['SELECT', 'SHOW VIEW'],
+      require    => Mysql_user[$db_ro_user],
+    }
   }
 
   include ::profile::php
