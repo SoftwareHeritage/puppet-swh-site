@@ -1,6 +1,4 @@
-AuthorizedKeysCommand <%= @ssh_hook %>
-AuthorizedKeysCommandUser <%= @vcs_user %>
-AllowUsers <%= @vcs_user %>
+AllowUsers <%= @vcs_user %> <%= @db_ro_users.join(' ') %>
 
 # You may need to tweak these options, but mostly they just turn off everything
 # dangerous.
@@ -8,11 +6,15 @@ AllowUsers <%= @vcs_user %>
 Port 22
 Protocol 2
 PermitRootLogin no
-AllowAgentForwarding no
-AllowTcpForwarding no
 PrintMotd no
 PrintLastLog no
 PasswordAuthentication no
-AuthorizedKeysFile none
+AllowAgentForwarding no
 
 PidFile /var/run/sshd-phabricator.pid
+
+Match User <%= @vcs_user %>
+  AuthorizedKeysFile none
+  AuthorizedKeysCommand <%= @ssh_hook %>
+  AuthorizedKeysCommandUser <%= @vcs_user %>
+  AllowTcpForwarding no

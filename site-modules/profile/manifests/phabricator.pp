@@ -105,6 +105,10 @@ class profile::phabricator {
     content => template('profile/phabricator/phabricator-ssh-hook.sh.erb'),
   }
 
+  # Uses:
+    # $vcs_user
+    # $ssh_hook
+    # $db_ro_users
   file {$ssh_config:
     ensure  => present,
     owner   => 'root',
