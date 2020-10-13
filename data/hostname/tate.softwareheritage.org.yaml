@@ -37,7 +37,7 @@ users:
     uid: 3000
     full_name: Frank Duncan (Open Tech Strategies)
     shell: /bin/bash
-    ssh_keys:
+    authorized_keys:
       frankduncan@opentechstrategies.com:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAABIwAAAQEAwby3zUC+1wufiWRtgU/ayka9g+L66d/gLCr2jHnKsdJILwYft77YIVPmGAIlcpQAagpPmjhZa5+9hUYsJwWSHX9d7z1I0+qUXRIyykc1MUtEqgNyIJjq+90vKkolXmoB7MjvzDGHksYZ7PfbZGjtHqDcdWWj6GpQLjOdLDaupEPgdBMXOLChxW3Hq8kuRpWKRxFkxm2PZTAPtUz2Z49IpCra/vXK00V7nDWYF8tkltgKFr6icYE7SEqA88POMQl5FdTIyQoh7zEm1VgaWbgyjybi6QWQtmX5KMhXMfbo2nnE03VJDFSXSHOhI8UUxigzEv6T3PX0JFJMnbflOUX6Cw==
