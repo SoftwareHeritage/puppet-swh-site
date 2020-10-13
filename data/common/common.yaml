@@ -2956,7 +2956,7 @@ keycloak::resources::clients::common_settings:
     - offline_access
 
 keycloak::resources::clients::swh_web:::roles:
-  - swh.web.api.throtlling_exempted
+  - swh.web.api.throttling_exempted
   - swh.web.api.graph
 
 keycloak::resources::protocol_mappers::audience:
