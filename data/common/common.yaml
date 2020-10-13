@@ -554,6 +554,10 @@ users:
 groups:
   adm:
     gid: 4 # assigned from base-files
+  sudo:
+    gid: 27 # assigned from base-files
+  www-data:
+    gid: 33 # assigned from base-files
   zack:
     gid: 1000
   olasd:
@@ -578,8 +582,6 @@ groups:
     gid: 1009
   swhscheduler:
     gid: 1010
-  sudo:
-    gid: 27 # assigned from base-files
   gitorious:
     gid: 5000
   swhdeposit:
@@ -632,6 +634,7 @@ php::fpm::daemon::log_dir_mode: '0750'
 apache::server_tokens: 'Prod'
 apache::server_signature: 'Off'
 apache::trace_enable: 'Off'
+apache::manage_group: false
 
 # Those variables get picked up by 'include ::apache::mod::passenger'
 apache::mod::passenger::passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
