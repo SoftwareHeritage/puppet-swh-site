@@ -32,3 +32,5 @@ apache::rewrite_domains:
 backups::exclude:
   - /var/lib/mysql
 
+phabricator::mysql::readonly_usernames:
+  - olasd
