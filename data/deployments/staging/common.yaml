@@ -66,8 +66,7 @@ swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vau
 
 swh::remote_service::indexer::config::storage0:
   cls: remote
-  args:
-    url: "http://storage0.internal.staging.swh.network:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://storage0.internal.staging.swh.network:%{hiera('swh::remote_service::indexer::port')}/"
 swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::storage0')}"
 swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::storage0')}"
 

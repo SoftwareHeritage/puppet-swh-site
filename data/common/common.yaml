@@ -1419,13 +1419,11 @@ swh::remote_service::search::config: "%{alias('swh::remote_service::search::conf
 # Indexer backend configurations
 swh::remote_service::indexer::config::uffizi:
   cls: remote
-  args:
-    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
 swh::remote_service::indexer::config::azure:
   cls: remote
-  args:
-    url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
 
 # Scheduler backend configurations
@@ -1553,8 +1551,7 @@ swh::deploy::indexer::storage::backend::server_names:
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+    db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
 swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 # Default cache (orangerie/orangeriedev) is a pathslicing objstorage
