@@ -1429,8 +1429,7 @@ swh::remote_service::indexer::config::azure:
 # Scheduler backend configurations
 swh::remote_service::scheduler::config::saatchi:
   cls: remote
-  args:
-    url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
 
 
 # Vault backend configurations
@@ -1903,8 +1902,7 @@ swh::deploy::webapp::locked_endpoints:
 swh::deploy::scheduler::config::local: &swh_scheduler_local_config
   scheduler:
     cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+    db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 
 swh::deploy::scheduler::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::sentry_environment: "%{alias('swh::deploy::environment')}"
