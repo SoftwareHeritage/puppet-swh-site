@@ -2954,6 +2954,7 @@ keycloak::resources::realms::common_settings:
   smtp_server_host: localhost
   smtp_server_from: noreply@softwareheritage.org
   smtp_server_from_display_name: Software Heritage Authentication Service
+  brute_force_protected: true
 
 keycloak::resources::clients::common_settings:
   public_client: true
