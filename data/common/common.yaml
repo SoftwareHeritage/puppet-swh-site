@@ -120,14 +120,24 @@ networks::private_routes:
     network: 192.168.200.0/21
     gateway: "%{alias('networks::private_gateway')}"
     enabled: true
-  staging:
+  staging_legacy:
     network: 192.168.128.0/24
+    gateway: "%{alias('networks::staging_legacy_gateway')}"
+    enabled: false
+  staging:
+    network: 192.168.130.0/24
     gateway: "%{alias('networks::staging_gateway')}"
+    enabled: false
+  admin:
+    network: 192.168.50.0/24
+    gateway: "%{alias('networks::admin_gateway')}"
     enabled: false
 
 networks::private_network: 192.168.100.0/24
 networks::private_gateway: 192.168.100.1
-networks::staging_gateway: 192.168.100.125
+networks::staging_legacy_gateway: 192.168.100.125
+networks::staging_gateway: 192.168.100.130
+networks::admin_gateway: 192.168.100.130
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -931,6 +941,12 @@ bind::resource_records:
   staging-gateway/A:  # Cannot autogenerate due to limitations in $::swh_hostname fact
     record: staging-gateway.internal.softwareheritage.org
     data: 192.168.100.125
+  pushkin/A: # OPNSense firewall, not managed by puppet
+    record: pushkin.internal.softwareheritage.org
+    data: 192.168.100.129
+  internalgw/A: # Firewal(s)l vip, not managed by puppet
+    record: gw.internal.softwareheritage.org
+    data: 192.168.100.130
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
