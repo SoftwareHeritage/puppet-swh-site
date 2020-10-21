@@ -1009,7 +1009,8 @@ bind::clients:
 bind::autogenerate:
   192.168.100.0/24: .internal.softwareheritage.org
   192.168.200.0/21: .internal.softwareheritage.org
-  192.168.128.0/24: .internal.staging.swh.network
+  192.168.130.0/24: .internal.staging.swh.network
+  192.168.50.0/24: .internal.admin.swh.network
 
 backups::legacy_storage: /srv/backups
 backups::enable: true

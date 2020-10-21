@@ -1,8 +1,8 @@
 networks:
   eth0:
-    address: 192.168.128.8
+    address: 192.168.130.30
     netmask: 255.255.255.0
-    gateway: 192.168.128.1
+    gateway: 192.168.130.1
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
@@ -26,7 +26,7 @@ swh::deploy::webapp::config::throttling:
       exempted_networks:
         - 127.0.0.0/8
         - 192.168.100.0/23
-        - 129.168.128.0/24
+        - 129.168.130.0/24
     swh_api_origin_search:
       limiter_rate:
         default: 10/m
@@ -39,7 +39,7 @@ swh::deploy::webapp::config::throttling:
       exempted_networks:
         - 127.0.0.0/8
         - 192.168.100.0/23
-        - 192.168.128.0/24
+        - 192.168.130.0/24
     swh_vault_cooking:
       limiter_rate:
         default: 120/h
@@ -47,7 +47,7 @@ swh::deploy::webapp::config::throttling:
       exempted_networks:
         - 127.0.0.0/8
         - 192.168.100.0/23
-        - 192.168.128.0/24
+        - 192.168.130.0/24
     swh_save_origin:
       limiter_rate:
         default: 120/h
@@ -55,7 +55,7 @@ swh::deploy::webapp::config::throttling:
       exempted_networks:
         - 127.0.0.0/8
         - 192.168.100.0/23
-        - 129.168.128.0/24
+        - 129.168.130.0/24
 swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: SoftwareHeritageStaging

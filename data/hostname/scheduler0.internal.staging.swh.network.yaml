@@ -1,8 +1,8 @@
 networks:
   eth0:
-    address: 192.168.128.4
+    address: 192.168.130.50
     netmask: 255.255.255.0
-    gateway: 192.168.128.1
+    gateway: 192.168.130.1
 
 backups::exclude:
   - var/lib/rabbitmq
@@ -12,4 +12,3 @@ swh::postgres::service::users:
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
 swh::deploy::scheduler::task_broker: "amqp://guest:guest@127.0.0.1:5672/%2f"
-

@@ -1,18 +1,18 @@
 networks:
   eth0:
-    address: 192.168.128.7
+    address: 192.168.130.31
     netmask: 255.255.255.0
-    gateway: 192.168.128.1
+    gateway: 192.168.130.1
 
 ## db setup
 
 postgres::server::port: 5433
 postgres::server::listen_addresses:
   - localhost
-  - 192.168.128.7
+  - 192.168.130.31
 postgres::server::network_access:
-  - 192.168.100.0/24
-  - 192.168.128.0/24
+  - 192.168.100.0/24 # Monitoring
+  - 192.168.130.0/24 # Staging services
 
 # Dbs to create
 swh::dbs:
@@ -21,7 +21,7 @@ swh::dbs:
     user: swh-deposit
 
 pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
-pgbouncer::listen_addr: 192.168.128.7
+pgbouncer::listen_addr: 192.168.130.31
 pgbouncer::databases:
   - source_db: swh-deposit
     host: localhost

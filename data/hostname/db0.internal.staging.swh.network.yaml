@@ -1,9 +1,9 @@
 ---
 networks:
   eth0:
-    address: 192.168.128.3
+    address: 192.168.130.10
     netmask: 255.255.255.0
-    gateway: 192.168.128.1
+    gateway: 192.168.130.1
 
 swh::dbs:
   storage:
@@ -25,13 +25,13 @@ swh::dbs:
 postgres::server::port: 5433
 postgres::server::listen_addresses:
   - localhost
-  - 192.168.128.3
+  - 192.168.130.10
 postgres::server::network_access:
-  - 192.168.100.0/24
-  - 192.168.128.0/24
+  - 192.168.100.0/24 # Monitoring
+  - 192.168.130.0/24 # Staging services
 
 pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
-pgbouncer::listen_addr: 192.168.128.3
+pgbouncer::listen_addr: 192.168.130.10
 pgbouncer::databases:
   - source_db: swh
     host: localhost
