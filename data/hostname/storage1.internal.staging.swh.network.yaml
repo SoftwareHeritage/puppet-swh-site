@@ -1,0 +1,52 @@
+---
+networks:
+  enp2s0f0:
+    type: manual
+    order: 10
+    extras:
+      mtu: "9000"
+  enp2s0f1:
+    type: manual
+    order: 10
+    extras:
+      mtu: "9000"
+  bond0:
+    type: manual
+    order: 20
+    extras:
+      mtu: "9000"
+      bond-miimon: 100
+      bond-mode: 802.3ad
+      bond-xmit_hash_policy: layer3+4
+      bond-slaves: enp2s0f0 enp2s0f1
+      bond-lacp-rate: 1
+  vlan443:
+    type: static
+    order: 30
+    address: 192.168.130.41
+    netmask: 24
+    gateway: 192.168.130.1
+    mtu: "9000"
+    extras:
+      vlan-raw-device: bond0
+
+backups::exclude:
+  - srv/softwareheritage/objects
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
+  - vlan
+  - ifenslave
+
+swh::apt_config::backported_packages:
+  buster:
+    - linux-image-amd64
+    - linux-headers-amd64
+    - libnvpair1linux
+    - libuutil1linux
+    - libzfs2linux
+    - libzpool2linux
+    - zfs-dkms
+    - zfsutils-linux
+    - zfs-zed
