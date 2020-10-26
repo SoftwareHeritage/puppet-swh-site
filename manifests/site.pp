@@ -135,7 +135,7 @@ node 'giverny.softwareheritage.org' {
 }
 
 node 'db0.internal.staging.swh.network' {
-  include role::swh_base_database
+  include role::swh_database
   include profile::postgresql::server
   include profile::pgbouncer
   include profile::postgresql::client
