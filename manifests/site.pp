@@ -138,12 +138,12 @@ node 'db0.internal.staging.swh.network' {
   include role::swh_base_database
   include profile::postgresql::server
   include profile::pgbouncer
-  include ::profile::devel::postgres
+  include profile::postgresql::client
 }
 
 node 'scheduler0.internal.staging.swh.network' {
   include role::swh_scheduler
-  include ::profile::devel::postgres
+  include profile::postgresql::client
 }
 
 node 'gateway.internal.staging.swh.network' {
@@ -152,7 +152,7 @@ node 'gateway.internal.staging.swh.network' {
 
 node 'storage0.internal.staging.swh.network' {
   include role::swh_base_storage
-  include ::profile::devel::postgres
+  include profile::postgresql::client
 }
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
@@ -168,7 +168,7 @@ node 'deposit.internal.staging.swh.network' {
   include role::swh_deposit
   include profile::postgresql::server
   include profile::pgbouncer
-  include ::profile::devel::postgres
+  include profile::postgresql::client
 }
 
 node 'vault.internal.staging.swh.network' {
