@@ -102,3 +102,76 @@ swh::deploy::journal::brokers:
 
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
+
+swh::postgresql::version: '12'
+swh::postgresql::port: 5433
+swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
+swh::postgresql::datadir: "%{lookup('swh::base_directory')}/postgresql/%{lookup('swh::postgresql::cluster_name')}"
+swh::postgresql::listen_addresses:
+  - localhost
+  - 0.0.0.0
+swh::postgresql::network_accesses:
+  - 192.168.100.0/24 # Monitoring
+  - 192.168.130.0/24 # Staging services
+
+swh::postgresql::shared_buffers: 32GB
+
+postgresql::server::config_entries:
+  shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
+  cluster_name: "%{alias('swh::postgresql::cluster_name')}"
+
+postgresql::globals::version: "%{alias('swh::postgresql::version')}"
+
+swh::dbs:
+  storage:
+    name: swh
+    user: swh
+  scheduler:
+    name: swh-scheduler
+    user: swh-scheduler
+  vault:
+    name: swh-vault
+    user: swh-vault
+  lister:
+    name: swh-lister
+    user: swh-lister
+  deposit:
+    name: swh-deposit
+    user: swh-deposit
+  indexer::storage:
+    name: swh-indexer
+    user: swh-indexer
+
+pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
+pgbouncer::listen_addr: 0.0.0.0
+pgbouncer::databases:
+  - source_db: swh
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh
+  - source_db: swh-scheduler
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-scheduler
+  - source_db: swh-vault
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-vault
+  - source_db: swh-lister
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-lister
+  - source_db: swh-deposit
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-deposit
+  - source_db: swh-indexer
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-indexer

@@ -5,59 +5,9 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.130.1
 
-swh::dbs:
-  storage:
-    name: swh
-    user: swh
-  indexer::storage:
-    name: swh-indexer
-    user: swh-indexer
-  scheduler:
-    name: swh-scheduler
-    user: swh-scheduler
-  vault:
-    name: swh-vault
-    user: swh-vault
-  lister:
-    name: swh-lister
-    user: swh-lister
-
-postgres::server::port: 5433
-postgres::server::listen_addresses:
-  - localhost
-  - 192.168.130.10
-postgres::server::network_access:
-  - 192.168.100.0/24 # Monitoring
-  - 192.168.130.0/24 # Staging services
-
-pgbouncer::auth_hba_file: /etc/postgresql/11/main/pg_hba.conf
-pgbouncer::listen_addr: 192.168.130.10
-pgbouncer::databases:
-  - source_db: swh
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh
-  - source_db: swh-indexer
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-indexer
-  - source_db: swh-scheduler
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-scheduler
-  - source_db: swh-vault
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-vault
-  - source_db: swh-lister
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-lister
-
 backups::exclude:
   - srv/softwareheritage/postgres
+
+swh::postgresql::shared_buffers: 8GB
+swh::postgresql::version: '11'
+swh::postgresql::datadir: '/var/lib/postgresql/11/main'
