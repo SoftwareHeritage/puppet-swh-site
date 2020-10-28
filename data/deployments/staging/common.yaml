@@ -143,7 +143,8 @@ swh::dbs:
     user: swh-indexer
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
-pgbouncer::listen_addr: 0.0.0.0
+pgbouncer::common::listen_addresses:
+  - 0.0.0.0
 pgbouncer::databases:
   - source_db: swh
     host: localhost

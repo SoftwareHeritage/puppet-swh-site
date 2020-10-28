@@ -1467,6 +1467,10 @@ swh::deploy::db::indexer::port: 5435
 
 swh::deploy::db::pgbouncer::user::login: postgres
 
+pgbouncer::common::listen_addresses:
+  - 127.0.0.1
+  - 127.0.1.1
+  - "%{alias('pgbouncer::listen_addr')}"
 pgbouncer::config_params:
   logfile: /var/log/postgresql/pgbouncer.log
   pidfile: /var/run/postgresql/pgbouncer.pid
@@ -1477,10 +1481,7 @@ pgbouncer::config_params:
   client_tls_cert_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
   server_tls_sslmode: allow
   listen_port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-  listen_addr:
-    - 127.0.0.1
-    - 127.0.1.1
-    - "%{hiera('pgbouncer::listen_addr')}"
+  listen_addr: "%{alias('pgbouncer::common::listen_addresses')}"
   auth_type: "hba"
   auth_file: /etc/pgbouncer/userlist.txt
   auth_hba_file: "%{hiera('pgbouncer::auth_hba_file')}"
