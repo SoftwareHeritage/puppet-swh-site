@@ -14,6 +14,7 @@ class profile::postgresql::server {
   $postgres_port = lookup('swh::postgresql::port')
   $postgres_datadir = lookup('swh::postgresql::datadir')
 
+  $ip_mask_allow_all_users = '0.0.0.0/0'
   file { [ "${swh_base_directory}/postgresql",
       "${swh_base_directory}/postgresql/${postgres_version}" ] :
     ensure => directory,
@@ -22,16 +23,60 @@ class profile::postgresql::server {
     mode   => '0655',
   }
   -> class { 'postgresql::server':
-    ip_mask_allow_all_users => '0.0.0.0/0',
+    ip_mask_allow_all_users => $ip_mask_allow_all_users,
     ipv4acls                => $network_accesses,
     postgres_password       => $postgres_pass,
     port                    => $postgres_port,
     listen_addresses        => [$listen_addresses],
     datadir                 => $postgres_datadir,
     needs_initdb            => true, # Needed because managed_repo is false and data_dir is redefined by us ¯\_(ツ)_/¯
-    require                 => Class['profile::postgresql::apt_config']
+    require                 => Class['profile::postgresql::apt_config'],
+    pg_hba_conf_defaults    => false,  # see below for the actual default rules
+    pg_hba_rules            => {
+      # Supersedes the default rules installed by puppetlab-postgres, thus
+      # allowing pgbouncer/pgsql connection to the postgres user
+      'local access as postgres user' => {
+        database    => 'all',
+        user        => 'postgres',
+        type        => 'local',
+        auth_method => 'ident',
+        order       => 1,
+      },
+      'local access to database with same name' => {
+        database    => 'all',
+        user        => 'all',
+        type        => 'local',
+        auth_method => 'ident',
+        order       => 2,
+      },
+      'allow localhost TCP access to postgresql user' => {
+        database    => 'all',
+        user        => 'postgres',
+        type        => 'host',
+        address     => '127.0.0.1/32',
+        auth_method => 'md5',
+        order       => 3,
+      },
+      'allow access to all users' => {
+        database    => 'all',
+        user        => 'all',
+        type        => 'host',
+        address     => $ip_mask_allow_all_users,
+        auth_method => 'md5',
+        order       => 100,
+      },
+      'allow access to ipv6 localhost' => {
+        database    => 'all',
+        user        => 'all',
+        type        => 'host',
+        address     => '::1/128',
+        auth_method => 'md5',
+        order       => 101,
+      }
+    }
   }
 
+  # read-only user
   $guest = 'guest'
   postgresql::server::role { $guest:
     password_hash => postgresql_password($guest, 'guest'),
