@@ -1710,6 +1710,7 @@ swh::deploy::deposit::config:
   max_upload_size: 209715200
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   storage_metadata: "%{alias('swh::remote_service::storage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
