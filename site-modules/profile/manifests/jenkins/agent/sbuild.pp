@@ -47,6 +47,24 @@ class profile::jenkins::agent::sbuild {
     group  => 'jenkins',
   }
 
+  $schroot_overlay = '/srv/softwareheritage/schroot/overlay'
+
+  exec {"create ${schroot_overlay}":
+    creates => $schroot_overlay,
+    command => "mkdir -p ${schroot_overlay}",
+    path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+  } -> file {$schroot_overlay:}
+
+  mount {$schroot_overlay:
+    ensure  => present,
+    dump    => 0,
+    pass    => 0,
+    device  => 'schroot_overlay',
+    fstype  => 'tmpfs',
+    options => 'uid=root,gid=root,mode=0750',
+    require => File[$schroot_overlay],
+  }
+
   exec {'add jenkins user to sbuild group':
     path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
     command => 'gpasswd -a jenkins sbuild',
