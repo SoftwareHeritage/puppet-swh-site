@@ -150,7 +150,7 @@ node 'gateway.internal.staging.swh.network' {
   include role::swh_gateway
 }
 
-node 'storage0.internal.staging.swh.network' {
+node /^storage\d\.internal\.staging\.swh\.network$/ {
   include role::swh_base_storage
   include profile::postgresql::client
 }
