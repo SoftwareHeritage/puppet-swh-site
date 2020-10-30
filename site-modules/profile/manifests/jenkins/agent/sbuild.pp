@@ -47,7 +47,7 @@ class profile::jenkins::agent::sbuild {
     group  => 'jenkins',
   }
 
-  $schroot_overlay = '/srv/softwareheritage/schroot/overlay'
+  $schroot_overlay = '/srv/softwareheritage/sbuild/overlay'
 
   exec {"create ${schroot_overlay}":
     creates => $schroot_overlay,
