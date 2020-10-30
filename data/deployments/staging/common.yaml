@@ -108,7 +108,6 @@ swh::postgresql::port: 5433
 swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
 swh::postgresql::datadir: "%{lookup('swh::base_directory')}/postgresql/%{lookup('swh::postgresql::cluster_name')}"
 swh::postgresql::listen_addresses:
-  - localhost
   - 0.0.0.0
 swh::postgresql::network_accesses:
   - 192.168.100.0/24 # Monitoring
