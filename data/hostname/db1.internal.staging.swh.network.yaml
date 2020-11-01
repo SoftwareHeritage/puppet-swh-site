@@ -31,7 +31,7 @@ networks:
       vlan-raw-device: bond0
 
 backups::exclude:
-  - srv/softwareheritage/postgres
+  - srv/softwareheritage/postgresql
 
 swh::apt_config::enable_non_free: true
 packages:
