@@ -12,11 +12,12 @@ class profile::postgresql::server {
   }
   $postgres_version = lookup('swh::postgresql::version')
   $postgres_port = lookup('swh::postgresql::port')
+  $postgres_datadir_base = lookup('swh::postgresql::datadir_base') 
   $postgres_datadir = lookup('swh::postgresql::datadir')
 
   $ip_mask_allow_all_users = '0.0.0.0/0'
-  file { [ "${swh_base_directory}/postgresql",
-      "${swh_base_directory}/postgresql/${postgres_version}" ] :
+  file { [ "${postgres_datadir_base}",
+      "${postgres_datadir_base}/${postgres_version}" ] :
     ensure => directory,
     owner  => 'root',
     group  => 'root',
