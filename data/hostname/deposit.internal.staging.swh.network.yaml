@@ -4,12 +4,6 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.130.1
 
-## frontend
-
-hitch::frontend: "[*]:443"
-hitch::proxy_support: true
-
-varnish::http_port: 80
 apache::http_port: 9080
 
 # Disable default vhost on port 80

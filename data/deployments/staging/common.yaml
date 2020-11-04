@@ -3,6 +3,10 @@ swh::deploy::environment: staging
 
 swh::deploy::worker::loader_nixguix::loglevel: debug
 
+swh::deploy::reverse_proxy::services:
+  - deposit
+  - webapp
+
 swh::deploy::storage::db::host: db1.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
@@ -215,3 +219,11 @@ swh::deploy::storage::config:
       client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
       producer_config:
         message.max.bytes: 1000000000
+
+## Reverse-proxy and frontend
+
+hitch::frontend: "[*]:443"
+hitch::proxy_support: true
+
+varnish::http_port: 80
+
