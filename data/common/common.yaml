@@ -943,6 +943,9 @@ bind::resource_records:
   staging-gateway/A:  # Cannot autogenerate due to limitations in $::swh_hostname fact
     record: staging-gateway.internal.softwareheritage.org
     data: 192.168.100.125
+  glyptotek/A: # OPNSense firewall, not managed by puppet
+    record: glyptotek.internal.softwareheritage.org
+    data: 192.168.100.128
   pushkin/A: # OPNSense firewall, not managed by puppet
     record: pushkin.internal.softwareheritage.org
     data: 192.168.100.129
