@@ -3,10 +3,6 @@ swh::deploy::environment: staging
 
 swh::deploy::worker::loader_nixguix::loglevel: debug
 
-swh::deploy::reverse_proxy::services:
-  - deposit
-  - webapp
-
 swh::deploy::storage::db::host: db1.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh

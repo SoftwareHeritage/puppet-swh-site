@@ -682,6 +682,10 @@ varnish::storage_size: 256m
 varnish::storage_file: /var/lib/varnish/varnish_storage.bin
 # varnish::secret in private-data
 
+swh::deploy::reverse_proxy::services:
+  - deposit
+  - webapp
+
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
 

@@ -17,11 +17,11 @@ node 'tate.softwareheritage.org' {
 }
 
 node 'moma.softwareheritage.org' {
-  include role::swh_api
+  include role::swh_rp_webapps
 }
 
 node 'webapp0.softwareheritage.org' {
-  include role::swh_base_api
+  include role::swh_rp_webapp
 }
 
 node 'saatchi.internal.softwareheritage.org' {
@@ -160,8 +160,7 @@ node /^worker\d\.internal\.staging\.swh\.network$/ {
 }
 
 node 'webapp.internal.staging.swh.network' {
-  include role::swh_base_api
-  include profile::network
+  include role::swh_webapp
 }
 
 node 'deposit.internal.staging.swh.network' {
