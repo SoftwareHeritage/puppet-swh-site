@@ -18,8 +18,6 @@ class profile::swh::deploy::webapp {
 
   $static_dir = '/usr/share/swh/web/static'
 
-  $varnish_http_port = lookup('varnish::http_port')
-
   $cert_name = lookup('swh::deploy::webapp::vhost::letsencrypt_cert')
   $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
 
@@ -36,10 +34,6 @@ class profile::swh::deploy::webapp {
   $vhost_docroot = "/var/www/${vhost_name}"
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content', String, 'first', '')
-  $vhost_ssl_port = lookup('apache::https_port')
-  $vhost_ssl_protocol = lookup('swh::deploy::webapp::vhost::ssl_protocol')
-  $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
-  $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
 
   $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
   $production_db_file = lookup('swh::deploy::webapp::production_db')
@@ -196,15 +190,6 @@ class profile::swh::deploy::webapp {
     ],
   }
 
-  include ::profile::hitch
-  realize(::Profile::Hitch::Ssl_cert[$cert_name])
-
-  include ::profile::varnish
-  ::profile::varnish::vhost {$vhost_name:
-    aliases      => $vhost_aliases,
-    hsts_max_age => lookup('strict_transport_security::max_age'),
-  }
-
   if $endpoint_directories {
     file {$vhost_basic_auth_file:
       ensure  => present,
@@ -217,58 +202,6 @@ class profile::swh::deploy::webapp {
     file {$vhost_basic_auth_file:
       ensure  => absent,
     }
-  }
-
-  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
-
-  @@::icinga2::object::service {"swh-webapp http redirect on ${::fqdn}":
-    service_name  => 'swh webapp http redirect',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address => $vhost_name,
-      http_vhost   => $vhost_name,
-      http_port    => $varnish_http_port,
-      http_uri     => '/',
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
-
-  @@::icinga2::object::service {"swh-webapp https on ${::fqdn}":
-    service_name  => 'swh webapp',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address    => $vhost_name,
-      http_vhost      => $vhost_name,
-      http_port       => $vhost_ssl_port,
-      http_ssl        => true,
-      http_sni        => true,
-      http_uri        => '/',
-      http_onredirect => sticky
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
-
-  @@::icinga2::object::service {"swh-webapp https certificate ${::fqdn}":
-    service_name  => 'swh webapp https certificate',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address     => $vhost_name,
-      http_vhost       => $vhost_name,
-      http_port        => $vhost_ssl_port,
-      http_ssl         => true,
-      http_sni         => true,
-      http_certificate => 15,
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
   }
 
   include ::profile::swh::deploy::webapp::icinga_checks

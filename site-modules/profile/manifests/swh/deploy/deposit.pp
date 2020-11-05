@@ -162,19 +162,6 @@ class profile::swh::deploy::deposit {
     ]
   }
 
-  include ::profile::hitch
-  realize(::Profile::Hitch::Ssl_cert[$cert_name])
-
-  include ::profile::varnish
-  $url_scheme = split($vhost_url, ':')[0]
-
-  if $url_scheme == 'https' {
-    ::profile::varnish::vhost {$vhost_name:
-      aliases      => $vhost_aliases,
-      hsts_max_age => lookup('strict_transport_security::max_age'),
-    }
-  }
-
   file {$vhost_basic_auth_file:
     ensure  => present,
     owner   => 'root',
@@ -217,55 +204,6 @@ class profile::swh::deploy::deposit {
     }
   }
 
-  @@::icinga2::object::service {"swh-deposit http redirect on ${::fqdn}":
-    service_name  => 'swh deposit http redirect',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address => $vhost_name,
-      http_vhost   => $vhost_name,
-      http_port    => $vhost_port,
-      http_uri     => '/',
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
-
-  @@::icinga2::object::service {"swh-deposit https on ${::fqdn}":
-    service_name  => 'swh deposit',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address    => $vhost_name,
-      http_vhost      => $vhost_name,
-      http_port       => $vhost_ssl_port,
-      http_ssl        => true,
-      http_sni        => true,
-      http_uri        => '/',
-      http_onredirect => sticky
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
-
-  @@::icinga2::object::service {"swh-deposit https certificate ${::fqdn}":
-    service_name  => 'swh deposit https certificate',
-    import        => ['generic-service'],
-    host_name     => $::fqdn,
-    check_command => 'http',
-    vars          => {
-      http_address     => $vhost_name,
-      http_vhost       => $vhost_name,
-      http_port        => $vhost_ssl_port,
-      http_ssl         => true,
-      http_sni         => true,
-      http_certificate => 15,
-    },
-    target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
-  }
 
   include profile::filebeat
   profile::filebeat::log_input { 'deposit-non-ssl-access':
