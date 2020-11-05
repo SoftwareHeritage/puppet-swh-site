@@ -4,11 +4,6 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.130.1
 
-apache::http_port: 9080
-
-# Disable default vhost on port 80
-apache::default_vhost: false
-
 ## deposit
 
 swh::deploy::deposit::media_root_directory: /srv/softwareheritage/deposit
