@@ -4,7 +4,7 @@
 #
 # File managed by puppet. All modifications will be lost.
 
-backend <%= Regexp.escape(@servername) %>
+backend <%= @backend_name %>
 {
     .host = "<%= @backend_http_host %>";
     .port = "<%= @backend_http_port %>";

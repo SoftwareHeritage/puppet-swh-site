@@ -26,6 +26,7 @@ class profile::swh::deploy::reverse_proxy {
     realize(::Profile::Hitch::Ssl_cert[$cert_name])
     ::profile::varnish::vhost {$vhost_name:
       aliases           => $vhost_aliases,
+      backend_name      => $service_name,
       backend_http_host => $backend_http_host,
       backend_http_port => $backend_http_port,
       hsts_max_age      => lookup('strict_transport_security::max_age'),
