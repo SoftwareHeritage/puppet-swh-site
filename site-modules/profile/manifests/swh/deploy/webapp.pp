@@ -35,6 +35,9 @@ class profile::swh::deploy::webapp {
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
   $vhost_basic_auth_content = lookup('swh::deploy::webapp::vhost::basic_auth_content', String, 'first', '')
 
+  # Note that it's required by the ::profile::swh::deploy::webapp::icinga_checks
+  $vhost_ssl_port = lookup('apache::https_port')
+
   $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
   $production_db_file = lookup('swh::deploy::webapp::production_db')
 
@@ -208,7 +211,7 @@ class profile::swh::deploy::webapp {
 
   profile::prometheus::export_scrape_config {"swh-webapp_${fqdn}":
     job          => "swh-webapp",
-    target       => "${vhost_name}:443",
+    target       => "${vhost_name}:${vhost_ssl_port}",
     scheme       => "https",
     metrics_path => '/metrics/prometheus',
     labels       => {
