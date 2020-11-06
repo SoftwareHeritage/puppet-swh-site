@@ -102,11 +102,9 @@ swh::deploy::journal::brokers:
 
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
 swh::deploy::deposit::reverse_proxy::backend_http_host: deposit.internal.staging.swh.network
-swh::deploy::deposit::reverse_proxy::backend_http_port: "%{alias('::profile::varnish::backend_http_port')}"
 
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
 swh::deploy::webapp::reverse_proxy::backend_http_host: webapp.internal.staging.swh.network
-swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('::profile::varnish::backend_http_port')}"
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433

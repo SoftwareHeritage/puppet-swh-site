@@ -1,0 +1,3 @@
+swh::deploy::deposit::reverse_proxy::backend_http_host: "::1"
+swh::deploy::webapp::reverse_proxy::backend_http_host: "::1"
+

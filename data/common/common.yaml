@@ -1677,6 +1677,8 @@ swh::deploy::objstorage::backend::server_names:
   - localhost
   - "::1"
 
+swh::deploy::deposit::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
+
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::url: https://deposit.softwareheritage.org
@@ -1827,6 +1829,8 @@ swh::deploy::webapp::backend::workers: 32
 swh::deploy::webapp::backend::http_keepalive: 5
 swh::deploy::webapp::backend::http_timeout: 3600
 swh::deploy::webapp::backend::reload_mercy: 3600
+
+swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_production
