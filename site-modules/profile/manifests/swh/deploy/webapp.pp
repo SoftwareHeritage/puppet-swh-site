@@ -168,12 +168,6 @@ class profile::swh::deploy::webapp {
       },
     ],
     directories     => [
-      { path     => '/api',
-        provider => 'location',
-        allow    => 'from all',
-        satisfy  => 'Any',
-        headers  => ['add Access-Control-Allow-Origin "*"'],
-      },
       { path    => $static_dir,
         options => ['-Indexes'],
       },
