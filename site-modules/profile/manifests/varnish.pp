@@ -76,5 +76,8 @@ class profile::varnish {
     order   => '00',
   }
 
-  include ::profile::varnish::default_vcls
+  ::profile::varnish::vcl_include {'synth_redirect':
+    order   => '10',
+    content => file('profile/varnish/synth_redirect.vcl'),
+  }
 }

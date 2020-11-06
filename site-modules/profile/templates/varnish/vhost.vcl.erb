@@ -16,6 +16,7 @@ sub vcl_recv {
             return(synth(850, "Moved permanently"));
         } else {
             set req.http.X_FORWARDED_PROTO = "https";
+            set req.backend_hint = <%= Regexp.escape(@servername) %>;
         }
 <% if @vcl_recv_extra -%>
         <%= @vcl_recv_extra %>

@@ -10,6 +10,8 @@ class profile::swh::deploy::reverse_proxy {
   each($service_names) |$service_name| {
     # Retrieve certificate name
     $cert_name = lookup("swh::deploy::${service_name}::vhost::letsencrypt_cert")
+    $backend_http_host = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_host")
+    $backend_http_port = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_port")
 
     # Retrieve the list of vhosts
     $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
@@ -23,8 +25,10 @@ class profile::swh::deploy::reverse_proxy {
 
     realize(::Profile::Hitch::Ssl_cert[$cert_name])
     ::profile::varnish::vhost {$vhost_name:
-      aliases      => $vhost_aliases,
-      hsts_max_age => lookup('strict_transport_security::max_age'),
+      aliases           => $vhost_aliases,
+      backend_http_host => $backend_http_host,
+      backend_http_port => $backend_http_port,
+      hsts_max_age      => lookup('strict_transport_security::max_age'),
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')

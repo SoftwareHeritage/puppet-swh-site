@@ -1,0 +1,11 @@
+# backend_default.vcl
+#
+# Default backend definition.
+#
+# File managed by puppet. All modifications will be lost.
+
+backend <%= Regexp.escape(@servername) %>
+{
+    .host = "<%= @backend_http_host %>";
+    .port = "<%= @backend_http_port %>";
+}
