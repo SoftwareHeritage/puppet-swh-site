@@ -42,3 +42,69 @@ netbox::vhost::letsencrypt_cert: inventory-vagrant
 netbox::vhost::name: inventory-vagrant.internal.softwareheritage.org
 netbox::mail::from: inventory+vagrant@softwareheritage.org
 netbox::admin::email: sysop+vagrant@softwareheritage.org
+
+static_hostnames:
+  10.168.100.18: 
+    host: banco.internal.softwareheritage.org
+    aliases: 
+      - backup.internal.softwareheritage.org
+      - kibana.internal.softwareheritage.org
+  10.168.100.19:
+    host: logstash0.internal.softwareheritage.org
+    aliases:
+      - logstash.internal.softwareheritage.org
+  10.168.100.29:
+    host: pergamon.internal.softwareheritage.org
+    aliases: 
+      - icinga.internal.softwareheritage.org
+      - grafana.softwareheritage.org
+      - stats.export.softwareheritage
+  10.168.100.30:
+    host: jenkins.softwareheritage.org
+  10.168.100.31:
+    host: moma.internal.softwareheritage.org
+    aliases:
+      - archive.internal.softwareheritage.org
+      - deposit.internal.softwareheritage.org
+  10.168.100.52:
+    host: riverside.internal.softwareheritage.org
+    aliases: 
+      - sentry.softwareheritage.org
+  10.168.100.61:
+    host: esnode1.internal.softwareheritage
+  10.168.100.62:
+    host: esnode2.internal.softwareheritage
+  10.168.100.63:
+    host: esnode3.internal.softwareheritage
+  10.168.100.101:
+    host: uffizi.internal.softwareheritage.org
+  10.168.100.104:
+    host: saatchi.internal.softwareheritage.org
+    aliases: 
+      - rabbitmq.internal.softwareheritage.org
+  10.168.100.106:
+    host: kelvingrove.internal.softwareheritage.org
+    aliases:
+      - auth.softwareheritage.org
+  10.168.100.210:
+    host: belvedere.internal.softwareheritage.org
+    aliases:
+      - db.internal.softwareheritage.org
+  10.168.100.199:
+    host: bojimans.internal.softwareheritage.org
+    aliases:
+      - inventory.internal.softwareheritage.org
+  10.168.130.11:
+    host: db1.internal.staging.swh.network
+  10.168.130.30:
+    host: webapp.internal.staging.swh.network
+  10.168.130.31:
+    host: deposit.internal.staging.swh.network
+  10.168.130.41:
+    host: storage1.internal.staging.swh.network
+  10.168.130.50:
+    host: scheduler0.internal.staging.swh.network
+  10.168.130.60:
+    host: vault.internal.staging.swh.network
+  10.168.130.70:
+    host: journal0.internal.staging.swh.network

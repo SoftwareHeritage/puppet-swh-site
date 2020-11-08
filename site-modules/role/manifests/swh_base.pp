@@ -1,4 +1,6 @@
 class role::swh_base {
+  include profile::static_hostnames
+
   include profile::base
   include profile::ssh::server
   include profile::unbound
