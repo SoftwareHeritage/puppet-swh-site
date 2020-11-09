@@ -956,6 +956,21 @@ bind::resource_records:
   internalgw/A: # Firewal(s)l vip, not managed by puppet
     record: gw.internal.softwareheritage.org
     data: 192.168.100.130
+  staging-rp0/A:
+    record: rp0.internal.staging.swh.network
+    data: 192.168.130.20
+  staging-webapp/A:
+    record: webapp.internal.staging.swh.network
+    data: 192.168.130.30
+  staging-deposit/A:
+    record: deposit.internal.staging.swh.network
+    data: 192.168.130.31
+  staging-rp-webapp/A:
+    record: webapp.staging.swh.network
+    data: 128.93.166.9
+  staging-rp-deposit/A:
+    record: deposit.staging.swh.network
+    data: 128.93.166.9
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
