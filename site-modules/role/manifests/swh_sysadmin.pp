@@ -23,4 +23,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::sentry::reverse_proxy
 
   include profile::weekly_report_bot
+
+  include profile::opnsense::monitoring
 }

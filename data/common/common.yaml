@@ -4327,3 +4327,9 @@ netbox::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 netbox::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 netbox::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 netbox::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+opnsense::hosts:
+  - pushkin.internal.softwareheritage.org
+  - glyptotek.internal.softwareheritage.org
+opnsense::prometheus::port: 9100
+opnsense::prometheus::metrics_path: /metrics
