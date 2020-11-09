@@ -965,12 +965,6 @@ bind::resource_records:
   staging-deposit/A:
     record: deposit.internal.staging.swh.network
     data: 192.168.130.31
-  staging-rp-webapp/A:
-    record: webapp.staging.swh.network
-    data: 128.93.166.9
-  staging-rp-deposit/A:
-    record: deposit.staging.swh.network
-    data: 128.93.166.9
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
