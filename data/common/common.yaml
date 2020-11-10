@@ -132,12 +132,17 @@ networks::private_routes:
     network: 192.168.50.0/24
     gateway: "%{alias('networks::admin_gateway')}"
     enabled: false
+  public_swh_network:
+    network: 128.93.166.0/26
+    gateway: "%{alias('networks::public_swh_gateway')}"
+    enabled: false
 
 networks::private_network: 192.168.100.0/24
 networks::private_gateway: 192.168.100.1
 networks::staging_legacy_gateway: 192.168.100.125
 networks::staging_gateway: 192.168.100.130
 networks::admin_gateway: 192.168.100.130
+networks::public_swh_gateway: "%{alias('networks::staging_gateway')}"
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
