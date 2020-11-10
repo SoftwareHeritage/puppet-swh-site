@@ -723,7 +723,7 @@ letsencrypt::certificates:
     domains:
       # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
       - webapp.staging.swh.network
-      - webapp.internal.staging.swh.network
+      - webapp-rp.internal.staging.swh.network
   deposit_production:
     domains:
       - deposit.softwareheritage.org
@@ -731,7 +731,7 @@ letsencrypt::certificates:
   deposit_staging:
     domains:
       - deposit.staging.swh.network
-      - deposit.internal.staging.swh.network
+      - deposit-rp.internal.staging.swh.network
   stats_export:
     domains:
       - stats.export.softwareheritage.org
@@ -967,9 +967,17 @@ bind::resource_records:
   staging-webapp/A:
     record: webapp.internal.staging.swh.network
     data: 192.168.130.30
+  staging-webapp-rp/CNAME:
+    type: CNAME
+    record: webapp-rp.internal.staging.swh.network
+    data: rp0.internal.staging.swh.network.
   staging-deposit/A:
     record: deposit.internal.staging.swh.network
     data: 192.168.130.31
+  staging-deposit-rp/CNAME:
+    type: CNAME
+    record: deposit-rp.internal.staging.swh.network
+    data: rp0.internal.staging.swh.network.
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
