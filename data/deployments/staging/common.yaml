@@ -78,7 +78,8 @@ swh::remote_service::scheduler::config::scheduler0:
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 
-swh::deploy::deposit::url: http://deposit.internal.staging.swh.network
+swh::deploy::deposit::url: https://deposit.staging.swh.network
+swh::deploy::deposit::internal_url: "https://deposit-rp.internal.staging.swh.network"
 
 # do not save pack
 swh::deploy::worker::loader_git::save_data_path: ""

@@ -1704,6 +1704,7 @@ swh::deploy::deposit::reverse_proxy::backend_http_port: "%{alias('varnish::backe
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::url: https://deposit.softwareheritage.org
+swh::deploy::deposit::internal_url: "%{hiera('swh::deploy::deposit::url')}"
 swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
@@ -1789,7 +1790,7 @@ swh::deploy::worker::checker_deposit::config:
     task_queues:
       - swh.deposit.loader.tasks.ChecksDepositTsk
   deposit:
-    url: "%{hiera('swh::deploy::deposit::url')}/1/private/"
+    url: "%{hiera('swh::deploy::deposit::internal_url')}/1/private/"
     auth:
       username: "%{hiera('deposit_basic_auth_swhworker_username')}"
       password: "%{hiera('deposit_basic_auth_swhworker_password')}"
@@ -1864,7 +1865,7 @@ swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
 swh::deploy::webapp::production_db_dir: /var/lib/swh
 swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
-swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::url')}/1/private/"
+swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::internal_url')}/1/private/"
 swh::deploy::webapp::config::throttling:
   cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
   scopes:
