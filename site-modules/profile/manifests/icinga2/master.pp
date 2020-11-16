@@ -98,6 +98,7 @@ class profile::icinga2::master {
     tag     => 'icinga2::config::file',
     recurse => true,
     purge   => true,
+    notify  => Class['::icinga2::service'],
   }
 
   file {'/etc/icinga2/conf.d':
@@ -108,5 +109,6 @@ class profile::icinga2::master {
     purge   => true,
     recurse => true,
     tag     => 'icinga2::config::file',
+    notify  => Class['::icinga2::service'],
   }
 }
