@@ -7,30 +7,33 @@ class profile::opnsense::monitoring {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_zonename = lookup('icinga2::master::zonename')
 
-  $fw_hosts.each | $host | {
+  $fw_hosts.each | $host, $config | {
+    $fqdn = $config['fqdn']
+    $ip = $config['ip']
 
-    $target = "${host}:${fw_prometheus_port}"
+    $target = "${fqdn}:${fw_prometheus_port}"
 
-    profile::prometheus::export_scrape_config { $host :
+    profile::prometheus::export_scrape_config { $fqdn :
       target       => $target,
       scheme       => 'http',
       metrics_path => $fw_prometheus_metrics_path,
     }
 
-    ::icinga2::object::host {$host:
-      display_name  => $host,
+    ::icinga2::object::host {$fqdn:
+      display_name  => $fqdn,
       check_command => 'hostalive',
-      target        => "/etc/icinga2/zones.d/${icinga_zonename}/${host}.conf",
+      address       => $ip,
+      target        => "/etc/icinga2/zones.d/${icinga_zonename}/${fqdn}.conf",
     }
 
-    ::icinga2::object::service {"opnsense https on ${host}":
+    ::icinga2::object::service {"opnsense https on ${fqdn}":
       service_name  => 'opnsense',
       import        => ['generic-service'],
-      host_name     => $host,
+      host_name     => $fqdn,
       check_command => 'http',
       vars          => {
-        http_address    => $host,
-        http_vhost      => $host,
+        http_address    => $fqdn,
+        http_vhost      => $fqdn,
         http_ssl        => true,
         http_uri        => '/',
         http_onredirect => sticky
