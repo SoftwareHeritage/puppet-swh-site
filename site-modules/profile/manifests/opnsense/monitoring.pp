@@ -13,10 +13,16 @@ class profile::opnsense::monitoring {
 
     $target = "${fqdn}:${fw_prometheus_port}"
 
-    profile::prometheus::export_scrape_config { $fqdn :
+    $prometheus_labels = {
+      'instance' => $fqdn, # override the instance name to use the fw name instead of pergamon
+    }
+
+    profile::prometheus::export_scrape_config { "firewall_${fqdn}" :
+      job          => 'firewall',
       target       => $target,
       scheme       => 'http',
       metrics_path => $fw_prometheus_metrics_path,
+      labels       => $prometheus_labels,
     }
 
     ::icinga2::object::host {$fqdn:
