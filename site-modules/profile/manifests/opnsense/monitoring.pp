@@ -5,9 +5,9 @@ class profile::opnsense::monitoring {
   $fw_prometheus_metrics_path = lookup('opnsense::prometheus::metrics_path')
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
-  $fw_hosts.each | $host | {
+  $icinga_zonename = lookup('icinga2::master::zonename')
 
-    $static_labels = lookup('prometheus::static_labels', Hash)
+  $fw_hosts.each | $host | {
 
     $target = "${host}:${fw_prometheus_port}"
 
@@ -15,6 +15,12 @@ class profile::opnsense::monitoring {
       target       => $target,
       scheme       => 'http',
       metrics_path => $fw_prometheus_metrics_path,
+    }
+
+    ::icinga2::object::host {$host:
+      display_name  => $host,
+      check_command => 'hostalive',
+      target        => "/etc/icinga2/zones.d/${icinga_zonename}/${host}.conf",
     }
 
     ::icinga2::object::service {"opnsense https on ${host}":
