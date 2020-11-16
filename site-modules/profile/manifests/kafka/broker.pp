@@ -196,7 +196,7 @@ class profile::kafka::broker {
   }
 
   ::profile::cron::d {'kafka-zip-logs':
-    command => 'find /var/log/kafka -type f -name *.log.* -a -not -name *.gz -a -ctime +1 -exec gzip {} \+',
+    command => 'find /var/log/kafka -type f -name *.log.* -a -not -name *.gz -a -not -name *-gc.log* -a -ctime +1 -exec gzip {} \+',
     target  => 'kafka',
     minute  => 'fqdn_rand',
     hour    => 3,
