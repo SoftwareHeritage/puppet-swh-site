@@ -86,6 +86,18 @@ class profile::kafka::broker {
     $internal_tls_port = $kafka_cluster_config['internal_tls_port']
     $public_tls_port = $kafka_cluster_config['public_tls_port']
 
+    $sasl_listeners = ['INTERNAL', 'EXTERNAL']
+    $sasl_mechanisms = ['SCRAM-SHA-512', 'SCRAM-SHA-256']
+
+    $kafka_jaas_config = Hash.new(flatten($sasl_listeners.map |$listener| {
+      $sasl_mechanisms.map |$mechanism| {
+        [
+          "listener.name.${listener.downcase}.${mechanism.downcase}.sasl.jaas.config",
+          "org.apache.kafka.common.security.scram.ScramLoginModule required;",
+        ]
+      }
+    }))
+
     $kafka_tls_config = {
       'ssl.keystore.location'          => $ks_location,
       'ssl.keystore.password'          => $ks_password,
@@ -104,32 +116,25 @@ class profile::kafka::broker {
         'INTERNAL:SASL_SSL',
         'EXTERNAL:SASL_SSL',
       ], ','),
+
       'inter.broker.listener.name'     => 'INTERNAL_PLAINTEXT',
-      'sasl.enabled.mechanisms'        => 'SCRAM-SHA-256,SCRAM-SHA-512',
+
+      'sasl.enabled.mechanisms'        => join($sasl_mechanisms, ','),
 
       'super.users'                    => $cluster_superusers,
       'authorizer.class.name'          => 'kafka.security.auth.SimpleAclAuthorizer',
-    }
+    } + $kafka_jaas_config
 
+    # TODO: remove once this file has been cleared on all hosts
     $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
-
     file {$jaas_config:
-      ensure  => present,
-      owner   => 'root',
-      group   => 'kafka',
-      mode    => '0440',
-      content => template('profile/kafka/kafka_broker_jaas.conf.erb'),
-      notify  => Service['kafka'],
+      ensure  => absent,
     }
-
-    $jaas_cli_opts = ["-Djava.security.auth.login.config=${jaas_config}"]
 
   } else {
     $kafka_tls_config = {
       'listeners' => "PLAINTEXT://${internal_hostname}:${kafka_cluster_config['plaintext_port']}",
     }
-
-    $jaas_cli_opts = []
   }
 
   include ::profile::prometheus::jmx
@@ -153,7 +158,7 @@ class profile::kafka::broker {
 
   class {'::kafka::broker':
     config       => $kafka_config + $kafka_tls_config,
-    opts         => join(["-javaagent:${exporter}=${exporter_port}:${exporter_config}"] + $jaas_cli_opts, ' '),
+    opts         => join(["-javaagent:${exporter}=${exporter_port}:${exporter_config}"], ' '),
     limit_nofile => '65536',
     heap_opts    => $heap_opts,
     env          => {
