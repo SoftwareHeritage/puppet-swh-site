@@ -34,7 +34,10 @@ class profile::kafka::broker {
   $public_listener = ip_for_network($public_listener_network)
 
 
-  $kafka_config = $base_kafka_config + {
+  $cluster_config_overrides = pick_default($kafka_cluster_config['cluster_config_overrides'], {})
+  $broker_config_overrides = pick_default($broker_config['config_overrides'], {})
+
+  $kafka_config = $base_kafka_config + $cluster_config_overrides + $broker_config_overrides + {
     'zookeeper.connect' => $zookeeper_connect_string,
     'broker.id'         => $broker_id,
   }
