@@ -79,6 +79,11 @@ kafka::clusters:
       kafka4.internal.softwareheritage.org:
         id: 4
         public_hostname: broker4.journal.softwareheritage.org
+    superusers:
+      - User:swh-admin-olasd
+      # Users connecting in the plaintext endpoint are ANONYMOUS
+      # TODO: remove when explicit ACLs are given to producers
+      - User:ANONYMOUS
     broker::heap_opts: "-Xmx6G -Xms6G"
     tls: true
     plaintext_port: 9092

@@ -42,6 +42,13 @@ class profile::kafka::broker {
     'broker.id'         => $broker_id,
   }
 
+  $cluster_superusers = join(
+    # broker usernames
+    $kafka_cluster_config['brokers'].keys.map |$broker| {"User:broker-${broker}"} +
+    pick_default($kafka_cluster_config['superusers'], []),
+    ';'
+  )
+
   $heap_opts = $kafka_cluster_config['broker::heap_opts']
 
   $kafka_logdirs = lookup('kafka::logdirs', Array)
@@ -99,6 +106,8 @@ class profile::kafka::broker {
       ], ','),
       'inter.broker.listener.name'     => 'INTERNAL_PLAINTEXT',
       'sasl.enabled.mechanisms'        => 'SCRAM-SHA-256,SCRAM-SHA-512',
+
+      'super.users'                    => $cluster_superusers,
     }
 
     $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
