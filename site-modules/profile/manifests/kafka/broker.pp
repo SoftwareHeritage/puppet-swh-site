@@ -89,11 +89,14 @@ class profile::kafka::broker {
     $sasl_listeners = ['INTERNAL', 'EXTERNAL']
     $sasl_mechanisms = ['SCRAM-SHA-512', 'SCRAM-SHA-256']
 
+    $broker_username = "broker-${::swh_hostname['internal_fqdn']}"
+    $broker_password = lookup("kafka::broker::password")
+
     $kafka_jaas_config = Hash.new(flatten($sasl_listeners.map |$listener| {
       $sasl_mechanisms.map |$mechanism| {
         [
           "listener.name.${listener.downcase}.${mechanism.downcase}.sasl.jaas.config",
-          "org.apache.kafka.common.security.scram.ScramLoginModule required;",
+          "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"${broker_username}\" password=\"${broker_password}\";",
         ]
       }
     }))

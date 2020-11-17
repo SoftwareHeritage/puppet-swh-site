@@ -42,6 +42,8 @@ kafka::broker_config:
   # For upgrades after 2.6
   inter.broker.protocol.version: "2.6"
 
+# kafka::broker::password in private-data
+
 kafka::clusters:
   rocquencourt_legacy:
     zookeeper::chroot: '/kafka/softwareheritage'
