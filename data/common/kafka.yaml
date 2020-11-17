@@ -22,8 +22,8 @@ zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
-kafka::version: '2.4.0'
-kafka::scala_version: '2.12'
+kafka::version: '2.6.0'
+kafka::scala_version: '2.13'
 kafka::mirror_url: https://mirrors.ircam.fr/pub/apache/
 
 kafka::logdirs:
@@ -39,6 +39,8 @@ kafka::broker_config:
   socket.request.max.bytes: 209715200
   # And the max message size to 100 MB
   message.max.bytes: 104857600
+  # upgrading from 2.4
+  inter.broker.protocol.version: "2.4"
 
 kafka::clusters:
   rocquencourt_legacy:
