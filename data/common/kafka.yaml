@@ -39,8 +39,8 @@ kafka::broker_config:
   socket.request.max.bytes: 209715200
   # And the max message size to 100 MB
   message.max.bytes: 104857600
-  # upgrading from 2.4
-  inter.broker.protocol.version: "2.4"
+  # For upgrades after 2.6
+  inter.broker.protocol.version: "2.6"
 
 kafka::clusters:
   rocquencourt_legacy:
