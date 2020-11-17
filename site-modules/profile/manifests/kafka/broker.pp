@@ -108,6 +108,7 @@ class profile::kafka::broker {
       'sasl.enabled.mechanisms'        => 'SCRAM-SHA-256,SCRAM-SHA-512',
 
       'super.users'                    => $cluster_superusers,
+      'authorizer.class.name'          => 'kafka.security.auth.SimpleAclAuthorizer',
     }
 
     $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
