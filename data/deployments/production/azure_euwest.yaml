@@ -13,4 +13,4 @@ swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azur
     objstorages:
       - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
       - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::uffizi::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"

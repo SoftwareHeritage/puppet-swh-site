@@ -76,8 +76,6 @@ static_hostnames:
     host: esnode2.internal.softwareheritage
   10.168.100.63:
     host: esnode3.internal.softwareheritage
-  10.168.100.101:
-    host: uffizi.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
     aliases: 
@@ -86,6 +84,8 @@ static_hostnames:
     host: kelvingrove.internal.softwareheritage.org
     aliases:
       - auth.softwareheritage.org
+  10.168.100.109:
+    host: saam.internal.softwareheritage.org
   10.168.100.210:
     host: belvedere.internal.softwareheritage.org
     aliases:

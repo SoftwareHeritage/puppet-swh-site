@@ -1286,18 +1286,18 @@ swh::remote_service::search::port: 5010
 # overrides should only happen for read-only services.
 
 swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
-swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::saam')}"
 swh::remote_service::objstorage::config_as_dict:
   banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
-  uffizi: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+  saam: "%{alias('swh::remote_service::objstorage::config::saam')}"
   azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::uffizi')}"
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
-  "%{alias('swh::remote_service::storage::config::uffizi')}"
+  "%{alias('swh::remote_service::storage::config::saam')}"
 
-swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::uffizi')}"
-swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::uffizi')}"
+swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::saam')}"
+swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::saam')}"
 
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
@@ -1321,7 +1321,7 @@ swh::deploy::worker::storage::pipeline:
     - "%{alias('swh::remote_service::storage::config::writable')}"
 
 # Objstorage backend configurations
-swh::remote_service::objstorage::config::azure: &swh_objstorage_config_azure
+swh::remote_service::objstorage::config::azure:
   cls: azure-prefixed
   args:
     accounts:
@@ -1397,19 +1397,19 @@ swh::remote_service::objstorage::config::azure::readonly:
     filters_conf:
       - type: readonly
 
-swh::remote_service::objstorage::config::uffizi: &swh_objstorage_config_uffizi
+swh::remote_service::objstorage::config::saam:
   cls: remote
   args:
-    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
+    url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
 
-swh::remote_service::objstorage::config::uffizi::readonly:
+swh::remote_service::objstorage::config::saam::readonly:
   cls: filtered
   args:
-    storage_conf: "%{alias('swh::remote_service::objstorage::config::uffizi')}"
+    storage_conf: "%{alias('swh::remote_service::objstorage::config::saam')}"
     filters_conf:
       - type: readonly
 
-swh::remote_service::objstorage::config::banco: &swh_objstorage_config_banco
+swh::remote_service::objstorage::config::banco:
   cls: remote
   args:
     url: "http://banco.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
@@ -1427,7 +1427,7 @@ swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azur
     objstorages:
       - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
       - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::uffizi::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
 
 swh::remote_service::objstorage::config::localhost:
   cls: remote
@@ -1436,10 +1436,10 @@ swh::remote_service::objstorage::config::localhost:
 
 
 # Storage backend configurations
-swh::remote_service::storage::config::uffizi:
+swh::remote_service::storage::config::saam:
   cls: remote
   args:
-    url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+    url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::azure:
   cls: remote
@@ -1465,9 +1465,9 @@ swh::remote_service::search::config::storage0:
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
 
 # Indexer backend configurations
-swh::remote_service::indexer::config::uffizi:
+swh::remote_service::indexer::config::saam:
   cls: remote
-  url: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
 
 swh::remote_service::indexer::config::azure:
   cls: remote
@@ -1718,7 +1718,7 @@ swh::deploy::deposit::e2e:archive: /usr/share/swh/icinga-plugins/data/deposit/je
 swh::deploy::deposit::e2e:metadata: /usr/share/swh/icinga-plugins/data/deposit/jesuisgpl.tgz.xml
 
 # e2e checks on vault
-swh::deploy::vault::e2e::storage: "http://uffizi.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
+swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
 swh::deploy::vault::e2e::webapp: "https://archive.softwareheritage.org"
 
 swh::deploy::deposit::sentry_swh_package: swh.deposit
@@ -2471,7 +2471,7 @@ memcached::server::max_memory: '5%'
 
 mountpoints:
   /srv/storage/space:
-    device: uffizi:/srv/storage/space
+    device: saam:/srv/storage/space
     fstype: nfs
     options:
       - rw
@@ -2483,7 +2483,7 @@ mountpoints:
       - x-systemd.automount
       - x-systemd.device-timeout=10
   /srv/softwareheritage/objects:
-    device: uffizi:/srv/softwareheritage/objects
+    device: saam:/srv/softwareheritage/objects
     fstype: nfs
     options:
       - rw
