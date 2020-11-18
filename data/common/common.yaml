@@ -1483,8 +1483,7 @@ swh::remote_service::scheduler::config::saatchi:
 # Vault backend configurations
 swh::remote_service::vault::config::azure:
   cls: remote
-  args:
-    url: "http://vangogh.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
+  url: "http://vangogh.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
 
 # End remote service configurations
 #####################################################################################################
@@ -1605,9 +1604,8 @@ swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 # Default cache (orangerie/orangeriedev) is a pathslicing objstorage
 swh::deploy::vault::config::cache:
   cls: pathslicing
-  args:
-    root: "%{hiera('swh::deploy::vault::cache')}"
-    slicing: "0:1/1:5"
+  root: "%{hiera('swh::deploy::vault::cache')}"
+  slicing: "0:1/1:5"
 
 swh::deploy::vault::sentry_swh_package: swh.vault
 swh::deploy::vault::sentry_environment: "%{alias('swh::deploy::environment')}"
@@ -1639,8 +1637,7 @@ swh::deploy::vault::config:
   cache: "%{alias('swh::deploy::vault::config::cache')}"
   vault:
     cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
+    db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
 
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
