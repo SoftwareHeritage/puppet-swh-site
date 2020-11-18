@@ -66,7 +66,7 @@ node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }
 
-node /^uffizi\.(internal\.)?softwareheritage\.org$/ {
+node /^(uffizi|saam)\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_storage_baremetal
 }
 
