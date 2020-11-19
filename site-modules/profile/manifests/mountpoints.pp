@@ -11,11 +11,17 @@ class profile::mountpoints {
       $mount_config = $config
     }
 
-    exec {"create ${mountpoint}":
-      creates => $mountpoint,
-      command => "mkdir -p ${mountpoint}",
-      path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
-    } -> file {$mountpoint:}
+    if pick($config['ensure'], 'present') == 'present' {
+      exec {"create ${mountpoint}":
+        creates => $mountpoint,
+        command => "mkdir -p ${mountpoint}",
+        path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+      } -> file {$mountpoint:}
+
+      $requires = [File[$mountpoint]]
+    } else {
+      $requires = []
+    }
 
     mount {
       default:
@@ -25,7 +31,7 @@ class profile::mountpoints {
         options => 'defaults';
       $mountpoint:
         *       => $mount_config,
-        require => File[$mountpoint],
+        require => $requires,
     }
   }
 }
