@@ -11,27 +11,22 @@ class profile::mountpoints {
       $mount_config = $config
     }
 
-    if pick($config['ensure'], 'present') == 'present' {
+    if pick($config['ensure'], 'present') != 'absent' {
       exec {"create ${mountpoint}":
         creates => $mountpoint,
         command => "mkdir -p ${mountpoint}",
         path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
-      } -> file {$mountpoint:}
-
-      $requires = [File[$mountpoint]]
-    } else {
-      $requires = []
-    }
-
-    mount {
-      default:
-        ensure  => present,
-        dump    => 0,
-        pass    => 0,
-        options => 'defaults';
-      $mountpoint:
-        *       => $mount_config,
-        require => $requires,
+      }
+      -> file {$mountpoint:}
+      -> mount {
+        default:
+          ensure  => present,
+          dump    => 0,
+          pass    => 0,
+          options => 'defaults';
+        $mountpoint:
+          *       => $mount_config,
+      }
     }
   }
 }
