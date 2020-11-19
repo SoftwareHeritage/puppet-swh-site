@@ -155,3 +155,122 @@ nginx::worker_processes: 32
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
+
+mountpoints:
+  # override default mountpoints
+  /srv/softwareheritage/objects:
+    # zfs mount: not in fstab
+    ensure: absent
+  /srv/storage/space:
+    # local mount
+    device: /dev/mapper/vg--data-uffizi--space
+    fstype: xfs
+    options:
+      - nofail
+  # local mountpoints
+  /srv/softwareheritage/objects-xfs/0:
+    device: /dev/mapper/vg--data-uffizi--data0
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/1:
+    device: /dev/mapper/vg--data-uffizi--data1
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/2:
+    device: /dev/mapper/vg--data-uffizi--data2
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/3:
+    device: /dev/mapper/vg--data-uffizi--data3
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/4:
+    device: /dev/mapper/vg--data-uffizi--data4
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/5:
+    device: /dev/mapper/vg--data-uffizi--data5
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/6:
+    device: /dev/mapper/vg--data-uffizi--data6
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/7:
+    device: /dev/mapper/vg--data-uffizi--data7
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/8:
+    device: /dev/mapper/vg--data-uffizi--data8
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/9:
+    device: /dev/mapper/vg--data-uffizi--data9
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/a:
+    device: /dev/mapper/vg--data-uffizi--dataa
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/b:
+    device: /dev/mapper/vg--data-uffizi--datab
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/c:
+    device: /dev/mapper/vg--data-uffizi--datac
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/d:
+    device: /dev/mapper/vg--data-uffizi--datad
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/e:
+    device: /dev/mapper/vg--data-uffizi--datae
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/softwareheritage/objects-xfs/f:
+    device: /dev/mapper/vg--data-uffizi--dataf
+    fstype: xfs
+    options:
+      - nofail
+      - ro
+  /srv/storage/content-replayer:
+    device: content-replayer-scratch
+    fstype: tmpfs
+    options:
+      - nodev
+      - nosuid
+      - noexec
+      - size=8G
+      - uid=swhworker
+      - gid=swhdev
