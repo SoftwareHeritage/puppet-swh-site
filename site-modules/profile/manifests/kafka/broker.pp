@@ -53,12 +53,16 @@ class profile::kafka::broker {
 
   $kafka_logdirs = lookup('kafka::logdirs', Array)
   $kafka_logdirs.each |$logdir| {
-    file {$logdir:
-      ensure  => directory,
-      owner   => 'kafka',
-      group   => 'kafka',
-      mode    => '0750',
-    } -> Service['kafka']
+    exec {"create ${logdir}":
+      creates => $logdir,
+      command => "mkdir -p ${logdir}",
+      path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+    } -> file {$logdir:
+      ensure => directory,
+      owner  => 'kafka',
+      group  => 'kafka',
+      mode   => '0750',
+    }
   }
 
   $do_tls = $kafka_cluster_config['tls']
