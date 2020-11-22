@@ -1,2 +1,4 @@
 ---
 swh::postgresql::shared_buffers: 128MB
+
+kafka::broker::heap_opts: "-Xmx512m -Xms512m"

@@ -86,17 +86,32 @@ swh::deploy::worker::loader_git::save_data_path: ""
 swh::deploy::worker::loader_git::concurrency: 1
 
 zookeeper::clusters:
-  rocquencourt:
+  rocquencourt_staging:
     '1': journal0.internal.staging.swh.network
 
+kafka::broker::heap_opts: "-Xmx3G -Xms3G"
+
 kafka::clusters:
-  rocquencourt:
+  rocquencourt_staging:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
       - journal0.internal.staging.swh.network
     brokers:
       journal0.internal.staging.swh.network:
         id: 1
+    broker::heap_opts: "%{alias('kafka::broker::heap_opts')}"
+    superusers:
+      - User:swh-admin-olasd
+      # Users connecting in the plaintext endpoint are ANONYMOUS
+      # TODO: remove when explicit ACLs are given to producers
+      - User:ANONYMOUS
+    tls: true
+    plaintext_port: 9092
+    public_tls_port: 9093
+    internal_tls_port: 9094
+    cluster_config_overrides:
+      offsets.topic.replication.factor: 1 # this is mandatory with only one node
+    # public_listener_network: 128.93.166.0/26
 
 swh::deploy::journal::brokers:
   - journal0.internal.staging.swh.network
@@ -211,14 +226,14 @@ swh::deploy::storage::config:
     args:
       db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
       objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  journal_writer:
-    cls: kafka
-    args:
-      brokers: "%{alias('swh::deploy::journal::brokers')}"
-      prefix: "%{alias('swh::deploy::journal::prefix')}"
-      client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
-      producer_config:
-        message.max.bytes: 1000000000
+      journal_writer:
+        cls: kafka
+        args:
+          brokers: "%{alias('swh::deploy::journal::brokers')}"
+          prefix: "%{alias('swh::deploy::journal::prefix')}"
+          client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
+          producer_config:
+            message.max.bytes: 1000000000
 
 ## Reverse-proxy and frontend
 
