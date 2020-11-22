@@ -84,6 +84,7 @@ class profile::kafka::broker {
       target       => $ks_location,
       password     => $ks_password,
       trustcacerts => true,
+      require      => Class['Java'],
     }
 
     $plaintext_port = $kafka_cluster_config['plaintext_port']
