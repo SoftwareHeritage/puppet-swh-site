@@ -1542,6 +1542,7 @@ swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaT
 
 swh::deploy::storage::sentry_swh_package: swh.storage
 swh::deploy::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::storage::sentry_dsn: "https://%{lookup('swh::deploy::storage::sentry_token')}@sentry.softwareheritage.org/3"
 swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
 swh::deploy::storage::user: swhstorage
@@ -1574,6 +1575,7 @@ swh::deploy::storage::config:
 
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::indexer::storage::sentry_dsn: "%{alias('swh::deploy::indexer::sentry_dsn')}"
 swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
@@ -1609,6 +1611,7 @@ swh::deploy::vault::config::cache:
 
 swh::deploy::vault::sentry_swh_package: swh.vault
 swh::deploy::vault::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::vault::sentry_dsn: "https://%{lookup('swh::deploy::vault::sentry_token')}@sentry.softwareheritage.org/11"
 swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
@@ -1666,6 +1669,7 @@ swh::deploy::journal_simple_checker_producer::config:
 
 swh::deploy::objstorage::sentry_swh_package: swh.objstorage
 swh::deploy::objstorage::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::objstorage::sentry_dsn: "https://%{lookup('swh::deploy::objstorage::sentry_token')}@sentry.softwareheritage.org/4"
 swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
 swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/server.yml"
 swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
@@ -1723,6 +1727,7 @@ swh::deploy::vault::e2e::webapp: "https://archive.softwareheritage.org"
 
 swh::deploy::deposit::sentry_swh_package: swh.deposit
 swh::deploy::deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::deposit::sentry_dsn: "https://%{lookup('swh::deploy::deposit::sentry_token')}@sentry.softwareheritage.org/12"
 swh::deploy::deposit::config_directory: "%{hiera('swh::conf_directory')}/deposit"
 swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_directory')}/server.yml"
 swh::deploy::deposit::user: swhdeposit
@@ -1838,6 +1843,7 @@ swh::deploy::deposit::backported_packages: "%{alias('swh::deploy::webapp::backpo
 
 swh::deploy::webapp::sentry_swh_package: swh.web
 swh::deploy::webapp::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::webapp::sentry_dsn: "https://%{lookup('swh::deploy::webapp::sentry_token')}@sentry.softwareheritage.org/13"
 swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
 swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
 swh::deploy::webapp::user: swhwebapp
@@ -1958,6 +1964,7 @@ swh::deploy::scheduler::config::local: &swh_scheduler_local_config
 
 swh::deploy::scheduler::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::scheduler::sentry_dsn: "https://%{lookup('swh::deploy::scheduler::sentry_token')}@sentry.softwareheritage.org/7"
 swh::deploy::scheduler::conf_file: "%{hiera('swh::conf_directory')}/scheduler.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
@@ -1977,6 +1984,7 @@ swh::deploy::scheduler::config:
 
 swh::deploy::scheduler::remote::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::remote::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::scheduler::remote::sentry_dsn: "%{alias('swh::deploy::scheduler::sentry_dsn')}"
 swh::deploy::scheduler::remote::conf_dir: "%{hiera('swh::conf_directory')}/backend"
 swh::deploy::scheduler::remote::conf_file: "%{hiera('swh::deploy::scheduler::remote::conf_dir')}/scheduler.yml"
 swh::deploy::scheduler::remote::user: swhscheduler
@@ -2038,6 +2046,7 @@ swh::deploy::worker::instances:
 
 swh::deploy::loader_git::sentry_swh_package: swh.loader.git
 swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::loader_git::sentry_dsn: "https://%{lookup('swh::deploy::loader_git::sentry_token')}@sentry.softwareheritage.org/8"
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 6
 swh::deploy::worker::loader_git::max_tasks_per_child: 100
@@ -2060,6 +2069,7 @@ swh::deploy::worker::loader_git::config:
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core
 swh::deploy::loader_core::sentry_environment: "%{hiera('swh::deploy::environment')}"
+swh::deploy::loader_core::sentry_dsn: "https://%{lookup('swh::deploy::loader_core::sentry_token')}@sentry.softwareheritage.org/9"
 
 swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
 swh::deploy::worker::loader_debian::private_tmp: true
@@ -2132,6 +2142,7 @@ swh::deploy::lister::db::local:
 
 swh::deploy::lister::sentry_swh_package: swh.lister
 swh::deploy::lister::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::lister::sentry_dsn: "https://%{lookup('swh::deploy::lister::sentry_token')}@sentry.softwareheritage.org/6"
 swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
 swh::deploy::worker::lister::concurrency: 5
 swh::deploy::worker::lister::loglevel: warning
@@ -2163,6 +2174,7 @@ swh::deploy::worker::lister::config:
 
 swh::deploy::loader_mercurial::sentry_swh_package: swh.loader.mercurial
 swh::deploy::loader_mercurial::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::loader_mercurial::sentry_dsn: "https://%{lookup('swh::deploy::loader_mercurial::sentry_token')}@sentry.softwareheritage.org/10"
 swh::deploy::worker::loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
 swh::deploy::worker::loader_mercurial::concurrency: 1
 swh::deploy::worker::loader_mercurial::private_tmp: true
@@ -2204,6 +2216,7 @@ swh::deploy::worker::loader_npm::config:
 
 swh::deploy::loader_svn::sentry_swh_package: swh.loader.svn
 swh::deploy::loader_svn::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::loader_svn::sentry_dsn: "https://%{lookup('swh::deploy::loader_svn::sentry_token')}@sentry.softwareheritage.org/14"
 swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
 swh::deploy::worker::loader_svn::concurrency: 1
 swh::deploy::worker::loader_svn::private_tmp: true
@@ -2234,6 +2247,7 @@ swh::deploy::indexer_journal_client::config:
 # for all indexers
 swh::deploy::indexer::sentry_swh_package: swh.indexer
 swh::deploy::indexer::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::indexer::sentry_dsn: "https://%{lookup('swh::deploy::indexer::sentry_token')}@sentry.softwareheritage.org/5"
 
 swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
 swh::deploy::worker::indexer_content_mimetype::concurrency: 1
@@ -4156,6 +4170,7 @@ borg::encryption: repokey-blake2
 
 swh::deploy::search::sentry_swh_package: swh.search
 swh::deploy::search::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::search::sentry_dsn: "https://%{lookup('swh::deploy::search::sentry_token')}@sentry.softwareheritage.org/15"
 swh::deploy::search::conf_directory: "%{hiera('swh::conf_directory')}"
 swh::deploy::search::conf_file: "%{hiera('swh::deploy::search::conf_directory')}/search.yml"
 swh::deploy::search::user: swhstorage
