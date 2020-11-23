@@ -1494,6 +1494,7 @@ swh::deploy::db::secondary::port: 5434
 swh::deploy::db::indexer::port: 5435
 
 swh::deploy::db::pgbouncer::user::login: postgres
+swh::deploy::db::pgbouncer::user::password: "%{alias('swh::deploy::db::postgres::password')}"
 
 pgbouncer::common::listen_addresses:
   - 127.0.0.1
