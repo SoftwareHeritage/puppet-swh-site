@@ -22,6 +22,9 @@ networks::private_routes: {}
 
 smtp::relay_hostname: 'none'
 
+swh::postgresql::network_accesses:
+  - 10.168.100.0/24
+
 swh::deploy::worker::instances:
   - checker_deposit
   - lister
