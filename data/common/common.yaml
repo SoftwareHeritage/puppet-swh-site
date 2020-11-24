@@ -732,6 +732,9 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+  journal0.internal.staging.swh.network:
+    domains:
+      - journal0.internal.staging.swh.network
   stats_export:
     domains:
       - stats.export.softwareheritage.org
