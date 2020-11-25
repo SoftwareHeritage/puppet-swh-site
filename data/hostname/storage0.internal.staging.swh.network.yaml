@@ -1,8 +1,0 @@
-networks:
-  eth0:
-    address: 192.168.130.40
-    netmask: 255.255.255.0
-    gateway: 192.168.130.1
-
-swh::postgres::service::users:
-  - swhstorage
