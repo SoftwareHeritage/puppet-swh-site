@@ -14,40 +14,40 @@ swh::deploy::storage::backend::max_requests_jitter: 500
 
 swh::deploy::storage::legacy_directory: /srv/softwareheritage/objects-xfs
 
-swh::deploy::storage::config:
-  storage:
-    cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-      objstorage:
-        cls: multiplexer
-        args:
-          objstorages:
-            - cls: pathslicing
-              args:
-                root: "%{hiera('swh::deploy::storage::directory')}"
-                slicing: "0:2/0:5"
-                compression: none
-            - cls: filtered
-              args:
-                storage_conf:
-                  cls: pathslicing
-                  args:
-                    root: "%{hiera('swh::deploy::storage::legacy_directory')}"
-                    slicing: "0:1/0:2/2:4/4:6"
-                    compression: gzip
-                filters_conf:
-                  - type: readonly
-            - "%{alias('swh::remote_service::objstorage::config::azure')}"
-      journal_writer:
-        cls: kafka
-        args:
-          brokers: "%{alias('swh::deploy::journal::brokers')}"
-          prefix: "%{alias('swh::deploy::journal::prefix')}"
-          client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
-          anonymize: true
-          producer_config:
-            message.max.bytes: 1000000000
+swh::deploy::storage::config::local:
+  cls: local
+  args:
+    db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+    objstorage:
+      cls: multiplexer
+      args:
+        objstorages:
+          - cls: pathslicing
+            args:
+              root: "%{hiera('swh::deploy::storage::directory')}"
+              slicing: "0:2/0:5"
+              compression: none
+          - cls: filtered
+            args:
+              storage_conf:
+                cls: pathslicing
+                args:
+                  root: "%{hiera('swh::deploy::storage::legacy_directory')}"
+                  slicing: "0:1/0:2/2:4/4:6"
+                  compression: gzip
+              filters_conf:
+                - type: readonly
+          - "%{alias('swh::remote_service::objstorage::config::azure')}"
+    journal_writer:
+      cls: kafka
+      args:
+        brokers: "%{alias('swh::deploy::journal::brokers')}"
+        prefix: "%{alias('swh::deploy::journal::prefix')}"
+        client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
+        anonymize: true
+        producer_config:
+          message.max.bytes: 1000000000
+
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0

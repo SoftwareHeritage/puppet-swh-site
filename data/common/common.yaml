@@ -1570,12 +1570,10 @@ swh::deploy::storage::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
+
+swh::deploy::storage::config::local: {}   # to be defined per storage node
 swh::deploy::storage::config:
-  storage:
-    cls: local
-    args:
-      db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-      objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::deploy::storage::config::local')}"
 
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
