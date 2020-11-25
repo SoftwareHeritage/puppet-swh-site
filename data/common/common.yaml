@@ -1584,6 +1584,14 @@ swh::deploy::journal::writer::config:
     anonymize: true
     producer_config:
       message.max.bytes: 1000000000
+
+swh::deploy::journal::backfill::config_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill.yml"
+swh::deploy::journal::backfill::user: swhstorage
+swh::deploy::journal::backfill::group: swhstorage
+swh::deploy::journal::backfill::config:
+  storage: "%{alias('swh::deploy::storage::config::local')}"
+  journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
+
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::indexer::storage::sentry_dsn: "%{alias('swh::deploy::indexer::sentry_dsn')}"

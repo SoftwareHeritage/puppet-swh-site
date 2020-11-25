@@ -153,6 +153,7 @@ node 'gateway.internal.staging.swh.network' {
 node /^storage\d\.internal\.staging\.swh\.network$/ {
   include role::swh_base_storage
   include profile::postgresql::client
+  include profile::swh::deploy::journal::backfill
 }
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
