@@ -38,16 +38,7 @@ swh::deploy::storage::config::local:
               filters_conf:
                 - type: readonly
           - "%{alias('swh::remote_service::objstorage::config::azure')}"
-    journal_writer:
-      cls: kafka
-      args:
-        brokers: "%{alias('swh::deploy::journal::brokers')}"
-        prefix: "%{alias('swh::deploy::journal::prefix')}"
-        client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
-        anonymize: true
-        producer_config:
-          message.max.bytes: 1000000000
-
+    journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
 
 # Deploy the indexer storage server as a public resource
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
