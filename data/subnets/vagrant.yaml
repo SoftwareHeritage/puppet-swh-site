@@ -47,9 +47,9 @@ netbox::mail::from: inventory+vagrant@softwareheritage.org
 netbox::admin::email: sysop+vagrant@softwareheritage.org
 
 static_hostnames:
-  10.168.100.18: 
+  10.168.100.18:
     host: banco.internal.softwareheritage.org
-    aliases: 
+    aliases:
       - backup.internal.softwareheritage.org
       - kibana.internal.softwareheritage.org
   10.168.100.19:
@@ -58,7 +58,7 @@ static_hostnames:
       - logstash.internal.softwareheritage.org
   10.168.100.29:
     host: pergamon.internal.softwareheritage.org
-    aliases: 
+    aliases:
       - icinga.internal.softwareheritage.org
       - grafana.softwareheritage.org
       - stats.export.softwareheritage
@@ -71,7 +71,7 @@ static_hostnames:
       - deposit.internal.softwareheritage.org
   10.168.100.52:
     host: riverside.internal.softwareheritage.org
-    aliases: 
+    aliases:
       - sentry.softwareheritage.org
   10.168.100.61:
     host: esnode1.internal.softwareheritage.org
@@ -81,7 +81,7 @@ static_hostnames:
     host: esnode3.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
-    aliases: 
+    aliases:
       - rabbitmq.internal.softwareheritage.org
   10.168.100.106:
     host: kelvingrove.internal.softwareheritage.org
@@ -89,6 +89,12 @@ static_hostnames:
       - auth.softwareheritage.org
   10.168.100.109:
     host: saam.internal.softwareheritage.org
+  10.168.100.131:
+    host: zookeeper1.internal.softwareheritage.org
+  10.168.100.132:
+    host: zookeeper2.internal.softwareheritage.org
+  10.168.100.133:
+    host: zookeeper3.internal.softwareheritage.org
   10.168.100.210:
     host: belvedere.internal.softwareheritage.org
     aliases:
@@ -111,3 +117,5 @@ static_hostnames:
     host: vault.internal.staging.swh.network
   10.168.130.70:
     host: journal0.internal.staging.swh.network
+  10.168.130.80:
+    host: search-esnode0.internal.staging.swh.network

@@ -2857,6 +2857,21 @@ elasticsearch::hosts:
     - http://esnode2.internal.softwareheritage.org:9200
     - http://esnode3.internal.softwareheritage.org:9200
 
+elasticsearch::jvm_options:
+  - "-Xms%{lookup('elasticsearch::jvm_options::heap_size')}"
+  - "-Xmx%{lookup('elasticsearch::jvm_options::heap_size')}"
+
+elasticsearch::config::path::data: /srv/elasticsearch
+elasticsearch::config::path::logs: /var/log/elasticsearch
+
+elasticsearch::config:
+  cluster.name: "%{alias('elasticsearch::config::cluster::name')}"
+  node.name: "%{::hostname}"
+  discovery.seed_hosts: "%{alias('elasticsearch::config::discovery::seed_hosts')}"
+  cluster.initial_master_nodes: "%{alias('elasticsearch::config::cluster::initial_master_nodes')}"
+  path.data: "%{alias('elasticsearch::config::path::data')}"
+  path.logs: "%{alias('elasticsearch::config::path::logs')}"
+
 logstash::listen_network: "%{lookup('internal_network')}"
 logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
 

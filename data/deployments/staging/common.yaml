@@ -244,3 +244,16 @@ varnish::http_port: 80
 apache::http_port: 9080
 # Disable default vhost on port 80
 apache::default_vhost: false
+
+# Elasticsearch
+
+elastic::elk_version: '7.9.3'
+
+elasticsearch::config::cluster::name: swh-search
+
+elasticsearch::config::discovery::seed_hosts:
+  - search-esnode0.internal.staging.swh.network
+elasticsearch::config::cluster::initial_master_nodes:
+  - search-esnode0
+
+elasticsearch::jvm_options::heap_size: 8g

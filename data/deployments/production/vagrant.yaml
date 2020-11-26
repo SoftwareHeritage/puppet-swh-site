@@ -1,0 +1,1 @@
+elasticsearch::jvm_options::heap_size: 512m

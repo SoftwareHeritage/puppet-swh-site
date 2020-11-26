@@ -2,48 +2,80 @@
 
 class profile::elasticsearch {
 
-  user { 'elasticsearch':
-    ensure => 'present',
-    uid    => '114',
-    gid    => '119',
-    home   => '/home/elasticsearch',
-    shell  => '/bin/false',
-  }
-
-  package { 'openjdk-8-jre-headless':
-    ensure => 'present',
-  }
-
   include ::profile::elastic::apt_config
 
+  $elasticsearch_config = lookup('elasticsearch::config')
+  $elasticsearch_extra_config = lookup('elasticsearch::config::extras', {default_value => {}})
   $version = lookup('elastic::elk_version')
 
-  package { 'elasticsearch':
-    ensure => $version,
-  }
+  $path_data = lookup('elasticsearch::config::path::data')
+  $jvm_options = lookup('elasticsearch::jvm_options')
+
 
   apt::pin { 'elasticsearch':
     packages => 'elasticsearch elasticsearch-oss',
-    version => $version,
+    version  => $version,
     priority => 1001,
+  } -> package { 'elasticsearch':
+    ensure  => $version,
+    require => [
+      Class['::profile::elastic::apt_config']
+    ]
   }
 
-  # hybridfs is the best of both worlds between niofs and mmapfs. It's the ES
-  # 7.x default.
-  file_line { 'elasticsearch store type':
-    ensure => present,
-    line   => 'index.store.type: hybridfs',
-    match  => '^(#\s*)?index\.store\.type:',
-    path   => '/etc/elasticsearch/elasticsearch.yml',
+  file { $path_data:
+    ensure  => 'directory',
+    owner   => 'elasticsearch',
+    group   => 'elasticsearch',
+    mode    => '2755',
+    require => Package['elasticsearch']
+  }
+
+  $config = $elasticsearch_config + $elasticsearch_extra_config + {
+    'network.host' => ip_for_network(lookup('internal_network'))
+  }
+
+  file { '/etc/elasticsearch/elasticsearch.yml':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => inline_yaml($config),
+    require => Package['elasticsearch'],
+    notify  => Service['elasticsearch'],
+  }
+
+  concat {'es_jvm_options':
+    ensure         => present,
+    path           => '/etc/elasticsearch/jvm.options.d/jvm.options',
+    owner          => 'root',
+    group          => 'root',
+    mode           => '0644',
+    ensure_newline => true,
+    require        => Package['elasticsearch'],
+    notify         => Service['elasticsearch'],
+  }
+
+  $jvm_options.each |$index, $option| {
+    concat::fragment {"${index}_es_jvm_option":
+      target  => 'es_jvm_options',
+      content => $option,
+      order   => '00',
+    }
   }
 
   systemd::dropin_file { 'elasticsearch.conf':
-    unit   => 'elasticsearch.service',
-    content  => template('profile/swh/elasticsearch.conf.erb'),
+    unit    => 'elasticsearch.service',
+    content => template('profile/swh/elasticsearch.conf.erb'),
+    notify  => Service['elasticsearch'],
   }
 
   service { 'elasticsearch':
-    ensure => running,
-    enable => true,
+    ensure  => running,
+    enable  => true,
+    require => [
+      Package['elasticsearch'],
+      File[$path_data],
+    ],
   }
 }

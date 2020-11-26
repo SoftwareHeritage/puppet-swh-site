@@ -39,7 +39,7 @@ node 'banco.softwareheritage.org' {
 }
 
 node /^esnode\d+.(internal.)?softwareheritage.org$/ {
-  include role::swh_elasticsearch
+  include role::swh_elasticsearch_broker
 }
 
 node /^zookeeper\d+.(internal.)?softwareheritage.org$/ {
@@ -158,6 +158,10 @@ node /^storage\d\.internal\.staging\.swh\.network$/ {
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
   include role::swh_worker_inria
+}
+
+node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
+  include role::swh_elasticsearch
 }
 
 node 'webapp.internal.staging.swh.network' {

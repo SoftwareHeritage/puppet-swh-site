@@ -1,3 +1,19 @@
 swh::deploy::deposit::reverse_proxy::backend_http_host: "::1"
 swh::deploy::webapp::reverse_proxy::backend_http_host: "::1"
 
+elasticsearch::config::cluster::name: swh-logging-prod
+elasticsearch::config::discovery::seed_hosts:
+  - esnode1.internal.softwareheritage.org
+  - esnode2.internal.softwareheritage.org
+  - esnode3.internal.softwareheritage.org
+elasticsearch::config::cluster::initial_master_nodes:
+  - esnode1
+  - esnode2
+  - esnode3
+
+elasticsearch::config::extras:
+  indices.memory.index_buffer_size: 50%
+  index.store.type: hybridfs
+
+elasticsearch::jvm_options::heap_size: 16g
+
