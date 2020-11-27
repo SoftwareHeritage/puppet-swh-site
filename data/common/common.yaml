@@ -1627,6 +1627,17 @@ swh::deploy::indexer::storage::config:
     cls: local
     db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
 
+swh::deploy::indexer::journal::prefix: 'swh.journal.indexed'
+swh::deploy::indexer::brokers: "%{alias('swh::deploy::journal::brokers')}"
+
+swh::deploy::indexer::journal::writer::config:
+  cls: kafka
+  brokers: "%{alias('swh::deploy::indexer::brokers')}"
+  prefix: "%{alias('swh::deploy::indexer::journal::prefix')}"
+  client_id: "swh.idx_storage.journal_writer.%{::swh_hostname.short}"
+  producer_config:
+    message.max.bytes: 1000000000
+
 swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
 # Default cache (orangerie/orangeriedev) is a pathslicing objstorage
 swh::deploy::vault::config::cache:

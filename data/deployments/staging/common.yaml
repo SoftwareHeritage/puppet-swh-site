@@ -218,6 +218,12 @@ swh::deploy::storage::backend::max_requests_jitter: 10
 swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
 swh::deploy::indexer::storage::backend::workers: 4
 
+swh::deploy::indexer::storage::config:
+  indexer_storage:
+    cls: local
+    db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+    journal_writer: "%{alias('swh::deploy::indexer::journal::writer::config')}"
+
 nginx::worker_processes: 4
 
 ## Reverse-proxy and frontend
