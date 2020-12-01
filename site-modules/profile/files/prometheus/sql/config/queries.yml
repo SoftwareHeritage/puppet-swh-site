@@ -222,6 +222,7 @@
           COALESCE(analyze_count, 0)::float AS analyze_count,
           COALESCE(autoanalyze_count, 0)::float AS autoanalyze_count
           FROM pg_stat_user_tables FULL JOIN (VALUES(0)) filler(i) ON TRUE
+          WHERE schemaname not like 'pg_temp%'
 
 - name: "pg_statio_user_tables"
   help: "IO statistics"
@@ -245,6 +246,7 @@
           COALESCE(idx_blks_read::float, 0) AS idx_blks_read,
           COALESCE(idx_blks_hit::float, 0) AS idx_blks_hit
           FROM pg_statio_user_tables FULL JOIN (VALUES(0)) filler(i) ON TRUE
+          WHERE schemaname not like 'pg_temp%'
 
 - name: "BufferAccess"
   help: "buffer access statistics"
@@ -269,6 +271,7 @@
           + COALESCE(tidx_blks_hit, 0)
           + COALESCE(tidx_blks_read, 0)) * 8192::bigint as reads
           FROM pg_statio_user_tables FULL JOIN (VALUES(0)) filler(i) ON TRUE
+          WHERE schemaname not like 'pg_temp%'
           GROUP BY 1, 2, 3
 
 - name: "Maintenancecounters"
@@ -289,3 +292,4 @@
           COALESCE(SUM(analyze_count), 0) analyze_count,
           COALESCE(SUM(autoanalyze_count), 0) autoanalyze_count
           FROM pg_stat_user_tables
+          WHERE schemaname not like 'pg_temp%'
