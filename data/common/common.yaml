@@ -2281,6 +2281,7 @@ swh::deploy::indexer_journal_client::config:
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client
+    prefix: "%{alias('swh::deploy::journal::prefix')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
 
 # for all indexers
