@@ -5,23 +5,23 @@ class profile::icinga2::objects::static_checks {
 
   ::icinga2::object::host {'www.softwareheritage.org':
     import        => ['generic-host'],
-    check_command => 'hostalive4',
+    check_command => 'dummy',
     address       => 'www.softwareheritage.org',
     target        => $checks_file,
     vars          => {
-      ping_wrta => 150,
-      ping_crta => 300,
+      dummy_state => 0,  # up
+      dummy_text  => "HTTP-only host",
     },
   }
 
   ::icinga2::object::host {'softwareheritage.org':
     import        => ['generic-host'],
-    check_command => 'hostalive4',
+    check_command => 'dummy',
     address       => 'softwareheritage.org',
     target        => $checks_file,
     vars          => {
-      ping_wrta => 150,
-      ping_crta => 300,
+      dummy_state => 0,  # up
+      dummy_text  => "HTTP-only host",
     },
   }
 
@@ -53,9 +53,13 @@ class profile::icinga2::objects::static_checks {
   }
 
   ::icinga2::object::host {'swh-logging-prod':
-    check_command => 'hostalive4',
+    check_command => 'dummy',
     address       => '127.0.0.1',
     target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "virtual host for clustered checks",
+    },
   }
 
   ::icinga2::object::service {'swh-logging-prod cluster':
@@ -71,9 +75,13 @@ class profile::icinga2::objects::static_checks {
   }
 
   ::icinga2::object::host {'DNS resolvers':
-    check_command => 'hostalive4',
+    check_command => 'dummy',
     address       => '127.0.0.1',
     target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "virtual host for clustered checks",
+    },
   }
 
   ::icinga2::object::service {'SOA':
