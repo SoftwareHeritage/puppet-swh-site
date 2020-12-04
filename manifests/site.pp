@@ -164,6 +164,10 @@ node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
   include role::swh_elasticsearch
 }
 
+node /^search\d\.internal\.staging\.swh\.network$/ {
+  include role::swh_search
+}
+
 node 'webapp.internal.staging.swh.network' {
   include role::swh_webapp
 }

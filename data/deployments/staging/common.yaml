@@ -258,3 +258,17 @@ elasticsearch::config::cluster::initial_master_nodes:
 
 elasticsearch::jvm_options::heap_size: 8g
 elasticsearch::config::prometheus::indices: true
+
+swh::elasticsearch::nodes:
+  - host: search-esnode0.internal.staging.swh.network
+    port: 9200
+
+swh::deploy::search::backend::listen::host: 0.0.0.0
+swh::remote_service::search::config:
+  cls: remote
+  url: "http://search0.internal.staging.swh.network:%{hiera('swh::remote_service::search::port')}/"
+
+# The webapp can query elasticsearch to get some info related to scheduler
+# tasks associated to save code now request. Modifying this so the staging
+# webapp does not access the production indexes
+swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.internal.staging.swh.network:9200/swh_workers-*

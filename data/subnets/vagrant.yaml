@@ -119,3 +119,5 @@ static_hostnames:
     host: journal0.internal.staging.swh.network
   10.168.130.80:
     host: search-esnode0.internal.staging.swh.network
+  10.168.130.90:
+    host: search0.internal.staging.swh.network
