@@ -1,0 +1,18 @@
+# Search Journal Client unit file
+# Managed by puppet class profile::swh::deploy::search_journal_client
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Search Journal Client
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/swh search --config-file <%= @config_path %> journal-client objects
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

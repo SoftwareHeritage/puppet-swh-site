@@ -165,7 +165,7 @@ node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
 }
 
 node /^search\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_search
+  include role::swh_search_with_journal_client
 }
 
 node 'webapp.internal.staging.swh.network' {
