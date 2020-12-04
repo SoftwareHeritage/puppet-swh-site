@@ -14,6 +14,7 @@ class profile::unbound {
 
     $forwarders = lookup('dns::forwarders')
     $forward_zones = lookup('dns::forward_zones')
+    $disable_local_zones = lookup('dns::disable_local_zones')
     $insecure = lookup('dns::forwarder_insecure')
 
     package {$package:
@@ -35,7 +36,7 @@ class profile::unbound {
 
     Service[$service] -> File['/etc/resolv.conf']
 
-    # uses variables $forwarders, $forward_zones
+    # uses variables $forwarders, $forward_zones, $disable_local_zones
     file {$forwarders_file:
       ensure  => present,
       owner   => 'root',

@@ -1,5 +1,12 @@
 # File managed by puppet (class profile::unbound), all changes will be lost
 
+<% if not @disable_local_zones.empty? %>
+server:
+<% @disable_local_zones.each do |local_zone| -%>
+  local_zone: "<%= local_zone %>" nodefault
+<% end -%>
+<% end %>
+
 <% if not @forwarders.empty? -%>
 forward-zone:
     name: "."
@@ -13,8 +20,5 @@ forward-zone:
     name: "<%= zone %>"
 <% forwarders.each do |forwarder| -%>
     forward-addr: <%= forwarder %>
-<% end -%>
-<% if zone.end_with?("in-addr.arpa.") -%>
-server: local-zone: "<%= zone %>" nodefault
 <% end -%>
 <% end -%>

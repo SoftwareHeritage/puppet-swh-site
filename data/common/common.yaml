@@ -9,6 +9,9 @@ dns::search_domains:
   - internal.softwareheritage.org
   - softwareheritage.org
 
+dns::disable_local_zones:
+  - '168.192.in-addr.arpa.'
+
 dns::forward_zones:
   'internal.softwareheritage.org.': "%{alias('dns::local_nameservers')}"
   '100.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
