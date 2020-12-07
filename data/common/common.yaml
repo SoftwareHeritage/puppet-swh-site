@@ -2866,6 +2866,8 @@ elasticsearch::jvm_options:
 
 elasticsearch::config::path::data: /srv/elasticsearch
 elasticsearch::config::path::logs: /var/log/elasticsearch
+elasticsearch::config::http::port: 9200
+elasticsearch::config::prometheus::indices: false
 
 elasticsearch::config:
   cluster.name: "%{alias('elasticsearch::config::cluster::name')}"
@@ -2874,6 +2876,8 @@ elasticsearch::config:
   cluster.initial_master_nodes: "%{alias('elasticsearch::config::cluster::initial_master_nodes')}"
   path.data: "%{alias('elasticsearch::config::path::data')}"
   path.logs: "%{alias('elasticsearch::config::path::logs')}"
+  http.port: "%{alias('elasticsearch::config::http::port')}"
+  prometheus.indices: "%{alias('elasticsearch::config::prometheus::indices')}"
 
 logstash::listen_network: "%{lookup('internal_network')}"
 logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
@@ -4291,3 +4295,5 @@ opnsense::hosts:
     ip: 192.168.100.128
 opnsense::prometheus::port: 9100
 opnsense::prometheus::metrics_path: /metrics
+
+prometheus::elasticsearch::exporter::version: "%{lookup('elastic::elk_version')}.0"

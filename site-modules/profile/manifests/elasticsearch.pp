@@ -11,6 +11,9 @@ class profile::elasticsearch {
   $path_data = lookup('elasticsearch::config::path::data')
   $jvm_options = lookup('elasticsearch::jvm_options')
 
+  # for the prometheus exporter
+  $elasticsearch_http_port = lookup('elasticsearch::config::http::port')
+  $elasticsearch_cluster_name = lookup('elasticsearch::config::cluster::name')
 
   apt::pin { 'elasticsearch':
     packages => 'elasticsearch elasticsearch-oss',
@@ -77,5 +80,14 @@ class profile::elasticsearch {
       Package['elasticsearch'],
       File[$path_data],
     ],
+  }
+
+  include profile::prometheus::elasticsearch
+
+  profile::prometheus::export_scrape_config {"elasticsearch_${::fqdn}":
+    job          => 'elasticsearch',
+    target       => "${::fqdn}:${elasticsearch_http_port}",
+    scheme       => 'http',
+    metrics_path => '/_prometheus/metrics',
   }
 }
