@@ -4249,16 +4249,35 @@ swh::deploy::search::config:
     args:
       hosts: "%{alias('swh::elasticsearch::nodes')}"
 
-swh::deploy::search_journal_client::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client.yml"
-swh::deploy::search_journal_client::config:
+swh::deploy::search::journal_client::service_types:
+  - objects
+  - indexed
+
+swh::deploy::search::journal_client::objects::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client_objects.yml"
+swh::deploy::search::journal_client::objects::config:
   search:
     cls: elasticsearch
-    args:
-      hosts: "%{alias('swh::elasticsearch::nodes')}"
+    hosts: "%{alias('swh::elasticsearch::nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.search.journal_client
-    prefix: "%{alias('swh::deploy::journal::prefix')}"
+    prefix: swh.journal.objects
+    object_types:
+      - origin
+      - origin_visit
+      - origin_visit_status
+
+swh::deploy::search::journal_client::indexed::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client_indexed.yml"
+swh::deploy::search::journal_client::indexed::config:
+  search:
+    cls: elasticsearch
+    hosts: "%{alias('swh::elasticsearch::nodes')}"
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.search.journal_client
+    prefix: swh.journal.indexed
+    object_types:
+      - origin_intrinsic_metadata
 
 swh::deploy::search::backend::listen::host: 127.0.0.1
 swh::deploy::search::backend::listen::port: "%{alias('swh::remote_service::search::port')}"
