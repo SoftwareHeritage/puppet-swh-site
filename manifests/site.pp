@@ -58,10 +58,6 @@ node 'granet.internal.softwareheritage.org' {
   include role::swh_graph_backend
 }
 
-node /^(unibo-test).(internal.)?softwareheritage.org$/ {
-  include role::swh_vault_test
-}
-
 node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }
