@@ -1207,6 +1207,9 @@ swh::apt_config::backported_packages:
     - systemd-tests
     - udev
     - udev-udeb
+    # python3-msgpack 1.0 breaks the older versions of borgbackup
+    - borgbackup
+    # Needed for some swh packages
     - python3-typing-extensions
 
 debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
