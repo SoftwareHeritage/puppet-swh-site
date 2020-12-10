@@ -2502,6 +2502,7 @@ icinga2::host::vars:
 icinga2::disk::excludes:
   - ^/srv/containers/
   - ^/var/lib/docker/overlay2/
+  - ^/var/lib/docker/buildkit/
   - ^/run/schroot/
 
 icinga2::apiusers:
