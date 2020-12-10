@@ -256,7 +256,7 @@ elasticsearch::config::discovery::seed_hosts:
 elasticsearch::config::cluster::initial_master_nodes:
   - search-esnode0
 
-elasticsearch::jvm_options::heap_size: 8g
+elasticsearch::jvm_options::heap_size: 16g
 elasticsearch::config::prometheus::indices: true
 
 swh::elasticsearch::nodes:
