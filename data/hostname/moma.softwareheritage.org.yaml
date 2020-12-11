@@ -13,6 +13,7 @@ backups::exclude:
   - var/lib/rabbitmq
 
 swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::backend::workers: 16
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
