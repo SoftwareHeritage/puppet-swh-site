@@ -737,6 +737,7 @@ letsencrypt::certificates:
       - deposit-rp.internal.staging.swh.network
   journal0.internal.staging.swh.network:
     domains:
+      - broker0.journal.staging.swh.network
       - journal0.internal.staging.swh.network
   stats_export:
     domains:

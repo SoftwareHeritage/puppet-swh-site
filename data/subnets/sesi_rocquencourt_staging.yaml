@@ -21,3 +21,5 @@ ntp::servers:
 internal_network: 192.168.130.0/24
 
 smtp::relay_hostname: 'smtp.inria.fr'
+
+kafka::cluster::public_network: 192.168.130.0/24
