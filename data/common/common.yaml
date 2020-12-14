@@ -158,22 +158,27 @@ timezone: Etc/UTC
 
 packages:
   - acl
+  - curl
+  - dstat
   - etckeeper
+  - fish
   - git
   - htop
+  - iotop
   - ipython3
   - molly-guard
   - moreutils
   - ncdu
+  - netcat-openbsd
   - nfs-common
   - python3
   - python3-yaml
   - ruby-filesystem
   - strace
+  - tcpdump
   - tmux
   - vim
   - zsh
-  - fish
   - zstd
 
 packages::desktop:
