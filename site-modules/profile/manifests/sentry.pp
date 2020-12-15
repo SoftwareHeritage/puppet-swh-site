@@ -58,11 +58,6 @@ class profile::sentry {
   $postgres_user = lookup('sentry::postgres::user')
   $postgres_password = lookup('sentry::postgres::password')
 
-  # kafka
-  $kafka_clusters = lookup('kafka::clusters', Hash)
-  $kafka_cluster = lookup('sentry::kafka_cluster')
-  $kafka_bootstrap_servers = $kafka_clusters[$kafka_cluster]['brokers'].keys.join(',')
-
   #####
   file {$config_py:
     ensure => present,
@@ -75,10 +70,9 @@ class profile::sentry {
   }
 
   file_line {'sentry_environment_kafka':
-    ensure  => present,
+    ensure  => absent,
     path    => "${onpremise_dir}/.env",
     match   => '^DEFAULT_BROKERS=',
-    line    => "DEFAULT_BROKERS=${kafka_bootstrap_servers}",
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }

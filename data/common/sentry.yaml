@@ -7,8 +7,6 @@ sentry::postgres::dbname: sentry
 sentry::postgres::user: sentry
 # sentry::postgres::password in private-data
 
-sentry::kafka_cluster: rocquencourt_legacy
-
 sentry::admin_email: sysop+sentry@softwareheritage.org
 
 sentry::mail::host: "%{lookup('smtp::relay_hostname')}"
