@@ -39,12 +39,6 @@ mail.from: '<%= @mail_from %>'
 # A new key can be generated with `$ sentry config generate-secret-key`
 system.secret-key: '<%= @secret_key %>'
 
-# Sentry URL prefix
-system.url-prefix: 'https://<%= @vhost_name %>'
-
-# Sentry admin email address
-system.admin-email: '<%= @admin_email %>'
-
 # The ``redis.clusters`` setting is used, unsurprisingly, to configure Redis
 # clusters. These clusters can be then referred to by name when configuring
 # backends such as the cache, digests, or TSDB backend.
@@ -98,6 +92,16 @@ transaction-events.force-disable-internal-project: true
 #   privatekeyprivatekeyprivatekeyprivatekey
 #   privatekeyprivatekeyprivatekeyprivatekey
 #   -----END RSA PRIVATE KEY-----
+
+########################
+# SWH config overrides #
+########################
+
+# Sentry URL prefix
+system.url-prefix: 'https://<%= @vhost_name %>'
+
+# Sentry admin email address
+system.admin-email: '<%= @admin_email %>'
 
 # Report full data via the sentry beacon
 # Docs: https://docs.sentry.io/server/beacon/
