@@ -76,11 +76,13 @@ class profile::sentry {
   }
 
   file_line {'sentry_environment_kafka':
-    ensure  => absent,
-    path    => "${onpremise_dir}/.env",
-    match   => '^DEFAULT_BROKERS=',
-    require => Vcsrepo[$onpremise_dir],
-    notify  => Exec['run sentry-onpremise install.sh'],
+    ensure            => absent,
+    path              => "${onpremise_dir}/.env",
+    match             => '^DEFAULT_BROKERS=',
+    match_for_absence => true,
+    multiple          => true,
+    require           => Vcsrepo[$onpremise_dir],
+    notify            => Exec['run sentry-onpremise install.sh'],
   }
 
   $onpremise_flag = "${onpremise_dir}-installed"
