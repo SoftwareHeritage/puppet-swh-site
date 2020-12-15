@@ -16,6 +16,12 @@ class profile::sentry {
       File_Line['sentry_environment_kafka'],
       Exec['run sentry-onpremise install.sh'],
     ],
+  } ->
+  file {$onpremise_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
   }
 
   $requirements_file = "${onpremise_dir}/sentry/requirements.txt"
@@ -43,7 +49,7 @@ class profile::sentry {
     ensure => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0600',
+    mode    => '0644',
     content => template('profile/sentry/config.yml.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
@@ -63,7 +69,7 @@ class profile::sentry {
     ensure => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0600',
+    mode    => '0644',
     content => template('profile/sentry/sentry.conf.py.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
