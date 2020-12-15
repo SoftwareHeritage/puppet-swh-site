@@ -28,6 +28,8 @@ class profile::sentry {
   $config_yml = "${onpremise_dir}/sentry/config.yml"
   $config_py = "${onpremise_dir}/sentry/sentry.conf.py"
   $relay_credentials_json = "${onpremise_dir}/relay/credentials.json"
+  $relay_config_yml = "${onpremise_dir}/relay/config.yml"
+  $symbolicator_config_yml = "${onpremise_dir}/symbolicator/config.yml"
 
   file {$requirements_file:
     ensure  => present,
@@ -52,6 +54,26 @@ class profile::sentry {
     group   => 'root',
     mode    => '0644',
     content => template('profile/sentry/config.yml.erb'),
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
+  file {$relay_config_yml:
+    ensure => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/sentry/relay.yml.erb'),
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
+  file {$symbolicator_config_yml:
+    ensure => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/sentry/symbolicator.yml.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }
