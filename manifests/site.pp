@@ -39,7 +39,7 @@ node 'banco.softwareheritage.org' {
 }
 
 node /^esnode\d+.(internal.)?softwareheritage.org$/ {
-  include role::swh_elasticsearch_broker
+  include role::swh_elasticsearch
 }
 
 node /^zookeeper\d+.(internal.)?softwareheritage.org$/ {
