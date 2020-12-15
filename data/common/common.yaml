@@ -2903,29 +2903,6 @@ kibana::config:
   elasticsearch.hosts: "%{alias('elasticsearch::hosts')}"
   kibana.index: .kibana
 
-# sentry::secret_key in private-data
-
-sentry::postgres::host: db.internal.softwareheritage.org
-sentry::postgres::port: 5432
-sentry::postgres::dbname: sentry
-sentry::postgres::user: sentry
-# sentry::postgres::password in private-data
-
-sentry::kafka_cluster: rocquencourt_legacy
-
-sentry::admin_email: sysop+sentry@softwareheritage.org
-
-sentry::mail::host: "%{lookup('smtp::relay_hostname')}"
-sentry::mail::from: sentry@softwareheritage.org
-
-sentry::backend::url: http://riverside.internal.softwareheritage.org:9000/
-
-sentry::vhost::name: sentry.softwareheritage.org
-sentry::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-
 # puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
 # until then (https://github.com/treydock/puppet-module-keycloak/pull/154)
 keycloak::version: 10.0.2
