@@ -27,6 +27,7 @@ class profile::sentry {
   $requirements_file = "${onpremise_dir}/sentry/requirements.txt"
   $config_yml = "${onpremise_dir}/sentry/config.yml"
   $config_py = "${onpremise_dir}/sentry/sentry.conf.py"
+  $relay_credentials_json = "${onpremise_dir}/relay/credentials.json"
 
   file {$requirements_file:
     ensure  => present,
@@ -64,6 +65,10 @@ class profile::sentry {
   $postgres_user = lookup('sentry::postgres::user')
   $postgres_password = lookup('sentry::postgres::password')
 
+
+  # relay
+  $relay_public_key = lookup('sentry::relay::public_key')
+
   #####
   file {$config_py:
     ensure => present,
@@ -71,6 +76,19 @@ class profile::sentry {
     group   => 'root',
     mode    => '0644',
     content => template('profile/sentry/sentry.conf.py.erb'),
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
+  $relay_secret_key = lookup('sentry::relay::secret_key')
+  $relay_id = lookup('sentry::relay::id')
+
+  file {$relay_credentials_json:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/sentry/relay_credentials.json.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }

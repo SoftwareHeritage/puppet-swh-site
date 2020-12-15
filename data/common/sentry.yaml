@@ -19,3 +19,7 @@ sentry::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 sentry::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 sentry::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+sentry::relay::id: "a3b8b08d-6c09-4065-b944-5d96b132d69f"
+sentry::relay::public_key: "VmNbDVTyLBKeRaUwu-_cwuvj2ZhH6R0-JBCjC6Pehzs"
+# sentry::relay::secret_key in private-data
