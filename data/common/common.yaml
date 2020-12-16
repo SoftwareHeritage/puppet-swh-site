@@ -587,7 +587,7 @@ users:
     authorized_keys:
       tg@tg-Inspiron-15-7000-Gaming:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIILwWQllVen3VFRBfR72QnjZSgxxPhkMPbw/Oaet7u0M
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIFWGdBi6sAzfrphRg6h8fwD+W6HaZMIv9OUCXJjc0R9c
 
 groups:
   adm:
