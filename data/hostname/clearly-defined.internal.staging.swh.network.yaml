@@ -5,7 +5,7 @@ swh::postgres::service::users:
 
 swh::postgres::service::dbs:
   - alias: clearly-defined
-    name: clearly_defined
+    name: clearly-defined
     host: "%{alias('swh::deploy::storage::db::host')}"
     port: "%{alias('swh::deploy::db::pgbouncer::port')}"
     user: guest
