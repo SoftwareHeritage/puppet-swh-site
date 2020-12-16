@@ -1,0 +1,13 @@
+---
+swh::postgres::service::users:
+  - tg1999
+  - root
+
+swh::postgres::service::dbs:
+  - alias: clearly-defined
+    name: clearly_defined
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+    passwd: "%{alias('swh::deploy::clearly_defined::db::password')}"
+

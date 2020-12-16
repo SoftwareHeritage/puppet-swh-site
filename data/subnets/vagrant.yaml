@@ -125,3 +125,5 @@ static_hostnames:
     host: search-esnode0.internal.staging.swh.network
   10.168.130.90:
     host: search0.internal.staging.swh.network
+  10.168.130.200:
+    host: clearly-defined.internal.staging.swh.network

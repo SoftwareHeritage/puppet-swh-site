@@ -188,6 +188,10 @@ node 'bojimans.internal.softwareheritage.org' {
   include role::swh_netbox
 }
 
+node 'clearly-defined.internal.staging.swh.network' {
+  include role::swh_db_client
+}
+
 node default {
   include role::swh_base
 }

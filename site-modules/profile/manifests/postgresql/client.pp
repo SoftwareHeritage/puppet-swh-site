@@ -7,11 +7,11 @@ class profile::postgresql::client {
 
   # This part installs per user the postgresql client files ~/.pg_service.conf
   # and ~/.pgpass https://intranet.softwareheritage.org/wiki/Databases
-  $dbs = lookup('swh::postgres::service::dbs', Array, 'deep')
+  $dbs = lookup('swh::postgres::service::dbs')
 
   # Explicitly install the configuration files per user's home
   # TL;DR the pgpass must be readonly per user so we can't use the global one
-  $users = lookup('swh::postgres::service::users', Array, 'deep')
+  $users = lookup('swh::postgres::service::users')
   each ($users) | $user | {
     if $user == 'root' {
       $home = '/root'
