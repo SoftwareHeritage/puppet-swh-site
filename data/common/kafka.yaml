@@ -1,9 +1,5 @@
 ---
 zookeeper::clusters:
-  rocquencourt_legacy:
-    '1': zookeeper1.internal.softwareheritage.org
-    '2': zookeeper2.internal.softwareheritage.org
-    '3': zookeeper3.internal.softwareheritage.org
   rocquencourt:
     '1': kafka1.internal.softwareheritage.org
     '2': kafka2.internal.softwareheritage.org
@@ -45,22 +41,6 @@ kafka::broker_config:
 # kafka::broker::password in private-data
 
 kafka::clusters:
-  rocquencourt_legacy:
-    zookeeper::chroot: '/kafka/softwareheritage'
-    zookeeper::servers:
-      - zookeeper1.internal.softwareheritage.org
-      - zookeeper2.internal.softwareheritage.org
-      - zookeeper3.internal.softwareheritage.org
-    brokers:
-      esnode1.internal.softwareheritage.org:
-        id: 11
-      esnode2.internal.softwareheritage.org:
-        id: 12
-      esnode3.internal.softwareheritage.org:
-        id: 13
-    broker::heap_opts: "-Xmx6G -Xms6G"
-    tls: false
-    plaintext_port: 9092
   rocquencourt:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:

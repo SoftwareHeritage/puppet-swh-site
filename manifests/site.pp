@@ -42,10 +42,6 @@ node /^esnode\d+.(internal.)?softwareheritage.org$/ {
   include role::swh_elasticsearch
 }
 
-node /^zookeeper\d+.(internal.)?softwareheritage.org$/ {
-  include role::swh_zookeeper
-}
-
 node /^kafka\d+\./ {
   include role::swh_kafka_broker
 }
