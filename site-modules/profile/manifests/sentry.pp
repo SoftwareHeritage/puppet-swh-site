@@ -30,6 +30,7 @@ class profile::sentry {
   $relay_credentials_json = "${onpremise_dir}/relay/credentials.json"
   $relay_config_yml = "${onpremise_dir}/relay/config.yml"
   $symbolicator_config_yml = "${onpremise_dir}/symbolicator/config.yml"
+  $clickhouse_config_xml = "${onpremise_dir}/clickhouse/config.xml"
 
   file {$requirements_file:
     ensure  => present,
@@ -74,6 +75,16 @@ class profile::sentry {
     group   => 'root',
     mode    => '0644',
     content => template('profile/sentry/symbolicator.yml.erb'),
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
+  file {$clickhouse_config_xml:
+    ensure => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/sentry/clickhouse.xml.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }
