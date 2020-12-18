@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 # Use:
-# $0 CERTNAME
+# $0 CERTNAME ...
 
 # Example:
-# $0 storage0.internal.staging.swh.network
+# $0 storage0.internal.staging.swh.network db0.internal.staging.swh.network
 
 set -x
 
-CERTNAME=$1
-puppet node deactivate $CERTNAME
-puppet cert clean $CERTNAME
+puppet node clean $@
+puppet cert clean $@
 systemctl restart apache2
