@@ -31,6 +31,7 @@ class profile::sentry {
   $relay_config_yml = "${onpremise_dir}/relay/config.yml"
   $symbolicator_config_yml = "${onpremise_dir}/symbolicator/config.yml"
   $clickhouse_config_xml = "${onpremise_dir}/clickhouse/config.xml"
+  $geoip_conf = "${onpremise_dir}/geoip/GeoIP.conf"
 
   file {$requirements_file:
     ensure  => present,
@@ -122,6 +123,19 @@ class profile::sentry {
     group   => 'root',
     mode    => '0644',
     content => template('profile/sentry/relay_credentials.json.erb'),
+    require => Vcsrepo[$onpremise_dir],
+    notify  => Exec['run sentry-onpremise install.sh'],
+  }
+
+  $geoip_account_id = lookup('sentry::geoip::account_id')
+  $geoip_license_key = lookup('sentry::geoip::license_key')
+
+  file {$geoip_conf:
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('profile/sentry/geoip.conf.erb'),
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }

@@ -23,3 +23,6 @@ sentry::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 sentry::relay::id: "a3b8b08d-6c09-4065-b944-5d96b132d69f"
 sentry::relay::public_key: "VmNbDVTyLBKeRaUwu-_cwuvj2ZhH6R0-JBCjC6Pehzs"
 # sentry::relay::secret_key in private-data
+
+sentry::geoip::account_id: 464966
+# sentry::geoip::license_key in private-data
