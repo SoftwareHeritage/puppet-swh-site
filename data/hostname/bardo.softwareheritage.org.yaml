@@ -30,3 +30,5 @@ swh::dbs:
   hedgedoc:
     name: hedgedoc
     user: hedgedoc
+
+hedgedoc::vhost::letsencrypt_cert: hedgedoc
