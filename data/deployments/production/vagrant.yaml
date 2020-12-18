@@ -1,1 +1,3 @@
 elasticsearch::jvm_options::heap_size: 512m
+
+swh::postgresql::shared_buffers: 128MB

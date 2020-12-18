@@ -49,6 +49,8 @@ netbox::admin::email: sysop+vagrant@softwareheritage.org
 kafka::cluster::public_network: 10.168.130.0/24
 
 static_hostnames:
+  10.168.50.10:
+    host: bardo.softwareheritage.org
   10.168.100.18:
     host: banco.internal.softwareheritage.org
     aliases:

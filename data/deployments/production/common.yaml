@@ -17,3 +17,4 @@ elasticsearch::config::extras:
 
 elasticsearch::jvm_options::heap_size: 16g
 
+swh::postgresql::shared_buffers: 4GB
