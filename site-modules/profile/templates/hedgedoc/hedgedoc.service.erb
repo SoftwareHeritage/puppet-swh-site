@@ -1,0 +1,23 @@
+[Unit]
+Description=Hedgedoc
+Documentation=https://github.com/hedgedoc/hedgedoc
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+Environment=CMD_ALLOW_ANONYMOUS=<%= @allow_anonymous %>
+Environment=CMD_ALLOW_ANONYMOUS_EDITS=<%= @allow_anonymous_edits %>
+Environment=NODE_ENV=<%= @runtime_environment %>
+WorkingDirectory=<%= @install_path %>
+
+ExecStart=/usr/bin/yarn start
+
+Restart=on-failure
+RestartSec=10
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

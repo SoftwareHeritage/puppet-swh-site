@@ -9,6 +9,10 @@ users:
     groups:
       - hedgedoc
 
+hedgedoc::db::database: hedgedoc
+hedgedoc::db::username: hedgedoc
+# hedgedoc::db::password: in private-data
+
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
 swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
@@ -28,7 +32,20 @@ postgresql::server::config_entries:
 
 swh::dbs:
   hedgedoc:
-    name: hedgedoc
-    user: hedgedoc
+    name: "%{alias('hedgedoc::db::db_name')}"
+    user: "%{alias('hedgedoc::db::username')}"
+
+hedgedoc::host: bardo.softwareheritage.org
+hedgedoc::port: 3000
+hedgedoc::user: hedgedoc
+hedgedoc::group: hedgedoc
+
+hedgedoc::db::db_name: hedgedoc
+hedgedoc::db::username: hedgedoc
+
+hedgedoc::allow_anonymous: true
+hedgedoc::allow_anonymous_edits: true
+hedgedoc::runtime_environment: production
+hedgedoc::log_level: debug
 
 hedgedoc::vhost::letsencrypt_cert: hedgedoc
