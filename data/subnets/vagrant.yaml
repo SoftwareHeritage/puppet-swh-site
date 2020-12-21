@@ -107,6 +107,12 @@ static_hostnames:
       - inventory.internal.softwareheritage.org
   10.168.130.11:
     host: db1.internal.staging.swh.network
+  10.168.130.20:
+    host: rp0.internal.staging.swh.network
+    aliases:
+      - webapp.staging.swh.network
+      - deposit.staging.swh.network
+      - objstorage.staging.swh.network
   10.168.130.30:
     host: webapp.internal.staging.swh.network
   10.168.130.31:
@@ -125,5 +131,7 @@ static_hostnames:
     host: search-esnode0.internal.staging.swh.network
   10.168.130.90:
     host: search0.internal.staging.swh.network
+  10.168.130.110:
+    host: objstorage0.internal.staging.swh.network
   10.168.130.200:
     host: clearly-defined.internal.staging.swh.network

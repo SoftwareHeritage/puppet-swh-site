@@ -761,6 +761,10 @@ letsencrypt::certificates:
     domains:
       - broker0.journal.staging.swh.network
       - journal0.internal.staging.swh.network
+  objstorage_staging:
+    domains:
+      - objstorage.staging.swh.network
+      - objstorage-rp.internal.staging.swh.network
   stats_export:
     domains:
       - stats.export.softwareheritage.org

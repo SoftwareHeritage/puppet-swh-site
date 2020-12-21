@@ -180,6 +180,11 @@ node 'journal0.internal.staging.swh.network' {
   include role::swh_journal_allinone
 }
 
+# Read-only storage for mirrors
+node 'objstorage0.internal.staging.swh.network' {
+  include role::swh_remote_objstorage
+}
+
 node 'bojimans.internal.softwareheritage.org' {
   include role::swh_netbox
 }
