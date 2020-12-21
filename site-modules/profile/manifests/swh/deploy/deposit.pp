@@ -88,6 +88,7 @@ class profile::swh::deploy::deposit {
     user       => $user,
     group      => $group,
     executable => 'django.core.wsgi:get_wsgi_application()',
+    config_base_module => 'swh.deposit.gunicorn_config',
     environment => {
       'SWH_CONFIG_FILENAME'    => $config_file,
       'DJANGO_SETTINGS_MODULE' => 'swh.deposit.settings.production',
