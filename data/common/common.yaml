@@ -887,6 +887,8 @@ bind::zones:
     domain: 101.168.192.in-addr.arpa
   internal.staging.swh.network:
     domain: internal.staging.swh.network
+  internal.admin.swh.network:
+    domain: internal.admin.swh.network
   128.168.192.in-addr.arpa:
     domain: 128.168.192.in-addr.arpa
   130.168.192.in-addr.arpa:
