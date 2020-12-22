@@ -107,7 +107,7 @@ smtp::mail_aliases:
       - me@danieleserafini.eu
   - user: vsellier
     aliases:
-      - vincent.sellier@softwareheritage.org
+      - vincent.sellier@inria.fr
   - user: tenma
     aliases:
       - nicolas.gattolin@softwareheritage.org
