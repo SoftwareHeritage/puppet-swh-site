@@ -1,0 +1,23 @@
+---
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
+dns::search_domains:
+  - internal.admin.swh.network
+
+dns::local_nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
+dns::forwarders:
+  - 193.51.196.130
+  - 193.51.196.131
+dns::forwarder_insecure: true
+
+ntp::servers:
+  - sesi-ntp1.inria.fr
+  - sesi-ntp2.inria.fr
+
+internal_network: 192.168.50.0/24
+
+smtp::relay_hostname: 'smtp.inria.fr'
