@@ -35,7 +35,7 @@ swh::dbs:
     name: "%{alias('hedgedoc::db::db_name')}"
     user: "%{alias('hedgedoc::db::username')}"
 
-hedgedoc::host: bardo.softwareheritage.org
+hedgedoc::host: bardo.internal.admin.swh.network
 hedgedoc::port: 3000
 hedgedoc::user: hedgedoc
 hedgedoc::group: hedgedoc

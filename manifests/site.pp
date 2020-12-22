@@ -133,7 +133,7 @@ node /^db\d\.internal\.staging\.swh\.network$/ {
   include profile::postgresql::client
 }
 
-node "bardo.softwareheritage.org" {
+node "bardo.internal.admin.swh.network" {
   include role::swh_hedgedoc
 }
 

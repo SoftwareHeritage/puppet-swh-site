@@ -875,9 +875,6 @@ letsencrypt::certificates:
   netbox-vagrant:
     domains:
       - inventory-vagrant.internal.softwareheritage.org
-  hedgedoc:
-    domains:
-      - bardo.softwareheritage.org
 
 bind::update_key: local-update
 
