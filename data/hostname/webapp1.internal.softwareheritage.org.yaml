@@ -17,7 +17,7 @@ swh::elasticsearch::nodes:
     port: 9200
 ## End of search / staging specific configuration 
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::localhost')}"
 
 swh::deploy::reverse_proxy::services:
