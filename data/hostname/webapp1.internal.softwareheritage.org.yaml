@@ -1,0 +1,32 @@
+hitch::frontend: "[*]:443"
+hitch::proxy_support: true
+
+varnish::http_port: 80
+apache::http_port: 9080
+
+# Disable default vhost on port 80
+apache::default_vhost: false
+
+swh::deploy::webapp::vhost::letsencrypt_cert: archive_webapp1
+
+# Copied from staging
+# will be replaced by the production configuration
+# when it will be deployed
+swh::elasticsearch::nodes:
+  - host: search-esnode0.internal.staging.swh.network
+    port: 9200
+## End of search / staging specific configuration 
+
+swh::remote_service::storage::config: "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::localhost')}"
+
+swh::deploy::reverse_proxy::services:
+  - webapp
+  
+swh::deploy::search::backend::listen::host: 127.0.0.1
+swh::deploy::search::config:
+  search:
+    cls: elasticsearch
+    args:
+      hosts: "%{alias('swh::elasticsearch::nodes')}"
+      index_prefix: production

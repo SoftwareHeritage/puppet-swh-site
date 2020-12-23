@@ -24,6 +24,10 @@ node 'webapp0.softwareheritage.org' {
   include role::swh_rp_webapp
 }
 
+node 'webapp1.internal.softwareheritage.org' {
+  include role::swh_rp_webapp_with_swh_search
+}
+
 node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }

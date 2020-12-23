@@ -749,6 +749,9 @@ letsencrypt::certificates:
       # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
       - webapp.staging.swh.network
       - webapp-rp.internal.staging.swh.network
+  archive_webapp1:
+    domains:
+      - webapp1.internal.softwareheritage.org
   deposit_production:
     domains:
       - deposit.softwareheritage.org
@@ -1501,6 +1504,10 @@ swh::remote_service::search::config::empty: {}
 swh::remote_service::search::config::storage0:
   cls: remote
   url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
+
+swh::remote_service::search::config::localhost:
+  cls: remote
+  url: "http://localhost:%{hiera('swh::remote_service::search::port')}/"
 
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
 
