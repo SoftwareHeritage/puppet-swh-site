@@ -85,6 +85,12 @@ static_hostnames:
     host: esnode3.internal.softwareheritage.org
   10.168.100.71:
     host: webapp1.internal.softwareheritage.org
+  10.168.100.81:
+    host: search-esnode1.internal.softwareheritage.org
+  10.168.100.82:
+    host: search-esnode2.internal.softwareheritage.org
+  10.168.100.83:
+    host: search-esnode3.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
     aliases:

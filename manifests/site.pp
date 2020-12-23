@@ -28,6 +28,10 @@ node 'webapp1.internal.softwareheritage.org' {
   include role::swh_rp_webapp_with_swh_search
 }
 
+node /^search-esnode\d\.internal\.softwareheritage\.org$/ {
+  include role::swh_elasticsearch
+}
+
 node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
