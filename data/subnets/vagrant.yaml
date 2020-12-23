@@ -91,6 +91,8 @@ static_hostnames:
     host: search-esnode2.internal.softwareheritage.org
   10.168.100.83:
     host: search-esnode3.internal.softwareheritage.org
+  10.168.100.85:
+    host: search1.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
     aliases:
@@ -115,6 +117,14 @@ static_hostnames:
     host: bojimans.internal.softwareheritage.org
     aliases:
       - inventory.internal.softwareheritage.org
+  10.168.100.201:
+    host: kafka1.internal.softwareheritage.org
+  10.168.100.202:
+    host: kafka2.internal.softwareheritage.org
+  10.168.100.203:
+    host: kafka3.internal.softwareheritage.org
+  10.168.100.204:
+    host: kafka4.internal.softwareheritage.org
   10.168.130.11:
     host: db1.internal.staging.swh.network
   10.168.130.20:

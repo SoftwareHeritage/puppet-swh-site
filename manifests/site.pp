@@ -32,6 +32,10 @@ node /^search-esnode\d\.internal\.softwareheritage\.org$/ {
   include role::swh_elasticsearch
 }
 
+node /^search\d\.internal\.softwareheritage\.org$/ {
+  include role::swh_search_with_journal_client
+}
+
 node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
