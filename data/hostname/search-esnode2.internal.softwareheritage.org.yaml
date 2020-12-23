@@ -19,7 +19,7 @@ elasticsearch::config::cluster::name: swh-search
 elasticsearch::config::discovery::seed_hosts:
   - search-esnode1.internal.softwareheritage.org
   - search-esnode2.internal.softwareheritage.org
-  - search-esnode2.internal.softwareheritage.org
+  - search-esnode3.internal.softwareheritage.org
 
 elasticsearch::config::cluster::initial_master_nodes:
   - search-esnode1
