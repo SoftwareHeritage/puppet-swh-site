@@ -26,5 +26,5 @@ elasticsearch::config::cluster::initial_master_nodes:
   - search-esnode2
   - search-esnode3
 
-# elasticsearch::jvm_options::heap_size: 8g
+elasticsearch::jvm_options::heap_size: 8g
 elasticsearch::config::prometheus::indices: true
