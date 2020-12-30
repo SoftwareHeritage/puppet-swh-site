@@ -663,7 +663,7 @@ puppetdb::master::config::terminus_package: puppet-terminus-puppetdb
 
 strict_transport_security::max_age: 15768000
 
-php::version: '7.3'
+php::version: '7.4'
 
 # Those variables get picked up by 'include ::php::fpm::daemon'
 php::fpm::daemon::log_owner: www-data

@@ -208,15 +208,9 @@ class profile::phabricator {
 
   ::php::extension {[
     'apcu',
-    'mailparse',
-  ]:
-    provider       => 'apt',
-    package_prefix => 'php-',
-  }
-
-  ::php::extension {[
     'curl',
     'gd',
+    'mailparse',
     'mbstring',
     'zip',
   ]:
