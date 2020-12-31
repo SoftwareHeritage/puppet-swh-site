@@ -1,11 +1,11 @@
 ---
 networks:
-  ens1f0np0:
+  enp94s0f0np0:
     type: manual
     order: 10
     extras:
       mtu: "9000"
-  ens1f1np1:
+  enp94s0f1np1:
     type: manual
     order: 10
     extras:
@@ -18,7 +18,7 @@ networks:
       bond-miimon: 100
       bond-mode: 802.3ad
       bond-xmit_hash_policy: layer3+4
-      bond-slaves: ens1f0np0 ens1f1np1
+      bond-slaves: enp94s0f0np0 enp94s0f1np1
       bond-lacp-rate: 1
   vlan440:
     type: private
