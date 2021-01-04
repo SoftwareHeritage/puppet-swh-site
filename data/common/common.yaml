@@ -18,7 +18,9 @@ dns::forward_zones:
   '101.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   '200.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   'internal.staging.swh.network.': "%{alias('dns::local_nameservers')}"
+  'internal.admin.swh.network.': "%{alias('dns::local_nameservers')}"
   '130.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
+  '50.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
 
 # dns::forwarders per-subnet. No Default value
 # dns::local_nameservers per-subnet. No Default value
@@ -891,6 +893,8 @@ bind::zones:
     domain: internal.staging.swh.network
   internal.admin.swh.network:
     domain: internal.admin.swh.network
+  50.168.192.in-addr.arpa:
+    domain: 50.168.192.in-addr.arpa
   128.168.192.in-addr.arpa:
     domain: 128.168.192.in-addr.arpa
   130.168.192.in-addr.arpa:
