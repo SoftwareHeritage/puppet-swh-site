@@ -5,9 +5,9 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.100.1
   ens18:
-    address: 128.93.193.28
-    netmask: 255.255.255.0
-    gateway: 128.93.193.254
+    address: 128.93.166.23
+    netmask: 26
+    gateway: 128.93.166.62
 
 backups::select:
   - home
