@@ -7,4 +7,4 @@ networks:
   ens18:
     address: 128.93.166.20
     netmask: 26
-    gateway: 128.93.166.204
+    gateway: 128.93.166.62
