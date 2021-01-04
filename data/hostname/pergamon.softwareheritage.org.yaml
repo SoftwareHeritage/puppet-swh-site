@@ -2,9 +2,7 @@ dns::local_cache: false
 
 # Overrides for primary bind server
 bind::zones::type: master
-dns::forwarders:
-  - 193.51.196.130
-  - 193.51.196.131
+dns::forwarders: []
 
 smtp::relay_destinations:
   - destination: "%{hiera('phabricator::vhost::name')}"
