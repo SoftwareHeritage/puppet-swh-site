@@ -1,0 +1,9 @@
+$TTL	86400
+@	IN	SOA pergamon.internal.softwareheritage.org. sysop.softwareheritage.org. (
+           1      ; Serial
+           3600   ; Refresh
+           120    ; Retry
+           604800 ; Expire
+           120)   ; Negative Cache TTL
+;
+@	IN	NS	pergamon.internal.softwareheritage.org.

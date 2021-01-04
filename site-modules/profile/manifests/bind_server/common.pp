@@ -36,6 +36,8 @@ class profile::bind_server::common {
       )
       $masters = undef
 
+      $source = 'puppet:///modules/profile/bind/db.empty'
+
       resource_record { "${zone}/NS":
         type    => 'NS',
         record  => $zone,
@@ -44,6 +46,7 @@ class profile::bind_server::common {
       }
 
     } else {
+      $source = undef
       $allow_updates = undef
       $masters = $merged_data['masters']
     }
@@ -64,7 +67,7 @@ class profile::bind_server::common {
       allow_notify    => $merged_data['allow_notify'],
       forwarders      => $merged_data['forwarders'],
       forward         => $merged_data['forward'],
-      source          => $merged_data['source'],
+      source          => $source,
     }
   }
 }
