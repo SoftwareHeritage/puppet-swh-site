@@ -4,12 +4,12 @@ networks:
     netmask: 255.255.255.0
     ups:
       - ip rule add from 128.93.193.31 table vlan220
-      - ip route add 192.168.100.0/24 src 128.93.193.31 dev $IFACE table vlan220
+      - ip route add 128.93.193.0/24 src 128.93.193.31 dev $IFACE table vlan220
       - ip route add default via 128.93.193.254 dev $IFACE table vlan220
       - ip route flush cache
     downs:
       - ip route del default via 128.93.193.254 dev $IFACE table vlan220
-      - ip route del 192.168.100.0/24 src 128.93.193.31 dev $IFACE table vlan220
+      - ip route del 128.93.193.0/24 src 128.93.193.31 dev $IFACE table vlan220
       - ip rule del from 128.93.193.31 table vlan220
       - ip route flush cache
   eth1:
