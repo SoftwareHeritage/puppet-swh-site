@@ -3,7 +3,8 @@ class profile::jenkins::agent {
   include ::java
 
   $jenkins_agent_jar_url = lookup('jenkins::agent::jar_url')
-  $jenkins_jnlp_url = lookup('jenkins::agent::jnlp::url')
+  $jenkins_url = lookup('jenkins::backend::url')
+  $jenkins_agent_name = lookup('jenkins::agent::name')
   $jenkins_jnlp_token = lookup('jenkins::agent::jnlp::token')
 
   $workdir = '/var/lib/jenkins/agent-workdir'
