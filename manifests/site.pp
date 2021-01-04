@@ -20,10 +20,6 @@ node 'moma.softwareheritage.org' {
   include role::swh_rp_webapps
 }
 
-node 'webapp0.softwareheritage.org' {
-  include role::swh_rp_webapp
-}
-
 node 'webapp1.internal.softwareheritage.org' {
   include role::swh_rp_webapp_with_swh_search
 }

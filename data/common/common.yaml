@@ -743,7 +743,6 @@ letsencrypt::certificates:
       - archive.softwareheritage.org
       - base.softwareheritage.org
       - archive.internal.softwareheritage.org
-      - webapp0.softwareheritage.org
   archive_staging:
     domains:
       # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
@@ -3029,7 +3028,6 @@ keycloak::resources::realms:
             - https://archive.softwareheritage.org/*
             - https://base.softwareheritage.org/*
             - https://archive.internal.softwareheritage.org/*
-            - https://webapp0.softwareheritage.org/*
           roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
           direct_grant_flow: direct_grant_no_otp-SoftwareHeritage
         protocol_mappers:
