@@ -10,6 +10,12 @@ swh::postgres::service::dbs:
     name: clearly-defined
     host: "%{alias('swh::deploy::storage::db::host')}"
     port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+    password: guest
+  - alias: admin-clearly-defined
+    name: clearly-defined
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
     user: clearly-defined
     passwd: "%{alias('swh::deploy::clearly_defined::db::password')}"
 

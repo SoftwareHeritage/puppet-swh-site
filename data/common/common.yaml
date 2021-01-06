@@ -2862,48 +2862,90 @@ swh::postgres::service::users:
   - ardumont
 
 swh::postgres::service::dbs:
-  - alias: swh
+  - alias: admin-swh
     name: "%{hiera('swh::deploy::storage::db::dbname')}"
     host: "%{hiera('swh::deploy::storage::db::host')}"
     user: "%{hiera('swh::deploy::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::storage::db::password')}"
-  - alias: swh-deposit
+  - alias: admin-swh-deposit
     name: "%{hiera('swh::deploy::deposit::db::dbname')}"
     host: "%{hiera('swh::deploy::deposit::db::host')}"
     user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::deposit::db::password')}"
-  - alias: swh-scheduler
+  - alias: admin-swh-scheduler
     name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
     host: "%{hiera('swh::deploy::scheduler::db::host')}"
     user: "%{hiera('swh::deploy::scheduler::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::scheduler::db::password')}"
-  - alias: swh-vault
+  - alias: admin-swh-vault
     name: "%{hiera('swh::deploy::vault::db::dbname')}"
     host: "%{hiera('swh::deploy::vault::db::host')}"
     user: "%{hiera('swh::deploy::vault::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::vault::db::password')}"
-  - alias: swh-lister
+  - alias: admin-swh-lister
     name: "%{hiera('swh::deploy::worker::lister::db::name')}"
     host: "%{hiera('swh::deploy::worker::lister::db::host')}"
     user: "%{hiera('swh::deploy::worker::lister::db::name')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::lister::db::password')}"
-  - alias: swh-replica
+  - alias: admin-swh-replica
     name: "%{hiera('swh::deploy::storage::db::dbname')}"
     host: somerset.internal.softwareheritage.org
     user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::storage::db::password')}"
-  - alias: swh-indexer
+  - alias: admin-swh-indexer
     name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     passwd: "%{hiera('swh::deploy::indexer::storage::db::password')}"
+  - alias: swh
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::storage::db::host')}"
+    user: "%{hiera('swh::deploy::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-deposit
+    name: "%{hiera('swh::deploy::deposit::db::dbname')}"
+    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-scheduler
+    name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
+    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    user: "%{hiera('swh::deploy::scheduler::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-vault
+    name: "%{hiera('swh::deploy::vault::db::dbname')}"
+    host: "%{hiera('swh::deploy::vault::db::host')}"
+    user: "%{hiera('swh::deploy::vault::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-lister
+    name: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
+    user: "%{hiera('swh::deploy::worker::lister::db::name')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-replica
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: somerset.internal.softwareheritage.org
+    user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-indexer
+    name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
+    user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
 
 elastic::elk_version: '7.8.0'
 
