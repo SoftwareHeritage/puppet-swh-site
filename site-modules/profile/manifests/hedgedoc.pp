@@ -23,6 +23,9 @@ class profile::hedgedoc {
 
   $allow_anonymous = lookup('hedgedoc::allow_anonymous')
   $allow_anonymous_edits = lookup('hedgedoc::allow_anonymous_edits')
+  $allow_email = lookup('hedgedoc::allow_email')
+  $allow_email_register = lookup('hedgedoc::allow_email_register')
+
   $runtime_environment = lookup('hedgedoc::runtime_environment')
   $log_level = lookup('hedgedoc::log_level')
 

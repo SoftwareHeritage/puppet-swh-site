@@ -7,6 +7,8 @@
         "domain": "<%= @base_url %>",
         "loglevel": "<%= @log_level %>",
         "allowOrigin": [ "localhost", "<%= @base_url %>"],
+        "email": <%= @allow_email %>,
+        "allowEmailRegister": <%= @allow_email_register %>,
         "hsts": {
             "enable": true,
             "maxAgeSeconds": 31536000,
