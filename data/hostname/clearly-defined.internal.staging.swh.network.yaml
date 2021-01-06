@@ -2,6 +2,8 @@
 swh::postgres::service::users:
   - tg1999
   - root
+  - vlorentz
+  - zack
 
 swh::postgres::service::dbs:
   - alias: clearly-defined
