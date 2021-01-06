@@ -35,6 +35,10 @@ swh::dbs:
     name: "%{alias('hedgedoc::db::db_name')}"
     user: "%{alias('hedgedoc::db::username')}"
 
+hedgedoc::release::version: 1.7.1
+hedgedoc::release::digest: 17e7092430b36c96059309fdd03f9244f6a13611e28ced153d9dbf97e109d5ba
+hedgedoc::release::digest_type: sha256
+
 hedgedoc::host: bardo.internal.admin.swh.network
 hedgedoc::port: 3000
 hedgedoc::user: hedgedoc

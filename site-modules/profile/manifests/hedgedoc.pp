@@ -27,8 +27,10 @@ class profile::hedgedoc {
   $log_level = lookup('hedgedoc::log_level')
 
   # ---- install
-  $version = "1.7.0"
+  $version = lookup('hedgedoc::release::version')
   $archive_url = "https://github.com/hedgedoc/hedgedoc/releases/download/${version}/hedgedoc-${version}.tar.gz"
+  $archive_digest = lookup('hedgedoc::release::digest')
+  $archive_digest_type = lookup('hedgedoc::release::digest_type')
   $archive_path = "/tmp/hedgedoc-${version}.tar.gz"
   $root_install_path = "/opt"
   $install_path = "${root_install_path}/hedgedoc"
@@ -68,8 +70,8 @@ class profile::hedgedoc {
     source        => $archive_url,
     extract_path  => $root_install_path,
     creates       => $install_path,
-    checksum      => 'ab1fc7ddf260ca6caff52f3400fc38815481fe353d0edc08de721765f15071f6',
-    checksum_type => 'sha256',
+    checksum      => $archive_digest,
+    checksum_type => $archive_digest_type,
     cleanup       => true,
     user          => 'root',
     group         => 'root',
