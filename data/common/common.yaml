@@ -1512,6 +1512,10 @@ swh::remote_service::search::config::localhost:
   cls: remote
   url: "http://localhost:%{hiera('swh::remote_service::search::port')}/"
 
+swh::remote_service::search::config::search1:
+  cls: remote
+  url: "http://search1.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
+
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
 
 # Indexer backend configurations

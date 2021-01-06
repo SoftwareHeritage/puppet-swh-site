@@ -7,3 +7,5 @@ swh::elasticsearch::nodes:
     port: 9200
   - host: search-esnode3.internal.softwareheritage.org
     port: 9200
+
+swh::deploy::search::backend::listen::host: 0.0.0.0

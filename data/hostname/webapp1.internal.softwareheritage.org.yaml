@@ -15,18 +15,13 @@ swh::deploy::webapp::vhost::letsencrypt_cert: archive_webapp1
 swh::elasticsearch::nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
-## End of search / staging specific configuration 
+## End of search / staging specific configuration
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::localhost')}"
 
 swh::deploy::reverse_proxy::services:
   - webapp
-  
-swh::deploy::search::backend::listen::host: 127.0.0.1
+
 swh::deploy::search::config:
-  search:
-    cls: elasticsearch
-    args:
-      hosts: "%{alias('swh::elasticsearch::nodes')}"
-      index_prefix: production
+  search: "%{alias('swh::remote_service::search::config::search1')}"
