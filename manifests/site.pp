@@ -184,7 +184,7 @@ node 'vault.internal.staging.swh.network' {
   include role::swh_vault
 }
 
-node /^rp\d\.internal\.staging\.swh\.network$/ {
+node /^rp\d\.internal\.(staging|admin)\.swh\.network$/ {
   include role::swh_reverse_proxy
 }
 

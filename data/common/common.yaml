@@ -761,6 +761,9 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+  hedgedoc:
+    domains:
+      - hedgedoc.softwareheritage.org
   journal0.internal.staging.swh.network:
     domains:
       - broker0.journal.staging.swh.network

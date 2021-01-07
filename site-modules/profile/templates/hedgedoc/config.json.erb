@@ -4,6 +4,7 @@
         "allowAnonymous": <%= @allow_anonymous %>,
         "allowAnonymousEdit": <%= @allow_anonymous_edits %>,
         "allowFreeURL": true,
+        "protocolUseSSL": true,
         "domain": "<%= @base_url %>",
         "loglevel": "<%= @log_level %>",
         "allowOrigin": [ "localhost", "<%= @base_url %>"],
@@ -29,7 +30,7 @@
             "username": "<%= @db_user %>",
             "password": "<%= @db_password %>",
             "database": "<%= @db_name %>",
-            "host": "<%= @host %>",
+            "host": "<%= @db_host %>",
             "port": "<%= @db_port %>",
             "dialect": "postgres"
         },

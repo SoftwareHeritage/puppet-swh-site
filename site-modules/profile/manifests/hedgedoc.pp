@@ -11,15 +11,15 @@ class profile::hedgedoc {
   # ---- configuration
   $user = lookup('hedgedoc::user')
   $group = lookup('hedgedoc::group')
-  $host = lookup('hedgedoc::host')
-  $port = lookup('hedgedoc::port')
-  $base_url = "${host}:${port}"
 
-  $db_name = lookup('hedgedoc::db::db_name')
+  $base_url = lookup('swh::deploy::hedgedoc::base_url')
+
+  $db_host = lookup('hedgedoc::db::host')
+  $db_name = lookup('hedgedoc::db::database')
   $db_user = lookup('hedgedoc::db::username')
   $db_password = lookup('swh::deploy::hedgedoc::db::password')
   $db_port = lookup('swh::postgresql::port')
-  $db_url = "postgres://${db_user}:${db_password}@${host}:${db_port}/${db_name}"
+  $db_url = "postgres://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}"
 
   $allow_anonymous = lookup('hedgedoc::allow_anonymous')
   $allow_anonymous_edits = lookup('hedgedoc::allow_anonymous_edits')
