@@ -1,0 +1,2 @@
+---
+swh::postgresql::shared_buffers: 128MB
