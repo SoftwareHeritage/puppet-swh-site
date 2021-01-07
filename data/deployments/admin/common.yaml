@@ -3,3 +3,4 @@ swh::deploy::environment: admin
 swh::deploy::reverse_proxy::services:
   - hedgedoc
 
+swh::postgresql::shared_buffers: 4GB
