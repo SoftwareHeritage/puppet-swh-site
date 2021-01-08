@@ -52,7 +52,7 @@ static_hostnames:
   10.168.50.10:
     host: bardo.internal.admin.swh.network
   10.168.50.20:
-    host: rp0.internal.admin.swh.network
+    host: rp1.internal.admin.swh.network
     aliases:
       - hedgedoc.softwareheritage.org
   10.168.100.18:
@@ -132,7 +132,7 @@ static_hostnames:
   10.168.130.11:
     host: db1.internal.staging.swh.network
   10.168.130.20:
-    host: rp0.internal.staging.swh.network
+    host: rp1.internal.staging.swh.network
     aliases:
       - webapp.staging.swh.network
       - deposit.staging.swh.network
