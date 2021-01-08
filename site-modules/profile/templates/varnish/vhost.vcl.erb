@@ -15,7 +15,6 @@ sub vcl_recv {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         } else {
-            set req.http.X_FORWARDED_PROTO = "https";
             set req.backend_hint = <%= @backend_name %>;
         }
 <% if @vcl_recv_extra -%>
