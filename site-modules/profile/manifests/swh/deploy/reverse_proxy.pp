@@ -12,6 +12,10 @@ class profile::swh::deploy::reverse_proxy {
     $cert_name = lookup("swh::deploy::${service_name}::vhost::letsencrypt_cert")
     $backend_http_host = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_host")
     $backend_http_port = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_port")
+    $websocket_support = lookup({
+      "name"          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
+      "default_value" => false,
+    })
 
     # Retrieve the list of vhosts
     $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
@@ -30,6 +34,7 @@ class profile::swh::deploy::reverse_proxy {
       backend_http_host => $backend_http_host,
       backend_http_port => $backend_http_port,
       hsts_max_age      => lookup('strict_transport_security::max_age'),
+      websocket_support => $websocket_support,
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')

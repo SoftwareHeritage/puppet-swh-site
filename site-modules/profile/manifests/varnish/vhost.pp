@@ -7,6 +7,7 @@ define profile::varnish::vhost (
   String $backend_name,
   String $backend_http_host,
   String $backend_http_port,
+  Boolean $websocket_support = false,
   Optional[String] $vcl_recv_extra = undef,
   Optional[String] $vcl_deliver_extra = undef,
   Variant[Undef, String, Integer[1]] $hsts_max_age = undef,

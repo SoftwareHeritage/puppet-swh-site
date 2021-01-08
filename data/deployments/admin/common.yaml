@@ -7,6 +7,7 @@ swh::postgresql::shared_buffers: 4GB
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
+swh::deploy::hedgedoc::reverse_proxy::websocket_support: true
 
 swh::deploy::hedgedoc::base_url: hedgedoc.softwareheritage.org
 swh::deploy::hedgedoc::vhost::letsencrypt_cert: hedgedoc

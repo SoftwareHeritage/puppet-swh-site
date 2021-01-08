@@ -15,6 +15,12 @@ sub vcl_recv {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         } else {
+<% if @websocket_support -%>
+            if (req.http.upgrade ~ "(?i)websocket") {
+                return (pipe);
+            }
+<% end -%>
+            set req.http.X-Forwarded-Proto = "https";
             set req.backend_hint = <%= @backend_name %>;
         }
 <% if @vcl_recv_extra -%>
@@ -23,6 +29,15 @@ sub vcl_recv {
     }
 }
 
+<% if @websocket_support -%>
+sub vcl_pipe {
+    if (req.http.upgrade) {
+        set bereq.http.upgrade = req.http.upgrade;
+        set bereq.http.connection = req.http.connection;
+    }
+}
+
+<% end -%>
 <% if @hsts_max_age or @vcl_deliver_extra -%>
 sub vcl_deliver {
     if (
