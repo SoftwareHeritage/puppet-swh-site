@@ -11,6 +11,7 @@ sub vcl_recv {
 <% end -%>
         req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>(:[0-9]+)?$"
     ) {
+        var.set("known-vhost", "yes");
         if (std.port(server.ip) == <%= scope['::profile::varnish::http_port'] %>) {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));

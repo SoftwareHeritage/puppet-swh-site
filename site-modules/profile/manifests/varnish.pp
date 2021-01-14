@@ -33,6 +33,11 @@ class profile::varnish {
     }
   }
 
+  $extra_packages = ["varnish-modules"];
+  package {$extra_packages:
+    ensure => installed,
+  }
+
   class {'::varnish':
     addrepo        => false,
     listen         => $listen,
@@ -48,7 +53,10 @@ class profile::varnish {
 
   ::varnish::vcl {'/etc/varnish/default.vcl':
     content => template('profile/varnish/default.vcl.erb'),
-    require => Concat[$includes_vcl],
+    require => [
+      Concat[$includes_vcl],
+      Package[$extra_packages],
+    ],
   }
 
   file {$includes_dir:
@@ -80,4 +88,10 @@ class profile::varnish {
     order   => '10',
     content => file('profile/varnish/synth_redirect.vcl'),
   }
+
+  ::profile::varnish::vcl_include {'unknown_vhost_then_forbidden_access':
+    order   => '99',
+    content => file('profile/varnish/unknown_vhost_then_forbidden_access.vcl'),
+  }
+
 }
