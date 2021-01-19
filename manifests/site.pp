@@ -146,7 +146,7 @@ node "bardo.internal.admin.swh.network" {
 }
 
 node 'scheduler0.internal.staging.swh.network' {
-  include role::swh_scheduler
+  include role::swh_scheduler_with_journal_client
   include profile::postgresql::client
 }
 

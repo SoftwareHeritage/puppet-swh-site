@@ -1,0 +1,18 @@
+# Scheduler Journal Client unit file
+# Managed by puppet class profile::swh::deploy::scheduler_journal_client
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Scheduler Journal Client
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/swh scheduler --config-file <%= @config_file %> journal-client
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

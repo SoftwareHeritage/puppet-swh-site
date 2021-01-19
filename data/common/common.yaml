@@ -2124,6 +2124,15 @@ swh::deploy::scheduler::archive::config:
         http_compress: false
         sniffer_timeout: 60
 
+swh::deploy::scheduler::journal_client::config_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/journal-client.yml"
+swh::deploy::scheduler::journal_client::user: "%{alias('swh::deploy::scheduler::user')}"
+swh::deploy::scheduler::journal_client::group: "%{alias('swh::deploy::scheduler::group')}"
+swh::deploy::scheduler::journal_client::config:
+  <<: *swh_scheduler_local_config
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.scheduler.journal_client
+
 # Main lister configuration
 swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
