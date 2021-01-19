@@ -1,5 +1,6 @@
 # Deployment of swh-scheduler related utilities
 class profile::swh::deploy::scheduler {
+  $config_dir = lookup('swh::deploy::scheduler::conf_dir')
   $config_file = lookup('swh::deploy::scheduler::conf_file')
   $user = lookup('swh::deploy::scheduler::user')
   $group = lookup('swh::deploy::scheduler::group')
@@ -22,13 +23,10 @@ class profile::swh::deploy::scheduler {
   $runner_unit_name = "${runner_service_name}.service"
   $runner_unit_template = "profile/swh/deploy/scheduler/${runner_service_name}.service.erb"
 
-  $packages = ['python3-swh.scheduler']
+  $packages = lookup('swh::deploy::scheduler::packages')
   $services = [$listener_service_name, $runner_service_name]
 
-  package {$packages:
-    ensure => installed,
-    notify => Service[$services],
-  }
+  include profile::swh::deploy::base_scheduler
 
   file {$config_file:
     ensure  => present,
@@ -37,12 +35,17 @@ class profile::swh::deploy::scheduler {
     mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$services],
+    require => File[$config_dir],
   }
 
   # purge legacy config file
-  $worker_conf_file = '/etc/softwareheritage/worker.ini'
-  file {$worker_conf_file:
-    ensure  => absent,
+  $to_purge_legacy_files = [ '/etc/softwareheritage/scheduler.yml', '/etc/softwareheritage/backend']
+  each($to_purge_legacy_files) | $to_purge| {
+    file {$to_purge:
+      ensure  => absent,
+      recurse => true,
+      force   => true,
+    }
   }
 
   # Template uses variables
@@ -68,23 +71,25 @@ class profile::swh::deploy::scheduler {
   }
 
   service {$runner_service_name:
-    ensure  => running,
-    enable  => true,
-    require => [
+    ensure    => running,
+    enable    => true,
+    require   => [
       Package[$packages],
       File[$config_file],
       Systemd::Unit_File[$runner_unit_name],
     ],
+    subscribe => Package[$packages],
   }
 
   service {$listener_service_name:
-    ensure  => running,
-    enable  => true,
-    require => [
+    ensure    => running,
+    enable    => true,
+    require   => [
       Package[$packages],
       File[$config_file],
       Systemd::Unit_File[$listener_unit_name],
     ],
+    subscribe => Package[$packages],
   }
 
   # scheduler rpc server
@@ -97,16 +102,8 @@ class profile::swh::deploy::scheduler {
 
   # task archival cron
 
-  $archive_config_dir = lookup('swh::deploy::scheduler::archive::conf_dir')
   $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
   $archive_config = lookup('swh::deploy::scheduler::archive::config')
-
-  file {$archive_config_dir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => 'swhscheduler',
-    mode   => '0644',
-  }
 
   file {$archive_config_file:
     ensure  => present,
@@ -114,14 +111,12 @@ class profile::swh::deploy::scheduler {
     group   => $group,
     mode    => '0640',
     content => inline_template("<%= @archive_config.to_yaml %>\n"),
-    require      => [
-      File[$archive_config_dir],
-    ],
+    require => File[$config_dir],
   }
 
   cron {'archive_completed_oneshot_and_disabled_recurring_tasks':
-    ensure   => absent,
-    user     => $user,
+    ensure => absent,
+    user   => $user,
   }
 
   profile::cron::d {'scheduler_archive_tasks':
