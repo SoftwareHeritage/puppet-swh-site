@@ -13,41 +13,43 @@ class profile::icinga2::objects::e2e_checks {
   $server_vault = lookup('swh::deploy::vault::e2e::storage')
   $server_webapp = lookup('swh::deploy::vault::e2e::webapp')
 
-  $packages = ["python3-swh.icingaplugins"]
+  $packages = ['python3-swh.icingaplugins']
 
   package {$packages:
     ensure => present
   }
 
   ::icinga2::object::checkcommand {'check-deposit-cmd':
-    import        => ['plugin-check-command'],
-    command       => [
-      "/usr/bin/swh", "icinga_plugins", "check-deposit",
-      "--server", "${deposit_server}",
-      "--username", "${deposit_user}",
-      "--password", "${deposit_pass}",
-      "--collection", "${deposit_collection}",
-      "--poll-interval", "${deposit_poll_interval}",
-      "single",
-      "--archive", "${deposit_archive}",
-      "--metadata", "${deposit_metadata}",
+    import  => ['plugin-check-command'],
+    command => [
+      '/usr/bin/swh', 'icinga_plugins',
+      '-w', '400',
+      'check-deposit',
+      '--server', $deposit_server,
+      '--username', $deposit_user,
+      '--password', $deposit_pass,
+      '--collection', $deposit_collection,
+      '--poll-interval', $deposit_poll_interval,
+      'single',
+      '--archive', $deposit_archive,
+      '--metadata', $deposit_metadata,
     ],
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
-    timeout       => 600,
-    target        => $checks_file,
-    require       => Package[$packages]
+    timeout => 600,
+    target  => $checks_file,
+    require => Package[$packages]
   }
 
   ::icinga2::object::checkcommand {'check-vault-cmd':
-    import        => ['plugin-check-command'],
-    command       => [
-      "/usr/bin/swh", "icinga_plugins", "check-vault",
-      "--swh-storage-url", "${server_vault}",
-      "--swh-web-url", "${server_webapp}",
-      "directory"
+    import  => ['plugin-check-command'],
+    command => [
+      '/usr/bin/swh', 'icinga_plugins', 'check-vault',
+      '--swh-storage-url', $server_vault,
+      '--swh-web-url', $server_webapp,
+      'directory'
     ],
-    target        => $checks_file,
-    require       => Package[$packages]
+    target  => $checks_file,
+    require => Package[$packages]
   }
 }
