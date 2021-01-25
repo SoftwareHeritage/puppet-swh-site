@@ -2438,7 +2438,9 @@ swh::deploy::worker::vault_cooker::concurrency: 20
 swh::deploy::worker::vault_cooker::loglevel: info
 swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::vault_cooker::config:
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  storage:
+    cls: retry
+    storage: "%{alias('swh::remote_service::storage::config')}"
   vault: "%{alias('swh::remote_service::vault::config::writable')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
