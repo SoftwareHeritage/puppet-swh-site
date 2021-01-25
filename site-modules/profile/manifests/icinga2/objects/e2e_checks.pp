@@ -23,7 +23,7 @@ class profile::icinga2::objects::e2e_checks {
     import  => ['plugin-check-command'],
     command => [
       '/usr/bin/swh', 'icinga_plugins',
-      '-w', '400',
+      '-w', '600',
       'check-deposit',
       '--server', $deposit_server,
       '--username', $deposit_user,
@@ -36,7 +36,7 @@ class profile::icinga2::objects::e2e_checks {
     ],
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
-    timeout => 600,
+    timeout => 900,
     target  => $checks_file,
     require => Package[$packages]
   }
