@@ -33,7 +33,7 @@ node /^search\d\.internal\.softwareheritage\.org$/ {
 }
 
 node 'saatchi.internal.softwareheritage.org' {
-  include role::swh_scheduler
+  include role::swh_scheduler_with_journal_client
 }
 
 node /^(belvedere|somerset).(internal.)?softwareheritage.org$/ {
