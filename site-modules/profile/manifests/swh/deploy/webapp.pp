@@ -214,8 +214,16 @@ class profile::swh::deploy::webapp {
   }
 
   include profile::filebeat
-  profile::filebeat::log_input { 'webapp-non-ssl-access':
-    paths  => [ '/var/log/apache2/archive.softwareheritage.org_non-ssl_access.log' ],
-    fields => { 'apache_log_type' => 'access_log' },
+  # To remove when cleanup is done
+  file {'/etc/filebeat/inputs.d/webapp-non-ssl-access.yml':
+    ensure => absent,
+  }
+  profile::filebeat::log_input { "${vhost_name}-non-ssl-access":
+    paths  => [ "/var/log/apache2/${vhost_name}_non-ssl_access.log" ],
+    fields => {
+      'apache_log_type' => 'access_log',
+      'environment'     => $environment,
+      'vhost'           => $vhost_name,
+    },
   }
 }
