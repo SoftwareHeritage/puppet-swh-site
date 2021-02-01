@@ -76,7 +76,7 @@ class profile::swh::deploy::webapp {
     mode   => '0770',
   }
 
-  file {"$conf_log_dir/swh-web.log":
+  file {"${conf_log_dir}/swh-web.log":
     ensure => present,
     owner  => $user,
     group  => $group,
@@ -118,9 +118,9 @@ class profile::swh::deploy::webapp {
     mode   => '0664',
   }
 
-  $sentry_dsn = lookup("swh::deploy::webapp::sentry_dsn", Optional[String], 'first', undef)
-  $sentry_environment = lookup("swh::deploy::webapp::sentry_environment", Optional[String], 'first', undef)
-  $sentry_swh_package = lookup("swh::deploy::webapp::sentry_swh_package", Optional[String], 'first', undef)
+  $sentry_dsn = lookup('swh::deploy::webapp::sentry_dsn', Optional[String], 'first', undef)
+  $sentry_environment = lookup('swh::deploy::webapp::sentry_environment', Optional[String], 'first', undef)
+  $sentry_swh_package = lookup('swh::deploy::webapp::sentry_swh_package', Optional[String], 'first', undef)
 
   ::gunicorn::instance {'swh-webapp':
     ensure             => enabled,
@@ -129,12 +129,12 @@ class profile::swh::deploy::webapp {
     executable         => 'django.core.wsgi:get_wsgi_application()',
     config_base_module => 'swh.web.gunicorn_config',
     settings           => {
-      bind               => $backend_listen_address,
-      workers            => $backend_workers,
-      worker_class       => 'sync',
-      timeout            => $backend_http_timeout,
-      graceful_timeout   => $backend_reload_mercy,
-      keepalive          => $backend_http_keepalive,
+      bind             => $backend_listen_address,
+      workers          => $backend_workers,
+      worker_class     => 'sync',
+      timeout          => $backend_http_timeout,
+      graceful_timeout => $backend_reload_mercy,
+      keepalive        => $backend_http_keepalive,
     },
     environment        => {
       'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
@@ -204,9 +204,9 @@ class profile::swh::deploy::webapp {
   include ::profile::swh::deploy::webapp::icinga_checks
 
   profile::prometheus::export_scrape_config {"swh-webapp_${fqdn}":
-    job          => "swh-webapp",
+    job          => 'swh-webapp',
     target       => "${vhost_name}:${vhost_ssl_port}",
-    scheme       => "https",
+    scheme       => 'https',
     metrics_path => '/metrics/prometheus',
     labels       => {
       vhost_name => $vhost_name,
