@@ -21,6 +21,8 @@ class profile::hedgedoc {
   $db_port = lookup('swh::postgresql::port')
   $db_url = "postgres://${db_user}:${db_password}@${db_host}:${db_port}/${db_name}"
 
+  $session_secret = lookup('hedgedoc::session_secret')
+
   $allow_anonymous = lookup('hedgedoc::allow_anonymous')
   $allow_anonymous_edits = lookup('hedgedoc::allow_anonymous_edits')
   $allow_email = lookup('hedgedoc::allow_email')
