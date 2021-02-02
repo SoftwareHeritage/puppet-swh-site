@@ -1,7 +1,7 @@
 filter {
   if [fields][apache_log_type] == "access_log" {
     grok {
-      match => { "message" => "%{COMBINEDAPACHELOG}" }
+      match => { "message" => "%{COMBINEDAPACHELOG}( %{NUMBER:duration_ms})?" }
     }
     date {
       match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
@@ -9,6 +9,10 @@ filter {
     mutate {
       add_field => {
         "[@metadata][target_index]" => "apache_logs-%{+YYYY.MM.dd}"
+      }
+      convert => {
+        "response" => "integer"
+        "duration_ms" => "integer"
       }
     }
   } else if "swh-worker@" in [systemd_unit] {
