@@ -17,6 +17,8 @@ class profile::hedgedoc {
   $install_db_dump = "${install_basepath}/db-backup_pre-${version}.sql.gz"
   $install_flag = "${install_dir}/setup_done"
 
+  $yarn_cachedir = "/var/cache/hedgedoc-yarn"
+
   $archive_path = "${install_basepath}/${version}.tar.gz"
 
   $current_symlink = "${install_basepath}/current"
@@ -29,6 +31,13 @@ class profile::hedgedoc {
     owner   => $user,
     group   => $group,
     mode    => '0644',
+  }
+
+  file { $yarn_cachedir:
+    ensure  => 'directory',
+    owner   => $user,
+    group   => $group,
+    mode    => '0600',
   }
 
   archive { 'hedgedoc':
@@ -120,6 +129,9 @@ class profile::hedgedoc {
       Postgresql::Server::Db[$db_name],
       File[$config_json_path],
       File[$sequelizerc_path],
+    ],
+    environment => [
+      "YARN_CACHE_FOLDER=${yarn_cachedir}",
     ],
     creates     => $install_flag,
     user        => $user,

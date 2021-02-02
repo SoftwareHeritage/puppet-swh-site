@@ -9,6 +9,7 @@ Type=simple
 User=<%= @user %>
 Group=<%= @group %>
 Environment=NODE_ENV=<%= @runtime_environment %>
+Environment=YARN_CACHE_FOLDER=<%= @yarn_cachedir %>
 WorkingDirectory=<%= @current_symlink %>
 
 ExecStart=/usr/bin/yarn start
