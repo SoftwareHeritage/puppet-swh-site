@@ -14,6 +14,7 @@ class profile::hedgedoc {
 
   $install_basepath = "/opt/hedgedoc"
   $install_dir = "${install_basepath}/${version}"
+  $install_db_dump = "${install_basepath}/db-backup_pre-${version}.sql.gz"
   $install_flag = "${install_dir}/setup_done"
 
   $archive_path = "${install_basepath}/${version}.tar.gz"
@@ -95,7 +96,24 @@ class profile::hedgedoc {
     notify  => Service[$service_name],
   }
 
-  exec {'hedgedoc-setup':
+  exec {'hedgedoc-dump-db':
+    command     => "pg_dump ${db_name} | gzip -9 > ${install_db_dump}",
+    path        => ["/bin", "/usr/bin"],
+    environment => [
+      "PGHOST=${db_host}",
+      "PGUSER=${db_user}",
+      "PGPORT=${db_port}",
+      "PGPASSWORD=${db_password}",
+    ],
+    creates     => $install_db_dump,
+    user        => $user,
+    umask       => '0066',
+    require     => [
+      Postgresql::Server::Db[$db_name],
+    ],
+  }
+
+  -> exec {'hedgedoc-setup':
     command     => "${install_dir}/bin/setup && touch ${install_flag}",
     cwd         => $install_dir,
     require     => [
