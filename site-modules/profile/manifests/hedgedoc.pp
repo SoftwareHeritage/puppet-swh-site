@@ -89,6 +89,7 @@ class profile::hedgedoc {
 
   $enable_keycloak = lookup('hedgedoc::enable_keycloak', Boolean, 'first', false)
   $keycloak_domain = lookup('hedgedoc::keycloak::domain')
+  $keycloak_provider_name = lookup('hedgedoc::keycloak::provider_name')
   $keycloak_realm = lookup('hedgedoc::keycloak::realm')
   $keycloak_client_id = lookup('hedgedoc::keycloak::client::id')
   $keycloak_client_secret = lookup('hedgedoc::keycloak::client::secret')

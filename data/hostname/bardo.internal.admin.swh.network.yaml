@@ -36,6 +36,7 @@ hedgedoc::allow_anonymous_edits: true
 hedgedoc::allow_email: true
 hedgedoc::allow_email_register: false
 hedgedoc::enable_keycloak: true
+hedgedoc::keycloak::provider_name: Software Heritage
 hedgedoc::keycloak::domain: auth.softwareheritage.org
 hedgedoc::keycloak::realm: SoftwareHeritage
 hedgedoc::keycloak::client::id: hedgedoc

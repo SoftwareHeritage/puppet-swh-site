@@ -12,6 +12,7 @@
         "allowEmailRegister": <%= @allow_email_register %>,
 <% if @enable_keycloak -%>
         "oauth2": {
+            "providerName": "<%= @keycloak_provider_name %>",
             "baseURL": "https://<%= @keycloak_domain %>/",
             "userProfileURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/userinfo",
             "userProfileUsernameAttr": "preferred_username",
