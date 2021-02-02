@@ -1,14 +1,3 @@
-groups:
-  hedgedoc:
-    gid: 6000
-
-users:
-  hedgedoc:
-    uid: 6000
-    shell: /bin/bash
-    groups:
-      - hedgedoc
-
 hedgedoc::db::host: localhost
 hedgedoc::db::database: hedgedoc
 hedgedoc::db::username: hedgedoc
@@ -39,9 +28,6 @@ swh::dbs:
 hedgedoc::release::version: 1.7.1
 hedgedoc::release::digest: 17e7092430b36c96059309fdd03f9244f6a13611e28ced153d9dbf97e109d5ba
 hedgedoc::release::digest_type: sha256
-
-hedgedoc::user: hedgedoc
-hedgedoc::group: hedgedoc
 
 hedgedoc::allow_anonymous: true
 hedgedoc::allow_anonymous_edits: true

@@ -1,11 +1,12 @@
 # deploy a hedgedoc instance
 class profile::hedgedoc {
   include profile::hedgedoc::apt_config
+  include profile::hedgedoc::user
+
+  $user = $::profile::hedgedoc::user::user
+  $group = $::profile::hedgedoc::user::group
 
   # ---- configuration
-  $user = lookup('hedgedoc::user')
-  $group = lookup('hedgedoc::group')
-
   $base_url = lookup('swh::deploy::hedgedoc::base_url')
 
   $db_host = lookup('hedgedoc::db::host')
