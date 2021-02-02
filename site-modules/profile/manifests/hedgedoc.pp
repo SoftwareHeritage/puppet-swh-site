@@ -95,7 +95,8 @@ class profile::hedgedoc {
     ensure  => present,
     owner   => $user,
     group   => $group,
-    mode    => '0644',
+    # Contains credentials
+    mode    => '0600',
     content => template("profile/hedgedoc/config.json.erb"),
   } ~>
   file {$sequelizerc_config_sequelizerc_path:
