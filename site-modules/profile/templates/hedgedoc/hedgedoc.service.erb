@@ -8,8 +8,6 @@ Wants=network-online.target
 Type=simple
 User=<%= @user %>
 Group=<%= @group %>
-Environment=CMD_ALLOW_ANONYMOUS=<%= @allow_anonymous %>
-Environment=CMD_ALLOW_ANONYMOUS_EDITS=<%= @allow_anonymous_edits %>
 Environment=NODE_ENV=<%= @runtime_environment %>
 WorkingDirectory=<%= @current_symlink %>
 
