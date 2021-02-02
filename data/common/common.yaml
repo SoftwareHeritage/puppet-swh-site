@@ -1804,6 +1804,7 @@ swh::deploy::deposit::internal_url: "%{hiera('swh::deploy::deposit::url')}"
 swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+swh::deploy::deposit::vhost::access_log_format: combined_with_duration
 swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
   - /1/private/deposits/

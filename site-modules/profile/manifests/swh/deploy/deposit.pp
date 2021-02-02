@@ -37,6 +37,7 @@ class profile::swh::deploy::deposit {
   $vhost_basic_auth_file = "${config_directory}/http_auth"
   # swh::deploy::deposit::vhost::basic_auth_content in private
   $vhost_basic_auth_content = lookup('swh::deploy::deposit::vhost::basic_auth_content')
+  $vhost_access_log_format = lookup('swh::deploy::deposit::vhost::access_log_format')
   $vhost_ssl_port = lookup('apache::https_port')
   $vhost_ssl_protocol = lookup('swh::deploy::deposit::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = lookup('swh::deploy::deposit::vhost::ssl_honorcipherorder')
@@ -158,6 +159,7 @@ class profile::swh::deploy::deposit {
         path  => "${static_dir}/robots.txt",
       },
     ],
+    access_log_format => $vhost_access_log_format,
     require       => [
       File[$vhost_basic_auth_file],
     ]
@@ -207,9 +209,18 @@ class profile::swh::deploy::deposit {
 
 
   include profile::filebeat
-  profile::filebeat::log_input { 'deposit-non-ssl-access':
-    paths  => [ '/var/log/apache2/deposit.softwareheritage.org_non-ssl_access.log' ],
-    fields => { 'apache_log_type' => 'access_log', },
+  # To remove when cleanup is done
+  file {'/etc/filebeat/inputs.d/deposit-non-ssl-access.yml':
+    ensure => absent,
+  }
+  profile::filebeat::log_input { "${vhost_name}-non-ssl-access":
+    paths  => [ "/var/log/apache2/${vhost_name}_non-ssl_access.log" ],
+    fields => {
+      'apache_log_type' => 'access_log',
+      'environment'     => $environment,
+      'vhost'           => $vhost_name,
+      'application'     => 'deposit',
+    },
   }
 
 }
