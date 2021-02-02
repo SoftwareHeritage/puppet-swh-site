@@ -226,6 +226,7 @@ class profile::swh::deploy::webapp {
       'apache_log_type' => 'access_log',
       'environment'     => $environment,
       'vhost'           => $vhost_name,
+      'application'     => 'webapp',
     },
   }
 }
