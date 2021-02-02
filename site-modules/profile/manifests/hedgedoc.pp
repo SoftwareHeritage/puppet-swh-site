@@ -45,8 +45,8 @@ class profile::hedgedoc {
   $install_path = "${root_install_path}/hedgedoc"
   $upgrade_flag_path = "${install_path}/hedgedoc-${version}-upgrade"
 
-  $sequelizerc_config_sequelizerc_path = "${install_path}/.sequelizerc"
-  $sequelizerc_config_json_path = "${install_path}/config.json"
+  $sequelizerc_path = "${install_path}/.sequelizerc"
+  $config_json_path = "${install_path}/config.json"
 
   $service_name = "hedgedoc"
   $unit_name = "${service_name}.service"
@@ -97,7 +97,7 @@ class profile::hedgedoc {
     require     => Postgresql::Server::Db[$db_name],
     refreshonly => true,
   } ~>
-  file {$sequelizerc_config_json_path:
+  file {$config_json_path:
     ensure  => present,
     owner   => $user,
     group   => $group,
@@ -105,7 +105,7 @@ class profile::hedgedoc {
     mode    => '0600',
     content => template("profile/hedgedoc/config.json.erb"),
   } ~>
-  file {$sequelizerc_config_sequelizerc_path:
+  file {$sequelizerc_path:
     ensure  => present,
     owner   => $user,
     group   => $group,
