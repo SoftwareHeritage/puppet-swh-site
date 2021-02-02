@@ -1,12 +1,6 @@
 # deploy a hedgedoc instance
 class profile::hedgedoc {
-
-  $packages = [
-    'npm', 'yarn', 'node-gyp'
-  ]
-
-  $keyid = lookup('yarn::apt_config::keyid')
-  $key =   lookup('yarn::apt_config::key')
+  include profile::hedgedoc::apt_config
 
   # ---- configuration
   $user = lookup('hedgedoc::user')
@@ -52,20 +46,6 @@ class profile::hedgedoc {
 
   $service_name = "hedgedoc"
   $unit_name = "${service_name}.service"
-
-  apt::source { 'yarn':
-    location => "https://dl.yarnpkg.com/debian/",
-    release  => 'stable',
-    repos    => 'main',
-    key      => {
-      id      => $keyid,
-      content => $key,
-    },
-  } ->
-  package { $packages:
-    ensure => present,
-    notify => Archive['hedgedoc'],
-  }
 
   file { $install_path:
     ensure  => 'directory',
@@ -140,7 +120,7 @@ class profile::hedgedoc {
     enable  => true,
     require => [
       Systemd::Unit_file[$unit_name],
-      Package[$packages],
+      Class['profile::hedgedoc::apt_config'],
       Archive['hedgedoc'],
     ],
   }
