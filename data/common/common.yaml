@@ -692,6 +692,9 @@ apache::hsts_header: "set Strict-Transport-Security \"max-age=%{hiera('strict_tr
 apache::http_port: 80
 apache::https_port: 443
 
+apache::log_formats:
+  combined_with_duration: "%a %l %u %t \\\"%r\\\" %>s %b \\\"%{literal('%')}{Referer}i\\\" \\\"%{literal('%')}{User-Agent}i\\\" %{literal('%')}{ms}T"
+
 # Hitch TLS proxy configuration
 hitch::frontend: "[*]:10443"
 hitch::proxy_support: false
@@ -1956,6 +1959,7 @@ swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+swh::deploy::webapp::vhost::access_log_format: combined_with_duration
 
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
 swh::deploy::webapp::production_db_dir: /var/lib/swh

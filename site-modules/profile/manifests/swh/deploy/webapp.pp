@@ -30,6 +30,7 @@ class profile::swh::deploy::webapp {
   }
   $vhost_aliases = delete($vhosts, $vhost_name)
 
+  $vhost_access_log_format = lookup('swh::deploy::webapp::vhost::access_log_format')
   $vhost_port = lookup('apache::http_port')
   $vhost_docroot = "/var/www/${vhost_name}"
   $vhost_basic_auth_file = "${conf_directory}/http_auth"
@@ -185,6 +186,7 @@ class profile::swh::deploy::webapp {
     require         => [
       File[$vhost_basic_auth_file],
     ],
+    access_log_format => $vhost_access_log_format,
   }
 
   if $endpoint_directories {
