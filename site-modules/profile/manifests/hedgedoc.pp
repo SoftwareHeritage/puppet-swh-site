@@ -26,6 +26,12 @@ class profile::hedgedoc {
   $allow_email = lookup('hedgedoc::allow_email')
   $allow_email_register = lookup('hedgedoc::allow_email_register')
 
+  $enable_keycloak = lookup('hedgedoc::enable_keycloak', Boolean, 'first', false)
+  $keycloak_domain = lookup('hedgedoc::keycloak::domain')
+  $keycloak_realm = lookup('hedgedoc::keycloak::realm')
+  $keycloak_client_id = lookup('hedgedoc::keycloak::client::id')
+  $keycloak_client_secret = lookup('hedgedoc::keycloak::client::secret')
+
   $runtime_environment = lookup('hedgedoc::runtime_environment')
   $log_level = lookup('hedgedoc::log_level')
 

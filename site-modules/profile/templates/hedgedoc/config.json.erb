@@ -10,6 +10,19 @@
         "allowOrigin": [ "localhost", "<%= @base_url %>"],
         "email": <%= @allow_email %>,
         "allowEmailRegister": <%= @allow_email_register %>,
+<% if @enable_keycloak -%>
+        "oauth2": {
+            "baseURL": "https://<%= @keycloak_domain %>/",
+            "userProfileURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/userinfo",
+            "userProfileUsernameAttr": "preferred_username",
+            "userProfileDisplayNameAttr": "name",
+            "userProfileEmailAttr": "email",
+            "tokenURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/token",
+            "authorizationURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/auth",
+            "clientID": "<%= @keycloak_client_id %>",
+            "clientSecret": "<%= @keycloak_client_secret %>"
+        },
+<% end -%>
         "hsts": {
             "enable": true,
             "maxAgeSeconds": 31536000,

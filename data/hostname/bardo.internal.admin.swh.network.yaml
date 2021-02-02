@@ -45,7 +45,17 @@ hedgedoc::group: hedgedoc
 
 hedgedoc::allow_anonymous: true
 hedgedoc::allow_anonymous_edits: true
+
+# authentication
 hedgedoc::allow_email: true
-hedgedoc::allow_email_register: true
+hedgedoc::allow_email_register: false
+hedgedoc::enable_keycloak: true
+hedgedoc::keycloak::domain: auth.softwareheritage.org
+hedgedoc::keycloak::realm: SoftwareHeritage
+hedgedoc::keycloak::client::id: hedgedoc
+# hedgedoc::keycloak::client::secret in private-data
+
+
+
 hedgedoc::runtime_environment: production
 hedgedoc::log_level: debug
