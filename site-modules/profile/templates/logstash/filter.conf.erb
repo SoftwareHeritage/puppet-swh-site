@@ -13,6 +13,7 @@ filter {
       convert => {
         "response" => "integer"
         "duration_ms" => "integer"
+        "bytes" => "integer"
       }
     }
   } else if "swh-worker@" in [systemd_unit] {
