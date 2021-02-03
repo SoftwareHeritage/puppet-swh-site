@@ -17,6 +17,8 @@ class profile::hedgedoc {
   $install_db_dump = "${install_basepath}/db-backup_pre-${version}.sql.gz"
   $install_flag = "${install_dir}/setup_done"
 
+  $uploads_dir = "${install_basepath}/uploads"
+
   $yarn_cachedir = "/var/cache/hedgedoc-yarn"
 
   $archive_path = "${install_basepath}/${version}.tar.gz"
@@ -26,7 +28,7 @@ class profile::hedgedoc {
   $service_name = "hedgedoc"
   $unit_name = "${service_name}.service"
 
-  file { [$install_basepath, $install_dir]:
+  file { [$install_basepath, $install_dir, $uploads_dir]:
     ensure  => 'directory',
     owner   => $user,
     group   => $group,
