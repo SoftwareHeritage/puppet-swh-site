@@ -45,4 +45,4 @@ hedgedoc::keycloak::client::id: hedgedoc
 
 
 hedgedoc::runtime_environment: production
-hedgedoc::log_level: debug
+hedgedoc::log_level: info
