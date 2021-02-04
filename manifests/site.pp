@@ -74,10 +74,6 @@ node 'storage01.euwest.azure.internal.softwareheritage.org' {
   include role::swh_storage_cloud
 }
 
-node 'storage02.euwest.azure.internal.softwareheritage.org' {
-  include role::swh_storage_cassandra
-}
-
 node /^getty.(internal.)?softwareheritage.org$/ {
   include role::swh_journal_orchestrator
 }
