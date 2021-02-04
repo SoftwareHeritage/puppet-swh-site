@@ -1052,6 +1052,13 @@ bind::resource_records:
     type: CNAME
     record: grandpalais.internal.softwareheritage.org
     data: grand-palais.internal.softwareheritage.org.
+  petit-palais/A:
+    record: petit-palais.internal.softwareheritage.org
+    data: 192.168.101.58
+  petitpalais/CNAME:
+    type: CNAME
+    record: petitpalais.internal.softwareheritage.org
+    data: petit-palais.internal.softwareheritage.org.
   giverny/A:
     type: A
     record: giverny.internal.softwareheritage.org
