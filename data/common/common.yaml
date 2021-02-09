@@ -3177,7 +3177,7 @@ swh::deploy::search::journal_client::indexed::config:
     hosts: "%{alias('swh::elasticsearch::nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
-    group_id: swh.search.journal_client
+    group_id: swh.search.journal_client.indexed
     prefix: swh.journal.indexed
     object_types:
       - origin_intrinsic_metadata

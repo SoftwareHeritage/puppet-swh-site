@@ -301,3 +301,7 @@ swh::remote_service::search::config:
 # tasks associated to save code now request. Modifying this so the staging
 # webapp does not access the production indexes
 swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.internal.staging.swh.network:9200/swh_workers-*
+
+swh::deploy::search::journal_client::service_types:
+  - objects
+  - indexed
