@@ -86,10 +86,10 @@ class profile::icinga2::objects::common_checks {
     check_command    => 'file_age',
     command_endpoint => 'host.name',
     vars             => {
-      file_age_file           => '/var/lib/puppet/state/agent_disabled.lock',
-      file_age_warning_time   => '240', # warning after 4h
-      file_age_critical_time  => '1440', # critical after 24h
-      file_age_ignore_missing => 'true',
+      file_age_file          => '/var/lib/puppet/state/agent_disabled.lock',
+      file_age_warning_time  => '240', # warning after 4h
+      file_age_critical_time => '1440', # critical after 24h
+      file_age_ignoremissing => 'true',
     },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
