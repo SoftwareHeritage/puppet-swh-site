@@ -79,4 +79,20 @@ class profile::icinga2::objects::common_checks {
     ignore           => ['-:"check_journal" !in host.vars.plugins', 'host.vars.noagent'],
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
+
+  ::icinga2::object::service {'puppet_agent':
+    import           => ['generic-service'],
+    apply            => true,
+    check_command    => 'file_age',
+    command_endpoint => 'host.name',
+    vars             => {
+      file_age_file           => '/var/lib/puppet/state/agent_disabled.lock',
+      file_age_warning_time   => '240', # warning after 4h
+      file_age_critical_time  => '1440', # critical after 24h
+      file_age_ignore_missing => 'true',
+    },
+    assign           => ['host.vars.os == Linux'],
+    ignore           => ['host.vars.noagent'],
+    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
 }
