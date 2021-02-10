@@ -25,3 +25,9 @@ swh::deploy::storage::config::local:
 swh::deploy::worker::instances: []
 
 swh::deploy::search::backend::listen::host: 0.0.0.0
+
+swh::deploy::indexer::storage::config:
+  indexer_storage:
+    cls: local
+    db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+

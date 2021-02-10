@@ -1681,10 +1681,13 @@ swh::deploy::indexer::storage::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
+
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: local
     db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+    journal_writer: "%{alias('swh::deploy::indexer::journal::writer::config')}"
+
 
 swh::deploy::indexer::journal::prefix: 'swh.journal.indexed'
 swh::deploy::indexer::brokers: "%{alias('swh::deploy::journal::brokers')}"
