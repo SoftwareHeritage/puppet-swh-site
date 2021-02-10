@@ -1653,9 +1653,37 @@ swh::deploy::journal::writer::config:
 swh::deploy::journal::backfill::config_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill.yml"
 swh::deploy::journal::backfill::user: swhstorage
 swh::deploy::journal::backfill::group: swhstorage
+
+swh::deploy::storage::config::local-read-only:
+  cls: local
+  db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
+  # objstorage is required but it's not used in that context
+  objstorage:
+    cls: memory
+
 swh::deploy::journal::backfill::config:
-  storage: "%{alias('swh::deploy::storage::config::local')}"
+  storage: "%{alias('swh::deploy::storage::config::local-read-only')}"
   journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
+
+swh::deploy::journal::backfill::config_logging_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill_logger.yml"
+swh::deploy::journal::backfill::config_logging:
+  version: 1
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: detail
+      level: INFO
+      stream: ext://sys.stdout
+  formatters:
+    detail:
+      format: '%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
+      datefmt: '%Y-%m-%dT%H:%M:%S'
+  loggers:
+    swh: {}
+  root:
+    level: INFO
+    handlers:
+    - console
 
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
