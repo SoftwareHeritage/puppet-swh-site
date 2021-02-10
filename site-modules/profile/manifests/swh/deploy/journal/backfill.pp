@@ -1,5 +1,8 @@
 # Deployment of journal backfill configuration
 class profile::swh::deploy::journal::backfill {
+  include profile::swh::deploy::base_storage
+  include profile::swh::deploy::journal
+
   $config_path = lookup('swh::deploy::journal::backfill::config_file')
   $config = lookup('swh::deploy::journal::backfill::config')
 

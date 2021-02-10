@@ -3,12 +3,13 @@
 class profile::swh::deploy::storage {
   include ::profile::swh::deploy::base_storage
 
-  package {'python3-swh.storage':
-    ensure => 'present',
-  } ~> ::profile::swh::deploy::rpc_server {'storage':
+  $package = $::profile::swh::deploy::base_storage::package
+
+  ::profile::swh::deploy::rpc_server {'storage':
     executable        => 'swh.storage.api.server:make_app_from_configfile()',
     worker            => 'sync',
     http_check_string => '<title>Software Heritage storage server</title>',
+    subscribe         => Package[$package]
   }
 
   $storage_config = lookup('swh::deploy::storage::config')['storage']

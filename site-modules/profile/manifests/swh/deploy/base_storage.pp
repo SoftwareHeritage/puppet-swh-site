@@ -8,4 +8,8 @@ class profile::swh::deploy::base_storage {
     mode   => '0755',
   }
 
+  $package = 'python3-swh.storage'
+  package {$package:
+    ensure => 'present',
+  }
 }

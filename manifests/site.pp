@@ -75,7 +75,7 @@ node 'storage01.euwest.azure.internal.softwareheritage.org' {
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
-  include role::swh_journal_orchestrator
+  include role::swh_journal_orchestrator_with_backfill_config
 }
 
 node /^worker\d+\.(internal\.)?softwareheritage\.org$/ {
@@ -151,9 +151,7 @@ node 'gateway.internal.staging.swh.network' {
 }
 
 node /^storage\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_base_storage
-  include profile::postgresql::client
-  include profile::swh::deploy::journal::backfill
+  include role::swh_storage_with_backfill_config
 }
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
