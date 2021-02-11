@@ -1512,10 +1512,6 @@ swh::remote_service::storage::config::localhost:
 
 swh::remote_service::search::config::empty: {}
 
-swh::remote_service::search::config::storage0:
-  cls: remote
-  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
-
 swh::remote_service::search::config::localhost:
   cls: remote
   url: "http://localhost:%{hiera('swh::remote_service::search::port')}/"
@@ -1524,7 +1520,7 @@ swh::remote_service::search::config::search1:
   cls: remote
   url: "http://search1.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
 
-swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::empty')}"
+swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::localhost')}"
 
 # Indexer backend configurations
 swh::remote_service::indexer::config::saam:
@@ -2138,12 +2134,20 @@ swh::deploy::scheduler::remote::backend::server_names:
   - "::1"
 swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
-swh::elasticsearch::nodes:
+swh::elasticsearch::storage_nodes:
   - host: esnode2.internal.softwareheritage.org
     port: 9200
   - host: esnode3.internal.softwareheritage.org
     port: 9200
   - host: esnode1.internal.softwareheritage.org
+    port: 9200
+
+swh::elasticsearch::search_nodes:
+  - host: search-esnode1.internal.softwareheritage.org
+    port: 9200
+  - host: search-esnode2.internal.softwareheritage.org
+    port: 9200
+  - host: search-esnode3.internal.softwareheritage.org
     port: 9200
 
 swh::deploy::scheduler::archive::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/elastic.yml"
@@ -2155,7 +2159,7 @@ swh::deploy::scheduler::archive::config:
     args:
       index_name_prefix: swh-tasks
       storage_nodes:
-        "%{alias('swh::elasticsearch::nodes')}"
+        "%{alias('swh::elasticsearch::storage_nodes')}"
       client_options:
         sniff_on_start: false
         sniff_on_connection_fail: true
@@ -3181,7 +3185,7 @@ swh::deploy::search::config:
   search:
     cls: elasticsearch
     args:
-      hosts: "%{alias('swh::elasticsearch::nodes')}"
+      hosts: "%{alias('swh::elasticsearch::search_nodes')}"
 
 swh::deploy::search::journal_client::service_types:
   - objects
@@ -3191,7 +3195,7 @@ swh::deploy::search::journal_client::objects::config_file: "%{lookup('swh::deplo
 swh::deploy::search::journal_client::objects::config:
   search:
     cls: elasticsearch
-    hosts: "%{alias('swh::elasticsearch::nodes')}"
+    hosts: "%{alias('swh::elasticsearch::search_nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.search.journal_client
@@ -3205,7 +3209,7 @@ swh::deploy::search::journal_client::indexed::config_file: "%{lookup('swh::deplo
 swh::deploy::search::journal_client::indexed::config:
   search:
     cls: elasticsearch
-    hosts: "%{alias('swh::elasticsearch::nodes')}"
+    hosts: "%{alias('swh::elasticsearch::search_nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.search.journal_client.indexed

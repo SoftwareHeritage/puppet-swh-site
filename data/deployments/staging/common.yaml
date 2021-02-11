@@ -281,7 +281,7 @@ elasticsearch::config::cluster::initial_master_nodes:
 elasticsearch::jvm_options::heap_size: 16g
 elasticsearch::config::prometheus::indices: true
 
-swh::elasticsearch::nodes:
+swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
