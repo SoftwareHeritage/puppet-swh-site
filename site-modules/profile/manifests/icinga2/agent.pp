@@ -11,7 +11,6 @@ class profile::icinga2::agent {
 
   include profile::icinga2::objects::agent_checks
 
-
   $check_mounts = $::mounts.filter |$mount| {
     $mount_excludes.all |$exclude| { !$mount.match($exclude) }
   }
