@@ -2054,11 +2054,14 @@ swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: SoftwareHeritage
 
+swh::deploy::webapp::metadata_search_backend: swh-indexer-storage
+
 # in private data:
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
   search: "%{alias('swh::remote_service::search::config')}"
+  metadata_search_backend: "%{alias('swh::deploy::webapp::metadata_search_backend')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault: "%{alias('swh::remote_service::vault::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
