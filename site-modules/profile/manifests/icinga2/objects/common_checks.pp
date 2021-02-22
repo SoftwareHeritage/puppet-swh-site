@@ -70,6 +70,19 @@ class profile::icinga2::objects::common_checks {
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
 
+  ::icinga2::object::service {'ntp':
+    import           => ['generic-service'],
+    apply            => true,
+    check_command    => 'ntp_peer',
+    command_endpoint => 'host.name',
+    vars             => {
+      ntp_address => 'localhost',
+    },
+    assign           => ['host.vars.os == Linux'],
+    ignore           => ['host.vars.noagent'],
+    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
+
   ::icinga2::object::service {'journalbeat':
     import           => ['generic-service'],
     apply            => true,
