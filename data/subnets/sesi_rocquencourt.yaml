@@ -9,6 +9,10 @@ dns::forwarders:
 dns::forwarder_insecure: true
 
 ntp::servers:
+  - 0.debian.pool.ntp.org
+  - 1.debian.pool.ntp.org
+  - 2.debian.pool.ntp.org
+  - 3.debian.pool.ntp.org
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
 
