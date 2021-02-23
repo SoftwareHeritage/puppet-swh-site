@@ -2,6 +2,7 @@
 swh::postgres::service::users:
   - tg1999
   - root
+  - olasd
   - vlorentz
   - zack
 
