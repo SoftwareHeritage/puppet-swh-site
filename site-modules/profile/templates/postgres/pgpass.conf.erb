@@ -2,5 +2,5 @@
 
 #hostname:port:database:username:password
 <% @dbs.each do |db| -%>
-<%= host=db['host'] %>:<%= db['port'] %>:<%= db['name'] %>:<%= db['user'] %>:<%= db.fetch('passwd', 'guest') %>
+<%= host=db['host'] %>:<%= db['port'] %>:<%= db['name'] %>:<%= db['user'] %>:<%= db.fetch('password', 'guest') %>
 <% end %>
