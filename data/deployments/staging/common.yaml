@@ -197,6 +197,10 @@ swh::dbs:
   clearly_defined:
     name: clearly-defined
     user: clearly-defined
+  clearly_defined_full:
+    name: clearly-defined-full
+    user: clearly-defined
+    password: "%{lookup('swh::deploy::clearly_defined::db::password')}"
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
 pgbouncer::common::listen_addresses:
@@ -237,6 +241,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-clearly-defined
+  - source_db: clearly-defined-full
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-clearly-defined-full
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0

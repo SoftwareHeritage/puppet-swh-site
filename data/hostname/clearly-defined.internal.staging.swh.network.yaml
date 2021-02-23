@@ -19,6 +19,18 @@ swh::postgres::service::dbs:
     port: "%{alias('swh::deploy::db::pgbouncer::port')}"
     user: clearly-defined
     passwd: "%{alias('swh::deploy::clearly_defined::db::password')}"
+  - alias: clearly-defined-full
+    name: clearly-defined-full
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+    password: guest
+  - alias: admin-clearly-defined-full
+    name: clearly-defined-full
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: clearly-defined
+    passwd: "%{alias('swh::deploy::clearly_defined::db::password')}"
   - alias: replica-swh
     name: softwareheritage
     host: somerset.internal.softwareheritage.org
