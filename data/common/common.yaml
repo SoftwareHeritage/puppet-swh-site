@@ -1898,6 +1898,7 @@ swh::deploy::worker::loader_deposit::config:
     auth:
       username: "%{hiera('deposit_basic_auth_swhworker_username')}"
       password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+  default_filename: archive.tar
 
 swh::deploy::checker_deposit::sentry_swh_package: swh.deposit.loader
 swh::deploy::checker_deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
