@@ -601,9 +601,9 @@ users:
       - swhdev
       - swhteam
     authorized_keys:
-      hakimbaaloudj@MacBook-Pro-de-Hakim.local:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQCo0eF8sx39x0Vu2T8YwpO9dD1G3oawaovN0KZMMW3nYge0mSsstWL+VoST2+1CV82vJ62KmlfldJVOe0ao7X/VU+PtG7tWEqWAgJIr6vlWnVI46utRdmn55kM3a9n07wSgBEPTwgH47QgHFUpIqHsR+utE+Au1o0DZF5ZJx0Q2Tj7QRfDLSDtgRhoRms1pWFauU+Z5QoUnQZh14/D2Imzhqj+fbpNiQqf9kTppflx+WbHDwhfSmpoDVWZn5qFL4p4kYtVXNhqXNLh7kHzUYpidBySJvf2ldk7lO7aN1tUo3wYM1hCMn+g6NjVioQ2ga37vy6BZJkm5BmKqBq+fSyD72bO2Ojh8fX1Y0ZJtb00MlD6lMX953asK1xm5gwmvyli7btb09aZkLEtIktRUN7gja1wvtkjmUnwMYnnUmVWUrCJC1Rquj7eHmCEgZOZ//Blsjs7+6bY9uo91bVt2xoxQaIfhVuhEh+cpQnCfz59rMoeLFE2toI3brVFPfHT6aV0=
+      hbaaloud@po461-pro.paris.inria.fr:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAILxjcB/AomGshUUhPI0odv10WjQZaPNlfr1eIfwVHaeS
 
 groups:
   adm:
