@@ -3107,6 +3107,9 @@ keycloak::resources::clients::swh_web:::roles:
   - swh.web.api.throttling_exempted
   - swh.web.api.graph
 
+keycloak::resources::clients::swh_deposit::roles:
+  - swh.deposit.api
+
 keycloak::resources::protocol_mappers::audience:
     resource_name: audience
     type: oidc-audience-mapper
@@ -3168,6 +3171,17 @@ keycloak::resources::realms:
             - https://webapp.staging.swh.network/*
             - https://webapp.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
+          direct_grant_flow: direct_grant_no_otp-SoftwareHeritageStaging
+        protocol_mappers:
+          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
+          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
+      swh-deposit:
+        settings:
+          redirect_uris:
+            # Should match letsencrypt::certificates.archive_staging.domains
+            - https://deposit.staging.swh.network/*
+            - https://deposit.internal.staging.swh.network/*
+          roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
           direct_grant_flow: direct_grant_no_otp-SoftwareHeritageStaging
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
