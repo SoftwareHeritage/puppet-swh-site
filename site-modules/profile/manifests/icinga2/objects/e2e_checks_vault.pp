@@ -16,7 +16,7 @@ define profile::icinga2::objects::e2e_checks_vault (
       '--swh-web-url', $server_webapp,
       'directory'
     ],
-    target  => $::profile::icinga2::objects::e2e_checks_base::packages::check_file,
+    target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages],
   }
 

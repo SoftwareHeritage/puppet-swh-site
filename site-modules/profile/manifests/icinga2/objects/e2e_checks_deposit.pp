@@ -31,7 +31,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
     timeout => 900,
-    target  => $::profile::icinga2::objects::e2e_checks_base::packages::check_file,
+    target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages]
   }
 
