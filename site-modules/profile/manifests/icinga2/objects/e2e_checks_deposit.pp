@@ -11,6 +11,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
 ) {
   include ::profile::icinga2::objects::e2e_checks_base
 
+  $zonename = lookup('icinga2::master::zonename')
   $check_command = "${environment}-check-deposit-cmd"
 
   ::icinga2::object::checkcommand {$check_command:

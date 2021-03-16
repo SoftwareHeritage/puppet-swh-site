@@ -7,6 +7,7 @@ define profile::icinga2::objects::e2e_checks_vault (
   include ::profile::icinga2::objects::e2e_checks_base
 
   $check_command = "${environment}-check-vault-cmd"
+  $zonename = lookup('icinga2::master::zonename')
 
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
