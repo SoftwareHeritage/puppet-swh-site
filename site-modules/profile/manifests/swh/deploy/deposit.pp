@@ -208,7 +208,7 @@ class profile::swh::deploy::deposit {
   }
 
   # Install deposit end-to-end checks
-  @@profile::icinga2::objects::e2e_checks_deposit {"End-to-end Deposit Test(s) in ${environement}":
+  @@profile::icinga2::objects::e2e_checks_deposit {"End-to-end Deposit Test(s) in ${environment}":
     deposit_server        => lookup('swh::deploy::deposit::e2e::server'),
     deposit_user          => lookup('swh::deploy::deposit::e2e::user'),
     deposit_pass          => lookup('swh::deploy::deposit::e2e::password'),

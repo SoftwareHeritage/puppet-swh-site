@@ -21,7 +21,7 @@ class profile::swh::deploy::vault {
   }
 
   # Install vault end-to-end checks
-  @@profile::icinga2::objects::e2e_checks_vault {"End-to-end Vault Test(s) in ${environement}":
+  @@profile::icinga2::objects::e2e_checks_vault {"End-to-end Vault Test(s) in ${environment}":
     server_vault  => lookup('swh::deploy::vault::e2e::storage'),
     server_webapp => lookup('swh::deploy::vault::e2e::webapp'),
     environment   => $environment,
