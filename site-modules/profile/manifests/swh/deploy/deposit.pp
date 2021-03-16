@@ -207,6 +207,17 @@ class profile::swh::deploy::deposit {
     }
   }
 
+  # Install deposit end-to-end checks
+  @@profile::icinga2::objects::e2e_checks_deposit {"End-to-end Deposit Test(s) in ${environement}":
+    deposit_server        => lookup('swh::deploy::deposit::e2e::server'),
+    deposit_user          => lookup('swh::deploy::deposit::e2e::user'),
+    deposit_pass          => lookup('swh::deploy::deposit::e2e::password'),
+    deposit_collection    => lookup('swh::deploy::deposit::e2e::collection'),
+    deposit_poll_interval => lookup('swh::deploy::deposit::e2e::poll_interval'),
+    deposit_archive       => lookup('swh::deploy::deposit::e2e:archive'),
+    deposit_metadata      => lookup('swh::deploy::deposit::e2e:metadata'),
+    environment           => $environment,
+  }
 
   include profile::filebeat
   # To remove when cleanup is done

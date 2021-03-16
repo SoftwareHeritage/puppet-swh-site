@@ -63,21 +63,8 @@ class profile::icinga2::master {
     target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
   }
 
-  ::icinga2::object::service {'check-deposit':
-    import           => ['generic-service-check-e2e'],
-    service_name     => 'Check deposit end-to-end',
-    check_command    => 'check-deposit-cmd',
-    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
-    host_name        => "${::fqdn}",
-  }
-
-  ::icinga2::object::service {'check-vault':
-    import           => ['generic-service-check-e2e'],
-    service_name     => 'Check vault end-to-end',
-    check_command    => 'check-vault-cmd',
-    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
-    host_name        => "${::fqdn}",
-  }
+  ::Profile::Icinga2::Objects::E2e_checks_deposit <<| |>>
+  ::Profile::Icinga2::Objects::E2e_checks_vault <<| |>>
 
   ::Icinga2::Object::Host <<| |>>
   ::Icinga2::Object::Endpoint <<| |>>

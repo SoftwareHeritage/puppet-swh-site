@@ -48,10 +48,12 @@ swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::work
 
 #### Storage/Indexer/Vault/Scheduler services to use in staging area
 
+swh::remote_service::storage0::url: "http://storage1.internal.staging.swh.network:%{hiera('swh::remote_service::storage::port')}/"
+
 swh::remote_service::storage::config::storage0:
   cls: remote
   args:
-    url: "http://storage1.internal.staging.swh.network:%{hiera('swh::remote_service::storage::port')}/"
+    url: "%{alias('swh::remote_service::storage0::url')}"
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::storage0')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::storage0')}"
@@ -308,3 +310,7 @@ swh::deploy::webapp::metadata_search_backend: swh-search
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
+
+
+swh::deploy::vault::e2e::storage: "%{alias('swh::remote_service::storage0::url')}"
+swh::deploy::vault::e2e::webapp: "https://webapp.staging.swh.network"

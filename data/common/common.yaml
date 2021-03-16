@@ -1860,10 +1860,6 @@ swh::deploy::deposit::e2e::poll_interval: 1
 swh::deploy::deposit::e2e:archive: /usr/share/swh/icinga-plugins/data/deposit/jesuisgpl.tgz
 swh::deploy::deposit::e2e:metadata: /usr/share/swh/icinga-plugins/data/deposit/jesuisgpl.tgz.xml
 
-# e2e checks on vault
-swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
-swh::deploy::vault::e2e::webapp: "https://archive.softwareheritage.org"
-
 swh::deploy::deposit::sentry_swh_package: swh.deposit
 swh::deploy::deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::deposit::sentry_dsn: "https://%{lookup('swh::deploy::deposit::sentry_token')}@sentry.softwareheritage.org/12"
