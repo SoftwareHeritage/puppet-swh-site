@@ -9,7 +9,7 @@ apache::default_vhost: false
 
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_webapp1
 
-swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::localhost')}"

@@ -25,7 +25,7 @@ networks:
 backups::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
 
 hitch::frontend: "[*]:443"
