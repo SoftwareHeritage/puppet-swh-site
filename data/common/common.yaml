@@ -1878,9 +1878,10 @@ swh::deploy::deposit::db::dbuser: swhstorage
 swh::deploy::deposit::config:
   max_upload_size: 209715200
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  storage: "%{alias('swh::remote_service::storage::config')}"
-  storage_metadata: "%{alias('swh::remote_service::storage::config')}"
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  # The backend server writes raw_extrinsic_metadata objects
+  storage_metadata: "%{alias('swh::remote_service::storage::config::writable')}"
+  # It only reads some information from this storage, but use the same config for consistency.
+  storage: "%{alias('swh::remote_service::storage::config::writable')}"
   private:
     secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
     db:
