@@ -27,6 +27,8 @@ backups::exclude:
 
 swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
+swh::deploy::storage::db::user: guest
+swh::deploy::storage::db::password: guest
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
