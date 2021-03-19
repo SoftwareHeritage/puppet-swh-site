@@ -1874,6 +1874,14 @@ swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
 
+swh::config::keycloak::realm_name: SoftwareHeritage
+swh::deploy::deposit::config::keycloak:
+  server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
+  realm_name: "%{alias('swh::config::keycloak::realm_name')}"
+
+swh::deploy::deposit::config::authentication:
+  authentication_provider: basic
+
 # swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data
 swh::deploy::deposit::config:

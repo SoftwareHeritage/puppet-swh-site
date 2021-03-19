@@ -23,7 +23,10 @@ class profile::swh::deploy::deposit {
   $cert_name = lookup('swh::deploy::deposit::vhost::letsencrypt_cert')
   $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
 
-  $full_conf = $conf_hiera + {allowed_hosts => $vhosts}
+  # authentication provider + optional keycloak config
+  $conf_authent = lookup('swh::deploy::deposit::config::authentication')
+
+  $full_conf = $conf_hiera + $conf_authent + {allowed_hosts => $vhosts}
 
   if $swh_hostname['fqdn'] in $vhosts {
     $vhost_name =  $swh_hostname['fqdn']
