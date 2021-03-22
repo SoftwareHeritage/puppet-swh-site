@@ -3231,7 +3231,7 @@ swh::deploy::counters::journal_client::config_file: "%{lookup('swh::deploy::base
 swh::deploy::counters::journal_client::config:
   counters:
     cls: remote
-    hosts: http://localhost:5011
+    url: http://localhost:5011
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.counters.journal_client
