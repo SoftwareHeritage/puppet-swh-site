@@ -1,0 +1,18 @@
+# Search Journal Client Template unit file
+# Managed by puppet class profile::swh::deploy::counters::journal_client
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Counters Journal Client
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/swh counters --config-file <%= @config_file %> journal-client
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
