@@ -319,3 +319,4 @@ swh::config::keycloak::realm_name: SoftwareHeritageStaging
 swh::deploy::deposit::config::authentication:
   authentication_provider: keycloak
   keycloak: "%{alias('swh::deploy::deposit::config::keycloak')}"
+  cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
