@@ -3192,7 +3192,6 @@ keycloak::resources::realms:
             - https://deposit.staging.swh.network/*
             - https://deposit.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
-          direct_grant_flow: direct_grant_no_otp-SoftwareHeritageStaging
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
