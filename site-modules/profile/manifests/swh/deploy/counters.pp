@@ -10,4 +10,12 @@ class profile::swh::deploy::counters {
   ::profile::swh::deploy::rpc_server {'counters':
     executable => 'swh.counters.api.server:make_app_from_configfile()',
   }
+
+  profile::prometheus::export_scrape_config {"swh-counters_${::fqdn}":
+    job          => 'swh-counters',
+    target       => "${::fqdn}:${swh::remote_service::counters::port}",
+    scheme       => 'http',
+    metrics_path => '/metrics',
+  }
+
 }
