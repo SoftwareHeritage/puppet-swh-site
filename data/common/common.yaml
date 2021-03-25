@@ -3245,8 +3245,14 @@ swh::deploy::counters::journal_client::config:
     prefix: swh.journal.objects
     object_types:
       - content
+      - directory
       - origin
+      - origin_visit
+      - origin_visit_status
+      - release
       - revision
+      - skipped_content
+      - snapshot
 
 swh::deploy::base_search::config_directory: "%{hiera('swh::conf_directory')}/search"
 swh::deploy::base_search::user: swhstorage
