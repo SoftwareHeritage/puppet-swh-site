@@ -32,6 +32,10 @@ node /^search\d\.internal\.softwareheritage\.org$/ {
   include role::swh_search_with_journal_client
 }
 
+node /^counters\d\.internal\.softwareheritage\.org$/ {
+  include role::swh_counters_with_journal_client
+}
+
 node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler_with_journal_client
 }

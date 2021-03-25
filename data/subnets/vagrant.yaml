@@ -97,6 +97,8 @@ static_hostnames:
     host: search-esnode3.internal.softwareheritage.org
   10.168.100.85:
     host: search1.internal.softwareheritage.org
+  10.168.100.95:
+    host: counters1.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
     aliases:
