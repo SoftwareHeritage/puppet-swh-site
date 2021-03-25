@@ -2,6 +2,8 @@
 class profile::swh::deploy::counters {
   include ::profile::swh::deploy::base_counters
 
+  $service_port = lookup('swh::remote_service::counters::port')
+
   class { '::redis':
     bind                     => '127.0.0.1',
     save_db_to_disk_interval => { '30' => '1' },
@@ -13,7 +15,7 @@ class profile::swh::deploy::counters {
 
   profile::prometheus::export_scrape_config {"swh-counters_${::fqdn}":
     job          => 'swh-counters',
-    target       => "${::fqdn}:${swh::remote_service::counters::port}",
+    target       => "${::fqdn}:${service_port}",
     scheme       => 'http',
     metrics_path => '/metrics',
   }
