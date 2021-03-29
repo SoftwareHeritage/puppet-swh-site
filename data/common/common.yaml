@@ -3165,6 +3165,16 @@ keycloak::resources::realms:
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
+      swh-deposit:
+        settings:
+          redirect_uris:
+            # Should match letsencrypt::certificates.archive_staging.domains
+            - https://deposit.softwareheritage.org/*
+            - https://deposit.internal.softwareheritage.org/*
+          roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
+        protocol_mappers:
+          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
+          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
   SoftwareHeritageStaging:
     settings:
       display_name: Software Heritage (Staging)
