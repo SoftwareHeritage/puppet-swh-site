@@ -46,9 +46,6 @@ networks::private_routes:
     enabled: true
   admin:
     enabled: true
-  public_swh_network:
-    enabled: true
-
 
 # Set apache MPM to prefork
 apache::mpm_module: prefork
