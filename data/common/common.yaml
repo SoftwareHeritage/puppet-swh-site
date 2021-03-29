@@ -2076,7 +2076,7 @@ swh::deploy::webapp::config::throttling:
         - 37.187.96.121
 swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
-  realm_name: SoftwareHeritage
+  realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
 swh::deploy::webapp::metadata_search_backend: swh-indexer-storage
 
