@@ -1880,7 +1880,9 @@ swh::deploy::deposit::config::keycloak:
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
 swh::deploy::deposit::config::authentication:
-  authentication_provider: basic
+  authentication_provider: keycloak
+  keycloak: "%{alias('swh::deploy::deposit::config::keycloak')}"
+  cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
 
 # swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data

@@ -316,7 +316,3 @@ swh::deploy::vault::e2e::storage: "%{alias('swh::remote_service::storage0::url')
 swh::deploy::vault::e2e::webapp: "https://webapp.staging.swh.network"
 
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
-swh::deploy::deposit::config::authentication:
-  authentication_provider: keycloak
-  keycloak: "%{alias('swh::deploy::deposit::config::keycloak')}"
-  cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
