@@ -27,6 +27,9 @@ swh::deploy::worker::lister::db::host: db1.internal.staging.swh.network
 swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 
+swh::deploy::webapp::db::host: db1.internal.staging.swh.network
+# swh::deploy::webapp::db::password in private data
+
 swh::deploy::worker::instances:
   - checker_deposit
   - loader_archive
@@ -203,6 +206,9 @@ swh::dbs:
     name: clearly-defined-full
     user: clearly-defined
     password: "%{lookup('swh::deploy::clearly_defined::db::password')}"
+  webapp:
+    name: swh-web
+    user: swh-web
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
 pgbouncer::common::listen_addresses:
@@ -248,6 +254,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-clearly-defined-full
+  - source_db: swh-web
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-web
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0

@@ -2001,6 +2001,10 @@ swh::deploy::webapp::backend::http_keepalive: 5
 swh::deploy::webapp::backend::http_timeout: 3600
 swh::deploy::webapp::backend::reload_mercy: 3600
 
+swh::deploy::webapp::db::host: db.internal.softwareheritage.org
+swh::deploy::webapp::db::user: swh-web
+swh::deploy::webapp::db::name: swh-web
+# swh::deploy::webapp::db::password in private data
 swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
@@ -2981,6 +2985,12 @@ swh::postgres::service::dbs:
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     password: "%{hiera('swh::deploy::indexer::storage::db::password')}"
+  - alias: admin-swh-web
+    name: "%{hiera('swh::deploy::webapp::db::name')}"
+    host: "%{hiera('swh::deploy::webapp::db::host')}"
+    user: "%{hiera('swh::deploy::webapp::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    password: "%{hiera('swh::deploy::webapp::db::password')}"
   - alias: swh
     name: "%{hiera('swh::deploy::storage::db::dbname')}"
     host: "%{hiera('swh::deploy::storage::db::host')}"
@@ -3021,6 +3031,12 @@ swh::postgres::service::dbs:
     name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
     user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-web
+    name: "%{hiera('swh::deploy::webapp::db::name')}"
+    host: "%{hiera('swh::deploy::webapp::db::host')}"
+    user: "%{hiera('swh::deploy::webapp::db::user')}"
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     user: guest
 
