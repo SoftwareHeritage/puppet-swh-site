@@ -3277,6 +3277,7 @@ swh::deploy::counters::journal_client::config:
       - revision
       - skipped_content
       - snapshot
+    message.max.bytes: 524288000
 
 swh::deploy::base_search::config_directory: "%{hiera('swh::conf_directory')}/search"
 swh::deploy::base_search::user: swhstorage
