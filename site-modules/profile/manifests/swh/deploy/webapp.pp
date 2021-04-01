@@ -39,9 +39,6 @@ class profile::swh::deploy::webapp {
   # Note that it's required by the ::profile::swh::deploy::webapp::icinga_checks
   $vhost_ssl_port = lookup('apache::https_port')
 
-  $production_db_dir = lookup('swh::deploy::webapp::production_db_dir')
-  $production_db_file = lookup('swh::deploy::webapp::production_db')
-
   $locked_endpoints = lookup('swh::deploy::webapp::locked_endpoints', Array, 'unique')
 
   $endpoint_directories = $locked_endpoints.map |$endpoint| {
@@ -103,20 +100,6 @@ class profile::swh::deploy::webapp {
   $storage_cfg = $full_webapp_config['storage']
   if $storage_cfg['cls'] == 'cassandra' {
     include ::profile::swh::deploy::storage_cassandra
-  }
-
-  file {$production_db_dir:
-    ensure => directory,
-    owner  => $user,
-    group  => $group,
-    mode   => '0755',
-  }
-
-  file {$production_db_file:
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0664',
   }
 
   $sentry_dsn = lookup('swh::deploy::webapp::sentry_dsn', Optional[String], 'first', undef)

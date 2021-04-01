@@ -327,3 +327,10 @@ swh::deploy::vault::e2e::storage: "%{alias('swh::remote_service::storage0::url')
 swh::deploy::vault::e2e::webapp: "https://webapp.staging.swh.network"
 
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
+
+swh::deploy::webapp::production_db:
+  host: "%{alias('swh::deploy::webapp::db::host')}"
+  port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+  name: "%{alias('swh::deploy::webapp::db::name')}"
+  user: "%{alias('swh::deploy::webapp::db::user')}"
+  password: "%{alias('swh::deploy::webapp::db::password')}"
