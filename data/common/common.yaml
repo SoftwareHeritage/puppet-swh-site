@@ -2004,7 +2004,15 @@ swh::deploy::webapp::backend::reload_mercy: 3600
 swh::deploy::webapp::db::host: db.internal.softwareheritage.org
 swh::deploy::webapp::db::user: swh-web
 swh::deploy::webapp::db::name: swh-web
+swh::deploy::webapp::db::port: 5433
 # swh::deploy::webapp::db::password in private data
+swh::deploy::webapp::production_db:
+  host: "%{alias('swh::deploy::webapp::db::host')}"
+  port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+  name: "%{alias('swh::deploy::webapp::db::name')}"
+  user: "%{alias('swh::deploy::webapp::db::user')}"
+  password: "%{alias('swh::deploy::webapp::db::password')}"
+
 swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
@@ -2016,8 +2024,6 @@ swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::webapp::vhost::access_log_format: combined_with_duration
 
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
-swh::deploy::webapp::production_db_dir: /var/lib/swh
-swh::deploy::webapp::production_db: "%{hiera('swh::deploy::webapp::production_db_dir')}/web.sqlite3"
 swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::internal_url')}/1/private/"
 swh::deploy::webapp::config::throttling:
   cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
