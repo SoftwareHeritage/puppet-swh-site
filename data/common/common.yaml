@@ -2085,6 +2085,7 @@ swh::deploy::webapp::config::keycloak:
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
 swh::deploy::webapp::metadata_search_backend: swh-indexer-storage
+swh::deploy::webapp::history_counters_url: "https://stats.export.softwareheritage.org/history_counters.json"
 
 # in private data:
 # deposit_basic_auth_swhworker_username
@@ -2109,7 +2110,8 @@ swh::deploy::webapp::config:
   client_config:
     sentry_dsn: "%{lookup('swh::deploy::webapp::sentry_dsn')}"
   keycloak: "%{alias('swh::deploy::webapp::config::keycloak')}"
-
+  history_counters_url: "%{alias('swh::deploy::webapp::history_counters_url')}"
+  
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
   - /api/1/entity/
@@ -3236,6 +3238,13 @@ swh::deploy::counters::sentry_environment: "%{alias('swh::deploy::environment')}
 swh::deploy::counters::sentry_dsn: "https://%{lookup('swh::deploy::counters::sentry_token')}@sentry.softwareheritage.org/19"
 swh::deploy::counters::user: "%{alias('swh::deploy::base_counters::user')}"
 swh::deploy::counters::group: "%{alias('swh::deploy::base_counters::group')}"
+swh::deploy::counters::cache_directory: /srv/softwareheritage/counters
+swh::deploy::counters::cache_static_file: static_history.json
+# will be always true when the deployment will be done in production
+swh::deploy::counters::refresh_cache::activate: false
+swh::deploy::counters::refresh_cache::cron:
+  minute: 0
+  hour: "*/4"
 swh::deploy::counters::backend::listen::host: 0.0.0.0
 swh::deploy::counters::backend::listen::port: "%{alias('swh::remote_service::counters::port')}"
 swh::deploy::counters::backend::workers: 2
