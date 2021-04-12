@@ -2233,10 +2233,7 @@ swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::por
 
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
-swh::deploy::worker::instances:
-  - loader_debian
-  - loader_git
-  - lister
+swh::deploy::worker::instances: []
 
 swh::deploy::loader_git::sentry_swh_package: swh.loader.git
 swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment')}"
