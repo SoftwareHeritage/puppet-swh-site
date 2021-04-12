@@ -2256,6 +2256,26 @@ swh::deploy::worker::loader_git::config:
       - swh.loader.git.tasks.LoadDiskGitRepository
       - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
 
+# high priority loader (save-code-now, ...)
+swh::deploy::worker::loader_high_priority::config_file: "%{hiera('swh::conf_directory')}/loader_high_priority.yml"
+swh::deploy::worker::loader_high_priority::concurrency: 1
+swh::deploy::worker::loader_high_priority::max_tasks_per_child: 100
+swh::deploy::worker::loader_high_priority::loglevel: info
+swh::deploy::worker::loader_high_priority::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: 104857600
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      # loader-git
+      - save_code_now:swh.loader.git.tasks.UpdateGitRepository
+      # mercurial
+      - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
+      - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
+      # svn
+      - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
+      - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
+
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core
 swh::deploy::loader_core::sentry_environment: "%{hiera('swh::deploy::environment')}"

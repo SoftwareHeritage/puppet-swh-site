@@ -1,5 +1,4 @@
 # Git Loader base configuration
-
 class profile::swh::deploy::base_loader_git {
   include ::profile::swh::deploy::loader
 

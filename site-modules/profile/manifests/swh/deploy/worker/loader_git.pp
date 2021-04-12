@@ -5,8 +5,7 @@ class profile::swh::deploy::worker::loader_git {
   ::profile::swh::deploy::worker::instance {'loader_git':
     ensure       => present,
     require      => [
-      Class['profile::swh::deploy::base_loader_git'],
+      Package[$::profile::swh::deploy::base_loader_git::packages],
     ],
   }
-
 }

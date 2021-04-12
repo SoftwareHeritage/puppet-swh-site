@@ -44,6 +44,7 @@ swh::deploy::worker::instances:
   - loader_svn
   - vault_cooker
   - lister
+  - loader_high_priority
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
