@@ -119,6 +119,9 @@ smtp::mail_aliases:
   - user: hakb
     aliases:
       - hakim.baaloudj@gmail.com
+  - user: jayesh
+    aliases:
+      - jayesh.mail@gmail.com
 
 networks::manage_interfaces: true
 
@@ -600,6 +603,17 @@ users:
       hbaaloud@po461-pro.paris.inria.fr:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAILxjcB/AomGshUUhPI0odv10WjQZaPNlfr1eIfwVHaeS
+  jayesh:
+    uid: 1029
+    full_name: Jayesh Velayudhan
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      jayesh.mail@gmail.com:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDLVYpzpelvLCL+OqKAtCu75fd8RBGeu4T+HL9kDvGp0/+oNd32hsP7aXmclDpUOH1Fn91PZ3MYSXreXNFgHihs7r6k3gjA4szrMrQHgJhHCyh3uP7Szzsb5HP4RIe9hqAnrxYVWjyp/BrKWEZM2nxjW1Y7XCxfcIgMFQZfA4SdKtB/mR/P9VJwtDJIkPyUVWlfdFSgUsHEU8puVJmdQDk0XwTSDOeZTpNB1oDqOABuaEJZYNKXjnClfGSvJy5ISoGSRV4BPpOofVh5idyv49+brEeugfa66gGds2WQdtMkKQ+qCygaGkc1ee3yME55fTqYyCrU84rCr+nDMbXiwCke21TTBFC7xGFAhIwCPXcEWG5lFeUlL96olt38YKAYCE+LjlCsjg3kAeN+w3fmV+N5QjG0vJoHv+s6+FmOAW9zmrTFESUFuxfvQzDVL1NYfH4D54Tma2aqQFKE28P4b3jQMXEaXk/oMVNjkoTGDhYbWggfA0PrzXr9saiRrVwlmoob+DYaGG5fACCnQuJtONxjQJqc4e5I2AGlK30V3kRtodwbfTiypJCFXqJ7lw1AsalArGLTm53ydfUX28sOZmBkrqgqUl0Y9UI6O0SIm/KP0eUsgM2UWFbHoSoecuOK72HhwC4oN2UUD4iZ6+ZNrsWb7j7JtETZDkYYBJkL98Wv1Q==
 
 groups:
   adm:
