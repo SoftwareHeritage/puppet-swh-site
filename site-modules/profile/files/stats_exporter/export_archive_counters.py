@@ -104,11 +104,9 @@ def main(server, port, history_data_file):
     """
     result = {}
     hist_data = history_data(history_data_file)
-    # for content, we retrieve existing data and merges with the new one
-    content_data = get_timestamp_history(server, port, 'content')
-    result['content'] = hist_data['content'] + content_data
-    for label in ['origin', 'revision']:
-        result[label] = get_timestamp_history(server, port, label)
+    for label in ['content', 'origin', 'revision']:
+        content_data = get_timestamp_history(server, port, label)
+        result[label] = hist_data.get(label) + content_data
 
     print(json.dumps(result))
 
