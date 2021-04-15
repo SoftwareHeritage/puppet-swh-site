@@ -18,3 +18,6 @@ swh::deploy::reverse_proxy::services:
   - webapp
 
 swh::deploy::webapp::metadata_search_backend: swh-search
+
+swh::deploy::webapp::history_counters_url: "%{lookup('swh::remote_service::counters::url')}counters_history/history.json"
+swh::deploy::webapp::counters_backend: swh-counters

@@ -48,4 +48,17 @@ class profile::swh::deploy::counters {
     }
   }
 
+  # Copy the historical data
+  if $static_history_file {
+    file { $static_history_file :
+      ensure  => present,
+      path    => "${cache_directory}/${static_history_file}",
+      source  => "puppet:///modules/profile/swh/deploy/counters/static_history/${static_history_file}",
+      owner   => 'swhstorage',
+      group   => 'swhstorage',
+      mode    => '0755',
+      require => File[$cache_directory]
+    }
+  }
+
 }
