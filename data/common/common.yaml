@@ -587,11 +587,11 @@ users:
     groups:
       - swhdev
       - swhteam
-    shell: /bin/bash
+    shell: /bin/false
     authorized_keys:
       tg@tg-Inspiron-15-7000-Gaming:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIFWGdBi6sAzfrphRg6h8fwD+W6HaZMIv9OUCXJjc0R9c
+        key: !
   hakb:
     uid: 1028
     full_name: Hakim Baaloudj
