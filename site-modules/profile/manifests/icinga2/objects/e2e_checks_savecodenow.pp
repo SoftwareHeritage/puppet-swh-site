@@ -11,7 +11,8 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
   $check_command_prefix = "${environment}-check-savecodenow"
   $zonename = lookup('icinga2::master::zonename')
 
-  ::icinga2::object::checkcommand {"${check_command_prefix}-cmd-${origin_name}-${origin_type}":
+  $check_command = "${check_command_prefix}-cmd-${origin_name}-${origin_type}"
+  ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => [
       '/usr/bin/swh', 'icinga_plugins', 'check-savecodenow',
