@@ -575,11 +575,11 @@ users:
     groups:
       - swhdev
       - swhteam
-    shell: /bin/bash
+    shell: /bin/false
     authorized_keys:
       tenma@swh-ng1:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIFZ2Ny1YDntm3yHa7yTG+HsZr+HUIMHAi/k/MS6hoKzY
+        key: disabled
 
   tg1999:
     uid: 1027
@@ -591,7 +591,7 @@ users:
     authorized_keys:
       tg@tg-Inspiron-15-7000-Gaming:
         type: ssh-ed25519
-        key: !
+        key: disabled
   hakb:
     uid: 1028
     full_name: Hakim Baaloudj
