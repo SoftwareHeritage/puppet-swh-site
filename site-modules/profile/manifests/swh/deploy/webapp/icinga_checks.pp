@@ -108,6 +108,7 @@ class profile::swh::deploy::webapp::icinga_checks {
       origin_url    => $entry['origin'],
       origin_type   => $entry['type'],
       environment   => $environment,
+      tag           => 'icinga2::exported',
     }
   }
 }
