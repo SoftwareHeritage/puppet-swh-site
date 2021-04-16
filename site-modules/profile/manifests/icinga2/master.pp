@@ -65,6 +65,7 @@ class profile::icinga2::master {
 
   ::Profile::Icinga2::Objects::E2e_checks_deposit <<| |>>
   ::Profile::Icinga2::Objects::E2e_checks_vault <<| |>>
+  ::Profile::Icinga2::Objects::E2e_checks_savecodenow <<| |>>
 
   ::Icinga2::Object::Host <<| |>>
   ::Icinga2::Object::Endpoint <<| |>>
