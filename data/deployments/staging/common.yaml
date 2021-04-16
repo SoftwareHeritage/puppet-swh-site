@@ -328,8 +328,9 @@ swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
 
+swh::deploy::webapp::url: "https://webapp.staging.swh.network"
+
 swh::deploy::vault::e2e::storage: "%{alias('swh::remote_service::storage0::url')}"
-swh::deploy::vault::e2e::webapp: "https://webapp.staging.swh.network"
 
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
 

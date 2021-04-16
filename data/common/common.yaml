@@ -1870,6 +1870,19 @@ swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
   - /1/private/deposits/
 
+ # e2e vault
+swh::deploy::vault::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
+
+# e2e save code now
+swh::deploy::savecodenow::e2e::origins:
+  - name: parmap
+    origin: https://github.com/rdicosmo/parmap
+    type: git
+  - name: cran-scrabble
+    origin: https://github.com/cran/SCRABBLE
+    type: svn
+swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
+
 # e2e checks on deposit
 swh::deploy::deposit::e2e::server: "%{hiera('swh::deploy::deposit::url')}/1"
 swh::deploy::deposit::e2e::user: swh

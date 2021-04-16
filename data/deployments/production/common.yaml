@@ -21,6 +21,8 @@ swh::postgresql::shared_buffers: 4GB
 
 swh::deploy::search::index: origin-production
 
+swh::deploy::webapp::url: "https://archive.softwareheritage.org"
+
 # e2e checks on vault
 swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
-swh::deploy::vault::e2e::webapp: "https://archive.softwareheritage.org"
+
