@@ -1874,6 +1874,7 @@ swh::deploy::deposit::locked_endpoints:
 swh::deploy::vault::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 
 # e2e save code now
+swh::deploy::savecodenow::e2e::activate: true  # to be deactivated on secondaries webapps
 swh::deploy::savecodenow::e2e::origins:
   - name: parmap
     origin: https://github.com/rdicosmo/parmap
