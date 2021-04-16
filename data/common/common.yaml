@@ -2282,6 +2282,7 @@ swh::deploy::worker::loader_high_priority::config:
       # svn
       - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
       - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
+      - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
 
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core
