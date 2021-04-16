@@ -17,7 +17,7 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
     command => [
       '/usr/bin/swh', 'icinga_plugins', 'check-savecodenow',
       '--swh-web-url', $server_webapp,
-      'origin_url', $origin_url, '--visit-type', $origin_type
+      'origin', $origin_url, '--visit-type', $origin_type
     ],
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages],
