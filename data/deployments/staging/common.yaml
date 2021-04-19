@@ -202,13 +202,6 @@ swh::dbs:
   indexer::storage:
     name: swh-indexer
     user: swh-indexer
-  clearly_defined:
-    name: clearly-defined
-    user: clearly-defined
-  clearly_defined_full:
-    name: clearly-defined-full
-    user: clearly-defined
-    password: "%{lookup('swh::deploy::clearly_defined::db::password')}"
   webapp:
     name: swh-web
     user: swh-web
@@ -247,16 +240,6 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-indexer
-  - source_db: clearly-defined
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-clearly-defined
-  - source_db: clearly-defined-full
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-clearly-defined-full
   - source_db: swh-web
     host: localhost
     auth_user: postgres
