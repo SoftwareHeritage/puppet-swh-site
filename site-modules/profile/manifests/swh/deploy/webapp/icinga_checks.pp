@@ -102,7 +102,7 @@ class profile::swh::deploy::webapp::icinga_checks {
 
   $activate_check = lookup('swh::deploy::savecodenow::e2e::activate')
 
-  if activate_check {
+  if $activate_check {
      $origins = lookup('swh::deploy::savecodenow::e2e::origins')
      each($origins) | $entry | {
        @@profile::icinga2::objects::e2e_checks_savecodenow {"End-to-end SaveCodeNow Check - ${entry['name']} with type ${entry['type']} in ${environment}":
