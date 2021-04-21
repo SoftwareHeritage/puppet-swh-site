@@ -1882,6 +1882,10 @@ swh::deploy::savecodenow::e2e::origins:
   - name: panda
     origin: https://subversion.renater.fr/anonscm/svn/panda
     type: svn
+  - name: hgview
+    origin: https://foss.heptapod.net/mercurial/hgview
+    type: hg
+
 swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 
 # e2e checks on deposit
