@@ -170,3 +170,5 @@ static_hostnames:
     host: worker3.internal.staging.swh.network
   10.168.130.110:
     host: objstorage0.internal.staging.swh.network
+  10.168.130.160:
+    host: mirror-test.internal.staging.swh.network

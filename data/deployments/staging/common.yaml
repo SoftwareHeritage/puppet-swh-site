@@ -205,6 +205,10 @@ swh::dbs:
   webapp:
     name: swh-web
     user: swh-web
+  mirror:
+    name: swh-mirror
+    user: swh-mirror
+    password: "%{lookup('swh::deploy::mirror::db::password')}"
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
 pgbouncer::common::listen_addresses:
@@ -245,7 +249,12 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-web
-
+  - source_db: swh-mirror
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: swh-mirror
+    
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 4

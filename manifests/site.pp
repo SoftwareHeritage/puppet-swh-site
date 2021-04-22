@@ -203,6 +203,10 @@ node 'bojimans.internal.softwareheritage.org' {
   include role::swh_netbox
 }
 
+node /^mirror-test\.internal\.staging\.swh\.network$/ {
+  include profile::postgresql::client
+}
+
 node default {
   include role::swh_base
 }

@@ -1,0 +1,26 @@
+swh::postgres::service::users:
+  - root
+  - zack
+  - ardumont
+  - ddouard
+  - vsellier
+
+
+swh::postgres::service::dbs:
+  - alias: swh-mirror
+    name: swh-mirror
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+    password: guest
+  - alias: admin-swh-mirror
+    name: swh-mirror
+    host: "%{alias('swh::deploy::storage::db::host')}"
+    port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+    user: swh-mirror
+    password: "%{hiera('swh::deploy::mirror::db::password')}"
+  - alias: swh
+    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: "%{hiera('swh::deploy::storage::db::host')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
