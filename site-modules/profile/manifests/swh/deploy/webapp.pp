@@ -212,4 +212,15 @@ class profile::swh::deploy::webapp {
       'application'     => 'webapp',
     },
   }
+
+  $activate_once_per_environment_webapp = lookup('swh::deploy::webapp::cron::refresh_statuses')
+  if $activate_once_per_environment_webapp {
+    profile::cron::d {'refresh-savecodenow-statuses':
+      target  => 'refresh-savecodenow-statuses',
+      command => 'chronic sh -c "/usr/bin/django-admin refresh_savecodenow_statuses"',
+      user    => 'root',
+      minute  => '*',
+      hour    => '*',
+    }
+  }
 }

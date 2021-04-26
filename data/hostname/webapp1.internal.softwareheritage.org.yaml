@@ -19,4 +19,6 @@ swh::deploy::reverse_proxy::services:
 
 swh::deploy::webapp::metadata_search_backend: swh-search
 
+# already running for the main instance so no need here
+swh::deploy::webapp::cron::refresh_statuses: false
 swh::deploy::savecodenow::e2e::activate: false
