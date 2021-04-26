@@ -313,9 +313,6 @@ swh::remote_service::search::config:
 swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.internal.staging.swh.network:9200/swh_workers-*
 swh::deploy::webapp::metadata_search_backend: swh-search
 
-swh::deploy::webapp::history_counters_url: "%{lookup('swh::remote_service::counters::url')}counters_history/history.json"
-swh::deploy::webapp::counters_backend: swh-counters
-
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
