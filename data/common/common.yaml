@@ -3226,6 +3226,8 @@ keycloak::resources::realms:
       registration_allowed: true
       reset_password_allowed: true
       verify_email: true
+      roles:
+        - swh.ambassador
     flows:
       - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
     clients:
@@ -3257,6 +3259,8 @@ keycloak::resources::realms:
       registration_allowed: true
       reset_password_allowed: true
       verify_email: true
+      roles:
+        - swh.ambassador
     flows:
       - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
     clients:
