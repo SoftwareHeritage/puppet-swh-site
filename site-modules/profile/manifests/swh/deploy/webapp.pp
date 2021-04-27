@@ -8,6 +8,7 @@ class profile::swh::deploy::webapp {
   $webapp_config = lookup('swh::deploy::webapp::config')
   $conf_log_dir = lookup('swh::deploy::webapp::conf::log_dir')
 
+  $webapp_settings_module = lookup('swh::deploy::webapp::django_settings_module')
   $backend_listen_host = lookup('swh::deploy::webapp::backend::listen::host')
   $backend_listen_port = lookup('swh::deploy::webapp::backend::listen::port')
   $backend_listen_address = "${backend_listen_host}:${backend_listen_port}"
@@ -121,7 +122,7 @@ class profile::swh::deploy::webapp {
       keepalive        => $backend_http_keepalive,
     },
     environment        => {
-      'DJANGO_SETTINGS_MODULE' => 'swh.web.settings.production',
+      'DJANGO_SETTINGS_MODULE' => $webapp_settings_module,
       'SWH_SENTRY_DSN'         => $sentry_dsn,
       'SWH_SENTRY_ENVIRONMENT' => $sentry_environment,
       'SWH_MAIN_PACKAGE'       => $sentry_swh_package,
@@ -213,12 +214,21 @@ class profile::swh::deploy::webapp {
     },
   }
 
+  $filename_refresh_status = "refresh-savecodenow-statuses"
+  $filepath_refresh_status = "/usr/local/bin/${filename_refresh_status}"
+  file {$filepath_refresh_status:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'www-data',
+      mode    => '0755',
+    content  => template("profile/swh/deploy/webapp/${filename_refresh_status}.sh.erb"),
+  }
+
   $activate_once_per_environment_webapp = lookup('swh::deploy::webapp::cron::refresh_statuses')
   if $activate_once_per_environment_webapp {
-    profile::cron::d {'refresh-savecodenow-statuses':
-      target  => 'refresh-savecodenow-statuses',
-      command => 'chronic sh -c "/usr/bin/django-admin refresh_savecodenow_statuses"',
-      user    => 'root',
+    profile::cron::d {$filename_refresh_status:
+      target  => $filename_refresh_status,
+      command => "chronic sh -c '${filepath_refresh_status}'",
       minute  => '*',
       hour    => '*',
     }

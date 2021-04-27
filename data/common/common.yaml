@@ -2054,6 +2054,7 @@ swh::deploy::webapp::production_db:
 
 swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 
+swh::deploy::webapp::django_settings_module: swh.web.settings.production
 swh::deploy::webapp::cron::refresh_statuses: true
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_production
