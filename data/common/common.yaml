@@ -3241,6 +3241,8 @@ keycloak::resources::realms:
       reset_password_allowed: true
       verify_email: true
       roles:
+        - offline_access
+        - uma_authorization
         - swh.ambassador
     flows:
       - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
@@ -3274,6 +3276,8 @@ keycloak::resources::realms:
       reset_password_allowed: true
       verify_email: true
       roles:
+        - offline_access
+        - uma_authorization
         - swh.ambassador
     flows:
       - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
