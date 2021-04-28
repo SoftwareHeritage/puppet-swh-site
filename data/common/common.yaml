@@ -122,6 +122,9 @@ smtp::mail_aliases:
   - user: jayesh
     aliases:
       - jayesh.mail@gmail.com
+  - user: zaboukha
+    aliases:
+      - zainab.ab.k7@gmail.com
 
 networks::manage_interfaces: true
 
@@ -614,6 +617,17 @@ users:
       jayesh.mail@gmail.com:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDLVYpzpelvLCL+OqKAtCu75fd8RBGeu4T+HL9kDvGp0/+oNd32hsP7aXmclDpUOH1Fn91PZ3MYSXreXNFgHihs7r6k3gjA4szrMrQHgJhHCyh3uP7Szzsb5HP4RIe9hqAnrxYVWjyp/BrKWEZM2nxjW1Y7XCxfcIgMFQZfA4SdKtB/mR/P9VJwtDJIkPyUVWlfdFSgUsHEU8puVJmdQDk0XwTSDOeZTpNB1oDqOABuaEJZYNKXjnClfGSvJy5ISoGSRV4BPpOofVh5idyv49+brEeugfa66gGds2WQdtMkKQ+qCygaGkc1ee3yME55fTqYyCrU84rCr+nDMbXiwCke21TTBFC7xGFAhIwCPXcEWG5lFeUlL96olt38YKAYCE+LjlCsjg3kAeN+w3fmV+N5QjG0vJoHv+s6+FmOAW9zmrTFESUFuxfvQzDVL1NYfH4D54Tma2aqQFKE28P4b3jQMXEaXk/oMVNjkoTGDhYbWggfA0PrzXr9saiRrVwlmoob+DYaGG5fACCnQuJtONxjQJqc4e5I2AGlK30V3kRtodwbfTiypJCFXqJ7lw1AsalArGLTm53ydfUX28sOZmBkrqgqUl0Y9UI6O0SIm/KP0eUsgM2UWFbHoSoecuOK72HhwC4oN2UUD4iZ6+ZNrsWb7j7JtETZDkYYBJkL98Wv1Q==
+  zaboukha:
+    uid: 1030
+    full_name: Zeinab Abou Khalil
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      spirals@wifi-pro-83-138.paris.inria.fr:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDocv8kwNgelVAccRs8uDDGPeEalSwH/NhUfbvnum5dlhx7aRUBfswJIRy142TWCskS5h+3EXhwXmsEUfEKSIAkQT9+FlYDxYML7NFy7ONMo0ZUQUWXbMo4PGpQuIPmGFH4AUqL7Y69gdY4p5lUTlV+8wZP6Fi91tsjBwtJqvGyMS7QmeRgY/f7LTEyxzv3jB9XN+DioxAHQDDfodTD1UZlGNSSdIU6yI2oj7pEMGLAw5ghHlI2lIJoGoWY5fR30Yuua714R5DdQZ7yoWUEWAenefmKZmDtaMaUvbDVFvgDZIZSI3Xg+75iogbPhb3tG1psS1geaUo4oPFdYr0xTQ5HySoloFw9segk9j8gUsGqgAHoyEcA3jgoA81iH6l+5tI+qXgj5BMxykAglBDfIbkOoYW39eEJM7Pv5RkXZPdbDVxypTSNGr2uS8xFb3J1ibaHyC8alluZDUkcBjAGOD9XcqYKfuM8zVpL4tOhN5igorebBFJwF03cwU2r1ccIKec=
 
 groups:
   adm:
