@@ -2204,7 +2204,7 @@ swh::deploy::webapp::icinga_checks:
       uri: '/browse/revision/f1b94134a4b879bc55c3dacdb496690c8ebdc03f/'
       regexp:
         - 'Allocate the output vlc pictures with dimensions padded,.*'
-        - 'as requested by the decoder \(for alignments\).'
+        - 'as requested by the decoder \\(for alignments\\).'
     'revision log end to end':
       uri: '/browse/revision/b9b0ecd1e2f9db10335383651f8317ed8cec8296/log/'
       regexp:
