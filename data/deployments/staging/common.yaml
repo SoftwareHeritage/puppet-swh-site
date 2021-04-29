@@ -326,3 +326,9 @@ swh::config::keycloak::realm_name: SoftwareHeritageStaging
 # No historical file on staging
 swh::deploy::counters::cache_static_file: 
 swh::deploy::counters::live_data_start: 1609462861 # 2021-01-01
+
+swh::deploy::webapp::snapshot_e2e:
+  uri: '/browse/snapshot/baebc2109e4a2ec22a1129a3859647e191d04df4/branches/'
+  regexp:
+    - 'refs/tags/syslinux-3.20-pre2.*refs/tags/syslinux-3.20-pre3.*'
+
