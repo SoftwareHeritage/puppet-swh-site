@@ -614,9 +614,9 @@ users:
       - swhdev
       - swhteam
     authorized_keys:
-      jayesh.mail@gmail.com:
+      jayesh@jayesh:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDLVYpzpelvLCL+OqKAtCu75fd8RBGeu4T+HL9kDvGp0/+oNd32hsP7aXmclDpUOH1Fn91PZ3MYSXreXNFgHihs7r6k3gjA4szrMrQHgJhHCyh3uP7Szzsb5HP4RIe9hqAnrxYVWjyp/BrKWEZM2nxjW1Y7XCxfcIgMFQZfA4SdKtB/mR/P9VJwtDJIkPyUVWlfdFSgUsHEU8puVJmdQDk0XwTSDOeZTpNB1oDqOABuaEJZYNKXjnClfGSvJy5ISoGSRV4BPpOofVh5idyv49+brEeugfa66gGds2WQdtMkKQ+qCygaGkc1ee3yME55fTqYyCrU84rCr+nDMbXiwCke21TTBFC7xGFAhIwCPXcEWG5lFeUlL96olt38YKAYCE+LjlCsjg3kAeN+w3fmV+N5QjG0vJoHv+s6+FmOAW9zmrTFESUFuxfvQzDVL1NYfH4D54Tma2aqQFKE28P4b3jQMXEaXk/oMVNjkoTGDhYbWggfA0PrzXr9saiRrVwlmoob+DYaGG5fACCnQuJtONxjQJqc4e5I2AGlK30V3kRtodwbfTiypJCFXqJ7lw1AsalArGLTm53ydfUX28sOZmBkrqgqUl0Y9UI6O0SIm/KP0eUsgM2UWFbHoSoecuOK72HhwC4oN2UUD4iZ6+ZNrsWb7j7JtETZDkYYBJkL98Wv1Q==
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCyBrP2uhCnQcEbNHpH6tsP/yl80JGcxtgxJ8m3Gts0keA8JTA6J1qnn9HUmzbdLpoJjCyHMxfW/oBR7G3IGEyD93S2SShaGltNMpFOEq+iAbKR2Y3ZBy8Vvq/bwBneq0dBNs/ITawbYQVMahcbOzB2I3aq+rG149t5icZ/1DPswVc9ZBPigtiReywF3EJ7uBd6JQ6OLRDnwpKZf6LNlkHzIWD5yBRLTmMNEExLcFw6zdw86t5GfgFTlGkARhUh+iXEBhPeVZnCboB9GZVcKURfrV788QUbIFzzKFm6VQt/cVAJDMUQmx/kYjFaV1ejU3f0+k3SdtVbANfQCYUsL2f7
   zaboukha:
     uid: 1030
     full_name: Zeinab Abou Khalil
