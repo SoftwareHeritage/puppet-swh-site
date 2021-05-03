@@ -43,7 +43,7 @@ define profile::swh::deploy::worker::instance (
         ensure  => 'present',
         owner   => 'swhworker',
         group   => 'swhworker',
-        mode    => '0644',
+        mode    => '0640',
         content => inline_template("<%= @config.to_yaml %>\n"),
       }
 

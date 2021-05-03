@@ -16,7 +16,7 @@ class profile::swh::deploy::journal::backfill {
     ensure  => present,
     owner   => $user,
     group   => $group,
-    mode    => '0644',
+    mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n")
   }
 

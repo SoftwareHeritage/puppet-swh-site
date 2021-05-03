@@ -16,7 +16,7 @@ class profile::swh::deploy::counters::journal_client {
     ensure  => present,
     owner   => 'root',
     group   => $group,
-    mode    => '0644',
+    mode    => '0640',
     content => inline_template("<%= @config.to_yaml %>\n"),
     notify  => Service[$service_name],
   }

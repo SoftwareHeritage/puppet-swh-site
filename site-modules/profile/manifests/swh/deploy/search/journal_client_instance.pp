@@ -21,7 +21,7 @@ define profile::swh::deploy::search::journal_client_instance (
         ensure  => 'present',
         owner   => $user,
         group   => $group,
-        mode    => '0644',
+        mode    => '0640',
         content => inline_template("<%= @config.to_yaml %>\n"),
         notify  => Service[$service_name],
       }
