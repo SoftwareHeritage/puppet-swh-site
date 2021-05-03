@@ -12,7 +12,7 @@ class profile::swh::deploy::worker::base {
   }
 
   ::systemd::unit_file {$systemd_template_unit_name:
-    ensure => 'present',
+    ensure  => 'present',
     content => template("profile/swh/deploy/worker/${systemd_template_unit_name}.erb"),
   }
 

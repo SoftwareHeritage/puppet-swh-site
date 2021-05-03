@@ -5,10 +5,10 @@ class profile::swh::deploy::worker::loader_cran {
   $private_tmp = lookup('swh::deploy::worker::loader_cran::private_tmp')
 
   ::profile::swh::deploy::worker::instance {'loader_cran':
-    ensure       => present,
-    private_tmp  => $private_tmp,
-    sentry_name  => 'loader_core',
-    require      => [
+    ensure      => present,
+    private_tmp => $private_tmp,
+    sentry_name => 'loader_core',
+    require     => [
       Package[$packages],
       Package['lzip'],
     ],

@@ -53,10 +53,10 @@ class profile::swh::deploy::deposit {
 
   # Install the necessary deps
   ::profile::swh::deploy::install_web_deps { 'swh-deposit':
+    ensure        => present,
     services      => ['gunicorn-swh-deposit'],
     backport_list => 'swh::deploy::deposit::backported_packages',
     swh_packages  => ['python3-swh.deposit'],
-    ensure        => present,
   }
 
   file {$config_directory:
@@ -83,24 +83,24 @@ class profile::swh::deploy::deposit {
     mode   => '2750',
   }
 
-  $sentry_dsn = lookup("swh::deploy::deposit::sentry_dsn", Optional[String], 'first', undef)
-  $sentry_environment = lookup("swh::deploy::deposit::sentry_environment", Optional[String], 'first', undef)
-  $sentry_swh_package = lookup("swh::deploy::deposit::sentry_swh_package", Optional[String], 'first', undef)
+  $sentry_dsn = lookup('swh::deploy::deposit::sentry_dsn', Optional[String], 'first', undef)
+  $sentry_environment = lookup('swh::deploy::deposit::sentry_environment', Optional[String], 'first', undef)
+  $sentry_swh_package = lookup('swh::deploy::deposit::sentry_swh_package', Optional[String], 'first', undef)
 
   ::gunicorn::instance {'swh-deposit':
-    ensure     => enabled,
-    user       => $user,
-    group      => $group,
-    executable => 'django.core.wsgi:get_wsgi_application()',
+    ensure             => enabled,
+    user               => $user,
+    group              => $group,
+    executable         => 'django.core.wsgi:get_wsgi_application()',
     config_base_module => 'swh.deposit.gunicorn_config',
-    environment => {
+    environment        => {
       'SWH_CONFIG_FILENAME'    => $config_file,
       'DJANGO_SETTINGS_MODULE' => 'swh.deposit.settings.production',
       'SWH_SENTRY_DSN'         => $sentry_dsn,
       'SWH_SENTRY_ENVIRONMENT' => $sentry_environment,
       'SWH_MAIN_PACKAGE'       => $sentry_swh_package,
     },
-    settings   => {
+    settings           => {
       bind             => $backend_listen_address,
       workers          => $backend_workers,
       worker_class     => 'sync',
@@ -125,11 +125,11 @@ class profile::swh::deploy::deposit {
   include ::apache::mod::headers
 
   ::apache::vhost {"${vhost_name}_non-ssl":
-    servername    => $vhost_name,
-    serveraliases => $vhost_aliases,
-    port          => $vhost_port,
-    docroot       => $vhost_docroot,
-    proxy_pass    => [
+    servername        => $vhost_name,
+    serveraliases     => $vhost_aliases,
+    port              => $vhost_port,
+    docroot           => $vhost_docroot,
+    proxy_pass        => [
       { path => '/static',
         url  => '!',
       },
@@ -143,7 +143,7 @@ class profile::swh::deploy::deposit {
         url  => "http://${backend_listen_address}/",
       },
     ],
-    directories   => [
+    directories       => [
       { path     => '/1',
         provider => 'location',
         allow    => 'from all',
@@ -154,7 +154,7 @@ class profile::swh::deploy::deposit {
         options => ['-Indexes'],
       },
     ] + $endpoint_directories,
-    aliases       => [
+    aliases           => [
       { alias => '/static',
         path  => $static_dir,
       },
@@ -163,7 +163,7 @@ class profile::swh::deploy::deposit {
       },
     ],
     access_log_format => $vhost_access_log_format,
-    require       => [
+    require           => [
       File[$vhost_basic_auth_file],
     ]
   }

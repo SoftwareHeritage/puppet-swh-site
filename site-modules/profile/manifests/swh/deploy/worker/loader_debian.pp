@@ -9,10 +9,10 @@ class profile::swh::deploy::worker::loader_debian {
   $private_tmp = lookup('swh::deploy::worker::loader_debian::private_tmp')
 
   ::profile::swh::deploy::worker::instance {'loader_debian':
-    ensure       => present,
-    sentry_name  => 'loader_core',
-    private_tmp  => $private_tmp,
-    require      => [
+    ensure      => present,
+    sentry_name => 'loader_core',
+    private_tmp => $private_tmp,
+    require     => [
       Package[$packages],
       Package['dpkg-dev'],
     ],

@@ -26,12 +26,12 @@ class profile::swh::deploy::journal {
       priority    => 990,
     }
     -> package {$swh_packages:
-      ensure => installed,
+      ensure  => installed,
       require => Apt::Source['softwareheritage'],
     }
   } else {
     package {$swh_packages:
-      ensure => installed,
+      ensure  => installed,
       require => Apt::Source['softwareheritage'],
     }
   }

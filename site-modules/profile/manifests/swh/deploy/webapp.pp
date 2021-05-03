@@ -134,11 +134,11 @@ class profile::swh::deploy::webapp {
   include ::apache::mod::headers
 
   ::apache::vhost {"${vhost_name}_non-ssl":
-    servername      => $vhost_name,
-    serveraliases   => $vhost_aliases,
-    port            => $vhost_port,
-    docroot         => $vhost_docroot,
-    proxy_pass      => [
+    servername        => $vhost_name,
+    serveraliases     => $vhost_aliases,
+    port              => $vhost_port,
+    docroot           => $vhost_docroot,
+    proxy_pass        => [
       { path => '/static',
         url  => '!',
       },
@@ -152,12 +152,12 @@ class profile::swh::deploy::webapp {
         url  => "http://${backend_listen_address}/",
       },
     ],
-    directories     => [
+    directories       => [
       { path    => $static_dir,
         options => ['-Indexes'],
       },
     ] + $endpoint_directories,
-    aliases         => [
+    aliases           => [
       { alias => '/static',
         path  => $static_dir,
       },
@@ -166,8 +166,8 @@ class profile::swh::deploy::webapp {
       },
     ],
     # work around fix for CVE-2019-0220 introduced in Apache2 2.4.25-3+deb9u7
-    custom_fragment => 'MergeSlashes off',
-    require         => [
+    custom_fragment   => 'MergeSlashes off',
+    require           => [
       File[$vhost_basic_auth_file],
     ],
     access_log_format => $vhost_access_log_format,
@@ -214,13 +214,13 @@ class profile::swh::deploy::webapp {
     },
   }
 
-  $filename_refresh_status = "refresh-savecodenow-statuses"
+  $filename_refresh_status = 'refresh-savecodenow-statuses'
   $filepath_refresh_status = "/usr/local/bin/${filename_refresh_status}"
   file {$filepath_refresh_status:
-      ensure  => present,
-      owner   => 'root',
-      group   => 'www-data',
-      mode    => '0755',
+      ensure => present,
+      owner  => 'root',
+      group  => 'www-data',
+      mode   => '0755',
     content  => template("profile/swh/deploy/webapp/${filename_refresh_status}.sh.erb"),
   }
 

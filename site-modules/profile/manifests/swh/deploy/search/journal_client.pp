@@ -5,7 +5,7 @@ class profile::swh::deploy::search::journal_client {
   $service_types = lookup('swh::deploy::search::journal_client::service_types')
 
   $systemd_template_unit_name = 'swh-search-journal-client@.service'
-  $config_directory = lookup("swh::deploy::base_search::config_directory")
+  $config_directory = lookup('swh::deploy::base_search::config_directory')
 
   $user = lookup('swh::deploy::base_search::user')
   $group = lookup('swh::deploy::base_search::group')
@@ -15,7 +15,7 @@ class profile::swh::deploy::search::journal_client {
   # - $user
   # - $group
   systemd::unit_file {$systemd_template_unit_name:
-    ensure => 'present',
+    ensure  => 'present',
     content => template("profile/swh/deploy/journal/${systemd_template_unit_name}.erb"),
   }
 

@@ -13,8 +13,8 @@ class profile::swh::deploy::reverse_proxy {
     $backend_http_host = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_host")
     $backend_http_port = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_port")
     $websocket_support = lookup({
-      "name"          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
-      "default_value" => false,
+      'name'          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
+      'default_value' => false,
     })
 
     # Retrieve the list of vhosts
