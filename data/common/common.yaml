@@ -3231,6 +3231,10 @@ keycloak::resources::realms::common_settings:
   smtp_server_from: noreply@softwareheritage.org
   smtp_server_from_display_name: Software Heritage Authentication Service
   brute_force_protected: true
+  # set OIDC refresh token expiration to one week (avoid relogin with credentials often)
+  sso_session_idle_timeout: 604800
+  # set OIDC session max duration to one month
+  sso_session_max_lifespan: 2592000
 
 keycloak::resources::clients::common_settings:
   public_client: true
