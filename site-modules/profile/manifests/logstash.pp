@@ -50,4 +50,6 @@ class profile::logstash {
     ],
   }
 
+  include profile::icinga2::objects::logstash_checks
+
 }

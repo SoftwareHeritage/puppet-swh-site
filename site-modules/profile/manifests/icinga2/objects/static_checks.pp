@@ -74,6 +74,12 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
   }
 
+  ::icinga2::object::checkcommand {'check_logstash_errors.sh':
+    import  => ['plugin-check-command'],
+    command => '/usr/lib/nagios/plugins/icinga_check_logstash.sh',
+    target  => $checks_file,
+  }
+
   ::icinga2::object::host {'DNS resolvers':
     check_command => 'dummy',
     address       => '127.0.0.1',

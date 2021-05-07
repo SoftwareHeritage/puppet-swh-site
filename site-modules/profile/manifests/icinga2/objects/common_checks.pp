@@ -108,4 +108,15 @@ class profile::icinga2::objects::common_checks {
     ignore           => ['host.vars.noagent'],
     target           => '/etc/icinga2/zones.d/global-templates/services.conf',
   }
+
+  ::icinga2::object::service {'logstash_errors':
+    import           => ['generic-service'],
+    apply            => true,
+    check_command    => 'check_logstash_errors.sh',
+    command_endpoint => 'host.name',
+    assign           => ['"check_logstash_errors.sh" in host.vars.plugins'],
+    ignore           => ['host.vars.noagent'],
+    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+  }
+
 }
