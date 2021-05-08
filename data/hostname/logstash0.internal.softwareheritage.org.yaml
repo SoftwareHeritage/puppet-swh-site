@@ -1,0 +1,2 @@
+icinga2::host::local_plugins:
+  - check_logstash_errors.sh

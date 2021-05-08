@@ -16,7 +16,6 @@ class profile::icinga2::objects::logstash_checks {
     require => File[$swh_plugin_dir]
   }
 
-
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => $check_command_path,
