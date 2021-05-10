@@ -23,4 +23,6 @@ class profile::icinga2::objects::logstash_checks {
     require => File[$check_command_path]
   }
 
+  
+
 }
