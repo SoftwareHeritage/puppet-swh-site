@@ -9,6 +9,8 @@ class profile::icinga2::agent {
   $parent_zone = lookup('icinga2::parent_zone')
   $parent_endpoints = lookup('icinga2::parent_endpoints')
 
+  $agent_local_plugins = lookup('icinga2::host::local_plugins', default_value => {})
+
   include profile::icinga2::objects::agent_checks
 
   $check_mounts = $::mounts.filter |$mount| {
@@ -21,7 +23,7 @@ class profile::icinga2::agent {
         ["disk ${mount}", {disk_partitions => $mount}]
       },
     )),
-    plugins => keys($profile::icinga2::objects::agent_checks::plugins),
+    plugins => keys($profile::icinga2::objects::agent_checks::plugins) + $agent_local_plugins,
   }
 
   class {'::icinga2':
