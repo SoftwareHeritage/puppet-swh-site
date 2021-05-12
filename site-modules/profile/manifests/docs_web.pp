@@ -15,6 +15,12 @@ class profile::docs_web {
 
   include ::profile::apache::common
 
+  exec {"create ${docs_vhost_docroot}":
+    creates => $docs_vhost_docroot,
+    command => "mkdir -p ${docs_vhost_docroot}",
+    path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+  }
+
   ::apache::vhost {"${docs_vhost_name}_non-ssl":
     servername      => $docs_vhost_name,
     port            => '80',

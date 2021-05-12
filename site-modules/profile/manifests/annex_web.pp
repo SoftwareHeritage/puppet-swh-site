@@ -16,6 +16,12 @@ class profile::annex_web {
 
   include ::profile::apache::common
 
+  exec {"create ${annex_vhost_docroot}":
+    creates => $annex_vhost_docroot,
+    command => "mkdir -p ${annex_vhost_docroot}",
+    path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+  }
+
   ::apache::vhost {"${annex_vhost_name}_non-ssl":
     servername      => $annex_vhost_name,
     port            => '80',
@@ -86,7 +92,6 @@ class profile::annex_web {
     mode    => '0640',
     content => "$annex_vhost_provenance_basic_auth_content",
   }
-
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 

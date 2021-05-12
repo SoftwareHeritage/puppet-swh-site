@@ -10,6 +10,12 @@ class profile::bitbucket_archive_web {
 
   include ::profile::apache::common
 
+  exec {"create ${vhost_docroot}":
+    creates => $vhost_docroot,
+    command => "mkdir -p ${vhost_docroot}",
+    path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+  }
+
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     port            => '80',
