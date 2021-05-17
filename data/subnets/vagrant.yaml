@@ -68,6 +68,7 @@ static_hostnames:
   10.168.100.29:
     host: pergamon.internal.softwareheritage.org
     aliases:
+      - pergamon.softwareheritage.org
       - icinga.internal.softwareheritage.org
       - grafana.softwareheritage.org
       - stats.export.softwareheritage
