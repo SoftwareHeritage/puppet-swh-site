@@ -18,6 +18,8 @@ networks::manage_interfaces: false
 
 internal_network: 10.168.128.0/16
 
+puppet::master::codedir: /tmp/puppet
+
 networks::private_routes: {}
 
 smtp::relay_hostname: 'none'

@@ -1,6 +1,7 @@
 # Puppet master profile
 class profile::puppet::master {
   $puppetdb = lookup('puppet::master::puppetdb')
+  $codedir = lookup('puppet::master::codedir')
 
   class { '::puppet':
     server                      => true,
@@ -12,6 +13,7 @@ class profile::puppet::master {
     server_puppetdb_host        => $puppetdb,
     server_reports              => 'store,puppetdb',
     server_storeconfigs_backend => 'puppetdb',
+    codedir                     => $codedir,
 
     *                           => $::profile::puppet::agent_config,
   }
