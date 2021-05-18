@@ -3,6 +3,39 @@ class profile::puppet::master {
   $puppetdb = lookup('puppet::master::puppetdb')
   $codedir = lookup('puppet::master::codedir')
 
+  $manage_puppetdb = lookup('puppet::master::manage_puppetdb')
+
+  # Pergamon installation was done manually, we ensure nothing
+  # is touched in production
+  if $manage_puppetdb {
+    # $puppetdb_listen_address = lookup('puppetdb::listen_address')
+    $puppetdb_ssl_cert_path = lookup('swh::puppetdb::ssl_cert_path')
+    $puppetdb_ssl_key_path = lookup('swh::puppetdb::ssl_key_path')
+    $puppetdb_ssl_ca_cert_path = lookup('swh::puppetdb::ssl_ca_cert_path')
+
+    $puppetdb_ssl_cert = lookup('swh::puppetdb::ssl_cert')
+    $puppetdb_ssl_key = lookup('swh::puppetdb::ssl_key')
+    $puppetdb_ssl_ca_cert = lookup('swh::puppetdb::ssl_ca_cert')
+
+    class { '::puppetdb':
+      # confdir             => '/etc/puppetdb/conf.d',
+      vardir              => '/var/lib/puppetdb',
+      manage_firewall     => false,
+      ssl_set_cert_paths  => true,
+      # ssl_dir             => '/etc/puppetdb/ssl',
+      ssl_cert_path       => $puppetdb_ssl_cert_path,
+      ssl_key_path        => $puppetdb_ssl_key_path,
+      ssl_ca_cert_path    => $puppetdb_ssl_ca_cert_path,
+      ssl_cert            => file($puppetdb_ssl_cert),
+      ssl_key             => file($puppetdb_ssl_key),
+      ssl_ca_cert         => file($puppetdb_ssl_ca_cert),
+      manage_package_repo => false, # already manage by swh::apt_config
+      postgres_version    => '11',
+      ssl_deploy_certs    => true,
+      require             => [Class['Profile::Swh::Apt_config']],
+    }
+  }
+
   class { '::puppet':
     server                      => true,
     server_common_modules_path  => '',

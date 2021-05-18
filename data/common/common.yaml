@@ -701,6 +701,7 @@ puppet::master::hostname: pergamon.internal.softwareheritage.org
 puppet::master::puppetdb: pergamon.internal.softwareheritage.org
 puppet::master::codedir: /etc/puppet/code
 puppetdb::master::config::terminus_package: puppet-terminus-puppetdb
+puppet::master::manage_puppetdb: false
 
 strict_transport_security::max_age: 15768000
 
