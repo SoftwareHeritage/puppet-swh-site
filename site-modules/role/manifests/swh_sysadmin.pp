@@ -10,6 +10,7 @@ class role::swh_sysadmin inherits role::swh_server {
     notice("Vagrant environment detected, deactivate let's encrypt and bind_server")
   } else {
     include profile::letsencrypt
+    include profile::bind_server::primary
   }
 
   include profile::icinga2::icingaweb2
@@ -17,7 +18,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::apache::simple_server
   include ::apache::mod::rewrite
 
-  include profile::bind_server::primary
 
   include profile::annex_web
   include profile::stats_web
