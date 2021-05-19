@@ -1,6 +1,3 @@
 ---
-backups::exclude:
-  - mnt/pve
-
 icinga2::host::vars:
   load: hypervisor

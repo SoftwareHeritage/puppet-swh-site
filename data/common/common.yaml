@@ -2740,6 +2740,13 @@ icinga2::service_configuration:
       load_cload1: 240
       load_cload5: 220
       load_cload15: 200
+    hypervisor:
+      load_wload1: 60
+      load_wload5: 50
+      load_wload15: 45
+      load_cload1: 120
+      load_cload5: 110
+      load_cload15: 100
 
 icinga2::host::vars:
   os: Linux

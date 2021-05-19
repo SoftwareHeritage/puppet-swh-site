@@ -5,3 +5,6 @@ backups::exclude:
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
+
+icinga2::host::vars:
+  load: hypervisor

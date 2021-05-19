@@ -2,7 +2,7 @@
 ssh::permitrootlogin: "yes"
 
 icinga2::host::vars:
-  load: high
+  load: hypervisor
 
 backups::exclude:
   - srv/containers
@@ -11,4 +11,3 @@ backups::exclude:
 swh::apt_config::enable_non_free: true
 packages:
   - intel-microcode
-
