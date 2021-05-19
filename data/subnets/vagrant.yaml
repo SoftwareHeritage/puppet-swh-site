@@ -53,8 +53,9 @@ kafka::cluster::public_network: 10.168.130.0/24
 
 puppet::master::manage_puppetdb: true
 puppetdb::listen_address: 0.0.0.0
-puppetdb::confdir: /etc/puppetdb/conf.d
-puppetdb::ssl_dir: '/etc/puppetdb/ssl'
+swh::puppetdb::etcdir: /etc/puppetdb
+puppetdb::confdir: "%{lookup('swh::puppetdb::etcdir')}/conf.d"
+puppetdb::ssl_dir: "%{lookup('swh::puppetdb::etcdir')}/ssl"
 swh::puppetdb::ssl_key_path: "%{lookup('puppetdb::ssl_dir')}/key.pem"
 swh::puppetdb::ssl_key: "%{::puppet_vardir}/ssl/private_keys/pergamon.softwareheritage.org.pem"
 swh::puppetdb::ssl_cert: "%{::puppet_vardir}/ssl/certs/pergamon.softwareheritage.org.pem"

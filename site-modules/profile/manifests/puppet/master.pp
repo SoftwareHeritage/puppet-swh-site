@@ -9,6 +9,7 @@ class profile::puppet::master {
   # is touched in production
   if $manage_puppetdb {
     # $puppetdb_listen_address = lookup('puppetdb::listen_address')
+    $puppetdb_etcdir = lookup('swh::puppetdb::etcdir')
     $puppetdb_ssl_cert_path = lookup('swh::puppetdb::ssl_cert_path')
     $puppetdb_ssl_key_path = lookup('swh::puppetdb::ssl_key_path')
     $puppetdb_ssl_ca_cert_path = lookup('swh::puppetdb::ssl_ca_cert_path')
@@ -16,6 +17,13 @@ class profile::puppet::master {
     $puppetdb_ssl_cert = lookup('swh::puppetdb::ssl_cert')
     $puppetdb_ssl_key = lookup('swh::puppetdb::ssl_key')
     $puppetdb_ssl_ca_cert = lookup('swh::puppetdb::ssl_ca_cert')
+
+    file { $puppetdb_etcdir:
+      ensure => directory,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0775'
+    }
 
     class { '::puppetdb':
       # confdir             => '/etc/puppetdb/conf.d',
@@ -32,7 +40,8 @@ class profile::puppet::master {
       manage_package_repo => false, # already manage by swh::apt_config
       postgres_version    => '11',
       ssl_deploy_certs    => true,
-      require             => [Class['Profile::Swh::Apt_config']],
+      require             => [Class['Profile::Swh::Apt_config'],
+          File[$puppetdb_etcdir]],
     }
   }
 
