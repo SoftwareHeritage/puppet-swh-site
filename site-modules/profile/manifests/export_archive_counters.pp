@@ -22,7 +22,14 @@ class profile::export_archive_counters {
   }
 
   $history_data_name = 'history-counters.munin.json'
-  $history_data_path = "/usr/local/share/swh-data/${history_data_name}"
+  $history_data_dir = "/usr/local/share/swh-data"
+  $history_data_path = "${history_data_dir}/${history_data_name}"
+  file {$history_data_dir:
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755'
+  } ->
   file {$history_data_path:
     ensure  => present,
     owner   => 'root',
