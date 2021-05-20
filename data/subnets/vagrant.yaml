@@ -62,6 +62,10 @@ swh::puppetdb::ssl_cert: "%{::puppet_vardir}/ssl/certs/pergamon.softwareheritage
 swh::puppetdb::ssl_cert_path: "%{lookup('puppetdb::ssl_dir')}/cert.pem"
 swh::puppetdb::ssl_ca_cert: "%{::puppet_vardir}/ssl/ca/ca_crt.pem"
 swh::puppetdb::ssl_ca_cert_path: "%{lookup('puppetdb::ssl_dir')}/ca_crt.pem"
+puppet::autosign_entries:
+  - '*.softwareheritage.org'
+  - '*.staging.swh.network'
+  - '*.admin.swh.network'
 
 static_hostnames:
   10.168.50.10:
