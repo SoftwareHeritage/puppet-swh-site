@@ -1120,6 +1120,9 @@ bind::resource_records:
   oturtle-desktop/A:
     record: oturtle-desktop.internal.softwareheritage.org
     data: 192.168.101.222
+  rancher-poc/A:
+    record: rancher-poc.staging.swh.network
+    data: 192.168.130.162
 
 bind::resource_records::default_data:
   type: A
