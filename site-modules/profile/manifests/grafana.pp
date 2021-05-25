@@ -27,5 +27,4 @@ class profile::grafana {
 
   contain profile::grafana::vhost
   contain profile::grafana::objects
-  contain profile::grafana::dashboards
 }
