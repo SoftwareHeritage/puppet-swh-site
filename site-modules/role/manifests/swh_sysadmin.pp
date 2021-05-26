@@ -30,4 +30,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::weekly_report_bot
 
   include profile::opnsense::monitoring
+
+  include profile::status_io_metrics
 }

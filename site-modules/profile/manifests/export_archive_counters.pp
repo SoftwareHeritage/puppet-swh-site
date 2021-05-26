@@ -5,9 +5,7 @@ class profile::export_archive_counters {
 
   $packages = ['python3-click', 'python3-requests']
 
-  package {$packages:
-    ensure => present,
-  }
+  ensure_packages($packages)
 
   $script_name = 'export_archive_counters.py'
   $script_path = "/usr/local/bin/${script_name}"
