@@ -27,7 +27,7 @@ class profile::status_io_metrics {
 
   $script_params = [
     '-m swh_web_accepted_save_requests',
-    "--api-id ${statusio_api_key}",
+    "--api-id ${statusio_api_id}",
     "--api-key ${statusio_api_key}",
     "--status-page-id ${statusio_status_page}",
     "--metric-id ${statusio_scn_metrics}",
