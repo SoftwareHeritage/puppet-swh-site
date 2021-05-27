@@ -2469,6 +2469,7 @@ swh::deploy::worker::lister::config:
       - swh.lister.phabricator.tasks.FullPhabricatorLister
       - swh.lister.pypi.tasks.PyPIListerTask
       - swh.lister.sourceforge.tasks.FullSourceForgeLister
+      - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
   credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
 swh::deploy::loader_mercurial::sentry_swh_package: swh.loader.mercurial
