@@ -129,13 +129,17 @@ smtp::mail_aliases:
 networks::manage_interfaces: true
 
 networks::private_routes:
-  vpn:
+  vpn_legacy:
     network: 192.168.101.0/24
+    gateway: "%{alias('networks::private_gateway_legacy')}"
+    enabled: true
+  vpn:
+    network: 192.168.102.0/23
     gateway: "%{alias('networks::private_gateway')}"
     enabled: true
   azure:
     network: 192.168.200.0/21
-    gateway: "%{alias('networks::private_gateway')}"
+    gateway: "%{alias('networks::private_gateway_legacy')}"
     enabled: true
   staging_legacy:
     network: 192.168.128.0/24
@@ -151,7 +155,8 @@ networks::private_routes:
     enabled: false
 
 networks::private_network: 192.168.100.0/24
-networks::private_gateway: 192.168.100.1
+networks::private_gateway_legacy: 192.168.100.1
+networks::private_gateway: 192.168.100.130
 networks::staging_legacy_gateway: 192.168.100.125
 networks::staging_gateway: 192.168.100.130
 networks::admin_gateway: 192.168.100.130
@@ -1131,6 +1136,7 @@ bind::clients:
   - 192.168.50.0/24
   - 192.168.100.0/24
   - 192.168.101.0/24
+  - 192.168.102.0/23
   - 192.168.130.0/24
   - 192.168.200.0/21
   - 127.0.0.0/8
