@@ -5,13 +5,6 @@ zookeeper::clusters:
     '2': kafka2.internal.softwareheritage.org
     '3': kafka3.internal.softwareheritage.org
     '4': kafka4.internal.softwareheritage.org
-  azure:
-    '1': kafka01.euwest.azure.internal.softwareheritage.org
-    '2': kafka02.euwest.azure.internal.softwareheritage.org
-    '3': kafka03.euwest.azure.internal.softwareheritage.org
-    '4': kafka04.euwest.azure.internal.softwareheritage.org
-    '5': kafka05.euwest.azure.internal.softwareheritage.org
-    '6': kafka06.euwest.azure.internal.softwareheritage.org
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
@@ -72,32 +65,5 @@ kafka::clusters:
     public_tls_port: 9093
     internal_tls_port: 9094
     public_listener_network: 128.93.166.0/26
-  azure:
-    zookeeper::chroot: '/kafka/softwareheritage'
-    zookeeper::servers:
-      - kafka01.euwest.azure.internal.softwareheritage.org
-      - kafka02.euwest.azure.internal.softwareheritage.org
-      - kafka03.euwest.azure.internal.softwareheritage.org
-      - kafka04.euwest.azure.internal.softwareheritage.org
-      - kafka05.euwest.azure.internal.softwareheritage.org
-      - kafka06.euwest.azure.internal.softwareheritage.org
-    brokers:
-      kafka01.euwest.azure.internal.softwareheritage.org:
-        id: 1
-      kafka02.euwest.azure.internal.softwareheritage.org:
-        id: 2
-      kafka03.euwest.azure.internal.softwareheritage.org:
-        id: 3
-      kafka04.euwest.azure.internal.softwareheritage.org:
-        id: 4
-      kafka05.euwest.azure.internal.softwareheritage.org:
-        id: 5
-      kafka06.euwest.azure.internal.softwareheritage.org:
-        id: 6
-    broker::heap_opts: "-Xmx1G -Xms1G"
-    tls: true
-    plaintext_port: 9092
-    public_tls_port: 9093
-    internal_tls_port: 9094
 
 
