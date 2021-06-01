@@ -2337,10 +2337,12 @@ swh::deploy::loader_git::sentry_dsn: "https://%{lookup('swh::deploy::loader_git:
 swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::max_tasks_per_child: 100
+swh::deploy::worker::loader_git::temp_file_cutoff: 536870912  # 512 * 1024 * 1024
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
   max_content_size: 104857600
+  temp_file_cutoff: "%{alias('swh::deploy::worker::loader_git::temp_file_cutoff')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
