@@ -2372,6 +2372,20 @@ swh::deploy::worker::loader_high_priority::config:
       - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
       - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
 
+# One shot worker deactivated by default (e.g. first time ingestion on forge with
+# restrictive loading ingestion parallelism policies)
+swh::deploy::worker::loader_oneshot::config_file: "%{hiera('swh::conf_directory')}/loader_oneshot.yml"
+swh::deploy::worker::loader_oneshot::concurrency: 1
+swh::deploy::worker::loader_oneshot::max_tasks_per_child: 100
+swh::deploy::worker::loader_oneshot::loglevel: info
+swh::deploy::worker::loader_oneshot::task_queues: []
+swh::deploy::worker::loader_oneshot::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: 104857600
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues: "%{alias('swh::deploy::worker::loader_oneshot::task_queues')}"
+
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core
 swh::deploy::loader_core::sentry_environment: "%{hiera('swh::deploy::environment')}"
