@@ -15,7 +15,10 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => [
-      '/usr/bin/swh', 'icinga_plugins', 'check-savecodenow',
+      '/usr/bin/swh', 'icinga_plugins',
+      '--warning', '300',
+      '--critical', '600',
+      'check-savecodenow',
       '--swh-web-url', $server_webapp,
       'origin', $origin_url, '--visit-type', $origin_type
     ],
