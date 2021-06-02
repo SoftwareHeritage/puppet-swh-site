@@ -1965,6 +1965,8 @@ swh::deploy::deposit::config:
   extraction_dir: /tmp/swh-deposit/archive/
   swh_authority_url: "%{hiera('swh::deploy::deposit::url')}/"
 
+swh::deploy::worker::loader::max_content_size: 104857600
+
 swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 1
 swh::deploy::worker::loader_deposit::private_tmp: true
@@ -1972,7 +1974,7 @@ swh::deploy::worker::loader_deposit::loglevel: info
 # deposit_basic_auth_swhworker_{username|password} in private_data
 swh::deploy::worker::loader_deposit::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2341,7 +2343,7 @@ swh::deploy::worker::loader_git::temp_file_cutoff: 536870912  # 512 * 1024 * 102
 swh::deploy::worker::loader_git::loglevel: info
 swh::deploy::worker::loader_git::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   temp_file_cutoff: "%{alias('swh::deploy::worker::loader_git::temp_file_cutoff')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
@@ -2358,7 +2360,7 @@ swh::deploy::worker::loader_high_priority::max_tasks_per_child: 100
 swh::deploy::worker::loader_high_priority::loglevel: info
 swh::deploy::worker::loader_high_priority::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2381,7 +2383,7 @@ swh::deploy::worker::loader_oneshot::loglevel: info
 swh::deploy::worker::loader_oneshot::task_queues: []
 swh::deploy::worker::loader_oneshot::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues: "%{alias('swh::deploy::worker::loader_oneshot::task_queues')}"
@@ -2397,7 +2399,7 @@ swh::deploy::worker::loader_debian::concurrency: 1
 swh::deploy::worker::loader_debian::loglevel: info
 swh::deploy::worker::loader_debian::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2409,7 +2411,7 @@ swh::deploy::worker::loader_archive::concurrency: 1
 swh::deploy::worker::loader_archive::loglevel: info
 swh::deploy::worker::loader_archive::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2421,7 +2423,7 @@ swh::deploy::worker::loader_cran::concurrency: 1
 swh::deploy::worker::loader_cran::loglevel: info
 swh::deploy::worker::loader_cran::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2433,7 +2435,7 @@ swh::deploy::worker::loader_nixguix::concurrency: 1
 swh::deploy::worker::loader_nixguix::loglevel: info
 swh::deploy::worker::loader_nixguix::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2503,7 +2505,7 @@ swh::deploy::worker::loader_mercurial::private_tmp: true
 swh::deploy::worker::loader_mercurial::loglevel: info
 swh::deploy::worker::loader_mercurial::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   reduce_effort: False
   clone_timeout_seconds: 7200
   celery:
@@ -2518,7 +2520,7 @@ swh::deploy::worker::loader_pypi::private_tmp: true
 swh::deploy::worker::loader_pypi::loglevel: info
 swh::deploy::worker::loader_pypi::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2530,7 +2532,7 @@ swh::deploy::worker::loader_npm::private_tmp: true
 swh::deploy::worker::loader_npm::loglevel: info
 swh::deploy::worker::loader_npm::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
@@ -2547,7 +2549,7 @@ swh::deploy::worker::loader_svn::loglevel: info
 # Contains a password: in private data
 swh::deploy::worker::loader_svn::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: 104857600
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
