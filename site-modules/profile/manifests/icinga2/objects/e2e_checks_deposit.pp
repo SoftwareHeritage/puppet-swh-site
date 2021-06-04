@@ -18,7 +18,8 @@ define profile::icinga2::objects::e2e_checks_deposit (
     import  => ['plugin-check-command'],
     command => [
       '/usr/bin/swh', 'icinga_plugins',
-      '-w', '600',
+      '--warning', '600',
+      '--critical', '3600',  # explicit the default value of the plugin
       'check-deposit',
       '--server', $deposit_server,
       '--username', $deposit_user,
@@ -31,7 +32,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
     ],
     # XXX: Should probably be split into usual commands with arguments
     # arguments => ...
-    timeout => 900,
+    timeout => 4800,  # higher than the critical threshold
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages]
   }
