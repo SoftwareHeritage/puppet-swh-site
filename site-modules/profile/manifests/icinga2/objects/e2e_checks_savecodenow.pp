@@ -24,7 +24,7 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
     ],
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages],
-    timeout => 600,
+    timeout => 900,
   }
 
   ::icinga2::object::service {"${check_command_prefix}-service-${origin_name}-${origin_type}":
