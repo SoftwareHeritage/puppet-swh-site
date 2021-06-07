@@ -2364,7 +2364,7 @@ swh::deploy::worker::loader_high_priority::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
-      # loader-git
+      # git
       - save_code_now:swh.loader.git.tasks.UpdateGitRepository
       # mercurial
       - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
@@ -2373,6 +2373,8 @@ swh::deploy::worker::loader_high_priority::config:
       - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
       - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
       - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
+      # archives
+      - save_code_now:swh.loader.package.archive.tasks.LoadArchive
 
 # One shot worker deactivated by default (e.g. first time ingestion on forge with
 # restrictive loading ingestion parallelism policies)
