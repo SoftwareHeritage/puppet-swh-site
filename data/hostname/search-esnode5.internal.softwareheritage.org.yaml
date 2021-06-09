@@ -1,0 +1,30 @@
+swh::apt_config::enable_non_free: true
+swh::apt_config::backported_packages:
+  buster:
+    - linux-image-amd64
+    - linux-headers-amd64
+    - libnvpair1linux
+    - libuutil1linux
+    - libzfs2linux
+    - libzpool2linux
+    - zfs-dkms
+    - zfsutils-linux
+    - zfs-zed
+
+elastic::elk_version: '7.9.3'
+
+# Elasticsearch
+elasticsearch::config::cluster::name: swh-search
+
+elasticsearch::config::discovery::seed_hosts:
+  - search-esnode4.internal.softwareheritage.org
+  - search-esnode5.internal.softwareheritage.org
+  - search-esnode6.internal.softwareheritage.org
+
+elasticsearch::config::cluster::initial_master_nodes:
+  - search-esnode4
+  - search-esnode5
+  - search-esnode6
+
+elasticsearch::jvm_options::heap_size: 16g
+elasticsearch::config::prometheus::indices: true
