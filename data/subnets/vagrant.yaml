@@ -117,6 +117,12 @@ static_hostnames:
     host: search-esnode3.internal.softwareheritage.org
   10.168.100.85:
     host: search1.internal.softwareheritage.org
+  10.168.100.86:
+    host: search-esnode4.internal.softwareheritage.org
+  10.168.100.87:
+    host: search-esnode5.internal.softwareheritage.org
+  10.168.100.88:
+    host: search-esnode6.internal.softwareheritage.org
   10.168.100.95:
     host: counters1.internal.softwareheritage.org
   10.168.100.104:
