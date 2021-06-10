@@ -2290,11 +2290,11 @@ swh::elasticsearch::storage_nodes:
     port: 9200
 
 swh::elasticsearch::search_nodes:
-  - host: search-esnode1.internal.softwareheritage.org
+  - host: search-esnode4.internal.softwareheritage.org
     port: 9200
-  - host: search-esnode2.internal.softwareheritage.org
+  - host: search-esnode5.internal.softwareheritage.org
     port: 9200
-  - host: search-esnode3.internal.softwareheritage.org
+  - host: search-esnode6.internal.softwareheritage.org
     port: 9200
 
 swh::deploy::scheduler::archive::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/elastic.yml"
