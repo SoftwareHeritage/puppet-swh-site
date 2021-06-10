@@ -21,7 +21,7 @@ Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
 <%- if !@sentry_swh_package.empty? -%>
 Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
-ExecStart=/usr/bin/swh --log-level <%= @runner_log_level %> scheduler --config-file <%= @config_file %> start-runner --period 10
+ExecStart=<%= @runner_command %>
 Restart=always
 RestartSec=10
 

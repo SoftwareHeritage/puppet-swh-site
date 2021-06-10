@@ -2258,6 +2258,13 @@ swh::deploy::scheduler::config:
 swh::deploy::scheduler::packages:
   - python3-swh.scheduler
 
+# subset limited to the save code now tasks for the runner priority
+swh::deploy::scheduler::swh-scheduler-runner-priority::config::task-types:
+  - load-git
+  - load-svn
+  - load-archive-files
+  - load-hg
+
 swh::deploy::scheduler::remote::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::remote::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::scheduler::remote::sentry_dsn: "%{alias('swh::deploy::scheduler::sentry_dsn')}"
