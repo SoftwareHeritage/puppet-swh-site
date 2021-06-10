@@ -3489,7 +3489,7 @@ swh::deploy::search::config:
 
 swh::deploy::search::journal_client::service_types:
   - objects
-  # - indexed  # Waiting for T2876 resolution
+  - indexed
 
 swh::deploy::search::journal_client::objects::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client_objects.yml"
 swh::deploy::search::journal_client::objects::config:
