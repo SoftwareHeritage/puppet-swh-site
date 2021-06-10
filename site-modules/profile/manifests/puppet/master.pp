@@ -82,12 +82,12 @@ class profile::puppet::master {
     ensure => absent,
   }
 
-  file { '/usr/local/sbin/swh-puppet-master-decomission':
+  file { '/usr/local/sbin/swh-puppet-master-decommission':
     ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('profile/puppet/swh-puppet-master-decomission.sh.erb'),
+    content => template('profile/puppet/swh-puppet-master-decommission.sh.erb'),
   }
 
   profile::cron::d {'gzip-puppet-reports':
