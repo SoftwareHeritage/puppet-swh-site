@@ -40,16 +40,6 @@ class profile::swh::deploy::scheduler {
     require => File[$config_dir],
   }
 
-  # purge legacy config file
-  $to_purge_legacy_files = [ '/etc/softwareheritage/scheduler.yml', '/etc/softwareheritage/backend']
-  each($to_purge_legacy_files) | $to_purge| {
-    file {$to_purge:
-      ensure  => absent,
-      recurse => true,
-      force   => true,
-    }
-  }
-
   # Template uses variables
   #  - $user
   #  - $group
