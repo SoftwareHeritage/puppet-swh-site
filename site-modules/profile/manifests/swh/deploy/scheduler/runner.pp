@@ -18,7 +18,7 @@ define profile::swh::deploy::scheduler::runner (
     {default_value => []}
   )
 
-  $runner_unit_name = "swh-scheduler-${service_name}.service"
+  $runner_unit_name = "${service_name}.service"
   $runner_unit_template = "profile/swh/deploy/scheduler/swh-scheduler-runner.service.erb"
 
   $default_command = concat([
