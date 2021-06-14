@@ -137,12 +137,14 @@ class profile::kafka::broker {
     ['INTERNAL', 'EXTERNAL'].each |$tls_listener_name| {
       Java_ks['kafka:broker']
       ~> exec {"kafka-reload-tls:${tls_listener_name}":
-        command     => ["/opt/kafka/bin/kafka-configs.sh",
-                        "--bootstrap-server", "${internal_hostname}:${plaintext_port}",
-                        "--entity-name", "${broker_id}",
-                        "--entity-type", "brokers",
-                        "--add-config", "listener.name.${tls_listener_name}.ssl.keystore.location=${ks_location}",
-                        "--alter"],
+        command     => join([
+          '/opt/kafka/bin/kafka-configs.sh',
+          '--bootstrap-server', "${internal_hostname}:${plaintext_port}",
+          '--entity-name', "${broker_id}",
+          '--entity-type', 'brokers',
+          '--add-config', "listener.name.${tls_listener_name}.ssl.keystore.location=${ks_location}",
+          '--alter',
+        ], ' '),
         refreshonly => true,
         require     => Service['kafka'],
       }
