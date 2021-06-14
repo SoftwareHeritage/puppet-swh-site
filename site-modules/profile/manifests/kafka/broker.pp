@@ -133,12 +133,20 @@ class profile::kafka::broker {
       'authorizer.class.name'          => 'kafka.security.auth.SimpleAclAuthorizer',
     } + $kafka_jaas_config
 
-    # TODO: remove once this file has been cleared on all hosts
-    $jaas_config = '/opt/kafka/config/kafka_broker_jaas.conf'
-    file {$jaas_config:
-      ensure  => absent,
+    # Reset the TLS listeners when the keystore gets refreshed
+    ['INTERNAL', 'EXTERNAL'].each |$tls_listener_name| {
+      Java_ks['kafka:broker']
+      ~> exec {"kafka-reload-tls:${tls_listener_name}":
+        command     => ["/opt/kafka/bin/kafka-configs.sh",
+                        "--bootstrap-server", "${internal_hostname}:${plaintext_port}",
+                        "--entity-name", "${broker_id}",
+                        "--entity-type", "brokers",
+                        "--add-config", "listener.name.${tls_listener_name}.ssl.keystore.location=${ks_location}",
+                        "--alter"],
+        refreshonly => true,
+        require     => Service['kafka'],
+      }
     }
-
   } else {
     $kafka_tls_config = {
       'listeners' => "PLAINTEXT://${internal_hostname}:${kafka_cluster_config['plaintext_port']}",
