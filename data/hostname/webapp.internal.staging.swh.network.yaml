@@ -50,3 +50,5 @@ swh::deploy::webapp::config::throttling:
 swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: SoftwareHeritageStaging
+
+swh::deploy::webapp::instance_name: webapp.staging.swh.network
