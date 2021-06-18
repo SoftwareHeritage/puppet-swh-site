@@ -302,7 +302,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
-swh::deploy::search::backend::listen::host: 0.0.0.0
 swh::remote_service::search::config:
   cls: remote
   url: "http://search0.internal.staging.swh.network:%{hiera('swh::remote_service::search::port')}/"
@@ -313,9 +312,13 @@ swh::remote_service::search::config:
 swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.internal.staging.swh.network:9200/swh_workers-*
 swh::deploy::webapp::metadata_search_backend: swh-search
 
+swh::deploy::search::index: origin-v0.9.0
+swh::deploy::search::backend::listen::host: 0.0.0.0
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
+swh::deploy::search::journal_client::objects::consumer_group: swh.search.journal_client-v0.9.0
+swh::deploy::search::journal_client::indexed::consumer_group: swh.search.journal_client.indexed-v0.9.0
 
 swh::deploy::webapp::url: "https://webapp.staging.swh.network"
 
@@ -331,4 +334,3 @@ swh::deploy::webapp::snapshot_e2e:
   uri: '/browse/snapshot/48dcf76ec1a3bd57ec117b1dace633691fdfd70d/branches/'
   regexp:
     - 'refs/tags/syslinux-3.20-pre2.*refs/tags/syslinux-3.20-pre3.*'
-

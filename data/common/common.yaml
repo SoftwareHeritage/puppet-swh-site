@@ -3484,7 +3484,7 @@ swh::deploy::search::sentry_dsn: "https://%{lookup('swh::deploy::search::sentry_
 swh::deploy::search::conf_file: "%{hiera('swh::deploy::base_search::config_directory')}/server.yml"
 swh::deploy::search::user: "%{alias('swh::deploy::base_search::user')}"
 swh::deploy::search::group: "%{alias('swh::deploy::base_search::group')}"
-swh::deploy::search::index: origin
+swh::deploy::search::index: origin-production
 swh::deploy::search::config:
   search:
     cls: elasticsearch
@@ -3495,19 +3495,19 @@ swh::deploy::search::config:
         read_alias: origin-read
         write_alias: origin-write
 
-
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
 
 swh::deploy::search::journal_client::objects::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client_objects.yml"
+swh::deploy::search::journal_client::objects::consumer_group: swh.search.journal_client
 swh::deploy::search::journal_client::objects::config:
   search:
     cls: elasticsearch
     hosts: "%{alias('swh::elasticsearch::search_nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
-    group_id: swh.search.journal_client
+    group_id: "%{alias('swh::deploy::search::journal_client::objects::consumer_group')}"
     prefix: swh.journal.objects
     object_types:
       - origin
@@ -3515,13 +3515,14 @@ swh::deploy::search::journal_client::objects::config:
       - origin_visit_status
 
 swh::deploy::search::journal_client::indexed::config_file: "%{lookup('swh::deploy::base_search::config_directory')}/journal_client_indexed.yml"
+swh::deploy::search::journal_client::indexed::consumer_group: swh.search.journal_client.indexed
 swh::deploy::search::journal_client::indexed::config:
   search:
     cls: elasticsearch
     hosts: "%{alias('swh::elasticsearch::search_nodes')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
-    group_id: swh.search.journal_client.indexed
+    group_id: "%{alias('swh::deploy::search::journal_client::indexed::consumer_group')}"
     prefix: swh.journal.indexed
     object_types:
       - origin_intrinsic_metadata
