@@ -3577,10 +3577,10 @@ netbox::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 opnsense::hosts:
   pushkin:
     fqdn: pushkin.internal.softwareheritage.org
-    ip: 192.168.100.129
+    ip: 192.168.100.2
   glyptotek:
     fqdn: glyptotek.internal.softwareheritage.org
-    ip: 192.168.100.128
+    ip: 192.168.100.3
 opnsense::prometheus::port: 9100
 opnsense::prometheus::metrics_path: /metrics
 
