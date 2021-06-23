@@ -3485,6 +3485,8 @@ swh::deploy::search::conf_file: "%{hiera('swh::deploy::base_search::config_direc
 swh::deploy::search::user: "%{alias('swh::deploy::base_search::user')}"
 swh::deploy::search::group: "%{alias('swh::deploy::base_search::group')}"
 swh::deploy::search::index: origin-production
+swh::deploy::search::read_alias: origin-read
+swh::deploy::search::write_alias: origin-write
 swh::deploy::search::config:
   search:
     cls: elasticsearch
@@ -3492,8 +3494,8 @@ swh::deploy::search::config:
     indexes:
       origin:
         index: "%{alias('swh::deploy::search::index')}"
-        read_alias: origin-read
-        write_alias: origin-write
+        read_alias: "%{alias('swh::deploy::search::read_alias')}"
+        write_alias: "%{alias('swh::deploy::search::write_alias')}"
 
 swh::deploy::search::journal_client::service_types:
   - objects
