@@ -27,8 +27,6 @@ networks:
     gateway: 192.168.100.1
 
 networks::private_routes:
-  staging_legacy:
-    enabled: true
   staging:
     enabled: true
   admin:

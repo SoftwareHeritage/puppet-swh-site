@@ -129,37 +129,25 @@ smtp::mail_aliases:
 networks::manage_interfaces: true
 
 networks::private_routes:
-  vpn_legacy:
-    network: 192.168.101.0/24
-    gateway: "%{alias('networks::private_gateway_legacy')}"
-    enabled: true
   vpn:
-    network: 192.168.102.0/23
+    network: 192.168.101.0/24
     gateway: "%{alias('networks::private_gateway')}"
     enabled: true
   azure:
     network: 192.168.200.0/21
-    gateway: "%{alias('networks::private_gateway_legacy')}"
+    gateway: "%{alias('networks::private_gateway')}"
     enabled: true
-  staging_legacy:
-    network: 192.168.128.0/24
-    gateway: "%{alias('networks::staging_legacy_gateway')}"
-    enabled: false
   staging:
     network: 192.168.130.0/24
-    gateway: "%{alias('networks::staging_gateway')}"
+    gateway: "%{alias('networks::private_gateway')}"
     enabled: false
   admin:
     network: 192.168.50.0/24
-    gateway: "%{alias('networks::admin_gateway')}"
+    gateway: "%{alias('networks::private_gateway')}"
     enabled: false
 
 networks::private_network: 192.168.100.0/24
-networks::private_gateway_legacy: 192.168.100.1
-networks::private_gateway: 192.168.100.130
-networks::staging_legacy_gateway: 192.168.100.125
-networks::staging_gateway: 192.168.100.130
-networks::admin_gateway: 192.168.100.130
+networks::private_gateway: 192.168.100.1
 networks::public_swh_gateway: "%{alias('networks::staging_gateway')}"
 
 locales::default_locale: C.UTF-8
@@ -1041,9 +1029,6 @@ bind::resource_records:
     type: CNAME
     record: inventory.internal.softwareheritage.org
     data: bojimans.internal.softwareheritage.org.
-  staging-gateway/A:  # Cannot autogenerate due to limitations in $::swh_hostname fact
-    record: staging-gateway.internal.softwareheritage.org
-    data: 192.168.100.125
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
@@ -1052,7 +1037,7 @@ bind::resource_records:
     data: "%{alias('opnsense::hosts.pushkin.ip')}"
   internalgw/A: # Firewal(s)l vip, not managed by puppet
     record: gw.internal.softwareheritage.org
-    data: 192.168.100.130
+    data: 192.168.100.1
   staging-rp0/A:
     record: rp0.internal.staging.swh.network
     data: 192.168.130.20
