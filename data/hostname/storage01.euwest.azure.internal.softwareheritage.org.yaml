@@ -24,8 +24,6 @@ swh::deploy::storage::config::local:
 
 swh::deploy::worker::instances: []
 
-swh::deploy::search::backend::listen::host: 0.0.0.0
-
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: local
