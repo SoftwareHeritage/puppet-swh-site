@@ -2,4 +2,6 @@ swh::deploy::worker::instances:
   - indexer_content_mimetype
   - indexer_fossology_license
   - indexer_origin_intrinsic_metadata
+  - vault_cooker
+
 
