@@ -1387,6 +1387,7 @@ swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 5008
+swh::remote_service::graph::port: 5009
 swh::remote_service::search::port: 5010
 swh::remote_service::counters::port: 5011
 
@@ -1599,6 +1600,9 @@ swh::remote_service::counters::url: "http://counters1.internal.softwareheritage.
 swh::remote_service::counters::config:
   cls: remote
   url: "%{alias('swh::remote_service::counters::url')}"
+
+swh::remote_service::graph::config:
+    url: "http://graph.internal.softwareheritage.org:%{hiera('swh::remote_service::graph::port')}/"
 
 # End remote service configurations
 #####################################################################################################
