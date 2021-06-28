@@ -1814,6 +1814,7 @@ swh::deploy::vault::backend::server_names:
   - localhost
   - "::1"
 swh::deploy::vault::config:
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage:
     cls: retry
     storage: "%{alias('swh::remote_service::storage::config')}"
