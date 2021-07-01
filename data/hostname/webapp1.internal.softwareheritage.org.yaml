@@ -11,8 +11,9 @@ swh::deploy::webapp::vhost::letsencrypt_cert: archive_webapp1
 
 swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
+swh::deploy::storage::backend::listen::host: "%{::fqdn}"
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::localhost')}"
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::local_internal_network')}"
 
 swh::deploy::reverse_proxy::services:
   - webapp

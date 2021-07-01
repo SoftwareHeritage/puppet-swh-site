@@ -12,6 +12,7 @@ networks:
 backups::exclude:
   - var/lib/rabbitmq
 
+swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
 swh::deploy::storage::db::user: guest
@@ -30,4 +31,4 @@ apache::http_port: 9080
 # Disable default vhost on port 80
 apache::default_vhost: false
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::localhost')}"
+swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::local_internal_network')}"

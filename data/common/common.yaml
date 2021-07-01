@@ -1541,10 +1541,10 @@ swh::remote_service::storage::config::azure:
   args:
     url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
-swh::remote_service::storage::config::localhost:
+swh::remote_service::storage::config::local_internal_network:
   cls: remote
   args:
-    url: "http://localhost:%{hiera('swh::remote_service::storage::port')}/"
+    url: "http://%{lookup('swh::deploy::storage::backend::listen::host')}:%{lookup('swh::remote_service::storage::port')}/"
 
 swh::remote_service::search::config::empty: {}
 
