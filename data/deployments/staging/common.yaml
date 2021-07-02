@@ -313,7 +313,6 @@ swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.interna
 swh::deploy::webapp::metadata_search_backend: swh-search
 
 swh::deploy::search::index: origin-v0.9.0
-swh::deploy::search::backend::listen::host: 0.0.0.0
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed

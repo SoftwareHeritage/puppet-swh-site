@@ -1548,15 +1548,15 @@ swh::remote_service::storage::config::local_internal_network:
 
 swh::remote_service::search::config::empty: {}
 
-swh::remote_service::search::config::localhost:
+swh::remote_service::search::config::local_internal_network:
   cls: remote
-  url: "http://localhost:%{hiera('swh::remote_service::search::port')}/"
+  url: "http://%{lookup('swh::deploy::search::backend::listen::host')}:%{hiera('swh::remote_service::search::port')}/"
 
 swh::remote_service::search::config::search1:
   cls: remote
   url: "http://search1.internal.softwareheritage.org:%{hiera('swh::remote_service::search::port')}/"
 
-swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::localhost')}"
+swh::remote_service::search::config: "%{alias('swh::remote_service::search::config::local_internal_network')}"
 
 # Indexer backend configurations
 swh::remote_service::indexer::config::saam:
@@ -3519,7 +3519,7 @@ swh::deploy::search::journal_client::indexed::config:
     object_types:
       - origin_intrinsic_metadata
 
-swh::deploy::search::backend::listen::host: 127.0.0.1
+swh::deploy::search::backend::listen::host: "%{::fqdn}"
 swh::deploy::search::backend::listen::port: "%{alias('swh::remote_service::search::port')}"
 swh::deploy::search::backend::workers: 4
 swh::deploy::search::backend::reload_mercy: 3600

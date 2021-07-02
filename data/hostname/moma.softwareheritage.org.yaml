@@ -12,6 +12,7 @@ networks:
 backups::exclude:
   - var/lib/rabbitmq
 
+swh::deploy::search::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::db::host: somerset.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
