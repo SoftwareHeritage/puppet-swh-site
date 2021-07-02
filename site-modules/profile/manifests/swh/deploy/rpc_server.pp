@@ -123,18 +123,26 @@ define profile::swh::deploy::rpc_server (
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
-  @@::icinga2::object::service {"swh-${instance_name} api (localhost on ${::fqdn})":
+  if $backend_listen_host == '0.0.0.0' {
+    # It's not possible to directly test with the backend_listen_host in this case
+    # so we fall back to localhost
+    $local_check_address = '127.0.0.1'
+  } else {
+    $local_check_address = $backend_listen_host
+  }
+
+  @@::icinga2::object::service {"swh-${instance_name} api (local on ${::fqdn})":
     service_name     => "swh-${instance_name} api (localhost)",
     import           => ['generic-service'],
     host_name        => $::fqdn,
     check_command    => 'http',
     command_endpoint => $::fqdn,
     vars             => {
-      http_address => '127.0.0.1',
-      http_vhost   => '127.0.0.1',
+      http_address => $local_check_address,
+      http_vhost   => $local_check_address,
       http_port    => $backend_listen_port,
       http_uri     => '/',
-      http_header => ['Accept: application/json'],
+      http_header  => ['Accept: application/json'],
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
