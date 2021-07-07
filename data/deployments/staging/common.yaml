@@ -302,10 +302,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
-swh::remote_service::search::config:
-  cls: remote
-  url: "http://search0.internal.staging.swh.network:%{hiera('swh::remote_service::search::port')}/"
-
 # The webapp can query elasticsearch to get some info related to scheduler
 # tasks associated to save code now request. Modifying this so the staging
 # webapp does not access the production indexes
