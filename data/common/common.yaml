@@ -200,7 +200,6 @@ packages::desktop:
   - rxvt-unicode-256color
   - screen
   - scrot
-  - tcpdump
   - tree
   - vim-nox
   - weechat
