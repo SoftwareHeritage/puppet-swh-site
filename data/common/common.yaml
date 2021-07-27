@@ -552,6 +552,9 @@ users:
       andres@powerage:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDRnVV1UimkTbAAb1FPxDPAqfyCVSrlB7a1Kq83ZKc6e7tTVmOKA55whZa3KwNBwgZGB8389ejCery+WDqSiRZsirup4UN/VZ5X3XJdnRVPPcpzVuWFivPKBMn6D4LMa9D7moMnV9JC5q9zwMNHZQ4qJbGlW44MzWOi0RnPVd28jsRkL0sMRvz+i3KXFGDNeaVPV0YLB4vS1bmEho/8Tu5NlY/Tzkter9qTNN7QNIAbnq8oQF/lLPFAytE0s61ZtoDcXfznJPXWkIljMCTQHlxeDci9DQWUgQc+A+7qWmqkb3lzDYKQrxRfZtl3hbnR3jrtSfTI+q0Nagh0O4FN2QUj
+      aeviso@powerage:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCX0CtuTAwQpOQl3qBGm7FAuzKlnSmSUOISKPV3F8ohbYbN682VKnruTPFRwkdy5sidg6I8jVrIeJJQ+WZVrTM6mdtpiLANB4r3sgQdml4l3sWAyNm3UD5wwhsNYlnVgVuzUihK7/ykr9vKYxY3rrAYcLVyLzkq9t7BPVAMHJZj6XBsKqzhATcQxVdVVA+7k7aTSnaNR29AiHEVYb8/1J61W59mNqrqrwcWXaGXgjb4rvzprWhooQd21/9v4rlgwZznFlK20GQUoHy+BVCbpQJznQtQeCvXfTpBYGZjo7DrljbDdafkrz9fa7NqJ3UwRzYITadM6NLDPzD7EIR9q2cf
   vsellier:
     uid: 1025
     full_name: Vincent Sellier
