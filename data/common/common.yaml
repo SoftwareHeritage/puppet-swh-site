@@ -187,7 +187,6 @@ packages:
 packages::desktop:
   - autojump
   - chromium
-  - curl
   - emacs
   - ethtool
   - gnome
