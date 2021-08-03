@@ -1,5 +1,9 @@
 # Checks that need to be supported on icinga2 agents
 class profile::icinga2::objects::agent_checks {
+
+  $prometheus_port = lookup('prometheus::server::listen_port')
+  $prometheus_url = "pergamon.internal.softwareheritage.org:${prometheus_port}"
+
   $plugins = {
     'check_journal' => {
       arguments => {
@@ -46,6 +50,29 @@ class profile::icinga2::objects::agent_checks {
       sudo => true,
       sudo_user => 'root',
     },
+    'check_prometheus_metric.sh' => {
+      arguments => {
+        '-H' => '$check_prometheus_metric_url$',
+        '-q' => '$check_prometheus_metric_query$',
+        '-w' => '$check_prometheus_metric_warning$',
+        '-c' => '$check_prometheus_metric_critical$',
+        '-n' => '$check_prometheus_metric_name$',
+      },
+      vars => {
+        'check_prometheus_metric_url' => $prometheus_url,
+      }
+    },
+    'check_belvedere_replication_lag.sh' => { 
+      arguments => {
+        '-H' => '$check_prometheus_metric_url$',
+        '-w' => '$check_prometheus_metric_warning$',
+        '-c' => '$check_prometheus_metric_critical$',
+        '-n' => '$check_prometheus_metric_name$',
+      },
+      vars => {
+        'check_prometheus_metric_url' => $prometheus_url,
+      }
+    }
   }
 
   $swh_plugin_dir = '/usr/lib/nagios/plugins/swh'
