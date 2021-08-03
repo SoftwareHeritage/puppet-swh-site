@@ -1,0 +1,9 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=daily
+Unit=swh-scheduler-update-metrics.service
+
+[Unit]
+Description=regular scheduler update-metrics refresh

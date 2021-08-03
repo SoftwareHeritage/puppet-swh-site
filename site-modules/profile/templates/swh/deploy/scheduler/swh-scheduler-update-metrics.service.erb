@@ -1,0 +1,17 @@
+# Scheduler Update Metrics unit file
+# Managed by puppet class profile::swh::deploy::scheduler
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage scheduler update-metrics
+Requires=network.target
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Type=simple
+ExecStart=/usr/bin/swh scheduler --config-file <%= @config_file %> origin update-metrics
+
+[Install]
+WantedBy=multi-user.target

@@ -91,6 +91,26 @@ class profile::swh::deploy::scheduler {
     http_check_string => 'Software Heritage scheduler RPC server',
   }
 
+  # scheduler update metrics routine
+
+  # Template uses variables
+  #  - $user
+  #  - $group
+  #  - $config_file
+  #
+  $update_metrics_service_name = "swh-scheduler-update-metrics"
+  $update_metrics_unit_template = "profile/swh/deploy/scheduler/${update_metrics_service_name}.service.erb"
+  $update_metrics_timer_name = "${update_metrics_service_name}.timer"
+  $update_metrics_timer_template = "profile/swh/deploy/scheduler/${update_metrics_timer_name}.erb"
+
+  ::systemd::timer { $update_metrics_timer_name:
+    timer_content    => template($update_metrics_timer_template),
+    service_content  => template($update_metrics_unit_template),
+    active           => true,
+    enable           => true,
+    require          => Package[$packages],
+  }
+
   # task archival cron
 
   $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
@@ -121,5 +141,4 @@ class profile::swh::deploy::scheduler {
       File[$archive_config_file],
     ],
   }
-
 }

@@ -185,7 +185,7 @@ mod 'sudo',
 
 mod 'systemd',
     :git => 'https://forge.softwareheritage.org/source/puppet-camptocamp-systemd',
-    :ref => '2.7.0'
+    :ref => '2.12.0'
 
 mod 'timezone',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-timezone',
