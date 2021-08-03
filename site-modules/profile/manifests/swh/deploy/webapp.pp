@@ -214,23 +214,37 @@ class profile::swh::deploy::webapp {
     },
   }
 
+  # webapp update save code status routine
+
   $filename_refresh_status = 'refresh-savecodenow-statuses'
+
+  # clean up old files
   $filepath_refresh_status = "/usr/local/bin/${filename_refresh_status}"
   file {$filepath_refresh_status:
-      ensure => present,
+      ensure => absent,
       owner  => 'root',
       group  => 'www-data',
       mode   => '0755',
-    content  => template("profile/swh/deploy/webapp/${filename_refresh_status}.sh.erb"),
   }
 
   $activate_once_per_environment_webapp = lookup('swh::deploy::webapp::cron::refresh_statuses')
-  if $activate_once_per_environment_webapp {
-    profile::cron::d {$filename_refresh_status:
-      target  => $filename_refresh_status,
-      command => "chronic sh -c '${filepath_refresh_status}'",
-      minute  => '*',
-      hour    => '*',
-    }
+
+  # Template uses variables
+  #  - $user
+  #  - $group
+  #  - $webapp_settings_module
+  #
+  $update_savecodenow_service_name = "swh-webapp-update-savecodenow-statuses"
+  $update_savecodenow_unit_template = "profile/swh/deploy/webapp/${update_savecodenow_service_name}.service.erb"
+  $update_savecodenow_timer_name = "${update_savecodenow_service_name}.timer"
+  $update_savecodenow_timer_template = "profile/swh/deploy/webapp/${update_savecodenow_timer_name}.erb"
+
+  ::systemd::timer { $update_savecodenow_timer_name:
+    timer_content    => template($update_savecodenow_timer_template),
+    service_content  => template($update_savecodenow_unit_template),
+    active           => $activate_once_per_environment_webapp,
+    enable           => $activate_once_per_environment_webapp,
+    require          => Package[$packages],
   }
+
 }

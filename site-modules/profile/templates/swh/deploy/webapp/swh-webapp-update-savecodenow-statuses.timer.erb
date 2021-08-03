@@ -1,0 +1,9 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=*:0/1
+Unit=swh-webapp-update-savecodenow-statuses.service
+
+[Unit]
+Description=Recurring webapp update savecodenow statuses
