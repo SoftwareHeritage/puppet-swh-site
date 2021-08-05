@@ -329,3 +329,26 @@ swh::deploy::webapp::snapshot_e2e:
   uri: '/browse/snapshot/48dcf76ec1a3bd57ec117b1dace633691fdfd70d/branches/'
   regexp:
     - 'refs/tags/syslinux-3.20-pre2.*refs/tags/syslinux-3.20-pre3.*'
+
+
+swh::deploy::lister::queues:
+  - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
+  - swh.lister.bitbucket.tasks.FullBitBucketRelister
+  - swh.lister.cgit.tasks.CGitListerTask
+  - swh.lister.cran.tasks.CRANListerTask
+  - swh.lister.debian.tasks.DebianListerTask
+  - swh.lister.gitea.tasks.IncrementalGiteaLister
+  - swh.lister.gitea.tasks.RangeGiteaLister
+  - swh.lister.gitea.tasks.FullGiteaRelister
+  - swh.lister.gitlab.tasks.IncrementalGitLabLister
+  - swh.lister.gitlab.tasks.RangeGitLabLister
+  - swh.lister.gitlab.tasks.FullGitLabRelister
+  - swh.lister.gnu.tasks.GNUListerTask
+  - swh.lister.launchpad.tasks.FullLaunchpadLister
+  - swh.lister.launchpad.tasks.IncrementalLaunchpadLister
+  - swh.lister.npm.tasks.NpmListerTask
+  - swh.lister.phabricator.tasks.FullPhabricatorLister
+  - swh.lister.pypi.tasks.PyPIListerTask
+  - swh.lister.sourceforge.tasks.FullSourceForgeLister
+  - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
+  - swh.lister.opam.tasks.OpamListerTask
