@@ -2518,6 +2518,18 @@ swh::deploy::worker::loader_mercurial::config:
       - swh.loader.mercurial.tasks.LoadMercurial
       - swh.loader.mercurial.tasks.LoadArchiveMercurial
 
+swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
+swh::deploy::worker::loader_opam::concurrency: 1
+swh::deploy::worker::loader_opam::private_tmp: true
+swh::deploy::worker::loader_opam::loglevel: info
+swh::deploy::worker::loader_opam::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      - swh.loader.package.opam.tasks.LoadOpam
+
 swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::loader_pypi::concurrency: 1
 swh::deploy::worker::loader_pypi::private_tmp: true
