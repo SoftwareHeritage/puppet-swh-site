@@ -2714,20 +2714,6 @@ desktop::printers::cups_usernames:
   seirl: apietri
   zack: zacchiro
 
-
-# Real exported files from munin
-stats_export::export_path: "/var/www/stats.export.softwareheritage.org"
-stats_export::export_file: "%{hiera('stats_export::export_path')}/history_counters.json"
-
-# Exposed through the following host's apache venv
-stats_export::vhost::name: stats.export.softwareheritage.org
-stats_export::vhost::docroot: "/var/www/%{hiera('stats_export::vhost::name')}"
-stats_export::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-stats_export::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-stats_export::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-stats_export::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-
-
 icinga2::role: agent
 
 icinga2::master::zonename: master

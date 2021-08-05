@@ -18,9 +18,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::apache::simple_server
   include ::apache::mod::rewrite
 
-
   include profile::annex_web
-  include profile::stats_web
   include profile::docs_web
   include profile::debian_repository
   include profile::bitbucket_archive_web
