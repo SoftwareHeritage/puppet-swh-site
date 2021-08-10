@@ -25,4 +25,4 @@ swh::deploy::webapp::url: "https://archive.softwareheritage.org"
 swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
 
 
-swh::deploy::worker::loader_git::concurrency: 6
+swh::deploy::worker::loader_git::concurrency: 5
