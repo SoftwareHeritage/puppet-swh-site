@@ -1,0 +1,10 @@
+[Unit]
+Description=Proxmox VE Prometheus Exporter
+After=network.target
+Wants=network.target
+[Service]
+Restart=on-failure
+WorkingDirectory=/tmp
+ExecStart=/usr/bin/pve_exporter <%= @config_file %>
+[Install]
+WantedBy=multi-user.target

@@ -2914,6 +2914,9 @@ nginx::names_hash_bucket_size: 128
 nginx::names_hash_max_size: 1024
 nginx::worker_processes: "%{::processorcount}"
 
+# prometheus::pve-exporter::password in credential
+prometheus::pve-exporter::user: pve_exporter@pve
+
 prometheus::server::defaults_config:
   web:
     enable_admin_api: true
