@@ -1,6 +1,11 @@
-node /^(orsay|beaubourg|hypervisor\d+|branly|pompidou|uffizi)\.(internal\.)?softwareheritage\.org$/
+node /^(pompidou|uffizi)\.(internal\.)?softwareheritage\.org$/
 {
   include role::swh_hypervisor
+}
+
+node /^(beaubourg|hypervisor\d+|branly)\.(internal\.)?softwareheritage\.org$/
+{
+  include role::swh_hypervisor_with_ceph
 }
 
 node 'pergamon.softwareheritage.org' {
