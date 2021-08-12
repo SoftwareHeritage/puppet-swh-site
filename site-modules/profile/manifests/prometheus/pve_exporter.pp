@@ -10,10 +10,10 @@ class profile::prometheus::pve_exporter {
   # template uses $user and $password
 
   file {$config_dir:
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
   ~> file {$config_file:
     ensure  => present,
@@ -47,6 +47,6 @@ class profile::prometheus::pve_exporter {
     job          => 'pve-exporter',
     target       => "${::fqdn}:${service_port}",
     scheme       => 'http',
-    metrics_path => 'pve?target=127.0.0.1',
+    metrics_path => '/pve?target=127.0.0.1',
   }
 }
