@@ -7,16 +7,15 @@ class profile::prometheus::pve_exporter {
 
   $packages = ['python3-prometheus-pve-exporter'];
 
-  file { $config_dir:
-    ensure => present,
+  # template uses $user and $password
+
+  file {$config_dir:
+    ensure  => directory,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
   }
-
-  # template uses $user and $password
-
-  file { $config_file:
+  ~> file {$config_file:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -31,12 +30,16 @@ class profile::prometheus::pve_exporter {
   # template uses $config_file
 
   $service_name = 'prometheus-pve-exporter.service'
-  file {$service_name:
-    ensure => present,
-    mode   => '0755',
-    owner  => 'root',
-    group  => 'root',
+  ::systemd::unit_file {$service_name:
+    ensure  => present,
     content => template("profile/pve-exporter/${service_name}.erb"),
+  }
+  ~> service {$service_name:
+    ensure  => 'running',
+    enable  => true,
+    require => [
+      Package[$packages]
+    ],
   }
 
   $service_port = 9221  # default port for the prometheus pve exporter
