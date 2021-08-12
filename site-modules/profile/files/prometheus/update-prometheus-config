@@ -13,7 +13,7 @@ import datetime
 import os
 import stat
 import sys
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import yaml
 
@@ -27,6 +27,7 @@ class JobGroup:
     scrape_timeout: Optional[int]
     metrics_path: Optional[str]
     scheme: Optional[str]
+    params: Optional[Tuple]
 
     @classmethod
     def from_dict(cls, dict):
@@ -52,13 +53,21 @@ def load_yaml_from_dir(dirname: str) -> Iterable[Dict[str, Any]]:
             yield from yaml.safe_load(f)
 
 
+def dict_factory(data):
+    d = dict(data)
+
+    if d.get("params") is not None:
+        d["params"] = {k:list(v) for k,v in d["params"]}
+
+    return d
+
 def generate_scrape_configs(configs: Dict[JobGroup, List[Dict[str, Any]]]):
     """Generate a scrape_configs entry from a dict"""
     for params, targets in configs.items():
         yield {
             **{
                 param: value
-                for param, value in asdict(params).items()
+                for param, value in asdict(params, dict_factory=dict_factory).items()
                 if value is not None
             },
             "static_configs": targets,
@@ -96,6 +105,12 @@ if __name__ == "__main__":
     for conf in load_yaml_from_dir(exported_dir):
         if 'job' in conf:
             conf['job_name'] = conf.pop('job')
+        if 'params' in conf:
+           params = conf.pop('params')
+           if params is not None:
+               # Hack to allow the dict serialization (used in the config_groups dict key later)
+               conf['params'] = tuple((k,tuple(v)) for k,v in params.items())
+
         group = JobGroup.from_dict(conf)
         for key in asdict(group):
             conf.pop(key, None)
