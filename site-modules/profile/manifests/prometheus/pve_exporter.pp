@@ -47,6 +47,9 @@ class profile::prometheus::pve_exporter {
     job          => 'pve-exporter',
     target       => "${::fqdn}:${service_port}",
     scheme       => 'http',
-    metrics_path => '/pve?target=127.0.0.1',
+    metrics_path => '/pve',
+    params       => {
+      target => [ '127.0.0.1' ],
+    }
   }
 }
