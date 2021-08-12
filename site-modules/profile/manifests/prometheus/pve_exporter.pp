@@ -45,7 +45,7 @@ class profile::prometheus::pve_exporter {
   $service_port = 9221  # default port for the prometheus pve exporter
   profile::prometheus::export_scrape_config {"pve-exporter_${::fqdn}":
     job          => 'pve-exporter',
-    target       => "${::fqdn}:${service_port}",
+    target       => "${::swh_hostname['internal_fqdn']}:${service_port}",
     scheme       => 'http',
     metrics_path => '/pve',
     params       => {
