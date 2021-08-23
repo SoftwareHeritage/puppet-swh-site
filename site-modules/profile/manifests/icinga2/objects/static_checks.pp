@@ -106,8 +106,8 @@ class profile::icinga2::objects::static_checks {
     host_name     => 'belvedere.internal.softwareheritage.org',
     vars          => {
       check_prometheus_metric_name     => 'pg replication_lag belvedere somerset',
-      check_prometheus_metric_warning  => '107374182400', # 100GiB 100*1024*1024*1024
-      check_prometheus_metric_critical => '214748364800', # 200GiB 200*1024*1024*1024
+      check_prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
+      check_prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
     },
   }
 
