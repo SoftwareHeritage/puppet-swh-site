@@ -39,7 +39,7 @@ pgbouncer::databases:
   - source_db: "%{hiera('swh::deploy::webapp::db::name')}"
     host: belvedere.internal.softwareheritage.org
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
+    port: "%{hiera('swh::deploy::webapp::db::port')}"
   # catch-all
   - source_db: "*"
     host: 127.0.0.1
