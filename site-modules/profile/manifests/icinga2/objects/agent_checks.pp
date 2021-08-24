@@ -75,13 +75,15 @@ class profile::icinga2::objects::agent_checks {
     }
   }
 
-  $swh_plugin_dir = '/usr/lib/nagios/plugins/swh'
+  $plugin_dir = '/usr/lib/nagios/plugins'
+  $swh_plugin_dir = "${plugin_dir}/swh"
   $swh_plugin_configfile = '/etc/icinga2/conf.d/swh-plugins.conf'
 
   $packages = [
     'python3-nagiosplugin',
     'python3-systemd',
     'monitoring-plugins-basic',
+    'monitoring-plugins-systemd',  # in swh repository
   ]
   package {$packages:
     ensure => present,
@@ -133,5 +135,20 @@ class profile::icinga2::objects::agent_checks {
       vars      => $plugin['vars'],
       target    => $swh_plugin_configfile,
     }
+  }
+
+  $check_command = "check_systemd"
+  $check_command_path = "${plugin_dir}/${check_command}"
+  ::icinga2::object::checkcommand {$check_command:
+    import    => ['plugin-check-command'],
+    command   => [ $check_command_path ],
+    arguments => {
+      '--unit'  => {
+        value       => '$check_systemd_unit$',
+        description => 'Name of the systemd unit that is being tested.',
+      },
+    },
+    target    => $swh_plugin_configfile,
+    require   => Package[$packages],
   }
 }
