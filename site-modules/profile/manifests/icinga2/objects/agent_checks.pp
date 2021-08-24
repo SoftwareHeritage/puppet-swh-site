@@ -62,7 +62,7 @@ class profile::icinga2::objects::agent_checks {
         'check_prometheus_metric_url' => $prometheus_url,
       }
     },
-    'check_belvedere_replication_lag.sh' => { 
+    'check_belvedere_replication_lag.sh' => {
       arguments => {
         '-H' => '$check_prometheus_metric_url$',
         '-w' => '$check_prometheus_metric_warning$',
