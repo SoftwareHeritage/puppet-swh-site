@@ -2,13 +2,15 @@
 class profile::icinga2::objects::common_checks {
   $service_configuration = lookup('icinga2::service_configuration')
 
+  $target_file = '/etc/icinga2/zones.d/global-templates/services.conf'
+
   # Done locally on the master
   ::icinga2::object::service {'ping4':
     import        => ['generic-service'],
     apply         => true,
     check_command => 'ping4',
     assign        => ['host.address'],
-    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target        => $target_file,
   }
 
   ::icinga2::object::service {'linux-ssh':
@@ -16,7 +18,7 @@ class profile::icinga2::objects::common_checks {
     apply         => true,
     check_command => 'ssh',
     assign        => ['host.vars.os == Linux'],
-    target        => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target        => $target_file,
   }
 
   # Done remotely on the client: command_endpoint = host.name.
@@ -38,7 +40,7 @@ class profile::icinga2::objects::common_checks {
       command_endpoint => 'host.name',
       assign           => [$assign],
       ignore           => [$ignore],
-      target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+      target           => $target_file,
       vars             => $vars,
     }
 
@@ -52,7 +54,7 @@ class profile::icinga2::objects::common_checks {
     vars             => 'vars + config',
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
   }
 
   ::icinga2::object::service {'apt':
@@ -67,7 +69,7 @@ class profile::icinga2::objects::common_checks {
     },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
   }
 
   ::icinga2::object::service {'ntp':
@@ -80,7 +82,7 @@ class profile::icinga2::objects::common_checks {
     },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
   }
 
   ::icinga2::object::service {'journalbeat':
@@ -90,7 +92,7 @@ class profile::icinga2::objects::common_checks {
     command_endpoint => 'host.name',
     assign           => ['host.vars.os == Linux'],
     ignore           => ['-:"check_journal" !in host.vars.plugins', 'host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
   }
 
   ::icinga2::object::service {'puppet_agent':
@@ -106,7 +108,21 @@ class profile::icinga2::objects::common_checks {
     },
     assign           => ['host.vars.os == Linux'],
     ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
+  }
+
+  ::icinga2::object::service {'check_postfix':
+    import           => ['generic-service'],
+    apply            => true,
+    name             => "Check postfix service",
+    check_command    => "check_systemd",
+    command_endpoint => 'host.name',
+    assign           => ['host.vars.os == Linux'],
+    vars             => {
+      check_systemd_unit => 'postfix@-.service',
+    },
+    ignore           => ['host.vars.noagent'],
+    target           => $target_file,
   }
 
   ::icinga2::object::service {'logstash_errors':
@@ -116,7 +132,7 @@ class profile::icinga2::objects::common_checks {
     command_endpoint => 'host.name',
     assign           => ['check_logstash_errors.sh in host.vars.plugins'],
     ignore           => ['host.vars.noagent'],
-    target           => '/etc/icinga2/zones.d/global-templates/services.conf',
+    target           => $target_file,
   }
 
 }
