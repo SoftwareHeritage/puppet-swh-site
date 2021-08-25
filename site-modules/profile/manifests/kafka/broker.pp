@@ -177,7 +177,7 @@ class profile::kafka::broker {
   class {'::kafka::broker':
     config       => $kafka_config + $kafka_tls_config,
     opts         => join(["-javaagent:${exporter}=${exporter_port}:${exporter_config}"], ' '),
-    limit_nofile => '65536',
+    limit_nofile => '524288',
     heap_opts    => $heap_opts,
     env          => {
       # Deployment options from https://docs.confluent.io/current/kafka/deployment.html
