@@ -24,6 +24,8 @@ kafka::broker_config:
   # https://cwiki.apache.org/confluence/display/KAFKA/KIP-537%3A+Increase+default+zookeeper+session+timeout will be default in 2.5.0
   zookeeper.session.timeout.ms: 18000
   replica.lag.time.max.ms: 30000
+  # Bump consumer offset retention to 30 days instead of the default of 7 days
+  offsets.retention.minutes: 43200
   # Increase the socket request max size to 200 MB
   socket.request.max.bytes: 209715200
   # And the max message size to 100 MB
