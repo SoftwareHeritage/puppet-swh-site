@@ -2162,7 +2162,7 @@ swh::deploy::webapp::config:
   counters_backend: "%{alias('swh::deploy::webapp::counters_backend')}"
   log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
   secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
-  content_display_max_size: 1048576
+  content_display_max_size: 5242880 # 5MB
   throttling: "%{alias('swh::deploy::webapp::config::throttling')}"
   production_db: "%{alias('swh::deploy::webapp::production_db')}"
   es_workers_index_url: "%{alias('swh::deploy::webapp::config::es_workers_index_url')}"
