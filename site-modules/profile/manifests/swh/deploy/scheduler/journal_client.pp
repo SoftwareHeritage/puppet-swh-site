@@ -32,4 +32,18 @@ class profile::swh::deploy::scheduler::journal_client {
     ensure => running,
     enable => true,
   }
+
+  @@::icinga2::object::service {"check_scheduler_journal_client_${::fqdn}":
+    import           => ['generic-service'],
+    name             => "Check swh scheduler journal client service ${::fqdn}",
+    check_command    => "check_systemd",
+    host_name        => $::fqdn,
+    command_endpoint => $::fqdn,
+    vars             => {
+      check_systemd_unit => $unit_name,
+    },
+    target           => '/etc/icinga2/zones.d/master/exported-checks.conf',
+    tag              => 'icinga2::exported',
+  }
+
 }
