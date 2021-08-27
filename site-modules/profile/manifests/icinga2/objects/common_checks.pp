@@ -111,6 +111,17 @@ class profile::icinga2::objects::common_checks {
     target           => $target_file,
   }
 
+  ::icinga2::object::service {'check_systemd':
+    import           => ['generic-service'],
+    apply            => true,
+    name             => "Check systemd state",
+    check_command    => "check_systemd",
+    command_endpoint => 'host.name',
+    assign           => ['host.vars.os == Linux'],
+    ignore           => ['host.vars.noagent'],
+    target           => $target_file,
+  }
+
   ::icinga2::object::service {'check_postfix':
     import           => ['generic-service'],
     apply            => true,
