@@ -2,8 +2,10 @@
 WantedBy=timers.target
 
 [Timer]
-OnCalendar=daily
 Unit=swh-scheduler-update-metrics.service
+OnCalendar=00/4:00
+RandomizedDelaySec=1h
+FixedRandomDelay=true
 
 [Unit]
 Description=regular scheduler update-metrics refresh
