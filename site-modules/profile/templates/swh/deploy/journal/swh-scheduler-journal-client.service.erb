@@ -12,7 +12,7 @@ Group=<%= @group %>
 Type=simple
 ExecStart=/usr/bin/swh scheduler --config-file <%= @config_file %> journal-client
 Restart=always
-RestartSec=10
+RestartSec=1min
 
 [Install]
 WantedBy=multi-user.target
