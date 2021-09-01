@@ -14,3 +14,20 @@ swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azur
       - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
       - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
       - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+
+# Activate graph options to production cookers
+swh::deploy::worker::vault_cooker::config:
+  storage:
+    cls: retry
+    storage: "%{alias('swh::remote_service::storage::config')}"
+  vault: "%{alias('swh::remote_service::vault::config::writable')}"
+  graph: "%{alias('swh::remote_service::graph::config')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_modules:
+      - swh.vault.cooking_tasks
+    task_queues:
+      - swh.vault.cooking_tasks.SWHCookingTask
+      - swh.vault.cooking_tasks.SWHBatchCookingTask
+  max_bundle_size: 1073741824  # 1GiB
+
