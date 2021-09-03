@@ -2143,7 +2143,7 @@ swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
-swh::deploy::webapp::metadata_search_backend: swh-indexer-storage
+swh::deploy::webapp::metadata_search_backend: swh-search
 swh::deploy::webapp::history_counters_url: "%{lookup('swh::remote_service::counters::url')}counters_history/history.json"
 swh::deploy::webapp::counters_backend: swh-counters
 swh::deploy::webapp::instance_name: archive.softwareheritage.org
