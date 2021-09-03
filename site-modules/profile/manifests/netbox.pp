@@ -137,14 +137,17 @@ class profile::netbox {
     notify      => Systemd::Unit_file['netbox.service'],
   }
 
-  ::systemd::unit_file {'netbox.service':
-    ensure  => present,
-    content => template('profile/netbox/netbox.service.erb'),
-  } ~> service {'netbox':
-    ensure  => 'running',
-    enable  => true,
-    require => [File['netbox-gunicorn-config'],
-      File['netbox-configuration']],
+  ['netbox', 'netbox-rq'].each |$service| {
+
+    ::systemd::unit_file {"${service}.service":
+      ensure  => present,
+      content => template("profile/netbox/${service}.service.erb"),
+    } ~> service {$service:
+      ensure  => 'running',
+      enable  => true,
+      require => [File['netbox-gunicorn-config'],
+                  File['netbox-configuration']],
+    }
   }
 
 }

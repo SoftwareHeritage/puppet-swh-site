@@ -1,10 +1,9 @@
-
 # The IP address (typically localhost) and port that the Netbox WSGI process should listen on
 bind = '<%= @gunicorn_binding %>:<%= @gunicorn_port %>'
 
 # Number of gunicorn workers to spawn. This should typically be 2n+1, where
 # n is the number of CPU cores present.
-workers = 2
+workers = 5
 
 # Number of threads per worker process
 threads = 3
