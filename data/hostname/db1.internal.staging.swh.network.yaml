@@ -50,3 +50,8 @@ swh::apt_config::backported_packages:
     - zfs-dkms
     - zfsutils-linux
     - zfs-zed
+
+prometheus::sql::config_snippets:
+  - swh-scheduler
+  - swh-storage
+
