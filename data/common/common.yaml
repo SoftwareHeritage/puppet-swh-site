@@ -3505,7 +3505,6 @@ swh::deploy::search::journal_client::objects::config:
     prefix: swh.journal.objects
     object_types:
       - origin
-      - origin_visit
       - origin_visit_status
   storage: "%{alias('swh::remote_service::storage::config')}"
 
