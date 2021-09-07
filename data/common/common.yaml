@@ -1814,6 +1814,11 @@ swh::deploy::vault::config:
     cls: local
     db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
 
+swh::deploy::graph::user: swhworker
+swh::deploy::graph::group: swhworker
+swh::deploy::graph::backend::listen::host: 127.0.0.1
+swh::deploy::graph::backend::listen::port: "%{alias('swh::remote_service::graph::port')}"
+
 swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
 
 swh::deploy::journal::brokers:

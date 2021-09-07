@@ -1,0 +1,20 @@
+# Managed by puppet class profile::swh::deploy::graph
+# Changes will be overwritten
+
+[Unit]
+Description=swh graph shm mapper
+
+[Service]
+Type=oneshot
+User=<%= @user %>
+Group=<%= @group %>
+RemainAfterExit=yes
+# ExecStart=/opt/swhgraph_venv/bin/swh graph cachemount --graph /srv/softwareheritage/ssd/graph/2020-05-20/compressed/graph --cache /dev/shm/swh-graph/default
+ExecStart=mkdir -p /dev/shm/swh-graph/default
+ExecStart=sh -c "ln -s /srv/softwareheritage/ssd/graph/2020-12-15/compressed/* /dev/shm/swh-graph/default"
+ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/ssd/graph/2020-12-15/compressed/graph.graph /dev/shm/swh-graph/default"
+ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/ssd/graph/2020-12-15/compressed/graph-transposed.graph /dev/shm/swh-graph/default"
+ExecStop=rm -rf /dev/shm/swh-graph/default
+
+[Install]
+WantedBy=multi-user.target

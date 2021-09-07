@@ -1,0 +1,16 @@
+# Managed by puppet class profile::swh::deploy::graph
+# Changes will be overwritten
+
+[Unit]
+Description=swh graph
+After=swhgraphshm.service
+Requires=swhgraphshm.service
+
+[Service]
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=/opt/swhgraph_venv/bin/swh graph rpc-serve -g /dev/shm/swh-graph/default/graph
+
+[Install]
+WantedBy=multi-user.target
