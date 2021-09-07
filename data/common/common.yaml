@@ -2153,7 +2153,8 @@ swh::deploy::webapp::instance_name: archive.softwareheritage.org
 # deposit_basic_auth_swhworker_password
 swh::deploy::webapp::config:
   search: "%{alias('swh::remote_service::search::config')}"
-  metadata_search_backend: "%{alias('swh::deploy::webapp::metadata_search_backend')}"
+  search_config:
+    metadata_backend: "%{alias('swh::deploy::webapp::metadata_search_backend')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
   vault: "%{alias('swh::remote_service::vault::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config')}"
