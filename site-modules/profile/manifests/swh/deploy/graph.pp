@@ -38,4 +38,49 @@ class profile::swh::deploy::graph {
       enable => $service['enable'],
     }
   }
+
+  $backend_listen_host = lookup("swh::deploy::graph::backend::listen::host")
+  $backend_listen_port = lookup("swh::deploy::graph::backend::listen::port")
+
+  $http_check_string = "graph API server"
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+
+  # swhgraphdev.service exposes the main graph server.
+  # Ensure the port is working ok through icinga checks
+  @@::icinga2::object::service {"swh-graph api (local on ${::fqdn})":
+    service_name     => "swh-graph api (localhost)",
+    import           => ['generic-service'],
+    host_name        => $::fqdn,
+    check_command    => 'http',
+    command_endpoint => $::fqdn,
+    vars             => {
+      http_address => $local_check_address,
+      http_vhost   => $local_check_address,
+      http_port    => $backend_listen_port,
+      http_uri     => '/',
+      http_header  => ['Accept: application/json'],
+      http_string  => $http_check_string,
+    },
+    target           => $icinga_checks_file,
+    tag              => 'icinga2::exported',
+  }
+
+  if $backend_listen_host != '127.0.0.1' {
+    @@::icinga2::object::service {"swh-graph api (remote on ${::fqdn})":
+      service_name  => "swh-graph api (remote)",
+      import        => ['generic-service'],
+      host_name     => $::fqdn,
+      check_command => 'http',
+      vars          => {
+        http_vhost  => $::swh_hostname['internal_fqdn'],
+        http_port   => $backend_listen_port,
+        http_uri    => '/',
+        http_header => ['Accept: application/json'],
+        http_string => $http_check_string,
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
+    }
+  }
+
 }
