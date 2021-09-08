@@ -3300,6 +3300,7 @@ keycloak::resources::clients::common_settings:
 keycloak::resources::clients::swh_web:::roles:
   - swh.web.api.throttling_exempted
   - swh.web.api.graph
+  - swh.vault.git_bare.ui
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
