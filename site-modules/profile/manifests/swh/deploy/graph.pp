@@ -15,7 +15,7 @@ class profile::swh::deploy::graph {
   # install services from templates
   $services = [ {  # this matches the current status
     'name' => 'swhgraphshm',
-    'status'  => 'stopped',
+    'status'  => 'running',
     'enable' => false,
   }, {
     'name' => 'swhgraphdev',
