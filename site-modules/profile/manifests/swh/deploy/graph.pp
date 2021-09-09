@@ -45,6 +45,14 @@ class profile::swh::deploy::graph {
   $http_check_string = "graph API server"
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
+  if $backend_listen_host == '0.0.0.0' {
+    # It's not possible to directly test with the backend_listen_host in this case
+    # so we fall back to localhost
+    $local_check_address = '127.0.0.1'
+  } else {
+    $local_check_address = $backend_listen_host
+  }
+
   # swhgraphdev.service exposes the main graph server.
   # Ensure the port is working ok through icinga checks
   @@::icinga2::object::service {"swh-graph api (local on ${::fqdn})":
@@ -58,7 +66,7 @@ class profile::swh::deploy::graph {
       http_vhost   => $local_check_address,
       http_port    => $backend_listen_port,
       http_uri     => '/',
-      http_header  => ['Accept: application/json'],
+      http_header  => ['Accept: application/html'],
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
@@ -75,7 +83,7 @@ class profile::swh::deploy::graph {
         http_vhost  => $::swh_hostname['internal_fqdn'],
         http_port   => $backend_listen_port,
         http_uri    => '/',
-        http_header => ['Accept: application/json'],
+        http_header => ['Accept: application/html'],
         http_string => $http_check_string,
       },
       target        => $icinga_checks_file,
