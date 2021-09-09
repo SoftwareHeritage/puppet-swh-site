@@ -134,12 +134,12 @@ class profile::netbox {
     command     => "touch ${upgrade_flag_path}",
     path        => '/usr/bin',
     refreshonly => true,
-    notify      => Systemd::Unit_file['netbox.service'],
   }
 
   ['netbox', 'netbox-rq'].each |$service| {
 
-    ::systemd::unit_file {"${service}.service":
+    Exec['netbox-flag-upgrade-done']
+    ~> ::systemd::unit_file {"${service}.service":
       ensure  => present,
       content => template("profile/netbox/${service}.service.erb"),
     } ~> service {$service:
