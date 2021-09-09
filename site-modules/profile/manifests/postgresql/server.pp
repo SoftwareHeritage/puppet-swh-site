@@ -77,6 +77,11 @@ class profile::postgresql::server {
     }
   }
 
+  postgresql::server::config_entry{'shared_preload_libraries':
+      ensure => present,
+      value  => "pg_stat_statements",
+    }
+
   # read-only user
   $guest = 'guest'
   postgresql::server::role { $guest:
