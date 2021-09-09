@@ -42,9 +42,15 @@ class profile::swh::apt_config {
       repos    => $repos,
     }
 
+    if versioncmp($::lsbmajdistrelease, '11') >= 0 {
+        $security_release = "${::lsbdistcodename}-security"
+    } else {
+        $security_release = "${::lsbdistcodename}/updates"
+    }
+
     ::apt::source {'debian-security':
       location => $debian_security_mirror,
-      release  => "${::lsbdistcodename}/updates",
+      release  => $security_release,
       repos    => $repos,
     }
 
