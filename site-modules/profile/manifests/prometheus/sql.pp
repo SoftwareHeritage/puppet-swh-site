@@ -94,6 +94,13 @@ class profile::prometheus::sql {
 
   profile::prometheus::export_scrape_config {'sql':
     target => $listen_address,
+    metric_relabel_configs => [{
+      source_labels => ['__name__', 'col'],
+      regex         => 'sql_swh_scheduler_origins;(.*)',
+      action        => 'replace',
+      target_label  => '__name__',
+      replacement   => 'swh_scheduler_origins_${1}',
+    }],
   }
 
   profile::cron::d {'restart-sql-exporter':

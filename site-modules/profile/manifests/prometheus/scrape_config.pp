@@ -7,6 +7,7 @@ define profile::prometheus::scrape_config (
   Optional[Enum['http', 'https']] $scheme = undef,
   Optional[String] $metrics_path = undef,
   Optional[Hash[String, Array[String]]] $params = undef,
+  Optional[Array[Hash[String, Variant[String, Array[String]]]]] $metric_relabel_configs = undef,
 ){
   $directory = $profile::prometheus::server::scrape_configs_dir
   file {"${directory}/${name}.yaml":
@@ -17,12 +18,13 @@ define profile::prometheus::scrape_config (
     content => inline_yaml(
       [
         {
-          job_name     => $job,
-          targets      => [$target],
-          labels       => $labels,
-          scheme       => $scheme,
-          metrics_path => $metrics_path,
-          params       => $params,
+          job_name               => $job,
+          targets                => [$target],
+          labels                 => $labels,
+          scheme                 => $scheme,
+          metrics_path           => $metrics_path,
+          params                 => $params,
+          metric_relabel_configs => $metric_relabel_configs
         },
       ]
     ),

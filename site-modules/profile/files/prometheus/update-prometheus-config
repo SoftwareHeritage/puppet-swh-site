@@ -2,20 +2,43 @@
 #
 # This generates a static configuration for Prometheus
 #
-# Copyright © 2020 The Software Heritage Developers.
+# Copyright © 2020-2021 The Software Heritage Developers.
 # This file is released under the Apache-2.0 License.
 #
 
-from collections import defaultdict
 import copy
-from dataclasses import asdict, dataclass, fields
 import datetime
 import os
 import stat
 import sys
+from collections import defaultdict
+from dataclasses import asdict, dataclass, fields, is_dataclass
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import yaml
+from typing_extensions import Literal
+
+
+@dataclass(frozen=True)
+class RelabelConfig:
+    source_labels: Optional[Tuple[str]]
+    separator: Optional[str]
+    target_label: Optional[str]
+    regex: Optional[str]
+    modulus: Optional[int]
+    replacement: Optional[str]
+    action: Literal[
+        "replace", "keep", "drop", "hashmod", "labelmap", "labeldrop", "labelkeep"
+    ]
+
+    @classmethod
+    def from_dict(cls, dict):
+        init_vars = {field.name: dict.get(field.name) for field in fields(cls)}
+
+        if init_vars.get("source_labels"):
+            init_vars["source_labels"] = tuple(init_vars["source_labels"])
+
+        return cls(**init_vars)
 
 
 @dataclass(frozen=True)
@@ -27,17 +50,24 @@ class JobGroup:
     scrape_timeout: Optional[int]
     metrics_path: Optional[str]
     scheme: Optional[str]
-    params: Optional[Tuple]
+    params: Optional[Tuple[Tuple[str, Tuple[str]], ...]]
+    metric_relabel_configs: Optional[Tuple[RelabelConfig]]
 
     @classmethod
     def from_dict(cls, dict):
         init_vars = {field.name: dict.get(field.name) for field in fields(cls)}
 
-        if init_vars.get('metrics_path') == '/metrics':
-            init_vars['metrics_path'] = None
+        if init_vars.get("metrics_path") == "/metrics":
+            init_vars["metrics_path"] = None
 
-        if init_vars.get('scheme') == 'http':
-            init_vars['scheme'] = None
+        if init_vars.get("scheme") == "http":
+            init_vars["scheme"] = None
+
+        if init_vars.get("metric_relabel_configs"):
+            init_vars["metric_relabel_configs"] = tuple(
+                RelabelConfig.from_dict(args)
+                for args in init_vars.get("metric_relabel_configs")
+            )
 
         return cls(**init_vars)
 
@@ -53,25 +83,40 @@ def load_yaml_from_dir(dirname: str) -> Iterable[Dict[str, Any]]:
             yield from yaml.safe_load(f)
 
 
-def dict_factory(data):
-    d = dict(data)
+def convert_to_dict(v: Any, field_name: Optional[str] = None) -> Any:
+    if field_name == "params":
+        return {kk: list(vv) for kk, vv in v}
+    elif is_dataclass(v):
+        return {
+            field.name: convert_to_dict(getattr(v, field.name), field.name)
+            for field in fields(v)
+            if getattr(v, field.name) is not None
+        }
+    elif isinstance(v, (list, tuple)):
+        return [convert_to_dict(vv) for vv in v]
+    else:
+        return v
 
-    if d.get("params") is not None:
-        d["params"] = {k:list(v) for k,v in d["params"]}
-
-    return d
 
 def generate_scrape_configs(configs: Dict[JobGroup, List[Dict[str, Any]]]):
     """Generate a scrape_configs entry from a dict"""
+    seen_jobs = set()
     for params, targets in configs.items():
-        yield {
-            **{
-                param: value
-                for param, value in asdict(params, dict_factory=dict_factory).items()
-                if value is not None
-            },
+        ret: Dict[str, Any] = {
+            **convert_to_dict(params),
             "static_configs": targets,
         }
+
+        ctr = 0
+        orig_job_name = ret["job_name"]
+        while ret["job_name"] in seen_jobs:
+            ctr += 1
+            ret["job_name"] = f"{orig_job_name}-{ctr}"
+            for target in ret["static_configs"]:
+                target.setdefault("labels", {})["job"] = orig_job_name
+
+        seen_jobs.add(ret["job_name"])
+        yield ret
 
 
 def merge_prometheus_config(
@@ -103,13 +148,13 @@ if __name__ == "__main__":
     config_groups: Dict[JobGroup, List[Dict[str, Any]]] = defaultdict(list)
 
     for conf in load_yaml_from_dir(exported_dir):
-        if 'job' in conf:
-            conf['job_name'] = conf.pop('job')
-        if 'params' in conf:
-           params = conf.pop('params')
-           if params is not None:
-               # Hack to allow the dict serialization (used in the config_groups dict key later)
-               conf['params'] = tuple((k,tuple(v)) for k,v in params.items())
+        if "job" in conf:
+            conf["job_name"] = conf.pop("job")
+        if "params" in conf:
+            params = conf.pop("params")
+            if params is not None:
+                # Hack to allow the dict serialization (used in the config_groups dict key later)
+                conf["params"] = tuple((k, tuple(v)) for k, v in params.items())
 
         group = JobGroup.from_dict(conf)
         for key in asdict(group):
@@ -120,14 +165,15 @@ if __name__ == "__main__":
         base_config = yaml.safe_load(f)
 
     full_config = merge_prometheus_config(
-        base_config, generate_scrape_configs(config_groups),
+        base_config,
+        generate_scrape_configs(config_groups),
     )
 
     now = datetime.datetime.now(tz=datetime.timezone.utc).isoformat()
     with open(output + ".tmp", "w") as f:
         print(f"# This file was generated by {sys.argv[0]} on {now}.", file=f)
-        print(f"# Changes will be lost", file=f)
-        print(f"", file=f)
-        yaml.dump(full_config, f, default_flow_style=False)
+        print("# Changes will be lost", file=f)
+        print("", file=f)
+        yaml.safe_dump(full_config, f, default_flow_style=False)
 
     replace_file(output, output + ".tmp")

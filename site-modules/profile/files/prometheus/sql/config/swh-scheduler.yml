@@ -193,16 +193,18 @@
   values:
     - sum
 
-- name: swh_scheduler
+- name: swh_scheduler_origins
   scope: database
   database: ^(softwareheritage|swh)-scheduler$
   interval: '15m'
   help: "Software Heritage Scheduler Metrics"
   query: |
     select l.name, l.instance_name, sm.visit_type,
-          extract(epoch from sm.last_update) as last_update,
-           sm.origins_known, sm.origins_enabled, sm.origins_never_visited,
-           sm.origins_with_pending_changes
+      extract(epoch from sm.last_update) as last_update,
+      sm.origins_known as known,
+      sm.origins_enabled as enabled,
+      sm.origins_never_visited as never_visited,
+      sm.origins_with_pending_changes as with_pending_changes
     from scheduler_metrics sm
       inner join listers l on sm.lister_id=l.id
     order by l.name, l.instance_name
@@ -212,7 +214,7 @@
     - visit_type
   values:
     - last_update
-    - origins_known
-    - origins_enabled
-    - origins_never_visited
-    - origins_with_pending_changes
+    - known
+    - enabled
+    - never_visited
+    - with_pending_changes
