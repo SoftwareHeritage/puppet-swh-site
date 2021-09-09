@@ -11,7 +11,7 @@ User=netbox
 Group=netbox
 WorkingDirectory=<%= @install_path %>
 
-ExecStart=<%= @install_path %>/venv/bin/python3 <%= @install_path %>/netbox/manage.py rqworker
+ExecStart=<%= @install_path %>/venv/bin/python3 <%= @install_path %>/netbox/manage.py rqworker high default low
 
 Restart=on-failure
 RestartSec=30

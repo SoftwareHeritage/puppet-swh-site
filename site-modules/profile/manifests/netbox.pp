@@ -150,4 +150,12 @@ class profile::netbox {
     }
   }
 
+  ::profile::cron::d {'netbox-housekeeping':
+    target  => 'netbox',
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand',
+    user    => $netbox_user,
+    command => "chronic ${install_path}/venv/bin/python ${install_path}/netbox/manage.py housekeeping",
+  }
+
 }
