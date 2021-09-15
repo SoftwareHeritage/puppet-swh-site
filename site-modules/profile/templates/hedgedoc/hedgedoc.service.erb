@@ -1,22 +1,44 @@
 [Unit]
-Description=Hedgedoc
-Documentation=https://github.com/hedgedoc/hedgedoc
-After=network-online.target
-Wants=network-online.target
+Description=HedgeDoc - The best platform to write and share markdown.
+Documentation=https://docs.hedgedoc.org/
+After=network.target
+After=postgresql.service
 
 [Service]
-Type=simple
-User=<%= @user %>
-Group=<%= @group %>
+Type=exec
 Environment=NODE_ENV=<%= @runtime_environment %>
 Environment=YARN_CACHE_FOLDER=<%= @yarn_cachedir %>
+Restart=always
+RestartSec=2s
+ExecStart=/usr/bin/yarn start --production
+CapabilityBoundingSet=
+NoNewPrivileges=true
+PrivateDevices=true
+RemoveIPC=true
+LockPersonality=true
+ProtectControlGroups=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectClock=true
+ProtectHostname=true
+ProtectProc=noaccess
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+
+# You may have to adjust these settings
+User=<%= @user %>
+Group=<%= @group %>
 WorkingDirectory=<%= @current_symlink %>
 
-ExecStart=/usr/bin/yarn start
-
-Restart=on-failure
-RestartSec=10
-PrivateTmp=true
+ReadWritePaths=<%= @uploads_dir %>
 
 [Install]
 WantedBy=multi-user.target

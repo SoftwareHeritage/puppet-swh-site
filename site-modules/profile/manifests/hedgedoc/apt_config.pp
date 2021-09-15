@@ -1,7 +1,9 @@
 # APT configuration for hedgedoc
 class profile::hedgedoc::apt_config {
+  include profile::nodejs::apt_config
+
   $packages = [
-    'npm', 'yarn', 'node-gyp'
+    'npm', 'yarn', 'node-gyp', 'nodejs'
   ]
 
   $keyid = lookup('yarn::apt_config::keyid')
@@ -15,9 +17,10 @@ class profile::hedgedoc::apt_config {
       id      => $keyid,
       content => $key,
     },
-  } ->
+  }
+
   package { $packages:
-    ensure => present,
-    notify => Archive['hedgedoc'],
+    ensure => latest,
+    notify => Service['hedgedoc'],
   }
 }
