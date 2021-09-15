@@ -3584,3 +3584,5 @@ opnsense::prometheus::port: 9100
 opnsense::prometheus::metrics_path: /metrics
 
 prometheus::elasticsearch::exporter::version: "%{lookup('elastic::elk_version')}.0"
+
+nodejs::version: 14.x
