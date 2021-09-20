@@ -2532,6 +2532,11 @@ swh::deploy::worker::loader_mercurial::config:
       - swh.loader.mercurial.tasks.LoadMercurial
       - swh.loader.mercurial.tasks.LoadArchiveMercurial
 
+swh::deploy::worker::opam::root_directory: /tmp/opam/
+swh::deploy::worker::opam::instances:
+  opam: https://opam.ocaml.org
+  ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
+
 swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
 swh::deploy::worker::loader_opam::concurrency: 1
 swh::deploy::worker::loader_opam::private_tmp: true

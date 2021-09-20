@@ -1,0 +1,11 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=daily
+AccuracySec=4h
+Persistent=true
+Unit=<%= @opam_manage_service_name %>.service
+
+[Unit]
+Description=Software Heritage Manage OPAM shared state (<%= @instance %>) timer
