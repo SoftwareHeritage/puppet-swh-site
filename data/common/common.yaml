@@ -2799,6 +2799,7 @@ icinga2::disk::excludes:
   - ^/var/lib/docker/overlay2/
   - ^/var/lib/docker/buildkit/
   - ^/run/schroot/
+  - ^/run/k3s/
 
 icinga2::apiusers:
   root:
