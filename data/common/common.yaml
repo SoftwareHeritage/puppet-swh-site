@@ -2516,7 +2516,6 @@ swh::deploy::worker::loader_mercurial::loglevel: info
 swh::deploy::worker::loader_mercurial::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
   max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
-  reduce_effort: False
   clone_timeout_seconds: 7200
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
