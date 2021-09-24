@@ -34,3 +34,4 @@ swh::deploy::worker::instances:
   - loader_pypi
   - loader_svn
   - loader_high_priority
+  - loader_opam
