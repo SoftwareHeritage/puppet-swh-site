@@ -2485,6 +2485,7 @@ swh::deploy::lister::queues:
   - swh.lister.gnu.tasks.GNUListerTask
   - swh.lister.launchpad.tasks.FullLaunchpadLister
   - swh.lister.launchpad.tasks.IncrementalLaunchpadLister
+  - swh.lister.opam.tasks.OpamListerTask
   - swh.lister.npm.tasks.NpmListerTask
   - swh.lister.phabricator.tasks.FullPhabricatorLister
   - swh.lister.pypi.tasks.PyPIListerTask
