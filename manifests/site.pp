@@ -66,6 +66,10 @@ node 'granet.internal.softwareheritage.org' {
   include role::swh_graph_backend
 }
 
+node 'met.internal.softwareheritage.org' {
+  include role::swh_provenance
+}
+
 node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
   include role::swh_vault
 }

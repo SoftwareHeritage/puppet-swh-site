@@ -1,4 +1,8 @@
 ---
+dns::local_nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
 # forwarder for :
 # - swh network
 # - Inria network
@@ -129,6 +133,8 @@ static_hostnames:
     host: search-esnode6.internal.softwareheritage.org
   10.168.100.95:
     host: counters1.internal.softwareheritage.org
+  10.168.100.101:
+    host: uffizi.internal.softwareheritage.org
   10.168.100.104:
     host: saatchi.internal.softwareheritage.org
     aliases:
@@ -137,12 +143,12 @@ static_hostnames:
     host: kelvingrove.internal.softwareheritage.org
     aliases:
       - auth.softwareheritage.org
-  10.168.100.101:
-    host: uffizi.internal.softwareheritage.org
   10.168.100.108:
     host: branly.internal.softwareheritage.org
   10.168.100.109:
     host: saam.internal.softwareheritage.org
+  10.168.100.110:
+    host: met.internal.softwareheritage.org
   10.168.100.131:
     host: zookeeper1.internal.softwareheritage.org
   10.168.100.132:

@@ -1,0 +1,68 @@
+backups::exclude:
+  - var/lib/rabbitmq
+
+users:
+  ardumont:
+    groups:
+      - docker
+  aeviso:
+    groups:
+      - sudo
+      - docker
+  ddouard:
+    groups:
+      - sudo
+      - docker
+  jayesh:
+    groups:
+      - sudo
+      - docker
+  olasd:
+    groups:
+      - docker
+  vsellier:
+    groups:
+      - docker
+  zack:
+    groups:
+      - docker
+
+icinga2::host::vars:
+  load: high
+
+swh::apt_config::enable_non_free: true
+packages:
+  - intel-microcode
+  # install zfs
+  - zfs-dkms
+
+rabbitmq::python_package: 'python3'
+
+swh::postgresql::version: 13
+# hack to don't hang in bullseye
+postgresql::globals::version: "%{lookup('swh::postgresql::version')}"
+
+swh::postgresql::listen_addresses:
+  - 0.0.0.0
+swh::postgresql::port: 5433
+swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
+swh::postgresql::datadir_base: "%{lookup('swh::base_directory')}/postgres"
+swh::postgresql::datadir: "%{lookup('swh::postgresql::datadir_base')}/%{lookup('swh::postgresql::cluster_name')}"
+swh::postgresql::network_accesses:
+  - 192.168.100.0/24 # Monitoring
+  - 192.168.100.0/24 # Internal network
+
+# using an indirection to allow the override for vagrant
+swh::postgresql::shared_buffers: "%{lookup('swh::provenance::db::shared_buffers')}"
+
+postgresql::server::config_entries:
+  shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
+  cluster_name: "%{alias('swh::postgresql::cluster_name')}"
+
+
+swh::dbs:
+  storage:
+    name: swh-provenance
+    user: swh-provenance
+
+
