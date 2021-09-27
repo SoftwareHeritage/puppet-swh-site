@@ -61,7 +61,7 @@ postgresql::server::config_entries:
 
 
 swh::dbs:
-  storage:
+  provenance:
     name: swh-provenance
     user: swh-provenance
 
