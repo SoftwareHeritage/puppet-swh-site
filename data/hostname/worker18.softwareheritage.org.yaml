@@ -1,0 +1,15 @@
+swh::deploy::worker::instances:
+  - loader_oneshot
+
+swh::deploy::worker::loader_oneshot::concurrency: 7
+swh::deploy::worker::loader_oneshot::task_queues:
+  # loader-git
+  - oneshot2:swh.loader.git.tasks.UpdateGitRepository
+  # mercurial
+  - oneshot2:swh.loader.mercurial.tasks.LoadMercurial
+  - oneshot2:swh.loader.mercurial.tasks.LoadArchiveMercurial
+  # svn
+  - oneshot2:swh.loader.svn.tasks.LoadSvnRepository
+  - oneshot2:swh.loader.svn.tasks.MountAndLoadSvnRepository
+  - oneshot2:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
+
