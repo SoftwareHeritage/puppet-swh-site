@@ -101,7 +101,7 @@ swh::postgres::service::users:
   - vsellier
 
 pgbouncer::auth_hba_file: /etc/postgresql/13/main/pg_hba.conf
-pgbouncer::listen_addr: 192.168.100.210
+pgbouncer::listen_addr: 192.168.100.110
 pgbouncer::databases:
   - source_db: "%{hiera('swh::deploy::provenance::db::dbname')}"
     host: "%{hiera('swh::deploy::provenance::db::host')}"
