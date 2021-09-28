@@ -38,6 +38,20 @@ packages:
 
 rabbitmq::python_package: 'python3'
 
+rabbitmq::server::users:
+  - name: "swh-provenance"
+    is_admin: true
+    password: "%{hiera('rabbitmq::monitoring::provenance::password')}"
+    tags: []
+  - name: swh-provenance-consumer
+    is_admin: false
+    password: "%{hiera('swh::deploy::provenance::consumer::password')}"
+    tags: []
+  - name: swh-provenance-producer
+    is_admin: false
+    password: "%{hiera('swh::deploy::provenance::producer::password')}"
+    tags: []
+
 swh::postgresql::version: 13
 # hack to don't hang in bullseye
 postgresql::globals::version: "%{lookup('swh::postgresql::version')}"
