@@ -99,3 +99,12 @@ swh::postgres::service::users:
   - ardumont
   - aeviso
   - vsellier
+
+pgbouncer::auth_hba_file: /etc/postgresql/13/main/pg_hba.conf
+pgbouncer::listen_addr: 192.168.100.210
+pgbouncer::databases:
+  - source_db: "%{hiera('swh::deploy::provenance::db::dbname')}"
+    host: "%{hiera('swh::deploy::provenance::db::host')}"
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"
+
