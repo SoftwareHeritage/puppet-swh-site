@@ -59,10 +59,29 @@ postgresql::server::config_entries:
   shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
   cluster_name: "%{alias('swh::postgresql::cluster_name')}"
 
-
 swh::dbs:
   provenance:
-    name: swh-provenance
-    user: swh-provenance
+    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
+    user: "%{hiera('swh::deploy::provenance::db::user')}"
 
+# What aliases to install in .pg_service/.pgpass
+swh::postgres::service::dbs:
+  - alias: swh-provenance
+    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
+    host: "%{hiera('swh::deploy::provenance::db::host')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: admin-swh-provenance
+    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
+    host: "%{hiera('swh::deploy::provenance::db::host')}"
+    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    user: "%{hiera('swh::deploy::provenance::db::user')}"
+    password: "%{hiera('swh::deploy::provenance::db::password')}"
 
+# Install the .pg_service/.pgpass files to those users
+swh::postgres::service::users:
+  - root
+  - zack
+  - ardumont
+  - aeviso
+  - vsellier

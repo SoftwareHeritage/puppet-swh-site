@@ -1753,6 +1753,11 @@ swh::deploy::indexer::storage::backend::server_names:
   - localhost
   - "::1"
 
+swh::deploy::provenance::db::dbname: swh-provenance
+swh::deploy::provenance::db::user: swh-provenance
+swh::deploy::provenance::db::host: met.internal.softwareheritage.org
+
+
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: local
