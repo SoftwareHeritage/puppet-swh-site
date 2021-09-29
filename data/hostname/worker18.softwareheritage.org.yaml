@@ -33,3 +33,5 @@ swh::deploy::worker::storage::pipeline:
 # Make the loader git service consume from a queue dedicated to subside lag
 swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
+
+swh::deploy::worker::loader_git::concurrency: 6
