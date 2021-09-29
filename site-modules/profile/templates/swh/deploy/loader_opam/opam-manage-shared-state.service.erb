@@ -11,7 +11,7 @@ After=network.target
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=<%= @opam_command %>
+ExecStart=/usr/local/bin/opam-manage-shared-state.sh <%= @instance %> <%= @instance_url %>
 
 [Install]
 WantedBy=multi-user.target
