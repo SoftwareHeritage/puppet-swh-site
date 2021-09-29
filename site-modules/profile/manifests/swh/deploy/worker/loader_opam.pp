@@ -25,14 +25,6 @@ class profile::swh::deploy::worker::loader_opam {
   $template_path = "profile/swh/deploy/loader_opam"
 
   $opam_root = lookup('swh::deploy::worker::opam::root_directory')
-  file {$opam_root:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
-    recurse => true,
-    mode   => '0644',
-  }
-
   $opam_manage_shared_state = "opam-manage-shared-state"
   $opam_manage_state_script = "/usr/local/bin/${opam_manage_shared_state}.sh"
   file {$opam_manage_state_script:
@@ -60,7 +52,6 @@ class profile::swh::deploy::worker::loader_opam {
       enable           => true,
       require          => [
         Package[$packages],
-        File[$opam_root],
         File[$opam_manage_state_script],
       ],
     }
