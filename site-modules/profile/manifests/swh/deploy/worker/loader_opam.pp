@@ -3,6 +3,9 @@ class profile::swh::deploy::worker::loader_opam {
   include ::profile::swh::deploy::worker::loader_package
   $private_tmp = lookup('swh::deploy::worker::loader_opam::private_tmp')
 
+  $user = lookup('swh::deploy::worker::loader_opam::user')
+  $group = lookup('swh::deploy::worker::loader_opam::group')
+
   $packages = ['opam']
   package {$packages:
     ensure => 'present',
