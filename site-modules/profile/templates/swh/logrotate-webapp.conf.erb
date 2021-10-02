@@ -1,0 +1,14 @@
+# Software Heritage logrotate configuration
+# Managed by puppet. Changes will be overwritten.
+
+<%= @logfile %> {
+    weekly
+    missingok
+    rotate 5
+    compress
+    notifempty
+    su <%= @user %> <%= @group %>
+    postrotate
+      kill -USR1 $(cat <%= @pidfile %>)
+    endscript
+}

@@ -51,6 +51,8 @@ class profile::swh::deploy::webapp {
       auth_require   => 'valid-user',
     }
   }
+  $logfile = "${conf_log_dir}/swh-web.log"
+  $pidfile = "/var/run/gunicorn/swh-webapp/pidfile"
 
   # Install the necessary deps
   ::profile::swh::deploy::install_web_deps { 'swh-web':
@@ -75,11 +77,25 @@ class profile::swh::deploy::webapp {
     mode   => '0770',
   }
 
-  file {"${conf_log_dir}/swh-web.log":
+  file {$logfile:
     ensure => present,
     owner  => $user,
     group  => $group,
     mode   => '0770',
+  }
+
+  # Template uses:
+  # $logfile
+  # $user
+  # $group
+  # $pidfile
+  file {'/etc/logrotate.d/swh-webapp':
+    ensure  => file,
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+    content => template('profile/swh/logrotate-webapp.conf.erb'),
+    require => File[$logfile],
   }
 
   file {$vhost_docroot:
