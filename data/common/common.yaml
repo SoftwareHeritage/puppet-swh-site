@@ -3605,3 +3605,5 @@ prometheus::elasticsearch::exporter::version: "%{lookup('elastic::elk_version')}
 nodejs::version: 14.x
 
 swh::provenance::db::shared_buffers: 32GB
+
+swh::postgresql::max_connections: 100

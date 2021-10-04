@@ -68,6 +68,7 @@ swh::postgresql::network_accesses:
 
 # using an indirection to allow the override for vagrant
 swh::postgresql::shared_buffers: "%{lookup('swh::provenance::db::shared_buffers')}"
+swh::postgresql::max_connections: 1000
 
 postgresql::server::config_entries:
   shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"

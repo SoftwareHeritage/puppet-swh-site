@@ -14,9 +14,10 @@ class profile::postgresql::server {
   $postgres_port = lookup('swh::postgresql::port')
   $postgres_datadir_base = lookup('swh::postgresql::datadir_base')
   $postgres_datadir = lookup('swh::postgresql::datadir')
+  $postgres_max_connections = lookup('swh::postgresql::max_connections')
 
   $ip_mask_allow_all_users = '0.0.0.0/0'
-  file { [ "${postgres_datadir_base}",
+  file { [ $postgres_datadir_base,
       "${postgres_datadir_base}/${postgres_version}" ] :
     ensure => directory,
     owner  => 'root',
@@ -36,14 +37,14 @@ class profile::postgresql::server {
     pg_hba_rules            => {
       # Supersedes the default rules installed by puppetlab-postgres, thus
       # allowing pgbouncer/pgsql connection to the postgres user
-      'local access as postgres user' => {
+      'local access as postgres user'                 => {
         database    => 'all',
         user        => 'postgres',
         type        => 'local',
         auth_method => 'ident',
         order       => 1,
       },
-      'local access to database with same name' => {
+      'local access to database with same name'       => {
         database    => 'all',
         user        => 'all',
         type        => 'local',
@@ -58,7 +59,7 @@ class profile::postgresql::server {
         auth_method => 'md5',
         order       => 3,
       },
-      'allow access to all users' => {
+      'allow access to all users'                     => {
         database    => 'all',
         user        => 'all',
         type        => 'host',
@@ -66,7 +67,7 @@ class profile::postgresql::server {
         auth_method => 'md5',
         order       => 100,
       },
-      'allow access to ipv6 localhost' => {
+      'allow access to ipv6 localhost'                => {
         database    => 'all',
         user        => 'all',
         type        => 'host',
@@ -74,13 +75,18 @@ class profile::postgresql::server {
         auth_method => 'md5',
         order       => 101,
       }
-    }
+    },
+  }
+
+  postgresql::server::config_entry{'max_connections':
+      ensure => present,
+      value  => $postgres_max_connections,
   }
 
   postgresql::server::config_entry{'shared_preload_libraries':
       ensure => present,
-      value  => "pg_stat_statements",
-    }
+      value  => 'pg_stat_statements',
+  }
 
   # read-only user
   $guest = 'guest'
@@ -94,7 +100,7 @@ class profile::postgresql::server {
     # db_type in {storage, indexer, scheduler, etc...}
     $db_pass = pick(
       $db_config['password'],
-      lookup("swh::deploy::${db_type}::db::password", {"default_value" => undef})
+      lookup("swh::deploy::${db_type}::db::password", {'default_value' => undef})
     )
     $db_name = $db_config['name']
     $db_user = $db_config['user']
