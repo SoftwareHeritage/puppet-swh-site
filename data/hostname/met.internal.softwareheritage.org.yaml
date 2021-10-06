@@ -300,3 +300,4 @@ pgbouncer::databases:
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::main::port')}"
 
+prometheus::rabbitmq::listen_port: 15692

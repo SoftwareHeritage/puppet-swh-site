@@ -54,19 +54,29 @@ class profile::rabbitmq {
 
   $prometheus_exclude_metrics = lookup('prometheus::rabbitmq::exclude_metrics', Array[String]).join(',')
 
-  package {'prometheus-rabbitmq-exporter':
-    ensure => 'present',
-  } -> file {'/etc/default/prometheus-rabbitmq-exporter':
-    ensure  => 'present',
-    mode    => '0600', # Contains passwords
-    owner   => 'root',
-    group   => 'root',
-    content => template('profile/rabbitmq/prometheus-rabbitmq-exporter.default.erb'),
-  } ~> service {'prometheus-rabbitmq-exporter':
-    ensure => 'running',
-    enable => true,
-  } -> profile::prometheus::export_scrape_config {'rabbitmq':
-    target => $prometheus_target,
+  if versioncmp($::lsbmajdistrelease, '11') >= 0 {
+    # Install the official plugin along rabbitmq
+    rabbitmq_plugin {'rabbitmq_prometheus':
+      ensure => present,
+    }
+  } else {
+    # Buster and below, retrieve an extra exporter
+    package {'prometheus-rabbitmq-exporter':
+      ensure => 'present',
+    } -> file {'/etc/default/prometheus-rabbitmq-exporter':
+      ensure  => 'present',
+      mode    => '0600', # Contains passwords
+      owner   => 'root',
+      group   => 'root',
+      content => template('profile/rabbitmq/prometheus-rabbitmq-exporter.default.erb'),
+    } ~> service {'prometheus-rabbitmq-exporter':
+      ensure => 'running',
+      enable => true,
+    }
+  }
+
+  profile::prometheus::export_scrape_config {'rabbitmq':
+      target => $prometheus_target,
   }
 
   # monitoring user for the icinga check
