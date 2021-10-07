@@ -2974,8 +2974,6 @@ prometheus::node::defaults_config:
     loadavg: true
     ntp: true
     netstat: true
-    netdev:
-      ignored_devices: "^lo$"
     textfile:
       directory: "%{lookup('prometheus::node::textfile_directory')}"
 
