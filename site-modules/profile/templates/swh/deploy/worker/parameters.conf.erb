@@ -20,3 +20,6 @@ LimitNOFILE=<%= @limit_no_file %>
 <% if @private_tmp %>
 PrivateTmp=<%= @private_tmp %>
 <% end %>
+<%- if !@celery_worker_extra_args.nil? and !@celery_worker_extra_args.empty? -%>
+Environment=CELERY_WORKER_EXTRA_ARGS=<%= @celery_worker_extra_args %>
+<%- end -%>

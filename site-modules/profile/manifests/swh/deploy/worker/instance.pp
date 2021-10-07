@@ -1,4 +1,11 @@
 # Instance of a worker
+
+# @param send_task_events
+#   True for workers whose tasks are still scheduled with scheduler-runner (they need to
+#   report their status to the listener which updates the scheduler accordingly).
+#   False, the default, for other workers whose recurring tasks are scheduled with
+#   next-gen scheduler-runner. Their status are updated through a journal client so no
+#   need for the events.
 define profile::swh::deploy::worker::instance (
   $ensure = present,
   $instance_name = $title,
@@ -6,9 +13,17 @@ define profile::swh::deploy::worker::instance (
   $limit_no_file = undef,
   $private_tmp = undef,
   $merge_policy = 'deep',
+  $send_task_events = false,
 )
 {
   include ::profile::swh::deploy::worker::base
+
+  # Parametrize the celery worker to actually send task events if required
+  if $send_task_events {
+    $celery_worker_extra_args = "--events"
+  } else {
+    $celery_worker_extra_args = ""
+  }
 
   $service_basename = "swh-worker@${instance_name}"
   $service_name = "${service_basename}.service"

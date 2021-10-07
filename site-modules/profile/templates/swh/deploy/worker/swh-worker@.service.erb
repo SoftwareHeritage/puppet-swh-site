@@ -1,3 +1,6 @@
+# Managed by puppet - modifications will be overwritten
+# In defined class profile::swh::deploy::worker::base
+
 [Unit]
 Description=Software Heritage Worker (%i)
 After=network.target
@@ -7,13 +10,16 @@ User=swhworker
 Group=swhworker
 
 Type=simple
+# Following environment variables can be overriden in the respective
+# swh-worker@<service>.service.d/parameters.conf
 Environment=SWH_CONFIG_FILENAME=/etc/softwareheritage/%i.yml
 Environment=SWH_LOG_TARGET=journal
 Environment=CONCURRENCY=10
 Environment=MAX_TASKS_PER_CHILD=5
 Environment=LOGLEVEL=info
 Environment=CELERY_HOSTNAME=<%= @celery_hostname %>
-ExecStart=/usr/bin/python3 -m celery worker -n %i@${CELERY_HOSTNAME} --app=swh.scheduler.celery_backend.config.app --pool=prefork --events --concurrency=${CONCURRENCY} --maxtasksperchild=${MAX_TASKS_PER_CHILD} -Ofair --loglevel=${LOGLEVEL} --without-gossip --without-mingle --without-heartbeat
+Environment=CELERY_WORKER_EXTRA_ARGS=
+ExecStart=/usr/bin/python3 -m celery worker -n %i@${CELERY_HOSTNAME} --app=swh.scheduler.celery_backend.config.app --pool=prefork ${CELERY_WORKER_EXTRA_ARGS} --concurrency=${CONCURRENCY} --maxtasksperchild=${MAX_TASKS_PER_CHILD} -Ofair --loglevel=${LOGLEVEL} --without-gossip --without-mingle --without-heartbeat
 
 KillMode=process
 KillSignal=SIGTERM

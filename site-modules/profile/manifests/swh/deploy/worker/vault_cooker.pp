@@ -15,9 +15,10 @@ class profile::swh::deploy::worker::vault_cooker {
   }
 
   ::profile::swh::deploy::worker::instance {$instance_name:
-    ensure       => present,
-    sentry_name  => 'vault',
-    require      => [
+    ensure           => present,
+    sentry_name      => 'vault',
+    send_task_events => true,
+    require          => [
       Package[$extra_packages],
       Package[$::profile::swh::deploy::base_vault::packages],
     ],

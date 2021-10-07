@@ -7,11 +7,12 @@ class profile::swh::deploy::worker::lister {
   }
 
   ::profile::swh::deploy::worker::instance {'lister':
-    ensure       => present,
-    require      => [
+    ensure           => present,
+    send_task_events => true,
+    require          => [
       Package['python3-swh.lister'],
     ],
-    merge_policy => 'first',  # do not merge configuration, take the first
-                              # encountered configuration
+    merge_policy     => 'first',  # do not merge configuration, take the first
+                                  # encountered configuration
   }
 }

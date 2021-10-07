@@ -7,8 +7,9 @@ class profile::swh::deploy::worker::loader_high_priority {
   $packages = $::profile::swh::deploy::base_loader_git::packages + $::profile::swh::deploy::base_loader_mercurial::packages + $::profile::swh::deploy::base_loader_svn::packages
 
   ::profile::swh::deploy::worker::instance {'loader_high_priority':
-    ensure  => present,
-    require => Package[$packages],
+    ensure            => present,
+    send_task_events  => true,
+    require           => Package[$packages],
   }
 
 }
