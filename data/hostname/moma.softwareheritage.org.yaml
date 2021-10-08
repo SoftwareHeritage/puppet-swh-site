@@ -19,6 +19,31 @@ swh::deploy::storage::backend::workers: 16
 swh::deploy::storage::db::user: guest
 swh::deploy::storage::db::password: guest
 
+swh::deploy::objstorage::backend::listen::host: moma.internal.softwareheritage.org
+swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_production
+swh::deploy::objstorage::reverse_proxy::backend_http_host: "%{alias('swh::deploy::objstorage::backend::listen::host')}"
+
+swh::deploy::objstorage::backend::public_server_name:
+  objstorage.softwarehritage.org
+  objstorage.internal.softwareheritage.org
+
+swh::deploy::objstorage::backend::server_names:
+  - "%{alias('swh::deploy::objstorage::backend::public_server_name')}"
+  - "%{::swh_hostname.internal_fqdn}"
+  - "%{::hostname}"
+  - 127.0.0.1
+  - localhost
+  - "::1"
+
+swh::deploy::objstorage::config:
+  objstorage: 
+    cls: multiplexer
+    args:
+      objstorages:
+        - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+        - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+  
+
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 

@@ -754,6 +754,7 @@ varnish::storage_file: /var/lib/varnish/varnish_storage.bin
 swh::deploy::reverse_proxy::services:
   - deposit
   - webapp
+  - objstorage
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
@@ -801,6 +802,10 @@ letsencrypt::certificates:
   hedgedoc:
     domains:
       - hedgedoc.softwareheritage.org
+  objstorage_production:
+    domains:
+      - objstorage.softwareheritage.org
+      - objstorage.internal.softwareheritage.org
   objstorage_staging:
     domains:
       - objstorage.staging.swh.network
@@ -1894,6 +1899,11 @@ swh::deploy::objstorage::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
+swh::deploy::objstorage::reverse_proxy::backend_http_port: "%{lookup('swh::remote_service::objstorage::port')}"
+swh::deploy::objstorage::reverse_proxy::basic_auth: true
+swh::deploy::objstorage::reverse_proxy::basic_auth::users:
+  - swh-prod
+  - enea-prod
 
 swh::deploy::deposit::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 

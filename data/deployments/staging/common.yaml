@@ -143,7 +143,9 @@ swh::remote_service::objstorage::config::ro:
 
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_staging
 swh::deploy::objstorage::reverse_proxy::backend_http_host: objstorage0.internal.staging.swh.network
-swh::deploy::objstorage::reverse_proxy::backend_http_port: "%{lookup('swh::remote_service::objstorage::port')}"
+swh::deploy::objstorage::reverse_proxy::basic_auth::users:
+  - swh-stg
+  - enea-stg
 
 swh::deploy::objstorage::backend::public_server_name:
   objstorage.staging.swh.network

@@ -16,6 +16,21 @@ class profile::swh::deploy::reverse_proxy {
       'name'          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
       'default_value' => false,
     })
+    $basic_auth = lookup( {
+      'name'          => "swh::deploy::${service_name}::reverse_proxy::basic_auth",
+      'default_value' => false,
+    })
+    if $basic_auth {
+      $basic_auth_users = lookup( {
+        'name'          => "swh::deploy::${service_name}::reverse_proxy::basic_auth::users",
+        'default_value' => [],
+      })
+
+      $basic_auth_strings = $basic_auth_users.map | $user | {
+        $password = lookup("swh::deploy::${service_name}::reverse_proxy::basic_auth::${user}")
+        base64('encode', "${user}:${password}", 'strict') # strict to avoid CR at the end of the line
+      }
+    }
 
     # Retrieve the list of vhosts
     $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
@@ -28,13 +43,16 @@ class profile::swh::deploy::reverse_proxy {
     $vhost_aliases = delete($vhosts, $vhost_name)
 
     realize(::Profile::Hitch::Ssl_cert[$cert_name])
+
     ::profile::varnish::vhost {$vhost_name:
-      aliases           => $vhost_aliases,
-      backend_name      => $service_name,
-      backend_http_host => $backend_http_host,
-      backend_http_port => $backend_http_port,
-      hsts_max_age      => lookup('strict_transport_security::max_age'),
-      websocket_support => $websocket_support,
+      aliases            => $vhost_aliases,
+      backend_name       => $service_name,
+      backend_http_host  => $backend_http_host,
+      backend_http_port  => $backend_http_port,
+      hsts_max_age       => lookup('strict_transport_security::max_age'),
+      websocket_support  => $websocket_support,
+      basic_auth         => $basic_auth,
+      basic_auth_strings => $basic_auth_strings,
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')

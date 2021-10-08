@@ -16,6 +16,15 @@ sub vcl_recv {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         } else {
+<%- if @basic_auth -%>
+            if ( 1 == 1  # noop expression to be syntactically correct with the following &&
+    <%- @basic_auth_strings.each do | basic_auth_string | -%>
+                    && ! req.http.Authorization ~ "Basic <%= basic_auth_string %>"
+    <%- end -%>
+            ) {
+                return(synth(401, "Restricted"));
+            }
+<%- end -%>
 <% if @websocket_support -%>
             if (req.http.upgrade ~ "(?i)websocket") {
                 return (pipe);

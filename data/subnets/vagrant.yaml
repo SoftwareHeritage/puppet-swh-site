@@ -101,6 +101,8 @@ static_hostnames:
     aliases:
       - archive.internal.softwareheritage.org
       - deposit.internal.softwareheritage.org
+      - objstorage.softwareheritage.org
+      - objstorage.internal.softwareheritage.org
   10.168.100.32:
     host: beaubourg.internal.softwareheritage.org
   10.168.100.34:
