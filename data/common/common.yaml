@@ -1410,8 +1410,13 @@ swh::deploy::worker::storage::pipeline:
         content: 1000
         content_bytes: 52428800  # 50 MB
         directory: 1000
+        directory_entries: 12000
         revision: 1000
+        revision_parents: 2000
+        revision_bytes: 52428800
         release: 1000
+        release_bytes: 52428800
+        extid: 1000
     - cls: filter
     - cls: retry
     - "%{alias('swh::remote_service::storage::config::writable')}"
