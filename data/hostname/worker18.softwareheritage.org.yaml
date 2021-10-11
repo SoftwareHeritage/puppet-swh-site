@@ -15,22 +15,6 @@ swh::deploy::worker::loader_oneshot::task_queues:
   - oneshot2:swh.loader.svn.tasks.MountAndLoadSvnRepository
   - oneshot2:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
 
-# Pipeline storage with retry, filter, buffer and finally writable storage
-swh::deploy::worker::storage::pipeline:
-  cls: pipeline
-  steps:
-    - cls: buffer
-      min_batch_size:
-        content: 10000
-        content_bytes: 1048576000  # 1Gib
-        directory: 10000
-        revision: 10000
-        release: 10000
-        extid: 10000
-    - cls: filter
-    - cls: retry
-    - "%{alias('swh::remote_service::storage::config::writable')}"
-
 # Make the loader git service consume from a queue dedicated to subside lag
 swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
