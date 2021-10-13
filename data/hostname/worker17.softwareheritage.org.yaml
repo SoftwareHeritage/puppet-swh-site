@@ -6,6 +6,7 @@ swh::deploy::worker::loader_oneshot::concurrency: 15
 swh::deploy::worker::loader_oneshot::task_queues:
   # loader-git
   - oneshot:swh.loader.git.tasks.UpdateGitRepository
+  - oneshot3:swh.loader.git.tasks.UpdateGitRepository
   # mercurial
   - oneshot:swh.loader.mercurial.tasks.LoadMercurial
   - oneshot:swh.loader.mercurial.tasks.LoadArchiveMercurial
