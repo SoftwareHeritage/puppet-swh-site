@@ -19,3 +19,6 @@ swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
 
 swh::deploy::worker::loader_git::concurrency: 6
+
+icinga2::host::vars:
+  load: high
