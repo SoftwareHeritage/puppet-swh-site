@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DEST=swh-team@inria.fr
+
+/usr/lib/sendmail -t <<EOF
+From: Monthly report bot <swh-team@inria.fr>
+To: $DEST
+Subject: [Monthly Roadmap Report] Month $(date +%G-%m)
+
+Beep boop, I'm a bot.
+
+This thread will contain reports from each Software Heritage team members
+summarizing the progress roadmap items they are in charge of.
+Please feel free to ask for more details, we'll be glad to
+oblige!
+
+As a reminder, the current roadmap is available at:
+https://docs.softwareheritage.org/devel/roadmap/roadmap-2021.html
+
+Yours faithfully,
+-- 
+The Software Heritage monthly report bot
+EOF
