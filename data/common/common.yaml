@@ -819,6 +819,10 @@ letsencrypt::certificates:
   sentry:
     domains:
       - sentry.softwareheritage.org
+  storage1.internal.staging.swh.network:
+    domains:
+      - broker1.journal.staging.swh.network
+      - journal1.internal.staging.swh.network
   keycloak:
     domains:
       - auth.softwareheritage.org
@@ -1056,6 +1060,10 @@ bind::resource_records:
     type: CNAME
     record: deposit-rp.internal.staging.swh.network
     data: rp0.internal.staging.swh.network.
+  journal1/CNAME:
+    type: CNAME
+    record: journal1.internal.staging.swh.network
+    data: storage1.internal.staging.swh.network
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org

@@ -187,6 +187,8 @@ static_hostnames:
     host: deposit.internal.staging.swh.network
   10.168.130.41:
     host: storage1.internal.staging.swh.network
+    aliases:
+      - journal1.internal.staging.swh.network
   10.168.130.50:
     host: scheduler0.internal.staging.swh.network
   10.168.130.60:

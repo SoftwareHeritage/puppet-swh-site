@@ -159,7 +159,7 @@ node 'gateway.internal.staging.swh.network' {
 }
 
 node /^storage\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_storage_with_backfill_config
+  include role::swh_storage_with_journal
 }
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
