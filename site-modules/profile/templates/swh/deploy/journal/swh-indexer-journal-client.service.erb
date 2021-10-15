@@ -7,6 +7,15 @@ Description=Software Heritage Indexer Journal Client
 After=network.target
 
 [Service]
+<%- if !@sentry_dsn.nil? and !@sentry_dsn.empty? -%>
+Environment=SWH_SENTRY_DSN=<%= @sentry_dsn %>
+<%- end -%>
+<%- if !@sentry_environment.nil? and !@sentry_environment.empty? -%>
+Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
+<%- end -%>
+<%- if !@sentry_swh_package.nil? and !@sentry_swh_package.empty? -%>
+Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
+<%- end -%>
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple

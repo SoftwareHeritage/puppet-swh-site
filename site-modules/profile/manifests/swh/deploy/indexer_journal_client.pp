@@ -14,6 +14,10 @@ class profile::swh::deploy::indexer_journal_client {
   $service_name = 'swh-indexer-journal-client'
   $unit_name = "${service_name}.service"
 
+  $sentry_dsn = lookup("swh::deploy::indexer::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::indexer::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::indexer::sentry_swh_package", Optional[String], 'first', undef)
+
   file {$config_path:
     ensure  => present,
     owner   => 'root',
@@ -26,7 +30,9 @@ class profile::swh::deploy::indexer_journal_client {
   # Template uses variables
   #  - $user
   #  - $group
-  #
+  #  - $sentry_dsn
+  #  - $sentry_environment
+  #  - $sentry_swh_package
   ::systemd::unit_file {$unit_name:
     ensure  => present,
     content => template("profile/swh/deploy/journal/${unit_name}.erb"),
