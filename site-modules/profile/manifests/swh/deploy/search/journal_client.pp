@@ -10,10 +10,15 @@ class profile::swh::deploy::search::journal_client {
   $user = lookup('swh::deploy::base_search::user')
   $group = lookup('swh::deploy::base_search::group')
 
+  $sentry_dsn = lookup("swh::deploy::search::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::search::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::search::sentry_swh_package", Optional[String], 'first', undef)
+
   # Uses:
   # - $config_directory
   # - $user
   # - $group
+  # - $sentry_{dsn,environment,swh_package}
   systemd::unit_file {$systemd_template_unit_name:
     ensure  => 'present',
     content => template("profile/swh/deploy/journal/${systemd_template_unit_name}.erb"),
