@@ -12,6 +12,10 @@ class profile::swh::deploy::scheduler::journal_client {
   $service_name = 'swh-scheduler-journal-client'
   $unit_name = "${service_name}.service"
 
+  $sentry_dsn = lookup("swh::deploy::scheduler::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::scheduler::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::scheduler::sentry_swh_package", Optional[String], 'first', undef)
+
   file {$config_file:
     ensure  => present,
     owner   => 'root',
@@ -24,6 +28,9 @@ class profile::swh::deploy::scheduler::journal_client {
   # Template uses variables
   #  - $user
   #  - $group
+  #  - $sentry_dsn
+  #  - $sentry_environment
+  #  - $sentry_package
   #
   ::systemd::unit_file {$unit_name:
     ensure  => present,
