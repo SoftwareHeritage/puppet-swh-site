@@ -592,14 +592,14 @@ users:
   hakb:
     uid: 1028
     full_name: Hakim Baaloudj
-    shell: /bin/bash
+    shell: /bin/false
     groups:
       - swhdev
       - swhteam
     authorized_keys:
       hbaaloud@po461-pro.paris.inria.fr:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAILxjcB/AomGshUUhPI0odv10WjQZaPNlfr1eIfwVHaeS
+        key: disabled
   jayesh:
     uid: 1029
     full_name: Jayesh Velayudhan
