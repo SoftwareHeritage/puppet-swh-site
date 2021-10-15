@@ -12,6 +12,10 @@ class profile::swh::deploy::graph {
   $user = lookup('swh::deploy::graph::user')
   $group = lookup('swh::deploy::graph::group')
 
+  $sentry_dsn = lookup("swh::deploy::graph::sentry_dsn", Optional[String], 'first', undef)
+  $sentry_environment = lookup("swh::deploy::graph::sentry_environment", Optional[String], 'first', undef)
+  $sentry_swh_package = lookup("swh::deploy::graph::sentry_swh_package", Optional[String], 'first', undef)
+
   # install services from templates
   $services = [ {  # this matches the current status
     'name' => 'swhgraphshm',
