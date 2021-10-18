@@ -1059,7 +1059,7 @@ bind::resource_records:
   journal1/CNAME:
     type: CNAME
     record: journal1.internal.staging.swh.network
-    data: storage1.internal.staging.swh.network
+    data: storage1.internal.staging.swh.network.
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
