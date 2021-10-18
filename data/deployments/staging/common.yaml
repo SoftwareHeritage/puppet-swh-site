@@ -95,7 +95,6 @@ swh::deploy::worker::loader_git::concurrency: 1
 
 zookeeper::clusters:
   rocquencourt_staging:
-    '1': journal0.internal.staging.swh.network
     '2': storage1.internal.staging.swh.network
 
 kafka::broker::heap_opts: "-Xmx3G -Xms3G"
@@ -104,12 +103,8 @@ kafka::clusters:
   rocquencourt_staging:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
-      - journal0.internal.staging.swh.network
       - journal1.internal.staging.swh.network
     brokers:
-      journal0.internal.staging.swh.network:
-        id: 1
-        public_hostname: broker0.journal.staging.swh.network
       storage1.internal.staging.swh.network:
         id: 2
         public_hostname: broker1.journal.staging.swh.network
@@ -128,8 +123,7 @@ kafka::clusters:
     public_listener_network: "%{alias('kafka::cluster::public_network')}"
 
 swh::deploy::journal::brokers:
-  - journal0.internal.staging.swh.network
-  - storage1.internal.staging.swh.network
+  - journal1.internal.staging.swh.network
 
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
 swh::deploy::deposit::reverse_proxy::backend_http_host: deposit.internal.staging.swh.network

@@ -801,10 +801,6 @@ letsencrypt::certificates:
   hedgedoc:
     domains:
       - hedgedoc.softwareheritage.org
-  journal0.internal.staging.swh.network:
-    domains:
-      - broker0.journal.staging.swh.network
-      - journal0.internal.staging.swh.network
   objstorage_staging:
     domains:
       - objstorage.staging.swh.network

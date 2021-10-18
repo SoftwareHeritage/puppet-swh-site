@@ -193,10 +193,6 @@ static_hostnames:
     host: scheduler0.internal.staging.swh.network
   10.168.130.60:
     host: vault.internal.staging.swh.network
-  10.168.130.70:
-    host: journal0.internal.staging.swh.network
-    aliases:
-      - broker0.journal.staging.swh.network
   10.168.130.80:
     host: search-esnode0.internal.staging.swh.network
   10.168.130.90:
