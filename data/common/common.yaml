@@ -3142,7 +3142,7 @@ monthly_report_bot::user: nobody
 monthly_report_bot::cron:
   minute: 0
   hour: 0
-  day: 1
+  monthday: 1
 
 swh::postgres::service::users:
   - root
