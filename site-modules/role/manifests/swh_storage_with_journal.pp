@@ -5,5 +5,5 @@ class role::swh_storage_with_journal inherits role::swh_base_storage {
   # journal 
   include profile::zookeeper
   include profile::kafka::broker
-
+  include profile::kafka::prometheus_consumer_group_exporter
 }
