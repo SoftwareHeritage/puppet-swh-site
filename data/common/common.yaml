@@ -3335,6 +3335,7 @@ keycloak::resources::clients::swh_web:::roles:
   - swh.web.api.graph
   - swh.vault.git_bare.ui
   - swh.web.api.save_origin
+  - swh.web.admin.list_deposits
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
