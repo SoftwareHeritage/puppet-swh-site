@@ -32,6 +32,8 @@ class profile::swh::deploy::scheduler {
   include profile::swh::deploy::scheduler::runner
   include profile::swh::deploy::scheduler::runner_priority
 
+  include profile::swh::deploy::scheduler::schedule_recurrent
+
   # scheduler rpc server
   ::profile::swh::deploy::rpc_server {'scheduler':
     config_key        => 'scheduler::remote',
