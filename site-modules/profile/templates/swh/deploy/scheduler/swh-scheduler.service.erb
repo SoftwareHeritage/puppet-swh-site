@@ -1,9 +1,9 @@
-# Scheduler Listener unit file
-# Managed by puppet class profile::swh::deploy::scheduler
+# Scheduler <%= @service_description %>
+# Managed by puppet class profile::swh::deploy::scheduler::service (instance <%= @title %>)
 # Changes will be overwritten
 
 [Unit]
-Description=Software Heritage scheduler listener
+Description=Software Heritage scheduler <%= @service_description %>
 Requires=network.target rabbitmq-server.service
 After=network.target rabbitmq-server.service
 
@@ -21,7 +21,7 @@ Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
 <%- if !@sentry_swh_package.empty? -%>
 Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
-ExecStart=/usr/bin/swh --log-level <%= @listener_log_level %> scheduler --config-file <%= @config_file %> start-listener
+ExecStart=<%= @service_command %>
 Restart=always
 RestartSec=10
 

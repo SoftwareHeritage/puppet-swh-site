@@ -2266,8 +2266,7 @@ swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 # swh::deploy::scheduler::task_broker::password in private data
 swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672/%2f"
-swh::deploy::scheduler::listener::log_level: INFO
-swh::deploy::scheduler::runner::log_level: INFO
+swh::deploy::scheduler::services::log_level: INFO
 swh::deploy::scheduler::config:
   <<: *swh_scheduler_local_config
   celery:
@@ -2276,7 +2275,7 @@ swh::deploy::scheduler::packages:
   - python3-swh.scheduler
 
 # subset limited to the save code now tasks for the runner priority
-swh::deploy::scheduler::swh-scheduler-runner-priority::config::task-types:
+swh::deploy::scheduler::swh-scheduler-runner-priority::config::task_types:
   - load-git
   - load-svn
   - load-archive-files
