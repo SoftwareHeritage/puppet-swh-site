@@ -78,6 +78,16 @@ class profile::swh::deploy::reverse_proxy {
     # $vhost_ssl_protocol = lookup('swh::deploy::webapp::vhost::ssl_protocol')
     # $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
     # $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
+    $authentication_enabled = lookup(
+        "swh::deploy::${service_name}::reverse_proxy::basic_auth",
+        'default_value' => false,)
+    if $authentication_enabled {
+      # A real user name can't be specified in http_auth var
+      # because the value is exposed in the web ui
+      $http_expect_var = { http_expect => '401 Restricted' }
+    } else {
+      $http_expect_var = {}
+    }
 
     @@::icinga2::object::service {"swh-${service_name} https on ${::fqdn}":
       service_name  => "swh ${service_name}",
@@ -91,8 +101,8 @@ class profile::swh::deploy::reverse_proxy {
         http_ssl        => true,
         http_sni        => true,
         http_uri        => '/',
-        http_onredirect => sticky
-      },
+        http_onredirect => sticky,
+      } + $http_expect_var,
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',
     }
