@@ -154,7 +154,7 @@ class profile::icinga2::objects::agent_checks {
         repeat_key  => true,
       },
       '--no-startup-time' => {
-        set_if      => '{{ !macro("$systemd_check_startup_time") }}',
+        set_if      => '{{ !macro("$systemd_check_startup_time$") }}',
         description => 'Whether to check the system startup time'
       },
     },
