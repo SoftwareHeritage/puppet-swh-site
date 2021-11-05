@@ -47,7 +47,7 @@ class profile::swh::deploy::scheduler::journal_client {
     host_name        => $::fqdn,
     command_endpoint => $::fqdn,
     vars             => {
-      check_systemd_unit => $unit_name,
+      systemd_units => [$unit_name],
     },
     target           => '/etc/icinga2/zones.d/master/exported-checks.conf',
     tag              => 'icinga2::exported',

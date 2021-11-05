@@ -130,7 +130,7 @@ class profile::icinga2::objects::common_checks {
     command_endpoint => 'host.name',
     assign           => ['host.vars.os == Linux'],
     vars             => {
-      check_systemd_unit => 'postfix@-.service',
+      systemd_units => ['postfix@-.service'],
     },
     ignore           => ['host.vars.noagent'],
     target           => $target_file,

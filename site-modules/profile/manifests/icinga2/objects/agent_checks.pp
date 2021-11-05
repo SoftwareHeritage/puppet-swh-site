@@ -143,10 +143,25 @@ class profile::icinga2::objects::agent_checks {
     import    => ['plugin-check-command'],
     command   => [ $check_command_path ],
     arguments => {
-      '--unit'  => {
-        value       => '$check_systemd_unit$',
-        description => 'Name of the systemd unit that is being tested.',
+      '--unit'            => {
+        value       => '$systemd_units$',
+        description => 'Name of the systemd units that are being tested.',
+        repeat_key  => true,
       },
+      '--exclude'         => {
+        value       => '$systemd_excludes$',
+        description => 'Name of the systemd units to exclude from checks (can be a regular expression).',
+        repeat_key  => true,
+      },
+      '--no-startup-time' => {
+        set_if      => '{{ !macro("$systemd_check_startup_time") }}',
+        description => 'Whether to check the system startup time'
+      },
+    },
+    vars => {
+      systemd_units              => [],
+      systemd_excludes           => [],
+      systemd_check_startup_time => false,
     },
     target    => $swh_plugin_configfile,
     require   => Package[$packages],
