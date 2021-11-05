@@ -150,7 +150,7 @@ class profile::icinga2::objects::agent_checks {
       },
       '--exclude'         => {
         value       => '$systemd_excludes$',
-        description => 'Name of the systemd units to exclude from checks (can be a regular expression).',
+        description => '-:"Name of the systemd units to exclude from checks can be a regular expression)."',
         repeat_key  => true,
       },
       '--no-startup-time' => {
