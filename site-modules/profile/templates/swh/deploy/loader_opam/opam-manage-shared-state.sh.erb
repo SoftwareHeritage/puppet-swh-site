@@ -5,10 +5,11 @@
 
 CMD=/usr/bin/opam
 ROOT_DIR=<%= @opam_root %>
+DEFAULT_INSTANCE="opam.ocaml.org"
 INSTANCE=$1
 INSTANCE_URL=$2
 
-if [ $INSTANCE = "opam" ]; then
+if [ $INSTANCE = $DEFAULT_INSTANCE ]; then
   # Opam instance is considered the main instance so we must initialize the repository
   # if not present, otherwise we update it
   ( $CMD repo --all --root $ROOT_DIR | grep $INSTANCE_URL && $CMD update --root $ROOT_DIR ) \
