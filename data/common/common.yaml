@@ -2564,7 +2564,7 @@ swh::deploy::worker::opam::instances:
 
 swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
 swh::deploy::worker::loader_opam::concurrency: 1
-swh::deploy::worker::loader_opam::private_tmp: true
+swh::deploy::worker::loader_opam::private_tmp: false
 swh::deploy::worker::loader_opam::loglevel: info
 swh::deploy::worker::loader_opam::config:
   storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
