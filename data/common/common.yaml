@@ -2560,6 +2560,7 @@ swh::deploy::worker::opam::root_directory: /tmp/opam/
 swh::deploy::worker::opam::instances:
   opam: https://opam.ocaml.org
   ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
+  coq: https://coq.inria.fr/opam/released/
 
 swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
 swh::deploy::worker::loader_opam::concurrency: 1
