@@ -12,6 +12,7 @@ swh::apt_config::backported_packages:
     - zfs-zed
 
 elastic::elk_version: '7.9.3'
+elastic::beat_version: '7.15.2'
 
 # Elasticsearch
 elasticsearch::config::cluster::name: swh-search

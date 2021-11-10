@@ -3251,7 +3251,7 @@ swh::postgres::service::dbs:
     port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
     user: guest
 
-elastic::elk_version: '7.8.0'
+elastic::elk_version: '7.15.2'
 
 elasticsearch::hosts:
     - http://esnode1.internal.softwareheritage.org:9200

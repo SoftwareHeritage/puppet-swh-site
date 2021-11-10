@@ -25,6 +25,7 @@
 
 import argparse
 import logging
+import yaml
 
 import nagiosplugin
 from nagiosplugin import ScalarContext
@@ -61,8 +62,10 @@ class BooleanContext(nagiosplugin.Context):
 class JournalLag(nagiosplugin.Resource):
     """Check journal lag"""
 
-    def __init__(self, cursorfile):
+    def __init__(self, cursorfile, registryfile, registryentry):
         self.cursorfile = cursorfile
+        self.registryfile = registryfile
+        self.registryentry = registryentry
 
     def parse_cursor(self, cursor):
         """Parse a journald cursor entry"""
@@ -79,16 +82,41 @@ class JournalLag(nagiosplugin.Resource):
 
         return ret
 
-    def get_file_journal_cursor(self):
-        _log.info("querying the journal cursor cache file %s" % self.cursorfile)
+    def get_legacy_journal_cursor(self):
+        _log.info("querying the journal cursor cache file %s", self.cursorfile)
         try:
             with open(self.cursorfile, 'r') as f:
                 ret = f.read().strip()
         except OSError as e:
-            raise nagiosplugin.CheckError("failed to read journal cursor file: %s" % e)
+            _log.warning("failed to read the legacy journal cursor file %s", self.cursorfile)
         else:
             _log.debug("current journal cursor: %s" % ret)
             return ret
+
+    def get_journal_cursor_from_registry(self):
+        _log.info("querying the journal cursor %s from registry file %s", self.registryentry, self.registryfile)
+        try:
+            with open(self.registryfile, 'r') as f:
+                registrycontent = yaml.safe_load(f)
+        except OSError as e:
+            _log.warning("failed to read the journal registry file %s", self.registryfile)
+        else:
+            entry = [e for e in registrycontent['journal_entries'] if e['path'] == self.registryentry]
+            cursor = entry[0]["cursor"]
+            _log.debug("current journal cursor: %s" % cursor)
+            return cursor
+
+    def get_file_journal_cursor(self):
+        cursor = self.get_journal_cursor_from_registry()
+
+        if not cursor:
+            _log.debug("Unable to read cursor position from the registry, fallback on the legacy file")
+            cursor = self.get_legacy_journal_cursor()
+
+        if not cursor:
+            raise nagiosplugin.CheckError("failed to get cursor from registry or legacy file")
+
+        return cursor
 
     def get_system_journal_cursor(self):
         _log.info("querying the system journal for the current cursor")
@@ -136,6 +164,10 @@ def main():
                       help='increase output verbosity (use up to 3 times)')
     argp.add_argument('-f', '--file', metavar='FILE', default='/var/lib/journalbeat/cursor-state',
                       help='read journald cursor state from this file')
+    argp.add_argument('-r', '--registry', metavar='FILE', default='/var/lib/journalbeat/registry',
+                      help='read journald cursor state from this journalbeat registry file')
+    argp.add_argument('-e', '--entry', default='LOCAL_SYSTEM_JOURNAL',
+                      help='Check this registry entry')
     argp.add_argument('-w', '--warning', metavar='RANGE', default='1200',
                       help='return warning if temporal lag is outside RANGE')
     argp.add_argument('-c', '--critical', metavar='RANGE', default='3600',
@@ -148,7 +180,7 @@ def main():
     args = argp.parse_args()
 
     check = nagiosplugin.Check(
-        JournalLag(args.file),
+        JournalLag(args.file, args.registry, args.entry),
         BooleanContext('sameboot'),
         ScalarContext('lag_time', args.warning, args.critical),
         ScalarContext('lag_entries', args.warning_entries, args.critical_entries),

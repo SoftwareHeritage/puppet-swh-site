@@ -1,6 +1,12 @@
 #======================== Journalbeat Configuration ============================
 
 journalbeat:
+  inputs:
+    # Paths that should be crawled and fetched. Possible values files and directories.
+    # When setting a directory, all journals under it are merged.
+    # When empty starts to read from local journal.
+    - paths: []
+
   # What position in journald to seek to at start up
   # options: cursor, tail, head (defaults to tail)
   seek_position: cursor
@@ -9,12 +15,6 @@ journalbeat:
   # fall back to this method.  If set to none will it will exit
   # options: tail, head, none (defaults to tail)
   cursor_seek_fallback: head
-
-  # Store the cursor of the successfully published events
-  write_cursor_state: true
-
-  # Path to the file to store the cursor (defaults to ".journalbeat-cursor-state")
-  cursor_state_file: cursor-state
 
   # How frequently should we save the cursor to disk (defaults to 5s)
   #cursor_flush_period: 5s
@@ -241,7 +241,7 @@ output.logstash:
 # distribution (for example, the sample dashboards).
 # If not set by a CLI flag or in the configuration file, the default for the
 # home path is the location of the binary.
-path.home: <%= @homedir %>
+# path.home: /var/lib/journalbeat
 
 # The configuration path for the beatname installation. This is the default
 # base path for configuration files, including the main YAML configuration file

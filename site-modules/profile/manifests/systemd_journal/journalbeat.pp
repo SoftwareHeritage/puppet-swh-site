@@ -1,51 +1,61 @@
 # Journalbeat: a systemd journal collection beater for the ELK stack
 class profile::systemd_journal::journalbeat {
   $package = 'journalbeat'
-  $user = 'journalbeat'
-  $group = 'nogroup'
-  $homedir = '/var/lib/journalbeat'
   $configdir = '/etc/journalbeat'
   $configfile = "${configdir}/journalbeat.yml"
   $service = 'journalbeat'
+  $default_elk_version = lookup('elastic::elk_version')
+  $version = lookup('elastic::beat_version', { default_value => $default_elk_version })
 
   $logstash_hosts = lookup('systemd_journal::logstash_hosts')
 
-  package {$package:
-    ensure => present
+  include ::profile::elastic::apt_config
+
+  # cleanup
+  ::apt::pin {'swh-journalbeat':
+    ensure => absent,
+  }
+  -> ::apt::pin {'journalbeat':
+    explanation => 'Use the elk stack version for journalbeat',
+    packages    => ['journalbeat'],
+    version     => $version,
+    priority    => 1001,
+  }
+  -> package {$package:
+    ensure => $version,
   }
 
-  user {$user:
-    ensure     => present,
-    gid        => $group,
-    groups     => 'systemd-journal',
-    home       => $homedir,
-    managehome => true,
-    system     => true,
+  # To remove after complete migration to 7.15
+  -> user {'journalbeat':  # journalbeat needs to be stopped before trying to remove the user
+    ensure     => absent,
+    managehome => false,
   }
 
-  # Uses variables
-  #  - $user
-  #  - $homedir
-  #  - $configfile
-  #
-  ::systemd::unit_file {"${service}.service":
+  # cleanup pre 7.15 version
+  file {"/etc/systemd/system/${service}.service":
+    ensure  => absent,
+  }
+  file {'/var/lib/journalbeat/cursor_state':
+    ensure  => absent,
+  }
+  ::systemd::dropin_file { "${service}.conf":
     ensure  => present,
-    content => template('profile/systemd_journal/journalbeat/journalbeat.service.erb'),
+    unit    => "${service}.service",
+    content => template('profile/systemd_journal/journalbeat/journalbeat.conf.erb'),
   }
   ~> service {$service:
-    ensure  => running,
-    enable  => true,
-    require => [
+    ensure    => running,
+    enable    => true,
+    require   => [
       Package[$package],
       File[$configfile],
+      ::Systemd::Dropin_file["${service}.conf"],
     ],
-  }
-
-  file {$configdir:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+    subscribe => [
+      Package[$package],
+      File[$configfile],
+      ::Systemd::Dropin_file["${service}.conf"],
+    ],
   }
 
   # Uses variables
@@ -57,16 +67,8 @@ class profile::systemd_journal::journalbeat {
     group   => 'root',
     mode    => '0644',
     content => template('profile/systemd_journal/journalbeat/journalbeat.yml.erb'),
-    notify  => [
-      Service[$service],
-    ],
-  }
-
-  ::apt::pin {'swh-journalbeat':
-    explanation => 'Use journalbeat packages from Software Heritage',
-    packages    => ['journalbeat'],
-    originator  => 'softwareheritage',
-    priority    => 990,
+    require => [Package[$package]],
+    notify  => [Service[$service]],
   }
 
   profile::cron::d {'logrotate-journal':

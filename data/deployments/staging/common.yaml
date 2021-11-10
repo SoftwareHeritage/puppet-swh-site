@@ -289,8 +289,6 @@ apache::default_vhost: false
 
 # Elasticsearch
 
-elastic::elk_version: '7.9.3'
-
 elasticsearch::config::cluster::name: swh-search
 
 elasticsearch::config::discovery::seed_hosts:

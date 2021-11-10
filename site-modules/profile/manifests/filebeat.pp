@@ -7,7 +7,8 @@ class profile::filebeat {
 
   include ::profile::elastic::apt_config
 
-  $version = lookup('elastic::elk_version')
+  $default_elk_version = lookup('elastic::elk_version')
+  $version = lookup('elastic::beat_version', { default_value => $default_elk_version })
 
   package { 'filebeat':
     ensure => $version,

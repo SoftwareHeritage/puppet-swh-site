@@ -17,15 +17,31 @@ filter {
       }
     }
   } else if "swh-worker@" in [systemd_unit] {
+    # Temporary rule to delete after complete migration to 7.15
     mutate {
       add_field => {
         "[@metadata][target_index]" => "swh_workers-%{+YYYY.MM.dd}"
       }
     }
-  } else {
+  } else if "swh-worker@" in [systemd][unit] {
     mutate {
       add_field => {
-        "[@metadata][target_index]" => "systemlogs-%{+YYYY.MM.dd}"
+        "[@metadata][target_index]" => "swh_workers-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+      }
+    }
+  } else {
+    if [@metadata][version] {
+      mutate {
+        add_field => {
+          "[@metadata][target_index]" => "systemlogs-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+        }
+      }
+    } else {
+      # Temporary rule to delete after complete migration to 7.15
+      mutate {
+        add_field => {
+          "[@metadata][target_index]" => "systemlogs-%{+YYYY.MM.dd}"
+        }
       }
     }
   }
