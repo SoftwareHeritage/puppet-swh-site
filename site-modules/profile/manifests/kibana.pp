@@ -9,7 +9,7 @@ class profile::kibana {
 
   apt::pin { 'kibana':
     packages => 'kibana',
-    version => $version,
+    version  => $version,
     priority => 1001,
   }
 

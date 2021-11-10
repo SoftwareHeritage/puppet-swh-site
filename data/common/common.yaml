@@ -3276,6 +3276,8 @@ elasticsearch::config:
   path.logs: "%{alias('elasticsearch::config::path::logs')}"
   http.port: "%{alias('elasticsearch::config::http::port')}"
   prometheus.indices: "%{alias('elasticsearch::config::prometheus::indices')}"
+  indices.memory.index_buffer_size: 50%
+  index.store.type: hybridfs
 
 logstash::listen_network: "%{lookup('internal_network')}"
 logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"

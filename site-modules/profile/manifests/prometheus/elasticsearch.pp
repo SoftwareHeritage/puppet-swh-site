@@ -6,9 +6,12 @@ class profile::prometheus::elasticsearch {
   $version = lookup('prometheus::elasticsearch::exporter::version')
 
   $archive_url = "https://github.com/vvanholl/elasticsearch-prometheus-exporter/releases/download/${version}/prometheus-exporter-${version}.zip"
-  $archive_path = '/usr/share/elasticsearch/plugins/prometheus-exporter'
+  $plugin_path = '/usr/share/elasticsearch/plugins/prometheus-exporter'
 
-  file { $archive_path:
+  exec {'cleanup prometheus exporter plugin':
+    creates => "${plugin_path}/prometheus-exporter-${version}.jar",
+    command => "/usr/bin/rm -rf ${plugin_path}",
+  } -> file { $plugin_path:
     ensure  => directory,
     owner   => 'elasticsearch',
     group   => 'elasticsearch',
@@ -19,13 +22,16 @@ class profile::prometheus::elasticsearch {
     path         => "/tmp/prometheus-exporter-${version}.zip",
     source       => $archive_url,
     extract      => true,
-    extract_path => '/usr/share/elasticsearch/plugins/prometheus-exporter',
-    creates      => "${archive_path}/plugin-descriptor.properties",
+    extract_path => $plugin_path,
+    creates      => "${plugin_path}/prometheus-exporter-${version}.jar",
     cleanup      => true,
     user         => 'root',
     group        => 'root',
-    require      => Package['elasticsearch'],
+    require      => [
+      Package['elasticsearch'],
+    ],
   }
+
 
   Archive['prometheus-elasticsearch-exporter'] ~> Service['elasticsearch']
 }

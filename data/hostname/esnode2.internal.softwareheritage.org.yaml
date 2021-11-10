@@ -10,3 +10,7 @@ swh::apt_config::backported_packages:
     - zfs-dkms
     - zfsutils-linux
     - zfs-zed
+
+elastic::elk_version: '7.15.2'
+elasticsearch::config::extras:
+  xpack.security.enabled: false

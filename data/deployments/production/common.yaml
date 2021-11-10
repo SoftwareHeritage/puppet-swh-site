@@ -11,10 +11,6 @@ elasticsearch::config::cluster::initial_master_nodes:
   - esnode2
   - esnode3
 
-elasticsearch::config::extras:
-  indices.memory.index_buffer_size: 50%
-  index.store.type: hybridfs
-
 elasticsearch::jvm_options::heap_size: 16g
 
 swh::postgresql::shared_buffers: 4GB
