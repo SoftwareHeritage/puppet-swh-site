@@ -13,9 +13,7 @@ if [ $INSTANCE = $DEFAULT_INSTANCE ]; then
   # Opam instance is considered the main instance so we must initialize the repository
   # if not present, otherwise we update it
   ( $CMD repo --all --root $ROOT_DIR | grep $INSTANCE_URL && $CMD update --root $ROOT_DIR ) \
-      || $CMD init --reinit --bare --no-setup --root $ROOT_DIR $INTSANCE $INSTANCE_URL
-  # work around due to a current limitation in opam/loader-opam
-  ln -sf $ROOT_DIR/repo/default $ROOT_DIR/repo/$DEFAULT_INSTANCE
+      || $CMD init --reinit --bare --no-setup --root $ROOT_DIR $INSTANCE $INSTANCE_URL
 else
   # Other instances, if present should be updated. If not present, they should be added
   # to the main root_dir as extra instances
