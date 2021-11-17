@@ -27,7 +27,7 @@ class profile::icinga2::objects::agent_checks {
         'journal_lag_crit' => 3600,
       },
       sudo => true,
-      sudo_user => 'journalbeat',
+      sudo_user => 'root',
     },
     'check_newest_file_age' => {
       arguments => {
