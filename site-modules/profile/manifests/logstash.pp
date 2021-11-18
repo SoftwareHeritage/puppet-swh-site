@@ -50,6 +50,14 @@ class profile::logstash {
     ],
   }
 
+  file { '/usr/local/bin/es_reopen_closed_indexes.sh':
+    ensure => 'file',
+    source => 'puppet:///modules/profile/logstash/es_reopen_closed_indexes.sh',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0744'
+  }
+
   include profile::icinga2::objects::logstash_checks
 
 }
