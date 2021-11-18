@@ -40,6 +40,13 @@ class profile::logstash {
     notify  => Service['logstash'],
   }
 
+  file { '/etc/logstash/logstash.yml':
+    ensure  => 'file',
+    source  => 'puppet:///modules/profile/logstash/logstash.yml',
+    require => Package['logstash'],
+    notify  => Service['logstash'],
+  }
+
   service { 'logstash':
     ensure  => running,
     enable  => true,

@@ -1,0 +1,7 @@
+#
+# File managed by puppet (profile::logstash). All modifications will be lost.
+
+path.data: /var/lib/logstash
+path.logs: /var/log/logstash
+
+pipeline.ecs_compatibility: disabled
