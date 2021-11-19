@@ -66,4 +66,19 @@ sub vcl_deliver {
 <% end -%>
     }
 }
+
+sub vcl_synth {
+    if (
+<% @aliases.each do |alias_| -%>
+        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>(:[0-9]+)?$" ||
 <% end -%>
+        req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>(:[0-9]+)?$"
+    ) {
+        if (resp.status == 401) {
+            set resp.http.WWW-Authenticate = "Basic";
+            return(deliver);
+        }
+    }
+}
+<% end -%>
+
