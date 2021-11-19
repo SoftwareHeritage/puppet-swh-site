@@ -260,7 +260,7 @@ pgbouncer::databases:
     
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
-swh::deploy::objstorage::backend::workers: 4
+swh::deploy::objstorage::backend::workers: 16
 swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:1/1:5
 
