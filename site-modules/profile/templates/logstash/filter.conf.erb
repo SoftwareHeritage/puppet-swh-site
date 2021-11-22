@@ -30,7 +30,7 @@ filter {
       }
     }
   } else {
-    if [syslog][facility] !~ /^\d+$/ {
+    if [syslog][facility] =~ /[A-Za-z]+/ {
       mutate {
         rename => { "[syslog][facility]" => "[syslog][facility_name]" }
       }
