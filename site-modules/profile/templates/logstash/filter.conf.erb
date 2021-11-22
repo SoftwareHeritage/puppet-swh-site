@@ -30,6 +30,11 @@ filter {
       }
     }
   } else {
+    if [syslog][facility] !~ /^\d+$/ {
+      mutate {
+        rename => { "[syslog][facility]" => "[syslog][facility_name]" }
+      }
+    }
     if [@metadata][version] {
       mutate {
         add_field => {
