@@ -4,7 +4,10 @@ networks:
     netmask: 255.255.255.0
     gateway: 192.168.130.1
 
-elastic::elk_version: '7.9.3'
+elastic::elk_version: '7.15.2'
+elasticsearch::config::extras:
+  ingest.geoip.downloader.enabled: false
+
 elastic::beat_version: '7.15.2'
 
 swh::apt_config::enable_non_free: true
