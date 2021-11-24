@@ -3,7 +3,7 @@ class profile::hedgedoc::apt_config {
   include profile::nodejs::apt_config
 
   $packages = [
-    'npm', 'yarn', 'node-gyp', 'nodejs'
+    'yarn', 'nodejs'
   ]
 
   $keyid = lookup('yarn::apt_config::keyid')
