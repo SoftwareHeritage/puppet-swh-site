@@ -1359,7 +1359,7 @@ swh::apt_config::azure_repository::hostname: debian-archive.trafficmanager.net
 swh::apt_config::azure_repository: "http://%{hiera('swh::apt_config::azure_repository::hostname')}/debian-azure/"
 
 swh::apt_config::unattended_upgrades: true
-swh::apt_config::unattended_upgraes::origins:
+swh::apt_config::unattended_upgrades::origins:
  - "o=Debian,n=%{::lsbdistcodename}"                                    # main Debian archive
  - "o=Debian,n=%{::lsbdistcodename}-updates"                            # stable-updates (ex-volatile)
  - "o=Debian,n=%{::lsbdistcodename},l=Debian-Security"                  # security updates
