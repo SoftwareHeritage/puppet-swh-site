@@ -19,4 +19,4 @@ swh::deploy::worker::loader_oneshot::task_queues:
 swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
 
-swh::deploy::worker::loader_git::concurrency: 6
+swh::deploy::worker::loader_git::concurrency: 7
