@@ -1,6 +1,5 @@
 # Install and configure logstash
 class profile::logstash {
-  include ::java
   include ::profile::elastic::apt_config
 
   $version = sprintf('1:%s-1', lookup('elastic::elk_version'))
@@ -10,7 +9,6 @@ class profile::logstash {
 
   package { 'logstash':
     ensure  => $version,
-    require => Class['java'],
   }
 
   apt::pin { 'logstash':
