@@ -3,6 +3,7 @@ swh::deploy::worker::instances:
   - loader_git
 
 swh::deploy::worker::loader_oneshot::concurrency: 7
+swh::deploy::worker::loader_oneshot::max_tasks_per_child: 1
 swh::deploy::worker::loader_oneshot::task_queues:
   # loader-git
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
@@ -20,3 +21,4 @@ swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
 
 swh::deploy::worker::loader_git::concurrency: 7
+swh::deploy::worker::loader_git::max_tasks_per_child: 1
