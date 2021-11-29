@@ -1,5 +1,0 @@
-ssh::port: 7022
-
-swh::deploy::objstorage::directory: "%{hiera('swh::deploy::vault::cache')}"
-
-swh::deploy::vault::backend::listen::host: 0.0.0.0

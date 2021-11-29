@@ -1103,14 +1103,6 @@ bind::resource_records:
     type: A
     record: giverny.internal.softwareheritage.org
     data: 192.168.101.118
-  orangeriedev/A:
-    type: A
-    record: orangeriedev.internal.softwareheritage.org
-    data: 192.168.101.130
-  orangerie/A:
-    type: A
-    record: orangerie.internal.softwareheritage.org
-    data: 192.168.101.142
   ddouard-desktop/A:
     record: ddouard-desktop.internal.softwareheritage.org
     data: 192.168.101.162
@@ -1791,7 +1783,7 @@ swh::deploy::indexer::journal::writer::config:
     message.max.bytes: 1000000000
 
 swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
-# Default cache (orangerie/orangeriedev) is a pathslicing objstorage
+# Default cache a pathslicing objstorage
 swh::deploy::vault::config::cache:
   cls: pathslicing
   root: "%{hiera('swh::deploy::vault::cache')}"
