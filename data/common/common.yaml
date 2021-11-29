@@ -2176,6 +2176,8 @@ swh::deploy::webapp::instance_name: archive.softwareheritage.org
 # in private data:
 # deposit_basic_auth_swhworker_username
 # deposit_basic_auth_swhworker_password
+# webapp_give_public_key
+# webapp_give_token
 swh::deploy::webapp::config:
   search: "%{alias('swh::remote_service::search::config')}"
   search_config:
@@ -2201,6 +2203,9 @@ swh::deploy::webapp::config:
   keycloak: "%{alias('swh::deploy::webapp::config::keycloak')}"
   history_counters_url: "%{alias('swh::deploy::webapp::history_counters_url')}"
   instance_name: "%{alias('swh::deploy::webapp::instance_name')}"
+  give:
+    public_key: "%{hiera('webapp_give_public_key')}"
+    token: "%{hiera('webapp_give_token')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
