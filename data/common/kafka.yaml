@@ -14,6 +14,7 @@ zookeeper::leader_port: 3888
 kafka::version: '2.6.0'
 kafka::scala_version: '2.13'
 kafka::mirror_url: https://archive.apache.org/dist/
+kafka::cluster::heap_ops: "-Xmx6G -Xms6G"
 
 kafka::logdirs:
   - /srv/kafka/logdir
@@ -61,7 +62,7 @@ kafka::clusters:
       # Users connecting in the plaintext endpoint are ANONYMOUS
       # TODO: remove when explicit ACLs are given to producers
       - User:ANONYMOUS
-    broker::heap_opts: "-Xmx6G -Xms6G"
+    broker::heap_opts: "%{lookup('kafka::cluster::heap_ops')}"
     tls: true
     plaintext_port: 9092
     public_tls_port: 9093

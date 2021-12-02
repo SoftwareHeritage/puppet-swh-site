@@ -101,7 +101,7 @@ mod 'inifile',
 
 mod 'java',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java',
-    :tag => 'v6.0.0'
+    :tag => 'v7.3.0'
 
 mod 'java_ks',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java_ks',

@@ -54,6 +54,7 @@ netbox::mail::from: inventory+vagrant@softwareheritage.org
 netbox::admin::email: sysop+vagrant@softwareheritage.org
 
 kafka::cluster::public_network: 10.168.130.0/24
+kafka::cluster::heap_ops: "-Xmx512m -Xms512m"
 
 puppet::master::manage_puppetdb: true
 puppetdb::listen_address: 0.0.0.0
@@ -169,12 +170,20 @@ static_hostnames:
       - inventory.internal.softwareheritage.org
   10.168.100.201:
     host: kafka1.internal.softwareheritage.org
+    aliases:
+      - broker1.journal.softwareheritage.org
   10.168.100.202:
     host: kafka2.internal.softwareheritage.org
+    aliases:
+      - broker2.journal.softwareheritage.org
   10.168.100.203:
     host: kafka3.internal.softwareheritage.org
+    aliases:
+      - broker3.journal.softwareheritage.org
   10.168.100.204:
     host: kafka4.internal.softwareheritage.org
+    aliases:
+      - broker4.journal.softwareheritage.org
   10.168.130.11:
     host: db1.internal.staging.swh.network
   10.168.130.20:
