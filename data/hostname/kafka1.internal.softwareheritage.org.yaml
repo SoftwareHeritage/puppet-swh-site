@@ -1,18 +1,8 @@
 ---
 networks:
-  enp94s0f0np0:
-    type: manual
-    order: 10
-    extras:
-      mtu: "9000"
-  enp94s0f1np1:
-    type: manual
-    order: 10
-    extras:
-      mtu: "9000"
   bond0:
     type: manual
-    order: 20
+    order: 10
     extras:
       mtu: "9000"
       bond-miimon: 100
@@ -22,7 +12,7 @@ networks:
       bond-lacp-rate: 1
   vlan440:
     type: private
-    order: 30
+    order: 20
     address: 192.168.100.201
     netmask: 24
     gateway: 192.168.100.1
@@ -31,7 +21,7 @@ networks:
       vlan-raw-device: bond0
   vlan1300:
     type: static
-    order: 30
+    order: 20
     address: 128.93.166.48
     netmask: 26
     gateway: 128.93.166.62
