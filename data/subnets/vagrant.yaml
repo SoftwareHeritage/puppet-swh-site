@@ -142,6 +142,8 @@ static_hostnames:
     host: saatchi.internal.softwareheritage.org
     aliases:
       - rabbitmq.internal.softwareheritage.org
+  10.168.100.105:
+    host: thyssen.internal.softwareheritage.org
   10.168.100.106:
     host: kelvingrove.internal.softwareheritage.org
     aliases:
@@ -158,6 +160,8 @@ static_hostnames:
     host: zookeeper2.internal.softwareheritage.org
   10.168.100.133:
     host: zookeeper3.internal.softwareheritage.org
+  10.168.100.150:
+    host: jenkins1-debian.internal.softwareheritage.org
   10.168.100.170:
     host: pompidou.internal.softwareheritage.org
   10.168.100.210:
