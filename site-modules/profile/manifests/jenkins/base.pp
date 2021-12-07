@@ -1,4 +1,6 @@
 class profile::jenkins::base {
+  include ::java
+
   group {'jenkins':
     ensure => present,
     system => true,

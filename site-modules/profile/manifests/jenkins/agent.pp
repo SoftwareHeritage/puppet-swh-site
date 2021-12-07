@@ -1,6 +1,5 @@
 class profile::jenkins::agent {
   include profile::jenkins::base
-  include ::java
 
   $jenkins_agent_jar_url = lookup('jenkins::agent::jar_url')
   $jenkins_url = lookup('jenkins::backend::url')
