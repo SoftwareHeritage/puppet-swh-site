@@ -58,3 +58,4 @@ apache::http_port: 9080
 apache::default_vhost: false
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::local_internal_network')}"
+
