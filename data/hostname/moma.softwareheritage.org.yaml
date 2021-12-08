@@ -36,13 +36,13 @@ swh::deploy::objstorage::backend::server_names:
   - "::1"
 
 swh::deploy::objstorage::config:
-  objstorage: 
+  objstorage:
     cls: multiplexer
     args:
       objstorages:
         - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
         - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
-  
+
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
