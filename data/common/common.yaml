@@ -2328,20 +2328,6 @@ swh::elasticsearch::search_nodes:
     port: 9200
 
 swh::deploy::scheduler::archive::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/elastic.yml"
-swh::deploy::scheduler::archive::user: "%{hiera('swh::deploy::scheduler::user')}"
-swh::deploy::scheduler::archive::config:
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  elasticsearch:
-    cls: local
-    args:
-      index_name_prefix: swh-tasks
-      storage_nodes:
-        "%{alias('swh::elasticsearch::storage_nodes')}"
-      client_options:
-        sniff_on_start: false
-        sniff_on_connection_fail: true
-        http_compress: false
-        sniffer_timeout: 60
 
 swh::deploy::scheduler::journal_client::config_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/journal-client.yml"
 swh::deploy::scheduler::journal_client::user: "%{alias('swh::deploy::scheduler::user')}"

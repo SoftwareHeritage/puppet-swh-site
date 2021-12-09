@@ -64,31 +64,12 @@ class profile::swh::deploy::scheduler {
   # task archival cron
 
   $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
-  $archive_config = lookup('swh::deploy::scheduler::archive::config')
 
   file {$archive_config_file:
-    ensure  => present,
+    ensure  => absent,
     owner   => 'root',
     group   => $group,
     mode    => '0640',
-    content => inline_template("<%= @archive_config.to_yaml %>\n"),
-    require => File[$config_dir],
   }
 
-  cron {'archive_completed_oneshot_and_disabled_recurring_tasks':
-    ensure => absent,
-    user   => $user,
-  }
-
-  profile::cron::d {'scheduler_archive_tasks':
-    user     => $user,
-    command  => "/usr/bin/swh scheduler --config-file ${archive_config_file} task archive",
-    monthday => '1',
-    hour     => '0',
-    minute   => '0',
-    require  => [
-      Package[$packages],
-      File[$archive_config_file],
-    ],
-  }
 }
