@@ -61,15 +61,4 @@ class profile::swh::deploy::scheduler {
     require          => Package[$packages],
   }
 
-  # task archival cron
-
-  $archive_config_file = lookup('swh::deploy::scheduler::archive::conf_file')
-
-  file {$archive_config_file:
-    ensure  => absent,
-    owner   => 'root',
-    group   => $group,
-    mode    => '0640',
-  }
-
 }

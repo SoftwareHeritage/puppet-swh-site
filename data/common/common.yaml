@@ -2327,8 +2327,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode6.internal.softwareheritage.org
     port: 9200
 
-swh::deploy::scheduler::archive::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/elastic.yml"
-
 swh::deploy::scheduler::journal_client::config_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/journal-client.yml"
 swh::deploy::scheduler::journal_client::user: "%{alias('swh::deploy::scheduler::user')}"
 swh::deploy::scheduler::journal_client::group: "%{alias('swh::deploy::scheduler::group')}"
