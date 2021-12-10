@@ -12,13 +12,16 @@ class profile::mountpoints {
     }
 
     if pick($config['ensure'], 'present') != 'absent' {
-      exec {"create ${mountpoint}":
-        creates => $mountpoint,
-        command => "mkdir -p ${mountpoint}",
-        path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+      if ($mountpoint[0] == '/') {
+        exec {"create ${mountpoint}":
+          creates => $mountpoint,
+          command => "mkdir -p ${mountpoint}",
+          path    => ['/bin', '/usr/bin', '/sbin', '/usr/sbin'],
+        }
+        -> file {$mountpoint:}
+        -> Mount[$mountpoint]
       }
-      -> file {$mountpoint:}
-      -> mount {
+      mount {
         default:
           ensure  => present,
           dump    => 0,
