@@ -2860,32 +2860,7 @@ memcached::server::bind: 127.0.0.1
 memcached::server::port: 11211
 memcached::server::max_memory: '5%'
 
-mountpoints:
-  /srv/storage/space:
-    device: saam:/srv/storage/space
-    fstype: nfs
-    options:
-      - rw
-      - soft
-      - intr
-      - rsize=8192
-      - wsize=8192
-      - noauto
-      - x-systemd.automount
-      - x-systemd.device-timeout=10
-  /srv/softwareheritage/objects:
-    device: saam:/srv/softwareheritage/objects
-    fstype: nfs
-    options:
-      - rw
-      - soft
-      - intr
-      - rsize=8192
-      - wsize=8192
-      - noauto
-      - x-systemd.automount
-      - x-systemd.device-timeout=10
-
+mountpoints: {}
 
 ceph::release: luminous
 ceph::fsid: b3e34018-388e-499b-9579-d1c0d57e8c09
