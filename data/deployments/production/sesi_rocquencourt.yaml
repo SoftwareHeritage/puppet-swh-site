@@ -1,4 +1,7 @@
 ---
+tmpfs::size: "%{::memory.swap.total_bytes}"
+tmpfs::nr_inodes: 1m
+
 mountpoints:
   /srv/storage/space:
     device: saam:/srv/storage/space
@@ -24,3 +27,19 @@ mountpoints:
       - noauto
       - x-systemd.automount
       - x-systemd.device-timeout=10
+  swap:
+    device: LABEL="swap"
+    fstype: swap
+    options:
+      - sw
+  /tmp:
+    device: tmpfs
+    fstype: tmpfs
+    options:
+      - "size=%{lookup('tmpfs::size')}"
+      - "nr_inodes=%{lookup('tmpfs::nr_inodes')}"
+      - noexec
+      - nosuid
+      - nodev
+      - relatime
+      - rw
