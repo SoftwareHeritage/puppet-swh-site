@@ -4,3 +4,6 @@ networks:
     address: 192.168.100.199
     netmask: 24
     gateway: 192.168.100.1
+
+swh::postgresql::version: "11"
+postgresql::globals::version: "%{alias('swh::postgresql::version')}"
