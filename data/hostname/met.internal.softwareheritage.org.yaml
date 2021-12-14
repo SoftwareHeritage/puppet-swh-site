@@ -53,8 +53,6 @@ rabbitmq::server::users:
     tags: []
 
 swh::postgresql::version: 13
-# hack to don't hang in bullseye
-postgresql::globals::version: "%{lookup('swh::postgresql::version')}"
 
 swh::postgresql::listen_addresses:
   - 0.0.0.0

@@ -14,8 +14,6 @@ swh::postgresql::network_accesses:
   - 192.168.100.0/24 # Monitoring
   - 192.168.130.0/24 # Staging services
 
-postgresql::globals::version: "%{alias('swh::postgresql::version')}"
-
 postgresql::server::config_entries:
   shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
   cluster_name: "%{alias('swh::postgresql::cluster_name')}"

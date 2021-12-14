@@ -3620,4 +3620,7 @@ nodejs::version: 14.x
 
 swh::provenance::db::shared_buffers: 32GB
 
+swh::postgresql::version: "11"
 swh::postgresql::max_connections: 100
+
+postgresql::globals::version: "%{lookup('swh::postgresql::version')}"

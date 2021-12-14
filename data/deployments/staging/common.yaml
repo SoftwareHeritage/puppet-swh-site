@@ -184,8 +184,6 @@ postgresql::server::config_entries:
   shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
   cluster_name: "%{alias('swh::postgresql::cluster_name')}"
 
-postgresql::globals::version: "%{alias('swh::postgresql::version')}"
-
 swh::dbs:
   storage:
     name: swh
