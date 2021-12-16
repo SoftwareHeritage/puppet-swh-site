@@ -34,6 +34,7 @@ swh::deploy::worker::instances:
   - checker_deposit
   - loader_archive
   - loader_cran
+  - loader_cvs
   - loader_debian
   - loader_deposit
   - loader_nixguix
