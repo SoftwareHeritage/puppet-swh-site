@@ -2448,6 +2448,18 @@ swh::deploy::worker::loader_cran::config:
     task_queues:
       - swh.loader.package.cran.tasks.LoadCRAN
 
+swh::deploy::worker::loader_cvs::config_file: "%{hiera('swh::conf_directory')}/loader_cvs.yml"
+swh::deploy::worker::loader_cvs::concurrency: 1
+swh::deploy::worker::loader_cvs::private_tmp: true
+swh::deploy::worker::loader_cvs::loglevel: info
+swh::deploy::worker::loader_cvs::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      - swh.loader.cvs.tasks.LoadCvsRepository
+
 swh::deploy::worker::loader_nixguix::config_file: "%{hiera('swh::conf_directory')}/loader_nixguix.yml"
 swh::deploy::worker::loader_nixguix::private_tmp: true
 swh::deploy::worker::loader_nixguix::concurrency: 1
