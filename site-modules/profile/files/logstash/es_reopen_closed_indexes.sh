@@ -18,7 +18,7 @@ function filter_index_name() {
     # new log format : ...  "type" =>" cluster_block_exception","reason " => "  index  [ swh_workers-7.15.2-2021.11.07 ]...
     # old log format : ... ({type  =>  cluster_block_exception, reason    =>    index  [ systemlogs-2021.11.09         ] blocked...
     #                                         .*                reason "? => "? index \[     ([.a-z0-9_\-]+)          \]    .*
-    sed -r 's/.*reason"?=>"?index \[([.a-z0-9_\-]+)\].*/\1/g' | sort | uniq
+    sed -r 's/.*"index"=>"([a-z0-9\-\.\-]+)".*/\1/g' | sort | uniq
 }
 
 function log_indices() {
