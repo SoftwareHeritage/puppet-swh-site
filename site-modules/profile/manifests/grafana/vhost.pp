@@ -3,6 +3,7 @@
 class profile::grafana::vhost {
   include ::profile::apache::common
   include ::apache::mod::proxy
+  include ::profile::apache::mod_proxy_wstunnel
 
   $grafana_vhost_name = lookup('grafana::vhost::name')
   $grafana_vhost_docroot = '/var/www/html'
@@ -12,6 +13,7 @@ class profile::grafana::vhost {
   $grafana_vhost_hsts_header = lookup('grafana::vhost::hsts_header')
   $grafana_upstream_port = lookup('grafana::backend::port')
   $grafana_backend_url = "http://127.0.0.1:${grafana_upstream_port}/"
+  $grafana_websocket_url = "ws://127.0.0.1:${grafana_upstream_port}/api/live/"
 
   ::apache::vhost {"${grafana_vhost_name}_non-ssl":
     servername      => $grafana_vhost_name,
@@ -39,6 +41,10 @@ class profile::grafana::vhost {
     docroot              => $grafana_vhost_docroot,
     manage_docroot       => false,
     proxy_pass           => [
+      { path         => '/api/live/',
+        url          => $grafana_websocket_url,
+        reverse_urls => [],
+      },
       { path => '/',
         url  => $grafana_backend_url,
       },

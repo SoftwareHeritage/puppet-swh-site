@@ -220,8 +220,7 @@ class profile::phabricator {
   include ::profile::apache::common
   include ::apache::mod::proxy
   include ::profile::apache::mod_proxy_fcgi
-
-  ::apache::mod {'proxy_wstunnel':}
+  include ::profile::apache::mod_proxy_wstunnel
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
