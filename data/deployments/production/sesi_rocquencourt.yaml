@@ -1,6 +1,6 @@
 ---
 tmpfs::size: "%{::memory.swap.total_bytes}"
-tmpfs::nr_inodes: 1m
+tmpfs::nr_inodes: 200m
 
 mountpoints:
   /srv/storage/space:
