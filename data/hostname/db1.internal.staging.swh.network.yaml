@@ -1,15 +1,5 @@
 ---
 networks:
-  enp2s0f0:
-    type: manual
-    order: 10
-    extras:
-      mtu: "9000"
-  enp2s0f1:
-    type: manual
-    order: 10
-    extras:
-      mtu: "9000"
   bond0:
     type: manual
     order: 20
