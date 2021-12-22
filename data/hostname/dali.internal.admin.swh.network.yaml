@@ -20,3 +20,7 @@ swh::dbs:
     name: "%{alias('keycloak::postgres::dbname')}"
     user: "%{alias('keycloak::postgres::user')}"
     password: "%{alias('keycloak::postgres::password')}"
+
+prometheus::sql::config_snippets:
+  - activity
+  - queries

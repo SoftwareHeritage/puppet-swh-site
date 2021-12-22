@@ -2,6 +2,7 @@ swh::deploy::environment: admin
 
 swh::deploy::reverse_proxy::services:
   - hedgedoc
+  - grafana
 
 swh::postgresql::version: '14'
 swh::postgresql::listen_addresses:
@@ -22,11 +23,18 @@ hedgedoc::db::username: hedgedoc
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
 swh::deploy::hedgedoc::reverse_proxy::websocket_support: true
-
 swh::deploy::hedgedoc::base_url: hedgedoc.softwareheritage.org
 swh::deploy::hedgedoc::vhost::letsencrypt_cert: hedgedoc
+
+swh::deploy::grafana::vhost::letsencrypt_cert: "%{lookup('grafana::vhost::name')}"
+swh::deploy::grafana::reverse_proxy::backend_http_host: grafana0.internal.admin.swh.network
+swh::deploy::grafana::reverse_proxy::backend_http_port: "3000"
+swh::deploy::grafana::reverse_proxy::websocket_support: true
+swh::deploy::grafana::base_url: "%{lookup('grafana::vhost::name')}"
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 varnish::http_port: 80
 
+grafana::db::host: db1.internal.admin.swh.network
+grafana::db::port: "%{lookup('swh::postgresql::port')}"

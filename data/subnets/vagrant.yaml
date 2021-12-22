@@ -82,6 +82,9 @@ static_hostnames:
     host: rp1.internal.admin.swh.network
     aliases:
       - hedgedoc.softwareheritage.org
+      - grafana.softwareheritage.org
+  10.168.50.30:
+    host: grafana0.internal.admin.swh.network
   10.168.50.50:
     host: dali.internal.admin.swh.network
     aliases:
@@ -100,7 +103,6 @@ static_hostnames:
     aliases:
       - pergamon.softwareheritage.org
       - icinga.internal.softwareheritage.org
-      - grafana.softwareheritage.org
       - stats.export.softwareheritage
   10.168.100.30:
     host: jenkins.softwareheritage.org

@@ -12,6 +12,10 @@ node 'pergamon.softwareheritage.org' {
   include role::swh_sysadmin
 }
 
+node 'grafana0.internal.admin.swh.network' {
+  include role::swh_grafana
+}
+
 node 'tate.softwareheritage.org' {
   include role::swh_forge
 }
