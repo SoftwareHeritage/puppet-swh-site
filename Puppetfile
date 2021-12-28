@@ -105,7 +105,7 @@ mod 'java',
 
 mod 'java_ks',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java_ks',
-    :tag => 'v3.1.0'
+    :tag => 'v4.2.0'
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
