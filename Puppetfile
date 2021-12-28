@@ -170,7 +170,7 @@ mod 'redis',
 
 mod 'resolv_conf',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-resolv_conf',
-    :ref => 'v4.1.0'
+    :ref => 'v5.0.0'
 
 mod 'ssh',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-ssh',
