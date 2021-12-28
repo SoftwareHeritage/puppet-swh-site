@@ -138,7 +138,7 @@ mod 'ntp',
 
 mod 'php',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-php',
-    :ref => 'v7.0.0'
+    :ref => 'v8.0.2'
 
 mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
