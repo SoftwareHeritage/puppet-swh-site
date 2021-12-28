@@ -118,7 +118,7 @@ mod 'keycloak',
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
-    :ref => 'v5.0.0'
+    :ref => 'v7.0.0'
 
 mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',
