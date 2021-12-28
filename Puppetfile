@@ -162,7 +162,7 @@ mod 'memcached',
 
 mod 'rabbitmq',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-rabbitmq',
-    :ref => 'v10.0.0'
+    :ref => 'v11.1.0'
 
 mod 'redis',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-redis',
