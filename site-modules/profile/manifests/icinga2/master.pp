@@ -26,7 +26,7 @@ class profile::icinga2::master {
 
   ::postgresql::server::db {$icinga2_db_database:
     user     => $icinga2_db_username,
-    password => postgresql_password($icinga2_db_username, $icinga2_db_password)
+    password => postgresql::postgresql_password($icinga2_db_username, $icinga2_db_password)
   }
 
   class {'::icinga2':

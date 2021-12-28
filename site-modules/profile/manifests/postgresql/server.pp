@@ -91,7 +91,7 @@ class profile::postgresql::server {
   # read-only user
   $guest = 'guest'
   postgresql::server::role { $guest:
-    password_hash => postgresql_password($guest, 'guest'),
+    password_hash => postgresql::postgresql_password($guest, 'guest'),
     require       => Class['postgresql::server']
   }
 

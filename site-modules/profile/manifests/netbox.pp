@@ -33,7 +33,7 @@ class profile::netbox {
 
   ::postgresql::server::db {$db_database:
     user     => $db_username,
-    password => postgresql_password($db_username, $db_password),
+    password => postgresql::postgresql_password($db_username, $db_password),
     require  => [Class['Postgresql::Server']],
   }
 

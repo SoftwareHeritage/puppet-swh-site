@@ -28,7 +28,7 @@ class profile::icinga2::icingaweb2 {
 
   ::postgresql::server::db {$icingaweb2_db_database:
     user     => $icingaweb2_db_username,
-    password => postgresql_password($icingaweb2_db_username, $icingaweb2_db_password),
+    password => postgresql::postgresql_password($icingaweb2_db_username, $icingaweb2_db_password),
   }
 
   class {'::icingaweb2::module::monitoring':
