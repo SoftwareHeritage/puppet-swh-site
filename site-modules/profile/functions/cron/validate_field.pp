@@ -146,7 +146,7 @@ function profile::cron::validate_field(
         false,
       )
       if empty($interval_valid[1]) {
-        $_parsed_interval = $interval_valid[0]
+        $_parsed_interval = Integer($interval_valid[0], 10)
         if $1 == 'fqdn_rand' {
           $start = $_int_range[0] + fqdn_rand($_parsed_interval - 1, "${seed}_${field}")
           $end = $_int_range[1] + 1 + $start - $_parsed_interval
