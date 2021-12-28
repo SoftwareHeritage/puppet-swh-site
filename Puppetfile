@@ -77,7 +77,7 @@ mod 'elasticsearch',
 
 mod 'extlib',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-extlib',
-    :tag => 'v4.1.0'
+    :tag => 'v5.3.0'
 
 mod 'grafana',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-grafana',
