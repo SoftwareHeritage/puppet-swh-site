@@ -5,7 +5,7 @@ class profile::memcached {
   $memcached_memory = lookup('memcached::server::max_memory')
 
   class {'::memcached':
-    listen_ip  => $memcached_bind,
+    listen     => $memcached_bind,
     tcp_port   => $memcached_port,
     max_memory => $memcached_memory,
   }
