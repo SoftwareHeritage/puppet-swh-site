@@ -113,7 +113,8 @@ mod 'kafka',
 
 mod 'keycloak',
     :git => 'https://forge.softwareheritage.org/source/puppet-treydock-keycloak',
-    :ref => 'v6.19.0'
+    # Need to upgrade to keycloak 12 before bumping to 7.x
+    :ref => 'v6.26.0'
 
 mod 'letsencrypt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-letsencrypt',
