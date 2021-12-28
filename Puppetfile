@@ -81,7 +81,7 @@ mod 'extlib',
 
 mod 'grafana',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-grafana',
-    :tag => 'v10.0.1'
+    :ref => 'feature/puppet5-compat'
 
 mod 'hitch',
     :git => 'https://forge.softwareheritage.org/source/puppet-ssm-hitch',
