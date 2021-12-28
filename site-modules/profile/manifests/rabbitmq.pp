@@ -16,6 +16,7 @@ class profile::rabbitmq {
       vm_memory_high_watermark => 0.6,
     },
     heartbeat         => 0,
+    manage_python     => false,
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',

@@ -36,8 +36,6 @@ packages:
   # install zfs
   - zfs-dkms
 
-rabbitmq::python_package: 'python3'
-
 rabbitmq::server::users:
   - name: "swh-provenance"
     is_admin: true
