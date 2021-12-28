@@ -69,7 +69,7 @@ mod 'debnet',
 
 mod 'docker',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-docker',
-    :ref => 'v3.9.0'
+    :ref => 'v4.1.2'
 
 mod 'elasticsearch',
     :git => 'https://forge.softwareheritage.org/source/puppet-elastic-elasticsearch',
