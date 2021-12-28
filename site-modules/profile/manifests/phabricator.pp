@@ -156,7 +156,7 @@ class profile::phabricator {
 
   mysql_user {$mysql_username:
     ensure        => present,
-    password_hash => mysql_password($db_password),
+    password_hash => mysql::password($db_password),
   }
 
   mysql_grant {"${mysql_username}/${mysql_tables}":
@@ -171,7 +171,7 @@ class profile::phabricator {
     $db_ro_password = fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
     mysql_user {$full_username:
       ensure        => present,
-      password_hash => mysql_password($db_ro_password),
+      password_hash => mysql::password($db_ro_password),
     }
 
     mysql_grant {"${full_username}/${mysql_tables}":
