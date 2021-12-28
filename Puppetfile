@@ -29,7 +29,7 @@ mod 'apache',
 
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt',
-    :tag => 'v7.3.0'
+    :tag => 'v8.3.0'
 
 mod 'archive',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-archive',
