@@ -193,7 +193,7 @@ mod 'systemd',
 
 mod 'timezone',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-timezone',
-    :ref => 'v5.1.1'
+    :ref => 'v6.1.0'
 
 mod 'unattended_upgrades',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-unattended_upgrades',
