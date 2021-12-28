@@ -260,7 +260,7 @@ class profile::swh::deploy::webapp {
     service_content  => template($update_savecodenow_unit_template),
     active           => $activate_once_per_environment_webapp,
     enable           => $activate_once_per_environment_webapp,
-    require          => Package[$packages],
+    require          => Profile::Swh::Deploy::Install_web_deps['swh-web'],
   }
 
 }

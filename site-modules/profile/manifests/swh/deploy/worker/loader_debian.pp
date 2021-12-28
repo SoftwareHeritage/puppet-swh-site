@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::loader_debian {
     sentry_name => 'loader_core',
     private_tmp => $private_tmp,
     require     => [
-      Package[$packages],
+      Class['profile::swh::deploy::worker::loader_package'],
       Package['dpkg-dev'],
     ],
   }

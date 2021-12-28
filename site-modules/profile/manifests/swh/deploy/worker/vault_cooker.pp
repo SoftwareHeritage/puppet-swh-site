@@ -12,6 +12,8 @@ class profile::swh::deploy::worker::vault_cooker {
       package {$extra_packages:
         ensure => 'present',
       }
+  } else {
+    $extra_packages = []
   }
 
   ::profile::swh::deploy::worker::instance {$instance_name:
@@ -20,7 +22,7 @@ class profile::swh::deploy::worker::vault_cooker {
     send_task_events => true,
     require          => [
       Package[$extra_packages],
-      Package[$::profile::swh::deploy::base_vault::packages],
+      Class['profile::swh::deploy::base_vault'],
     ],
   }
 }

@@ -8,9 +8,6 @@ class profile::swh::deploy::worker::loader_cran {
     ensure      => present,
     private_tmp => $private_tmp,
     sentry_name => 'loader_core',
-    require     => [
-      Package[$packages],
-      Package['lzip'],
-    ],
+    require     => Class['profile::swh::deploy::worker::base_loader_archive'],
   }
 }
