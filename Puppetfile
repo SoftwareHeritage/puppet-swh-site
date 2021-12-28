@@ -186,6 +186,9 @@ mod 'sudo',
 
 mod 'systemd',
     :git => 'https://forge.softwareheritage.org/source/puppet-camptocamp-systemd',
+    # camptocamp/puppet-systemd 3.x dropped explicit systemctl daemon-reload
+    # calls in favor of the built-in support in Puppet 6.1. We use Puppet 5.5.x,
+    # so we can't upgrade this module.
     :ref => '2.12.0'
 
 mod 'timezone',
