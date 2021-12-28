@@ -25,7 +25,7 @@ mod 'uwsgi',
 
 mod 'apache',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apache',
-    :tag => 'v5.3.0'
+    :tag => 'v7.0.0'
 
 mod 'apt',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-apt',
