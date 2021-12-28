@@ -142,7 +142,7 @@ mod 'php',
 
 mod 'postgresql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-postgresql',
-    :ref => 'v6.4.0'
+    :ref => 'v7.5.0'
 
 mod 'pgbouncer',
     :git => 'https://forge.softwareheritage.org/source/puppet-covermymeds-pgbouncer',
