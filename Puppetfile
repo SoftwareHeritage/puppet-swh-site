@@ -122,7 +122,7 @@ mod 'letsencrypt',
 
 mod 'locales',
     :git => 'https://forge.softwareheritage.org/source/puppet-saz-locales',
-    :ref => 'v2.5.1'
+    :ref => 'v3.1.0'
 
 mod 'mysql',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-mysql',
