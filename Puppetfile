@@ -97,7 +97,7 @@ mod 'icingaweb2',
 
 mod 'inifile',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-inifile',
-    :ref => 'v4.0.0'
+    :ref => 'v5.2.0'
 
 mod 'java',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-java',
