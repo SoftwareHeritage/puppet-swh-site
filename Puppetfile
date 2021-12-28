@@ -61,7 +61,7 @@ mod 'datacat',
 
 mod 'debconf',
     :git => 'https://forge.softwareheritage.org/source/puppet-stm-debconf',
-    :ref => 'v3.0.0'
+    :ref => 'v4.1.0'
 
 mod 'debnet',
     :git => 'https://forge.softwareheritage.org/source/puppet-trepasi-debnet',
