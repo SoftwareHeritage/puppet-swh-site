@@ -146,8 +146,7 @@ class profile::swh::deploy::deposit {
     directories       => [
       { path     => '/1',
         provider => 'location',
-        allow    => 'from all',
-        satisfy  => 'Any',
+        require  => 'all granted',
         headers  => ['add Access-Control-Allow-Origin "*"'],
       },
       { path    => $static_dir,
