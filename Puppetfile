@@ -33,7 +33,7 @@ mod 'apt',
 
 mod 'archive',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-archive',
-    :tag => 'v4.4.0'
+    :tag => 'v6.0.2'
 
 mod 'bind',
     :git => 'https://forge.softwareheritage.org/source/puppet-inkblot-bind',
