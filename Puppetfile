@@ -109,7 +109,7 @@ mod 'java_ks',
 
 mod 'kafka',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppet-kafka',
-    :ref => 'v5.3.0'
+    :ref => 'v8.0.0'
 
 mod 'keycloak',
     :git => 'https://forge.softwareheritage.org/source/puppet-treydock-keycloak',
