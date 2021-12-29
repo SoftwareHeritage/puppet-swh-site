@@ -1065,6 +1065,10 @@ bind::resource_records:
     type: CNAME
     record: journal1.internal.staging.swh.network
     data: storage1.internal.staging.swh.network.
+  rancher-poc/CNAME:
+    type: CNAME
+    record: rancher-poc.internal.staging.swh.network
+    data: poc-rancher.internal.staging.swh.network.
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
@@ -1112,9 +1116,6 @@ bind::resource_records:
   oturtle-desktop/A:
     record: oturtle-desktop.internal.softwareheritage.org
     data: 192.168.101.222
-  rancher-poc/CNAME:
-    record: rancher-poc.internal.staging.swh.network
-    data: poc-rancher.internal.staging.swh.network.
 
 bind::resource_records::default_data:
   type: A
