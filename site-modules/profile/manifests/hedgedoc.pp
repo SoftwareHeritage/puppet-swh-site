@@ -158,4 +158,11 @@ class profile::hedgedoc {
       Class['profile::hedgedoc::apt_config'],
     ],
   }
+
+  profile::prometheus::export_scrape_config {"hedgedoc_${base_url}":
+    job          => 'hedgedoc',
+    target       => "${base_url}:443",
+    scheme       => 'https',
+    metrics_path => '/metrics',
+  }
 }
