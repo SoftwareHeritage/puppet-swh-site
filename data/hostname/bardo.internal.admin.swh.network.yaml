@@ -23,8 +23,8 @@ swh::dbs:
     name: "%{alias('hedgedoc::db::database')}"
     user: "%{alias('hedgedoc::db::username')}"
 
-hedgedoc::release::version: 1.9.0
-hedgedoc::release::digest: 976d908ea81025e72277d2815fd51ccf462c09d10451c16893b187d95f21e837
+hedgedoc::release::version: 1.9.2
+hedgedoc::release::digest: 052088a634731e0f9c28e40f9869281f24bf3fbb25173a341ba2c94496109f51
 hedgedoc::release::digest_type: sha256
 
 hedgedoc::allow_anonymous: true
