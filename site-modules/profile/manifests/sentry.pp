@@ -151,6 +151,16 @@ class profile::sentry {
     notify            => Exec['run sentry-onpremise install.sh'],
   }
 
+  file_line {'sentry_environment_mail_host':
+    ensure            => present,
+    path              => "${onpremise_dir}/.env",
+    match             => '^(# )?SENTRY_MAIL_HOST=',
+    line              => "SENTRY_MAIL_HOST=${mail_list_namespace}",
+    multiple          => true,
+    require           => Vcsrepo[$onpremise_dir],
+    notify            => Exec['run sentry-onpremise install.sh'],
+  }
+
   $onpremise_flag = "${onpremise_dir}-installed"
   $onpremise_log = "/var/log/sentry-onpremise-install.log"
 

@@ -230,6 +230,13 @@ SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 # End of SSL/TLS settings
 
+########
+# Mail #
+########
+
+SENTRY_OPTIONS["mail.list-namespace"] = env('SENTRY_MAIL_HOST', 'localhost')
+SENTRY_OPTIONS["mail.from"] = "<%= @mail_from %>"
+
 ############
 # Features #
 ############
