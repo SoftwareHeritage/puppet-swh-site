@@ -11,6 +11,7 @@ sentry::admin_email: sysop+sentry@softwareheritage.org
 
 sentry::mail::host: "%{lookup('smtp::relay_hostname')}"
 sentry::mail::from: sentry@softwareheritage.org
+sentry::mail::list_namespace: sentry.softwareheritage.org
 
 sentry::backend::url: http://riverside.internal.softwareheritage.org:9000/
 
