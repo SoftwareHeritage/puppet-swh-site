@@ -173,12 +173,11 @@ class profile::sentry {
   }
 
   exec {'run sentry-onpremise install.sh':
-    command     => "rm -f ${onpremise_flag}; (./install.sh --minimize-downtime && git rev-parse HEAD > ${onpremise_flag}) | tee -a ${onpremise_log}",
+    command     => "rm -f ${onpremise_flag}; (./install.sh --minimize-downtime --skip-user-prompt && git rev-parse HEAD > ${onpremise_flag}) | tee -a ${onpremise_log}",
     timeout     => 0,
     provider    => shell,
     cwd         => $onpremise_dir,
     path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
-    environment => ["CI=yes"],
     refreshonly => true,
     require     => [
       Class['profile::docker'],
