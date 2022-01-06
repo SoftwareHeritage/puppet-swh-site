@@ -3,9 +3,11 @@ WantedBy=timers.target
 
 [Timer]
 OnCalendar=daily
-AccuracySec=4h
 Persistent=true
+OnCalendar=daily
+RandomizedDelaySec=24h
+FixedRandomDelay=true
 Unit=<%= @opam_manage_service_name %>.service
 
 [Unit]
-Description=Software Heritage Manage OPAM shared state (<%= @instance %>) timer
+Description=Software Heritage Manage OPAM shared state timer

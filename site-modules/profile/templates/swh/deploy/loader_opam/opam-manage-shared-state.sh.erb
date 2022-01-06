@@ -3,20 +3,49 @@
 # Managed by puppet class profile::swh::deploy::worker::loader_opam
 # Changes will be overwritten
 
-CMD=/usr/bin/opam
-ROOT_DIR=<%= @opam_root %>
-DEFAULT_INSTANCE="opam.ocaml.org"
-INSTANCE=$1
-INSTANCE_URL=$2
+# This script is in charge of bootstraping the opam root folder with the default opam
+# repository.
 
-if [ $INSTANCE = $DEFAULT_INSTANCE ]; then
-  # Opam instance is considered the main instance so we must initialize the repository
-  # if not present, otherwise we update it
-  ( $CMD repo --all --root $ROOT_DIR | grep $INSTANCE_URL && $CMD update --root $ROOT_DIR ) \
-      || $CMD init --reinit --bare --no-setup --root $ROOT_DIR $INSTANCE $INSTANCE_URL
-else
-  # Other instances, if present should be updated. If not present, they should be added
-  # to the main root_dir as extra instances
-  ( $CMD repo --all --root $ROOT_DIR | grep $INSTANCE_URL && $CMD update --root $ROOT_DIR ) \
-    || $CMD repository add --root $ROOT_DIR $INSTANCE $INSTANCE_URL
-fi
+set -e
+
+ROOT_DIR=<%= @opam_root %>
+CMD=/usr/bin/opam
+
+function init_or_update_opam_root () {
+  # Ensure opam root directory exists and references the main opam repository as default
+  # instance. If not, create it from scratch. If properly configured, update the opam
+  # repository
+
+  instance_name=$1
+  instance_url=$2
+
+  if $CMD repo --all --root $ROOT_DIR | grep -qx $instance_url; then
+    $CMD update --root $ROOT_DIR
+  else
+    $CMD init --reinit --bare --no-setup --root $ROOT_DIR $instance_name $instance_url
+  fi
+}
+
+function init_or_update_opam_instance () {
+  # Ensure opam root directory exists and references the main opam repository as default
+  # instance. If not, create it from scratch. If properly configured, update the opam
+  # repository.
+
+  # Note that This assumes that the function init_or_update_opam_root already got called
+  # prior to calling this one.
+
+  instance_name=$1
+  instance_url=$2
+
+  if $CMD repo --all --root $ROOT_DIR | grep -qx $instance_url; then
+    $CMD update --root $ROOT_DIR
+  else
+    $CMD repository add --root $ROOT_DIR --all-switches $instance_name $instance_url
+  fi
+}
+
+init_or_update_opam_root <%= @default_instance_name %> <%= @default_instance_url %>
+
+<% @other_instances.each do |instance_name, instance_url| %>
+init_or_update_opam_instance <%= instance_name %> <%= instance_url %>
+<% end %>

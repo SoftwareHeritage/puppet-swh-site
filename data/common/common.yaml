@@ -2554,7 +2554,17 @@ swh::deploy::worker::loader_mercurial::config:
 swh::deploy::worker::loader_opam::user: swhworker
 swh::deploy::worker::loader_opam::group: swhworker
 swh::deploy::worker::opam::root_directory: /tmp/opam/
+
+# Keep opam.ocaml.org entry as the first one which is the default repository
+swh::deploy::worker::opam::default_instance::name: opam.ocaml.org
+swh::deploy::worker::opam::default_instance::url: https://opam.ocaml.org
+
 swh::deploy::worker::opam::instances:
+  coq.inria.fr: https://coq.inria.fr/opam/released
+  ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
+
+# deprecated
+swh::deploy::worker::opam::deprecated::instances:
   opam.ocaml.org: https://opam.ocaml.org
   coq.inria.fr: https://coq.inria.fr/opam/released
   ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git

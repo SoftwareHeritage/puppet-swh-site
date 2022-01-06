@@ -21,12 +21,23 @@ class profile::swh::deploy::worker::loader_opam {
     ],
   }
 
-  $opam_instances = lookup('swh::deploy::worker::opam::instances')
-  $template_path = "profile/swh/deploy/loader_opam"
-
   $opam_root = lookup('swh::deploy::worker::opam::root_directory')
   $opam_manage_shared_state = "opam-manage-shared-state"
   $opam_manage_state_script = "/usr/local/bin/${opam_manage_shared_state}.sh"
+
+  # Install more robust opam root folder maintenance tooling
+  $default_instance_name = lookup('swh::deploy::worker::opam::default_instance::name')
+  $default_instance_url = lookup('swh::deploy::worker::opam::default_instance::url')
+  $other_instances = lookup('swh::deploy::worker::opam::instances')
+
+  $template_path = "profile/swh/deploy/loader_opam"
+
+  # Templates uses variables
+  # - $user
+  # - $group
+  # - $default_instance_name
+  # - $default_instance_url
+  # - $other_instances
   file {$opam_manage_state_script:
     ensure => 'file',
     owner  => $user,
@@ -35,25 +46,43 @@ class profile::swh::deploy::worker::loader_opam {
     content => template("${template_path}/${opam_manage_shared_state}.sh.erb"),
   }
 
+  # Templates uses variables
+  # - $user
+  # - $group
+  # - $runparts_systemd_directory
+  # - $opam_manage_service_name
+  # - $opam_manage_state_script
+
+  ::systemd::timer { "${opam_manage_shared_state}.timer":
+    timer_content    => template("${template_path}/${opam_manage_shared_state}.timer.erb"),
+    service_content  => template("${template_path}/${opam_manage_shared_state}.service.erb"),
+    enable           => true,
+    require          => [
+      Package[$packages],
+      File[$runparts_systemd_directory],
+    ],
+  }
+
+  ###################################################################
+  # Clean up old opam root maintenance tooling (to drop once applied)
+  ###################################################################
+
+  $opam_instances = lookup('swh::deploy::worker::opam::deprecated::instances')
+
   each ( $opam_instances ) | $instance, $instance_url | {
-    $opam_manage_service_name = "${$opam_manage_shared_state}-${instance}"
-    $opam_manage_shared_state_timer_name = "${opam_manage_service_name}.timer"
+    $opam_manage_service_name = "${opam_manage_shared_state}-${instance}"
+    $opam_manage_service_path = "${default_systemd_path}/${$opam_manage_service_name}.service"
+    $opam_manage_timer_name = "${opam_manage_service_name}.timer"
 
-    # Templates uses variables
-    #  - $user
-    #  - $group
-    #  - $opam_root
-    #  - $opam_manage_service_name
-    #  - $command
+    # deactivate and drop timer
+    ::systemd::timer {$opam_manage_timer_name:
+      enable => false,
+      ensure => absent,
+    }
 
-    ::systemd::timer { $opam_manage_shared_state_timer_name:
-      timer_content    => template("${template_path}/${opam_manage_shared_state}.timer.erb"),
-      service_content  => template("${template_path}/${opam_manage_shared_state}.service.erb"),
-      enable           => true,
-      require          => [
-        Package[$packages],
-        File[$opam_manage_state_script],
-      ],
+    # drop the service file (deactivated from previous instruction but not removed)
+    file {$opam_manage_service_path:
+      ensure => absent
     }
   }
 

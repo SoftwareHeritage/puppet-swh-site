@@ -3,15 +3,17 @@
 # Changes will be overwritten
 
 [Unit]
-Description=Software Heritage Manage OPAM shared state (<%= @instance %>)
+Description=Software Heritage Manage OPAM shared state
 Requires=network.target
+Before=swh-worker@lister.service swh-worker@loader_opam.service
 After=network.target
 
 [Service]
 User=<%= @user %>
 Group=<%= @group %>
-Type=simple
-ExecStart=/usr/local/bin/opam-manage-shared-state.sh <%= @instance %> <%= @instance_url %>
+Type=oneshot
+ExecStart=<%= @opam_manage_state_script %>
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=swh-worker@lister.service swh-worker@loader_opam.service
+
