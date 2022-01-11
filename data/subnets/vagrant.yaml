@@ -82,6 +82,10 @@ static_hostnames:
     host: rp1.internal.admin.swh.network
     aliases:
       - hedgedoc.softwareheritage.org
+  10.168.50.50:
+    host: dali.internal.admin.swh.network
+    aliases:
+      - db1.internal.admin.swh.network
   10.168.100.18:
     host: banco.internal.softwareheritage.org
     aliases:
