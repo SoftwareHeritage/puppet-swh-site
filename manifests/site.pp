@@ -145,6 +145,10 @@ node /^db\d\.internal\.staging\.swh\.network$/ {
   include profile::postgresql::client
 }
 
+node 'dali.internal.admin.swh.network' {
+  include role::swh_admin_database
+}
+
 node "bardo.internal.admin.swh.network" {
   include role::swh_hedgedoc
 }

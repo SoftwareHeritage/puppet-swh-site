@@ -109,6 +109,8 @@ class profile::postgresql::server {
       user     => $db_user,
       password => $db_pass,
       owner    => $db_user,
+      encoding => 'UTF8',
+      locale   => 'C.UTF-8',
       require  => Class['postgresql::server']
     }
 

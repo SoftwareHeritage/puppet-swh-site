@@ -1,0 +1,23 @@
+swh::postgresql::version: '14'
+swh::postgresql::shared_buffers: 8GB
+
+swh::dbs:
+  netbox:
+    name: "%{alias('netbox::db::database')}"
+    user: "%{alias('netbox::db::username')}"
+    password: "%{alias('netbox::db::password')}"
+  hedgedoc:
+    name: "%{alias('hedgedoc::db::database')}"
+    user: "%{alias('hedgedoc::db::username')}"
+  grafana:
+    name: "%{alias('grafana::db::username')}"
+    user: "%{alias('grafana::db::username')}"
+    password: "%{alias('grafana::db::password')}"
+  sentry:
+    name: "%{alias('sentry::postgres::dbname')}"
+    user: "%{alias('sentry::postgres::user')}"
+    password: "%{alias('sentry::postgres::password')}"
+  keycloak:
+    name: "%{alias('keycloak::postgres::dbname')}"
+    user: "%{alias('keycloak::postgres::user')}"
+    password: "%{alias('keycloak::postgres::password')}"

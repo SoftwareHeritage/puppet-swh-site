@@ -1,22 +1,13 @@
 hedgedoc::db::host: localhost
-hedgedoc::db::database: hedgedoc
-hedgedoc::db::username: hedgedoc
-# hedgedoc::db::password: in private-data
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
-swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
+
 swh::postgresql::datadir_base: "%{lookup('swh::base_directory')}/postgres"
 swh::postgresql::datadir: "%{lookup('swh::postgresql::datadir_base')}/%{lookup('swh::postgresql::cluster_name')}"
-swh::postgresql::listen_addresses:
-  - 0.0.0.0
 swh::postgresql::network_accesses:
   - 192.168.100.0/24 # Monitoring
   - 192.168.130.0/24 # Staging services
-
-postgresql::server::config_entries:
-  shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
-  cluster_name: "%{alias('swh::postgresql::cluster_name')}"
 
 swh::dbs:
   hedgedoc:
@@ -44,3 +35,7 @@ hedgedoc::keycloak::client::id: hedgedoc
 
 hedgedoc::runtime_environment: production
 hedgedoc::log_level: info
+
+postgresql::server::config_entries:
+  shared_buffers: "%{alias('swh::postgresql::shared_buffers')}"
+  cluster_name: "%{alias('swh::postgresql::cluster_name')}"
