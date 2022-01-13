@@ -3,6 +3,7 @@ swh::deploy::environment: admin
 swh::deploy::reverse_proxy::services:
   - hedgedoc
 
+swh::postgresql::version: '14'
 swh::postgresql::listen_addresses:
   - 0.0.0.0
 swh::postgresql::network_accesses:

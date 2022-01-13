@@ -68,6 +68,8 @@ class profile::hedgedoc {
 
   $sequelizerc_path = "${install_dir}/.sequelizerc"
 
+  # Template uses variables:
+  # - $db_url
   file {$sequelizerc_path:
     ensure  => present,
     owner   => $user,
@@ -98,6 +100,12 @@ class profile::hedgedoc {
 
   $config_json_path = "${install_dir}/config.json"
 
+  $pg_version = lookup('swh::postgresql::version')
+  $pg_client_package = "postgresql-client-${pg_version}"
+  package {$pg_client_package:
+    ensure => 'present',
+  }
+
   file {$config_json_path:
     ensure  => present,
     owner   => $user,
@@ -121,7 +129,7 @@ class profile::hedgedoc {
     user        => $user,
     umask       => '0066',
     require     => [
-      Postgresql::Server::Db[$db_name],
+      Package[$pg_client_package],
     ],
   }
 
@@ -129,7 +137,6 @@ class profile::hedgedoc {
     command     => "${install_dir}/bin/setup && touch ${install_flag}",
     cwd         => $install_dir,
     require     => [
-      Postgresql::Server::Db[$db_name],
       File[$config_json_path],
       File[$sequelizerc_path],
     ],

@@ -1,4 +1,3 @@
-swh::postgresql::version: '14'
 swh::postgresql::shared_buffers: 8GB
 
 swh::dbs:
