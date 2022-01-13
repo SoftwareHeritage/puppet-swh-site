@@ -11,11 +11,7 @@ class profile::systemd_journal::journalbeat {
 
   include ::profile::elastic::apt_config
 
-  # cleanup
-  ::apt::pin {'swh-journalbeat':
-    ensure => absent,
-  }
-  -> ::apt::pin {'journalbeat':
+  ::apt::pin {'journalbeat':
     explanation => 'Use the elk stack version for journalbeat',
     packages    => ['journalbeat'],
     version     => $version,
@@ -24,20 +20,13 @@ class profile::systemd_journal::journalbeat {
   -> package {$package:
     ensure => $version,
   }
-
-  # To remove after complete migration to 7.15
-  -> user {'journalbeat':  # journalbeat needs to be stopped before trying to remove the user
-    ensure     => absent,
-    managehome => false,
+  -> file {'/var/lib/journalbeat':
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   }
 
-  # cleanup pre 7.15 version
-  file {"/etc/systemd/system/${service}.service":
-    ensure  => absent,
-  }
-  file {'/var/lib/journalbeat/cursor_state':
-    ensure  => absent,
-  }
   ::systemd::dropin_file { "${service}.conf":
     ensure  => present,
     unit    => "${service}.service",
