@@ -29,14 +29,6 @@ class profile::netbox {
 
   ensure_packages ('python3-venv')
 
-  include ::postgresql::server
-
-  ::postgresql::server::db {$db_database:
-    user     => $db_username,
-    password => postgresql::postgresql_password($db_username, $db_password),
-    require  => [Class['Postgresql::Server']],
-  }
-
   class { '::redis' :
     requirepass => $redis_password,
     bind        => '127.0.0.1',
@@ -125,7 +117,6 @@ class profile::netbox {
     require => [File['netbox-configuration'],
       File[$media_directory],
       Package['python3-venv'],
-      Postgresql::Server::Db[$db_database],
     ],
     notify  => Exec['netbox-flag-upgrade-done'],
   }
