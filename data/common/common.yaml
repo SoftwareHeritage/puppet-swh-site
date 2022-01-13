@@ -2567,12 +2567,6 @@ swh::deploy::worker::opam::instances:
   coq.inria.fr: https://coq.inria.fr/opam/released
   ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
 
-# deprecated
-swh::deploy::worker::opam::deprecated::instances:
-  opam.ocaml.org: https://opam.ocaml.org
-  coq.inria.fr: https://coq.inria.fr/opam/released
-  ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
-
 swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
 swh::deploy::worker::loader_opam::concurrency: 1
 swh::deploy::worker::loader_opam::private_tmp: false

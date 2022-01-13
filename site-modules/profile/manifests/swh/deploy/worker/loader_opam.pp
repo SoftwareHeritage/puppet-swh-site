@@ -62,28 +62,4 @@ class profile::swh::deploy::worker::loader_opam {
       File[$runparts_systemd_directory],
     ],
   }
-
-  ###################################################################
-  # Clean up old opam root maintenance tooling (to drop once applied)
-  ###################################################################
-
-  $opam_instances = lookup('swh::deploy::worker::opam::deprecated::instances')
-
-  each ( $opam_instances ) | $instance, $instance_url | {
-    $opam_manage_service_name = "${opam_manage_shared_state}-${instance}"
-    $opam_manage_service_path = "${default_systemd_path}/${$opam_manage_service_name}.service"
-    $opam_manage_timer_name = "${opam_manage_service_name}.timer"
-
-    # deactivate and drop timer
-    ::systemd::timer {$opam_manage_timer_name:
-      enable => false,
-      ensure => absent,
-    }
-
-    # drop the service file (deactivated from previous instruction but not removed)
-    file {$opam_manage_service_path:
-      ensure => absent
-    }
-  }
-
 }
