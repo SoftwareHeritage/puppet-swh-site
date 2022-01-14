@@ -52,7 +52,6 @@ icinga2::features:
 
 systemd_journal::role: collector
 
-
 users:
   jenkins-push-docs:
     uid: 3000

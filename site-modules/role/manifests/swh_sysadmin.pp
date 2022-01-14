@@ -1,6 +1,5 @@
 class role::swh_sysadmin inherits role::swh_server {
   include profile::prometheus::server
-  include profile::grafana
 
   include profile::prometheus::sql
 

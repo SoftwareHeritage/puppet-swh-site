@@ -3076,10 +3076,6 @@ grafana::backend::port: 3000
 
 # Must have a matching certificate in letsencrypt::certificates
 grafana::vhost::name: grafana.softwareheritage.org
-grafana::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-grafana::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-grafana::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-grafana::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 grafana::config:
   app_mode: production
