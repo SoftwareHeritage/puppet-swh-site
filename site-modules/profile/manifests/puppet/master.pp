@@ -92,7 +92,7 @@ class profile::puppet::master {
 
   profile::cron::d {'gzip-puppet-reports':
     target  => 'puppet',
-    command => 'find /var/lib/puppet/reports -type f -not -name *.gz -exec gzip {} \+',
+    command => 'find /var/lib/puppet/reports -type f -not -name \'*.gz\' -exec gzip {} \+',
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand/4',
   }
