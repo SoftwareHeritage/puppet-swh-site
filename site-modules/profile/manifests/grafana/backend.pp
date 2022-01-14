@@ -4,6 +4,7 @@
 class profile::grafana::backend {
   $db_host = lookup('grafana::db::host')
   $db_port = lookup('grafana::db::port')
+  $db_name = lookup('grafana::db::database')
   $db_username = lookup('grafana::db::username')
   $db_password = lookup('grafana::db::password')
 
@@ -31,7 +32,7 @@ class profile::grafana::backend {
         database => {
           type     => 'postgres',
           host     => "${db_host}:${db_port}",
-          name     => $db,
+          name     => $db_name,
           user     => $db_username,
           password => $db_password,
         }
