@@ -1319,6 +1319,7 @@ debian_repository::ssh_authorized_keys:
 debian_repository::gpg_keys:
   # olasd
   - 791F12396630DD71FD364375B8E5087766475AAF
+  - 6F339C5E1725D5E379100F096F31F7545A885252
   # zack
   - 4900707DDC5C07F2DECB02839C31503C6D866396
   # ardumont
