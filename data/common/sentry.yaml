@@ -1,7 +1,7 @@
 ---
 # sentry::secret_key in private-data
 
-sentry::postgres::host: db.internal.softwareheritage.org
+sentry::postgres::host: db1.internal.admin.swh.network
 sentry::postgres::port: 5432
 sentry::postgres::dbname: sentry
 sentry::postgres::user: sentry
