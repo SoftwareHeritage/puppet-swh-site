@@ -3285,7 +3285,7 @@ keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{look
 keycloak::admin::user: keycloak-admin
 # keycloak::admin::password in private-data
 
-keycloak::postgres::host: db.internal.softwareheritage.org
+keycloak::postgres::host: db1.internal.admin.swh.network
 keycloak::postgres::port: 5432
 keycloak::postgres::dbname: keycloak
 keycloak::postgres::user: keycloak
