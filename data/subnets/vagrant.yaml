@@ -147,6 +147,8 @@ static_hostnames:
     host: counters1.internal.softwareheritage.org
   10.168.100.101:
     host: uffizi.internal.softwareheritage.org
+  10.168.100.102:
+    host: gettys.internal.softwareheritage.org
   10.168.100.103:
     host: somerset.internal.softwareheritage.org
   10.168.100.104:
