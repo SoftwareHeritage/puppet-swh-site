@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# Managed by Puppet (class profile::kafka::management_scripts), changes will be lost.
+#
+set -e
+
+zookeepers=<%= @zookeeper_connection_string %>
+brokers=<%= @brokers_connection_string %>
+
+usage () {
+  echo "$0 [--privileged] [--consumer-group-prefix prefix] username"
+}
+
+if (( $# < 1 )) || (( $# > 4 )); then
+  usage
+  exit 1
+fi
+
+privileged="unprivileged"
+cgrp_prefix=""
+
+while (( $# )); do
+  if [ $1 = "--privileged" ]; then
+    privileged="privileged"
+    shift
+  elif [ $1 = "--consumer-group-prefix" ]; then
+    cgrp_prefix=$2
+    shift
+    shift
+  else
+    username=$1
+    break
+  fi
+done
+
+if [ -z "$username" ]; then
+        usage
+        exit 1
+fi
+
+if [ -z "$cgrp_prefix" ]; then
+        cgrp_prefix="$username-"
+fi
+
+echo "Creating user $username, with $privileged access to consumer group prefix $cgrp_prefix"
+
+read -s -p "Password for user $username: " password
+echo
+
+echo "Setting user credentials"
+
+/opt/kafka/bin/kafka-configs.sh \
+	--zookeeper "$zookeepers" \
+	--alter \
+	--add-config "SCRAM-SHA-256=[iterations=8192,password=$password],SCRAM-SHA-512=[password=$password]" \
+	--entity-type users \
+	--entity-name $username
+
+topic_prefixes="swh.journal.objects. swh.journal.indexed."
+
+if [ $privileged = "privileged" ]; then
+	topic_prefixes="$topic_prefixes swh.journal.objects_privileged."
+fi
+
+for topic_prefix in $topic_prefixes; do
+	echo "Granting access to topics $topic_prefix to $username"
+	for op in READ DESCRIBE; do
+		/opt/kafka/bin/kafka-acls.sh --bootstrap-server $brokers --add --resource-pattern-type PREFIXED --topic $topic_prefix --allow-principal User:$username --operation $op
+	done
+done
+
+echo "Granting access to consumer group prefix $cgrp_prefix to $username"
+/opt/kafka/bin/kafka-acls.sh --bootstrap-server $brokers --add --resource-pattern-type PREFIXED --group ${cgrp_prefix} --allow-principal User:$username --operation READ

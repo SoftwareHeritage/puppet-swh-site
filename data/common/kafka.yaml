@@ -68,5 +68,26 @@ kafka::clusters:
     public_tls_port: 9093
     internal_tls_port: 9094
     public_listener_network: 128.93.166.0/26
+  rocquencourt_staging:
+    zookeeper::chroot: '/kafka/softwareheritage'
+    zookeeper::servers:
+      - journal1.internal.staging.swh.network
+    brokers:
+      storage1.internal.staging.swh.network:
+        id: 2
+        public_hostname: broker1.journal.staging.swh.network
+    broker::heap_opts: "%{alias('kafka::broker::heap_opts')}"
+    superusers:
+      - User:swh-admin-olasd
+      # Users connecting in the plaintext endpoint are ANONYMOUS
+      # TODO: remove when explicit ACLs are given to producers
+      - User:ANONYMOUS
+    tls: true
+    plaintext_port: 9092
+    public_tls_port: 9093
+    internal_tls_port: 9094
+    cluster_config_overrides:
+      offsets.topic.replication.factor: 1 # this is mandatory with only one node
+    public_listener_network: "%{alias('kafka::cluster::public_network')}"
 
 
