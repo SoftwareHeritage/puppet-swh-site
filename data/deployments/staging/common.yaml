@@ -285,7 +285,6 @@ apache::http_port: 9080
 apache::default_vhost: false
 
 # Elasticsearch
-
 elasticsearch::config::cluster::name: swh-search
 
 elasticsearch::config::discovery::seed_hosts:
@@ -300,9 +299,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
-swh::deploy::webapp::metadata_search_backend: swh-search
-
-swh::deploy::search::index: origin-v0.11
 swh::deploy::search::journal_client::service_types:
   - objects
   - indexed
