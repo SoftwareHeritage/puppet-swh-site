@@ -300,10 +300,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
-# The webapp can query elasticsearch to get some info related to scheduler
-# tasks associated to save code now request. Modifying this so the staging
-# webapp does not access the production indexes
-swh::deploy::webapp::config::es_workers_index_url: http://search-esnode0.internal.staging.swh.network:9200/swh_workers-*
 swh::deploy::webapp::metadata_search_backend: swh-search
 
 swh::deploy::search::index: origin-v0.11
