@@ -26,8 +26,9 @@ class profile::kafka::prometheus_consumer_group_exporter {
     $defaults_file = "${defaults_dir}/${cluster}"
     $service = "${pkg}@${cluster}"
 
-    $bootstrap_servers = $kafka_clusters[$cluster]["brokers"].keys.sort.join(',')
+    $bootstrap_servers = $kafka_clusters[$cluster]['brokers'].keys.sort.join(',')
     $port = $base_port + $index
+    $environment = $kafka_clusters[$cluster]['environment']
 
     file {$defaults_file:
       ensure  => present,
@@ -39,8 +40,8 @@ class profile::kafka::prometheus_consumer_group_exporter {
     }
 
     service {$service:
-      ensure => 'running',
-      enable => true,
+      ensure  => 'running',
+      enable  => true,
       require => [
         File[$defaults_file],
         Package[$pkg],
@@ -52,7 +53,8 @@ class profile::kafka::prometheus_consumer_group_exporter {
       job    => 'kafka-consumer-group',
       target => $target,
       labels => {
-        cluster => $cluster,
+        cluster     => $cluster,
+        environment => $environment
       }
     }
   }
