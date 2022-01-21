@@ -4,7 +4,7 @@ class profile::netbox::reverse_proxy {
   $static_path = "${install_path}/netbox/static"
 
   ::profile::reverse_proxy {'netbox':
-    extra_apache_opts => {
+    extra_apache_opts   => {
       proxy_preserve_host => true,
       aliases             => [
         { alias => '/static',

@@ -207,7 +207,7 @@ node 'objstorage0.internal.staging.swh.network' {
   include role::swh_remote_objstorage
 }
 
-node 'bojimans.internal.softwareheritage.org' {
+node 'bojimans.internal.admin.swh.network' {
   include role::swh_netbox
 }
 

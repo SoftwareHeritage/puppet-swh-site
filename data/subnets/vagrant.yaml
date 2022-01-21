@@ -51,8 +51,6 @@ swh::deploy::worker::instances:
 
 dns::forward_zones: { }
 
-netbox::vhost::letsencrypt_cert: inventory-vagrant
-netbox::vhost::name: inventory-vagrant.internal.softwareheritage.org
 netbox::mail::from: inventory+vagrant@softwareheritage.org
 netbox::admin::email: sysop+vagrant@softwareheritage.org
 
@@ -89,6 +87,11 @@ static_hostnames:
     host: dali.internal.admin.swh.network
     aliases:
       - db1.internal.admin.swh.network
+  10.168.50.60:
+    host: bojimans.internal.admin.swh.network
+    aliases:
+      - inventory.internal.admin.swh.network
+      - inventory.internal.softwareheritage.org
   10.168.100.18:
     host: banco.internal.softwareheritage.org
     aliases:
@@ -181,10 +184,6 @@ static_hostnames:
     host: belvedere.internal.softwareheritage.org
     aliases:
       - db.internal.softwareheritage.org
-  10.168.100.199:
-    host: bojimans.internal.softwareheritage.org
-    aliases:
-      - inventory.internal.softwareheritage.org
   10.168.100.201:
     host: kafka1.internal.softwareheritage.org
     aliases:

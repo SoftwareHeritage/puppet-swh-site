@@ -920,10 +920,11 @@ letsencrypt::certificates:
     deploy_hook: gandi_paas
   netbox:
     domains:
-      - inventory.internal.softwareheritage.org
-  netbox-vagrant:
+      - inventory.internal.admin.swh.network
+  # legacy hostname, needed for the redirect
+  inventory.internal.softwareheritage.org:
     domains:
-      - inventory-vagrant.internal.softwareheritage.org
+      - inventory.internal.softwareheritage.org
 
 bind::update_key: local-update
 
@@ -1034,7 +1035,11 @@ bind::resource_records:
   inventory/CNAME:
     type: CNAME
     record: inventory.internal.softwareheritage.org
-    data: bojimans.internal.softwareheritage.org.
+    data: bojimans.internal.admin.swh.network.
+  inventory-admin/CNAME:
+    type: CNAME
+    record: inventory.internal.admin.swh.network
+    data: bojimans.internal.admin.swh.network.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
@@ -3593,8 +3598,8 @@ netbox::data_directory: /var/lib/netbox
 netbox::allowed_hosts:
   - "*"
   - "localhost"
-netbox::vhost::letsencrypt_cert: netbox
-netbox::vhost::name: inventory.internal.softwareheritage.org
+netbox::vhost::letsencrypt_cert: inventory.internal.admin.swh.network
+netbox::vhost::name: inventory.internal.admin.swh.network
 netbox::backend::url: "http://localhost:%{hiera('netbox::gunicorn::port')}/"
 netbox::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 netbox::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"

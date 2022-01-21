@@ -1,0 +1,7 @@
+--- 
+apache::rewrite_domains:
+  # Must have matching certificates in letsencrypt::certificates
+  inventory.internal.softwareheritage.org:
+    rewrites:
+      - "^.*$ https://inventory.internal.admin.swh.network"
+
