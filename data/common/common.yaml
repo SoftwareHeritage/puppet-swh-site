@@ -1363,13 +1363,14 @@ swh::apt_config::azure_repository: "http://%{hiera('swh::apt_config::azure_repos
 
 swh::apt_config::unattended_upgrades: true
 swh::apt_config::unattended_upgrades::origins:
- - "o=Debian,codename=${distro_codename}"                      # main Debian archive
- - "o=Debian,codename=${distro_codename}-updates"              # stable-updates (ex-volatile)
- - "o=Debian,codename=${distro_codename},l=Debian-Security"    # security updates
- - "o=debian icinga-stable,codename=icinga-${distro_codename}" # Icinga2 repository
- - "o=Debian Azure,codename=${distro_codename}"                # Debian Azure
- - "o=Proxmox,codename=${distro_codename}"                     # Proxmox repository
- - "o=packages.sury.org"                                       # PHP backports (tate)
+ - "o=Debian,codename=${distro_codename}"                            # main Debian archive
+ - "o=Debian,codename=${distro_codename}-updates"                    # stable-updates (ex-volatile)
+ - "o=Debian,codename=${distro_codename},l=Debian-Security"          # security updates (buster and below)
+ - "o=Debian,codename=${distro_codename}-security,l=Debian-Security" # security updates (bullseye and later)
+ - "o=debian icinga-stable,codename=icinga-${distro_codename}"       # Icinga2 repository
+ - "o=Debian Azure,codename=${distro_codename}"                      # Debian Azure
+ - "o=Proxmox,codename=${distro_codename}"                           # Proxmox repository
+ - "o=packages.sury.org"                                             # PHP backports (tate)
 
 
 
