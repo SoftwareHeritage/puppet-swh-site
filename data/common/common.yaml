@@ -3139,6 +3139,12 @@ monthly_report_bot::cron:
   hour: 0
   monthday: 1
 
+weekly_planning_bot::user: nobody
+weekly_planning_bot::cron:
+  minute: 30
+  hour: 6
+  weekday: mon
+
 swh::postgres::service::users:
   - root
   - zack
