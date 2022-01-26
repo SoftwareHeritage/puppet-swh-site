@@ -2,10 +2,6 @@ swh::deploy::environment: admin
 dns::search_domains:
   - internal.admin.swh.network
 
-swh::deploy::reverse_proxy::services:
-  - hedgedoc
-  - grafana
-
 swh::postgresql::version: '14'
 swh::postgresql::listen_addresses:
   - 0.0.0.0
@@ -22,6 +18,12 @@ hedgedoc::db::database: hedgedoc
 hedgedoc::db::username: hedgedoc
 # swh::deploy::hedgedoc::db::password: in private-data
 
+# namespace key `key_name`, lookup will happen on swh::deploy::{key_name}::...
+swh::deploy::reverse_proxy::services:
+  - hedgedoc
+  - grafana
+  - sentry
+
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
 swh::deploy::hedgedoc::reverse_proxy::websocket_support: true
@@ -33,6 +35,12 @@ swh::deploy::grafana::reverse_proxy::backend_http_host: grafana0.internal.admin.
 swh::deploy::grafana::reverse_proxy::backend_http_port: "3000"
 swh::deploy::grafana::reverse_proxy::websocket_support: true
 swh::deploy::grafana::base_url: "%{lookup('grafana::vhost::name')}"
+
+swh::deploy::sentry::vhost::letsencrypt_cert: "%{lookup('sentry::vhost::name')}"
+swh::deploy::sentry::reverse_proxy::backend_http_host: riverside.internal.admin.swh.network
+swh::deploy::sentry::reverse_proxy::backend_http_port: "9000"
+swh::deploy::sentry::base_url: "%{lookup('sentry::vhost::name')}"
+swh::deploy::sentry::icinga_check_uri: '/auth/login/swh/'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

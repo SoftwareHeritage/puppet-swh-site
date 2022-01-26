@@ -118,7 +118,7 @@ node 'thyssen.internal.softwareheritage.org' {
   include role::swh_ci_server
 }
 
-node 'riverside.internal.softwareheritage.org' {
+node 'riverside.internal.admin.swh.network' {
   include role::swh_sentry
 }
 

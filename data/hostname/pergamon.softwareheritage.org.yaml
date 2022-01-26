@@ -72,3 +72,11 @@ groups:
     gid: 3000
   boatbucket:
     gid: 1024
+
+# Temporarily for the duration of the riverside migration to the admin vlan (to remove
+# once the migration is effective and the ttl considered expired).
+apache::rewrite_domains:
+  # Must have matching certificates in letsencrypt::certificates
+  sentry.softwareheritage.org:
+    rewrites:
+      - "^.*$ http://riverside.internal.admin.swh.network:9000"

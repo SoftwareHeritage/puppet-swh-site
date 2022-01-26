@@ -774,6 +774,8 @@ letsencrypt::gandi_paas_hook::config:
   zone_keys:
     softwareheritage.org: "%{alias('gandi::softwareheritage_org::xmlrpc_key')}"
 
+sentry::vhost::name: sentry.softwareheritage.org
+
 letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
 letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
@@ -817,9 +819,9 @@ letsencrypt::certificates:
   jenkins:
     domains:
       - jenkins.softwareheritage.org
-  sentry:
+  "%{lookup('sentry::vhost::name')}":
     domains:
-      - sentry.softwareheritage.org
+      - "%{lookup('sentry::vhost::name')}"
   storage1.internal.staging.swh.network:
     domains:
       - broker1.journal.staging.swh.network

@@ -1,4 +1,4 @@
-# Reverse proxy to expose staging services
+# Reverse proxy to expose staging/admin services
 # https://forge.softwareheritage.org/T2747
 class profile::swh::deploy::reverse_proxy {
   include ::profile::hitch
@@ -12,6 +12,11 @@ class profile::swh::deploy::reverse_proxy {
     $cert_name = lookup("swh::deploy::${service_name}::vhost::letsencrypt_cert")
     $backend_http_host = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_host")
     $backend_http_port = lookup("swh::deploy::${service_name}::reverse_proxy::backend_http_port")
+    $icinga_check_uri = lookup("swh::deploy::${service_name}::icinga_check_uri",
+                               default_value => '/')
+    $icinga_check_string = lookup("swh::deploy::${service_name}::icinga_check_string",
+                                  default_value => capitalize($service_name))
+
     $websocket_support = lookup({
       'name'          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
       'default_value' => false,
@@ -100,7 +105,8 @@ class profile::swh::deploy::reverse_proxy {
         http_port       => $vhost_ssl_port,
         http_ssl        => true,
         http_sni        => true,
-        http_uri        => '/',
+        http_uri        => $icinga_check_uri,
+        http_string     => $icinga_check_string,
         http_onredirect => sticky,
       } + $http_expect_var,
       target        => $icinga_checks_file,
