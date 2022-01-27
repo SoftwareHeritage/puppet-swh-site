@@ -1,5 +1,7 @@
 ---
 swh::deploy::environment: staging
+dns::search_domains:
+  - internal.staging.swh.network
 
 swh::deploy::storage::db::host: db1.internal.staging.swh.network
 swh::deploy::storage::db::user: swh

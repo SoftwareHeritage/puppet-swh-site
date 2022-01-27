@@ -1,4 +1,6 @@
 swh::deploy::environment: admin
+dns::search_domains:
+  - internal.admin.swh.network
 
 swh::deploy::reverse_proxy::services:
   - hedgedoc
