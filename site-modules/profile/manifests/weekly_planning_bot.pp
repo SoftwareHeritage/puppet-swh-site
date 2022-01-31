@@ -6,7 +6,7 @@ class profile::weekly_planning_bot {
   $weekly_planning_user = lookup('weekly_planning_bot::user')
   $weekly_planning_cron = lookup('weekly_planning_bot::cron')
 
-  $package = 'httpie';
+  $package = 'curl';
 
 ensure_packages($package)
 

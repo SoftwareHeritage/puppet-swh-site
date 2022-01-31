@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 DEST=swh-team@inria.fr
 AUTHOR=swh-team@inria.fr
 TEMPLATE_ID="6YKT5osoST-amJQ0MusH2Q"
@@ -7,12 +9,12 @@ URL="https://hedgedoc.softwareheritage.org"
 DATE=`date +%G-W%V`
 
 # Retrieve the template's content
-TEMPLATE=`http -pb "${URL}/${TEMPLATE_ID}/download"`
+TEMPLATE=`curl -s "${URL}/${TEMPLATE_ID}/download"`
 TEMPLATE=$(echo "$TEMPLATE" | sed -e "s/\$DATE/$DATE/g")
 
 # Create a new page initialized with the template content
-RESP=`http -ph POST "${URL}/new" content-type:text/markdown <<< "$TEMPLATE"`
-LOCATION=`echo "$RESP" | grep "Location:" | cut -c 11-`
+RESP=`curl -s -A POST -H "Content-Type: text/markdown" "${URL}/new" --data-binary "$TEMPLATE"`
+LOCATION=`echo "$RESP" | awk '{print $4}'`
 
 if [ -n "$LOCATION" ] ; then
 
