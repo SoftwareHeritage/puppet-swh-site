@@ -1905,6 +1905,7 @@ swh::deploy::objstorage::backend::server_names:
   - 127.0.0.1
   - localhost
   - "::1"
+swh::deploy::objstorage::icinga_check_string: 'Restricted'
 swh::deploy::objstorage::reverse_proxy::backend_http_port: "%{lookup('swh::remote_service::objstorage::port')}"
 swh::deploy::objstorage::reverse_proxy::basic_auth: true
 swh::deploy::objstorage::reverse_proxy::basic_auth::users:
@@ -2108,6 +2109,7 @@ swh::deploy::webapp::production_db:
   name: "%{alias('swh::deploy::webapp::db::name')}"
   user: "%{alias('swh::deploy::webapp::db::user')}"
   password: "%{alias('swh::deploy::webapp::db::password')}"
+swh::deploy::webapp::icinga_check_string: 'archive'
 
 swh::deploy::webapp::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
 
