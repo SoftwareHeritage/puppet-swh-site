@@ -22,9 +22,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::debian_repository
   include profile::bitbucket_archive_web
 
-  # redirect sentry.s.o -> riverside.i.a.s.n (temporary during vlan migration)
-  include profile::apache::rewrite_domains
-
   include profile::weekly_report_bot
   include profile::weekly_planning_bot
   include profile::monthly_report_bot
