@@ -94,4 +94,6 @@ class profile::varnish {
     content => file('profile/varnish/unknown_vhost_then_forbidden_access.vcl'),
   }
 
+  include profile::prometheus::varnish
+
 }

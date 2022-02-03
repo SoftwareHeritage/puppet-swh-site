@@ -1,0 +1,21 @@
+# Managed by Puppet (class profile::prometheus::varnish), changes will be lost.
+
+ARGS="-raw -web.listen-address <%= @exporter_url %>"
+
+# Usage of prometheus-varnish-exporter:
+#   -N string
+#       varnishstat -N value.
+#   -n string
+#       varnishstat -n value.
+#   -raw
+#       Raw stdout logging without timestamps.
+#   -test
+#       Test varnishstat availability, prints available metrics and exits.
+#   -verbose
+#       Verbose logging.
+#   -version
+#       Print version and exit
+#   -web.listen-address string
+#       Address on which to expose metrics and web interface. (default ":9131")
+#   -web.telemetry-path string
+#       Path under which to expose metrics. (default "/metrics")

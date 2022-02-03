@@ -3087,6 +3087,9 @@ prometheus::rabbitmq::exclude_metrics: []
 prometheus::nginx::listen_network: "%{lookup('internal_network')}"
 prometheus::nginx::listen_port: 9103
 
+prometheus::varnish::listen_network: "%{lookup('internal_network')}"
+prometheus::varnish::listen_port: 9104
+
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data

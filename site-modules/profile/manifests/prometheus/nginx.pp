@@ -1,4 +1,4 @@
-# Prometheus configuration for statsd exporter
+# Prometheus configuration for nginx exporter
 class profile::prometheus::nginx {
   include profile::prometheus::base
 
