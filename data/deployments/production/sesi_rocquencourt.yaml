@@ -7,19 +7,7 @@ mountpoints:
     device: saam:/srv/storage/space
     fstype: nfs
     options:
-      - rw
-      - soft
-      - intr
-      - rsize=8192
-      - wsize=8192
-      - noauto
-      - x-systemd.automount
-      - x-systemd.device-timeout=10
-  /srv/softwareheritage/objects:
-    device: saam:/srv/softwareheritage/objects
-    fstype: nfs
-    options:
-      - rw
+      - ro
       - soft
       - intr
       - rsize=8192
