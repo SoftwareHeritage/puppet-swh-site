@@ -2955,6 +2955,8 @@ nginx::accept_mutex: 'off'
 nginx::names_hash_bucket_size: 128
 nginx::names_hash_max_size: 1024
 nginx::worker_processes: "%{::processorcount}"
+nginx::metrics_port: 9081
+nginx::metrics_location: '/metrics'
 
 # prometheus::pve-exporter::password in credential
 prometheus::pve-exporter::user: pve_exporter@pve
@@ -3082,6 +3084,8 @@ prometheus::rabbitmq::rabbit_timeout: 30
 
 prometheus::rabbitmq::exclude_metrics: []
 
+prometheus::nginx::listen_network: "%{lookup('internal_network')}"
+prometheus::nginx::listen_port: 9103
 
 grafana::db::database: grafana
 grafana::db::username: grafana

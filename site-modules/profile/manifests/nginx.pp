@@ -7,6 +7,9 @@ class profile::nginx {
   $names_hash_bucket_size = lookup('nginx::names_hash_bucket_size')
   $names_hash_max_size = lookup('nginx::names_hash_max_size')
   $worker_processes = lookup('nginx::worker_processes')
+  $metrics_port = lookup('nginx::metrics_port')
+  $metrics_location = lookup('nginx::metrics_location')
+
   if $worker_processes != 'auto' {
     $actual_worker_processes = $worker_processes + 0
   } else {
@@ -31,4 +34,17 @@ class profile::nginx {
       '404'    => '0',
     }
   }
+
+  # metrics vhosts
+  ::nginx::resource::server {'nginx-metrics':
+    ensure         => present,
+    listen_ip      => '127.0.0.1',
+    listen_port    => $metrics_port,
+    listen_options => 'deferred',
+    server_name    => [ '127.0.0.1', 'localhost' ],
+    format_log     => 'combined',
+    locations      => { $metrics_location => { 'stub_status' => true }},
+  }
+
+  include profile::prometheus::nginx
 }
