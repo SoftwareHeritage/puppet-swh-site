@@ -243,6 +243,7 @@ class profile::swh::deploy::webapp {
 
   $pg_service = '/home/swhwebapp/.pg_service.conf'
   file {$pg_service:
+    ensure  => 'present',
     owner   => $user,
     group   => $group,
     mode    => '0644',
@@ -269,6 +270,7 @@ class profile::swh::deploy::webapp {
 
   $pgpass = '/home/swhwebapp/.pgpass'
   file {$pgpass:
+    ensure  => 'present',
     owner   => $user,
     group   => $group,
     mode    => '0400',
