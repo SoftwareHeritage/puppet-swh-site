@@ -3,6 +3,8 @@ WantedBy=timers.target
 
 [Timer]
 OnCalendar=*:0/1
+RandomizedDelaySec=1m
+FixedRandomDelay=true
 Unit=<%= @service_basename %>.service
 
 [Unit]
