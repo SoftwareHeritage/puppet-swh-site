@@ -231,18 +231,6 @@ class profile::swh::deploy::webapp {
   }
 
   # webapp update save code status routine
-
-  $filename_refresh_status = 'refresh-savecodenow-statuses'
-
-  # clean up old files
-  $filepath_refresh_status = "/usr/local/bin/${filename_refresh_status}"
-  file {$filepath_refresh_status:
-      ensure => absent,
-      owner  => 'root',
-      group  => 'www-data',
-      mode   => '0755',
-  }
-
   $activate_once_per_environment_webapp = lookup('swh::deploy::webapp::cron::refresh_statuses')
 
   # Template uses variables
