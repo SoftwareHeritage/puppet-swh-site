@@ -1,0 +1,18 @@
+# Webapp sync mailmaps unit file
+# Managed by puppet class profile::swh::deploy::webapp
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Webapp sync mailmaps
+Requires=network.target
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+Environment=DJANGO_SETTINGS_MODULE=<%= @webapp_settings_module %>
+Type=simple
+ExecStart=/usr/bin/django-admin sync_mailmaps --perform service=<%= @sync_mailmaps_service %>
+
+[Install]
+WantedBy=multi-user.target

@@ -2231,6 +2231,13 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/entity/
   - /api/1/provenance/
 
+swh::deploy::webapp::sync_mailmaps::db::service_name: "softwareheritage-sync-mailmaps"
+swh::deploy::webapp::sync_mailmaps::db::host: "%{hiera('swh::deploy::storage::db::host')}"
+swh::deploy::webapp::sync_mailmaps::db::port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::webapp::sync_mailmaps::db::dbname: "%{hiera('swh::deploy::storage::db::dbname')}"
+swh::deploy::webapp::sync_mailmaps::db::user: swhmailmap
+# swh::deploy::webapp::sync_mailmaps::db::password in private data
+
 # regexp style end-to-end check for production instance
 # overwrite in staging for its dedicated snapshot check
 swh::deploy::webapp::snapshot_e2e:

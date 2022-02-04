@@ -1,0 +1,12 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnBootSec=1m
+OnUnitActiveSec=1h
+RandomizedDelaySec=1h
+FixedRandomDelay=true
+Unit=<%= @service_basename %>.service
+
+[Unit]
+Description=Recurring webapp sync mailmaps

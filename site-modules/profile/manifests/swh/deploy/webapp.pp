@@ -233,8 +233,56 @@ class profile::swh::deploy::webapp {
   # This variable should be true only for a single instance per deployment
   $timers_enabled = lookup('swh::deploy::webapp::timers_enabled')
 
+  $sync_mailmaps_dbsetting = 'swh::deploy::webapp::sync_mailmaps::db'
+  $sync_mailmaps_service = lookup("${sync_mailmaps_dbsetting}::service_name")
 
-  ['update-savecodenow-statuses'].each |$short_name| {
+  $pgpass_ensure = $timers_enabled ? {
+    true    => 'present',
+    default => 'absent',
+  }
+
+  $pg_service = '/home/swhwebapp/.pg_service.conf'
+  file {$pg_service:
+    owner   => $user,
+    group   => $group,
+    mode    => '0644',
+  }
+
+  ['host', 'port', 'user', 'dbname'].each |$setting| {
+    ini_setting {"swhwebapp:pg_service.conf:${sync_mailmaps_service}:${setting}":
+      ensure  => $pgpass_ensure,
+      path    => $pg_service,
+      section => $sync_mailmaps_service,
+      setting => $setting,
+      value   => lookup("${sync_mailmaps_dbsetting}::${setting}"),
+      require => File[$pg_service],
+    }
+  }
+
+  $pgpass_header = join(
+    ['host', 'port', 'user', 'dbname'].map |$setting| {
+      lookup("${sync_mailmaps_dbsetting}::${setting}")
+    },
+    ':',
+  )
+  $pgpass_password = lookup("${sync_mailmaps_dbsetting}::password")
+
+  $pgpass = '/home/swhwebapp/.pgpass'
+  file {$pgpass:
+    owner   => $user,
+    group   => $group,
+    mode    => '0400',
+  }
+
+  file_line {"swhwebapp:pgpass:${sync_mailmaps_service}":
+    ensure  => $pgpass_ensure,
+    path    => $pgpass,
+    line    => "${pgpass_header}:${pgpass_password}",
+    match   => "^${pgpass_header}:",
+    require => File[$pgpass],
+  }
+
+  ['update-savecodenow-statuses', 'sync-mailmaps'].each |$short_name| {
     $service_basename = "swh-webapp-${short_name}"
     $unit_template = "profile/swh/deploy/webapp/${short_name}.service.erb"
     $timer_name = "${service_basename}.timer"
@@ -245,6 +293,7 @@ class profile::swh::deploy::webapp {
     #  - $group
     #  - $webapp_settings_module
     #  - $service_basename
+    #  - $sync_mailmaps_service (for sync-mailmaps)
 
     ::systemd::timer { $timer_name:
       timer_content    => template($timer_template),
