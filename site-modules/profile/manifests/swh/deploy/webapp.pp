@@ -233,22 +233,25 @@ class profile::swh::deploy::webapp {
   # This variable should be true only for a single instance per deployment
   $timers_enabled = lookup('swh::deploy::webapp::timers_enabled')
 
-  # Template uses variables
-  #  - $user
-  #  - $group
-  #  - $webapp_settings_module
-  #
-  $update_savecodenow_service_name = "swh-webapp-update-savecodenow-statuses"
-  $update_savecodenow_unit_template = "profile/swh/deploy/webapp/${update_savecodenow_service_name}.service.erb"
-  $update_savecodenow_timer_name = "${update_savecodenow_service_name}.timer"
-  $update_savecodenow_timer_template = "profile/swh/deploy/webapp/${update_savecodenow_timer_name}.erb"
 
-  ::systemd::timer { $update_savecodenow_timer_name:
-    timer_content    => template($update_savecodenow_timer_template),
-    service_content  => template($update_savecodenow_unit_template),
-    active           => $timers_enabled,
-    enable           => $timers_enabled,
-    require          => Profile::Swh::Deploy::Install_web_deps['swh-web'],
+  ['update-savecodenow-statuses'].each |$short_name| {
+    $service_basename = "swh-webapp-${short_name}"
+    $unit_template = "profile/swh/deploy/webapp/${short_name}.service.erb"
+    $timer_name = "${service_basename}.timer"
+    $timer_template = "profile/swh/deploy/webapp/${short_name}.timer.erb"
+
+    # Template uses variables
+    #  - $user
+    #  - $group
+    #  - $webapp_settings_module
+    #  - $service_basename
+
+    ::systemd::timer { $timer_name:
+      timer_content    => template($timer_template),
+      service_content  => template($unit_template),
+      active           => $timers_enabled,
+      enable           => $timers_enabled,
+      require          => Profile::Swh::Deploy::Install_web_deps['swh-web'],
+    }
   }
-
 }
