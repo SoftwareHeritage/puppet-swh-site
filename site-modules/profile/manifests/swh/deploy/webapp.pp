@@ -251,12 +251,13 @@ class profile::swh::deploy::webapp {
 
   ['host', 'port', 'user', 'dbname'].each |$setting| {
     ini_setting {"swhwebapp:pg_service.conf:${sync_mailmaps_service}:${setting}":
-      ensure  => $pgpass_ensure,
-      path    => $pg_service,
-      section => $sync_mailmaps_service,
-      setting => $setting,
-      value   => lookup("${sync_mailmaps_dbsetting}::${setting}"),
-      require => File[$pg_service],
+      ensure            => $pgpass_ensure,
+      path              => $pg_service,
+      section           => $sync_mailmaps_service,
+      key_val_separator => '=',
+      setting           => $setting,
+      value             => lookup("${sync_mailmaps_dbsetting}::${setting}"),
+      require           => File[$pg_service],
     }
   }
 
