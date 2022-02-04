@@ -148,6 +148,12 @@ mountpoints:
   /srv/softwareheritage/objects:
     # zfs mount: not in fstab
     ensure: absent
+  /tmp:
+    # Don't mount /tmp from rocquencourt_sesi.yaml
+    ensure: absent
+  swap:
+    # Don't mount swap from rocquencourt_sesi.yaml
+    ensure: absent
   /srv/storage/space:
     # local mount
     device: /dev/mapper/vg--data-uffizi--space
