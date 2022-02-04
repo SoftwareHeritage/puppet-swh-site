@@ -58,3 +58,5 @@ swh::deploy::webapp::config::keycloak:
   realm_name: SoftwareHeritageStaging
 
 swh::deploy::webapp::instance_name: webapp.staging.swh.network
+
+swh::deploy::webapp::timers_enabled: true

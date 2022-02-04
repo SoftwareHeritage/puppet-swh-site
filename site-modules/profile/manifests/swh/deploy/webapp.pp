@@ -230,8 +230,8 @@ class profile::swh::deploy::webapp {
     },
   }
 
-  # webapp update save code status routine
-  $activate_once_per_environment_webapp = lookup('swh::deploy::webapp::cron::refresh_statuses')
+  # This variable should be true only for a single instance per deployment
+  $timers_enabled = lookup('swh::deploy::webapp::timers_enabled')
 
   # Template uses variables
   #  - $user
@@ -246,8 +246,8 @@ class profile::swh::deploy::webapp {
   ::systemd::timer { $update_savecodenow_timer_name:
     timer_content    => template($update_savecodenow_timer_template),
     service_content  => template($update_savecodenow_unit_template),
-    active           => $activate_once_per_environment_webapp,
-    enable           => $activate_once_per_environment_webapp,
+    active           => $timers_enabled,
+    enable           => $timers_enabled,
     require          => Profile::Swh::Deploy::Install_web_deps['swh-web'],
   }
 

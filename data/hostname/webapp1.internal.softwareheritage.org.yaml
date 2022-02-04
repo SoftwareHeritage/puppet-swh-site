@@ -21,5 +21,4 @@ swh::deploy::reverse_proxy::services:
   - webapp
 
 # already running for the main instance so no need here
-swh::deploy::webapp::cron::refresh_statuses: false
 swh::deploy::savecodenow::e2e::activate: false

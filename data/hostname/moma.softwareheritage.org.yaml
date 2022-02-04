@@ -44,6 +44,9 @@ swh::deploy::objstorage::config:
         - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
 
 
+swh::deploy::webapp::timers_enabled: true
+
+
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 
