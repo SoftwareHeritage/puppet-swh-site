@@ -249,7 +249,7 @@ class profile::swh::deploy::webapp {
     mode    => '0644',
   }
 
-  ['host', 'port', 'user', 'dbname'].each |$setting| {
+  ['host', 'port', 'dbname', 'user'].each |$setting| {
     ini_setting {"swhwebapp:pg_service.conf:${sync_mailmaps_service}:${setting}":
       ensure            => $pgpass_ensure,
       path              => $pg_service,
@@ -262,7 +262,7 @@ class profile::swh::deploy::webapp {
   }
 
   $pgpass_header = join(
-    ['host', 'port', 'user', 'dbname'].map |$setting| {
+    ['host', 'port', 'dbname', 'user'].map |$setting| {
       lookup("${sync_mailmaps_dbsetting}::${setting}")
     },
     ':',
