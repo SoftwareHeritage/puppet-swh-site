@@ -2398,6 +2398,19 @@ swh::deploy::worker::loader_git::config:
 
 # high priority loader (save-code-now, ...)
 swh::deploy::worker::loader_high_priority::config_file: "%{hiera('swh::conf_directory')}/loader_high_priority.yml"
+swh::deploy::worker::loader_high_priority::queues:
+  # git
+  - save_code_now:swh.loader.git.tasks.UpdateGitRepository
+  # mercurial
+  - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
+  - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
+  # svn
+  - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
+  - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
+  - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
+  # archives
+  - save_code_now:swh.loader.package.archive.tasks.LoadArchive
+
 swh::deploy::worker::loader_high_priority::concurrency: 1
 swh::deploy::worker::loader_high_priority::max_tasks_per_child: 1
 swh::deploy::worker::loader_high_priority::loglevel: info
@@ -2408,17 +2421,7 @@ swh::deploy::worker::loader_high_priority::config:
     task_acks_late: true
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
-      # git
-      - save_code_now:swh.loader.git.tasks.UpdateGitRepository
-      # mercurial
-      - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
-      - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
-      # svn
-      - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
-      - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
-      - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
-      # archives
-      - save_code_now:swh.loader.package.archive.tasks.LoadArchive
+      "%{alias('swh::deploy::worker::loader_high_priority::queues')}"
 
 # One shot worker deactivated by default (e.g. first time ingestion on forge with
 # restrictive loading ingestion parallelism policies)
@@ -2462,6 +2465,22 @@ swh::deploy::worker::loader_archive::config:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
       - swh.loader.package.archive.tasks.LoadArchive
+
+swh::deploy::loader_bzr::sentry_swh_package: swh.loader.bzr
+swh::deploy::loader_bzr::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::loader_bzr::sentry_dsn: "https://%{lookup('swh::deploy::loader_bzr::sentry_token')}@sentry.softwareheritage.org/22"
+swh::deploy::worker::loader_bzr::config_file: "%{hiera('swh::conf_directory')}/loader_bzr.yml"
+swh::deploy::worker::loader_bzr::concurrency: 1
+swh::deploy::worker::loader_bzr::private_tmp: true
+swh::deploy::worker::loader_bzr::loglevel: info
+swh::deploy::worker::loader_bzr::config:
+  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
+  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
+  clone_timeout_seconds: 7200
+  celery:
+    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
+    task_queues:
+      - swh.loader.bzr.tasks.LoadBazaar
 
 swh::deploy::worker::loader_cran::config_file: "%{hiera('swh::conf_directory')}/loader_cran.yml"
 swh::deploy::worker::loader_cran::private_tmp: true

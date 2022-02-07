@@ -33,6 +33,7 @@ swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 swh::deploy::worker::instances:
   - checker_deposit
   - loader_archive
+  - loader_bzr
   - loader_cran
   - loader_cvs
   - loader_debian
@@ -298,3 +299,19 @@ swh::deploy::webapp::snapshot_e2e:
   uri: '/browse/snapshot/48dcf76ec1a3bd57ec117b1dace633691fdfd70d/branches/'
   regexp:
     - 'refs/tags/syslinux-3.20-pre2.*refs/tags/syslinux-3.20-pre3.*'
+
+swh::deploy::worker::loader_high_priority::queues:
+  # bzr
+  - save_code_now:swh.loader.bzr.tasks.LoadBazaar
+  # git
+  - save_code_now:swh.loader.git.tasks.UpdateGitRepository
+  # mercurial
+  - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
+  - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
+  # svn
+  - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
+  - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
+  - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
+  # archives
+  - save_code_now:swh.loader.package.archive.tasks.LoadArchive
+
