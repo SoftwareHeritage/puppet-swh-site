@@ -233,7 +233,7 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: swh-mirror
-    
+
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
@@ -291,7 +291,7 @@ swh::deploy::vault::e2e::storage: "%{alias('swh::remote_service::storage0::url')
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
 
 # No historical file on staging
-swh::deploy::counters::cache_static_file: 
+swh::deploy::counters::cache_static_file:
 swh::deploy::counters::live_data_start: 1609462861 # 2021-01-01
 
 swh::deploy::webapp::snapshot_e2e:
