@@ -1,0 +1,17 @@
+# File managed with puppet (module profile::sanoid::backup)
+# All modifications will be lost
+
+<%- @dataset_configuration.each do |dataset, config| -%>
+[<%= dataset %>]
+<%- config.each do | key, value | -%>
+  <%= key %> = <%= value %>
+<%- end -%>
+<% end %>
+
+# Templates
+<%- @sanoid_templates.each do |template, config| -%>
+[template_<%= template %>]
+<%- config.each do | key, value | -%>
+  <%= key %> = <%= value %>
+<%- end -%>
+<% end %>

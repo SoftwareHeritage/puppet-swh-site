@@ -24,3 +24,26 @@ swh::dbs:
 prometheus::sql::config_snippets:
   - activity
   - queries
+
+sanoid::configuration:
+
+  storage_config:
+    data/postgresql:
+      use_template: backup 
+    data/postgresql/wal:
+      use_template: backup 
+
+  local_config:
+    data/postgresql:
+      use_template: pg_backup 
+      hourly: 0
+      monthly: 1
+      daily: 7
+    data/postgresql/wal:
+      use_template: pg_wal_backup 
+      hourly: 0
+      monthly: 1
+      daily: 7
+
+
+
