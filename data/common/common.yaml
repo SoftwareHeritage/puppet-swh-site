@@ -3358,7 +3358,6 @@ keycloak::resources::clients::common_settings:
 keycloak::resources::clients::swh_web:::roles:
   - swh.web.api.throttling_exempted
   - swh.web.api.graph
-  - swh.vault.git_bare.ui
   - swh.web.api.save_origin
   - swh.web.admin.list_deposits
   - swh.web.mailmap
