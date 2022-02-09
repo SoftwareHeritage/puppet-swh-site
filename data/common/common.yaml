@@ -2740,9 +2740,6 @@ swh::deploy::worker::indexer_fossology_license::config:
       - swh.indexer.tasks.ContentFossologyLicensePartition
   write_batch_size: 1000
 
-
-swh::deploy::vault_cooker::sentry_swh_package: swh.vault
-swh::deploy::vault_cooker::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::worker::vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
 swh::deploy::worker::vault_cooker::concurrency: 20
 swh::deploy::worker::vault_cooker::loglevel: info
