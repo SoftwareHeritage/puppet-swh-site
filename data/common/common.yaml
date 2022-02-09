@@ -2865,6 +2865,8 @@ icinga2::disk::excludes:
   - ^/var/lib/docker/buildkit/
   - ^/run/schroot/
   - ^/run/k3s/
+  # directory traversal not allowed under postgresql directories
+  - postgresql/.*/pg_wal
 
 icinga2::apiusers:
   root:
