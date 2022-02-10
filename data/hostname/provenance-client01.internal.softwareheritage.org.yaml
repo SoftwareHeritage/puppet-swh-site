@@ -1,0 +1,7 @@
+users:
+  aeviso:
+    groups:
+      - sudo
+  jayesh:
+    groups:
+      - sudo
