@@ -3361,6 +3361,7 @@ keycloak::resources::clients::swh_web:::roles:
   - swh.web.api.save_origin
   - swh.web.admin.list_deposits
   - swh.web.mailmap
+  - swh.web.search_ql
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
