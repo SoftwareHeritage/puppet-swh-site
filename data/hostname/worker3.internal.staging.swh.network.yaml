@@ -1,9 +1,0 @@
-swh::deploy::worker::instances:
-  - indexer_content_mimetype
-  - indexer_fossology_license
-  - indexer_origin_intrinsic_metadata
-  - loader_svn
-  - loader_high_priority
-  - vault_cooker
-
-

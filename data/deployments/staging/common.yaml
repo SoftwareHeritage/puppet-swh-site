@@ -31,6 +31,9 @@ swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
 
 swh::deploy::worker::instances:
+  - indexer_content_mimetype
+  - indexer_fossology_license
+  - indexer_origin_intrinsic_metadata
   - checker_deposit
   - loader_archive
   - loader_bzr
