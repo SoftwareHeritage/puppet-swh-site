@@ -3377,15 +3377,6 @@ keycloak::resources::protocol_mappers::groups:
     claim_name: groups
     full_path: true
 
-keycloak::resources::flows::direct_grant_no_otp:
-  name: direct_grant_no_otp
-  description: Direct grant flow without conditional OTP
-  executions:
-    direct-grant-validate-username:
-      requirement: REQUIRED
-    direct-grant-validate-password:
-      requirement: REQUIRED
-
 keycloak::resources::realms:
   master:
     settings:
@@ -3400,8 +3391,6 @@ keycloak::resources::realms:
         - offline_access
         - uma_authorization
         - swh.ambassador
-    flows:
-      - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
     clients:
       swh-web:
         settings:
@@ -3411,7 +3400,6 @@ keycloak::resources::realms:
             - https://base.softwareheritage.org/*
             - https://archive.internal.softwareheritage.org/*
           roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
-          direct_grant_flow: direct_grant_no_otp-SoftwareHeritage
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
@@ -3435,8 +3423,6 @@ keycloak::resources::realms:
         - offline_access
         - uma_authorization
         - swh.ambassador
-    flows:
-      - "%{alias('keycloak::resources::flows::direct_grant_no_otp')}"
     clients:
       swh-web:
         settings:
@@ -3445,7 +3431,6 @@ keycloak::resources::realms:
             - https://webapp.staging.swh.network/*
             - https://webapp.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
-          direct_grant_flow: direct_grant_no_otp-SoftwareHeritageStaging
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
