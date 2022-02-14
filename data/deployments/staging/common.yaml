@@ -318,3 +318,6 @@ swh::deploy::worker::loader_high_priority::queues:
   # archives
   - save_code_now:swh.loader.package.archive.tasks.LoadArchive
 
+syncoid::public_keys::storage1:
+  type: ssh-ed25519
+  key: "AAAAC3NzaC1lZDI1NTE5AAAAIB0y7dvB0cBluC+Dy+w51P6JCbB18whd/IekP5148XsS"

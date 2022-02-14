@@ -62,3 +62,14 @@ swh::deploy::storage::config::local:
         root: "%{hiera('swh::deploy::storage::directory')}"
         slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
     journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
+
+syncoid::configuration:
+  sources:
+    db1:
+      host: db1.internal.staging.swh.network
+      datasets:
+        postgresql-main-12:
+          dataset: data/postgres-main-12
+          frequency: 5min
+      target_dataset_base: data/sync
+      ssh_key: storage1
