@@ -1,0 +1,14 @@
+# Managed by puppet class profile::sanoid::syncoid_destination
+# Changes will be overwritten
+
+[Unit]
+Description=ZFS dataset synchronization of <% @source %>
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=syncoid --sshkey <%= @ssh_key_filename %> root@<%= @source %> <%= @destination %>
+
+[Install]
+WantedBy=multi-user.target

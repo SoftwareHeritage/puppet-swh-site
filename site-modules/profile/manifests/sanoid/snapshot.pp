@@ -1,5 +1,7 @@
-class profile::sanoid::backup {
-  ensure_packages('sanoid')
+# Configure recurrent zfs snapshot
+# using sanoid
+class profile::sanoid::snapshot {
+  include profile::sanoid::install
 
   $config_dir = '/etc/sanoid'
   $config_file = "${config_dir}/sanoid.conf"

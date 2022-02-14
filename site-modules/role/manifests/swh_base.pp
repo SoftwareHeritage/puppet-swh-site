@@ -20,4 +20,7 @@ class role::swh_base {
   include profile::smartmontools
   include profile::network
   include profile::swh
+
+  include profile::sanoid::sync_source
+  include profile::sanoid::sync_destination
 }

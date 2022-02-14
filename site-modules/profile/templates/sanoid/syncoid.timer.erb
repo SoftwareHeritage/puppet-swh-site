@@ -1,0 +1,14 @@
+# Managed by puppet class profile::sanoid::syncoid_destination
+# Changes will be overwritten
+[Unit]
+Description=ZFS dataset synchronization trigger
+
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnBootSec=1m
+OnUnitActiveSec=<%= @delay %>
+RandomizedDelaySec=1min
+FixedRandomDelay=true
+Unit=<%= @service_basename %>.service

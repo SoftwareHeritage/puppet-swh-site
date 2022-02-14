@@ -3700,3 +3700,6 @@ sanoid::templates:
     hourly_crit: 3600
     daily_warn: 48
     daily_crit: 60
+
+syncoid::configuration: {}
+syncoid::default_delay: 5min
