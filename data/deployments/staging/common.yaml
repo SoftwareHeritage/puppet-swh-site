@@ -306,6 +306,8 @@ swh::deploy::webapp::snapshot_e2e:
 swh::deploy::worker::loader_high_priority::queues:
   # bzr
   - save_code_now:swh.loader.bzr.tasks.LoadBazaar
+  # cvs
+  - save_code_now:swh.loader.cvs.tasks.LoadCvsRepository
   # git
   - save_code_now:swh.loader.git.tasks.UpdateGitRepository
   # mercurial
