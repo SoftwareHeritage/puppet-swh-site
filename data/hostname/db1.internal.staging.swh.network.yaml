@@ -53,5 +53,8 @@ syncoid::configuration:
         kafka:
           dataset: data/kafka
           frequency: 5min
+        objects:
+          dataset: data/objects
+          frequency: 5min
       target_dataset_base: data/sync
       ssh_key: db1
