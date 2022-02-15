@@ -45,3 +45,13 @@ prometheus::sql::config_snippets:
   - swh-scheduler
   - swh-storage
 
+syncoid::configuration:
+  sources:
+    storage1:
+      host: storage1.internal.staging.swh.network
+      datasets:
+        kafka:
+          dataset: data/kafka
+          frequency: 5min
+      target_dataset_base: data/sync
+      ssh_key: db1
