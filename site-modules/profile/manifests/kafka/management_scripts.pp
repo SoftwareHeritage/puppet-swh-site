@@ -22,7 +22,7 @@ class profile::kafka::management_scripts {
       "${broker}:${kafka_plaintext_port}" }, ','
     )
 
-    # the template uses 
+    # the template uses
     # - zookeeper_connection_string
     # - brokers_connection_string
     # using an indirection to avoid a parsing bug
