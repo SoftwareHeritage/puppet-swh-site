@@ -3,12 +3,16 @@
 
 [Unit]
 Description=ZFS dataset synchronization of <% @source %>
+StartLimitIntervalSec=<%= @delay %>
+StartLimitBurst=2
 
 [Service]
 Type=oneshot
 User=root
 Group=root
 ExecStart=syncoid --sshkey <%= @ssh_key_filename %> root@<%= @source %> <%= @destination %>
+Restart=on-failure
+RestartSec=1s
 
 [Install]
 WantedBy=multi-user.target
