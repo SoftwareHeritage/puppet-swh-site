@@ -40,17 +40,23 @@ class profile::sanoid::sync_destination {
       # Create a timer and service for each dataset to sync
       $config['datasets'].each | $name, $props | {
         $dataset = $props['dataset']
-        $destination = "${config['target_dataset_base']}/${key}/${name}"
+        $target = pick($props['target'], $name)
+        $destination = "${config['target_dataset_base']}/${key}/${target}"
         $service_basename = "syncoid-${key}-${name}"
         $source = "${source_host}:${dataset}"
         $delay = pick($props['delay'], lookup('syncoid::default_delay'))
+        $sync_snap = pick($props['sync_snap'], true)
 
+        if $sync_snap == false {
+          $sync_options = ' --no-sync-snap'
+        }
         # templates use:
         # - $ssh_key_filename
         # - $source
         # - $destination
         # - $delay
         # - $service_basename
+        # - $sync_option
         ::systemd::timer { "${service_basename}.timer":
           timer_content   => template('profile/sanoid/syncoid.timer.erb'),
           service_content => template('profile/sanoid/syncoid.service.erb'),

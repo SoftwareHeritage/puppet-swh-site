@@ -1,0 +1,22 @@
+swh::apt_config::enable_non_free: true
+
+packages:
+  - linux-headers-cloud-amd64
+  - zfs-dkms
+
+syncoid::configuration:
+  sources:
+    dali:
+      host: dali.internal.admin.swh.network
+      datasets:
+        postgresql:
+          dataset: data/postgresql
+          frequency: 1h
+          sync_snap: no # snapshots are managed by sanoid 
+        postgresql_wal:
+          target: postgresql/wal
+          dataset: data/postgresql/wal
+          frequency: 1h
+          sync_snap: no # snapshots are managed by sanoid 
+      target_dataset_base: data/sync
+      ssh_key: backup01-azure

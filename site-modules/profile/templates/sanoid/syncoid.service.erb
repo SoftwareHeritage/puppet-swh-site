@@ -10,7 +10,7 @@ StartLimitBurst=2
 Type=oneshot
 User=root
 Group=root
-ExecStart=syncoid --sshkey <%= @ssh_key_filename %> root@<%= @source %> <%= @destination %>
+ExecStart=syncoid<%= @sync_options %> --sshkey <%= @ssh_key_filename %> root@<%= @source %> <%= @destination %>
 Restart=on-failure
 RestartSec=1s
 
