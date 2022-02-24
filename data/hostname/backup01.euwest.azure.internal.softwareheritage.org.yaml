@@ -20,3 +20,17 @@ syncoid::configuration:
           sync_snap: no # snapshots are managed by sanoid 
       target_dataset_base: data/sync
       ssh_key: backup01-azure
+
+sanoid::configuration:
+  local_config:
+    data/sync/dali/postgresql:
+      use_template: backup 
+      hourly: 0
+      monthly: 2
+      daily: 30
+    data/sync/dali/postgresql/wal:
+      use_template: backup 
+      hourly: 0
+      monthly: 2
+      daily: 30
+                                    

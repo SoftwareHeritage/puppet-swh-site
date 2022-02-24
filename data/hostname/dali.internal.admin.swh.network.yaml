@@ -26,13 +26,6 @@ prometheus::sql::config_snippets:
   - queries
 
 sanoid::configuration:
-
-  storage_config:
-    data/postgresql:
-      use_template: backup 
-    data/postgresql/wal:
-      use_template: backup 
-
   local_config:
     data/postgresql:
       use_template: pg_backup 
@@ -44,6 +37,3 @@ sanoid::configuration:
       hourly: 0
       monthly: 1
       daily: 7
-
-
-
