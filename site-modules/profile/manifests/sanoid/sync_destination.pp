@@ -44,7 +44,7 @@ class profile::sanoid::sync_destination {
         $destination = "${config['target_dataset_base']}/${key}/${target}"
         $service_basename = "syncoid-${key}-${name}"
         $source = "${source_host}:${dataset}"
-        $delay = pick($props['delay'], lookup('syncoid::default_delay'))
+        $frequency = pick($props['frequency'], lookup('syncoid::default_frequency'))
         $sync_snap = pick($props['sync_snap'], true)
 
         if $sync_snap == false {
@@ -54,7 +54,7 @@ class profile::sanoid::sync_destination {
         # - $ssh_key_filename
         # - $source
         # - $destination
-        # - $delay
+        # - $frequency
         # - $service_basename
         # - $sync_option
         ::systemd::timer { "${service_basename}.timer":

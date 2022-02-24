@@ -3702,4 +3702,4 @@ sanoid::templates:
     daily_crit: 60
 
 syncoid::configuration: {}
-syncoid::default_delay: 5min
+syncoid::default_frequency: 5min

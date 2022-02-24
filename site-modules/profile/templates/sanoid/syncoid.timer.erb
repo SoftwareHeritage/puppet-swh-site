@@ -8,7 +8,7 @@ WantedBy=timers.target
 
 [Timer]
 OnBootSec=1m
-OnUnitActiveSec=<%= @delay %>
+OnUnitActiveSec=<%= @frequency %>
 RandomizedDelaySec=1min
 FixedRandomDelay=true
 Unit=<%= @service_basename %>.service
