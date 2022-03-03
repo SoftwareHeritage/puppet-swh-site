@@ -17,6 +17,7 @@ class profile::swh::deploy::vault {
 
   ::profile::swh::deploy::rpc_server {'vault':
     executable => 'swh.vault.api.server:make_app_from_configfile()',
+    worker     => 'async',
   }
 
   # Install vault end-to-end checks
