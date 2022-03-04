@@ -62,3 +62,20 @@ apache::default_vhost: false
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::local_internal_network')}"
 
+mountpoints:
+  /srv/storage/space/swh-deposit:
+    device: saam:/srv/storage/space/swh-deposit
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - noauto
+      - x-systemd.automount
+      - x-systemd.device-timeout=10
+  /tmp:
+    ensure: absent
+  swap:
+    ensure: absent
