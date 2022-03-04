@@ -216,6 +216,7 @@ class profile::swh::deploy::deposit {
     deposit_pass          => lookup('swh::deploy::deposit::e2e::password'),
     deposit_collection    => lookup('swh::deploy::deposit::e2e::collection'),
     deposit_provider_url  => lookup('swh::deploy::deposit::e2e::provider_url'),
+    deposit_swh_web_url   => lookup('swh::deploy::deposit::e2e::swh_web_url'),
     deposit_poll_interval => lookup('swh::deploy::deposit::e2e::poll_interval'),
     deposit_archive       => lookup('swh::deploy::deposit::e2e::archive'),
     deposit_metadata      => lookup('swh::deploy::deposit::e2e::metadata'),
