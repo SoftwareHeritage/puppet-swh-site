@@ -46,5 +46,16 @@ class profile::nginx {
     locations      => { $metrics_location => { 'stub_status' => true }},
   }
 
+  ::systemd::tmpfile {'nginx.conf':
+    content => join([
+      '# Managed by puppet (profile::nginx), changes will be lost',
+      '',
+      'd /run/nginx 0755 root root - -',
+      'd /run/nginx/client_body_temp 0700 www-data root - -',
+      'd /run/nginx/proxy_temp 0700 www-data root - -',
+      '',
+    ], "\n")
+  }
+
   include profile::prometheus::nginx
 }

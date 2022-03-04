@@ -25,6 +25,20 @@ class profile::prometheus::nginx {
     ]
   }
 
+  ::systemd::dropin_file {'prometheus-nginx-exporter/restart.conf':
+    ensure   => present,
+    unit     => 'prometheus-nginx-exporter.service',
+    filename => 'restart.conf',
+    content  => "[Service]\nRestart=always\nRestartSec=5\n",
+  }
+
+  ::systemd::dropin_file {'prometheus-nginx-exporter/ordering.conf':
+    ensure   => present,
+    unit     => 'prometheus-nginx-exporter.service',
+    filename => 'ordering.conf',
+    content  => "[Unit]\nAfter=nginx.service\n",
+  }
+
   # Uses $target and $scrape_uri
   file {$defaults_file:
     ensure  => 'present',
