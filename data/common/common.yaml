@@ -1967,6 +1967,7 @@ swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 swh::deploy::deposit::e2e::server: "%{hiera('swh::deploy::deposit::url')}/1"
 swh::deploy::deposit::e2e::user: swh
 swh::deploy::deposit::e2e::collection: swh
+swh::deploy::deposit::e2e::provider_url: https://www.softwareheritage.org
 swh::deploy::deposit::e2e::poll_interval: 1
 swh::deploy::deposit::e2e::archive: /usr/share/swh/icinga-plugins/data/deposit/jesuisgpl.tgz
 swh::deploy::deposit::e2e::metadata: /usr/share/swh/icinga-plugins/data/deposit/jesuisgpl.tgz.xml

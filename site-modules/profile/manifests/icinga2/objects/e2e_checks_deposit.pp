@@ -7,6 +7,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
   Integer $deposit_poll_interval,
   String $deposit_archive,
   String $deposit_metadata,
+  String $deposit_provider_url,
   String $environment,
 ) {
   include ::profile::icinga2::objects::e2e_checks_base
@@ -25,6 +26,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
       '--username', $deposit_user,
       '--password', $deposit_pass,
       '--collection', $deposit_collection,
+      '--provider-url', $deposit_provider_url,
       '--poll-interval', $deposit_poll_interval,
       'single',
       '--archive', $deposit_archive,
