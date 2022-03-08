@@ -59,11 +59,6 @@ class profile::smtp {
     }
 
     each($file['contents']) |$alias| {
-      mailalias {$alias['user']:
-        ensure => absent,
-        notify => Exec['newaliases'],
-      }
-
       mailalias {"${alias['user']} in ${filename}":
         ensure    => present,
         target    => $filename,
