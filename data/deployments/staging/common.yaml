@@ -29,6 +29,7 @@ swh::deploy::worker::lister::db::name: swh-lister
 
 swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
+swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
 swh::deploy::worker::instances:
   - indexer_content_mimetype

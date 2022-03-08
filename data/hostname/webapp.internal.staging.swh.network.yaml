@@ -60,3 +60,13 @@ swh::deploy::webapp::config::keycloak:
 swh::deploy::webapp::instance_name: webapp.staging.swh.network
 
 swh::deploy::webapp::timers_enabled: true
+
+
+smtp::virtual_aliases:
+  - destination: "@%{lookup('swh::deploy::webapp::inbound_email::domain')}"
+    alias: "%{lookup('swh::deploy::webapp::user')}"
+
+smtp::mail_aliases:
+  - user: "%{lookup('swh::deploy::webapp::user')}"
+    aliases:
+      - "| django-admin --settings=%{lookup('swh::deploy::webapp::django_settings_module')} process-inbound-email"

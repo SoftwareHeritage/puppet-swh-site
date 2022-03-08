@@ -16,6 +16,7 @@ elasticsearch::jvm_options::heap_size: 16g
 swh::postgresql::shared_buffers: 4GB
 
 swh::deploy::webapp::url: "https://archive.softwareheritage.org"
+swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::production::domain')}"
 
 # e2e checks on vault
 swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"

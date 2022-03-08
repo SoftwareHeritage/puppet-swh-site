@@ -7,6 +7,10 @@ dns::forwarders: []
 smtp::relay_destinations:
   - destination: "%{hiera('phabricator::vhost::name')}"
     route: smtp:[tate.internal.softwareheritage.org]
+  - destination: "%{lookup('swh::deploy::webapp::inbound_email::production::domain')}"
+    route: smtp:[moma.internal.softwareheritage.org]
+  - destination: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
+    route: smtp:[webapp.internal.staging.swh.network]
 
 smtp::mynetworks:
   - 127.0.0.0/8
