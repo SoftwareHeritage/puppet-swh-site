@@ -3388,6 +3388,7 @@ keycloak::resources::clients::swh_web:::roles:
   - swh.web.admin.list_deposits
   - swh.web.mailmap
   - swh.web.search_ql
+  - swh.web.add_forge_now.moderator
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
