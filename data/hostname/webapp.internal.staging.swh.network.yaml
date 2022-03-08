@@ -69,4 +69,4 @@ smtp::virtual_aliases:
 smtp::mail_aliases:
   - user: "%{lookup('swh::deploy::webapp::user')}"
     aliases:
-      - "| django-admin --settings=%{lookup('swh::deploy::webapp::django_settings_module')} process-inbound-email"
+      - "| django-admin process-inbound-email --settings=%{lookup('swh::deploy::webapp::django_settings_module')}"
