@@ -47,6 +47,7 @@ smtp::mynetworks:
 
 smtp::relay_destinations: []
 smtp::virtual_aliases: []
+smtp::extra_aliases_files: []
 smtp::mail_aliases:
   - user: anlambert
     aliases:
