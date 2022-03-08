@@ -64,7 +64,10 @@ class profile::smtp {
         target    => $filename,
         name      => $alias['user'],
         recipient => $alias['aliases'],
-        notify    => Exec["postalias ${filename}"],
+        notify    => [
+          Exec["postalias ${filename}"],
+          Exec['newaliases'],
+        ],
         require   => File[$filename],
       }
     }
