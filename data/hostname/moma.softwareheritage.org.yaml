@@ -19,6 +19,9 @@ swh::deploy::storage::backend::workers: 16
 swh::deploy::storage::db::user: guest
 swh::deploy::storage::db::password: guest
 
+# sync_mailmaps needs write access to the main database
+swh::deploy::webapp::sync_mailmaps::db::host: belvedere.internal.softwareheritage.org
+
 swh::deploy::objstorage::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_production
 swh::deploy::objstorage::reverse_proxy::backend_http_host: "%{alias('swh::deploy::objstorage::backend::listen::host')}"
