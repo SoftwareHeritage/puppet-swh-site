@@ -26,11 +26,11 @@ sanoid::configuration:
     data/sync/dali/postgresql:
       use_template: backup 
       hourly: 0
-      monthly: 2
-      daily: 30
+      monthly: 1
+      daily: 15
     data/sync/dali/postgresql/wal:
       use_template: backup 
       hourly: 0
-      monthly: 2
-      daily: 30
+      monthly: 1
+      daily: 15
                                     
