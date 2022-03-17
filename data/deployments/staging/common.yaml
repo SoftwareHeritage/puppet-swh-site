@@ -31,6 +31,9 @@ swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
+swh::deploy::webapp::config::features:
+  add_forge_now: true
+
 swh::deploy::worker::instances:
   - indexer_content_mimetype
   - indexer_fossology_license

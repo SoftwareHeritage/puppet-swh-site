@@ -2247,6 +2247,10 @@ swh::deploy::webapp::config:
   give:
     public_key: "%{hiera('webapp_give_public_key')}"
     token: "%{hiera('webapp_give_token')}"
+  features: "%{alias('swh::deploy::webapp::config::features')}"
+
+swh::deploy::webapp::config::features:
+  add_forge_now: false
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
