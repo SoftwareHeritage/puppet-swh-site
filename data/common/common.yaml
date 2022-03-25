@@ -3397,6 +3397,7 @@ keycloak::resources::clients::swh_web:::roles:
   - swh.web.mailmap
   - swh.web.search_ql
   - swh.web.add_forge_now.moderator
+  - swh.web.admin.mailmap
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
