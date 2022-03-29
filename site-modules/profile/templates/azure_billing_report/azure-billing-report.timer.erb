@@ -1,0 +1,13 @@
+##
+# File managed by puppet (class profile::azure_billing_report), changes will be lost.
+[Unit]
+Description=Azure billing report refresh trigger
+
+[Install]
+WantedBy=timers.target
+
+[Timer]
+Persistent=true
+OnCalendar=daily UTC
+AccuracySec=1h
+Unit=<%= @service_basename %>.service

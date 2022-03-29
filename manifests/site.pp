@@ -219,6 +219,10 @@ node 'backup01.euwest.azure.internal.softwareheritage.org' {
   include role::zfs_snapshots_storage
 }
 
+node 'money.internal.admin.swh.network' {
+  include role::swh_azure_billing_report
+}
+
 node default {
   include role::swh_base
 }

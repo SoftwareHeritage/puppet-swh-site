@@ -1,0 +1,16 @@
+##
+# File managed by puppet (class profile::azure_billing_report), changes will be lost.
+
+[Unit]
+Description=Refresh azure billing report
+After=network-online.target
+Wants=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=<%= @billing_user %>
+EnvironmentFile=/etc/default/azure-billing-report
+ExecStart=<%= @install_path %>/refresh_azure_report.sh

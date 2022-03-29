@@ -1,0 +1,9 @@
+##
+# File managed by puppet (class profile::azure_billing_report), changes will be lost.
+
+click
+jinja2
+matplotlib
+pandas
+selenium 
+tabulate
