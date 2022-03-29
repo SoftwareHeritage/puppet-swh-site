@@ -90,4 +90,93 @@ class profile::azure_billing_report {
     enable          => true,
   }
 
+  # site configuration
+  $vhost_name = lookup('azure_billing::vhost::name')
+  $vhost_ssl_protocol = lookup('azure_billing::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('azure_billing::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('azure_billing::vhost::ssl_cipher')
+  $vhost_hsts_header = lookup('azure_billing::vhost::hsts_header')
+
+  ::apache::vhost {"${vhost_name}_non-ssl":
+    servername      => $vhost_name,
+    port            => '80',
+    docroot         => $data_path,
+    manage_docroot  => false,
+    redirect_status => 'permanent',
+    redirect_dest   => "https://${vhost_name}/",
+  }
+
+  ::profile::letsencrypt::certificate {$vhost_name:}
+  $cert_paths = ::profile::letsencrypt::certificate_paths($vhost_name)
+
+  ::apache::vhost {"${vhost_name}_ssl":
+    servername           => $vhost_name,
+    port                 => '443',
+    ssl                  => true,
+    ssl_protocol         => $vhost_ssl_protocol,
+    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+    ssl_cipher           => $vhost_ssl_cipher,
+    ssl_cert             => $cert_paths['cert'],
+    ssl_chain            => $cert_paths['chain'],
+    ssl_key              => $cert_paths['privkey'],
+    headers              => [$vhost_hsts_header],
+    docroot              => $data_path,
+    manage_docroot       => false,
+    require              => [
+      File[$cert_paths['cert']],
+      File[$cert_paths['chain']],
+      File[$cert_paths['privkey']],
+    ],
+  }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
+
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+
+  @@::icinga2::object::service {"Azure billing report http redirect on ${::fqdn}":
+    service_name  => 'azure billing report http redirect',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address => $vhost_name,
+      http_vhost   => $vhost_name,
+      http_uri     => '/',
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"Azure billing report https on ${::fqdn}":
+    service_name  => 'azure billing report https',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address    => $vhost_name,
+      http_vhost      => $vhost_name,
+      http_ssl        => true,
+      http_sni        => true,
+      http_uri        => '/',
+      http_onredirect => sticky
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
+
+  @@::icinga2::object::service {"azure billing report https certificate ${::fqdn}":
+    service_name  => 'azure billing report https certificate',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'http',
+    vars          => {
+      http_address     => $vhost_name,
+      http_vhost       => $vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 25,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
 }

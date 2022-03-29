@@ -944,6 +944,9 @@ letsencrypt::certificates:
   inventory.internal.softwareheritage.org:
     domains:
       - inventory.internal.softwareheritage.org
+  azure-billing.internal.admin.swh.network:
+    domains:
+      - azure-billing.internal.admin.swh.network
 
 bind::update_key: local-update
 
@@ -3720,3 +3723,10 @@ sanoid::templates:
 
 syncoid::configuration: {}
 syncoid::default_frequency: 5min
+
+# Must have matching certificate in letsencrypt::certificates
+azure_billing::vhost::name: azure-billing.internal.admin.swh.network
+azure_billing::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+azure_billing::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+azure_billing::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+azure_billing::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
