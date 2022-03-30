@@ -1100,6 +1100,10 @@ bind::resource_records:
     type: CNAME
     record: db1.internal.admin.swh.network
     data: dali.internal.admin.swh.network.
+  azure-billing-report/CNAME:
+    type: CNAME
+    record: azure-billing.internal.admin.swh.network
+    data: money.internal.admin.swh.network.
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
