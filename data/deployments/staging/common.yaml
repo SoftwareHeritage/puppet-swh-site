@@ -27,6 +27,10 @@ swh::deploy::worker::lister::db::host: db1.internal.staging.swh.network
 swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 
+swh::deploy::scrubber::db::host: db1.internal.staging.swh.network
+swh::deploy::scrubber::db::user: swh-scrubber
+swh::deploy::scrubber::db::dbname: swh-scrubber
+
 swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
@@ -192,6 +196,9 @@ swh::dbs:
   webapp:
     name: swh-web
     user: swh-web
+  scrubber:
+    name: swh-scrubber
+    user: swh-scrubber
   mirror:
     name: swh-mirror
     user: swh-mirror
@@ -241,6 +248,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: swh-mirror
+  - source_db: swh-scrubber
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-scrubber
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
