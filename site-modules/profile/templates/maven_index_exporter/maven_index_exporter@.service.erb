@@ -1,0 +1,20 @@
+# Maven index exporter Template unit file
+# Managed by puppet class profile::maven_index_exporter
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Maven Index Exporter %i
+StartLimitIntervalSec=5min
+StartLimitBurst=2
+After=network.target
+
+[Service]
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=/usr/local/bin/run_maven_index_exporter.sh %i
+Restart=on-failure
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target

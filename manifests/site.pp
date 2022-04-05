@@ -223,6 +223,10 @@ node 'money.internal.admin.swh.network' {
   include role::swh_azure_billing_report
 }
 
+node 'maven-exporter0.internal.staging.swh.network' {
+  include role::swh_maven_index_exporter
+}
+
 node default {
   include role::swh_base
 }

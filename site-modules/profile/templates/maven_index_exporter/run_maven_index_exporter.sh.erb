@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# Managed by puppet - modifications will be overwritten
+# In defined class profile::maven_index_exporter
+
+# Script in charge of running the maven index exporter for a specific instance
+# The most importand part is the result stored in $PUBLISH_DIR/export-${maven-repo}.fld
+
+set -ex
+
+# Unique maven repository instance name (e.g. maven-central)
+MAVEN_REPO=$1
+
+if [ -z "${MAVEN_REPO_URL}" ]; then
+    echo MAVEN_REPO_URL must be set.
+    exit 1
+fi
+
+BASE_DIR=<%= @base_dir %>
+WORK_DIR=$BASE_DIR/$MAVEN_REPO/work
+PUBLISH_DIR=<%= @publish_path %>
+
+# Create folder
+mkdir -p $WORK_DIR $PUBLISH_DIR
+
+DOCKER_IMAGE=<%= @docker_image %>
+DOCKER_IMAGE_VERSION=<%= @docker_image_version %>
+
+# Compute and extract the /publish/export.fld
+docker run -v $WORK_DIR:/work \
+       -v $PUBLISH_DIR:/publish \
+       -e MVN_IDX_EXPORTER_BASE_URL=$MAVEN_REPO_URL \
+       "${DOCKER_IMAGE}:${DOCKER_IMAGE_VERSION}"
+
+# Rename and install the export.fld (specific to the maven index base url scrapped)
+mv $PUBLISH_DIR/export.fld $PUBLISH_DIR/export-${MAVEN_REPO}.fld

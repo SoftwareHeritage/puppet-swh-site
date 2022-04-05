@@ -1104,6 +1104,10 @@ bind::resource_records:
     type: CNAME
     record: azure-billing.internal.admin.swh.network
     data: money.internal.admin.swh.network.
+  maven-index-exporter/CNAME:
+    type: CNAME
+    record: maven-exporter.internal.staging.swh.network
+    data: maven-exporter0.internal.staging.swh.network.
 # Non-puppet azure hosts
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
@@ -3734,3 +3738,10 @@ azure_billing::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 azure_billing::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 azure_billing::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 azure_billing::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+
+maven_index_exporter::image::name: softwareheritage/maven-index-exporter
+maven_index_exporter::image::version: v0.2.0
+
+maven_index_exporter::repositories:
+  maven-central: https://repo1.maven.org/maven2/
+  clojars: http://clojars.org/repo/

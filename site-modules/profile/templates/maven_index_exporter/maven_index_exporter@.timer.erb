@@ -1,0 +1,10 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=24h
+
+[Unit]
+Description=Run '<%= @template_name %>@.service' daily
