@@ -947,6 +947,9 @@ letsencrypt::certificates:
   azure-billing.internal.admin.swh.network:
     domains:
       - azure-billing.internal.admin.swh.network
+  maven-exporter.internal.staging.swh.network:
+    domains:
+      - maven-exporter.internal.staging.swh.network
 
 bind::update_key: local-update
 

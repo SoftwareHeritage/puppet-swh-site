@@ -221,6 +221,8 @@ static_hostnames:
     host: vault.internal.staging.swh.network
   10.168.130.70:
     host: maven-exporter0.internal.staging.swh.network
+    aliases:
+      - maven-exporter.internal.staging.swh.network
   10.168.130.80:
     host: search-esnode0.internal.staging.swh.network
   10.168.130.90:
