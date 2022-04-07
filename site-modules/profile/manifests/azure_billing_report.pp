@@ -1,4 +1,4 @@
-# Install and configure the azure 
+# Install and configure the azure
 class profile::azure_billing_report {
   $billing_user = 'azbilling'
   $install_path = '/opt/azure_billing'
