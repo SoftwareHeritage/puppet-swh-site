@@ -1,0 +1,4 @@
+swh::apt_config::enable_non_free: true
+packages:
+  # install zfs
+  - zfs-dkms
