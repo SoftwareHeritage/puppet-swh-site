@@ -3,7 +3,14 @@ class profile::maven_index_exporter {
   $user = 'root'
   $group = 'root'
 
+  $vhost_name = lookup('maven_index_exporter::vhost::name')
+  $vhost_ssl_protocol = lookup('maven_index_exporter::vhost::ssl_protocol')
+  $vhost_ssl_honorcipherorder = lookup('maven_index_exporter::vhost::ssl_honorcipherorder')
+  $vhost_ssl_cipher = lookup('maven_index_exporter::vhost::ssl_cipher')
+  $vhost_hsts_header = lookup('maven_index_exporter::vhost::hsts_header')
+
   $publish_path = '/var/www/maven_index_exporter'
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   $base_dir = "/srv/softwareheritage/maven-index-exporter/"
   $docker_image = lookup('maven_index_exporter::image::name')
