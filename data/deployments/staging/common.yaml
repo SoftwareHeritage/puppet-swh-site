@@ -59,6 +59,8 @@ swh::deploy::worker::instances:
   - lister
   - loader_high_priority
   - loader_opam
+  # extra
+  - loader_maven
 
 swh::deploy::lister::queues:
   - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
