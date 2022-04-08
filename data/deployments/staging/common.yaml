@@ -60,6 +60,31 @@ swh::deploy::worker::instances:
   - loader_high_priority
   - loader_opam
 
+swh::deploy::lister::queues:
+  - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
+  - swh.lister.bitbucket.tasks.FullBitBucketRelister
+  - swh.lister.cgit.tasks.CGitListerTask
+  - swh.lister.cran.tasks.CRANListerTask
+  - swh.lister.debian.tasks.DebianListerTask
+  - swh.lister.gitea.tasks.IncrementalGiteaLister
+  - swh.lister.gitea.tasks.RangeGiteaLister
+  - swh.lister.gitea.tasks.FullGiteaRelister
+  - swh.lister.gitlab.tasks.IncrementalGitLabLister
+  - swh.lister.gitlab.tasks.RangeGitLabLister
+  - swh.lister.gitlab.tasks.FullGitLabRelister
+  - swh.lister.gnu.tasks.GNUListerTask
+  - swh.lister.launchpad.tasks.FullLaunchpadLister
+  - swh.lister.launchpad.tasks.IncrementalLaunchpadLister
+  - swh.lister.opam.tasks.OpamListerTask
+  - swh.lister.npm.tasks.NpmListerTask
+  - swh.lister.phabricator.tasks.FullPhabricatorLister
+  - swh.lister.pypi.tasks.PyPIListerTask
+  - swh.lister.sourceforge.tasks.FullSourceForgeLister
+  - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
+  # extra queues
+  - swh.lister.maven.tasks.FullMavenLister
+  - swh.lister.maven.tasks.IncrementalMavenLister
+
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672/%2f"
