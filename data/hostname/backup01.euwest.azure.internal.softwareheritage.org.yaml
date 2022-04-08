@@ -12,25 +12,24 @@ syncoid::configuration:
         postgresql:
           dataset: data/postgresql
           frequency: 1h
-          sync_snap: no # snapshots are managed by sanoid 
+          sync_snap: no # snapshots are managed by sanoid
         postgresql_wal:
           target: postgresql/wal
           dataset: data/postgresql/wal
           frequency: 1h
-          sync_snap: no # snapshots are managed by sanoid 
+          sync_snap: no # snapshots are managed by sanoid
       target_dataset_base: data/sync
       ssh_key: backup01-azure
 
 sanoid::configuration:
   local_config:
     data/sync/dali/postgresql:
-      use_template: backup 
+      use_template: backup
       hourly: 0
       monthly: 1
       daily: 15
     data/sync/dali/postgresql/wal:
-      use_template: backup 
+      use_template: backup
       hourly: 0
       monthly: 1
       daily: 15
-                                    
