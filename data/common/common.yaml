@@ -3765,3 +3765,6 @@ maven_index_exporter::image::version: v0.2.1
 maven_index_exporter::repositories:
   maven-central: https://repo1.maven.org/maven2/
   clojars: http://clojars.org/repo/
+  sonatype: http://oss.sonatype.org/content/repositories/releases/
+  jboss: https://repository.jboss.org/maven2/
+  atlassian-public: https://maven.atlassian.com/public/
