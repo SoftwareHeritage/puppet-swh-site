@@ -12,7 +12,7 @@ class profile::maven_index_exporter {
   $publish_path = '/var/www/maven_index_exporter'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
-  $base_dir = "/srv/softwareheritage/maven-index-exporter/"
+  $base_dir = "/srv/softwareheritage/maven-index-exporter"
   $docker_image = lookup('maven_index_exporter::image::name')
   $docker_image_version = lookup('maven_index_exporter::image::version')
   $mvn_repositories = lookup('maven_index_exporter::repositories')
