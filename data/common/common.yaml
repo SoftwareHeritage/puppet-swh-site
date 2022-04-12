@@ -2938,6 +2938,7 @@ icinga2::disk::excludes:
   - ^/run/k3s/
   # directory traversal not allowed under postgresql directories
   - postgresql/.*/pg_wal
+  - postgres/.*/pg_wal
 
 icinga2::apiusers:
   root:
