@@ -1095,10 +1095,6 @@ bind::resource_records:
     type: CNAME
     record: journal1.internal.staging.swh.network
     data: storage1.internal.staging.swh.network.
-  rancher-poc/CNAME:
-    type: CNAME
-    record: rancher-poc.internal.staging.swh.network
-    data: poc-rancher.internal.staging.swh.network.
   admin-db1/CNAME:
     type: CNAME
     record: db1.internal.admin.swh.network
