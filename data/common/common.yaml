@@ -2933,6 +2933,7 @@ icinga2::disk::excludes:
   - ^/srv/containers/
   - ^/var/lib/docker/overlay2/
   - ^/var/lib/docker/buildkit/
+  - ^/var/lib/docker/zfs/
   - ^/run/schroot/
   - ^/run/k3s/
   # directory traversal not allowed under postgresql directories
