@@ -3758,7 +3758,7 @@ maven_index_exporter::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 maven_index_exporter::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 maven_index_exporter::image::name: softwareheritage/maven-index-exporter
-maven_index_exporter::image::version: v0.2.1
+maven_index_exporter::image::version: v0.3.0
 
 maven_index_exporter::repositories:
   maven-central: https://repo1.maven.org/maven2/
