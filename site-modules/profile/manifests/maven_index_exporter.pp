@@ -12,7 +12,7 @@ class profile::maven_index_exporter {
   $publish_path = '/var/www/maven_index_exporter'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
-  $base_dir = "/srv/softwareheritage/maven-index-exporter"
+  $base_dir = '/srv/softwareheritage/maven-index-exporter'
   $docker_image = lookup('maven_index_exporter::image::name')
   $docker_image_version = lookup('maven_index_exporter::image::version')
   $mvn_repositories = lookup('maven_index_exporter::repositories')
@@ -27,7 +27,7 @@ class profile::maven_index_exporter {
   $template_name = 'maven_index_exporter'
   $template_path = "profile/${template_name}"
 
-  $script_name = "run_maven_index_exporter.sh"
+  $script_name = 'run_maven_index_exporter.sh'
   # Template use:
   # - $base_dir
   # - $publish_path
@@ -64,9 +64,9 @@ class profile::maven_index_exporter {
   # - $user
   # - $group
   ::systemd::timer { $systemd_timer:
-    timer_content    => template("${template_path}/${systemd_timer}.erb"),
-    service_content  => template("${template_path}/${systemd_service}.erb"),
-    enable           => true,
+    timer_content   => template("${template_path}/${systemd_timer}.erb"),
+    service_content => template("${template_path}/${systemd_service}.erb"),
+    enable          => false,
   }
 
   $systemd_slice_name = "${template_name}.slice"
@@ -90,15 +90,13 @@ class profile::maven_index_exporter {
       content  => template("${template_path}/parameters.conf.erb"),
     }
 
-    ::systemd::unit_file {$service_name:
-      ensure => present,
+    service {$service_name:
       enable => true,
     }
-    $service_timer = "${service_basename}.timer"
-    ::systemd::timer {$service_timer:
-      ensure => present,
+
+    service { "${service_basename}.timer":
+      ensure => running,
       enable => true,
-      active => true,
     }
   }
 
