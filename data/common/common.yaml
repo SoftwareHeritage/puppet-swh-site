@@ -1111,6 +1111,9 @@ bind::resource_records:
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.51
+  rancher.euwest.azure/A:
+    record: rancher.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.19
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
