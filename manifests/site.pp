@@ -143,10 +143,7 @@ node 'giverny.softwareheritage.org' {
 }
 
 node /^db\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_database
-  include profile::postgresql::server
-  include profile::pgbouncer
-  include profile::postgresql::client
+  include role::swh_database_staging
 }
 
 node 'dali.internal.admin.swh.network' {
