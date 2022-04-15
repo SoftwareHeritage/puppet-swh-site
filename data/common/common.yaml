@@ -1747,9 +1747,10 @@ swh::deploy::journal::backfill::config_file: "%{hiera('swh::deploy::journal::con
 swh::deploy::journal::backfill::user: swhstorage
 swh::deploy::journal::backfill::group: swhstorage
 
+swh::deploy::storage::db::config::read-only: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::config::local-read-only:
   cls: local
-  db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
+  db: "%{alias('swh::deploy::storage::db::config::read-only')}"
   # objstorage is required but it's not used in that context
   objstorage:
     cls: memory
@@ -1887,6 +1888,38 @@ swh::deploy::journal::brokers:
   - kafka4.internal.softwareheritage.org
 
 swh::deploy::journal::prefix: swh.journal.objects
+
+swh::deploy::scrubber::sentry_swh_package: swh.scrubber
+swh::deploy::scrubber::sentry_environment: "%{alias('swh::deploy::environment')}"
+swh::deploy::scrubber::sentry_dsn: "https://%{lookup('swh::deploy::scrubber::sentry_token')}@sentry.softwareheritage.org/23"
+
+swh::deploy::scrubber::checker::postgres::conf_directory: "%{hiera('swh::conf_directory')}/scrubber"
+swh::deploy::scrubber::checker::postgres::conf_file: "%{hiera('swh::deploy::scrubber::checker::postgres::conf_directory')}/postgres.yml"
+swh::deploy::scrubber::checker::postgres::user: swhworker
+swh::deploy::scrubber::checker::postgres::group: swhdev
+swh::deploy::scrubber::checker::postgres::object_types:
+  # - content
+  # - directory
+  # - revision
+  - release
+
+swh::deploy::scrubber::checker::postgres::ranges:
+  - 00000000000000000000:44444444444444444444
+  - 44444444444444444444:88888888888888888888
+  - 88888888888888888888:bbbbbbbbbbbbbbbbbbbb
+  - bbbbbbbbbbbbbbbbbbbb:ffffffffffffffffffff
+
+# password entry in private-data
+swh::deploy::scrubber::db::config: "host=%{hiera('swh::deploy::scrubber::db::host')} port=%{hiera('swh::deploy::db::pgbouncer::port')} dbname=%{hiera('swh::deploy::scrubber::db::dbname')} user=%{hiera('swh::deploy::scrubber::db::user')} password=%{hiera('swh::deploy::scrubber::db::password')}"
+
+swh::deploy::scrubber::checker::postgres::config:
+  scrubber_db:
+    cls: local
+    db: "%{alias('swh::deploy::scrubber::db::config')}"
+  storage:
+    cls: postgresql
+    db: "%{alias('swh::deploy::storage::db::config::read-only')}"
+    objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
@@ -3769,3 +3802,4 @@ maven_index_exporter::repositories:
   sonatype: http://oss.sonatype.org/content/repositories/releases/
   jboss: https://repository.jboss.org/maven2/
   atlassian-public: https://maven.atlassian.com/public/
+
