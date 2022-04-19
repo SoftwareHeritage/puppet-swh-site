@@ -1,0 +1,6 @@
+# enable contrib and non-free apt sources
+swh::apt_config::enable_non_free: true
+# which allows the following dependency to be installed
+packages:
+  # install zfs
+  - zfs-dkms

@@ -207,6 +207,10 @@ mod 'vcsrepo',
     :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-vcsrepo',
     :ref => 'v5.0.0'
 
+mod 'zfs_core',
+    :git => 'https://forge.softwareheritage.org/source/puppet-puppetlabs-zfs_core',
+    :ref => '1.0.0'  # Higher versions not compatible with puppet < 6.0
+
 mod 'zookeeper',
     :git => 'https://forge.softwareheritage.org/source/puppet-deric-zookeeper',
     :ref => 'v1.2.1'
