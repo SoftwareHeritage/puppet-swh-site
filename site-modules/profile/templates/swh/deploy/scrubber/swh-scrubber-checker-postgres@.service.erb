@@ -20,7 +20,7 @@ Environment=SWH_SCRUBBER_CLI_EXTRA_ARGS="--help"
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/swh scrubber --config-file <%= @config_file %> check storage ${SWH_SCRUBBER_CLI_EXTRA_ARGS}
+ExecStart=/usr/bin/swh scrubber --config-file <%= @config_file %> check storage $SWH_SCRUBBER_CLI_EXTRA_ARGS
 
 [Install]
 WantedBy=multi-user.target
