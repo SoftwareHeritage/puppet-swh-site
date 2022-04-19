@@ -1898,10 +1898,10 @@ swh::deploy::scrubber::checker::postgres::conf_file: "%{hiera('swh::deploy::scru
 swh::deploy::scrubber::checker::postgres::user: swhworker
 swh::deploy::scrubber::checker::postgres::group: swhdev
 swh::deploy::scrubber::checker::postgres::object_types:
-  - content
   - directory
   - revision
   - release
+  - snapshot
 
 swh::deploy::scrubber::checker::postgres::ranges:
   - 00000000000000000000:44444444444444444444
