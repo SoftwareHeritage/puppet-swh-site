@@ -2,4 +2,4 @@
 Description=SWH Scrubber services
 
 [Slice]
-MemoryMax=10%
+MemoryMax=75%
