@@ -19,7 +19,7 @@ function init_or_update_opam_root () {
   instance_name=$1
   instance_url=$2
 
-  if $CMD repo --all --root $ROOT_DIR | grep -qx $instance_url; then
+  if $CMD repo --all --root $ROOT_DIR | grep -q $instance_url; then
     $CMD update --root $ROOT_DIR
   else
     $CMD init --reinit --bare --no-setup --root $ROOT_DIR $instance_name $instance_url
@@ -37,7 +37,7 @@ function init_or_update_opam_instance () {
   instance_name=$1
   instance_url=$2
 
-  if $CMD repo --all --root $ROOT_DIR | grep -qx $instance_url; then
+  if $CMD repo --all --root $ROOT_DIR | grep -q $instance_url; then
     $CMD update --root $ROOT_DIR
   else
     $CMD repository add --root $ROOT_DIR --all-switches $instance_name $instance_url
