@@ -134,7 +134,7 @@ swh::deploy::worker::loader_git::save_data_path: ""
 swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::load_metadata: true
 swh::deploy::worker::loader_git::extra_config:
-  credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
+  metadata_fetcher_credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
 zookeeper::clusters:
   rocquencourt_staging:
