@@ -6,6 +6,9 @@
 #   False, the default, for other workers whose recurring tasks are scheduled with
 #   next-gen scheduler-runner. Their status are updated through a journal client so no
 #   need for the events.
+# @param extra_config
+#   Extra configuration dict to merge into the default $config loaded for the service.
+#   Typically, that'd be needed to provide extra sensible information like credentials.
 define profile::swh::deploy::worker::instance (
   $ensure = present,
   $instance_name = $title,
@@ -14,6 +17,7 @@ define profile::swh::deploy::worker::instance (
   $private_tmp = undef,
   $merge_policy = 'deep',
   $send_task_events = false,
+  Hash[String, Any] $extra_config = {},
 )
 {
   include ::profile::swh::deploy::worker::base
@@ -31,7 +35,11 @@ define profile::swh::deploy::worker::instance (
   $max_tasks_per_child = lookup("swh::deploy::worker::${instance_name}::max_tasks_per_child", Integer, first, 5)
   $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
   $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
-  $config = lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy)
+  # Merge the default $config with $extra_config (if any)
+  $config = deep_merge(
+    lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy),
+    $extra_config
+  )
 
   $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
   $sentry_environment = lookup("swh::deploy::${sentry_name}::sentry_environment", Optional[String], 'first', undef)
