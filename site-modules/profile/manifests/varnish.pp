@@ -84,6 +84,11 @@ class profile::varnish {
     order   => '00',
   }
 
+  ::profile::varnish::vcl_include {'early_vcl_recv':
+    order   => '00',
+    content => file('profile/varnish/early_vcl_recv.vcl'),
+  }
+
   ::profile::varnish::vcl_include {'synth_redirect':
     order   => '10',
     content => file('profile/varnish/synth_redirect.vcl'),

@@ -7,11 +7,15 @@
 sub vcl_recv {
     if (
 <% @aliases.each do |alias_| -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>(:[0-9]+)?$" ||
+        req.http.host == "<%= alias_.downcase %>" ||
 <% end -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>(:[0-9]+)?$"
+        req.http.host == "<%= @servername.downcase %>"
     ) {
         var.set("known-vhost", "yes");
+        var.set("current-vhost", "<%= @backend_name %>");
+    }
+
+    if (var.get("current-vhost") == "<%= @backend_name %>") {
         if (std.port(server.ip) == <%= scope['::profile::varnish::http_port'] %>) {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
@@ -42,21 +46,18 @@ sub vcl_recv {
 
 <% if @websocket_support -%>
 sub vcl_pipe {
-    if (req.http.upgrade) {
-        set bereq.http.upgrade = req.http.upgrade;
-        set bereq.http.connection = req.http.connection;
+    if (var.get("current-vhost") == "<%= @backend_name %>") {
+        if (req.http.upgrade) {
+            set bereq.http.upgrade = req.http.upgrade;
+            set bereq.http.connection = req.http.connection;
+        }
     }
 }
 
 <% end -%>
 <% if @hsts_max_age or @vcl_deliver_extra -%>
 sub vcl_deliver {
-    if (
-<% @aliases.each do |alias_| -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>(:[0-9]+)?$" ||
-<% end -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>(:[0-9]+)?$"
-    ) {
+    if (var.get("current-vhost") == "<%= @backend_name %>") {
 <% if @hsts_max_age -%>
         if (std.port(server.ip) != <%= scope['::profile::varnish::http_port'] %>) {
             set resp.http.Strict-Transport-Security = "max-age=<%= @hsts_max_age %>;";
@@ -69,12 +70,7 @@ sub vcl_deliver {
 }
 
 sub vcl_synth {
-    if (
-<% @aliases.each do |alias_| -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(alias_) %>(:[0-9]+)?$" ||
-<% end -%>
-        req.http.host ~ "^(?i)<%= Regexp.escape(@servername) %>(:[0-9]+)?$"
-    ) {
+    if (var.get("current-vhost") == "<%= @backend_name %>") {
         if (resp.status == 401) {
             set resp.http.WWW-Authenticate = "Basic";
             return(deliver);
