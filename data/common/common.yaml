@@ -2453,7 +2453,9 @@ swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::max_tasks_per_child: 100
 swh::deploy::worker::loader_git::temp_file_cutoff: 536870912  # 512 * 1024 * 1024
 swh::deploy::worker::loader_git::loglevel: info
-swh::deploy::worker::loader_git::load_metadata: false
+swh::deploy::worker::loader_git::load_metadata: true
+swh::deploy::worker::loader_git::extra_config:
+  metadata_fetcher_credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
 swh::deploy::loader_git::queues:
   - swh.loader.git.tasks.UpdateGitRepository
