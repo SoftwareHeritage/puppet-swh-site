@@ -232,6 +232,9 @@ node /^elastic-worker\d+\.internal\.staging\.swh\.network$/ {
   include role::rancher_node
 }
 
+node /^rancher-node-.*\.internal\.(staging\.swh\.network|softwareheritage\.org)$/ {
+  include role::rancher_node
+}
 
 node default {
   include role::swh_base
