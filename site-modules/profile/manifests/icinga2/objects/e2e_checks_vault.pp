@@ -8,11 +8,16 @@ define profile::icinga2::objects::e2e_checks_vault (
 
   $check_command = "${environment}-check-vault-cmd"
   $zonename = lookup('icinga2::master::zonename')
+  $prometheus_text_file_directory = lookup('prometheus::node::textfile_directory')
 
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => [
-      '/usr/bin/swh', 'icinga_plugins',
+      '/usr/bin/swh',
+      'icinga_plugins',
+      '--prometheus-exporter',
+      '--prometheus-exporter-directory', $prometheus_text_file_directory,
+      '--environment', $environment,
       '--warning', '1200',
       '--critical', '3600',  # explicit the default value of the plugin
       'check-vault',

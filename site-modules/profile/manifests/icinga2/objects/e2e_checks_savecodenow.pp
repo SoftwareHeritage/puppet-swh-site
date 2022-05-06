@@ -10,12 +10,17 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
 
   $check_command_prefix = "${environment}-check-savecodenow"
   $zonename = lookup('icinga2::master::zonename')
+  $prometheus_text_file_directory = lookup('prometheus::node::textfile_directory')
 
   $check_command = "${check_command_prefix}-cmd-${origin_name}-${origin_type}"
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => [
-      '/usr/bin/swh', 'icinga_plugins',
+      '/usr/bin/swh',
+      'icinga_plugins',
+      '--prometheus-exporter',
+      '--prometheus-exporter-directory', $prometheus_text_file_directory,
+      '--environment', $environment,
       '--warning', '300',
       '--critical', '600',
       'check-savecodenow',
