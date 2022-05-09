@@ -22,10 +22,11 @@ function filter_index_name() {
 }
 
 function log_indices() {
+    local CONDITION="index_closed_exception"
     if [ -z "$1" ]; then
-        journalctl -x -u logstash | grep "cluster_block" | filter_index_name
+        journalctl -x -u logstash | grep ${CONDITION} | filter_index_name
     else
-        tail -n$1 $LOGFILE | grep "cluster_block" | filter_index_name
+        tail -n$1 $LOGFILE | grep ${CONDITION} | filter_index_name
     fi
 }
 
