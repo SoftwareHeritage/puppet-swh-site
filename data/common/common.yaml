@@ -2377,6 +2377,12 @@ swh::deploy::scheduler::config:
   celery:
     task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
 swh::deploy::scheduler::packages:
+  - python3-swh.lister
+  - python3-swh.loader.bzr
+  - python3-swh.loader.git
+  - python3-swh.loader.mercurial
+  - python3-swh.loader.svn
+  - python3-swh.loader.core
   - python3-swh.scheduler
 
 # subset limited to the save code now tasks for the runner priority
