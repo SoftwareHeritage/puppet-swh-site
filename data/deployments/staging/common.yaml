@@ -46,7 +46,6 @@ swh::deploy::worker::instances:
   - loader_archive
   - loader_bzr
   - loader_cran
-  - loader_cvs
   - loader_debian
   - loader_deposit
   - loader_nixguix
@@ -59,7 +58,8 @@ swh::deploy::worker::instances:
   - lister
   - loader_high_priority
   - loader_opam
-  # extra
+  # only in staging
+  - loader_cvs
   - loader_maven
 
 swh::deploy::lister::queues:
