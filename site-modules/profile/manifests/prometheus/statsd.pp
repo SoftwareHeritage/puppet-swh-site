@@ -2,29 +2,50 @@
 class profile::prometheus::statsd {
   include profile::prometheus::base
 
-  $defaults_file = '/etc/default/prometheus-statsd-exporter'
-  $mapping_config_file = '/etc/prometheus/statsd_exporter_mapping.yml'
-
   package {'prometheus-statsd-exporter':
-    ensure => present,
-    notify => Service['prometheus-statsd-exporter'],
-  }
-
-  service {'prometheus-statsd-exporter':
-    ensure  => 'running',
-    enable  => true,
-    require => [
-      Package['prometheus-statsd-exporter'],
-      File[$defaults_file],
-    ]
+    ensure => 'purged',
+    notify => Class['systemd::systemctl::daemon_reload'],
   }
 
   ::systemd::dropin_file {'prometheus-statsd-exporter/restart.conf':
-    ensure   => present,
+    ensure   => absent,
     unit     => 'prometheus-statsd-exporter.service',
     filename => 'restart.conf',
-    content  => "[Service]\nRestart=always\nRestartSec=5\n",
   }
+
+  $version = lookup('prometheus::statsd::exporter::version')
+  $archive_sha256sum = lookup('prometheus::statsd::exporter::archive_sha256sum')
+
+  $exporter_name = "statsd_exporter"
+  $github_project = "prometheus/${exporter_name}"
+  $service_name = "prometheus-statsd-exporter"
+  $unit_name = "${service_name}.service"
+
+  $url = "https://github.com/${github_project}/releases/download/v${version}/${exporter_name}-${version}.linux-amd64.tar.gz"
+
+  $exporter_dir = "/opt/${service_name}-${version}"
+  $exporter_exe = "${exporter_dir}/${exporter_name}"
+
+  file {$exporter_dir:
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+  -> archive { "/tmp/${exporter_name}.tar.gz":
+    source          => $url,
+    extract         => true,
+    extract_path    => $exporter_dir,
+    extract_command => 'tar xfz %s --strip-components=1',
+    checksum        => $archive_sha256sum,
+    checksum_type   => 'sha256',
+    creates         => $exporter_exe,
+    cleanup         => true,
+  }
+  -> file {$exporter_exe:}
+
+  $service_file = '/etc/systemd/system/prometheus-statsd-exporter.service'
+  $mapping_config_file = '/etc/prometheus/statsd_exporter_mapping.yml'
 
   $lookup_defaults_config = lookup('prometheus::statsd::defaults_config', Hash)
   $listen_network = lookup('prometheus::statsd::listen_network', Optional[String], 'first', undef)
@@ -53,25 +74,29 @@ class profile::prometheus::statsd {
     }
   )
 
-  # Uses $defaults_config
-  file {$defaults_file:
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/prometheus/statsd/prometheus-statsd-exporter.defaults.erb'),
-    require => Package['prometheus-statsd-exporter'],
-    notify  => Service['prometheus-statsd-exporter'],
-  }
-
   file {$mapping_config_file:
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => inline_yaml($mapping_config),
-    require => Package['prometheus-statsd-exporter'],
-    notify  => Service['prometheus-statsd-exporter'],
+    notify  => Service[$service_name],
+  }
+
+  # uses $exporter_exe and $defaults_config
+  ::systemd::unit_file {$unit_name:
+    ensure   => present,
+    content  => template('profile/prometheus/statsd/prometheus-statsd-exporter.service.erb'),
+    require  => [
+      File[$exporter_exe],
+      File[$mapping_config_file],
+    ],
+  }
+
+  ~> service {$service_name:
+    ensure  => 'running',
+    enable  => true,
+    require => Class['systemd::systemctl::daemon_reload'],
   }
 
   profile::prometheus::export_scrape_config {'statsd':

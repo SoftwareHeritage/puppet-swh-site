@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus exporter for StatsD metrics
+Documentation=https://github.com/prometheus/statsd_exporter
+
+[Service]
+Restart=always
+ExecStart=<%= @exporter_exe %> <%= scope.call_function('flatten_to_argument_list', [@defaults_config]).join(' ') %>
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+DynamicUser=yes
+
+[Install]
+WantedBy=multi-user.target
