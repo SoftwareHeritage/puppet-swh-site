@@ -2251,6 +2251,10 @@ swh::deploy::webapp::config::throttling:
         - 213.135.60.146
         # Antoine Eiche
         - 37.187.96.121
+    swh_raw_object:
+      limiter_rate:
+        default: 120/h
+
 swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
