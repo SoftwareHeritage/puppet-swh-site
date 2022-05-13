@@ -10,6 +10,7 @@ class profile::swh::deploy::worker::loader_high_priority {
     ensure            => present,
     send_task_events  => true,
     require           => Package[$packages],
+    extra_config      => $::profile::swh::deploy::base_loader_git::extra_config,
   }
 
 }
