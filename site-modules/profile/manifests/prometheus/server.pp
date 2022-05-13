@@ -12,7 +12,7 @@ class profile::prometheus::server {
 
   $global_config = lookup('prometheus::server::config::global', Hash)
   $rule_files = []
-  $scrape_configs = []
+  $scrape_configs = lookup('prometheus::server::config::static_scrape_configs')
   $remote_read = []
   $remote_write = []
   $alert_relabel_configs = []

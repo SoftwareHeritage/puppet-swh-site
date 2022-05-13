@@ -3087,6 +3087,8 @@ prometheus::server::config::global:
   scrape_interval: 1m
   scrape_timeout: 45s
 
+prometheus::server::config::static_scrape_configs: []
+
 prometheus::server::listen_network: "%{lookup('internal_network')}"
 prometheus::server::listen_port: 9090
 prometheus::server::certname: pergamon.softwareheritage.org
