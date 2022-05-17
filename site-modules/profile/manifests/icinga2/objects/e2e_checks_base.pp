@@ -5,4 +5,6 @@ class profile::icinga2::objects::e2e_checks_base {
     ensure => present
   }
   $check_file = '/etc/icinga2/conf.d/e2e-checks.conf'
+
+  User <| title == nagios |> { groups +> "prometheus" }
 }

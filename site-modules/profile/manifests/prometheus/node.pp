@@ -56,6 +56,13 @@ class profile::prometheus::node {
   $scripts = lookup('prometheus::node::scripts', Hash, 'deep')
   $scripts_directory = lookup('prometheus::node::scripts::directory')
 
+  file {$textfile_directory:
+    ensure => directory,
+    owner  => 'prometheus',
+    group  => 'prometheus',
+    mode   => '0775',
+  }
+
   file {$scripts_directory:
     ensure  => 'directory',
     owner   => 'root',
