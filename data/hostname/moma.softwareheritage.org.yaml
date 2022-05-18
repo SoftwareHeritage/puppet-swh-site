@@ -97,4 +97,4 @@ smtp::extra_aliases_files:
     contents:
       - user: "%{lookup('swh::deploy::webapp::user')}"
         aliases:
-          - "| django-admin process-inbound-email --settings=%{lookup('swh::deploy::webapp::django_settings_module')}"
+          - "| django-admin process_inbound_email --settings=%{lookup('swh::deploy::webapp::django_settings_module')}"
