@@ -1914,7 +1914,7 @@ swh::deploy::scrubber::db::config: "host=%{hiera('swh::deploy::scrubber::db::hos
 
 swh::deploy::scrubber::checker::postgres::config:
   scrubber_db:
-    cls: local
+    cls: postgresql
     db: "%{alias('swh::deploy::scrubber::db::config')}"
   storage:
     cls: postgresql
