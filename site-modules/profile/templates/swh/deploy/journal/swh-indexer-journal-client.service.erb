@@ -19,7 +19,7 @@ Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client
+ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client indexer origin-intrinsic-metadata
 Restart=always
 RestartSec=10
 
