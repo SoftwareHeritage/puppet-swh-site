@@ -20,7 +20,7 @@ Environment=SWH_CONFIG_FILENAME=<%= @config_path %>
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client indexer '*'
+ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client '*'
 Restart=always
 RestartSec=10
 
