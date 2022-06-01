@@ -100,7 +100,7 @@ define profile::swh::deploy::worker::instance (
       }
 
       service {$service_basename:
-        ensure  => absent,
+        ensure  => stopped,
       }
 
       file {$config_file:
