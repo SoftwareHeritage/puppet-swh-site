@@ -47,7 +47,6 @@ define profile::swh::deploy::worker::instance (
 
   $celery_hostname = $::profile::swh::deploy::worker::base::celery_hostname
 
-  $parameters_conf = "${service_basename}/parameters.conf"
   case $ensure {
     'present', 'running': {
       # Uses variables
@@ -56,7 +55,7 @@ define profile::swh::deploy::worker::instance (
       # - $max_tasks_per_child
       # - $celery_hostname
       # - $sentry_{dsn,environment,swh_package}
-      ::systemd::dropin_file {$parameters_conf:
+      ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => present,
         unit     => $service_name,
         filename => 'parameters.conf',
@@ -93,15 +92,12 @@ define profile::swh::deploy::worker::instance (
       }
     }
     default: {
-      ::systemd::dropin_file {$parameters_conf:
+      ::systemd::dropin_file {"${service_basename}/parameters.conf":
         ensure   => absent,
         unit     => $service_name,
         filename => 'parameters.conf',
       }
 
-      service {$service_basename:
-        ensure  => stopped,
-      }
 
       file {$config_file:
         ensure  => absent,
