@@ -16,10 +16,11 @@ Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
 <%- if !@sentry_swh_package.nil? and !@sentry_swh_package.empty? -%>
 Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
+Environment=SWH_CONFIG_FILENAME=<%= @config_path %>
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client
+ExecStart=/usr/bin/swh indexer --config-file <%= @config_path %> journal-client '*'
 Restart=always
 RestartSec=10
 
