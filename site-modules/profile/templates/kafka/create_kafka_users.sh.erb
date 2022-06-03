@@ -11,13 +11,17 @@ usage () {
   echo "$0 [--privileged] [--consumer-group-prefix prefix] username"
 }
 
-if (( $# < 1 )) || (( $# > 4 )); then
+if (( $# < 1 )) || (( $# > 9 )); then
   usage
   exit 1
 fi
 
+topic_prefixes="swh.journal.objects. swh.journal.indexed."
+privileged_topic_prefixes="swh.journal.objects_privileged."
+
 privileged="unprivileged"
 cgrp_prefix=""
+ops="READ DESCRIBE"
 
 while (( $# )); do
   if [ $1 = "--privileged" ]; then
@@ -26,6 +30,20 @@ while (( $# )); do
   elif [ $1 = "--consumer-group-prefix" ]; then
     cgrp_prefix=$2
     shift
+    shift
+  elif [ $1 = "--topic_prefixes" ]; then
+    topic_prefixes=$2
+    shift
+    shift
+  elif [ $1 = "--privileged_topic_prefixes" ]; then
+    privileged_topic_prefixes=$2
+    shift
+    shift
+  elif [ $1 = "--rw" ]; then
+    ops="${OPS} WRITE"
+    shift
+  elif [ $1 = "--admin" ]; then
+    ops="${OPS} DELETE CREATE"
     shift
   else
     username=$1
@@ -56,15 +74,13 @@ echo "Setting user credentials"
 	--entity-type users \
 	--entity-name $username
 
-topic_prefixes="swh.journal.objects. swh.journal.indexed."
-
 if [ $privileged = "privileged" ]; then
-	topic_prefixes="$topic_prefixes swh.journal.objects_privileged."
+	topic_prefixes="${topic_prefixes} ${privileged_topic_prefixes}"
 fi
 
 for topic_prefix in $topic_prefixes; do
 	echo "Granting access to topics $topic_prefix to $username"
-	for op in READ DESCRIBE; do
+	for op in ${OPS}; do
 		/opt/kafka/bin/kafka-acls.sh --bootstrap-server $brokers --add --resource-pattern-type PREFIXED --topic $topic_prefix --allow-principal User:$username --operation $op
 	done
 done
