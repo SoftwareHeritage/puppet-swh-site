@@ -22,7 +22,7 @@ swh::deploy::loader_git::queues:
   - oneshot3:swh.loader.git.tasks.UpdateGitRepository
   - swh.loader.git.tasks.UpdateGitRepository
 
-swh::deploy::worker::loader_git::concurrency: 20
+swh::deploy::worker::loader_git::concurrency: 10
 swh::deploy::worker::loader_git::max_tasks_per_child: 1
 
 icinga2::host::vars:
