@@ -2,7 +2,7 @@ swh::deploy::worker::instances:
   - loader_oneshot
   - loader_git
 
-swh::deploy::worker::loader_oneshot::concurrency: 10
+swh::deploy::worker::loader_oneshot::concurrency: 5
 swh::deploy::worker::loader_oneshot::max_tasks_per_child: 1
 swh::deploy::worker::loader_oneshot::task_queues:
   # loader-git
