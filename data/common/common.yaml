@@ -2303,7 +2303,7 @@ swh::deploy::webapp::config:
   features: "%{alias('swh::deploy::webapp::config::features')}"
 
 swh::deploy::webapp::config::features:
-  add_forge_now: false
+  add_forge_now: true
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
