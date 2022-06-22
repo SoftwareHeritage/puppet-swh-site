@@ -4,10 +4,9 @@ swh::deploy::vault::backend::listen::host: 0.0.0.0
 # vault's cache backend is an azure objstorage
 swh::deploy::vault::config::cache:
   cls: azure
-  args:
-    account_name: "%{hiera('swh::azure::credentials::vaultstorage::account')}"
-    api_secret_key: "%{hiera('swh::azure::credentials::vaultstorage::key')}"
-    container_name: contents
+  account_name: "%{hiera('swh::azure::credentials::vaultstorage::account')}"
+  api_secret_key: "%{hiera('swh::azure::credentials::vaultstorage::key')}"
+  container_name: contents
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
 

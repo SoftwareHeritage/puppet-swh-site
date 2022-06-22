@@ -9,11 +9,10 @@ swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::co
 
 swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
   cls: multiplexer
-  args:
-    objstorages:
-      - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+  objstorages:
+    - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
+    - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+    - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
 
 # Activate graph options to production cookers
 swh::deploy::worker::vault_cooker::config:

@@ -15,8 +15,8 @@ class profile::swh::deploy::storage {
   $storage_config = lookup('swh::deploy::storage::config')['storage']
 
   if ($storage_config['cls'] == 'local'
-      and $storage_config['args']['journal_writer']
-      and $storage_config['args']['journal_writer']['cls'] == 'kafka') {
+      and $storage_config['journal_writer']
+      and $storage_config['journal_writer']['cls'] == 'kafka') {
     include ::profile::swh::deploy::journal
   }
 

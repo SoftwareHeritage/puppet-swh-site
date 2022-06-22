@@ -27,7 +27,7 @@ class profile::swh::deploy::objstorage {
   $objstorage_cfg = lookup('swh::deploy::objstorage::config', Hash)['objstorage']
 
   if $objstorage_cfg['cls'] == 'pathslicing' {
-    $obj_directory = $objstorage_cfg['args']['root']
+    $obj_directory = $objstorage_cfg['root']
     file {$obj_directory:
       ensure => directory,
       owner  => $user,

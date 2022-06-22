@@ -41,10 +41,9 @@ swh::deploy::objstorage::backend::server_names:
 swh::deploy::objstorage::config:
   objstorage:
     cls: multiplexer
-    args:
-      objstorages:
-        - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-        - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+    objstorages:
+      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
 
 
 swh::deploy::webapp::timers_enabled: true

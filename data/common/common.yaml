@@ -1469,133 +1469,122 @@ swh::deploy::worker::storage::pipeline:
 # Objstorage backend configurations
 swh::remote_service::objstorage::config::azure:
   cls: azure-prefixed
-  args:
-    accounts:
-      "0":
-        account_name: 0euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
-        container_name: contents
-      "1":
-        account_name: 1euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
-        container_name: contents
-      "2":
-        account_name: 2euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
-        container_name: contents
-      "3":
-        account_name: 3euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
-        container_name: contents
-      "4":
-        account_name: 4euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
-        container_name: contents
-      "5":
-        account_name: 5euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
-        container_name: contents
-      "6":
-        account_name: 6euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
-        container_name: contents
-      "7":
-        account_name: 7euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
-        container_name: contents
-      "8":
-        account_name: 8euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
-        container_name: contents
-      "9":
-        account_name: 9euwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
-        container_name: contents
-      "a":
-        account_name: aeuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
-        container_name: contents
-      "b":
-        account_name: beuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
-        container_name: contents
-      "c":
-        account_name: ceuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
-        container_name: contents
-      "d":
-        account_name: deuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
-        container_name: contents
-      "e":
-        account_name: eeuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
-        container_name: contents
-      "f":
-        account_name: feuwestswh
-        api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
-        container_name: contents
+  accounts:
+    "0":
+      account_name: 0euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
+      container_name: contents
+    "1":
+      account_name: 1euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
+      container_name: contents
+    "2":
+      account_name: 2euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
+      container_name: contents
+    "3":
+      account_name: 3euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
+      container_name: contents
+    "4":
+      account_name: 4euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
+      container_name: contents
+    "5":
+      account_name: 5euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
+      container_name: contents
+    "6":
+      account_name: 6euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
+      container_name: contents
+    "7":
+      account_name: 7euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
+      container_name: contents
+    "8":
+      account_name: 8euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
+      container_name: contents
+    "9":
+      account_name: 9euwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
+      container_name: contents
+    "a":
+      account_name: aeuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
+      container_name: contents
+    "b":
+      account_name: beuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
+      container_name: contents
+    "c":
+      account_name: ceuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
+      container_name: contents
+    "d":
+      account_name: deuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
+      container_name: contents
+    "e":
+      account_name: eeuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
+      container_name: contents
+    "f":
+      account_name: feuwestswh
+      api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
+      container_name: contents
 
 swh::remote_service::objstorage::config::azure::readonly:
   cls: filtered
-  args:
-    storage_conf: "%{alias('swh::remote_service::objstorage::config::azure')}"
-    filters_conf:
-      - type: readonly
+  storage_conf: "%{alias('swh::remote_service::objstorage::config::azure')}"
+  filters_conf:
+    - type: readonly
 
 swh::remote_service::objstorage::config::saam:
   cls: remote
-  args:
-    url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
 
 swh::remote_service::objstorage::config::saam::readonly:
   cls: filtered
-  args:
-    storage_conf: "%{alias('swh::remote_service::objstorage::config::saam')}"
-    filters_conf:
-      - type: readonly
+  storage_conf: "%{alias('swh::remote_service::objstorage::config::saam')}"
+  filters_conf:
+    - type: readonly
 
 swh::remote_service::objstorage::config::banco:
   cls: remote
-  args:
-    url: "http://banco.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://banco.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
 
 swh::remote_service::objstorage::config::banco::readonly:
   cls: filtered
-  args:
-    storage_conf: "%{alias('swh::remote_service::objstorage::config::banco')}"
-    filters_conf:
-      - type: readonly
+  storage_conf: "%{alias('swh::remote_service::objstorage::config::banco')}"
+  filters_conf:
+    - type: readonly
 
 swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
   cls: multiplexer
-  args:
-    objstorages:
-      - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+  objstorages:
+    - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
+    - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
+    - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
 
 swh::remote_service::objstorage::config::localhost:
   cls: remote
-  args:
-    url: "http://127.0.0.1:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://127.0.0.1:%{hiera('swh::remote_service::objstorage::port')}/"
 
 
 # Storage backend configurations
 swh::remote_service::storage::config::saam:
   cls: remote
-  args:
-    url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::azure:
   cls: remote
-  args:
-    url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::local_internal_network:
   cls: remote
-  args:
-    url: "http://%{lookup('swh::deploy::storage::backend::listen::host')}:%{lookup('swh::remote_service::storage::port')}/"
+  url: "http://%{lookup('swh::deploy::storage::backend::listen::host')}:%{lookup('swh::remote_service::storage::port')}/"
 
 swh::remote_service::search::config::empty: {}
 
@@ -1726,21 +1715,19 @@ swh::deploy::storage::backend::server_names:
 # This can be overriden per storage node
 swh::deploy::storage::config::local:
   cls: local
-  args:
-    db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-    objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
 swh::deploy::storage::config:
   storage: "%{alias('swh::deploy::storage::config::local')}"
 
 swh::deploy::journal::writer::config:
   cls: kafka
-  args:
-    brokers: "%{alias('swh::deploy::journal::brokers')}"
-    prefix: "%{alias('swh::deploy::journal::prefix')}"
-    client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
-    anonymize: true
-    producer_config:
+  brokers: "%{alias('swh::deploy::journal::brokers')}"
+  prefix: "%{alias('swh::deploy::journal::prefix')}"
+  client_id: "swh.storage.journal_writer.%{::swh_hostname.short}"
+  anonymize: true
+  producer_config:
       message.max.bytes: 1000000000
 
 swh::deploy::journal::backfill::config_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill.yml"
@@ -1948,9 +1935,8 @@ swh::deploy::objstorage::slicing: 0:2/2:4/4:6
 swh::deploy::objstorage::config:
   objstorage:
     cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::objstorage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{hiera('swh::deploy::objstorage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
   client_max_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
@@ -2121,9 +2107,8 @@ swh::deploy::objstorage_log_checker::group: "%{hiera('swh::deploy::objstorage::g
 swh::deploy::objstorage_log_checker:config:
   storage:
     cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::objstorage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{hiera('swh::deploy::objstorage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
   batch_size: 1000
   log_tag: objstorage.checker.log
 
@@ -2135,9 +2120,8 @@ swh::deploy::objstorage_repair_checker::group: "%{hiera('swh::deploy::objstorage
 swh::deploy::objstorage_repair_checker::config:
   storage:
     cls: pathslicing
-    args:
-      root: "%{hiera('swh::deploy::objstorage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{hiera('swh::deploy::objstorage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
   batch_size: 1000
   log_tag: objstorage.checker.repair
   backup_storages: "%{alias('swh::remote_service::objstorage::config_as_dict')}"
@@ -2627,8 +2611,7 @@ swh::deploy::worker::loader_nixguix::config:
 
 swh::deploy::lister::db::local:
   cls: local
-  args:
-    db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
+  db: "postgresql://%{hiera('swh::deploy::worker::lister::db::user')}:%{hiera('swh::deploy::lister::db::password')}@%{hiera('swh::deploy::worker::lister::db::host')}:%{hiera('swh::deploy::worker::lister::db::port')}/%{hiera('swh::deploy::worker::lister::db::name')}"
 
 swh::deploy::lister::queues:
   - swh.lister.bitbucket.tasks.IncrementalBitBucketLister

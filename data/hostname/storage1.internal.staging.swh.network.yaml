@@ -54,14 +54,12 @@ swh::apt_config::backported_packages:
 
 swh::deploy::storage::config::local:
   cls: local
-  args:
-    db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-    objstorage:
-      cls: pathslicing
-      args:
-        root: "%{hiera('swh::deploy::storage::directory')}"
-        slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-    journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
+  db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+  objstorage:
+    cls: pathslicing
+    root: "%{hiera('swh::deploy::storage::directory')}"
+    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+  journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
 
 syncoid::configuration:
   sources:

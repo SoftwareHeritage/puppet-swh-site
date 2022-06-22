@@ -94,16 +94,14 @@ swh::remote_service::storage0::url: "http://storage1.internal.staging.swh.networ
 
 swh::remote_service::storage::config::storage0:
   cls: remote
-  args:
-    url: "%{alias('swh::remote_service::storage0::url')}"
+  url: "%{alias('swh::remote_service::storage0::url')}"
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::storage0')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::storage0')}"
 
 swh::remote_service::vault::config::vault0:
   cls: remote
-  args:
-    url: "http://vault.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
+  url: "http://vault.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
 swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
 swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
@@ -115,8 +113,7 @@ swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::i
 
 swh::remote_service::scheduler::config::scheduler0:
   cls: remote
-  args:
-    url: "http://scheduler0.internal.staging.swh.network:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://scheduler0.internal.staging.swh.network:%{hiera('swh::remote_service::scheduler::port')}/"
 
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
