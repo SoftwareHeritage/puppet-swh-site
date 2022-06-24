@@ -9,11 +9,10 @@ Type=oneshot
 User=<%= @user %>
 Group=<%= @group %>
 RemainAfterExit=yes
-# ExecStart=/opt/swhgraph_venv/bin/swh graph cachemount --graph /srv/softwareheritage/ssd/graph/2020-05-20/compressed/graph --cache /dev/shm/swh-graph/default
 ExecStart=mkdir -p /dev/shm/swh-graph/default
-ExecStart=sh -c "ln -s /srv/softwareheritage/ssd/graph/2020-12-15/compressed/* /dev/shm/swh-graph/default"
-ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/ssd/graph/2020-12-15/compressed/graph.graph /dev/shm/swh-graph/default"
-ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/ssd/graph/2020-12-15/compressed/graph-transposed.graph /dev/shm/swh-graph/default"
+ExecStart=sh -c "ln -s /srv/softwareheritage/graph/latest/compressed/* /dev/shm/swh-graph/default"
+ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/graph/latest/compressed/graph.graph /dev/shm/swh-graph/default"
+ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/graph/latest/compressed/graph-transposed.graph /dev/shm/swh-graph/default"
 ExecStop=rm -rf /dev/shm/swh-graph/default
 
 [Install]
