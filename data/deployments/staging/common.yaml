@@ -28,8 +28,6 @@ swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 
 swh::deploy::scrubber::db::host: db1.internal.staging.swh.network
-swh::deploy::scrubber::db::user: swh-scrubber
-swh::deploy::scrubber::db::dbname: swh-scrubber
 
 swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
