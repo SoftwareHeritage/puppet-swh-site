@@ -183,7 +183,7 @@ node /^counters\d\.internal\.staging\.swh\.network$/ {
   include role::swh_counters_with_journal_client
 }
 
-node /^scrubber\d+\.internal\.staging\.swh\.network/ {
+node /^scrubber\d+\.internal\.(staging\.swh\.network|softwareheritage\.org)/ {
   include role::swh_scrubber_checkers
 }
 
