@@ -1,2 +1,0 @@
-swh::remote_service::objstorage::config:
-  cls: noop

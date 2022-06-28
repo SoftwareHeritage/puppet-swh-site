@@ -1911,7 +1911,8 @@ swh::deploy::scrubber::checker::postgres::config:
   storage:
     cls: postgresql
     db: "%{alias('swh::deploy::storage::db::config::read-only')}"
-    objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+    objstorage:
+      cls: noop
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
