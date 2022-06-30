@@ -27,7 +27,7 @@ swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_production
 swh::deploy::objstorage::reverse_proxy::backend_http_host: "%{alias('swh::deploy::objstorage::backend::listen::host')}"
 
 swh::deploy::objstorage::backend::public_server_name:
-  objstorage.softwarehritage.org
+  objstorage.softwareheritage.org
   objstorage.internal.softwareheritage.org
 
 swh::deploy::objstorage::backend::server_names:
