@@ -18,11 +18,11 @@ class profile::swh::deploy::graph {
 
   # install services from templates
   $services = [ {  # this matches the current status
-    'name' => 'swhgraphshm',
+    'name' => 'swh-graph-shm-mount',
     'status'  => 'running',
     'enable' => false,
   }, {
-    'name' => 'swhgraphdev',
+    'name' => 'swh-graph',
     'status'  => 'running',
     'enable' => true,
   }
@@ -57,7 +57,7 @@ class profile::swh::deploy::graph {
     $local_check_address = $backend_listen_host
   }
 
-  # swhgraphdev.service exposes the main graph server.
+  # swh-graph.service exposes the main graph server.
   # Ensure the port is working ok through icinga checks
   @@::icinga2::object::service {"swh-graph api (local on ${::fqdn})":
     service_name     => "swh-graph api (localhost)",

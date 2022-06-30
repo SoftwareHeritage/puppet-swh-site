@@ -2,9 +2,9 @@
 # Changes will be overwritten
 
 [Unit]
-Description=swh graph
-After=swhgraphshm.service
-Requires=swhgraphshm.service
+Description=swh-graph HTTP server
+After=swh-graph-shm-mount.service
+Requires=swh-graph-shm-mount.service
 
 [Service]
 <%- if !@sentry_dsn.nil? and !@sentry_dsn.empty? -%>
