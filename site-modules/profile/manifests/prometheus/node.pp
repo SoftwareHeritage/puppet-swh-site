@@ -61,6 +61,7 @@ class profile::prometheus::node {
     owner  => 'prometheus',
     group  => 'prometheus',
     mode   => '0775',
+    require => Package['prometheus-node-exporter'],
   }
 
   file {$scripts_directory:
