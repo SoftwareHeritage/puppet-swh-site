@@ -22,11 +22,13 @@ Puppet::Functions.create_function(:flatten_to_argument_list) do
             # This replaces every backslash with four backslashes to please
             # systemd's EnvironmentFile escaping. Yes, gsub needs four
             # backslashes per output backslash.
-            value.gsub!('\\', '\\\\\\\\\\\\\\\\')
+            escaped_value = value.gsub('\\', '\\\\\\\\\\\\\\\\')
           elsif escaping_type == 'shell'
-            value = Shellwords.escape(value)
+            escaped_value = Shellwords.escape(value)
+          else
+            escaped_value = value
           end
-          ret.push("#{arg}=#{value}")
+          ret.push("#{arg}=#{escaped_value}")
         end
       end
     end
