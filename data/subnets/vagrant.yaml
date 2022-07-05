@@ -259,3 +259,11 @@ static_hostnames:
     host: mirror-test.internal.staging.swh.network
   10.168.200.22:
     host: ns0.euwest.azure.internal.softwareheritage.org
+
+
+thanos::objstore::config:
+  # thanos sidecar will crash if the objstore is a badly configured azure bucket
+  # (e.g. with redacted credentials)
+  type: FILESYSTEM
+  config:
+    directory: "/var/tmp/thanos-objstore"

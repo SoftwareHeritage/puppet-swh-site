@@ -1,0 +1,41 @@
+# File managed by puppet (class profile::thanos::prometheus_sidecar)
+# Manual changes will be overwritten
+
+[Unit]
+Description=Thanos sidecar
+Wants=prometheus.service
+After=prometheus.service
+
+[Service]
+Restart=on-failure
+User=prometheus
+ExecStart=/opt/thanos/current/thanos sidecar <%= scope.call_function('flatten_to_argument_list', [@sidecar_arguments]).join(" \\\n    ") %>
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+
+# systemd hardening-options
+AmbientCapabilities=
+CapabilityBoundingSet=
+DeviceAllow=/dev/null rw
+DevicePolicy=strict
+LimitMEMLOCK=0
+LimitNOFILE=8192
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+PrivateUsers=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=full
+RemoveIPC=true
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

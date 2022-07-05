@@ -133,4 +133,6 @@ class profile::prometheus::server {
   }
 
   Profile::Prometheus::Scrape_config <<| prometheus_server == $trusted['certname'] |>>
+
+  include profile::thanos::prometheus_sidecar
 }

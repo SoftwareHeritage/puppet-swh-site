@@ -3227,6 +3227,23 @@ prometheus::nginx::listen_port: 9103
 prometheus::varnish::listen_network: "%{lookup('internal_network')}"
 prometheus::varnish::listen_port: 9104
 
+thanos::release::version: 0.26.0
+thanos::release::digest: cf5ea95e19388736df83f0959bd036b8ad400af233d03ae6f90decc05161dccc
+thanos::release::digest_type: sha256
+
+thanos::tenant: "%{::subnet}"
+thanos::replica: "0"
+
+thanos::objstore::azure_account: swhthanosmetrics
+# thanos::objstore::azure_account_key in credentials
+
+thanos::objstore::config:
+  type: AZURE
+  config:
+    storage_account: "%{lookup('thanos::objstore::azure_account')}"
+    storage_account_key: "%{lookup('thanos::objstore::azure_account_key')}"
+    container: "metrics-%{lookup('thanos::tenant')}-%{lookup('thanos::replica')}"
+
 grafana::db::database: grafana
 grafana::db::username: grafana
 # grafana::db::password in private-data
