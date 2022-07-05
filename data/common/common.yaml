@@ -3072,10 +3072,15 @@ prometheus::server::defaults_config:
   storage:
     tsdb:
       retention: '1y'
+      min-block-duration: '2h'
+      max-block-duration: '2h'
 
 prometheus::server::config::global:
   scrape_interval: 1m
   scrape_timeout: 45s
+  external_labels:
+    tenant: "%{lookup('thanos::tenant')}"
+    replica: "%{lookup('thanos::replica')}"
 
 prometheus::server::config::static_scrape_configs: []
 
