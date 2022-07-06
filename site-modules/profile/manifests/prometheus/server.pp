@@ -121,7 +121,15 @@ class profile::prometheus::server {
     mode    => '0644',
     content => template('profile/prometheus/server/prometheus.defaults.erb'),
     require => Package['prometheus'],
-    notify  => Service['prometheus'],
+    # Service['prometheus'] is set up to reload on config changes. This changes
+    # the CLI args and needs a service restart.
+    notify  => Exec['restart-prometheus'],
+  }
+
+  exec {'restart-prometheus':
+    command     => 'systemctl restart prometheus',
+    refreshonly => true,
+    path        => ['/usr/bin', '/usr/sbin', '/bin', '/sbin'],
   }
 
   Profile::Prometheus::Scrape_config <<| prometheus_server == $trusted['certname'] |>>
