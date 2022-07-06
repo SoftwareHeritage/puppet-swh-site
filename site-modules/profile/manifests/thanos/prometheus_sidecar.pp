@@ -21,6 +21,9 @@ class profile::thanos::prometheus_sidecar {
     objstore       => {
       'config-file' => $objstore_config_file,
     },
+    shipper        => {
+      'upload-compacted' => true,
+    },
     'http-address' => '0.0.0.0:19191',
     'grpc-address' => '0.0.0.0:19090',
   }
