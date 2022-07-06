@@ -87,13 +87,18 @@ class profile::prometheus::server {
     notify  => Exec['update-prometheus-config'],
   }
 
+  package {'python3-typing-extensions':
+    ensure => 'present',
+  }
+
   $update_prometheus_config = '/usr/local/bin/update-prometheus-config'
   file {$update_prometheus_config:
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => 'puppet:///modules/profile/prometheus/update-prometheus-config'
+    source  => 'puppet:///modules/profile/prometheus/update-prometheus-config',
+    require => Package['python3-typing-extensions'],
   }
 
   exec {'update-prometheus-config':
