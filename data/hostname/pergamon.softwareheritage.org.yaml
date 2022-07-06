@@ -93,4 +93,4 @@ groups:
   boatbucket:
     gid: 1024
 
-thanos::tenant: historical_data
+thanos::tenant: historical-data
