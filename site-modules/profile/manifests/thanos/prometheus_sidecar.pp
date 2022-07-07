@@ -7,8 +7,14 @@ class profile::thanos::prometheus_sidecar {
 
   $objstore_config = lookup('thanos::objstore::config')
 
-  $config_dir = '/etc/thanos-sidecar'
+  $config_dir = '/etc/thanos'
   $objstore_config_file = "${config_dir}/objstore.yml"
+
+  $port_http = lookup('thanos::sidecar::port_http')
+  $port_grpc = lookup('thanos::sidecar::port_grpc')
+
+  $internal_ip = ip_for_network(lookup('internal_network'))
+  $grpc_address = "${internal_ip}:${port_grpc}"
 
   $sidecar_arguments = {
     tsdb           => {
@@ -24,10 +30,9 @@ class profile::thanos::prometheus_sidecar {
     shipper        => {
       'upload-compacted' => true,
     },
-    'http-address' => '0.0.0.0:19191',
-    'grpc-address' => '0.0.0.0:19090',
+    'http-address' => "${internal_ip}:${port_http}",
+    'grpc-address' => $grpc_address,
   }
-
 
   file {$config_dir:
     ensure  => directory,
@@ -45,6 +50,8 @@ class profile::thanos::prometheus_sidecar {
     content => inline_yaml($objstore_config),
   }
 
+  # Template uses:
+  # $sidecar_arguments
   systemd::unit_file {$unit_name:
     ensure  => present,
     content => template('profile/thanos/thanos-sidecar.service.erb'),
@@ -61,4 +68,8 @@ class profile::thanos::prometheus_sidecar {
   Class['profile::thanos::base'] ~> Service[$service_name]
   # Ensure prometheus is configured properly before starting the sidecar
   Exec['restart-prometheus'] -> Service[$service_name]
+
+  ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::fqdn}":
+    grpc_address => $grpc_address
+  }
 }

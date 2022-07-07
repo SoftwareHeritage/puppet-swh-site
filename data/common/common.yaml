@@ -3232,9 +3232,21 @@ prometheus::nginx::listen_port: 9103
 prometheus::varnish::listen_network: "%{lookup('internal_network')}"
 prometheus::varnish::listen_port: 9104
 
+thanos::base::config_dir: "/etc/thanos"
+
 thanos::release::version: 0.26.0
 thanos::release::digest: cf5ea95e19388736df83f0959bd036b8ad400af233d03ae6f90decc05161dccc
 thanos::release::digest_type: sha256
+
+thanos::port::http: 19191
+thanos::port::grpc: 19090
+
+thanos::sidecar::port_http: "%{lookup('thanos::port::http')}"
+thanos::sidecar::port_grpc: "%{lookup('thanos::port::grpc')}"
+thanos::query::port_http: "%{lookup('thanos::port::http')}"
+thanos::query::config_filepath: "%{lookup('thanos::base::config_dir')}/query-sd.yaml"
+thanos::gateway::port_http: 19192
+thanos::gateway::port_grpc: 19093
 
 thanos::tenant: "%{::subnet}"
 thanos::replica: "0"
@@ -3248,6 +3260,12 @@ thanos::objstore::config:
     storage_account: "%{lookup('thanos::objstore::azure_account')}"
     storage_account_key: "%{lookup('thanos::objstore::azure_account_key')}"
     container: "metrics-%{lookup('thanos::tenant')}-%{lookup('thanos::replica')}"
+
+# Other puppet managed stores will be automatically dealt with
+thanos::query::non_puppet_managed::stores:
+  # - pergamon.internal.softwareheritage.org:"%{lookup('thanos::sidecar::port_http')}"
+  # collected resource ^
+  - mmca.softwareheritage.org:443
 
 grafana::db::database: grafana
 grafana::db::username: grafana

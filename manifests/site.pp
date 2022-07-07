@@ -122,6 +122,10 @@ node 'riverside.internal.admin.swh.network' {
   include role::swh_sentry
 }
 
+node 'thanos.internal.admin.swh.network' {
+  include role::swh_thanos
+}
+
 node /^jenkins-debian\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ci_agent_debian
 }

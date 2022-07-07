@@ -15,6 +15,8 @@ class profile::thanos::base {
 
   $current_symlink = "${install_basepath}/current"
 
+  $config_dir = lookup('thanos::base::config_dir')
+
   file { [$install_basepath, $install_dir]:
     ensure  => 'directory',
     owner   => $user,
@@ -40,6 +42,12 @@ class profile::thanos::base {
   -> file {$current_symlink:
     ensure      => 'link',
     target      => $install_dir,
-    notify      => Service[$service_name],
+  }
+
+  file {$config_dir:
+    ensure  => directory,
+    owner   => $user,
+    group   => 'prometheus',
+    mode    => '0750',
   }
 }

@@ -95,6 +95,8 @@ static_hostnames:
     aliases:
       - inventory.internal.admin.swh.network
       - inventory.internal.softwareheritage.org
+  10.168.50.90:
+    host: thanos.internal.admin.swh.network
   10.168.100.18:
     host: banco.internal.softwareheritage.org
     aliases:

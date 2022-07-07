@@ -103,5 +103,4 @@ class profile::puppet::master {
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand',
   }
-
 }
