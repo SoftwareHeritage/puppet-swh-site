@@ -3245,6 +3245,7 @@ thanos::sidecar::port_http: "%{lookup('thanos::port::http')}"
 thanos::sidecar::port_grpc: "%{lookup('thanos::port::grpc')}"
 thanos::query::port_http: "%{lookup('thanos::port::http')}"
 thanos::query::config_filepath: "%{lookup('thanos::base::config_dir')}/query-sd.yaml"
+
 thanos::gateway::port_http: 19192
 thanos::gateway::port_grpc: 19093
 
