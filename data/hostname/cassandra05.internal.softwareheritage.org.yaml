@@ -4,3 +4,6 @@ dns::local_cache: false
 swh::apt_config::enable_non_free: true
 packages:
   - zfs-dkms
+
+dns::nameservers:
+  - 192.168.100.29
