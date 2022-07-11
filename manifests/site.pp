@@ -62,7 +62,7 @@ node /^kafka\d+\./ {
   include role::swh_kafka_broker
 }
 
-node /^cassandra\d+\./ {
+node /^cassandra\d?\d+\./ {
   include role::swh_cassandra_node
 }
 

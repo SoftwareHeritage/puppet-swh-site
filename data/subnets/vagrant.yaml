@@ -179,6 +179,18 @@ static_hostnames:
     host: jenkins1-debian.internal.softwareheritage.org
   10.168.100.170:
     host: pompidou.internal.softwareheritage.org
+  10.168.100.181:
+    host: cassandra01.internal.softwareheritage.org
+  10.168.100.182:
+    host: cassandra02.internal.softwareheritage.org
+  10.168.100.183:
+    host: cassandra03.internal.softwareheritage.org
+  10.168.100.184:
+    host: cassandra04.internal.softwareheritage.org
+  10.168.100.185:
+    host: cassandra05.internal.softwareheritage.org
+  10.168.100.186:
+    host: cassandra06.internal.softwareheritage.org
   10.168.100.210:
     host: belvedere.internal.softwareheritage.org
     aliases:

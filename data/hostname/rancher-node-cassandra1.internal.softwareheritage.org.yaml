@@ -1,0 +1,2 @@
+# local cache is not compatible with rancher in docker
+dns::local_cache: false

@@ -1,0 +1,6 @@
+# local cache is not compatible with rancher in docker
+dns::local_cache: false
+
+swh::apt_config::enable_non_free: true
+packages:
+  - zfs-dkms
