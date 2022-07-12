@@ -12,6 +12,7 @@ class profile::thanos::base {
   $install_dir = "${install_basepath}/${version}"
 
   $archive_path = "${install_basepath}/${version}.tar.gz"
+
   $current_symlink = "${install_basepath}/current"
 
   $config_dir = lookup('thanos::base::config_dir')

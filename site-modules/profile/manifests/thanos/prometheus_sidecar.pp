@@ -1,4 +1,4 @@
-# Thanos prometheus sidecar service
+# Thanos prometheus sidecar
 class profile::thanos::prometheus_sidecar {
   include profile::thanos::base
 
@@ -6,7 +6,9 @@ class profile::thanos::prometheus_sidecar {
   $unit_name = "${service_name}.service"
 
   $objstore_config = lookup('thanos::objstore::config')
-  $objstore_config_file = "${::profile::thanos::base::config_dir}/objstore.yml"
+
+  $config_dir = '/etc/thanos'
+  $objstore_config_file = "${config_dir}/objstore.yml"
 
   $port_http = lookup('thanos::sidecar::port_http')
   $port_grpc = lookup('thanos::sidecar::port_grpc')
@@ -16,7 +18,7 @@ class profile::thanos::prometheus_sidecar {
 
   $sidecar_arguments = {
     tsdb           => {
-      path => '/var/lib/prometheus/metrics2'
+      path => '/var/lib/prometheus/metrics2',
     },
     prometheus     => {
       # use the listen address for the prometheus server
@@ -32,13 +34,20 @@ class profile::thanos::prometheus_sidecar {
     'grpc-address' => $grpc_address,
   }
 
+  file {$config_dir:
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'prometheus',
+    mode    => '0750',
+    require => Package['prometheus'],
+  }
+
   file {$objstore_config_file:
     ensure  => present,
     owner   => 'root',
     group   => 'prometheus',
     mode    => '0640',
     content => inline_yaml($objstore_config),
-    require => File[$::profile::thanos::base::config_dir],
   }
 
   # Template uses:

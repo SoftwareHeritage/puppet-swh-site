@@ -6,7 +6,6 @@ class profile::thanos::query {
   $unit_name = "${service_name}.service"
 
   $port_http = lookup('thanos::query::port_http')
-
   $non_puppet_managed_stores = lookup('thanos::query::non_puppet_managed::stores')
 
   $internal_ip = ip_for_network(lookup('internal_network'))
@@ -30,6 +29,10 @@ class profile::thanos::query {
     }
   }
 
+  # Deal with collected resources
+  Concat <<| tag == 'thanos' |>> ~> Service[$service_name]
+  Concat::Fragment <<| tag == 'thanos' |>> ~> Service[$service_name]
+
   $query_arguments = {
     "http-address"   => "${internal_ip}:${port_http}",
     "store.sd-files" => $config_filepath,
@@ -50,7 +53,4 @@ class profile::thanos::query {
   }
 
   Class['profile::thanos::base'] ~> Service[$service_name]
-  # Deal with collected resources
-  Concat <<| tag == 'thanos' |>> ~> Service[$service_name]
-  Concat::Fragment <<| tag == 'thanos' |>> ~> Service[$service_name]
 }
