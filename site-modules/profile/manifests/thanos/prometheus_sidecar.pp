@@ -34,14 +34,6 @@ class profile::thanos::prometheus_sidecar {
     'grpc-address' => $grpc_address,
   }
 
-  file {$config_dir:
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'prometheus',
-    mode    => '0750',
-    require => Package['prometheus'],
-  }
-
   file {$objstore_config_file:
     ensure  => present,
     owner   => 'root',
