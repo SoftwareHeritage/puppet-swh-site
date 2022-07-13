@@ -4,6 +4,6 @@ define profile::thanos::export_query_endpoint (
 ) {
 
   @@::profile::thanos::query_endpoint{"${facts['swh_hostname']['short']}_${name}":
-    grpc_address => $grpc_address
+    grpc_address => $grpc_address,
   }
 }

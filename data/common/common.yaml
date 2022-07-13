@@ -3245,8 +3245,6 @@ thanos::sidecar::port_http: "%{lookup('thanos::port::http')}"
 thanos::sidecar::port_grpc: "%{lookup('thanos::port::grpc')}"
 thanos::query::port_http: "%{lookup('thanos::port::http')}"
 thanos::query::config_filepath: "%{lookup('thanos::base::config_dir')}/query-sd.yaml"
-thanos::gateway::port_http: 19192
-thanos::gateway::port_grpc: 19093
 
 thanos::tenant: "%{::subnet}"
 thanos::replica: "0"
@@ -3263,9 +3261,17 @@ thanos::objstore::config:
 
 # Other puppet managed stores will be automatically dealt with
 thanos::query::non_puppet_managed::stores:
-  # - pergamon.internal.softwareheritage.org:"%{lookup('thanos::sidecar::port_http')}"
-  # collected resource ^
   - mmca.softwareheritage.org:443
+
+thanos::gateway::services:
+  historical:
+    azure-storage-container: metrics-historical-data-0
+    port-http: 19193
+    port-grpc: 19093
+  mmca:
+    azure-storage-container: metrics-mmca-0
+    port-http: 19194
+    port-grpc: 19094
 
 grafana::db::database: grafana
 grafana::db::username: grafana

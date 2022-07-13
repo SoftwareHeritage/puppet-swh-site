@@ -10,6 +10,18 @@ class profile::thanos::query {
 
   $internal_ip = ip_for_network(lookup('internal_network'))
   $config_filepath = lookup('thanos::query::config_filepath')
+  concat {$config_filepath:
+    ensure         => present,
+    path           => $config_filepath,
+    owner          => $user,
+    group          => 'prometheus',
+    mode           => '0640',
+    ensure_newline => true,
+    order          => 'numeric',
+    tag            => 'thanos',
+    require        => File[$::profile::thanos::base::config_dir],
+    notify         => Service[$service_name],
+  }
 
   concat::fragment { 'header':
     target  => $config_filepath,
@@ -30,8 +42,7 @@ class profile::thanos::query {
   }
 
   # Deal with collected resources
-  Concat <<| tag == 'thanos' |>> ~> Service[$service_name]
-  Concat::Fragment <<| tag == 'thanos' |>> ~> Service[$service_name]
+  Profile::Thanos::Query_endpoint <<| |>>
 
   $query_arguments = {
     "http-address"   => "${internal_ip}:${port_http}",

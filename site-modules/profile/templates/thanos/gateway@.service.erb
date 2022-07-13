@@ -1,0 +1,47 @@
+# File managed by puppet (class profile::thanos::gateway)
+# Manual changes will be overwritten
+
+[Unit]
+Description=Thanos gateway instance %i
+
+[Service]
+Environment=HTTP_ADDRESS=
+Environment=GRPC_ADDRESS=
+Restart=on-failure
+User=prometheus
+
+ExecStart=/opt/thanos/current/thanos store \
+  --data-dir $CACHE_DIRECTORY \
+  --objstore.config-file <%= @config_dir %>/objstore-%i.yml \
+  --http-address $HTTP_ADDRESS \
+  --grpc-address $GRPC_ADDRESS
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+SendSIGKILL=no
+CacheDirectory=thanos/gateway-%i
+
+# systemd hardening-options
+AmbientCapabilities=
+CapabilityBoundingSet=
+DeviceAllow=/dev/null rw
+DevicePolicy=strict
+LimitMEMLOCK=0
+LimitNOFILE=8192
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+PrivateUsers=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=full
+RemoveIPC=true
+RestrictNamespaces=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

@@ -6,9 +6,7 @@ class profile::thanos::prometheus_sidecar {
   $unit_name = "${service_name}.service"
 
   $objstore_config = lookup('thanos::objstore::config')
-
-  $config_dir = '/etc/thanos'
-  $objstore_config_file = "${config_dir}/objstore.yml"
+  $objstore_config_file = "${::profile::thanos::base::config_dir}/objstore.yml"
 
   $port_http = lookup('thanos::sidecar::port_http')
   $port_grpc = lookup('thanos::sidecar::port_grpc')
@@ -40,6 +38,7 @@ class profile::thanos::prometheus_sidecar {
     group   => 'prometheus',
     mode    => '0640',
     content => inline_yaml($objstore_config),
+    require => File[$::profile::thanos::base::config_dir],
   }
 
   # Template uses:

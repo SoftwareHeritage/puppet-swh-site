@@ -1,0 +1,6 @@
+# Managed by puppet - modifications will be overwritten
+# In defined class profile::thanos::gateway
+
+[Service]
+Environment=HTTP_ADDRESS=<%= @http_address %>
+Environment=GRPC_ADDRESS=<%= @grpc_address %>
