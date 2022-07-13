@@ -950,6 +950,13 @@ letsencrypt::certificates:
   maven-exporter.internal.staging.swh.network:
     domains:
       - maven-exporter.internal.staging.swh.network
+  pergamon.softwareheritage.org:
+    domains:
+      - pergamon.softwareheritage.org
+      - pergamon.internal.softwareheritage.org
+  thanos.internal.admin.swh.network:
+    domains:
+      - thanos.internal.admin.swh.network
 
 bind::update_key: local-update
 
