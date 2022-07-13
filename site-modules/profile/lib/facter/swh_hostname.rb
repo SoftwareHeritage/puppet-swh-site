@@ -3,7 +3,8 @@ require 'socket'
 
 domain_names = [
   ".internal.softwareheritage.org",
-  ".internal.staging.swh.network"
+  ".internal.staging.swh.network",
+  ".internal.admin.swh.network",
 ]
 
 default_domain_name = domain_names[0]
