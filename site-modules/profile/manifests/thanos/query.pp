@@ -45,8 +45,10 @@ class profile::thanos::query {
   Profile::Thanos::Query_endpoint <<| |>>
 
   $query_arguments = {
-    "http-address"   => "${internal_ip}:${port_http}",
-    "store.sd-files" => $config_filepath,
+    "http-address"           => "${internal_ip}:${port_http}",
+    "store.sd-files"         => $config_filepath,
+    "grpc-client-tls-secure" => true,
+    "grpc-client-tls-ca"     => '/etc/ssl/certs/ca-certificates.crt',
   }
 
   systemd::unit_file {$unit_name:

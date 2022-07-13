@@ -1,6 +1,9 @@
 # Thanos gateway services (historical metrics access)
 class profile::thanos::gateway {
   include profile::thanos::base
+  include profile::thanos::tls_certificate
+
+  $cert_paths = $::profile::thanos::tls_certificate::cert_paths
 
   $internal_ip = ip_for_network(lookup('internal_network'))
 
@@ -34,6 +37,7 @@ class profile::thanos::gateway {
     $http_address = "${internal_ip}:${port_http}"
     $port_grpc = $service['port-grpc']
     $grpc_address = "${internal_ip}:${port_grpc}"
+    $grpc_target  = "${swh_hostname['internal_fqdn']}:${port_grpc}"
 
     $service_name = "thanos-gateway@${dataset_name}"
     $unit_name = "${service_name}.service"
@@ -54,11 +58,12 @@ class profile::thanos::gateway {
 
     # gateway service grpc address pushed to query service configuration file to access
     # historical data
-    ::profile::thanos::export_query_endpoint {"thanos-gateway-${grpc_address}":
-      grpc_address => $grpc_address
+    ::profile::thanos::export_query_endpoint {"thanos-gateway-${grpc_target}":
+      grpc_address => $grpc_target
     }
   }
 
+  # Uses: $config_dir, $cert_paths
   systemd::unit_file {'thanos-gateway@.service':
     ensure  => present,
     content => template('profile/thanos/gateway@.service.erb'),

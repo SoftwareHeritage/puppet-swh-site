@@ -14,6 +14,7 @@ ExecStart=/opt/thanos/current/thanos store \
   --data-dir $CACHE_DIRECTORY \
   --objstore.config-file <%= @config_dir %>/objstore-%i.yml \
   --http-address $HTTP_ADDRESS \
+  --grpc-server-tls-cert=<%= @cert_paths['fullchain'] %> --grpc-server-tls-key=<%= @cert_paths['privkey'] %> \
   --grpc-address $GRPC_ADDRESS
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s

@@ -1,6 +1,7 @@
 # Thanos prometheus sidecar
 class profile::thanos::prometheus_sidecar {
   include profile::thanos::base
+  include profile::thanos::tls_certificate
 
   $service_name = 'thanos-sidecar'
   $unit_name = "${service_name}.service"
@@ -13,23 +14,28 @@ class profile::thanos::prometheus_sidecar {
 
   $internal_ip = ip_for_network(lookup('internal_network'))
   $grpc_address = "${internal_ip}:${port_grpc}"
+  $grpc_target = "${swh_hostname['internal_fqdn']}:${port_grpc}"
+
+  $cert_paths = $::profile::thanos::tls_certificate::cert_paths
 
   $sidecar_arguments = {
-    tsdb           => {
+    tsdb                   => {
       path => '/var/lib/prometheus/metrics2',
     },
-    prometheus     => {
+    prometheus             => {
       # use the listen address for the prometheus server
       url => "http://${::profile::prometheus::server::target}/",
     },
-    objstore       => {
+    objstore               => {
       'config-file' => $objstore_config_file,
     },
-    shipper        => {
+    shipper                => {
       'upload-compacted' => true,
     },
-    'http-address' => "${internal_ip}:${port_http}",
-    'grpc-address' => $grpc_address,
+    'grpc-server-tls-cert' => $cert_paths['fullchain'],
+    'grpc-server-tls-key'  => $cert_paths['privkey'],
+    'http-address'         => "${internal_ip}:${port_http}",
+    'grpc-address'         => $grpc_address,
   }
 
   file {$objstore_config_file:
@@ -61,6 +67,6 @@ class profile::thanos::prometheus_sidecar {
   Exec['restart-prometheus'] -> Service[$service_name]
 
   ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::fqdn}":
-    grpc_address => $grpc_address
+    grpc_address => $grpc_target
   }
 }
