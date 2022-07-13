@@ -3268,7 +3268,7 @@ thanos::objstore::config:
 
 # Other puppet managed stores will be automatically dealt with
 thanos::query::non_puppet_managed::stores:
-  - mmca.softwareheritage.org:443
+  - mmca-thanos.softwareheritage.org:443
 
 thanos::gateway::services:
   historical:
