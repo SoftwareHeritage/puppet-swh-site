@@ -2,6 +2,7 @@
 
 define profile::letsencrypt::certificate (
   String                    $basename         = $title,
+  String                    $source_cert      = $title,
   String                    $privkey_owner    = 'root',
   String                    $privkey_group    = 'root',
   Stdlib::Filemode          $privkey_mode     = '0600',
@@ -25,7 +26,7 @@ define profile::letsencrypt::certificate (
       owner  => 'root',
       group  => 'root',
       mode   => '0644',
-      source => "puppet:///le_certs/${basename}/${filename}",
+      source => "puppet:///le_certs/${source_cert}/${filename}",
     }
   }
 
@@ -35,7 +36,7 @@ define profile::letsencrypt::certificate (
       owner  => $privkey_owner,
       group  => $privkey_group,
       mode   => $privkey_mode,
-      source => "puppet:///le_certs/${basename}/${filename}",
+      source => "puppet:///le_certs/${source_cert}/${filename}",
     }
   }
 }
