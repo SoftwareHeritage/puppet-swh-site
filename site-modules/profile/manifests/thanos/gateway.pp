@@ -53,8 +53,16 @@ class profile::thanos::gateway {
     service {$service_name:
       ensure  => 'running',
       enable  => true,
+      require => [
+        File[$cert_paths['fullchain']],
+        File[$cert_paths['privkey']],
+      ],
       tag     => 'thanos-gateway',
     }
+
+    # Ensure service is restarted when the certs are renewed
+    File[$cert_paths['fullchain']] ~> Service[$service_name]
+    File[$cert_paths['privkey']]   ~> Service[$service_name]
 
     # gateway service grpc address pushed to query service configuration file to access
     # historical data

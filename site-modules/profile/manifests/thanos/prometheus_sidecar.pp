@@ -59,12 +59,20 @@ class profile::thanos::prometheus_sidecar {
   service {$service_name:
     ensure  => 'running',
     enable  => true,
-    require => Service['prometheus'],
+    require => [
+      Service['prometheus'],
+      File[$cert_paths['fullchain']],
+      File[$cert_paths['privkey']],
+    ],
   }
 
   Class['profile::thanos::base'] ~> Service[$service_name]
   # Ensure prometheus is configured properly before starting the sidecar
   Exec['restart-prometheus'] -> Service[$service_name]
+
+  # Ensure service is restarted when the certs are renewed
+  File[$cert_paths['fullchain']] ~> Service[$service_name]
+  File[$cert_paths['privkey']]   ~> Service[$service_name]
 
   ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::fqdn}":
     grpc_address => $grpc_target
