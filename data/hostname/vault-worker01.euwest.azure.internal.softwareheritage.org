@@ -1,0 +1,3 @@
+---
+swh::deploy::worker::instances:
+  - vault_cooker
