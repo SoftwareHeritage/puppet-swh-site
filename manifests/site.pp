@@ -94,7 +94,7 @@ node /^worker\d+\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_worker_inria
 }
 
-node /^(vault-)?worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
+node /^(indexer|vault-)?worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_worker_azure
 }
 
