@@ -55,20 +55,6 @@ icinga2::features:
   - command
 
 prometheus::server::config::static_scrape_configs:
-  # mmca.softwareheritage.org: provenance server at OVH
-  - job_name: federate-mmca.softwareheritage.org
-    honor_labels: true
-    scheme: https
-    metrics_path: /prometheus/federate
-    basic_auth:
-      username: prometheus
-      password: prometheus
-    params:
-      match[]:
-        - '{instance="mmca.internal.softwareheritage.org"}'
-    static_configs:
-      - targets:
-          - mmca.softwareheritage.org
 
 systemd_journal::role: collector
 
