@@ -2,25 +2,14 @@ swh::deploy::worker::instances:
   - loader_oneshot
   - loader_git
 
-swh::deploy::worker::loader_oneshot::concurrency: 5
+swh::deploy::worker::loader_oneshot::concurrency: 1
 swh::deploy::worker::loader_oneshot::max_tasks_per_child: 1
+# T4400: loader-git for large repositories
 swh::deploy::worker::loader_oneshot::task_queues:
-  # loader-git
-  - swh.loader.git.tasks.UpdateGitRepository
   - oneshot:swh.loader.git.tasks.UpdateGitRepository
-  - oneshot3:swh.loader.git.tasks.UpdateGitRepository
-  # mercurial
-  - oneshot:swh.loader.mercurial.tasks.LoadMercurial
-  - oneshot:swh.loader.mercurial.tasks.LoadArchiveMercurial
-  # svn
-  - oneshot:swh.loader.svn.tasks.LoadSvnRepository
-  - oneshot:swh.loader.svn.tasks.MountAndLoadSvnRepository
-  - oneshot:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
 
-# Make loader git service consume from dedicated queue to subside lag and standard queue
-swh::deploy::loader_git::queues:
-  - oneshot3:swh.loader.git.tasks.UpdateGitRepository
-  - swh.loader.git.tasks.UpdateGitRepository
-
-swh::deploy::worker::loader_git::concurrency: 10
+swh::deploy::worker::loader_git::concurrency: 5
 swh::deploy::worker::loader_git::max_tasks_per_child: 1
+# T4400: loader-git for normal repositories
+swh::deploy::loader_git::queues:
+  - oneshot2:swh.loader.git.tasks.UpdateGitRepository
