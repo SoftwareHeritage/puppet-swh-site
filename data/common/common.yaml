@@ -818,6 +818,10 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+  graphql_staging:
+    domains:
+      - graphql.staging.swh.network
+      - graphql-rp.internal.staging.swh.network
   hedgedoc:
     domains:
       - hedgedoc.softwareheritage.org

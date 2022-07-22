@@ -269,6 +269,12 @@ static_hostnames:
     host: rancher-node-intern1.internal.staging.swh.network
   10.168.130.142:
     host: rancher-node-intern2.internal.staging.swh.network
+  10.168.130.150:
+    host: graphql-worker0.internal.staging.swh.network
+  10.168.130.151:
+    host: graphql-worker1.internal.staging.swh.network
+  10.168.130.152:
+    host: graphql-worker2.internal.staging.swh.network
   10.168.130.160:
     host: mirror-test.internal.staging.swh.network
   10.168.200.22:
