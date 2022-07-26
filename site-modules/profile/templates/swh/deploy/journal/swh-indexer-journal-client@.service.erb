@@ -1,0 +1,30 @@
+# Indexer Journal Client unit file
+# Managed by puppet class profile::swh::deploy::base_indexer
+# Changes will be overwritten
+
+[Unit]
+Description=Software Heritage Indexer Journal Client %i
+After=network.target
+
+[Service]
+User=<%= @user %>
+Group=<%= @group %>
+
+Type=simple
+# Mandatory environment variables (check associated parameters.conf for override)
+Environment=SWH_CONFIG_FILENAME=<%= @config_directory %>/%i.yml
+Environment=LOGLEVEL=INFO
+Environment=SWH_SENTRY_DSN=
+Environment=SWH_SENTRY_ENVIRONMENT=
+Environment=SWH_MAIN_PACKAGE=
+
+ExecStart=/usr/bin/swh \
+  --log-level $LOGLEVEL \
+  indexer \
+  --config-file $SWH_CONFIG_FILENAME \
+  journal-client %i
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

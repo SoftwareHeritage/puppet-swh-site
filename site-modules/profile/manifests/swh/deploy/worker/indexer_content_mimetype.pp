@@ -1,14 +1,19 @@
-# Deployment for swh-indexer-mimetype
-
+# Deployment for indexer mimetype
 class profile::swh::deploy::worker::indexer_content_mimetype {
   include ::profile::swh::deploy::indexer
 
-  Package[$::profile::swh::deploy::base_indexer::packages] ~> ::profile::swh::deploy::worker::instance {'indexer_content_mimetype':
-    ensure           => present,
-    sentry_name      => 'indexer',
-    send_task_events => true,
-    require          => [
+  ::profile::swh::deploy::worker::instance {'indexer_content_mimetype':
+    ensure => absent,
+  }
+
+  Package[$::profile::swh::deploy::base_indexer::packages]
+  ~> ::profile::swh::deploy::indexer_journal_client {'mimetype':
+    ensure      => present,
+    sentry_name => $::profile::swh::deploy::base_indexer::sentry_name,
+    require     => [
+      Package[$::profile::swh::deploy::base_indexer::packages],
       Class['profile::swh::deploy::indexer']
     ],
   }
+
 }

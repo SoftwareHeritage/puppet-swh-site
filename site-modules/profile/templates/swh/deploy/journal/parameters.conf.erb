@@ -1,0 +1,9 @@
+# Managed by puppet - modifications will be overwritten
+# In defined class profile::swh::deploy::indexer_journal_client
+
+[Service]
+Environment=SWH_CONFIG_FILENAME=<%= @config_path %>
+Environment=SWH_SENTRY_DSN=<%= @sentry_dsn %>
+Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
+Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
+Environment=LOGLEVEL=<%= @loglevel %>
