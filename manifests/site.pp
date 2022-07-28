@@ -236,6 +236,10 @@ node /^(elastic|graphql)-worker\d+\.internal\.staging\.swh\.network$/ {
   include role::rancher_node
 }
 
+node /^argo-worker\d+\.internal\.admin\.swh\.network$/ {
+  include role::rancher_node
+}
+
 node /^rancher-node-.*\.internal\.(staging\.swh\.network|softwareheritage\.org)$/ {
   include role::rancher_node
 }
