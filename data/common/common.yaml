@@ -2779,14 +2779,18 @@ swh::deploy::worker::indexer_fossology_license::concurrency: 1
 swh::deploy::worker::indexer_fossology_license::loglevel: info
 swh::deploy::worker::indexer_fossology_license::config: {}
 
-
 swh::deploy::indexer_journal_client::content_mimetype::config_file: "content_mimetype.yml"
 swh::deploy::indexer_journal_client::content_mimetype::loglevel: INFO
 # Contains a password: in private data
 swh::deploy::indexer_journal_client::content_mimetype::config:
+  # FIXME: Required by BaseIndexer class code, unused in this context though
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.indexer.journal_client.content_mimetype
+    prefix: "%{alias('swh::deploy::journal::prefix')}"
   tools:
     name: file
     version: 2:0.4.15-2
@@ -2799,9 +2803,14 @@ swh::deploy::indexer_journal_client::content_fossology_license::config_file: "co
 swh::deploy::indexer_journal_client::content_fossology_license::loglevel: INFO
 # Contains a password: in private data
 swh::deploy::indexer_journal_client::content_fossology_license::config:
+  # FIXME: Required by BaseIndexer class code, unused in this context though
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
-  storage: "%{alias('swh::remote_service::storage::config')}"
+  journal:
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
+    group_id: swh.indexer.journal_client.content_fossology_license
+    prefix: "%{alias('swh::deploy::journal::prefix')}"
   workdir: /tmp/swh/indexer.fossology.license/
   tools:
     name: 'nomos'
@@ -2813,14 +2822,15 @@ swh::deploy::indexer_journal_client::content_fossology_license::config:
 swh::deploy::indexer_journal_client::extrinsic_metadata::config_file: "extrinsic_metadata.yml"
 swh::deploy::indexer_journal_client::extrinsic_metadata::loglevel: INFO
 swh::deploy::indexer_journal_client::extrinsic_metadata::config:
+  # FIXME: Required by BaseIndexer class code, unused in this context though
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  storage: "%{alias('swh::remote_service::storage::config')}"
   journal:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
-    group_id: swh.indexer.journal_client
+    group_id: swh.indexer.journal_client.extrinsic_metadata
     prefix: "%{alias('swh::deploy::journal::prefix')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   tools:
     name: swh-metadata-detector
     version: 0.0.2
@@ -2829,6 +2839,8 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::config:
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::loglevel: INFO
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
+  # FIXME: Required by BaseIndexer class code, unused in this context though
+  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
@@ -2836,7 +2848,6 @@ swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client
     prefix: "%{alias('swh::deploy::journal::prefix')}"
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   tools:
     name: swh-metadata-detector
     version: 0.0.2
