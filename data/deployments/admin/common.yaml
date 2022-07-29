@@ -47,6 +47,10 @@ swh::deploy::sentry::icinga_check_uri: '/auth/login/swh/'
 swh::deploy::argocd::vhost::letsencrypt_cert: argocd
 swh::deploy::argocd::reverse_proxy::backend_http_host: argo-worker01.internal.admin.swh.network
 swh::deploy::argocd::reverse_proxy::backend_http_port: "80"
+swh::deploy::argocd::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+swh::deploy::argocd::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+swh::deploy::argocd::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+swh::deploy::argocd::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
