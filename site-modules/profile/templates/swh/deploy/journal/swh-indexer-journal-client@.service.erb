@@ -20,7 +20,7 @@ Environment=SWH_MAIN_PACKAGE=
 
 ExecStart=/usr/bin/swh \
   --log-level $LOGLEVEL \
-  --log-level azure.core.pipeline.policies.http_logging_policy:WARN \
+  --log-level azure.core.pipeline.policies.http_logging_policy:WARNING \
   indexer \
   --config-file $SWH_CONFIG_FILENAME \
   journal-client %i
