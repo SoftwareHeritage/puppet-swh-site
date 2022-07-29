@@ -23,7 +23,6 @@ define profile::reverse_proxy (
   $vhost_ssl_cipher = lookup("${name}::vhost::ssl_cipher")
   $vhost_hsts_header = lookup("${name}::vhost::hsts_header")
 
-
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     port            => '80',

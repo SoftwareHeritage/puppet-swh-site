@@ -80,9 +80,6 @@ class profile::swh::deploy::reverse_proxy {
 
     $vhost_ssl_port = lookup('apache::https_port')
 
-    # $vhost_ssl_protocol = lookup('swh::deploy::webapp::vhost::ssl_protocol')
-    # $vhost_ssl_honorcipherorder = lookup('swh::deploy::webapp::vhost::ssl_honorcipherorder')
-    # $vhost_ssl_cipher = lookup('swh::deploy::webapp::vhost::ssl_cipher')
     $authentication_enabled = lookup(
         "swh::deploy::${service_name}::reverse_proxy::basic_auth",
         'default_value' => false,)
