@@ -7,7 +7,7 @@ class profile::swh::deploy::worker::indexer_content_mimetype {
   }
 
   Package[$::profile::swh::deploy::base_indexer::packages]
-  ~> ::profile::swh::deploy::indexer_journal_client {'mimetype':
+  ~> ::profile::swh::deploy::indexer_journal_client {'content_mimetype':
     ensure      => present,
     sentry_name => $::profile::swh::deploy::base_indexer::sentry_name,
     require     => [

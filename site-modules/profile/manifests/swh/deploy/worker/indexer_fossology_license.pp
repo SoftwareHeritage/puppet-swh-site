@@ -13,7 +13,7 @@ class profile::swh::deploy::worker::indexer_fossology_license {
   }
 
   Package[$::profile::swh::deploy::base_indexer::packages]
-  ~> ::profile::swh::deploy::indexer_journal_client {'fossology_license':
+  ~> ::profile::swh::deploy::indexer_journal_client {'content_fossology_license':
     ensure      => present,
     sentry_name => $::profile::swh::deploy::base_indexer::sentry_name,
     require     => [

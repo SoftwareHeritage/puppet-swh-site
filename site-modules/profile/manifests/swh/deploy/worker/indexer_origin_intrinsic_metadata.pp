@@ -2,7 +2,7 @@
 class profile::swh::deploy::worker::indexer_origin_intrinsic_metadata {
   include ::profile::swh::deploy::indexer
 
-  ::profile::swh::deploy::indexer_journal_client {'intrinsic_metadata':
+  ::profile::swh::deploy::indexer_journal_client {'origin_intrinsic_metadata':
     ensure       => present,
     sentry_name  => $::profile::swh::deploy::base_indexer::sentry_name,
     require      => [

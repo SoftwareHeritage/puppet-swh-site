@@ -2780,10 +2780,10 @@ swh::deploy::worker::indexer_fossology_license::loglevel: info
 swh::deploy::worker::indexer_fossology_license::config: {}
 
 
-swh::deploy::indexer_journal_client::mimetype::config_file: "mimetype.yml"
-swh::deploy::indexer_journal_client::mimetype::loglevel: INFO
+swh::deploy::indexer_journal_client::content_mimetype::config_file: "content_mimetype.yml"
+swh::deploy::indexer_journal_client::content_mimetype::loglevel: INFO
 # Contains a password: in private data
-swh::deploy::indexer_journal_client::mimetype::config:
+swh::deploy::indexer_journal_client::content_mimetype::config:
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
@@ -2795,10 +2795,10 @@ swh::deploy::indexer_journal_client::mimetype::config:
       debian-package: python3-magic
   write_batch_size: 1000
 
-swh::deploy::indexer_journal_client::fossology_license::config_file: "fossology_license.yml"
-swh::deploy::indexer_journal_client::fossology_license::loglevel: INFO
+swh::deploy::indexer_journal_client::content_fossology_license::config_file: "content_fossology_license.yml"
+swh::deploy::indexer_journal_client::content_fossology_license::loglevel: INFO
 # Contains a password: in private data
-swh::deploy::indexer_journal_client::fossology_license::config:
+swh::deploy::indexer_journal_client::content_fossology_license::config:
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
@@ -2826,9 +2826,9 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::config:
     version: 0.0.2
     configuration: {}
 
-swh::deploy::indexer_journal_client::intrinsic_metadata::config_file: "intrinsic_metadata.yml"
-swh::deploy::indexer_journal_client::intrinsic_metadata::loglevel: INFO
-swh::deploy::indexer_journal_client::intrinsic_metadata::config:
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::loglevel: INFO
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
