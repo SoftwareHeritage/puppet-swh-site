@@ -822,6 +822,10 @@ letsencrypt::certificates:
     domains:
       - graphql.staging.swh.network
       - graphql-rp.internal.staging.swh.network
+  argocd:
+    domains:
+      - argocd.softwareheritage.org
+      - argocd-rp.internal.admin.swh.network
   hedgedoc:
     domains:
       - hedgedoc.softwareheritage.org
