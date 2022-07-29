@@ -4,7 +4,7 @@ swh::deploy::storage::backend::max_requests: 1000
 swh::deploy::storage::backend::max_requests_jitter: 100
 
 swh::deploy::storage::config::local:
-  cls: local
+  cls: postgresql
   db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
 

@@ -1725,7 +1725,7 @@ swh::deploy::storage::backend::server_names:
 
 # This can be overriden per storage node
 swh::deploy::storage::config::local:
-  cls: local
+  cls: postgresql
   db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
@@ -1747,7 +1747,7 @@ swh::deploy::journal::backfill::group: swhstorage
 
 swh::deploy::storage::db::config::read-only: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::config::local-read-only:
-  cls: local
+  cls: postgresql
   db: "%{alias('swh::deploy::storage::db::config::read-only')}"
   # objstorage is required but it's not used in that context
   objstorage:
@@ -1809,7 +1809,7 @@ swh::deploy::provenance::db::host: met.internal.softwareheritage.org
 
 swh::deploy::indexer::storage::config:
   indexer_storage:
-    cls: local
+    cls: postgresql
     db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
     journal_writer: "%{alias('swh::deploy::indexer::journal::writer::config')}"
 
@@ -1865,7 +1865,7 @@ swh::deploy::vault::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   cache: "%{alias('swh::deploy::vault::config::cache')}"
   vault:
-    cls: local
+    cls: postgresql
     db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
 
 swh::deploy::graph::user: swhworker
@@ -2362,7 +2362,7 @@ swh::deploy::webapp::icinga_checks:
 # local configuration for the scheduler
 swh::deploy::scheduler::config::local: &swh_scheduler_local_config
   scheduler:
-    cls: local
+    cls: postgresql
     db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
 
 swh::deploy::scheduler::sentry_swh_package: swh.scheduler

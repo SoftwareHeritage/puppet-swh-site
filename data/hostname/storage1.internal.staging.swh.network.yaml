@@ -53,7 +53,7 @@ swh::apt_config::backported_packages:
     - zfs-zed
 
 swh::deploy::storage::config::local:
-  cls: local
+  cls: postgresql
   db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   objstorage:
     cls: pathslicing

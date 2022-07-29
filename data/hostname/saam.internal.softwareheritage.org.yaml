@@ -15,7 +15,7 @@ swh::deploy::storage::backend::max_requests_jitter: 500
 swh::deploy::storage::legacy_directory: /srv/softwareheritage/objects-xfs
 
 swh::deploy::storage::config::local:
-  cls: local
+  cls: postgresql
   db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
   journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
   objstorage:
