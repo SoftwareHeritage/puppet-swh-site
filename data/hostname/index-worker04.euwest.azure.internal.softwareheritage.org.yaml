@@ -1,0 +1,5 @@
+---
+swh::deploy::worker::instances:
+  - indexer_origin_extrinsic_metadata
+  - indexer_origin_intrinsic_metadata
+

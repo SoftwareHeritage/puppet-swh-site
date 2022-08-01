@@ -1,0 +1,6 @@
+---
+swh::deploy::worker::instances:
+  - indexer_origin_extrinsic_metadata
+  - indexer_content_mimetype
+  - indexer_fossology_license
+
