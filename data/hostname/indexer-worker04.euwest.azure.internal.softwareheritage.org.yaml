@@ -3,3 +3,16 @@ swh::deploy::worker::instances:
   - indexer_origin_extrinsic_metadata
   - indexer_origin_intrinsic_metadata
 
+mountpoints:
+  /tmp:
+    device: tmpfs
+    fstype: tmpfs
+    options:
+      - "size=%{lookup('tmpfs::size')}"
+      - "nr_inodes=%{lookup('tmpfs::nr_inodes')}"
+      - noexec
+      - nosuid
+      - nodev
+      - relatime
+      - rw
+

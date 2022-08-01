@@ -4,3 +4,16 @@ swh::deploy::worker::instances:
   - indexer_content_mimetype
   - indexer_fossology_license
 
+mountpoints:
+  /tmp:
+    device: tmpfs
+    fstype: tmpfs
+    options:
+      - "size=%{lookup('tmpfs::size')}"
+      - "nr_inodes=%{lookup('tmpfs::nr_inodes')}"
+      - noexec
+      - nosuid
+      - nodev
+      - relatime
+      - rw
+
