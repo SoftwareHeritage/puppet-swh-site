@@ -2,14 +2,14 @@ swh::deploy::worker::instances:
   - loader_oneshot
   - loader_git
 
+# T4400: loader-git for large repositories
 swh::deploy::worker::loader_oneshot::concurrency: 1
 swh::deploy::worker::loader_oneshot::max_tasks_per_child: 1
-# T4400: loader-git for large repositories
 swh::deploy::worker::loader_oneshot::task_queues:
   - oneshot:swh.loader.git.tasks.UpdateGitRepository
 
-swh::deploy::worker::loader_git::concurrency: 5
+# T4400: loader-git for large repositories (normal is done)
+swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::max_tasks_per_child: 1
-# T4400: loader-git for normal repositories
 swh::deploy::loader_git::queues:
-  - oneshot2:swh.loader.git.tasks.UpdateGitRepository
+  - oneshot:swh.loader.git.tasks.UpdateGitRepository
