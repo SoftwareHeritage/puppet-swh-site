@@ -15,5 +15,3 @@ mountpoints:
       - nodev
       - relatime
       - rw
-
-waagent::swap::size_mb: 14336
