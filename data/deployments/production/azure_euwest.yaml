@@ -31,5 +31,5 @@ swh::deploy::worker::vault_cooker::config:
       - swh.vault.cooking_tasks.SWHBatchCookingTask
   max_bundle_size: 1073741824  # 1GiB
 
-tmpfs::size: 4096
+tmpfs::size: 4096m
 tmpfs::nr_inodes: 200m
