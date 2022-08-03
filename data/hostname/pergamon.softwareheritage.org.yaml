@@ -54,8 +54,6 @@ icinga2::features:
   - compatlog
   - command
 
-prometheus::server::config::static_scrape_configs:
-
 systemd_journal::role: collector
 
 users:
