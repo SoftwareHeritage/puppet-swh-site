@@ -2,5 +2,5 @@
 # Modifications will be overwritten
 
 [Service]
+Environment=SWH_CONFIG_FILENAME=<%= @config_file %>
 Environment=SWH_SCRUBBER_CLI_EXTRA_ARGS="--object-type <%= @object_type %> --start-object <%= @start_object %> --end-object <%= @end_object %>"
-SWH_CONFIG_FILENAME=<%= @config_file %>
