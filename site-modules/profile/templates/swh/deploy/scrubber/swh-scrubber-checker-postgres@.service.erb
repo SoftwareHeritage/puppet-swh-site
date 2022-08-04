@@ -17,10 +17,11 @@ Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
 Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
 Environment=SWH_SCRUBBER_CLI_EXTRA_ARGS="--help"
+Environment=SWH_CONFIG_FILENAME=
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
-ExecStart=/usr/bin/swh scrubber --config-file <%= @config_file %> check storage $SWH_SCRUBBER_CLI_EXTRA_ARGS
+ExecStart=/usr/bin/swh scrubber check storage $SWH_SCRUBBER_CLI_EXTRA_ARGS
 
 [Install]
 WantedBy=multi-user.target

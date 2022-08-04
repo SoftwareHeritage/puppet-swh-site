@@ -31,3 +31,25 @@ mountpoints:
       - nodev
       - relatime
       - rw
+
+swh::deploy::scrubber::checker::postgres::config_per_db:
+  primary:
+    config:
+      scrubber_db:
+        cls: postgresql
+        db: "%{alias('swh::deploy::scrubber::db::config')}"
+      storage:
+        cls: postgresql
+        db: "%{alias('swh::deploy::storage::db::config::read-only')}"
+        objstorage:
+          cls: noop
+  secondary:
+    config:
+      scrubber_db:
+        cls: postgresql
+        db: "%{alias('swh::deploy::scrubber::db::config')}"
+      storage:
+        cls: postgresql
+        db: "%{alias('swh::deploy::storage::db::secondary::config::read-only')}"
+        objstorage:
+          cls: noop
