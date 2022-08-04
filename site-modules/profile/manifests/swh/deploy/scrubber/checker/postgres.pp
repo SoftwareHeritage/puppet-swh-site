@@ -53,7 +53,7 @@ class profile::swh::deploy::scrubber::checker::postgres {
 
   # As many services as there are dbs to scrub
   $config_per_dbs_to_scrub.each | $db_name, $cfg | {
-    $config_file = "${config_dir}/${db_name}.yaml"
+    $config_file = "${config_dir}/${db_name}.yml"
     $config_dict = $cfg['config']
     file {$config_file:
       ensure  => present,
