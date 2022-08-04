@@ -147,6 +147,7 @@ swh::deploy::graphql::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorci
 swh::deploy::graphql::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 swh::deploy::graphql::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::graphql::vhost::access_log_format: combined_with_duration
+swh::deploy::graphql::icinga_check_string: 'GraphQL'
 
 swh::deploy::graphql::reverse_proxy::backend_http_host: graphql-worker0.internal.staging.swh.network
 swh::deploy::graphql::reverse_proxy::backend_http_port: "80"
