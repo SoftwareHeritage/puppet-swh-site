@@ -4,6 +4,9 @@ swh::deploy::worker::instances:
   - indexer_content_mimetype
   - indexer_fossology_license
 
+swh::deploy::indexer_journal_client::content_mimetype::nb_instances: 2
+swh::deploy::indexer_journal_client::content_fossology_license::nb_instances: 2
+
 mountpoints:
   /tmp:
     device: tmpfs
