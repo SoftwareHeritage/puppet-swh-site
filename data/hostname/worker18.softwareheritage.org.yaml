@@ -9,7 +9,7 @@ swh::deploy::worker::loader_oneshot::task_queues:
   - oneshot2:swh.loader.git.tasks.UpdateGitRepository
 
 # T4400: loader-git for large repositories (normal is done)
-swh::deploy::worker::loader_git::concurrency: 5
+swh::deploy::worker::loader_git::concurrency: 4
 swh::deploy::worker::loader_git::max_tasks_per_child: 1
 swh::deploy::loader_git::queues:
   - oneshot:swh.loader.git.tasks.UpdateGitRepository
