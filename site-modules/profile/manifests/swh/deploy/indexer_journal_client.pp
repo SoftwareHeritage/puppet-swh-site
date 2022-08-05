@@ -2,6 +2,7 @@
 define profile::swh::deploy::indexer_journal_client (
   $ensure        = present,
   $instance_name = $title,
+  $indexer_type  = $title,
   $sentry_name   = $title,
 )
 {
@@ -48,6 +49,7 @@ define profile::swh::deploy::indexer_journal_client (
         #  - $sentry_dsn
         #  - $sentry_environment
         #  - $sentry_swh_package
+        #  - $indexer_type
         #  - $loglevel
         ::systemd::dropin_file {$parameters_conf_path:
           ensure   => present,
