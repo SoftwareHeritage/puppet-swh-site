@@ -3,6 +3,8 @@ swh::deploy::worker::instances:
   - indexer_origin_extrinsic_metadata
   - indexer_origin_intrinsic_metadata
 
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::nb_instances: 2
+
 mountpoints:
   /tmp:
     device: tmpfs
