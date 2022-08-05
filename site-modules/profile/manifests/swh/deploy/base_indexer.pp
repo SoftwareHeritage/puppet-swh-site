@@ -13,6 +13,9 @@ class profile::swh::deploy::base_indexer {
     owner  => 'swhworker',
     group  => 'swhworker',
     mode   => '0755',
+    purge   => true,
+    force   => true,
+    recurse => true,
   }
 
   $packages = ['python3-swh.indexer']
