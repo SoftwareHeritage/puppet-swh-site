@@ -1,3 +1,3 @@
-class role::swh_hedgedoc inherits role::swh_database {
+class role::swh_hedgedoc inherits role::swh_server {
   include profile::hedgedoc
 }
