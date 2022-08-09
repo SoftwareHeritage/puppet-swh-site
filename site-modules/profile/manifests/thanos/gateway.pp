@@ -69,6 +69,15 @@ class profile::thanos::gateway {
     ::profile::thanos::export_query_endpoint {"thanos-gateway-${grpc_target}":
       grpc_address => $grpc_target
     }
+
+    $http_target  = "${swh_hostname['internal_fqdn']}:${port_http}"
+    ::profile::prometheus::export_scrape_config {"thanos-gateway-${http_target}":
+      target => $http_target,
+      job    => 'thanos_gateway',
+      labels => {
+        dataset_name => $dataset_name,
+      },
+    }
   }
 
   # Uses: $config_dir, $cert_paths

@@ -77,4 +77,10 @@ class profile::thanos::prometheus_sidecar {
   ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::fqdn}":
     grpc_address => $grpc_target
   }
+
+  $http_target = "${swh_hostname['internal_fqdn']}:${port_http}"
+  ::profile::prometheus::export_scrape_config {"thanos-sidecar-${::fqdn}":
+    target => $http_target,
+    job    => 'thanos_sidecar',
+  }
 }
