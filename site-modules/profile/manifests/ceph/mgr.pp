@@ -5,9 +5,9 @@ class profile::ceph::mgr {
   # default port from the ceph exporter
   $service_port = 9283
 
-  profile::prometheus::export_scrape_config {"ceph-mgr_${::fqdn}":
+  profile::prometheus::export_scrape_config {'ceph-mgr':
     job          => 'ceph-mgr',
-    target       => "${::fqdn}:${service_port}",
+    target       => "${swh_hostname['internal_fqdn']}:${service_port}",
     scheme       => 'http',
     metrics_path => '/metrics',
   }
