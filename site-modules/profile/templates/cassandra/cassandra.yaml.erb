@@ -1,0 +1,76 @@
+cluster_name: <%= @config["cluster_name"] %>
+num_tokens: 16
+allocate_tokens_for_local_replication_factor: 3
+data_file_directories:
+  - <%= @base_data_dir %>
+
+commitlog_directory: <%= @commitlog_dir %>
+
+hints_directory: <%= @hints_dir %>
+
+saved_caches_directory: <%= @saved_caches_dir %>
+
+# local_system_data_file_directory: {{ cassandra_data_dir_system }}
+
+disk_optimization_strategy: ssd
+
+listen_address: <%= @listen_address %>
+native_transport_port: <%= @config["native_transport_port"] %>
+storage_port: <%= @config["storage_port"] %>
+
+concurrent_compactors: 4 # should be min(nb core, nb disks)
+
+internode_compression: dc # default dc possible all|dc|none
+
+concurrent_reads: 64 # 16 x number of drives
+concurrent_writes: 128 # 8 x number of cores
+concurrent_counter_writes: 48
+
+commitlog_sync: periodic # default periodic
+commitlog_sync_period_in_ms: 10000 # default 10000
+commitlog_total_space_in_mb: 16384 # default 8192
+commitlog_segment_size_in_mb: 256 # default 32 (due to oversize mutation on revision table)
+
+partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+endpoint_snitch: GossipingPropertyFileSnitch
+
+seed_provider: <%= @config["seed_provider"].to_yaml().delete_prefix("---") %>
+
+# needed by swh-storage
+enable_user_defined_functions: true
+
+# TODO Test this options effects
+# disk_failure_policy:
+# cdc_enabled
+#end
+
+# Trying to reduce cassandra_compaction_pendingtasks
+compaction_throughput_mb_per_sec: 160
+
+# https://forge.softwareheritage.org/source/cassandra-replayer-deployment/browse/master/playbooks/templates/cassandra.yaml$854
+# How long the coordinator should wait for read operations to complete.
+# Lowest acceptable value is 10 ms.
+read_request_timeout_in_ms: 5000
+# How long the coordinator should wait for seq or index scans to complete.
+# Lowest acceptable value is 10 ms.
+range_request_timeout_in_ms: 10000
+# How long the coordinator should wait for writes to complete.
+# Lowest acceptable value is 10 ms.
+write_request_timeout_in_ms: 2000
+# How long the coordinator should wait for counter writes to complete.
+# Lowest acceptable value is 10 ms.
+counter_write_request_timeout_in_ms: 5000
+# How long a coordinator should continue to retry a CAS operation
+# that contends with other proposals for the same row.
+# Lowest acceptable value is 10 ms.
+cas_contention_timeout_in_ms: 1000
+# How long the coordinator should wait for truncates to complete
+# (This can be much longer, because unless auto_snapshot is disabled
+# we need to flush first so we can snapshot before removing the data.)
+# Lowest acceptable value is 10 ms.
+truncate_request_timeout_in_ms: 60000
+# The default timeout for other, miscellaneous operations.
+# Lowest acceptable value is 10 ms.
+request_timeout_in_ms: 10000
+
+slow_query_log_timeout_in_ms: 1000

@@ -1,0 +1,13 @@
+# Managed by puppet (class profile::cassandra::node); Changes will be lost.
+
+[Unit]
+Description=Cassandra <%= @instance_name %> instance
+After=network.target
+
+[Service]
+Environment=JVM_EXTRA_OPTS="-javaagent:<%= @jmx_exporter_path %>=<%= @config["jmx_exporter_port"] %>:/etc/cassandra/jmx_exporter.yml -Dcassandra.jmx.local.port=<%= @config["jmx_port"] %> -Dcom.sun.management.jmxremote.authenticate=false"
+Environment=CASSANDRA_CONF=<%= @config_dir %>
+Environment=CASSANDRA_LOG_DIR=<%= @log_dir %>
+
+[Install]
+WantedBy=multi-user.target

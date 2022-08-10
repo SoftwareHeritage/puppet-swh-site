@@ -1,7 +1,0 @@
-# Readahead configuration for cassandra devices.
-#
-# https://docs.microsoft.com/en-us/azure/architecture/best-practices/cassandra#linux-read-ahead
-#
-# Managed by Puppet (class profile::cassandra::node), changes will be lost.
-
-ACTION=="add|change", KERNEL=="sd[c-z]|md*", ATTR{queue/rotational}="0", ATTR{bdi/read_ahead_kb}="8"

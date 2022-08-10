@@ -389,3 +389,5 @@ syncoid::public_keys::db1:
   key: "AAAAC3NzaC1lZDI1NTE5AAAAILRVodfvLudSiOdWOPDSoN5MIwZPbyZAyClfr/SQUK4w"
 
 swh::deploy::maven_index_exporter::url: maven-exporter.internal.staging.swh.network
+
+cassandra::default_cluster_name: archive_staging

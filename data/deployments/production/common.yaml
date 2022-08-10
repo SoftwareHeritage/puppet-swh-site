@@ -24,3 +24,5 @@ swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{h
 swh::deploy::worker::loader_git::concurrency: 4
 
 memcached::server::max_memory: 1224
+
+cassandra::default_cluster_name: archive_production
