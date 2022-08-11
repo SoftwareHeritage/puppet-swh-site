@@ -22,7 +22,7 @@ ntp::servers:
 
 networks::manage_interfaces: false
 
-internal_network: 10.168.128.0/16
+internal_network: 10.168.0.0/16
 
 puppet::master::codedir: /tmp/puppet
 
