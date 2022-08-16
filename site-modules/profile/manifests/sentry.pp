@@ -173,7 +173,7 @@ class profile::sentry {
   }
 
   exec {'run sentry-onpremise install.sh':
-    command     => "rm -f ${onpremise_flag}; (script --quiet --return --command './install.sh --minimize-downtime --skip-user-prompt' /dev/null && git rev-parse HEAD > ${onpremise_flag}) | tee -a ${onpremise_log}",
+    command     => "rm -f ${onpremise_flag}; (./install.sh --minimize-downtime --skip-user-prompt && git rev-parse HEAD > ${onpremise_flag}) | tee -a ${onpremise_log}",
     timeout     => 0,
     provider    => shell,
     cwd         => $onpremise_dir,
