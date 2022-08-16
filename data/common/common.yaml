@@ -3855,8 +3855,6 @@ swh::postgresql::max_connections: 100
 
 postgresql::globals::version: "%{lookup('swh::postgresql::version')}"
 
-docker::compose::version: "1.29.2"
-
 sanoid::templates:
   pg_backup:
     frequent_period: 0

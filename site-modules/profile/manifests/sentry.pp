@@ -168,7 +168,7 @@ class profile::sentry {
     command  => 'true',
     unless   => "bash -c '[[ \"$(cat ${onpremise_flag})\" = \"$(git rev-parse HEAD)\" ]]'",
     cwd      => $onpremise_dir,
-    path     => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
+    path     => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
     notify   => Exec['run sentry-onpremise install.sh'],
   }
 
@@ -177,25 +177,25 @@ class profile::sentry {
     timeout     => 0,
     provider    => shell,
     cwd         => $onpremise_dir,
-    path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
+    path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
     refreshonly => true,
     require     => [
       Class['profile::docker'],
-      Package['docker-compose'],
+      Class['profile::docker_compose'],
       File[$requirements_file, $config_yml, $config_py],
     ],
     notify      => Exec['start sentry-onpremise docker compose'],
   }
 
   exec {'start sentry-onpremise docker compose':
-    command     => 'docker-compose up -d',
+    command     => 'docker compose up -d',
     timeout     => 0,
     cwd         => $onpremise_dir,
-    path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin:/bin'],
+    path        => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
     refreshonly => true,
     require     => [
       Class['profile::docker'],
-      Package['docker-compose'],
+      Class['profile::docker_compose'],
       File[$requirements_file, $config_yml, $config_py],
     ],
   }

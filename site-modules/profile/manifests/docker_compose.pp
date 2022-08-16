@@ -1,12 +1,16 @@
-# Install docker-compose
+# Install docker compose v2
 class profile::docker_compose {
+  include profile::docker
+
+  package {'docker-compose-plugin':
+    ensure => installed,
+  }
+
   package {'docker-compose':
     ensure => absent,
   }
 
   class {'docker::compose':
-    ensure      => 'present',
-    version     => lookup('docker::compose::version'),
-    curl_ensure => false,
+    ensure      => 'absent',
   }
 }
