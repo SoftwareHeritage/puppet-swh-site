@@ -75,6 +75,17 @@ ADMINS = [
     ("Software Heritage sysops", "sysop@softwareheritage.org"),
 ]
 
+# Enable any desired validators for local account passwords below. For a list of included validators, please see the
+# Django documentation at https://docs.djangoproject.com/en/stable/topics/auth/passwords/#password-validation.
+AUTH_PASSWORD_VALIDATORS = [
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    #     'OPTIONS': {
+    #         'min_length': 10,
+    #     }
+    # },
+]
+
 # Base URL path if accessing NetBox within a directory. For example, if installed at https://example.com/netbox/, set:
 # BASE_PATH = 'netbox/'
 BASE_PATH = ''
@@ -191,6 +202,9 @@ RQ_DEFAULT_TIMEOUT = 300
 # The file path where custom scripts will be stored. A trailing slash is not needed. Note that the default value of
 # this setting is derived from the installed location.
 SCRIPTS_ROOT = '<%= @scripts_directory %>'
+
+# The name to use for the csrf token cookie.
+CSRF_COOKIE_NAME = 'csrftoken'
 
 # The name to use for the session cookie.
 SESSION_COOKIE_NAME = 'sessionid'

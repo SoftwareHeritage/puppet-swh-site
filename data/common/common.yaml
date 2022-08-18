@@ -3802,7 +3802,7 @@ swh::deploy::search::backend::server_names:
   - localhost
   - "::1"
 
-netbox::version: "3.1.2"
+netbox::version: "3.3.0"
 netbox::user: netbox
 netbox::db::host: db1.internal.admin.swh.network
 netbox::db::port: 5432
