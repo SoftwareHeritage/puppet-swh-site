@@ -18,6 +18,7 @@ Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
 Environment=SWH_SCRUBBER_CLI_EXTRA_ARGS="--help"
 Environment=SWH_CONFIG_FILENAME=
+Environment=STATSD_TAGS=scrubber_instance:%i
 User=<%= @user %>
 Group=<%= @group %>
 Type=simple
