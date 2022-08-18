@@ -56,23 +56,6 @@ class profile::cassandra {
     mode   => '0755'
   }
 
-  $config_files_to_copy = [
-    'jvm11-clients.options',
-    'jvm-clients.options',
-    'logback-tools.xml',
-  ]
-
-  $config_files_to_copy.each | $file_name | {
-    file { "${cassandra_config_directory}/${file_name}":
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      source  => "/opt/cassandra/conf/${file_name}",
-      require => [File[$cassandra_config_directory]],
-    }
-  }
-
   file { [
       $cassandra_base_data_directory,
       $cassandra_log_directory,
@@ -110,12 +93,31 @@ class profile::cassandra {
       content => template('profile/cassandra/cassandra.service.erb'),
   }
 
+  $config_files_to_copy = [
+    'jvm11-clients.options',
+    'jvm-clients.options',
+    'logback-tools.xml',
+  ]
+
+  $config_files_to_copy.each | $file_name | {
+    file { "${cassandra_config_directory}/${file_name}":
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      source  => "/opt/cassandra/conf/${file_name}",
+      require => [File[$cassandra_config_directory],
+        Archive['cassandra']],
+    }
+  }
+
   file {"${cassandra_config_directory}/jmx_exporter.yml":
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => "https://raw.githubusercontent.com/prometheus/jmx_exporter/parent-${jmx_exporter_version}/example_configs/cassandra.yml",
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => "https://raw.githubusercontent.com/prometheus/jmx_exporter/parent-${jmx_exporter_version}/example_configs/cassandra.yml",
+    require => [File[$cassandra_config_directory]],
   }
 
   $instances.each | $instance_name, $instance_config | {
