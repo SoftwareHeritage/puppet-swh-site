@@ -1,7 +1,7 @@
 hedgedoc::db::host: db1.internal.admin.swh.network
 
-hedgedoc::release::version: 1.9.2
-hedgedoc::release::digest: 052088a634731e0f9c28e40f9869281f24bf3fbb25173a341ba2c94496109f51
+hedgedoc::release::version: 1.9.4
+hedgedoc::release::digest: f8ed595cb3b47eb71f22518e0a1e93ed120c44dcf1eb30136c16f530c4aaf0a7
 hedgedoc::release::digest_type: sha256
 
 hedgedoc::allow_anonymous: true
