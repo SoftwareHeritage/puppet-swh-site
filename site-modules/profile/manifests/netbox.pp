@@ -136,8 +136,11 @@ class profile::netbox {
     } ~> service {$service:
       ensure  => 'running',
       enable  => true,
-      require => [File['netbox-gunicorn-config'],
-                  File['netbox-configuration']],
+      require => [
+        File['netbox-gunicorn-config'],
+        File['netbox-configuration'],
+        Class['systemd::systemctl::daemon_reload'],
+      ],
     }
   }
 
