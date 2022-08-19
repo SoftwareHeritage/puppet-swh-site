@@ -63,7 +63,7 @@ class profile::cassandra {
     ensure => directory,
     owner  => $cassandra_user,
     group  => $cassandra_group,
-    mode   => '0750'
+    mode   => '0755'
   }
 
   ensure_packages(['openjdk-11-jdk', 'libnetty-java'])
