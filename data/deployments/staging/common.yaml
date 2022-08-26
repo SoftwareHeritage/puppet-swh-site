@@ -149,7 +149,7 @@ swh::deploy::graphql::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 swh::deploy::graphql::vhost::access_log_format: combined_with_duration
 swh::deploy::graphql::icinga_check_string: 'GraphQL'
 
-swh::deploy::graphql::reverse_proxy::backend_http_host: graphql-worker0.internal.staging.swh.network
+swh::deploy::graphql::reverse_proxy::backend_http_host: rancher-node-staging-worker1.internal.staging.swh.network
 swh::deploy::graphql::reverse_proxy::backend_http_port: "80"
 
 # swh::deploy::graphql::reverse_proxy::basic_auth::swh-stg in private data
