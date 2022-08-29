@@ -232,10 +232,6 @@ node 'maven-exporter0.internal.staging.swh.network' {
   include role::swh_maven_index_exporter
 }
 
-node /^(elastic|graphql)-worker\d+\.internal\.staging\.swh\.network$/ {
-  include role::rancher_node
-}
-
 node /^argo-worker\d+\.internal\.admin\.swh\.network$/ {
   include role::rancher_node
 }
