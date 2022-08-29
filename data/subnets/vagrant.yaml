@@ -125,6 +125,8 @@ static_hostnames:
     host: beaubourg.internal.softwareheritage.org
   10.168.100.34:
     host: hypervisor3.internal.softwareheritage.org
+  10.168.100.51:
+    host: granet.internal.softwareheritage.org
   10.168.100.61:
     host: esnode1.internal.softwareheritage.org
   10.168.100.62:
