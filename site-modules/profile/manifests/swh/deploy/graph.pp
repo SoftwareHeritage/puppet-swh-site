@@ -16,6 +16,8 @@ class profile::swh::deploy::graph {
   $sentry_environment = lookup("swh::deploy::graph::sentry_environment", Optional[String], 'first', undef)
   $sentry_swh_package = lookup("swh::deploy::graph::sentry_swh_package", Optional[String], 'first', undef)
 
+  $java_api_port = 50091 # hardcoded in swh-graph
+
   # install services from templates
   $services = [ {  # this matches the current status
     'name' => 'swh-graph-shm-mount',
@@ -59,8 +61,8 @@ class profile::swh::deploy::graph {
 
   # swh-graph.service exposes the main graph server.
   # Ensure the port is working ok through icinga checks
-  @@::icinga2::object::service {"swh-graph api (local on ${::fqdn})":
-    service_name     => "swh-graph api (localhost)",
+  @@::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
+    service_name     => 'swh-graph grpc api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
     check_command    => 'http',
@@ -77,9 +79,23 @@ class profile::swh::deploy::graph {
     tag              => 'icinga2::exported',
   }
 
+  @@::icinga2::object::service {"swh-graph java api (local on ${::fqdn})":
+    service_name     => 'swh-graph java api (localhost)',
+    import           => ['generic-service'],
+    host_name        => $::fqdn,
+    check_command    => 'tcp',
+    command_endpoint => $::fqdn,
+    vars             => {
+      tcp_port    => $java_api_port,
+      tcp_address => $local_check_address,
+    },
+    target           => $icinga_checks_file,
+    tag              => 'icinga2::exported',
+  }
+
   if $backend_listen_host != '127.0.0.1' {
     @@::icinga2::object::service {"swh-graph api (remote on ${::fqdn})":
-      service_name  => "swh-graph api (remote)",
+      service_name  => 'swh-graph grpc api (remote)',
       import        => ['generic-service'],
       host_name     => $::fqdn,
       check_command => 'http',
