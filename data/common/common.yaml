@@ -2502,6 +2502,10 @@ swh::deploy::worker::loader_git::config:
     task_queues: "%{alias('swh::deploy::loader_git::queues')}"
 
 # high priority loader (save-code-now, ...)
+swh::deploy::loader_high_priority::sentry_swh_package: swh.loader.highpriority
+swh::deploy::loader_high_priority::sentry_environment: "%{hiera('swh::deploy::environment')}"
+swh::deploy::loader_high_priority::sentry_dsn: "https://%{lookup('swh::deploy::loader_high_priority::sentry_token')}@sentry.softwareheritage.org/26"
+
 swh::deploy::worker::loader_high_priority::config_file: "%{hiera('swh::conf_directory')}/loader_high_priority.yml"
 swh::deploy::worker::loader_high_priority::queues:
   # git
