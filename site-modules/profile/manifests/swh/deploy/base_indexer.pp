@@ -18,7 +18,7 @@ class profile::swh::deploy::base_indexer {
     recurse => true,
   }
 
-  $packages = ['python3-swh.indexer']
+  $packages = ['python3-swh.indexer', 'python3-rdflib-jsonld']
   package {$packages:
     ensure => 'present',
   }
