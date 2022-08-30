@@ -13,7 +13,7 @@ rm -fv ${CSV_FILE}
 
 if [ ! -e "${CSV_FILE}" ]; then
     echo "Getting new statistics from azure portal..."
-    ${DATA_DIRECTORY}/.venv/bin/python3 ${INSTALL_DIRECTORY}/get_csv.py
+    ${DATA_DIRECTORY}/.venv/bin/python3 ${INSTALL_DIRECTORY}/get_data.py
 else
     echo "${CSV_FILE} already exists, reusing it..."
 fi
@@ -21,6 +21,6 @@ fi
 echo "Generating report..."
 
 pushd ${INSTALL_DIRECTORY}
-${DATA_DIRECTORY}/.venv/bin/python3 ${INSTALL_DIRECTORY}/compute_stats.py ${DATA_DIRECTORY}
+${DATA_DIRECTORY}/.venv/bin/python3 ${INSTALL_DIRECTORY}/compute_data.py ${DATA_DIRECTORY}
 
 echo "Report refreshed."

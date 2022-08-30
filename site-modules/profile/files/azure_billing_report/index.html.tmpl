@@ -8,6 +8,17 @@
 </head>
 <body>
     <h1>Azure reporting until the {{ generated_date.strftime('%Y-%m-%d') }}</h1>
+
+    <h2>Balances</h2>
+    <p>
+      All time consumption: {{ "{:,.2f}".format(balances.usedCredits | float).replace(",", " ") }} $
+    </p>
+    <p>
+      Remaining credits : {{ "{:,.2f}".format(balances.remainingCredits | float).replace(",", " ") }} $
+    </p>
+    <p>
+      {{ balances.remainingDays }}
+    </p>
     <h2>Cost per day</h2>
     <p>
         <img src="cost_per_day.png"/>
@@ -23,10 +34,10 @@
 
     <h2>Cost per service per day</h2>
     <p>Raw data: <a href="cost_per_service_per_day.html">html</a> / <a href="cost_per_service_per_day.md">markdown</a></p>
-    
+
     <h2>Cost per service per month</h2>
     <p>Raw data: <a href="cost_per_service_per_month.html">html</a> / <a href="cost_per_service_per_month.md">markdown</a></p>
-    
+
     <p>generation date: {{ generated_date }}</p>
 </body>
 </html>

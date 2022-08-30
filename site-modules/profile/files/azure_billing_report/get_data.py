@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime, timedelta
 
+import json
 import os
 import time
 
@@ -15,14 +16,15 @@ import time
 START_DATE_FORMAT = "%Y-%m-01"
 END_DATE_FORMAT = "%Y-%m-%d"
 BASE_SPONSORSHIP_URL = "https://www.microsoftazuresponsorships.com"
-EXPECTED_FILE = "AzureUsage.csv"
+EXPECTED_CSV_FILE = "AzureUsage.csv"
+BALANCE_FILE = "balances.json"
 
 def wait_for_download():
     MAX_COUNT = 10
     print("Waiting for download", end="")
     count = 0
 
-    while not os.path.exists(EXPECTED_FILE) and count < MAX_COUNT:
+    while not os.path.exists(EXPECTED_CSV_FILE) and count < MAX_COUNT:
         time.sleep(2)
         print(".", end="")
         count += 1
@@ -58,7 +60,7 @@ if __name__ == '__main__':
 
     driver = webdriver.Chrome(options=options)
     driver.set_page_load_timeout(30)
-    
+
     print("Going to the portal login page...")
     driver.get(f"{BASE_SPONSORSHIP_URL}/Account/Login")
     wait = WebDriverWait(driver, 30)
@@ -107,6 +109,28 @@ if __name__ == '__main__':
 
     wait_for_download()
 
-    print(f"Usage csv file downloaded and available in the {EXPECTED_FILE} file")
+    print(f"Usage csv file downloaded and available in the {EXPECTED_CSV_FILE} file")
+
+    print("Downloading balances information")
+    BALANCE_URL = f"{BASE_SPONSORSHIP_URL}/Balance"
+    print(f"Balance url: {BALANCE_URL}")
+
+    driver.get(BALANCE_URL)
+
+    wait.until(EC.visibility_of_element_located((By.ID, "balance-container")))
+    if DEBUG:
+        driver.save_screenshot("balances.png")
+
+    balances = {
+        "usedCredits": driver.find_element(by=By.CSS_SELECTOR, value="span.used-balance.value").text,
+        "remainingCredits": driver.find_element(by=By.CSS_SELECTOR, value="span.remaining-balance.value").text,
+        "remainingDays": driver.find_element(by=By.CSS_SELECTOR, value="span.remainingDays").text
+    }
+
+    print("Writing balance information in {BALANCE_FILE}")
+    with open(BALANCE_FILE, "w") as balanceFile:
+        json.dump(balances, balanceFile)
 
     driver.close()
+
+    print("Done")

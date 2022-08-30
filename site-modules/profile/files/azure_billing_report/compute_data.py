@@ -5,6 +5,7 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 
 import click
+import json
 import matplotlib.pyplot as plt
 import pandas
 
@@ -96,6 +97,14 @@ def main(output_dir) -> None:
     generate_data_files(cost_per_service_per_day[['Date','ServiceName', 'ServiceResource', 'Cost']], output_dir + "/cost_per_service_per_day")
 
     ##
+    # Load balance information
+    ##
+    balances = None
+
+    with open(f"{output_dir}/balances.json", "r") as balancesFile:
+        balances = json.load(balancesFile)
+
+    ##
     # index.html page generation
     ##
     index_file_name = f"{output_dir}/index.html"
@@ -106,7 +115,7 @@ def main(output_dir) -> None:
     template_file_loader = FileSystemLoader(searchpath='./')
     env = Environment(loader=template_file_loader)
     template = env.get_template('index.html.tmpl')
-    index = template.render(generated_date=generated_date)
+    index = template.render(generated_date=generated_date, balances=balances)
 
     with open(index_file_name, 'w') as f:
         f.write(index)
