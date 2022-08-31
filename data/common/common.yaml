@@ -2857,6 +2857,7 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::config:
     configuration: {}
 
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::batch_size: 200
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::loglevel: INFO
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
@@ -2868,6 +2869,7 @@ swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client.origin_intrinsic_metadata
     prefix: "%{alias('swh::deploy::journal::prefix')}"
+    batch_size: "%{alias('swh::deploy::indexer_journal_client::origin_intrinsic_metadata::batch_size')}"
   tools:
     name: swh-metadata-detector
     version: 0.0.2
