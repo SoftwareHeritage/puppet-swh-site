@@ -73,4 +73,7 @@ syncoid::configuration:
       ssh_key: storage1
 
 swh::deploy::storage::backend::workers: 40
+swh::deploy::storage::backend::max_requests: 5000
+swh::deploy::storage::backend::max_requests_jitter: 500
+
 swh::deploy::indexer::storage::backend::workers: 24
