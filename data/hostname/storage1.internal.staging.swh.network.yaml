@@ -71,3 +71,6 @@ syncoid::configuration:
           frequency: 5min
       target_dataset_base: data/sync
       ssh_key: storage1
+
+swh::deploy::storage::backend::workers: 40
+swh::deploy::indexer::storage::backend::workers: 24
