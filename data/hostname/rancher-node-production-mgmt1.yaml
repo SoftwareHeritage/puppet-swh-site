@@ -1,0 +1,4 @@
+# local cache is not compatible with rancher in docker
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
