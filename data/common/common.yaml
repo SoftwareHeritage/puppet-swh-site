@@ -1036,6 +1036,10 @@ bind::resource_records:
     type: CNAME
     record: archive.internal.softwareheritage.org
     data: moma.internal.softwareheritage.org.
+  objectorage-ro/CNAME:
+    type: CNAME
+    record: objstorage.internal.softwareheritage.org
+    data: moma.internal.softwareheritage.org.
   db/CNAME:
     type: CNAME
     record: db.internal.softwareheritage.org
