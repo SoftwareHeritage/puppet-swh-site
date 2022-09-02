@@ -3316,6 +3316,10 @@ thanos::gateway::services:
     azure-storage-container: metrics-mmca-0
     port-http: 19194
     port-grpc: 19094
+  archive-staging:  # rancher cluster
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-0
+    port-http: 19195
+    port-http: 19095
 
 grafana::db::database: grafana
 grafana::db::username: grafana
