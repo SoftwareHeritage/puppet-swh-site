@@ -3319,7 +3319,7 @@ thanos::gateway::services:
   archive-staging:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-0
     port-http: 19195
-    port-http: 19095
+    port-grpc: 19095
 
 grafana::db::database: grafana
 grafana::db::username: grafana
