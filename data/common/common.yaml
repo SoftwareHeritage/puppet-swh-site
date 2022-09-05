@@ -637,6 +637,17 @@ users:
       ben@ben-deb:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIJKPlIonRqTCL3ptpakag49GrY0Aw7SXpyZG2UjEhW18
+  lunar:
+    uid: 1032
+    full_name: Jeremy Bobbio
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      lunar@seleucus:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDIGUnG2HseIZJ9deNXvGzfPU8Iey1TS89AGUGadFxnuy2mDjBepWanJUBbRArm8fv5v+LIJ2MUm3dchP1aEaMYfJp7QUeagJTYVHIrbdFYPAdGgwe5kQzOaWEyqsV3W2AyXkvgKq+V0whWeqJuRxWD+3i6rFLZJxYh1Uf+l8I4bPvD7pLqssLXm5qnzOfSJrZaiu9mtHasscTQUZ2/lZ+veF0mBkqAxmor/lWbTcENCjALgZhdJlg7kz+HFiFO+IaNdAvjayQiEmk2r/SutwA9CdHzAcLh6Jr4iiThRy4RcIB/SACcsYJbUIJkxHiqoWV6LNOICV/pncnWNQYMhyUH3pH+3Gxm3feUpHUT8IQhwb4FS4dctp225LyX+s/6rDzMZU3jKkV090BAvFCiY1EUTaiNAvU9SbjgVzFn40X1dydaucdmh9ziGV56mPfokhR+e3D2QxXNpT6A+3ra/OsTrz55SrKhKo5fJgDp/KJlmwF+wp6jjd78fBJCyMuZb3k=
 
 groups:
   adm:
@@ -683,6 +694,8 @@ groups:
     gid: 1027
   bchauvet:
     gid: 1031
+  lunar:
+    gid: 1032
 
 gunicorn::statsd::host: 127.0.0.1:8125
 
