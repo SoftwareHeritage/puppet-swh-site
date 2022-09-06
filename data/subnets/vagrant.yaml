@@ -97,6 +97,10 @@ static_hostnames:
       - inventory.internal.softwareheritage.org
   10.168.50.90:
     host: thanos.internal.admin.swh.network
+  10.168.100.10:
+    host: maven-exporter.internal.softwareheritage.org
+    aliases:
+      - maven-exporter.internal.softwareheritage.org
   10.168.100.18:
     host: banco.internal.softwareheritage.org
     aliases:

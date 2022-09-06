@@ -232,6 +232,10 @@ node 'maven-exporter0.internal.staging.swh.network' {
   include role::swh_maven_index_exporter
 }
 
+node 'maven-exporter.internal.softwareheritage.org' {
+  include role::swh_maven_index_exporter
+}
+
 node /^argo-worker\d+\.internal\.admin\.swh\.network$/ {
   include role::rancher_node
 }

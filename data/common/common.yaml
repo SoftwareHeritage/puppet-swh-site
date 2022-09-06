@@ -971,6 +971,9 @@ letsencrypt::certificates:
   maven-exporter.internal.staging.swh.network:
     domains:
       - maven-exporter.internal.staging.swh.network
+  maven-exporter.internal.softwareheritage.org:
+    domains:
+      - maven-exporter.internal.softwareheritage.org
   pergamon.softwareheritage.org:
     domains:
       - pergamon.softwareheritage.org
@@ -3931,6 +3934,7 @@ azure_billing::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherord
 azure_billing::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
 azure_billing::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 
+swh::deploy::maven_index_exporter::url: maven-exporter.internal.softwareheritage.org
 maven_index_exporter::vhost::name: "%{lookup('swh::deploy::maven_index_exporter::url')}"
 maven_index_exporter::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 maven_index_exporter::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
