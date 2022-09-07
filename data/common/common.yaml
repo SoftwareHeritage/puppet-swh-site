@@ -2296,6 +2296,19 @@ swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
+swh::deploy::webapp::config::swh_extra_django_apps:
+  - swh.web.add_forge_now
+  - swh.web.archive_coverage
+  - swh.web.badges
+  - swh.web.banners
+  - swh.web.deposit
+  - swh.web.inbound_email
+  - swh.web.jslicenses
+  - swh.web.mailmap
+  - swh.web.metrics
+  - swh.web.save_code_now
+  - swh.web.vault
+
 swh::deploy::webapp::metadata_search_backend: swh-search
 swh::deploy::webapp::history_counters_url: "%{lookup('swh::remote_service::counters::url')}counters_history/history.json"
 swh::deploy::webapp::counters_backend: swh-counters
@@ -2337,10 +2350,7 @@ swh::deploy::webapp::config:
     token: "%{hiera('webapp_give_token')}"
   add_forge_now:
     email_address: "%{hiera('swh::deploy::webapp::add_forge_now_email_address')}"
-  features: "%{alias('swh::deploy::webapp::config::features')}"
-
-swh::deploy::webapp::config::features:
-  add_forge_now: true
+  swh_extra_django_apps: "%{alias('swh::deploy::webapp::config::swh_extra_django_apps')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
