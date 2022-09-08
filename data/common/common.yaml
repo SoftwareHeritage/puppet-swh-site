@@ -2690,6 +2690,8 @@ swh::deploy::lister::queues:
   - swh.lister.pypi.tasks.PyPIListerTask
   - swh.lister.sourceforge.tasks.FullSourceForgeLister
   - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
+  - swh.lister.maven.tasks.FullMavenLister
+  - swh.lister.maven.tasks.IncrementalMavenLister
 
 swh::deploy::lister::sentry_swh_package: swh.lister
 swh::deploy::lister::sentry_environment: "%{alias('swh::deploy::environment')}"
