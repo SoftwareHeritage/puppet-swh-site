@@ -2431,6 +2431,7 @@ swh::deploy::scheduler::packages:
 
 # subset limited to the save code now tasks for the runner priority
 swh::deploy::scheduler::swh-scheduler-runner-priority::config::task_types:
+  - load-bzr
   - load-git
   - load-svn
   - load-archive-files
