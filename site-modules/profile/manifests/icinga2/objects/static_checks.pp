@@ -25,6 +25,17 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::icinga2::object::host {'grapqhl.staging.swh.network':
+    import        => ['generic-host'],
+    check_command => 'dummy',
+    address       => 'grapqhl.staging.swh.network',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "HTTP-only host",
+    },
+  }
+
   ::icinga2::object::service {'Software Heritage Homepage':
     import        => ['generic-service'],
     host_name     => 'www.softwareheritage.org',
