@@ -2533,6 +2533,8 @@ swh::deploy::worker::loader_high_priority::queues:
   # mercurial
   - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
   - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
+  # bzr
+  - save_code_now:swh.loader.bzr.tasks.LoadBazaar
   # svn
   - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
   - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
