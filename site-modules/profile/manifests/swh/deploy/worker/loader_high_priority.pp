@@ -11,6 +11,9 @@ class profile::swh::deploy::worker::loader_high_priority {
     send_task_events  => true,
     require           => Package[$packages],
     extra_config      => $::profile::swh::deploy::base_loader_git::extra_config,
+    # We need to work on the sentry scaffolding for workers with miscellaneous task types
+    # https://forge.softwareheritage.org/T4513
+    sentry_setup      => false,
   }
 
 }

@@ -6,17 +6,21 @@
 #   False, the default, for other workers whose recurring tasks are scheduled with
 #   next-gen scheduler-runner. Their status are updated through a journal client so no
 #   need for the events.
+# @param sentry_setup
+#   True, the default will extract the sentry configuration if any to make workers push
+#   their issues to sentry. Define it to false if for some reason, this cannot work.
 # @param extra_config
 #   Extra configuration dict to merge into the default $config loaded for the service.
 #   Typically, that'd be needed to provide extra sensible information like credentials.
 define profile::swh::deploy::worker::instance (
-  $ensure = present,
-  $instance_name = $title,
-  $sentry_name = $title,
-  $limit_no_file = undef,
-  $private_tmp = undef,
-  $merge_policy = 'deep',
-  $send_task_events = false,
+  $ensure                         = present,
+  $instance_name                  = $title,
+  $sentry_name                    = $title,
+  $limit_no_file                  = undef,
+  $private_tmp                    = undef,
+  $merge_policy                   = 'deep',
+  $send_task_events               = false,
+  $sentry_setup                   = true,
   Hash[String, Any] $extra_config = {},
 )
 {
@@ -41,9 +45,15 @@ define profile::swh::deploy::worker::instance (
     $extra_config
   )
 
-  $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
-  $sentry_environment = lookup("swh::deploy::${sentry_name}::sentry_environment", Optional[String], 'first', undef)
-  $sentry_swh_package = lookup("swh::deploy::${sentry_name}::sentry_swh_package", Optional[String], 'first', undef)
+  if $sentry_setup {
+    $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
+    $sentry_environment = lookup("swh::deploy::${sentry_name}::sentry_environment", Optional[String], 'first', undef)
+    $sentry_swh_package = lookup("swh::deploy::${sentry_name}::sentry_swh_package", Optional[String], 'first', undef)
+  } else {
+    $sentry_dsn = undef
+    $sentry_environment = undef
+    $sentry_swh_package = undef
+  }
 
   $celery_hostname = $::profile::swh::deploy::worker::base::celery_hostname
 
