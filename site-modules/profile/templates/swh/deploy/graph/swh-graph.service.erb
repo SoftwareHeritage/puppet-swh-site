@@ -19,7 +19,7 @@ Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 Type=simple
 User=<%= @user %>
 Group=<%= @group %>
-ExecStart=/opt/swhgraph_venv/bin/swh graph rpc-serve -g /dev/shm/swh-graph/default/graph
+ExecStart=/opt/swhgraph_venv/bin/swh graph -C <%= @config_file %> rpc-serve -g /dev/shm/swh-graph/default/graph
 
 [Install]
 WantedBy=multi-user.target

@@ -12,11 +12,18 @@ class profile::swh::deploy::graph {
   $user = lookup('swh::deploy::graph::user')
   $group = lookup('swh::deploy::graph::group')
 
-  $sentry_dsn = lookup("swh::deploy::graph::sentry_dsn", Optional[String], 'first', undef)
-  $sentry_environment = lookup("swh::deploy::graph::sentry_environment", Optional[String], 'first', undef)
-  $sentry_swh_package = lookup("swh::deploy::graph::sentry_swh_package", Optional[String], 'first', undef)
+  $sentry_dsn = lookup('swh::deploy::graph::sentry_dsn', Optional[String], 'first', undef)
+  $sentry_environment = lookup('swh::deploy::graph::sentry_environment', Optional[String], 'first', undef)
+  $sentry_swh_package = lookup('swh::deploy::graph::sentry_swh_package', Optional[String], 'first', undef)
+
+  $max_heap =  lookup('swh::deploy::graph::backend::max_heap')
 
   $java_api_port = 50091 # hardcoded in swh-graph
+
+  $config_directory = lookup('swh::deploy::graph::conf_directory')
+
+  $config_file = "${config_directory}/graph.yml"
+  $config = { 'max_ram' => $max_heap }
 
   # install services from templates
   $services = [ {  # this matches the current status
@@ -45,10 +52,26 @@ class profile::swh::deploy::graph {
     }
   }
 
-  $backend_listen_host = lookup("swh::deploy::graph::backend::listen::host")
-  $backend_listen_port = lookup("swh::deploy::graph::backend::listen::port")
+  file {$config_directory:
+    ensure => directory,
+    owner  => 'root',
+    group  => $group,
+    mode   => '0650',
+  }
 
-  $http_check_string = "graph API server"
+  file {$config_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => inline_template("<%= @config.to_yaml %>\n"),
+    notify  => Service['swh-graph'],
+  }
+
+  $backend_listen_host = lookup('swh::deploy::graph::backend::listen::host')
+  $backend_listen_port = lookup('swh::deploy::graph::backend::listen::port')
+
+  $http_check_string = 'graph API server'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
   if $backend_listen_host == '0.0.0.0' {

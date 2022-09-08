@@ -1895,8 +1895,10 @@ swh::deploy::vault::config:
 
 swh::deploy::graph::user: swhworker
 swh::deploy::graph::group: swhworker
+swh::deploy::graph::conf_directory: "%{hiera('swh::conf_directory')}/graph"
 swh::deploy::graph::backend::listen::host: 127.0.0.1
 swh::deploy::graph::backend::listen::port: "%{alias('swh::remote_service::graph::port')}"
+swh::deploy::graph::backend::max_heap: 500g
 
 swh::deploy::graph::sentry_swh_package: swh.graph
 swh::deploy::graph::sentry_environment: "%{alias('swh::deploy::environment')}"
