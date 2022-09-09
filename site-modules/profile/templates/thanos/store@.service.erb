@@ -1,8 +1,8 @@
-# File managed by puppet (class profile::thanos::gateway)
+# File managed by puppet (class profile::thanos::store)
 # Manual changes will be overwritten
 
 [Unit]
-Description=Thanos gateway instance %i
+Description=Thanos store instance %i
 
 [Service]
 Environment=HTTP_ADDRESS=
@@ -19,7 +19,7 @@ ExecStart=/opt/thanos/current/thanos store \
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s
 SendSIGKILL=no
-CacheDirectory=thanos/gateway-%i
+CacheDirectory=thanos/store-%i
 
 # systemd hardening-options
 AmbientCapabilities=

@@ -49,5 +49,7 @@ class profile::thanos::base {
     owner   => $user,
     group   => 'prometheus',
     mode    => '0750',
+    purge   => true,
+    recurse => true,
   }
 }

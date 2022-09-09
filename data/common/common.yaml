@@ -3340,19 +3340,22 @@ thanos::objstore::config:
 thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
 
-thanos::gateway::services:
+thanos::stores:
   historical:
     azure-storage-container: metrics-historical-data-0
-    port-http: 19193
-    port-grpc: 19093
+    store:
+      port-http: 19193
+      port-grpc: 19093
   mmca:
     azure-storage-container: metrics-mmca-0
-    port-http: 19194
-    port-grpc: 19094
+    store:
+      port-http: 19194
+      port-grpc: 19094
   archive-staging:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-0
-    port-http: 19195
-    port-grpc: 19095
+    store:
+      port-http: 19195
+      port-grpc: 19095
 
 grafana::db::database: grafana
 grafana::db::username: grafana
