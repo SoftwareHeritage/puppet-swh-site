@@ -23,7 +23,7 @@ networks:
 backups::exclude:
   - srv/softwareheritage/postgresql
 
-swh::postgresql::max_connections: 200
+swh::postgresql::max_connections: 400
 
 swh::apt_config::enable_non_free: true
 packages:
