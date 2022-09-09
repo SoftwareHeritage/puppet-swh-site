@@ -3346,16 +3346,22 @@ thanos::stores:
     store:
       port-http: 19193
       port-grpc: 19093
+    compact:
+      port-http: 19293
   mmca:
     azure-storage-container: metrics-mmca-0
     store:
       port-http: 19194
       port-grpc: 19094
+    compact:
+      port-http: 19294
   archive-staging:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-0
     store:
       port-http: 19195
       port-grpc: 19095
+    compact:
+      port-http: 19295
 
 grafana::db::database: grafana
 grafana::db::username: grafana
