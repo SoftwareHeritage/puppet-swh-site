@@ -63,6 +63,7 @@ class profile::thanos::query {
   service {$service_name:
     ensure  => 'running',
     enable  => true,
+    tag     => 'thanos',
   }
 
   $http_target  = "${swh_hostname['internal_fqdn']}:${port_http}"
@@ -70,6 +71,4 @@ class profile::thanos::query {
   ::profile::prometheus::export_scrape_config {'thanos_query':
     target => $http_target,
   }
-
-  Class['profile::thanos::base'] ~> Service[$service_name]
 }

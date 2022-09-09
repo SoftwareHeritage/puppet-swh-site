@@ -64,9 +64,9 @@ class profile::thanos::prometheus_sidecar {
       File[$cert_paths['fullchain']],
       File[$cert_paths['privkey']],
     ],
+    tag     => 'thanos',
   }
 
-  Class['profile::thanos::base'] ~> Service[$service_name]
   # Ensure prometheus is configured properly before starting the sidecar
   Exec['restart-prometheus'] -> Service[$service_name]
 

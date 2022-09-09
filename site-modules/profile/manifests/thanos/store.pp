@@ -43,7 +43,11 @@ class profile::thanos::store {
         File[$cert_paths['fullchain']],
         File[$cert_paths['privkey']],
       ],
-      tag     => ['thanos-store',  "thanos-objstore-${dataset_name}"],
+      tag     => [
+        'thanos',
+        'thanos-store',
+        "thanos-objstore-${dataset_name}",
+      ],
     }
 
     # And clean up drop-in files for old service instances

@@ -44,6 +44,8 @@ class profile::thanos::base {
     target      => $install_dir,
   }
 
+  ~> Service <| tag == 'thanos' |>
+
   file {$config_dir:
     ensure  => directory,
     owner   => $user,

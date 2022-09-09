@@ -27,7 +27,11 @@ class profile::thanos::compact {
     service {$service_name:
       ensure  => 'running',
       enable  => true,
-      tag     => ['thanos-compact', "thanos-objstore-${dataset_name}"],
+      tag     => [
+        'thanos',
+        'thanos-compact',
+        "thanos-objstore-${dataset_name}",
+      ],
     }
 
     ::profile::prometheus::export_scrape_config {"thanos-compact-${http_target}":
