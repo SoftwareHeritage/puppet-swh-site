@@ -2,6 +2,7 @@
 class profile::thanos::store {
   include profile::thanos::base
   include profile::thanos::tls_certificate
+  include profile::thanos::objstore_configs
 
   $cert_paths = $::profile::thanos::tls_certificate::cert_paths
 
@@ -9,30 +10,8 @@ class profile::thanos::store {
 
   $stores = lookup('thanos::stores')
 
-  $azure_account = lookup('thanos::objstore::azure_account')
-  $azure_account_key = lookup('thanos::objstore::azure_account_key')
-
   $config_dir = $::profile::thanos::base::config_dir
   $stores.each | $dataset_name, $service | {
-    $objstore_config = {
-      "type"   => "AZURE",
-      "config" => {
-        "storage_account"     => $azure_account,
-        "storage_account_key" => $azure_account_key,
-        "container"           => $service['azure-storage-container'],
-      },
-    }
-
-    $objstore_config_file = "${::profile::thanos::base::config_dir}/objstore-${dataset_name}.yml"
-    file {$objstore_config_file:
-      ensure  => present,
-      owner   => 'root',
-      group   => 'prometheus',
-      mode    => '0640',
-      content => inline_yaml($objstore_config),
-      require => File[$::profile::thanos::base::config_dir],
-    }
-
     $port_http = $service['store']['port-http']
     $http_address = "${internal_ip}:${port_http}"
     $http_target  = "${swh_hostname['internal_fqdn']}:${port_http}"
@@ -64,7 +43,7 @@ class profile::thanos::store {
         File[$cert_paths['fullchain']],
         File[$cert_paths['privkey']],
       ],
-      tag     => 'thanos-store',
+      tag     => ['thanos-store',  "thanos-objstore-${dataset_name}"],
     }
 
     # And clean up drop-in files for old service instances
