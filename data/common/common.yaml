@@ -3311,8 +3311,8 @@ prometheus::varnish::listen_port: 9104
 
 thanos::base::config_dir: "/etc/thanos"
 
-thanos::release::version: 0.26.0
-thanos::release::digest: cf5ea95e19388736df83f0959bd036b8ad400af233d03ae6f90decc05161dccc
+thanos::release::version: 0.28.0
+thanos::release::digest: 5d636aed85b5e060cbd5f331b7f97389683f0146e9091384781aeadf36b8e8cc
 thanos::release::digest_type: sha256
 
 thanos::port::http: 19191
