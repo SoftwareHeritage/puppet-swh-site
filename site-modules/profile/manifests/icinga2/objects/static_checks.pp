@@ -25,10 +25,10 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
-  ::icinga2::object::host {'grapqhl.staging.swh.network':
+  ::icinga2::object::host {'graphql.staging.swh.network':
     import        => ['generic-host'],
     check_command => 'dummy',
-    address       => 'grapqhl.staging.swh.network',
+    address       => 'graphql.staging.swh.network',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
