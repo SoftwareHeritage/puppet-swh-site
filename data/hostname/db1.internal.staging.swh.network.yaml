@@ -20,6 +20,9 @@ networks:
     extras:
       vlan-raw-device: bond0
 
+icinga2::host::vars:
+  load: sql
+
 backups::exclude:
   - srv/softwareheritage/postgresql
 
