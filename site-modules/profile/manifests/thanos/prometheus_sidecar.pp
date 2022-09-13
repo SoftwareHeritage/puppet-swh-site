@@ -83,4 +83,27 @@ class profile::thanos::prometheus_sidecar {
     target => $http_target,
     job    => 'thanos_sidecar',
   }
+
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  @@::icinga2::object::service {"thanos sidecar on ${::fqdn}":
+    service_name  => 'thanos sidecar',
+    import        => ['generic-service'],
+    host_name     => $::fqdn,
+    check_command => 'check_prometheus_metric',
+    vars          => {
+      'check_prometheus_query'           => profile::icinga2::literal_var(
+        join([
+          'time() - thanos_objstore_bucket_last_successful_upload_time{job="thanos_sidecar", instance="',
+          $swh_hostname['internal_fqdn'],
+          '"}',
+        ])
+      ),
+      'check_prometheus_metric_name'     => 'thanos_sidecar_upload_lag',
+      # We expect an upload every 2 hours
+      'check_prometheus_metric_warning'  => 3 * 3600,
+      'check_prometheus_metric_critical' => 24 * 3600,
+    },
+    target        => $icinga_checks_file,
+    tag           => 'icinga2::exported',
+  }
 }
