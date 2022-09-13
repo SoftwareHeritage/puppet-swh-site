@@ -3148,7 +3148,7 @@ prometheus::server::defaults_config:
     enable_admin_api: true
   storage:
     tsdb:
-      retention: '1y'
+      retention: '1m'
       min-block-duration: '2h'
       max-block-duration: '2h'
 
