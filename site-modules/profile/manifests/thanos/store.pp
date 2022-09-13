@@ -31,12 +31,7 @@ class profile::thanos::store {
       notify   => Service[$service_name],
     }
 
-    # Cleanup old thanos-gateway service instances
-    service {"thanos-gateway@${dataset_name}":
-      ensure => stopped,
-      enable => false,
-    }
-    -> service {$service_name:
+    service {$service_name:
       ensure  => 'running',
       enable  => true,
       require => [
@@ -48,13 +43,6 @@ class profile::thanos::store {
         'thanos-store',
         "thanos-objstore-${dataset_name}",
       ],
-    }
-
-    # And clean up drop-in files for old service instances
-    -> file {"/etc/systemd/system/thanos-gateway@${dataset_name}.service.d":
-      ensure  => absent,
-      recurse => true,
-      force   => true,
     }
 
     # Ensure service is restarted when the certs are renewed
@@ -82,11 +70,4 @@ class profile::thanos::store {
     content => template('profile/thanos/store@.service.erb'),
     require => Class['profile::thanos::base'],
   } ~> Service <| tag == 'thanos-store' |>
-
-
-  # Cleanup old thanos-gateway service file
-  Service <| tag == 'thanos-store' |>
-  -> systemd::unit_file {'thanos-gateway@.service':
-    ensure => absent,
-  }
 }
