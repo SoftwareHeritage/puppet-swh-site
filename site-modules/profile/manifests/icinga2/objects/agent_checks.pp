@@ -63,17 +63,6 @@ class profile::icinga2::objects::agent_checks {
         'check_prometheus_metric_url' => $prometheus_url,
       }
     },
-    'check_belvedere_replication_lag.sh' => {
-      arguments => {
-        '-H' => '$check_prometheus_metric_url$',
-        '-w' => '$check_prometheus_metric_warning$',
-        '-c' => '$check_prometheus_metric_critical$',
-        '-n' => '$check_prometheus_metric_name$',
-      },
-      vars => {
-        'check_prometheus_metric_url' => $prometheus_url,
-      }
-    }
   }
 
   $plugin_dir = '/usr/lib/nagios/plugins'
