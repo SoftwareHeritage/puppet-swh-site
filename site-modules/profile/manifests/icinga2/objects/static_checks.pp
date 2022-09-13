@@ -110,8 +110,9 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
   }
 
+  $prometheus_host = lookup('prometheus::server::fqdn')
   ::icinga2::object::service {'Postgresql replication lag (belvedere -> somerset)':
-    check_command => 'check_prometheus_metric.sh',
+    check_command => 'check_prometheus_metric',
     target        => $checks_file,
     host_name     => 'belvedere.internal.softwareheritage.org',
     vars          => {

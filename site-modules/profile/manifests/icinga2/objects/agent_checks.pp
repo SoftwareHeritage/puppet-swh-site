@@ -51,7 +51,7 @@ class profile::icinga2::objects::agent_checks {
       sudo => true,
       sudo_user => 'root',
     },
-    'check_prometheus_metric.sh' => {
+    'check_prometheus_metric' => {
       arguments => {
         '-H' => '$check_prometheus_metric_url$',
         '-q' => '$check_prometheus_metric_query$',
