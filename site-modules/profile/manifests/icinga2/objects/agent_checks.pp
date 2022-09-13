@@ -58,9 +58,21 @@ class profile::icinga2::objects::agent_checks {
         '-w' => '$check_prometheus_metric_warning$',
         '-c' => '$check_prometheus_metric_critical$',
         '-n' => '$check_prometheus_metric_name$',
+        '-m' => '$check_prometheus_comparison_method$',
+        '-t' => '$check_prometheus_query_type$',
+        '-O' => {
+          'set_if' => '$check_prometheus_nan_ok$',
+        },
+        '-P' => {
+          'set_if' => '$check_prometheus_perfdata$',
+        },
       },
       vars => {
-        'check_prometheus_metric_url' => $prometheus_url,
+        'check_prometheus_metric_url'        => $prometheus_url,
+        'check_prometheus_comparison_method' => 'ge',
+        'check_prometheus_query_type'        => 'scalar',
+        'check_prometheus_nan_ok'            => false,
+        'check_prometheus_perfdat'           => true,
       }
     },
   }
