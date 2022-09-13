@@ -3164,6 +3164,7 @@ prometheus::server::config::static_scrape_configs: []
 prometheus::server::listen_network: "%{lookup('internal_network')}"
 prometheus::server::listen_port: 9090
 prometheus::server::certname: pergamon.softwareheritage.org
+prometheus::server::fqdn: pergamon.internal.softwareheritage.org
 
 swh::deploy::environment: production
 

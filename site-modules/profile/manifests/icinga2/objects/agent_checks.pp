@@ -1,8 +1,9 @@
 # Checks that need to be supported on icinga2 agents
 class profile::icinga2::objects::agent_checks {
 
+  $prometheus_host = lookup('prometheus::server::fqdn')
   $prometheus_port = lookup('prometheus::server::listen_port')
-  $prometheus_url = "pergamon.internal.softwareheritage.org:${prometheus_port}"
+  $prometheus_url = "http://${prometheus_host}:${prometheus_port}"
 
   $plugins = {
     'check_journal' => {
