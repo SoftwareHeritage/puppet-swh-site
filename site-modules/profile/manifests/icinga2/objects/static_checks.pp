@@ -117,7 +117,7 @@ class profile::icinga2::objects::static_checks {
     host_name     => 'belvedere.internal.softwareheritage.org',
     vars          => {
       check_prometheus_metric_name     => 'pg replication_lag belvedere somerset',
-      check_prometheus_query           => profile::icinga2::literal_var(
+      check_prometheus_metric_query    => profile::icinga2::literal_var(
         'sum(sql_pg_stat_replication{instance="belvedere.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_replica"})'
       ),
       check_prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024

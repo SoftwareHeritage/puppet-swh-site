@@ -91,7 +91,7 @@ class profile::thanos::prometheus_sidecar {
     host_name     => $::fqdn,
     check_command => 'check_prometheus_metric',
     vars          => {
-      'check_prometheus_query'           => profile::icinga2::literal_var(
+      'check_prometheus_metric_query'    => profile::icinga2::literal_var(
         join([
           'time() - thanos_objstore_bucket_last_successful_upload_time{job="thanos_sidecar", instance="',
           $swh_hostname['internal_fqdn'],
