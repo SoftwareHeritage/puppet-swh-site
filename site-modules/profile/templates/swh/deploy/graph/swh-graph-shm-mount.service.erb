@@ -5,15 +5,18 @@
 Description=swh-graph RAM data cache in /dev/shm
 
 [Service]
-Type=oneshot
+Type=simple
 User=<%= @user %>
 Group=<%= @group %>
-RemainAfterExit=yes
-ExecStart=mkdir -p /dev/shm/swh-graph/default
-ExecStart=sh -c "ln -s /srv/softwareheritage/graph/latest/compressed/* /dev/shm/swh-graph/default"
-ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/graph/latest/compressed/graph.graph /dev/shm/swh-graph/default"
-ExecStart=sh -c "cp --remove-destination /srv/softwareheritage/graph/latest/compressed/graph-transposed.graph /dev/shm/swh-graph/default"
-ExecStop=rm -rf /dev/shm/swh-graph/default
+ExecStartPre=sh -c "[ -d <%= @shm_path %> ] || mkdir -p <%= @shm_path %>"
+ExecStartPre=sh -c "[ -L <%= @shm_path %>/graph.stats ] || ln -sf <%= @compressed_graph_path %>/* <%= @shm_path %>"
+<% @files_to_copy_to_shm.each do |file| -%>
+ExecStartPre=sh -c "[ -f <%= @shm_path %>/<%= file %> ] || cp --remove-destination <%= @compressed_graph_path %>/<%= file %> <%= @shm_path %>"
+<% end -%>
+ExecStart=sh -c "set -e; while [ -f <%= @shm_path %>/graph.graph ]; do sleep 1; done; exit 1"
+
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

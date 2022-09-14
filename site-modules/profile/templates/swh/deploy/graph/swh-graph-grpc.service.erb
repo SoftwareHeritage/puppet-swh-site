@@ -1,0 +1,29 @@
+# Managed by puppet class profile::swh::deploy::graph
+# Changes will be overwritten
+
+[Unit]
+Description=swh-graph gRPC server
+After=swh-graph-shm-mount.service
+Requires=swh-graph-shm-mount.service
+ConditionPathIsDirectory=<%= @shm_path %>
+
+[Service]
+<%- if !@sentry_dsn.nil? and !@sentry_dsn.empty? -%>
+Environment=SWH_SENTRY_DSN=<%= @sentry_dsn %>
+<%- end -%>
+<%- if !@sentry_environment.nil? and !@sentry_environment.empty? -%>
+Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
+<%- end -%>
+<%- if !@sentry_swh_package.nil? and !@sentry_swh_package.empty? -%>
+Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
+<%- end -%>
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+ExecStart=/opt/swhgraph_venv/bin/swh graph -C <%= @grpc_config_file %> grpc-serve -g <%= @shm_path %>/graph -p <%= @grpc_listen_port %>
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

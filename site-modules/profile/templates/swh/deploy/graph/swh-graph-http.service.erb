@@ -3,8 +3,8 @@
 
 [Unit]
 Description=swh-graph HTTP server
-After=swh-graph-shm-mount.service
-Requires=swh-graph-shm-mount.service
+After=swh-graph-graph-grpc.service
+Requires=swh-graph-grpc.service
 
 [Service]
 <%- if !@sentry_dsn.nil? and !@sentry_dsn.empty? -%>
@@ -19,7 +19,10 @@ Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 Type=simple
 User=<%= @user %>
 Group=<%= @group %>
-ExecStart=/opt/swhgraph_venv/bin/swh graph -C <%= @config_file %> rpc-serve -g /dev/shm/swh-graph/default/graph
+ExecStart=/opt/swhgraph_venv/bin/swh graph -C <%= @http_config_file %> rpc-serve -g <%= @shm_path %>/graph -h <%= @http_listen_host %> -p <%= @http_listen_port %>
+
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

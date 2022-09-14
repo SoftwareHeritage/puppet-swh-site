@@ -16,30 +16,97 @@ class profile::swh::deploy::graph {
   $sentry_environment = lookup('swh::deploy::graph::sentry_environment', Optional[String], 'first', undef)
   $sentry_swh_package = lookup('swh::deploy::graph::sentry_swh_package', Optional[String], 'first', undef)
 
-  $max_heap =  lookup('swh::deploy::graph::grpc::max_heap')
-
   $config_directory = lookup('swh::deploy::graph::conf_directory')
 
-  $config_file = "${config_directory}/graph.yml"
-  $config = { 'max_ram' => $max_heap }
+  file {$config_directory:
+    ensure => directory,
+    owner  => 'root',
+    group  => $group,
+    mode   => '0650',
+  }
+
+  $shm_path = '/dev/shm/swh-graph/default'
+  $compressed_graph_path = '/srv/softwareheritage/graph/latest/compressed'
+  $files_to_copy_to_shm = [
+    'graph.graph',
+    'graph-transposed.graph',
+  ]
+
+  $grpc_listen_host = lookup('swh::deploy::graph::grpc::listen::host')
+  $grpc_listen_port = lookup('swh::deploy::graph::grpc::listen::port')
+
+  $grpc_local_address = $grpc_listen_host ? {
+    '0.0.0.0' => '127.0.0.1',
+    default   => $grpc_listen_host,
+  }
+
+  $grpc_config_file = "${config_directory}/grpc.yml"
+  $grpc_config = {
+    graph => {
+      max_ram => lookup('swh::deploy::graph::grpc::max_heap'),
+    }
+  }
+
+  file {$grpc_config_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => inline_yaml($grpc_config),
+    notify  => Service['swh-graph-grpc'],
+  }
+
+  $http_listen_host = lookup('swh::deploy::graph::http::listen::host')
+  $http_listen_port = lookup('swh::deploy::graph::http::listen::port')
+
+  $http_local_address = $http_listen_host ? {
+    '0.0.0.0' => '127.0.0.1',
+    default   => $http_listen_host,
+  }
+
+  $http_config_file = "${config_directory}/http.yml"
+  $http_config = {
+    graph => {
+      cls => remote,
+      url => "${grpc_local_address}:${grpc_listen_port}"
+    }
+  }
+
+  file {$http_config_file:
+    ensure  => present,
+    owner   => 'root',
+    group   => $group,
+    mode    => '0640',
+    content => inline_yaml($http_config),
+    notify  => Service['swh-graph-http'],
+  }
 
   # install services from templates
-  $services = [ {  # this matches the current status
-    'name' => 'swh-graph-shm-mount',
-    'status'  => 'running',
-    'enable' => false,
-  }, {
-    'name' => 'swh-graph',
-    'status'  => 'running',
-    'enable' => true,
-  }
+  $services = [
+    {
+      name   => 'swh-graph-shm-mount',
+      status => 'running',
+      enable => false,
+    },
+    {
+      name   => 'swh-graph-grpc',
+      status => 'running',
+      enable => true,
+    },
+    {
+      name   => 'swh-graph-http',
+      status => 'running',
+      enable => true,
+    },
   ]
+
   each($services) | $service | {
     $unit_name = "${service['name']}.service"
 
     # template uses:
     # $user
     # $group
+    # $<xxx>_listen_port
     ::systemd::unit_file {$unit_name:
       ensure  => present,
       content => template("profile/swh/deploy/graph/${unit_name}.erb"),
@@ -50,51 +117,28 @@ class profile::swh::deploy::graph {
     }
   }
 
-  file {$config_directory:
-    ensure => directory,
-    owner  => 'root',
-    group  => $group,
-    mode   => '0650',
+  # Clean up monolithic service
+  service {'swh-graph':
+    ensure => stopped,
+    enable => false,
+  } -> ::systemd::unit_file {'swh-graph.service':
+    ensure => absent
   }
-
-  file {$config_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => $group,
-    mode    => '0640',
-    content => inline_template("<%= @config.to_yaml %>\n"),
-    notify  => Service['swh-graph'],
-  }
-
-  $http_listen_host = lookup('swh::deploy::graph::http::listen::host')
-  $http_listen_port = lookup('swh::deploy::graph::http::listen::port')
-
-  $grpc_listen_host = lookup('swh::deploy::graph::grpc::listen::host')
-  $grpc_listen_port = lookup('swh::deploy::graph::grpc::listen::port')
 
   $http_check_string = 'graph API server'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
-  $http_local_check_address = $http_listen_host ? {
-    '0.0.0.0' => '127.0.0.1',
-    default   => $http_listen_host,
-  }
-  $grpc_local_check_address = $grpc_listen_host ? {
-    '0.0.0.0' => '127.0.0.1',
-    default   => $grpc_listen_host,
-  }
-
   # swh-graph.service exposes the main graph server.
   # Ensure the port is working ok through icinga checks
-  @@::icinga2::object::service {"swh-graph http api (local on ${::fqdn})":
+  ::icinga2::object::service {"swh-graph http api (local on ${::fqdn})":
     service_name     => 'swh-graph http api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
     check_command    => 'http',
     command_endpoint => $::fqdn,
     vars             => {
-      http_address => $http_local_check_address,
-      http_vhost   => $http_local_check_address,
+      http_address => $http_local_address,
+      http_vhost   => $http_local_address,
       http_port    => $http_listen_port,
       http_uri     => '/',
       http_header  => ['Accept: application/html'],
@@ -104,7 +148,7 @@ class profile::swh::deploy::graph {
     tag              => 'icinga2::exported',
   }
 
-  @@::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
+  ::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
     service_name     => 'swh-graph grpc api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
@@ -112,14 +156,14 @@ class profile::swh::deploy::graph {
     command_endpoint => $::fqdn,
     vars             => {
       tcp_port    => $grpc_listen_port,
-      tcp_address => $grpc_local_check_address,
+      tcp_address => $grpc_local_address,
     },
     target           => $icinga_checks_file,
     tag              => 'icinga2::exported',
   }
 
   if $http_listen_host != '127.0.0.1' {
-    @@::icinga2::object::service {"swh-graph http api (remote on ${::fqdn})":
+    ::icinga2::object::service {"swh-graph http api (remote on ${::fqdn})":
       service_name  => 'swh-graph http api (remote)',
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -136,7 +180,7 @@ class profile::swh::deploy::graph {
     }
   }
   if $grpc_listen_host != '127.0.0.1' {
-    @@::icinga2::object::service {"swh-graph grpc api (remote on ${::fqdn})":
+    ::icinga2::object::service {"swh-graph grpc api (remote on ${::fqdn})":
       service_name     => 'swh-graph grpc api (remote)',
       import           => ['generic-service'],
       host_name        => $::fqdn,
