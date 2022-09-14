@@ -53,26 +53,26 @@ class profile::icinga2::objects::agent_checks {
     },
     'check_prometheus_metric' => {
       arguments => {
-        '-H' => '$check_prometheus_metric_url$',
-        '-q' => '$check_prometheus_metric_query$',
-        '-w' => '$check_prometheus_metric_warning$',
-        '-c' => '$check_prometheus_metric_critical$',
-        '-n' => '$check_prometheus_metric_name$',
-        '-m' => '$check_prometheus_comparison_method$',
-        '-t' => '$check_prometheus_query_type$',
+        '-H' => '$prometheus_url$',
+        '-q' => '$prometheus_query$',
+        '-w' => '$prometheus_metric_warning$',
+        '-c' => '$prometheus_metric_critical$',
+        '-n' => '$prometheus_metric_name$',
+        '-m' => '$prometheus_metric_comparison_method$',
+        '-t' => '$prometheus_query_type$',
         '-O' => {
-          'set_if' => '$check_prometheus_nan_ok$',
+          'set_if' => '$prometheus_metric_nan_ok$',
         },
         '-P' => {
-          'set_if' => '$check_prometheus_perfdata$',
+          'set_if' => '$prometheus_perfdata$',
         },
       },
       vars => {
-        'check_prometheus_metric_url'        => $prometheus_url,
-        'check_prometheus_comparison_method' => 'ge',
-        'check_prometheus_query_type'        => 'scalar',
-        'check_prometheus_nan_ok'            => false,
-        'check_prometheus_perfdat'           => true,
+        'prometheus_url'                      => $prometheus_url,
+        'prometheus_metric_comparison_method' => 'ge',
+        'prometheus_query_type'               => 'scalar',
+        'prometheus_metric_nan_ok'            => false,
+        'prometheus_perfdata'                 => true,
       }
     },
   }

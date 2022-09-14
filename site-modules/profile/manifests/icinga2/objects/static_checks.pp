@@ -116,12 +116,13 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
     host_name     => 'belvedere.internal.softwareheritage.org',
     vars          => {
-      check_prometheus_metric_name     => 'pg replication_lag belvedere somerset',
-      check_prometheus_metric_query    => profile::icinga2::literal_var(
+      prometheus_metric_name     => 'pg replication_lag belvedere somerset',
+      prometheus_query           => profile::icinga2::literal_var(
         'sum(sql_pg_stat_replication{instance="belvedere.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_replica"})'
       ),
-      check_prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
-      check_prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
+      prometheus_query_type      => 'vector',
+      prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
+      prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
     },
   }
 
