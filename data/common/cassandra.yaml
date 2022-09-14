@@ -48,6 +48,12 @@ cassandra::default_instance_configuration:
   storage_port: 7000
   jmx_port: 7199
   jmx_exporter_port: 7070
+  jmx_remote: true
+  jmx_user: "%{lookup('cassandra::jmx::user')}"
+  jmx_password: "%{lookup('cassandra::jmx::password')}"
+
+cassandra::jmx::user: cassandra
+# cassandra::jmx::password in private data
 
 # Reflect the base of the cassandra.yaml content
 # These list is completed and/or overridden in cassandra::instance

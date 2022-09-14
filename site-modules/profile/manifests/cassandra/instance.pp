@@ -29,6 +29,8 @@ define profile::cassandra::instance (
   $log_dir = "${cassandra_log_dir}/${instance_name}"
 
   $jmx_exporter_path = $::profile::prometheus::jmx::jar_path
+  $jmx_remote = $config['jmx_remote']
+  $jmx_port = $config['jmx_port']
 
   $base_configuration = lookup('cassandra::base_instance_configuration')
   $instance_configuration = {
@@ -44,6 +46,14 @@ define profile::cassandra::instance (
   }
 
   $computed_configuration = $base_configuration + $instance_configuration
+
+  # jmx port is hardcoded in the cassandra-env.sh file so it needs to be overriden in the
+  # service configuration
+  if $jmx_remote {
+    $extra_jmx_option = "-Dcassandra.jmx.remote.port=${jmx_port} -Dcom.sun.management.jmxremote.access.file=${cassandra_config_dir}/jmxremote.access"
+  } else {
+    $extra_jmx_option = "-Dcassandra.jmx.local.port=${jmx_port}"
+  }
 
   file {[
       $instance_base_data_dir,

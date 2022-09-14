@@ -35,6 +35,10 @@ class profile::cassandra {
   $default_instance_config = lookup('cassandra::default_instance_configuration')
   $clusters_config = lookup('cassandra::clusters')
 
+  $jmx_remote = $default_instance_config['jmx_remote']
+  $jmx_access_file = "${cassandra_config_directory}/jmxremote.access"
+  $jmx_password_file = "${cassandra_config_directory}/jmxremote.password"
+
   group {$cassandra_group:
     system => true,
   }
@@ -118,6 +122,33 @@ class profile::cassandra {
     mode    => '0644',
     source  => "https://raw.githubusercontent.com/prometheus/jmx_exporter/parent-${jmx_exporter_version}/example_configs/cassandra.yml",
     require => [File[$cassandra_config_directory]],
+  }
+
+  if $jmx_remote == true {
+    $jmx_user = $default_instance_config['jmx_user']
+    $jmx_password = $default_instance_config['jmx_password']
+
+    file {$jmx_access_file:
+      ensure  => present,
+      owner   => 'root',
+      group   => $cassandra_group,
+      mode    => '0540',
+      content => template('profile/cassandra/jmxremote.access.erb'),
+      require => [File[$cassandra_config_directory]]
+    }
+    file {$jmx_password_file:
+      ensure  => present,
+      owner   => 'root',
+      group   => $cassandra_group,
+      mode    => '0540',
+      content => template('profile/cassandra/jmxremote.password.erb'),
+      require => [File[$cassandra_config_directory]]
+    }
+  } else {
+    file {[ $jmx_access_file,
+            $jmx_password_file ]:
+      ensure => absent,
+    }
   }
 
   $instances.each | $instance_name, $instance_config | {

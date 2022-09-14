@@ -5,9 +5,12 @@ Description=Cassandra <%= @instance_name %> instance
 After=network.target
 
 [Service]
-Environment=JVM_EXTRA_OPTS="-javaagent:<%= @jmx_exporter_path %>=<%= @config["jmx_exporter_port"] %>:/etc/cassandra/jmx_exporter.yml -Dcassandra.jmx.local.port=<%= @config["jmx_port"] %> -Dcom.sun.management.jmxremote.authenticate=false"
+Environment=JVM_EXTRA_OPTS="-javaagent:<%= @jmx_exporter_path %>=<%= @config["jmx_exporter_port"] %>:/etc/cassandra/jmx_exporter.yml <%= @extra_jmx_option %>"
 Environment=CASSANDRA_CONF=<%= @config_dir %>
 Environment=CASSANDRA_LOG_DIR=<%= @log_dir %>
+<%- if @jmx_remote -%>
+Environment=LOCAL_JMX=no
+<%- end -%>
 
 [Install]
 WantedBy=multi-user.target
