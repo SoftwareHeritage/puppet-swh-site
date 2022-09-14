@@ -16,9 +16,7 @@ class profile::swh::deploy::graph {
   $sentry_environment = lookup('swh::deploy::graph::sentry_environment', Optional[String], 'first', undef)
   $sentry_swh_package = lookup('swh::deploy::graph::sentry_swh_package', Optional[String], 'first', undef)
 
-  $max_heap =  lookup('swh::deploy::graph::backend::max_heap')
-
-  $java_api_port = 50091 # hardcoded in swh-graph
+  $max_heap =  lookup('swh::deploy::graph::grpc::max_heap')
 
   $config_directory = lookup('swh::deploy::graph::conf_directory')
 
@@ -68,32 +66,36 @@ class profile::swh::deploy::graph {
     notify  => Service['swh-graph'],
   }
 
-  $backend_listen_host = lookup('swh::deploy::graph::backend::listen::host')
-  $backend_listen_port = lookup('swh::deploy::graph::backend::listen::port')
+  $http_listen_host = lookup('swh::deploy::graph::http::listen::host')
+  $http_listen_port = lookup('swh::deploy::graph::http::listen::port')
+
+  $grpc_listen_host = lookup('swh::deploy::graph::grpc::listen::host')
+  $grpc_listen_port = lookup('swh::deploy::graph::grpc::listen::port')
 
   $http_check_string = 'graph API server'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
 
-  if $backend_listen_host == '0.0.0.0' {
-    # It's not possible to directly test with the backend_listen_host in this case
-    # so we fall back to localhost
-    $local_check_address = '127.0.0.1'
-  } else {
-    $local_check_address = $backend_listen_host
+  $http_local_check_address = $http_listen_host ? {
+    '0.0.0.0' => '127.0.0.1',
+    default   => $http_listen_host,
+  }
+  $grpc_local_check_address = $grpc_listen_host ? {
+    '0.0.0.0' => '127.0.0.1',
+    default   => $grpc_listen_host,
   }
 
   # swh-graph.service exposes the main graph server.
   # Ensure the port is working ok through icinga checks
-  @@::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
-    service_name     => 'swh-graph grpc api (localhost)',
+  @@::icinga2::object::service {"swh-graph http api (local on ${::fqdn})":
+    service_name     => 'swh-graph http api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
     check_command    => 'http',
     command_endpoint => $::fqdn,
     vars             => {
-      http_address => $local_check_address,
-      http_vhost   => $local_check_address,
-      http_port    => $backend_listen_port,
+      http_address => $http_local_check_address,
+      http_vhost   => $http_local_check_address,
+      http_port    => $http_listen_port,
       http_uri     => '/',
       http_header  => ['Accept: application/html'],
       http_string  => $http_check_string,
@@ -102,32 +104,46 @@ class profile::swh::deploy::graph {
     tag              => 'icinga2::exported',
   }
 
-  @@::icinga2::object::service {"swh-graph java api (local on ${::fqdn})":
-    service_name     => 'swh-graph java api (localhost)',
+  @@::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
+    service_name     => 'swh-graph grpc api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
     check_command    => 'tcp',
     command_endpoint => $::fqdn,
     vars             => {
-      tcp_port    => $java_api_port,
-      tcp_address => $local_check_address,
+      tcp_port    => $grpc_listen_port,
+      tcp_address => $grpc_local_check_address,
     },
     target           => $icinga_checks_file,
     tag              => 'icinga2::exported',
   }
 
-  if $backend_listen_host != '127.0.0.1' {
-    @@::icinga2::object::service {"swh-graph api (remote on ${::fqdn})":
-      service_name  => 'swh-graph grpc api (remote)',
+  if $http_listen_host != '127.0.0.1' {
+    @@::icinga2::object::service {"swh-graph http api (remote on ${::fqdn})":
+      service_name  => 'swh-graph http api (remote)',
       import        => ['generic-service'],
       host_name     => $::fqdn,
       check_command => 'http',
       vars          => {
         http_vhost  => $::swh_hostname['internal_fqdn'],
-        http_port   => $backend_listen_port,
+        http_port   => $http_listen_port,
         http_uri    => '/',
         http_header => ['Accept: application/html'],
         http_string => $http_check_string,
+      },
+      target        => $icinga_checks_file,
+      tag           => 'icinga2::exported',
+    }
+  }
+  if $grpc_listen_host != '127.0.0.1' {
+    @@::icinga2::object::service {"swh-graph grpc api (remote on ${::fqdn})":
+      service_name     => 'swh-graph grpc api (remote)',
+      import           => ['generic-service'],
+      host_name        => $::fqdn,
+      check_command    => 'tcp',
+      vars             => {
+        tcp_port    => $grpc_listen_port,
+        tcp_address => $::swh_hostname['internal_fqdn'],
       },
       target        => $icinga_checks_file,
       tag           => 'icinga2::exported',
