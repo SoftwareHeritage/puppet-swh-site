@@ -63,7 +63,7 @@ class profile::icinga2::objects::agent_checks {
         '-O' => {
           'set_if' => '$prometheus_metric_nan_ok$',
         },
-        '-P' => {
+        '-p' => {
           'set_if' => '$prometheus_perfdata$',
         },
       },
