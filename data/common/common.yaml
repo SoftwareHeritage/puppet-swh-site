@@ -1896,7 +1896,7 @@ swh::deploy::vault::config:
 swh::deploy::graph::user: swhworker
 swh::deploy::graph::group: swhworker
 swh::deploy::graph::conf_directory: "%{hiera('swh::conf_directory')}/graph"
-swh::deploy::graph::http::listen::host: 127.0.0.1
+swh::deploy::graph::http::listen::host: 0.0.0.0
 swh::deploy::graph::http::listen::port: "%{alias('swh::remote_service::graph::port')}"
 swh::deploy::graph::grpc::listen::host: 0.0.0.0
 swh::deploy::graph::grpc::listen::port: 50091  # hardcoded in swh.graph
