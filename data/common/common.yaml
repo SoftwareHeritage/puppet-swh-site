@@ -2840,6 +2840,8 @@ swh::deploy::worker::indexer_fossology_license::config: {}
 
 swh::deploy::indexer_journal_client::content_mimetype::config_file: "content_mimetype.yml"
 swh::deploy::indexer_journal_client::content_mimetype::loglevel: INFO
+swh::deploy::indexer_journal_client::content_mimetype::journal_authentication: true
+
 # Contains a password: in private data
 swh::deploy::indexer_journal_client::content_mimetype::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
@@ -2860,6 +2862,7 @@ swh::deploy::indexer_journal_client::content_mimetype::config:
 
 swh::deploy::indexer_journal_client::content_fossology_license::config_file: "content_fossology_license.yml"
 swh::deploy::indexer_journal_client::content_fossology_license::loglevel: INFO
+swh::deploy::indexer_journal_client::content_fossology_license::journal_authentication: true
 # Contains a password: in private data
 swh::deploy::indexer_journal_client::content_fossology_license::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
@@ -2880,6 +2883,7 @@ swh::deploy::indexer_journal_client::content_fossology_license::config:
 
 swh::deploy::indexer_journal_client::extrinsic_metadata::config_file: "extrinsic_metadata.yml"
 swh::deploy::indexer_journal_client::extrinsic_metadata::loglevel: INFO
+swh::deploy::indexer_journal_client::extrinsic_metadata::journal_authentication: true
 swh::deploy::indexer_journal_client::extrinsic_metadata::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
@@ -2898,6 +2902,7 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::config:
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config_file: "origin_intrinsic_metadata.yml"
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::batch_size: 200
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::loglevel: INFO
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::journal_authentication: true
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"

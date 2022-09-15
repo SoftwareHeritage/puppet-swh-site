@@ -24,12 +24,35 @@ define profile::swh::deploy::indexer_journal_client (
       $sentry_environment = lookup("swh::deploy::indexer::sentry_environment", Optional[String], "first", undef)
       $sentry_swh_package = lookup("swh::deploy::indexer::sentry_swh_package", Optional[String], "first", undef)
 
+      # Optional authentication
+      $journal_authentication = lookup("swh::deploy::indexer_journal_client::${instance_name}::journal_authentication")
+
+      if $journal_authentication {
+        $username = lookup('swh::deploy::indexer_journal_client::journal::username')
+        $password = lookup('swh::deploy::indexer_journal_client::journal::password')
+        # Integrate authentication configuration entries into the $config dict
+        $suffix_group_id = $config["journal"]["group_id"]
+        # Subtility about ACL which requires the group id to be prefixed by the username
+        $group_id = "${username}-${suffix_group_id}"
+        $full_config = deep_merge($config, {
+          "journal" => {
+            "group_id"          => $group_id,
+            "sasl.mechanism"    => "SCRAM-SHA-512",
+            "security.protocol" => "SASL_SSL",
+            "sasl.username"     => $username,
+            "sasl.password"     => $password,
+          },
+        })
+      } else {
+        $full_config = $config
+      }
+
       file {$config_path:
         ensure  => present,
         owner   => "root",
         group   => $::profile::swh::deploy::base_indexer::group,
         mode    => "0640",
-        content => inline_yaml($config),
+        content => inline_yaml($full_config),
         notify  => Service[$service_name],
         require => File[$config_directory],
       }

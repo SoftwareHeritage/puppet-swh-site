@@ -390,4 +390,9 @@ syncoid::public_keys::db1:
 swh::deploy::maven_index_exporter::url: maven-exporter.internal.staging.swh.network
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::batch_size: 100
 
+swh::deploy::indexer_journal_client::content_mimetype::journal_authentication: false
+swh::deploy::indexer_journal_client::content_fossology_license::journal_authentication: false
+swh::deploy::indexer_journal_client::extrinsic_metadata::journal_authentication: false
+swh::deploy::indexer_journal_client::origin_intrinsic_metadata::journal_authentication: false
+
 cassandra::default_cluster_name: archive_staging
