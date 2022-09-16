@@ -26,10 +26,3 @@ swh::deploy::worker::loader_git::concurrency: 4
 memcached::server::max_memory: 1224
 
 cassandra::default_cluster_name: archive_production
-
-# In production, we pass through the public brokers
-swh::deploy::journal_client::brokers:
-  - broker1.journal.softwareheritage.org:9093
-  - broker2.journal.softwareheritage.org:9093
-  - broker3.journal.softwareheritage.org:9093
-  - broker4.journal.softwareheritage.org:9093
