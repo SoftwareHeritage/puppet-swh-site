@@ -2842,8 +2842,6 @@ swh::deploy::indexer_journal_client::content_mimetype::config_file: "content_mim
 swh::deploy::indexer_journal_client::content_mimetype::loglevel: INFO
 swh::deploy::indexer_journal_client::content_mimetype::journal_authentication: true
 
-swh::deploy::journal_client::brokers: "%{alias('swh::deploy::journal::brokers')}"
-
 # Contains a password: in private data
 swh::deploy::indexer_journal_client::content_mimetype::config:
   # FIXME: Required by BaseIndexer class code, unused in this context though
@@ -2851,7 +2849,7 @@ swh::deploy::indexer_journal_client::content_mimetype::config:
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   journal:
-    brokers: "%{alias('swh::deploy::journal_client::brokers')}"
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client.content_mimetype
     prefix: "%{alias('swh::deploy::journal::prefix')}"
   tools:
@@ -2872,7 +2870,7 @@ swh::deploy::indexer_journal_client::content_fossology_license::config:
   indexer_storage: "%{alias('swh::remote_service::indexer::config::writable')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   journal:
-    brokers: "%{alias('swh::deploy::journal_client::brokers')}"
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client.content_fossology_license
     prefix: "%{alias('swh::deploy::journal::prefix')}"
   workdir: /tmp/swh/indexer.fossology.license/
@@ -2912,7 +2910,7 @@ swh::deploy::indexer_journal_client::origin_intrinsic_metadata::config:
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
   storage: "%{alias('swh::remote_service::storage::config')}"
   journal:
-    brokers: "%{alias('swh::deploy::journal_client::brokers')}"
+    brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.indexer.journal_client.origin_intrinsic_metadata
     prefix: "%{alias('swh::deploy::journal::prefix')}"
     batch_size: "%{alias('swh::deploy::indexer_journal_client::origin_intrinsic_metadata::batch_size')}"
