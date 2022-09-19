@@ -76,7 +76,6 @@ smtp::mail_aliases:
   - user: root
     aliases:
       - olasd
-      - zack
       - ardumont
       - ddouard
       - vsellier
