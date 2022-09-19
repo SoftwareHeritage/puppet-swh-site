@@ -56,7 +56,7 @@ swh::deploy::worker::instances:
   - loader_opam
   - loader_maven
   # only in staging
-  - loader_cvs
+  # - loader_cvs
 
 swh::deploy::lister::queues:
   - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
