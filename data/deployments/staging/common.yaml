@@ -53,7 +53,7 @@ swh::deploy::worker::instances:
   - vault_cooker
   - lister
   # - loader_high_priority
-  - loader_opam
+  # - loader_opam
   # - loader_maven
   # only in staging
   # - loader_cvs
