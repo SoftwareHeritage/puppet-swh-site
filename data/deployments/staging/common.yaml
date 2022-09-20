@@ -44,7 +44,7 @@ swh::deploy::worker::instances:
   # - loader_cran
   # - loader_debian
   - loader_deposit
-  - loader_nixguix
+  # - loader_nixguix
   # - loader_git
   # - loader_mercurial
   # - loader_npm
