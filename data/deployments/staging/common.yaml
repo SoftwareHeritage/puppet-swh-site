@@ -43,7 +43,7 @@ swh::deploy::worker::instances:
   # - loader_bzr
   # - loader_cran
   # - loader_debian
-  - loader_deposit
+  # - loader_deposit
   # - loader_nixguix
   # - loader_git
   # - loader_mercurial
