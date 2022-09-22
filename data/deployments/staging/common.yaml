@@ -78,8 +78,8 @@ swh::deploy::lister::queues:
   - swh.lister.pypi.tasks.PyPIListerTask
   - swh.lister.sourceforge.tasks.FullSourceForgeLister
   - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
-  - swh.lister.maven.tasks.FullMavenLister
-  - swh.lister.maven.tasks.IncrementalMavenLister
+  # - swh.lister.maven.tasks.FullMavenLister
+  # - swh.lister.maven.tasks.IncrementalMavenLister
   # extra queues (empty for now)
 
 #### Rabbitmq instance to use
