@@ -51,36 +51,14 @@ swh::deploy::worker::instances:
   # - loader_pypi
   # - loader_svn
   - vault_cooker
-  - lister
+  # - lister
   # - loader_high_priority
   # - loader_opam
   # - loader_maven
   # only in staging
   # - loader_cvs
 
-swh::deploy::lister::queues:
-  - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
-  - swh.lister.bitbucket.tasks.FullBitBucketRelister
-  - swh.lister.cgit.tasks.CGitListerTask
-  - swh.lister.cran.tasks.CRANListerTask
-  - swh.lister.debian.tasks.DebianListerTask
-  - swh.lister.gitea.tasks.IncrementalGiteaLister
-  - swh.lister.gitea.tasks.RangeGiteaLister
-  - swh.lister.gitea.tasks.FullGiteaRelister
-  - swh.lister.gitlab.tasks.IncrementalGitLabLister
-  - swh.lister.gitlab.tasks.RangeGitLabLister
-  - swh.lister.gitlab.tasks.FullGitLabRelister
-  - swh.lister.launchpad.tasks.FullLaunchpadLister
-  - swh.lister.launchpad.tasks.IncrementalLaunchpadLister
-  - swh.lister.opam.tasks.OpamListerTask
-  - swh.lister.npm.tasks.NpmListerTask
-  - swh.lister.phabricator.tasks.FullPhabricatorLister
-  - swh.lister.pypi.tasks.PyPIListerTask
-  - swh.lister.sourceforge.tasks.FullSourceForgeLister
-  - swh.lister.sourceforge.tasks.IncrementalSourceForgeLister
-  # - swh.lister.maven.tasks.FullMavenLister
-  # - swh.lister.maven.tasks.IncrementalMavenLister
-  # extra queues (empty for now)
+swh::deploy::lister::queues: []
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
