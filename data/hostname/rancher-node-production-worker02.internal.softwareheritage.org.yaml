@@ -2,6 +2,7 @@
 dns::local_cache: false
 dns::nameservers:
   - 192.168.100.29
+  - 192.168.200.22
 
 icinga2::host::vars:
   load: high
