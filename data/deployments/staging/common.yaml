@@ -50,7 +50,7 @@ swh::deploy::worker::instances:
   # - loader_npm
   # - loader_pypi
   # - loader_svn
-  - vault_cooker
+  # - vault_cooker
   # - lister
   # - loader_high_priority
   # - loader_opam
