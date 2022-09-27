@@ -2048,14 +2048,40 @@ swh::deploy::vault::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 # e2e save code now
 swh::deploy::savecodenow::e2e::activate: true  # to be deactivated on secondaries webapps
 swh::deploy::savecodenow::e2e::origins:
-  - name: parmap
-    origin: https://github.com/rdicosmo/parmap
+  - name: git
+    origin:
+      - https://github.com/rdicosmo/parmap
+      - https://github.com/SoftwareHeritage/swh-core
+      - https://github.com/SoftwareHeritage/swh-lister
+      - https://github.com/SoftwareHeritage/swh-loader-bzr
+      - https://github.com/SoftwareHeritage/swh-loader-core
+      - https://github.com/SoftwareHeritage/swh-loader-git
+      - https://github.com/SoftwareHeritage/swh-loader-mercurial
+      - https://github.com/SoftwareHeritage/swh-loader-svn
+      - https://github.com/SoftwareHeritage/swh-model
+      - https://github.com/SoftwareHeritage/swh-web
     type: git
-  - name: panda
-    origin: https://subversion.renater.fr/anonscm/svn/panda
+  - name: subversion
+    origin:
+      - https://subversion.renater.fr/anonscm/svn/panda
+      - https://svn.code.sf.net/p/freeorion/code
+      - https://svn.code.sf.net/p/swig/code
+      - https://svn.code.sf.net/p/zookeeper/code
+      - https://svn.code.sf.net/p/esitools/code
+      - https://svn.code.sf.net/p/sauerbraten/code/  # existing origin has a trailing /
+      - https://svn.code.sf.net/p/civ4mods/code
+      - https://svn.code.sf.net/p/ldap-sdk/code
     type: svn
-  - name: hgview
-    origin: https://foss.heptapod.net/mercurial/hgview
+  - name: mercurial
+    origin:
+      - https://foss.heptapod.net/mercurial/hgview
+      - https://foss.heptapod.net/mercurial/tortoisehg
+      - https://foss.heptapod.net/mercurial/evolve
+      - https://foss.heptapod.net/mercurial/hg-git
+      - https://foss.heptapod.net/mercurial/hg-docgraph
+      - https://foss.heptapod.net/mercurial/mercurial-devel
+      - https://foss.heptapod.net/mercurial/pytest
+      - https://foss.heptapod.net/mercurial/scmperf
     type: hg
 
 swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
