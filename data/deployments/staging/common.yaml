@@ -38,7 +38,7 @@ swh::deploy::worker::instances:
   - indexer_fossology_license
   - indexer_origin_intrinsic_metadata
   - indexer_origin_extrinsic_metadata
-  - checker_deposit
+  # - checker_deposit
   # - loader_archive
   # - loader_bzr
   # - loader_cran
