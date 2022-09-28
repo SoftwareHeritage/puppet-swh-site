@@ -23,7 +23,6 @@ swh::deploy::reverse_proxy::services:
   - hedgedoc
   - grafana
   - sentry
-  - argocd
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
@@ -43,15 +42,6 @@ swh::deploy::sentry::reverse_proxy::backend_http_host: riverside.internal.admin.
 swh::deploy::sentry::reverse_proxy::backend_http_port: "9000"
 swh::deploy::sentry::base_url: "%{lookup('sentry::vhost::name')}"
 swh::deploy::sentry::icinga_check_uri: '/auth/login/swh/'
-
-swh::deploy::argocd::vhost::letsencrypt_cert: argocd
-swh::deploy::argocd::reverse_proxy::backend_http_host: k8s-argocd.internal.admin.swh.network
-swh::deploy::argocd::reverse_proxy::backend_http_port: "80"
-swh::deploy::argocd::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-swh::deploy::argocd::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-swh::deploy::argocd::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-swh::deploy::argocd::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-swh::deploy::argocd::icinga_check_string: 'Argo CD'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

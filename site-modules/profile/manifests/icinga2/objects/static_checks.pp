@@ -36,6 +36,18 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::icinga2::object::host {'ArgoCD Kubernetes cluster':
+    import        => ['generic-host'],
+    host_name     => 'k8s-argo.internal.admin.swh.network',
+    check_command => 'dummy',
+    address       => 'k8s-argocd.internal.admin.swh.network',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "HTTP-only host",
+    },
+  }
+
   ::icinga2::object::service {'Software Heritage Homepage':
     import        => ['generic-service'],
     host_name     => 'www.softwareheritage.org',
@@ -139,5 +151,20 @@ class profile::icinga2::objects::static_checks {
       http_string => '<title>GraphQL Playground</title>',
     },
   }
+
+  ::icinga2::object::service {'Software Heritage ArgoCD Instance':
+    import        => ['generic-service'],
+    host_name     => 'k8s-argo.internal.admin.swh.network',
+    check_command => 'http',
+    target        => $checks_file,
+    vars          => {
+      http_vhost  => 'argocd.internal.admin.swh.network',
+      http_uri    => '/',
+      http_ssl    => true,
+      http_sni    => true,
+      http_string => '<title>Argo CD</title>',
+    },
+  }
+
 
 }
