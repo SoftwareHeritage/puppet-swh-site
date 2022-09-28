@@ -837,6 +837,7 @@ letsencrypt::certificates:
   argocd:
     domains:
       - argocd.softwareheritage.org
+      - argocd.internal.admin.swh.network
       - argocd-rp.internal.admin.swh.network
   hedgedoc:
     domains:
@@ -1099,6 +1100,13 @@ bind::resource_records:
     type: CNAME
     record: inventory.internal.admin.swh.network
     data: bojimans.internal.admin.swh.network.
+  k8s-argocd/A: # main ingress ip of the argocd cluster
+    record: k8s-argocd.internal.admin.swh.network
+    data: 192.168.50.42
+  argocd/CNAME:
+    type: CNAME
+    record: argocd.internal.admin.swh.network
+    data: k8s-argocd.internal.admin.swh.network
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
