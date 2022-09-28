@@ -33,31 +33,7 @@ swh::deploy::webapp::db::host: db1.internal.staging.swh.network
 # swh::deploy::webapp::db::password in private data
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
-swh::deploy::worker::instances:
-  # - indexer_content_mimetype
-  - indexer_fossology_license
-  # - indexer_origin_intrinsic_metadata
-  # - indexer_origin_extrinsic_metadata
-  # - checker_deposit
-  # - loader_archive
-  # - loader_bzr
-  # - loader_cran
-  # - loader_debian
-  # - loader_deposit
-  # - loader_nixguix
-  # - loader_git
-  # - loader_mercurial
-  # - loader_npm
-  # - loader_pypi
-  # - loader_svn
-  # - vault_cooker
-  # - lister
-  # - loader_high_priority
-  # - loader_opam
-  # - loader_maven
-  # only in staging
-  # - loader_cvs
-
+swh::deploy::worker::instances: []
 swh::deploy::lister::queues: []
 
 #### Rabbitmq instance to use
