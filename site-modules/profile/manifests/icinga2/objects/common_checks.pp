@@ -10,6 +10,7 @@ class profile::icinga2::objects::common_checks {
     apply         => true,
     check_command => 'ping4',
     assign        => ['host.address'],
+    ignore        => ['host.vars.noping'],
     target        => $target_file,
   }
 

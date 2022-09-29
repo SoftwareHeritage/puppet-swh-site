@@ -45,6 +45,7 @@ class profile::icinga2::objects::static_checks {
     vars          => {
       dummy_state => 0,  # up
       dummy_text  => "HTTP-only host",
+      noping      => true,
     },
   }
 
