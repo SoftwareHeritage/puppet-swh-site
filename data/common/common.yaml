@@ -1101,7 +1101,7 @@ bind::resource_records:
   argocd/CNAME:
     type: CNAME
     record: argocd.internal.admin.swh.network
-    data: k8s-argocd.internal.admin.swh.network
+    data: k8s-argocd.internal.admin.swh.network.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
