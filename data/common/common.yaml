@@ -1102,6 +1102,13 @@ bind::resource_records:
     type: CNAME
     record: argocd.internal.admin.swh.network
     data: k8s-argocd.internal.admin.swh.network.
+  k8s-archive-production/A: # main ingress ip of the archive production cluster
+    record: k8s-archive-production.internal.softwareheritage.org
+    data: 192.168.100.119
+  reaper/CNAME:
+    type: CNAME
+    record: reaper.internal.softwareheritage.org
+    data: k8s-archive-production.internal.softwareheritage.org.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
