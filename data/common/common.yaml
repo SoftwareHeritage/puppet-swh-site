@@ -3398,6 +3398,13 @@ thanos::stores:
       port-grpc: 19095
     compact:
       port-http: 19295
+  archive-production:  # rancher cluster
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-production-0
+    store:
+      port-http: 19196
+      port-grpc: 19096
+    compact:
+      port-http: 19296
 
 grafana::db::database: grafana
 grafana::db::username: grafana
