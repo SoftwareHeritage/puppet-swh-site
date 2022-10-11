@@ -1109,6 +1109,9 @@ bind::resource_records:
     type: CNAME
     record: reaper.internal.softwareheritage.org
     data: k8s-archive-production.internal.softwareheritage.org.
+  k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
+    record: k8s-gitlab-production.internal.softwareheritage.org
+    data: 192.168.200.5
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
