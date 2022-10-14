@@ -11,6 +11,8 @@ PrintLastLog no
 PasswordAuthentication no
 AllowAgentForwarding no
 
+Subsystem sftp /usr/lib/openssh/sftp-server
+
 PidFile /var/run/sshd-phabricator.pid
 
 Match User <%= @vcs_user %>

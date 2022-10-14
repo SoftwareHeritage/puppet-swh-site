@@ -48,3 +48,4 @@ users:
 phabricator::mysql::readonly_usernames:
   - olasd
   - frankduncan
+  - ardumont
