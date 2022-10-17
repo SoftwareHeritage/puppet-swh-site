@@ -3106,6 +3106,12 @@ keycloak::resources::realms:
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
+      hedgedoc:
+        settings:
+          redirect_uris:
+            # Should match letsencrypt::certificates.hedgedoc.domains
+            - https://hedgedoc.softwareheritage.org/*
+          secret: "%{alias('keycloak::clients::hedgedoc::secret')}"
   SoftwareHeritageStaging:
     settings:
       display_name: Software Heritage (Staging)

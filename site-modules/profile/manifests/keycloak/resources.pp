@@ -66,6 +66,24 @@ class profile::keycloak::resources {
       }
     }
 
+    $client_scopes = pick($realm_data['client_scopes'], {})
+    $realm_client_scope_common_settings = deep_merge(
+      $client_scope_common_settings,
+      pick($realm_data['client_scope_settings'], {})
+    )
+    $client_scopes.each |$client_scope_name, $client_scope_data| {
+      $_local_client_scope_settings = pick($client_scope_data['settings'], {})
+      $_full_client_scope_settings = deep_merge($realm_client_scope_common_settings, $_local_client_scope_settings)
+
+      $client_scope_id = fqdn_uuid("${realm_name}.${client_scope_name}")
+
+      keycloak_client_scope {"${client_scope_name} on ${realm_name}":
+        ensure => present,
+        id => $client_scope_id,
+        *  => $_full_client_scope_settings,
+      }
+    }
+
     $clients = pick($realm_data['clients'], {})
     $realm_client_common_settings = deep_merge($client_common_settings,
                                                pick($realm_data['client_settings'], {}))
