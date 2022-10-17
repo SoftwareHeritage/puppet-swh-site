@@ -33,6 +33,7 @@ backups::exclude:
   - /var/lib/mysql
 
 users:
+  # For the GitLab migration
   frankduncan:
     uid: 3000
     full_name: Frank Duncan (Open Tech Strategies)
@@ -44,8 +45,25 @@ users:
     groups:
       - www-data
       - "%{lookup('phabricator::group')}"
+  swhworker:
+    authorized_keys:
+      migration@migration.internal.softwareheritage.org:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIKY0TCKvlwc0x1QIvM5lUkvDKPYG4nWDiwhrAxWjAVVa
+    groups:
+      - www-data
+      - "%{lookup('phabricator::group')}"
+  ardumont:
+    groups:
+      - www-data
+      - "%{lookup('phabricator::group')}"
+  olasd:
+    groups:
+      - www-data
+      - "%{lookup('phabricator::group')}"
 
 phabricator::mysql::readonly_usernames:
   - olasd
   - frankduncan
   - ardumont
+  - swhworker
