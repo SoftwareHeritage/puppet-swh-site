@@ -244,6 +244,10 @@ node /^rancher-node-.*\.internal\.(staging\.swh\.network|softwareheritage\.org)$
   include role::rancher_node
 }
 
+node 'migration.internal.softwareheritage.org' {
+  include role::swh_server  # Enable borgmatic backups
+}
+
 node default {
   include role::swh_base
 }
