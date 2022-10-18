@@ -3894,6 +3894,7 @@ swh::deploy::search::journal_client::indexed::config:
     prefix: swh.journal.indexed
     object_types:
       - origin_intrinsic_metadata
+      - origin_extrinsic_metadata
   storage: "%{alias('swh::remote_service::storage::config')}"
 
 swh::deploy::search::backend::listen::host: "%{::fqdn}"
