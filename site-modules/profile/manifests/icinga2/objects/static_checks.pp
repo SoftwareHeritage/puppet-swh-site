@@ -44,7 +44,20 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
-      dummy_text  => "HTTP-only host",
+      dummy_text  => 'HTTP-only host',
+      noping      => true,
+    },
+  }
+
+  ::icinga2::object::host {'Gitlab - production':
+    import        => ['generic-host'],
+    host_name     => 'gitlab.softwareheritage.org',
+    check_command => 'dummy',
+    address       => 'gitlab.softwareheritage.org',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => 'HTTP-only host',
       noping      => true,
     },
   }
@@ -164,6 +177,44 @@ class profile::icinga2::objects::static_checks {
       http_ssl    => true,
       http_sni    => true,
       http_string => '<title>Argo CD</title>',
+    },
+  }
+
+  ::icinga2::object::service {'Production gitlab instance - HTTPS':
+    import        => ['generic-service'],
+    host_name     => 'gitlab.softwareheritage.org',
+    check_command => 'http',
+    target        => $checks_file,
+    vars          => {
+      http_vhost  => 'gitlab.softwareheritage.org',
+      http_uri    => '/',
+      http_ssl    => true,
+      http_sni    => true,
+      http_string => '<title>Sign in',
+    },
+  }
+
+  ::icinga2::object::service {'Gitlab production https certificate':
+    import        => ['generic-service'],
+    host_name     => 'gitlab.softwareheritage.org',
+    check_command => 'http',
+    target        => $checks_file,
+    vars          => {
+      http_address     => $vhost_name,
+      http_vhost       => $vhost_name,
+      http_ssl         => true,
+      http_sni         => true,
+      http_certificate => 7,
+    },
+  }
+
+  ::icinga2::object::service {'Production gitlab instance - SSH':
+    import        => ['generic-service'],
+    host_name     => 'gitlab.softwareheritage.org',
+    check_command => 'ssh',
+    target        => $checks_file,
+    vars          => {
+      ssh_address => 'gitlab.softwareheritage.org',
     },
   }
 
