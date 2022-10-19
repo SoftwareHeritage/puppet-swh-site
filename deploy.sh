@@ -14,21 +14,24 @@ GIT_REPOS_TO_MERGE+=(
     ["data/private"]="git@gitlab.softwareheritage.org:infra/puppet/puppet-swh-private-data.git"
 )
 
+GIT=/usr/bin/git
+
 /usr/bin/r10k deploy environment -p "$@"
 
 for environmentdir in $PUPPET_ENV_PATH/*; do
-    cd $environmentdir
+    pushd $environmentdir
     for dest in ${!GIT_REPOS_TO_MERGE[@]}; do
-	      if [ -d $dest/.git ]; then
-	          cd $dest
-            /usr/bin//git reset --hard HEAD
-	          /usr/bin/git pull
-	          cd $environmentdir
-	      else
-	          /usr/bin/git clone ${GIT_REPOS_TO_MERGE[${dest}]} $dest
-	      fi
+        if [ -d $dest/.git ]; then
+            pushd $dest
+            $GIT remote set-url origin ${GIT_REPOS_TO_MERGE[${dest}]}
+            $GIT reset --hard HEAD
+            $GIT pull
+            popd
+        else
+            $GIT clone ${GIT_REPOS_TO_MERGE[${dest}]} $dest
+        fi
     done
-    cd ..
+    popd
 done
 
 cp $PUPPET_ENV_PATH/production/deploy.sh /usr/local/bin
