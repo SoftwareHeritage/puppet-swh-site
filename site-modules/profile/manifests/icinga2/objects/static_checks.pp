@@ -180,28 +180,29 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  $gitlab_vhost = 'gitlab.softwareheritage.org'
   ::icinga2::object::service {'Production gitlab instance - HTTPS':
     import        => ['generic-service'],
-    host_name     => 'gitlab.softwareheritage.org',
+    host_name     => $gitlab_vhost,
     check_command => 'http',
     target        => $checks_file,
     vars          => {
-      http_vhost  => 'gitlab.softwareheritage.org',
-      http_uri    => '/',
-      http_ssl    => true,
-      http_sni    => true,
-      http_string => '<title>Sign in',
+      http_vhost      => $gitlab_vhost,
+      http_uri        => '/',
+      http_ssl        => true,
+      http_sni        => true,
+      http_onredirect => 'follow',
+      http_string     => '<title>Sign in',
     },
   }
 
   ::icinga2::object::service {'Gitlab production https certificate':
     import        => ['generic-service'],
-    host_name     => 'gitlab.softwareheritage.org',
+    host_name     => $gitlab_vhost,
     check_command => 'http',
     target        => $checks_file,
     vars          => {
-      http_address     => $vhost_name,
-      http_vhost       => $vhost_name,
+      http_vhost       => $gitlab_vhost,
       http_ssl         => true,
       http_sni         => true,
       http_certificate => 7,
@@ -210,11 +211,11 @@ class profile::icinga2::objects::static_checks {
 
   ::icinga2::object::service {'Production gitlab instance - SSH':
     import        => ['generic-service'],
-    host_name     => 'gitlab.softwareheritage.org',
+    host_name     => $gitlab_vhost,
     check_command => 'ssh',
     target        => $checks_file,
     vars          => {
-      ssh_address => 'gitlab.softwareheritage.org',
+      ssh_address => $gitlab_vhost,
     },
   }
 
