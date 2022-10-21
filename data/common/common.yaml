@@ -3482,9 +3482,9 @@ monthly_report_bot::cron:
 
 weekly_planning_bot::user: nobody
 weekly_planning_bot::cron:
-  minute: 30
-  hour: 6
-  weekday: mon
+  minute: 42
+  hour: 13
+  weekday: fri
 
 swh::postgres::service::users:
   - root
