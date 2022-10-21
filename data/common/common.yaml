@@ -464,13 +464,13 @@ users:
   grouss:
     uid: 1016
     full_name: Guillaume Rousseau
-    shell: /bin/bash
+    shell: /bin/false
     groups:
       - swhteam
     authorized_keys:
       guillaume.rousseau@univ-paris-diderot.fr:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Akcdxrod/MFcHg53dCf7iZY/ph9MR0tWU08pjMDfU04j1nAgmHmvumYbxBtFNnd0nu4A9YY4nT79273PCE3c6ba3zSGS9DBYhrASGDqHBECrgEREM3YPXpA2NI0FKEZ878Ic3CQlYaOmRoe/QkFpm2j8CMoG4VdKp0EcvV1RCTgWqJY1P4KC30CJUg+OdGRaaqHEoSskjstU5yjbZCC9M90Hz0xO+MsMl/xKdcDmvwbLDMtp/3SKDQeyN4Q7Uu/zZwoZ8FmgEU4Xp7nKN3yCiEB9rqMkP/lLY71hTPHn/GiZnPo4rWL13w3unuI3X0GDpqxPxjt0LZN4xQEGEn+1
+        key: disabled
   ftigeot:
     uid: 1017
     full_name: Francois Tigeot
