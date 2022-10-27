@@ -28,12 +28,12 @@ prometheus::sql::config_snippets:
 sanoid::configuration:
   local_config:
     data/postgresql:
-      use_template: pg_backup 
+      use_template: pg_backup
       hourly: 0
-      monthly: 1
+      monthly: 0
       daily: 7
     data/postgresql/wal:
-      use_template: pg_wal_backup 
+      use_template: pg_wal_backup
       hourly: 0
-      monthly: 1
+      monthly: 0
       daily: 7
