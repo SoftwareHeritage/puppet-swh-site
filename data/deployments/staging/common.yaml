@@ -350,3 +350,7 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::journal_authentication:
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::journal_authentication: false
 
 cassandra::default_cluster_name: archive_staging
+
+kafka::version: 3.3.1
+kafka::inter_broker_protocol_version: "3.3"
+kafka::log_message_format_version: "3.3"

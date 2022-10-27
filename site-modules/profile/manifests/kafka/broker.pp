@@ -130,7 +130,7 @@ class profile::kafka::broker {
       'sasl.enabled.mechanisms'        => join($sasl_mechanisms, ','),
 
       'super.users'                    => $cluster_superusers,
-      'authorizer.class.name'          => 'kafka.security.auth.SimpleAclAuthorizer',
+      'authorizer.class.name'          => 'kafka.security.authorizer.AclAuthorizer',
     } + $kafka_jaas_config
 
     # Reset the TLS listeners when the keystore gets refreshed

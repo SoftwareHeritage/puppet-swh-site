@@ -15,6 +15,8 @@ kafka::version: '2.6.0'
 kafka::scala_version: '2.13'
 kafka::mirror_url: https://archive.apache.org/dist/
 kafka::cluster::heap_ops: "-Xmx6G -Xms6G"
+kafka::inter_broker_protocol_version: "2.6"
+kafka::log_message_format_version: "2.6"
 
 kafka::logdirs:
   - /srv/kafka/logdir
@@ -31,8 +33,8 @@ kafka::broker_config:
   socket.request.max.bytes: 209715200
   # And the max message size to 100 MB
   message.max.bytes: 104857600
-  # For upgrades after 2.6
-  inter.broker.protocol.version: "2.6"
+  inter.broker.protocol.version: "%{alias('kafka::inter_broker_protocol_version')}"
+  log.message.format.version: "%{alias('kafka::log_message_format_version')}"
 
 # kafka::broker::password in private-data
 
