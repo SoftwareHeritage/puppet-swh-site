@@ -53,3 +53,5 @@ swh::apt_config::backported_packages:
     - zfs-dkms
     - zfsutils-linux
     - zfs-zed
+
+kafka::version: 3.3.1
