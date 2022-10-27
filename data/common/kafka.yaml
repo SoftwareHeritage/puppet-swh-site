@@ -16,7 +16,7 @@ kafka::scala_version: '2.13'
 kafka::mirror_url: https://dlcdn.apache.org/
 kafka::cluster::heap_ops: "-Xmx6G -Xms6G"
 kafka::inter_broker_protocol_version: "3.3"
-kafka::log_message_format_version: "2.6"
+kafka::log_message_format_version: "3.3"
 
 kafka::logdirs:
   - /srv/kafka/logdir
