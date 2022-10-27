@@ -11,10 +11,11 @@ Group=<%= @group %>
 ExecStartPre=sh -c "[ -d <%= @shm_path %> ] || mkdir -p <%= @shm_path %>"
 ExecStartPre=sh -c "[ -L <%= @shm_path %>/graph.stats ] || ln -sf <%= @compressed_graph_path %>/* <%= @shm_path %>"
 <% @files_to_copy_to_shm.each do |file| -%>
-ExecStartPre=sh -c "[ -f <%= @shm_path %>/<%= file %> ] || cp --remove-destination <%= @compressed_graph_path %>/<%= file %> <%= @shm_path %>"
+ExecStartPre=sh -c "if [ -L <%= @shm_path %>/<%= file %> ] || ! [ -f <%= @shm_path %>/<%= file %> ]; then cp --remove-destination <%= @compressed_graph_path %>/<%= file %> <%= @shm_path %>/; fi"
 <% end -%>
 ExecStart=sh -c "set -e; while [ -f <%= @shm_path %>/graph.graph ]; do sleep 1; done; exit 1"
 
+TimeoutStartSec=1h
 Restart=on-failure
 RestartSec=5
 
