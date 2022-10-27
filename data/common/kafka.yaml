@@ -11,7 +11,7 @@ zookeeper::client_port: 2181
 zookeeper::election_port: 2888
 zookeeper::leader_port: 3888
 
-kafka::version: '2.6.0'
+kafka::version: "3.3.1"
 kafka::scala_version: '2.13'
 kafka::mirror_url: https://dlcdn.apache.org/
 kafka::cluster::heap_ops: "-Xmx6G -Xms6G"
