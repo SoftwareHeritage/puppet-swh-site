@@ -217,6 +217,13 @@ class profile::kafka::broker {
     content  => "[Service]\nSuccessExitStatus=143\n",
   }
 
+  ::systemd::dropin_file {"kafka/killmode.conf":
+    ensure   => present,
+    unit     => "kafka.service",
+    filename => 'killmode.conf',
+    content  => "[Service]\nKillMode=mixed\n",
+  }
+
   ::profile::prometheus::export_scrape_config {'kafka':
     target => $target,
     labels => {
