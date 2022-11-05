@@ -3815,8 +3815,8 @@ swh::deploy::counters::config:
     host: localhost:6379
   history:
     cls: prometheus
-    prometheus_host: pergamon.internal.softwareheritage.org
-    prometheus_port: 9090
+    prometheus_host: thanos.internal.admin.swh.network
+    prometheus_port: 19191
     live_data_start: "%{alias('swh::deploy::counters::live_data_start')}"
     cache_base_directory: "%{alias('swh::deploy::counters::cache_directory')}"
     interval: "%{alias('swh::deploy::counters::history_interval')}"
