@@ -240,7 +240,7 @@ node /^argo-worker\d+\.internal\.admin\.swh\.network$/ {
   include role::rancher_node
 }
 
-node /^rancher-node-.*\.internal\.(staging\.swh\.network|softwareheritage\.org)$/ {
+node /^rancher-node-.*\.internal\.((staging|admin)\.swh\.network|softwareheritage\.org)$/ {
   include role::rancher_node
 }
 
