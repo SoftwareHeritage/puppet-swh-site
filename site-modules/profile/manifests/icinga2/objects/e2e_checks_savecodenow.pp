@@ -2,7 +2,7 @@
 define profile::icinga2::objects::e2e_checks_savecodenow (
   String $server_webapp,
   String $origin_name,
-  String $origin_url,
+  Array[String] $origin_url,
   String $origin_type,
   String $environment,
 ) {
@@ -25,8 +25,7 @@ define profile::icinga2::objects::e2e_checks_savecodenow (
       '--critical', '600',
       'check-savecodenow',
       '--swh-web-url', $server_webapp,
-      'origin', $origin_url, '--visit-type', $origin_type
-    ],
+      'origin'] + $origin_url + [ '--visit-type', $origin_type ],
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
     require => Package[$::profile::icinga2::objects::e2e_checks_base::packages],
     timeout => 900,
