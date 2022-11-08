@@ -53,14 +53,28 @@ swh::deploy::webapp::config::throttling:
         - 127.0.0.0/8
         - 192.168.100.0/23
         - 129.168.130.0/24
+
 swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: SoftwareHeritageStaging
 
+swh::deploy::webapp::config::swh_extra_django_apps:
+  - swh.web.add_forge_now
+  - swh.web.archive_coverage
+  - swh.web.badges
+  - swh.web.banners
+  - swh.web.deposit
+  - swh.web.inbound_email
+  - swh.web.jslicenses
+  - swh.web.mailmap
+  - swh.web.metrics
+  - swh.web.save_code_now
+  - swh.web.save_origin_webhooks
+  - swh.web.vault
+
 swh::deploy::webapp::instance_name: webapp.staging.swh.network
 
 swh::deploy::webapp::timers_enabled: true
-
 
 smtp::virtual_aliases:
   - destination: "@%{lookup('swh::deploy::webapp::inbound_email::domain')}"
