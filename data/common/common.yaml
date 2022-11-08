@@ -2349,6 +2349,7 @@ swh::deploy::webapp::config::swh_extra_django_apps:
   - swh.web.mailmap
   - swh.web.metrics
   - swh.web.save_code_now
+  - swh.web.save_origin_webhooks
   - swh.web.vault
 
 swh::deploy::webapp::metadata_search_backend: swh-search
