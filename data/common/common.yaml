@@ -1102,6 +1102,10 @@ bind::resource_records:
     type: CNAME
     record: argocd.internal.admin.swh.network
     data: k8s-admin.internal.admin.swh.network.
+  k8s-admin-thanos/CNAME:
+    type: CNAME
+    record: k8s-admin-thanos.internal.admin.swh.network
+    data: k8s-admin.internal.admin.swh.network.
   # Decommissioning in progress
   k8s-argocd/A: # main ingress ip of the argocd cluster
     record: k8s-argocd.internal.admin.swh.network
@@ -3390,6 +3394,7 @@ thanos::objstore::config:
 # Other puppet managed stores will be automatically dealt with
 thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
+  - k8s-admin-thanos.internal.admin.swh.network:443
 
 thanos::stores:
   historical:
@@ -3420,6 +3425,13 @@ thanos::stores:
       port-grpc: 19096
     compact:
       port-http: 19296
+  k8s-admin:  # rancher cluster
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-admin-0
+    store:
+      port-http: 19197
+      port-grpc: 19097
+    compact:
+      port-http: 19297
 
 grafana::db::database: grafana
 grafana::db::username: grafana
