@@ -23,6 +23,7 @@ swh::deploy::reverse_proxy::services:
   - hedgedoc
   - grafana
   - sentry
+  - minio
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
@@ -42,6 +43,12 @@ swh::deploy::sentry::reverse_proxy::backend_http_host: riverside.internal.admin.
 swh::deploy::sentry::reverse_proxy::backend_http_port: "9000"
 swh::deploy::sentry::base_url: "%{lookup('sentry::vhost::name')}"
 swh::deploy::sentry::icinga_check_uri: '/auth/login/swh/'
+
+swh::deploy::minio::vhost::letsencrypt_cert: "%{lookup('minio::vhost::name')}"
+swh::deploy::minio::reverse_proxy::backend_http_host: k8s-admin.internal.admin.swh.network
+swh::deploy::minio::reverse_proxy::backend_http_port: "80"
+swh::deploy::minio::base_url: "%{lookup('minio::vhost::name')}"
+swh::deploy::minio::icinga_check_uri: '/'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

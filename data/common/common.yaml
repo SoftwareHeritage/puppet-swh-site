@@ -806,6 +806,7 @@ letsencrypt::gandi_paas_hook::config:
     softwareheritage.org: "%{alias('gandi::softwareheritage_org::xmlrpc_key')}"
 
 sentry::vhost::name: sentry.softwareheritage.org
+minio::vhost::name: minio.admin.swh.network
 
 letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
 letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
@@ -857,6 +858,9 @@ letsencrypt::certificates:
   "%{lookup('sentry::vhost::name')}":
     domains:
       - "%{lookup('sentry::vhost::name')}"
+  "%{lookup('minio::vhost::name')}":
+    domains:
+      - "%{lookup('minio::vhost::name')}"
   storage1.internal.staging.swh.network:
     domains:
       - broker1.journal.staging.swh.network
