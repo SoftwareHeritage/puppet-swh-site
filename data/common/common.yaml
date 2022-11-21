@@ -695,6 +695,8 @@ groups:
     gid: 1031
   lunar:
     gid: 1032
+  kubenfs:
+    gid: 42000
 
 gunicorn::statsd::host: 127.0.0.1:8125
 
