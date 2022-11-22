@@ -1112,10 +1112,6 @@ bind::resource_records:
     type: CNAME
     record: k8s-admin-thanos.internal.admin.swh.network
     data: k8s-admin.internal.admin.swh.network.
-  minio/CNAME:
-    type: CNAME
-    record: minio.internal.admin.swh.network
-    data: k8s-admin.internal.admin.swh.network.
   minio-console/CNAME:
     type: CNAME
     record: minio-console.internal.admin.swh.network
