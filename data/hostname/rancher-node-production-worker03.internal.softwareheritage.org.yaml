@@ -6,3 +6,8 @@ dns::nameservers:
 
 icinga2::host::vars:
   load: high
+
+# override the default values
+mountpoints:
+  /srv/storage/space:
+    ensure: absent
