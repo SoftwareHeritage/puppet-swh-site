@@ -1919,6 +1919,9 @@ swh::deploy::vault::config:
     storage: "%{alias('swh::remote_service::storage::config')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   cache: "%{alias('swh::deploy::vault::config::cache')}"
+  smtp:
+    host: localhost
+    port: 25
   vault:
     cls: postgresql
     db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
