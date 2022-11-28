@@ -48,7 +48,7 @@ swh::deploy::minio::vhost::letsencrypt_cert: "%{lookup('minio::vhost::name')}"
 swh::deploy::minio::reverse_proxy::backend_http_host: k8s-admin.internal.admin.swh.network
 swh::deploy::minio::reverse_proxy::backend_http_port: "80"
 swh::deploy::minio::base_url: "%{lookup('minio::vhost::name')}"
-swh::deploy::minio::icinga_check_uri: '/'
+swh::deploy::minio::icinga_check_uri: '/minio/health/live'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
