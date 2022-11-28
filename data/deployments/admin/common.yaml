@@ -49,6 +49,7 @@ swh::deploy::minio::reverse_proxy::backend_http_host: k8s-admin.internal.admin.s
 swh::deploy::minio::reverse_proxy::backend_http_port: "80"
 swh::deploy::minio::base_url: "%{lookup('minio::vhost::name')}"
 swh::deploy::minio::icinga_check_uri: '/minio/health/live'
+swh::deploy::minio::icinga_check_string: '' # empty page returning 200 if everything is ok
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
