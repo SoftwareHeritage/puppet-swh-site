@@ -216,8 +216,13 @@ mod 'vcsrepo',
 
 mod 'zfs_core',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-zfs_core',
-    :ref => '1.0.0'  # Higher versions not compatible with puppet < 6.0
+    :ref => 'v1.3.0'
 
 mod 'zookeeper',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-deric-zookeeper',
     :ref => 'v1.2.1'
+
+mod 'puppetlabs-mailalias_core', '1.1.0'
+mod 'puppetlabs-augeas_core', '1.2.0'
+mod 'puppetlabs-cron_core', '1.1.0'
+mod 'puppetlabs-mount_core', '1.1.0'
