@@ -32,6 +32,8 @@ define profile::cassandra::instance (
   $jmx_remote = $config['jmx_remote']
   $jmx_port = $config['jmx_port']
 
+  $heap = $config['heap']
+
   $base_configuration = lookup('cassandra::base_instance_configuration')
   $instance_configuration = {
     cluster_name           => $config["cluster_name"],
@@ -42,7 +44,7 @@ define profile::cassandra::instance (
     listen_address         => $listen_address,
     native_transport_port  => $config['native_transport_port'],
     storage_port           => $config['storage_port'],
-    seed_provider          => $config['seed_provider']
+    seed_provider          => $config['seed_provider'],
   }
 
   $computed_configuration = $base_configuration + $instance_configuration

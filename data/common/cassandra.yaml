@@ -51,8 +51,11 @@ cassandra::default_instance_configuration:
   jmx_remote: true
   jmx_user: "%{lookup('cassandra::jmx::user')}"
   jmx_password: "%{lookup('cassandra::jmx::password')}"
+  heap: "%{lookup('cassandra::heap')}"
 
 cassandra::jmx::user: cassandra
+cassandra::heap: 16G
+
 # cassandra::jmx::password in private data
 
 # Reflect the base of the cassandra.yaml content

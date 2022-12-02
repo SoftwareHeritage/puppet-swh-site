@@ -5,7 +5,7 @@ Description=Cassandra <%= @instance_name %> instance
 After=network.target
 
 [Service]
-Environment=JVM_EXTRA_OPTS="-javaagent:<%= @jmx_exporter_path %>=<%= @config["jmx_exporter_port"] %>:/etc/cassandra/jmx_exporter.yml <%= @extra_jmx_option %>"
+Environment=JVM_EXTRA_OPTS="-javaagent:<%= @jmx_exporter_path %>=<%= @config["jmx_exporter_port"] %>:/etc/cassandra/jmx_exporter.yml <%= @extra_jmx_option %> -Xmx<%= @heap %> -Xms<%= @heap %>"
 Environment=CASSANDRA_CONF=<%= @config_dir %>
 Environment=CASSANDRA_LOG_DIR=<%= @log_dir %>
 <%- if @jmx_remote -%>
