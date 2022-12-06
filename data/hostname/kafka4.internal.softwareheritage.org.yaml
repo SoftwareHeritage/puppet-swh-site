@@ -25,7 +25,7 @@ networks:
     address: 128.93.166.51
     netmask: 26
     gateway: 128.93.166.62
-    mtu: "9000"
+    mtu: "1500"
     extras:
       vlan-raw-device: bond0
 
