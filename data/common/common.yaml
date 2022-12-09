@@ -1127,6 +1127,13 @@ bind::resource_records:
     type: CNAME
     record: reaper.internal.softwareheritage.org
     data: k8s-archive-production.internal.softwareheritage.org.
+  k8s-archive-staging/A: # main ingress ip of the archive staging cluster
+    record: k8s-archive-staging.internal.staging.swh.network
+    data: 192.168.130.129
+  graphql-staging/CNAME:
+    type: CNAME
+    record: graphql.internal.staging.swh.network
+    data: k8s-archive-staging.internal.staging.swh.network.
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
     record: k8s-gitlab-production.internal.softwareheritage.org
     data: 192.168.200.5
