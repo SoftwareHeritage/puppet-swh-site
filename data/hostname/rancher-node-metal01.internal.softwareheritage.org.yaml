@@ -1,2 +1,7 @@
 ---
 swh::apt_config::enable_non_free: true
+
+zfs::docker::zpool_configuration:
+  disk:
+    - nvme-eui.36434630546003360025384100000002
+    - nvme-eui.36434630546003380025384100000002

@@ -4044,6 +4044,9 @@ sanoid::templates:
 syncoid::configuration: {}
 syncoid::default_frequency: 5min
 
+zfs::docker::zpool_configuration:
+  disk: vdb
+
 # Must have matching certificate in letsencrypt::certificates
 azure_billing::vhost::name: azure-billing.internal.admin.swh.network
 azure_billing::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
