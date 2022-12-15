@@ -54,7 +54,7 @@ cassandra::default_instance_configuration:
   heap: "%{lookup('cassandra::heap')}"
 
 cassandra::jmx::user: cassandra
-cassandra::heap: 16G
+cassandra::heap: 32G
 
 # cassandra::jmx::password in private data
 
@@ -85,3 +85,4 @@ cassandra::base_instance_configuration:
   truncate_request_timeout_in_ms: 60000
   request_timeout_in_ms: 10000
   slow_query_log_timeout_in_ms: 1000
+  repair_session_space_in_mb: 1024
