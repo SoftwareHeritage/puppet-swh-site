@@ -1139,8 +1139,12 @@ bind::resource_records:
     record: k8s-archive-staging-thanos.internal.staging.swh.network
     data: k8s-archive-staging.internal.staging.swh.network.
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
-    record: k8s-gitlab-production.internal.softwareheritage.org
+    record: k8s-gitlab-production.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.5
+  k8s-gitlab-production-thanos/CNAME:
+    type: CNAME
+    record: k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org
+    data: k8s-gitlab-production.euwest.azure.internal.softwareheritage.org.
   k8s-gitlab-staging/A:
     record: k8s-gitlab-staging.internal.staging.swh.network
     data: 192.168.200.15
@@ -3428,6 +3432,7 @@ thanos::query::non_puppet_managed::stores:
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
+  - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
 
 thanos::stores:
   historical:
@@ -3472,6 +3477,13 @@ thanos::stores:
       port-grpc: 19098
     compact:
       port-http: 19298
+  k8s-gitlab-production:  # AKS cluster
+    azure-storage-container: metrics-euwest-gitlab-production-0
+    store:
+      port-http: 19199
+      port-grpc: 19099
+    compact:
+      port-http: 19299
 
 grafana::db::database: grafana
 grafana::db::username: grafana
