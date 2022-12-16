@@ -1134,6 +1134,10 @@ bind::resource_records:
     type: CNAME
     record: graphql.internal.staging.swh.network
     data: k8s-archive-staging.internal.staging.swh.network.
+  k8s-archive-staging-thanos/CNAME:
+    type: CNAME
+    record: k8s-archive-staging-thanos.internal.staging.swh.network
+    data: k8s-archive-staging.internal.staging.swh.network.
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
     record: k8s-gitlab-production.internal.softwareheritage.org
     data: 192.168.200.5
@@ -3415,6 +3419,7 @@ thanos::objstore::config:
 thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
   - k8s-admin-thanos.internal.admin.swh.network:443
+  - k8s-archive-staging-thanos.internal.staging.swh.network:443
 
 thanos::stores:
   historical:
