@@ -1152,6 +1152,17 @@ bind::resource_records:
     type: CNAME
     record: k8s-gitlab-staging-thanos.internal.staging.swh.network
     data: k8s-gitlab-staging.internal.staging.swh.network.
+  k8s-rancher/A:
+    record: k8s-rancher.euwest.azure.internal.softwareheritage.org
+    data: 192.168.200.19
+  k8s-rancher-app/CNAME:
+    type: CNAME
+    record: rancher.euwest.azure.internal.softwareheritage.org
+    data: k8s-rancher.euwest.azure.internal.softwareheritage.org.
+  k8s-rancher-thanos/CNAME:
+    type: CNAME
+    record: k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org
+    data: k8s-rancher.euwest.azure.internal.softwareheritage.org.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
@@ -1198,9 +1209,6 @@ bind::resource_records:
   pgmirror0.euwest.azure/A:
     record: pgmirror0.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.51
-  rancher.euwest.azure/A:
-    record: rancher.euwest.azure.internal.softwareheritage.org
-    data: 192.168.200.19
 # VPN hosts
   zack/A:
     record: zack.internal.softwareheritage.org
@@ -3433,6 +3441,7 @@ thanos::query::non_puppet_managed::stores:
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
+  - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
 
 thanos::stores:
   historical:
@@ -3484,6 +3493,13 @@ thanos::stores:
       port-grpc: 19099
     compact:
       port-http: 19299
+  k8s-rancher:  # AKS cluster
+    azure-storage-container: metrics-euwest-rancher-0
+    store:
+      port-http: 19200
+      port-grpc: 19100
+    compact:
+      port-http: 19300
 
 grafana::db::database: grafana
 grafana::db::username: grafana
