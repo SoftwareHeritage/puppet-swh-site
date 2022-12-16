@@ -1141,6 +1141,13 @@ bind::resource_records:
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
     record: k8s-gitlab-production.internal.softwareheritage.org
     data: 192.168.200.5
+  k8s-gitlab-staging/A:
+    record: k8s-gitlab-staging.internal.staging.swh.network
+    data: 192.168.200.15
+  k8s-gitlab-staging-thanos/CNAME:
+    type: CNAME
+    record: k8s-gitlab-staging-thanos.internal.staging.swh.network
+    data: k8s-gitlab-staging.internal.staging.swh.network.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
@@ -3420,6 +3427,7 @@ thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
+  - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
 
 thanos::stores:
   historical:
@@ -3457,6 +3465,13 @@ thanos::stores:
       port-grpc: 19097
     compact:
       port-http: 19297
+  k8s-gitlab-staging:  # AKS cluster
+    azure-storage-container: metrics-euwest-gitlab-staging-0
+    store:
+      port-http: 19198
+      port-grpc: 19098
+    compact:
+      port-http: 19298
 
 grafana::db::database: grafana
 grafana::db::username: grafana
