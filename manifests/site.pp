@@ -3,7 +3,7 @@ node /^(pompidou|uffizi)\.(internal\.)?softwareheritage\.org$/
   include role::swh_hypervisor
 }
 
-node /^(beaubourg|hypervisor\d+|branly)\.(internal\.)?softwareheritage\.org$/
+node /^(beaubourg|hypervisor\d+|branly|mucem)\.(internal\.)?softwareheritage\.org$/
 {
   include role::swh_hypervisor_with_ceph
 }
