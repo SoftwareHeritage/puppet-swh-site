@@ -1123,6 +1123,10 @@ bind::resource_records:
   k8s-archive-production/A: # main ingress ip of the archive production cluster
     record: k8s-archive-production.internal.softwareheritage.org
     data: 192.168.100.119
+  k8s-archive-production-thanos/A: # main ingress ip of the archive production cluster
+    type: CNAME
+    record: k8s-archive-production-thanos.internal.softwareheritage.org
+    data: k8s-archive-production.internal.softwareheritage.org.
   reaper/CNAME:
     type: CNAME
     record: reaper.internal.softwareheritage.org
@@ -3439,6 +3443,7 @@ thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
+  - k8s-archive-production-thanos.internal.softwareheritage.org:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
   - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
