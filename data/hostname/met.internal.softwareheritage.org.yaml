@@ -2,30 +2,12 @@ backups::exclude:
   - var/lib/rabbitmq
 
 users:
-  ardumont:
-    groups:
-      - docker
-  aeviso:
-    groups:
-      - sudo
-      - docker
   ddouard:
     groups:
       - sudo
-      - docker
   jayesh:
     groups:
       - sudo
-      - docker
-  olasd:
-    groups:
-      - docker
-  vsellier:
-    groups:
-      - docker
-  zack:
-    groups:
-      - docker
 
 icinga2::host::vars:
   load: high
@@ -247,53 +229,5 @@ swh::postgres::service::users:
   - ardumont
   - aeviso
   - vsellier
-
-pgbouncer::auth_hba_file: /etc/postgresql/13/main/pg_hba.conf
-pgbouncer::listen_addr: 192.168.100.110
-pgbouncer::databases:
-  - source_db: "%{hiera('swh::deploy::provenance::db::dbname')}"
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test0
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test1
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test2
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test3
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test4
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test5
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test6
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test7
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test8
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: test9
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
 
 prometheus::rabbitmq::listen_port: 15692
