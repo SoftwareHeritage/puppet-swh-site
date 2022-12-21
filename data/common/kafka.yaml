@@ -36,6 +36,9 @@ kafka::broker_config:
   inter.broker.protocol.version: "%{alias('kafka::inter_broker_protocol_version')}"
   log.message.format.version: "%{alias('kafka::log_message_format_version')}"
 
+  # Disable automatic topic creation
+  auto.create.topics.enable: false
+
 # kafka::broker::password in private-data
 
 kafka::clusters:
