@@ -24,6 +24,10 @@ kafka::log_cleaner::max_compaction_lag_ms: 2678400000  # 31 * 24 * 60 * 60 * 100
 kafka::log_cleaner::min_compaction_lag_ms: 3600000     #           60 * 60 * 1000 = 1 hour
 kafka::log_cleaner::min_cleanable_dirty_ratio: 0.1
 
+kafka::threads::network: 16
+kafka::threads::io: 32
+kafka::threads::background: 16
+
 kafka::logdirs:
   - /srv/kafka/logdir
 kafka::broker_config:
@@ -60,6 +64,11 @@ kafka::broker_config:
   # the cleaner will trigger when the number of messages in the dirty section
   # reaches this ratio
   log.cleaner.min.cleanable.dirty.ratio: "%{alias('kafka::log_cleaner::min_cleanable_dirty_ratio')}"
+
+  # Threads
+  num.network.threads: "%{alias('kafka::threads::network')}"
+  num.io.threads: "%{alias('kafka::threads::io')}"
+  background.threads: "%{alias('kafka::threads::background')}"
 
 # kafka::broker::password in private-data
 
