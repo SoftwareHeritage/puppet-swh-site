@@ -18,6 +18,12 @@ kafka::cluster::heap_ops: "-Xmx6G -Xms6G"
 kafka::inter_broker_protocol_version: "3.3"
 kafka::log_message_format_version: "3.3"
 
+kafka::log_cleaner::threads: 6
+kafka::log_cleaner::dedupe_buffer_size: 2147483648     # 2 GiB
+kafka::log_cleaner::max_compaction_lag_ms: 2678400000  # 31 * 24 * 60 * 60 * 1000 = 31 days
+kafka::log_cleaner::min_compaction_lag_ms: 3600000     #           60 * 60 * 1000 = 1 hour
+kafka::log_cleaner::min_cleanable_dirty_ratio: 0.1
+
 kafka::logdirs:
   - /srv/kafka/logdir
 kafka::broker_config:
@@ -38,6 +44,22 @@ kafka::broker_config:
 
   # Disable automatic topic creation
   auto.create.topics.enable: false
+
+  # Log cleaner settings
+  # number of parallel threads
+  log.cleaner.threads: "%{alias('kafka::log_cleaner::threads')}"
+  # buffer size for the deduplication keys; The cleaner will do multiple passes if
+  # the number of messages in the dirty section of the log overflows this
+  # buffer.
+  log.cleaner.dedupe.buffer.size: "%{alias('kafka::log_cleaner::dedupe_buffer_size')}"
+
+  # the cleaner will not trigger faster than this threshold
+  log.cleaner.min.compaction.lag.ms: "%{alias('kafka::log_cleaner::min_compaction_lag_ms')}"
+  # the cleaner will trigger at least at this interval
+  log.cleaner.max.compaction.lag.ms: "%{alias('kafka::log_cleaner::max_compaction_lag_ms')}"
+  # the cleaner will trigger when the number of messages in the dirty section
+  # reaches this ratio
+  log.cleaner.min.cleanable.dirty.ratio: "%{alias('kafka::log_cleaner::min_cleanable_dirty_ratio')}"
 
 # kafka::broker::password in private-data
 
