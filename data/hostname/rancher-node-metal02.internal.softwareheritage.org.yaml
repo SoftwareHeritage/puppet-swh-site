@@ -1,4 +1,18 @@
 ---
+# local cache is not compatible with rancher
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
+icinga2::host::vars:
+  load: high
+
+# override the default values
+mountpoints:
+  /srv/storage/space:
+    ensure: absent
+
 swh::apt_config::enable_non_free: true
 
 zfs::docker::zpool_configuration:
