@@ -58,7 +58,8 @@ kafka::broker_config:
   log.cleaner.dedupe.buffer.size: "%{alias('kafka::log_cleaner::dedupe_buffer_size')}"
 
   # the cleaner will not trigger faster than this threshold
-  log.cleaner.min.compaction.lag.ms: "%{alias('kafka::log_cleaner::min_compaction_lag_ms')}"
+  # XXX: disabled as this makes kafka run out of memory
+  # log.cleaner.min.compaction.lag.ms: "%{alias('kafka::log_cleaner::min_compaction_lag_ms')}"
   # the cleaner will trigger at least at this interval
   log.cleaner.max.compaction.lag.ms: "%{alias('kafka::log_cleaner::max_compaction_lag_ms')}"
   # the cleaner will trigger when the number of messages in the dirty section
