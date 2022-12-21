@@ -19,7 +19,7 @@ kafka::inter_broker_protocol_version: "3.3"
 kafka::log_message_format_version: "3.3"
 
 kafka::log_cleaner::threads: 6
-kafka::log_cleaner::dedupe_buffer_size: 2147483648     # 2 GiB
+kafka::log_cleaner::dedupe_buffer_size: 536870912      # 512 MiB
 kafka::log_cleaner::max_compaction_lag_ms: 2678400000  # 31 * 24 * 60 * 60 * 1000 = 31 days
 kafka::log_cleaner::min_compaction_lag_ms: 3600000     #           60 * 60 * 1000 = 1 hour
 kafka::log_cleaner::min_cleanable_dirty_ratio: 0.1
