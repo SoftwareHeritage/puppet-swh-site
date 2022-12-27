@@ -1127,10 +1127,17 @@ bind::resource_records:
     type: CNAME
     record: k8s-archive-production-thanos.internal.softwareheritage.org
     data: k8s-archive-production.internal.softwareheritage.org.
+  k8s-archive-production-rke2/A:
+    record: k8s-archive-production-rke2.internal.softwareheritage.org
+    data: 192.168.100.139
+  k8s-archive-production-rke2-thanos/A:
+    type: CNAME
+    record: k8s-archive-production-rke2-thanos.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   reaper/CNAME:
     type: CNAME
     record: reaper.internal.softwareheritage.org
-    data: k8s-archive-production.internal.softwareheritage.org.
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   k8s-archive-staging/A: # main ingress ip of the archive staging cluster
     record: k8s-archive-staging.internal.staging.swh.network
     data: 192.168.130.129
@@ -3444,6 +3451,7 @@ thanos::query::non_puppet_managed::stores:
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
   - k8s-archive-production-thanos.internal.softwareheritage.org:443
+  - k8s-archive-production-rke2-thanos.internal.softwareheritage.org:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
   - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
@@ -3505,6 +3513,13 @@ thanos::stores:
       port-grpc: 19100
     compact:
       port-http: 19300
+  archive-production-rke2:  # rancher cluster
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-production-rke2-0
+    store:
+      port-http: 19201
+      port-grpc: 19101
+    compact:
+      port-http: 19301
 
 grafana::db::database: grafana
 grafana::db::username: grafana
