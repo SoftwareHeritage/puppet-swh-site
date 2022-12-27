@@ -57,6 +57,8 @@ define profile::cassandra::instance (
     $extra_jmx_option = "-Dcassandra.jmx.local.port=${jmx_port}"
   }
 
+  $jvm11_server_options = lookup('cassandra::jvm11_options')
+
   file {[
       $instance_base_data_dir,
       $base_data_dir,
@@ -86,7 +88,6 @@ define profile::cassandra::instance (
   }
 
   $config_files_to_copy = [
-    'jvm11-server.options',
     'jvm-server.options',
     'logback.xml',
     'cassandra-env.sh',
@@ -101,6 +102,15 @@ define profile::cassandra::instance (
       source  => "/opt/cassandra/conf/${file_name}",
       require => [File[$config_dir]],
     }
+  }
+
+  file { "${config_dir}/jvm11-server.options":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content  => inline_template("<% @jvm11_server_options.each do |val| %><%= val %>\n<% end %>"),
+    require => [File[$config_dir]],
   }
 
   file { "${config_dir}/cassandra.yaml":
