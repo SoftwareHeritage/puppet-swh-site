@@ -11,7 +11,7 @@ PUPPET_ENV_PATH=$(puppet config print environmentpath)
 declare -A GIT_REPOS_TO_MERGE
 
 GIT_REPOS_TO_MERGE+=(
-    ["data/private"]="git@gitlab.softwareheritage.org:infra/puppet/puppet-swh-private-data.git"
+    ["data/private"]="git@gitlab.softwareheritage.org:infra-private/puppet-swh-private-data.git"
 )
 
 GIT=/usr/bin/git
