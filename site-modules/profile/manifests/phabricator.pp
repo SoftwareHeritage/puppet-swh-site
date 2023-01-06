@@ -253,6 +253,18 @@ class profile::phabricator {
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
+      {
+        rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
+        rewrite_rule => '^(.*)/edit/ - [R=405,L]',
+      },
+      {
+        rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
+        rewrite_rule => '^/harbormaster/build/ - [R=405,L]',
+      },
+      {
+        rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
+        rewrite_rule => '^/api/.*\.(edit|create|upload|send|close) - [R=405,L]',
+      },
       { rewrite_rule => "^/ws/(.*)$ ws://${notification_listen}/\$1 [L,P]" },
       { rewrite_rule => "^(.*)$ fcgi://${fpm_listen}${vhost_docroot}/index.php?__path__=\$1 [B,L,P,QSA]" },
     ],
