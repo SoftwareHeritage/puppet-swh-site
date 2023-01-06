@@ -1138,6 +1138,13 @@ bind::resource_records:
     type: CNAME
     record: reaper.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  k8s-archive-staging-rke2/A: # ingress ip of cluster archive-staging-rke2
+    record: k8s-archive-staging-rke2.internal.staging.swh.network
+    data: 192.168.130.139
+  k8s-archive-staging-rke2-thanos/A:
+    type: CNAME
+    record: k8s-archive-staging-rke2-thanos.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-archive-staging/A: # main ingress ip of the archive staging cluster
     record: k8s-archive-staging.internal.staging.swh.network
     data: 192.168.130.129
