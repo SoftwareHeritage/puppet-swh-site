@@ -1151,7 +1151,7 @@ bind::resource_records:
   graphql-staging/CNAME:
     type: CNAME
     record: graphql.internal.staging.swh.network
-    data: k8s-archive-staging.internal.staging.swh.network.
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-archive-staging-thanos/CNAME:
     type: CNAME
     record: k8s-archive-staging-thanos.internal.staging.swh.network
