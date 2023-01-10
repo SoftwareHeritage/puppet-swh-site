@@ -192,7 +192,7 @@ class profile::icinga2::objects::static_checks {
       http_ssl        => true,
       http_sni        => true,
       http_onredirect => 'follow',
-      http_string     => '<title>Sign in',
+      http_string     => 'Explore GitLab',
     },
   }
 
