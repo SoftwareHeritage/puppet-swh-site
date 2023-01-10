@@ -255,7 +255,7 @@ class profile::phabricator {
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
       {
         rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
-        rewrite_rule => '^(.*)/(edit|upload)/ - [R=405,L]',
+        rewrite_rule => '^(.*)/(edit|upload|create|send)/ - [R=405,L]',
       },
       {
         rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
