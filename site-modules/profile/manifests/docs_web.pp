@@ -49,15 +49,15 @@ class profile::docs_web {
     docroot_group        => $docs_vhost_docroot_group,
     docroot_mode         => $docs_vhost_docroot_mode,
     directories          => [{
-                             'path'     => $docs_vhost_docroot,
-                             'require'  => 'all granted',
-                             'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
-                             }],
-      require              => [
-        File[$cert_paths['cert']],
-        File[$cert_paths['chain']],
-        File[$cert_paths['privkey']],
-      ],
+      'path'     => $docs_vhost_docroot,
+      'require'  => 'all granted',
+      'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
+    }],
+    require              => [
+      File[$cert_paths['cert']],
+      File[$cert_paths['chain']],
+      File[$cert_paths['privkey']],
+    ],
   }
 
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
