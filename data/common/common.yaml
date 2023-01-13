@@ -1388,7 +1388,7 @@ annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
 docs::basepath: /srv/softwareheritage/docs
 # Must have matching certificate in letsencrypt::certificates
 docs::vhost::name: docs.softwareheritage.org
-docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot"
+docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot/sphinx"
 docs::vhost::docroot_owner: "jenkins-push-docs"
 docs::vhost::docroot_group: "www-data"
 docs::vhost::docroot_mode: "2755"
