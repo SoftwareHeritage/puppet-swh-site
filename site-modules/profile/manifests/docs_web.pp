@@ -53,6 +53,9 @@ class profile::docs_web {
       'require'  => 'all granted',
       'options'  => ['Indexes', 'FollowSymLinks', 'MultiViews'],
     }],
+    rewrites => [
+      { rewrite_rule => '^/(devel|sysadm)/objects.inv$ /objects.inv [R,L]' },
+    ],
     require              => [
       File[$cert_paths['cert']],
       File[$cert_paths['chain']],
