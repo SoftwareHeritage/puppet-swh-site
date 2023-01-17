@@ -39,6 +39,8 @@ class profile::cassandra {
   $jmx_access_file = "${cassandra_config_directory}/jmxremote.access"
   $jmx_password_file = "${cassandra_config_directory}/jmxremote.password"
 
+  $max_map_count = lookup("cassandra::max_map_count")
+
   group {$cassandra_group:
     system => true,
   }
@@ -150,6 +152,8 @@ class profile::cassandra {
       ensure => absent,
     }
   }
+
+  sysctl { 'vm.max_map_count': value => $max_map_count }
 
   $instances.each | $instance_name, $instance_config | {
     $merged_instance_config = $default_instance_config + $instance_config

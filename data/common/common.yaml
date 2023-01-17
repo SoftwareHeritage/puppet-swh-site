@@ -4146,3 +4146,4 @@ maven_index_exporter::repositories:
   jboss: https://repository.jboss.org/maven2/
   atlassian-public: https://maven.atlassian.com/public/
 
+zfs::arc::max_size_memory_percent: 25
