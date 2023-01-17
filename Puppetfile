@@ -116,6 +116,10 @@ mod 'keycloak',
     # Need to upgrade to keycloak 12 before bumping to 7.x
     :ref => 'v6.26.0'
 
+mod 'kmod',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-kmod.git',
+    :ref => 'v3.2.0'
+
 mod 'letsencrypt',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-letsencrypt',
     :ref => 'v7.0.0'
@@ -183,6 +187,10 @@ mod 'stdlib',
 mod 'sudo',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-sudo',
     :ref => 'v7.0.2'
+
+mod 'sysctl',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-sysctl',
+    :ref => '1.0.7'
 
 mod 'systemd',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-camptocamp-systemd',
