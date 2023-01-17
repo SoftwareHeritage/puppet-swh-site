@@ -86,6 +86,7 @@ cassandra::base_instance_configuration:
   request_timeout_in_ms: 10000
   slow_query_log_timeout_in_ms: 1000
   repair_session_space_in_mb: 1024
+  disk_access_mode: mmap_index_only
 
 cassandra::jvm11_options:
   # activated for G1
