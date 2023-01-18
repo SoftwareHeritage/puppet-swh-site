@@ -2469,6 +2469,12 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/entity/
   - /api/1/provenance/
 
+# - backendX:
+#    path: /backend/path
+#    url: http://my_backend:my_port/
+#
+swh::deploy::webapp::additional_backends: []
+
 swh::deploy::webapp::sync_mailmaps::db::service_name: "softwareheritage-sync-mailmaps"
 swh::deploy::webapp::sync_mailmaps::db::host: "%{hiera('swh::deploy::storage::db::host')}"
 swh::deploy::webapp::sync_mailmaps::db::port: "%{hiera('swh::deploy::db::pgbouncer::port')}"

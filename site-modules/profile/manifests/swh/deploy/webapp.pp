@@ -54,6 +54,15 @@ class profile::swh::deploy::webapp {
   $logfile = "${conf_log_dir}/swh-web.log"
   $pidfile = "/var/run/gunicorn/swh-webapp/pidfile"
 
+  $backends = lookup('swh::deploy::webapp::additional_backends')
+
+  $additional_backends = $backends.map | $backend, $config | {
+    {
+      url  => $config['url'],
+      path => $config["path"],
+    }
+  }
+
   # Install the necessary deps
   ::profile::swh::deploy::install_web_deps { 'swh-web':
     services      => ['gunicorn-swh-webapp'],
@@ -163,7 +172,10 @@ class profile::swh::deploy::webapp {
       },
       { path => '/favicon.ico',
         url  => '!',
-      },
+      }
+    ]
+      + $additional_backends +
+    [
       { path => '/',
         url  => "http://${backend_listen_address}/",
       },
