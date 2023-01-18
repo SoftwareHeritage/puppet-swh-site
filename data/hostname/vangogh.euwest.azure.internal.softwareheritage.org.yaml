@@ -8,7 +8,5 @@ swh::deploy::vault::config::cache:
   api_secret_key: "%{hiera('swh::azure::credentials::vaultstorage::key')}"
   container_name: contents
 
-swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::azure')}"
-
 # No workers
 swh::deploy::worker::instances: []
