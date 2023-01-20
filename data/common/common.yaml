@@ -959,6 +959,36 @@ letsencrypt::certificates:
       - sponsorship.softwareheritage.org
       - testimonials.softwareheritage.org
     deploy_hook: gandi_paas
+  downtime:
+    domains:
+      - annex.softwareheritage.org
+      - archive.softwareheritage.org
+      - auth.softwareheritage.org
+      - bitbucket-archive.softwareheritage.org
+      - debian.softwareheritage.org
+      - deposit.softwareheritage.org
+      - docs.softwareheritage.org
+      - downtime.softwareheritage.org
+      - forge.softwareheritage.org
+      - git.softwareheritage.org
+      - grafana.softwareheritage.org
+      - hedgedoc.softwareheritage.org
+      - icinga.softwareheritage.org
+      - intranet.softwareheritage.org
+      - jenkins.softwareheritage.org
+      - moma.softwareheritage.org
+      - objstorage.softwareheritage.org
+      - pergamon.softwareheritage.org
+      - sentry.softwareheritage.org
+      - stats.export.softwareheritage.org
+      - tate.softwareheritage.org
+      - wg.softwareheritage.org
+      - wiki.softwareheritage.org
+      - deposit.staging.swh.network
+      - graphql.staging.swh.network
+      - objstorage.staging.swh.network
+      - webapp.staging.swh.network
+    deploy_hook: gandi_paas
   netbox:
     domains:
       - inventory.internal.admin.swh.network
