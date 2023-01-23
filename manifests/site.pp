@@ -98,10 +98,6 @@ node /^(indexer-|vault-)?worker\d+\..*\.azure\.internal\.softwareheritage\.org$/
   include role::swh_worker_azure
 }
 
-node /^dbreplica(0|1)\.euwest\.azure\.internal\.softwareheritage\.org$/ {
-  include role::swh_database
-}
-
 node /^ceph-osd\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ceph_osd
 }
