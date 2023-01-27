@@ -3493,6 +3493,7 @@ thanos::query::non_puppet_managed::stores:
   - mmca-thanos.softwareheritage.org:443
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-thanos.internal.staging.swh.network:443
+  - k8s-archive-staging-rke2-thanos.internal.staging.swh.network:443
   - k8s-archive-production-thanos.internal.softwareheritage.org:443
   - k8s-archive-production-rke2-thanos.internal.softwareheritage.org:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
@@ -3563,6 +3564,13 @@ thanos::stores:
       port-grpc: 19101
     compact:
       port-http: 19301
+  archive-staging-rke2:
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-rke2-0
+    store:
+      port-http: 19202
+      port-grpc: 19102
+    compact:
+      port-http: 19302
 
 grafana::db::database: grafana
 grafana::db::username: grafana
