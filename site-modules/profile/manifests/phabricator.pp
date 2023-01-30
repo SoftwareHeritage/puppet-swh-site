@@ -253,6 +253,7 @@ class profile::phabricator {
     rewrites             => [
       { rewrite_rule => '^/rsrc/(.*) - [L,QSA]' },
       { rewrite_rule => '^/favicon.ico - [L,QSA]' },
+    ] + lookup('phabricator::rewrites') + [
       {
         rewrite_cond => ['%{REQUEST_METHOD} ^(POST|PUT|DELETE)$'],
         rewrite_rule => '^(.*)/(edit|upload|create|send)/ - [R=405,L]',
