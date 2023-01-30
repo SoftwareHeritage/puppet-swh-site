@@ -20,3 +20,16 @@ pgbouncer::databases:
     host: belvedere.internal.softwareheritage.org
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::indexer::port')}"
+
+mountpoints:
+  /srv/remote-backups:
+    device: saam:/srv/storage/space/postgres-backups/somerset
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - x-systemd.automount
+      - x-systemd.device-timeout=10

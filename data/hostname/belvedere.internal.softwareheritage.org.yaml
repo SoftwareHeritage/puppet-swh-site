@@ -61,3 +61,16 @@ backups::exclude:
 icinga2::host::vars:
   load: high
 
+
+mountpoints:
+  /srv/remote-backups:
+    device: saam:/srv/storage/space/postgres-backups/prado
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - x-systemd.automount
+      - x-systemd.device-timeout=10
