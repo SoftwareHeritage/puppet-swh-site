@@ -78,3 +78,5 @@ mountpoints:
     ensure: absent
   /srv/storage/space:
     ensure: absent
+  swap:
+    ensure: absent
