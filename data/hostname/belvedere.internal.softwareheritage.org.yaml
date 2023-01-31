@@ -74,3 +74,7 @@ mountpoints:
       - wsize=8192
       - x-systemd.automount
       - x-systemd.device-timeout=10
+  /tmp:
+    ensure: absent
+  /srv/storage/space:
+    ensure: absent
