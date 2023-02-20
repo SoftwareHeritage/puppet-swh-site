@@ -299,10 +299,10 @@ users:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDU0O8tkUqtQCelLEatOGfGpx1sIwHPSMA+7OdXoZjZG5pT9Sfgf3ITsNgo1iYWge5bpH/TKhhvf20B05fa8cCEE5ULaD+xdV9eTIvBEaCiP36HH33WNl/UV8T8klTG2sqBXUgLMJuinfGkuRJ977ndm7mjNwzl3Ghf6JwKfpHrvob4GLc0hm54yzcnNEzQZLcdxmOCWdwTINKnL+W/DDM8NR3vNF6T5+xaiLJzsS0IGcTubklugD3m05qbswS/uACWys3FzRM8tttw/0wCRrC9SCSKoDLonab5y3Ld6vCj1k12J2RAHSqJYwVCm70JRPWZcmU67Udi6kbqkJMftp04K0pplu8V7RLPrpwLyH4sPx7Kkhslvxqj0rerLPOkoDkqneFgxNoMcxN5ayod7fBJAq5jQUmGozeTtgPLKybnxRDhsYpkEH9paZroQ3CqDsA0dptOpedVpcQUSbiLMaYd8kgCPkVIdKANnTGGXDcTfWv21IvFx6sKm1kld2Me3ExVMq7JFcmXutF/IQom9F4vj/xd/7Lt4KmqZKyiAq4n5iaPIRUbZvmwd2D6umOHpMGlqKwtsiWRUYnAVvhRfuSZmgrGgliYiYr+vU2xeWe+XXQhP9vt3eItmdSp/8/+a2lqaIE9slE75hEI2n8in7DeSn6QhFDbyUKwZz5OwK7QVw==
       zack@noziere:
-        type: no-touch-required sk-ssh-ed25519@openssh.com
+        type: ssh-ed25519
         key: AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIB63mVv7CC3IQ6vO7s4H/CeiJ9fXHMHIOFlXFD9ye7XrAAAAC3NzaDpnZW5lcmFs
       zack@noziere2:
-        type: no-touch-required sk-ssh-ed25519@openssh.com
+        type: ssh-ed25519
         key: AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIOEeNPkjSRDvG4jC+u8DNG+tVena/OEvHwzEzLVJMreCAAAAC3NzaDpnZW5lcmFs
 
   olasd:
