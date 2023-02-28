@@ -130,7 +130,7 @@ mod 'locales',
 
 mod 'mysql',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-mysql',
-    :ref => 'v13.1.0'
+    :ref => 'v12.0.1'
 
 mod 'nginx',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-nginx',
