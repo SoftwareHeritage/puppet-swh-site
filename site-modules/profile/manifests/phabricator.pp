@@ -146,7 +146,7 @@ class profile::phabricator {
         innodb_flush_method     => $db_innodb_flush_method,
         innodb_log_file_size    => $db_innodb_log_file_size,
         max_connections         => $db_max_connections,
-        ssl_disable             => true,  # disabled by default but without
+        ssl-disable             => true,  # disabled by default but without
                                           # this, it still generates config
                                           # keys which prevent new mariadb
                                           # version from starting. In effect,
