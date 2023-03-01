@@ -79,6 +79,7 @@ smtp::mail_aliases:
       - ardumont
       - ddouard
       - vsellier
+      - gsamson
   - user: seirl
     aliases:
       - antoine.pietri1@gmail.com
@@ -91,6 +92,7 @@ smtp::mail_aliases:
       - olasd
       - ardumont
       - vsellier
+      - gsamson
   - user: swhdeposit
     aliases:
       - ardumont
@@ -128,6 +130,9 @@ smtp::mail_aliases:
   - user: bchauvet
     aliases:
       - bchauvet@softwareheritage.org
+  - user: gsamson
+    aliases:
+      - gsamson@softwareheritage.org
 
 networks::manage_interfaces: true
 
@@ -654,6 +659,18 @@ users:
       lunar@seleucus:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDIGUnG2HseIZJ9deNXvGzfPU8Iey1TS89AGUGadFxnuy2mDjBepWanJUBbRArm8fv5v+LIJ2MUm3dchP1aEaMYfJp7QUeagJTYVHIrbdFYPAdGgwe5kQzOaWEyqsV3W2AyXkvgKq+V0whWeqJuRxWD+3i6rFLZJxYh1Uf+l8I4bPvD7pLqssLXm5qnzOfSJrZaiu9mtHasscTQUZ2/lZ+veF0mBkqAxmor/lWbTcENCjALgZhdJlg7kz+HFiFO+IaNdAvjayQiEmk2r/SutwA9CdHzAcLh6Jr4iiThRy4RcIB/SACcsYJbUIJkxHiqoWV6LNOICV/pncnWNQYMhyUH3pH+3Gxm3feUpHUT8IQhwb4FS4dctp225LyX+s/6rDzMZU3jKkV090BAvFCiY1EUTaiNAvU9SbjgVzFn40X1dydaucdmh9ziGV56mPfokhR+e3D2QxXNpT6A+3ra/OsTrz55SrKhKo5fJgDp/KJlmwF+wp6jjd78fBJCyMuZb3k=
+  gsamson:
+    uid: 1033
+    full_name: Guillaume Samson
+    groups:
+      - swhdev
+      - swhteam
+      - sudo
+    shell: /usr/bin/zsh
+    authorized_keys:
+       gsamson@gsamson:
+         type: ssh-ed25519
+         key: AAAAC3NzaC1lZDI1NTE5AAAAIFBFC8GmLbjltvV2t4M3YgdRJE6GVG1Jub0OsF/Bw6//
 
 groups:
   adm:
@@ -702,6 +719,8 @@ groups:
     gid: 1031
   lunar:
     gid: 1032
+  gsamson:
+    gid: 1033
   kubenfs:
     gid: 42000
 

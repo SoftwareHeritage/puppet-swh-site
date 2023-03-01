@@ -229,5 +229,6 @@ swh::postgres::service::users:
   - ardumont
   - aeviso
   - vsellier
+  - gsamson
 
 prometheus::rabbitmq::listen_port: 15692
