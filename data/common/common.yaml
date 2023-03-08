@@ -1038,6 +1038,9 @@ letsencrypt::certificates:
   thanos.internal.admin.swh.network:
     domains:
       - thanos.internal.admin.swh.network
+  preseed.internal.softwareheritage.org:
+    domains:
+      - preseed.internal.softwareheritage.org
 
 bind::update_key: local-update
 
@@ -4217,3 +4220,16 @@ maven_index_exporter::repositories:
   atlassian-public: https://maven.atlassian.com/public/
 
 zfs::arc::max_size_memory_percent: 25
+
+# Preseeding vhost
+
+# Must have matching certificate in letsencrypt::certificates
+preseeding::vhost::name: preseed.internal.softwareheritage.org
+preseeding::vhost::aliases: []
+preseeding::vhost::docroot: "%{hiera('swh::base_directory')}/preseeding"
+preseeding::vhost::docroot::owner: root
+preseeding::vhost::docroot::group: sudo
+preseeding::vhost::docroot::mode: "2775"
+preseeding::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
+preseeding::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
+preseeding::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
