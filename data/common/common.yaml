@@ -1124,6 +1124,10 @@ bind::resource_records:
     type: CNAME
     record: debian.internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+  preseed/CNAME:
+    type: CNAME
+    record: preseed.internal.softwareheritage.org
+    data: pergamon.internal.softwareheritage.org.
   backup/CNAME:
     type: CNAME
     record: backup.internal.softwareheritage.org
