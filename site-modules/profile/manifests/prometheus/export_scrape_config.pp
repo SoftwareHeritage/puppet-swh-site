@@ -8,6 +8,8 @@ define profile::prometheus::export_scrape_config (
   Optional[String] $metrics_path = undef,
   Optional[Hash[String, Array[String]]] $params = undef,
   Optional[Array[Hash[String, Variant[String, Array[String]]]]] $metric_relabel_configs = undef,
+  Optional[String] $scrape_interval = '1m',
+  Optional[String] $scrape_timeout = '45s',
 ) {
 
   $static_labels = lookup('prometheus::static_labels', Hash)
@@ -21,5 +23,7 @@ define profile::prometheus::export_scrape_config (
     metrics_path           => $metrics_path,
     params                 => $params,
     metric_relabel_configs => $metric_relabel_configs,
+    scrape_interval        => $scrape_interval,
+    scrape_timeout         => $scrape_timeout,
   }
 }
