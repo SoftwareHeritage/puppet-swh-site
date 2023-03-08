@@ -77,7 +77,9 @@ class profile::rabbitmq {
   }
 
   profile::prometheus::export_scrape_config {'rabbitmq':
-      target => $prometheus_target,
+    target          => $prometheus_target,
+    scrape_interval => '15s',
+    scrape_timeout  => '10s',
   }
 
   # monitoring user for the icinga check
