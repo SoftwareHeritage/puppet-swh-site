@@ -201,6 +201,10 @@ static_hostnames:
     host: cassandra05.internal.softwareheritage.org
   10.168.100.186:
     host: cassandra06.internal.softwareheritage.org
+  10.168.100.187:
+    host: cassandra07.internal.softwareheritage.org
+  10.168.100.188:
+    host: cassandra08.internal.softwareheritage.org
   10.168.100.210:
     host: belvedere.internal.softwareheritage.org
     aliases:
