@@ -15,8 +15,8 @@ class profile::cassandra {
   $cassandra_version = lookup('cassandra::version')
   $cassandra_archive_name = "apache-cassandra-${cassandra_version}-bin.tar.gz"
   $cassandra_bin_url = "https://dlcdn.apache.org/cassandra/${cassandra_version}/${cassandra_archive_name}"
-  $cassandra_bin_checksum_type = 'sha512'
-  $cassandra_bin_checksum = '188e131392ea0e48b46f24b1be297ef6335197f4480c9421328006507e069dce659ce3ce473906398273a5926e331960cbf824362e40cb4c74670cde95458349'
+  $cassandra_bin_checksum_type = lookup('cassandra::version_checksum_type')
+  $cassandra_bin_checksum = lookup('cassandra::version_checksum')
 
   $systemd_service = 'cassandra@.service'
 

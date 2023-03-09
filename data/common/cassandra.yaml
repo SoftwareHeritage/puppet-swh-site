@@ -4,7 +4,9 @@ cassandra::base_log_directory: /var/log/cassandra
 
 cassandra::max_map_count: 1048575
 
-cassandra::version: 4.0.5
+cassandra::version: 4.0.8
+cassandra::version_checksum_type: sha512
+cassandra::version_checksum: '6cb37f7266f446a23f32d73a128f7e96056b8829cbe653b1ecb4683fd4dab8f0d7a13357f7ee4ee2d6cc77dcbd97ca3dcce017334b9d129b01ca2b0660bc7ee6'
 
 cassandra::listen_network: "%{lookup('internal_network')}"
 
