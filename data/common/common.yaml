@@ -3860,7 +3860,7 @@ keycloak::resources::clients::common_settings:
     - microprofile-jwt
     - offline_access
 
-keycloak::resources::clients::swh_web:::roles:
+keycloak::resources::clients::swh_web::roles:
   - swh.web.api.throttling_exempted
   - swh.web.api.graph
   - swh.vault.git_bare.ui
@@ -3908,7 +3908,7 @@ keycloak::resources::realms:
             - https://archive.softwareheritage.org/*
             - https://base.softwareheritage.org/*
             - https://archive.internal.softwareheritage.org/*
-          roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
+          roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
@@ -3939,7 +3939,7 @@ keycloak::resources::realms:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://webapp.staging.swh.network/*
             - https://webapp.internal.staging.swh.network/*
-          roles: "%{alias('keycloak::resources::clients::swh_web:::roles')}"
+          roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
