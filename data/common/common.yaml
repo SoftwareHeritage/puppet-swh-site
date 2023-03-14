@@ -1194,6 +1194,10 @@ bind::resource_records:
     type: CNAME
     record: k8s-archive-production-rke2-thanos.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  graphql/CNAME: # this is used internally by the reverse proxy
+    type: CNAME
+    record: graphql.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.staging.swh.network.
   reaper/CNAME:
     type: CNAME
     record: reaper.internal.softwareheritage.org
@@ -2529,11 +2533,10 @@ swh::deploy::webapp::locked_endpoints:
   - /api/1/entity/
   - /api/1/provenance/
 
-# - backendX:
-#    path: /backend/path
-#    url: http://my_backend:my_port/
-#
-swh::deploy::webapp::additional_backends: []
+swh::deploy::webapp::additional_backends:
+  graphql:
+    path: /graphql/
+    url: "%{lookup('swh::deploy::webapp::graphql_backend')}"
 
 swh::deploy::webapp::sync_mailmaps::db::service_name: "softwareheritage-sync-mailmaps"
 swh::deploy::webapp::sync_mailmaps::db::host: "%{hiera('swh::deploy::storage::db::host')}"
