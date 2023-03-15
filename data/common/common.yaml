@@ -3947,6 +3947,9 @@ keycloak::resources::realms:
             - https://webapp.staging.swh.network/*
             - https://webapp.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
+          web_origins:
+            - https://webapp.staging.swh.network
+            - https://webapp.internal.staging.swh.network
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
