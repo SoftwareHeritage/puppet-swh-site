@@ -345,3 +345,24 @@ swh::deploy::indexer_journal_client::extrinsic_metadata::journal_authentication:
 swh::deploy::indexer_journal_client::origin_intrinsic_metadata::journal_authentication: false
 
 cassandra::default_cluster_name: archive_staging
+
+cassandra::nodes:
+  cassandra1.internal.staging.swh.network:
+    instances:
+      instance1:
+        cluster_name: archive_staging
+  cassandra2.internal.staging.swh.network:
+    instances:
+      instance1:
+        cluster_name: archive_staging
+  cassandra3.internal.staging.swh.network:
+    instances:
+      instance1:
+        cluster_name: archive_staging
+
+cassandra::clusters:
+  archive_staging:
+    seed_provider:
+      - class_name: org.apache.cassandra.locator.SimpleSeedProvider
+        parameters:
+          - seeds: "cassandra1.internal.staging.swh.network:7000"
