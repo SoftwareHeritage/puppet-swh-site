@@ -3915,6 +3915,7 @@ keycloak::resources::realms:
             - https://archive.softwareheritage.org/*
             - https://base.softwareheritage.org/*
             - https://archive.internal.softwareheritage.org/*
+            - https://webapp1.internal.softwareheritage.org/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
