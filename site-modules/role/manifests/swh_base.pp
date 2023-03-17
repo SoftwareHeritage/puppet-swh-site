@@ -14,10 +14,11 @@ class role::swh_base {
 
   if $::virtual == 'physical' {
     include profile::megacli
+    include profile::smartmontools
+    include profile::nvme
   }
 
   include profile::cloudinit
-  include profile::smartmontools
   include profile::network
   include profile::swh
 
