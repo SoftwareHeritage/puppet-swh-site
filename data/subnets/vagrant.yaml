@@ -275,6 +275,8 @@ static_hostnames:
     host: elastic-worker2.internal.staging.swh.network
   10.168.130.133:
     host: elastic-worker3.internal.staging.swh.network
+  10.168.130.139:
+    host: k8s-archive-staging-rke2.internal.staging.swh.network
   10.168.130.140:
     host: rancher-node-intern0.internal.staging.swh.network
   10.168.130.141:

@@ -148,6 +148,7 @@ swh::deploy::reverse_proxy::services:
   - webapp
   - objstorage
   - graphql
+  - software-stories
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
@@ -366,3 +367,10 @@ cassandra::clusters:
       - class_name: org.apache.cassandra.locator.SimpleSeedProvider
         parameters:
           - seeds: "cassandra1.internal.staging.swh.network:7000"
+
+# Software-stories
+swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.staging.swh.network
+swh::deploy::software-stories::reverse_proxy::backend_http_port: "80"
+swh::deploy::software-stories::base_url: software-stories.staging.swh.network
+swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_staging
+#swh::deploy::software-stories::icinga_check_string: 'SWH Stories'

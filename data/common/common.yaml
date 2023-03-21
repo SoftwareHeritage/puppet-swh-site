@@ -856,6 +856,9 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+  software-stories_staging:
+    domains:
+      - software-stories.staging.swh.network
   graphql_staging:
     domains:
       - graphql.staging.swh.network
@@ -1215,6 +1218,10 @@ bind::resource_records:
   graphql-staging/CNAME:
     type: CNAME
     record: graphql.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  software-stories-staging/CNAME:
+    type: CNAME
+    record: software-stories.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-archive-staging-thanos/CNAME:
     type: CNAME
