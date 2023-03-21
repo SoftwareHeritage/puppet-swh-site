@@ -115,6 +115,7 @@ kafka::clusters:
       storage1.internal.staging.swh.network:
         id: 2
         public_hostname: broker1.journal.staging.swh.network
+        internal_advertised_name: journal1.internal.staging.swh.network
     broker::heap_opts: "%{alias('kafka::broker::heap_opts')}"
     superusers:
       - User:swh-admin-olasd

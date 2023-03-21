@@ -30,6 +30,7 @@ class profile::kafka::broker {
   $public_hostname = pick($broker_config['public_hostname'], $internal_hostname.regsubst('\.internal', ''))
 
   $internal_listener = $internal_hostname
+  $internal_advertised_name = pick($broker_config['internal_advertised_name'], $internal_hostname)
   $public_listener_network = pick($kafka_cluster_config['public_listener_network'], lookup('internal_network'))
   $public_listener = ip_for_network($public_listener_network)
 
@@ -115,8 +116,8 @@ class profile::kafka::broker {
         "EXTERNAL://${public_listener}:${public_tls_port}",
       ], ','),
       'advertised.listeners'           => join([
-        "INTERNAL_PLAINTEXT://${internal_hostname}:${plaintext_port}",
-        "INTERNAL://${internal_hostname}:${internal_tls_port}",
+        "INTERNAL_PLAINTEXT://${internal_advertised_name}:${plaintext_port}",
+        "INTERNAL://${internal_advertised_name}:${internal_tls_port}",
         "EXTERNAL://${public_hostname}:${public_tls_port}",
       ], ','),
       'listener.security.protocol.map' => join([
