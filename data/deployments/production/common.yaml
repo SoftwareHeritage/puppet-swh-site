@@ -6,10 +6,12 @@ elasticsearch::config::discovery::seed_hosts:
   - esnode1.internal.softwareheritage.org
   - esnode2.internal.softwareheritage.org
   - esnode3.internal.softwareheritage.org
+  - esnode7.internal.softwareheritage.org
 elasticsearch::config::cluster::initial_master_nodes:
   - esnode1
   - esnode2
   - esnode3
+  - esnode7
 
 elasticsearch::jvm_options::heap_size: 16g
 

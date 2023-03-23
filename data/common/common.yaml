@@ -2662,6 +2662,8 @@ swh::elasticsearch::storage_nodes:
     port: 9200
   - host: esnode1.internal.softwareheritage.org
     port: 9200
+  - host: esnode7.internal.softwareheritage.org
+    port: 9200
 
 swh::elasticsearch::search_nodes:
   - host: search-esnode4.internal.softwareheritage.org
