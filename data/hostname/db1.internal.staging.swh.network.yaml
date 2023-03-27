@@ -20,6 +20,13 @@ networks:
     extras:
       vlan-raw-device: bond0
 
+mountpoints:
+  /tmp:
+    ensure: absent
+  swap:
+    ensure: absent
+
+
 icinga2::host::vars:
   load: sql
 
