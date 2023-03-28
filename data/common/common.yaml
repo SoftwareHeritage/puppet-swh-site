@@ -3930,6 +3930,10 @@ keycloak::resources::realms:
             - https://archive.internal.softwareheritage.org/*
             - https://webapp1.internal.softwareheritage.org/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
+          web_origins:
+            - https://archive.softwareheritage.org
+            - https://archive.internal.softwareheritage.org
+            - https://webapp1.internal.softwareheritage.org
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
