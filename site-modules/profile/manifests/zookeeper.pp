@@ -3,22 +3,27 @@
 class profile::zookeeper {
   $zookeeper_clusters = lookup('zookeeper::clusters', Hash)
 
-  $zookeeper_cluster = $zookeeper_clusters.filter |$cluster, $servers| {
+  $found_zookeeper_clusters = $zookeeper_clusters.filter |$cluster, $servers| {
     member($servers.values(), $::swh_hostname['internal_fqdn'])
-  }.keys()[0]
+  }.keys()
 
-  $zookeeper_servers = $zookeeper_clusters[$zookeeper_cluster]
+  if length($found_zookeeper_clusters) != 1 {
+    notify {"Zookeeper node misconfigured: found in ${length($found_zookeeper_clusters)} clusters: ${found_zookeeper_clusters}":}
+  } else {
+    $zookeeper_cluster = $found_zookeeper_clusters[0]
+    $zookeeper_servers = $zookeeper_clusters[$zookeeper_cluster]
 
-  $zookeeper_id = $zookeeper_servers.filter |$id, $hostname| {
-    $hostname == $::swh_hostname['internal_fqdn']
-  }.keys()[0]
+    $zookeeper_id = $zookeeper_servers.filter |$id, $hostname| {
+      $hostname == $::swh_hostname['internal_fqdn']
+    }.keys()[0]
 
-  class {'::zookeeper':
-    servers       => $zookeeper_servers,
-    datastore     => lookup('zookeeper::datastore'),
-    client_port   => lookup('zookeeper::client_port'),
-    election_port => lookup('zookeeper::election_port'),
-    leader_port   => lookup('zookeeper::leader_port'),
-    id            => $zookeeper_id,
+    class {'::zookeeper':
+      servers       => $zookeeper_servers,
+      datastore     => lookup('zookeeper::datastore'),
+      client_port   => lookup('zookeeper::client_port'),
+      election_port => lookup('zookeeper::election_port'),
+      leader_port   => lookup('zookeeper::leader_port'),
+      id            => $zookeeper_id,
+    }
   }
 }
