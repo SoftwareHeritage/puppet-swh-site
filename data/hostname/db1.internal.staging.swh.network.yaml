@@ -56,6 +56,7 @@ swh::apt_config::backported_packages:
 prometheus::sql::config_snippets:
   - swh-scheduler
   - swh-storage
+  - swh-scrubber
 
 syncoid::configuration:
   sources:

@@ -1,0 +1,28 @@
+- name: swh_scrubber_coverage
+  scope: database
+  database: ^(swh|softwareheritage)-scrubber$
+  interval: '1h'
+  help: "Software Heritage Scheduler scrubber coverage"
+  query: |
+    SELECT
+        datastore.package AS datastore_package,
+        datastore.class AS datastore_class,
+        datastore.instance AS datastore_instance,
+        checked_partition.object_type AS object_type,
+        checked_partition.nb_partitions AS partitions_total,
+        COUNT(*) AS partitions_checked_total,
+        EXTRACT (EPOCH FROM MIN(last_date)) AS oldest_partition_check_timestamp_seconds,
+        EXTRACT (EPOCH FROM MAX(last_date)) AS newest_partition_check_timestamp_seconds
+    FROM checked_partition
+    INNER JOIN datastore ON (datastore.id=checked_partition.datastore)
+    GROUP BY 1,2,3,4,5;
+  labels:
+    - datastore_package
+    - datastore_class
+    - datastore_instance
+    - object_type
+  values:
+    - partitions_total
+    - partitions_checked_total
+    - oldest_partition_check_timestamp_seconds
+    - newest_partition_check_timestamp_seconds

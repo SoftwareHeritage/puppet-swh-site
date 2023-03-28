@@ -100,6 +100,13 @@ class profile::prometheus::sql {
       action        => 'replace',
       target_label  => '__name__',
       replacement   => 'swh_scheduler_origins_${1}',
+    },
+    {
+      source_labels => ['__name__', 'col'],
+      regex         => 'sql_swh_scrubber_coverage;(.*)',
+      action        => 'replace',
+      target_label  => '__name__',
+      replacement   => 'swh_scrubber_coverage_${1}',
     }],
   }
 
