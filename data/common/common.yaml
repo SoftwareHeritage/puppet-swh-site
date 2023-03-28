@@ -891,6 +891,11 @@ letsencrypt::certificates:
     domains:
       - broker1.journal.staging.swh.network
       - journal1.internal.staging.swh.network
+  kafka1.internal.staging.swh.network:
+    domains:
+      - kafka1.internal.staging.swh.network
+      - broker2.journal.staging.swh.network
+      - journal2.internal.staging.swh.network
   keycloak:
     domains:
       - auth.softwareheritage.org

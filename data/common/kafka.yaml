@@ -5,6 +5,9 @@ zookeeper::clusters:
     '2': kafka2.internal.softwareheritage.org
     '3': kafka3.internal.softwareheritage.org
     '4': kafka4.internal.softwareheritage.org
+  rocquencourt_staging:
+    '1': kafka1.internal.staging.swh.network
+    '2': storage1.internal.staging.swh.network
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
@@ -112,6 +115,10 @@ kafka::clusters:
     zookeeper::servers:
       - journal1.internal.staging.swh.network
     brokers:
+      kafka1.internal.staging.swh.network:
+        id: 1
+        public_hostname: broker2.journal.staging.swh.network
+        internal_advertised_name: journal2.internal.staging.swh.network
       storage1.internal.staging.swh.network:
         id: 2
         public_hostname: broker1.journal.staging.swh.network
