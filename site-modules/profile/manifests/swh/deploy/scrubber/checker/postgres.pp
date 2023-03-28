@@ -5,12 +5,9 @@ class profile::swh::deploy::scrubber::checker::postgres {
   $sentry_environment = lookup("swh::deploy::scrubber::sentry_environment")
   $sentry_swh_package = lookup("swh::deploy::scrubber::sentry_swh_package")
 
-  $config_dir = lookup('swh::deploy::scrubber::checker::postgres::conf_directory')
-  $user = lookup('swh::deploy::scrubber::checker::postgres::user')
-  $group = lookup('swh::deploy::scrubber::checker::postgres::group')
-
-  $object_types = lookup('swh::deploy::scrubber::checker::postgres::object_types')
-  $ranges = lookup('swh::deploy::scrubber::checker::postgres::ranges')
+  $config_dir = lookup('swh::deploy::scrubber::checker::conf_directory')
+  $user = lookup('swh::deploy::scrubber::checker::user')
+  $group = lookup('swh::deploy::scrubber::checker::group')
 
   $packages = ['python3-swh.scrubber']
   ensure_packages($packages)
@@ -43,18 +40,21 @@ class profile::swh::deploy::scrubber::checker::postgres {
     content => template("profile/swh/deploy/scrubber/${template_unit_name}.erb"),
     enable  => false,
     require => [
-      File[$config_file],
       ::Systemd::Unit_file[$systemd_slice_name],
       Package[$packages],
     ]
   }
 
-  $config_per_dbs_to_scrub = lookup('swh::deploy::scrubber::checker::postgres::config_per_db')
+  $base_config = lookup('swh::deploy::scrubber::checker::base_config')
+  $storage_configs = lookup('swh::deploy::scrubber::checker::storage::config_per_instance')
+  $range_configs = lookup('swh::deploy::scrubber::checker::range_configs')
 
-  # As many services as there are dbs to scrub
-  $config_per_dbs_to_scrub.each | $db_name, $cfg | {
-    $config_file = "${config_dir}/${db_name}.yml"
-    $config_dict = $cfg['config']
+  # As many services as there are storage instances to scrub
+  $storage_configs.each | $instance, $storage_cfg | {
+    $config_file = "${config_dir}/storage_${instance}.yml"
+    $config_dict = $base_config + {
+      storage => $storage_cfg
+    }
     file {$config_file:
       ensure  => present,
       owner   => $user,
@@ -64,24 +64,33 @@ class profile::swh::deploy::scrubber::checker::postgres {
       require => File[$config_dir]
     }
 
-    $object_types.each | $object_type | {
-      $ranges.each | $range_index, $range | {
-        $ranges_list = $range.split(':')
-        $start_object = $ranges_list[0]
-        $end_object = $ranges_list[1]
-        $service_name = "${template_name}@${db_name}-${object_type}-${range_index}.service"
+    $range_configs.each | $object_type, $range_config | {
+      $num_scrubbers = $range_config['num_scrubbers']
+      $num_partitions = 1 << $range_config['num_partitions_log2']
+
+      Integer[0, $num_scrubbers - 1].each |$index| {
+        $start_partition_id = $index * ($num_partitions / $num_scrubbers)
+
+        if ($index != $num_scrubbers - 1) {
+          $end_partition_id = ($index + 1) * ($num_partitions / $num_scrubbers)
+        } else {
+          $end_partition_id = $num_partitions
+        }
+
+        $service_name = "${template_name}@${instance}-${object_type}-${index}.service"
 
         $parameters_conf_name = "${service_name}.d/parameters.conf"
         # Template uses:
         # - $object_type
-        # - $start_object
-        # - $end_object
+        # - $start_partition_id
+        # - $end_partition_id
+        # - $nb_partitions
         # - $config_file
         ::systemd::dropin_file {$parameters_conf_name:
           ensure   => present,
           unit     => $service_name,
           filename => 'parameters.conf',
-          content  => template("profile/swh/deploy/scrubber/parameters.conf.erb"),
+          content  => template('profile/swh/deploy/scrubber/parameters.conf.erb'),
         }
 
         service {$service_name:
@@ -93,24 +102,22 @@ class profile::swh::deploy::scrubber::checker::postgres {
           ],
         }
       }
-    }
-  }
 
-  # clean up old resources
-  $object_types.each | $object_type | {
-    $ranges.each | $range_index, $range | {
-      $old_svc_name = "${template_name}@${object_type}-${range_index}.service"
-      $old_params_confname = "${old_svc_name}.d/parameters.conf"
+      # Clean up old resources
+      Integer[$num_scrubbers, 8].each |$index| {
+        $service_name = "${template_name}@${instance}-${object_type}-${index}.service"
 
-      ::systemd::dropin_file {$old_params_confname:
-        ensure   => absent,
-        unit     => $old_svc_name,
-        filename => 'parameters.conf',
-      }
+        $parameters_conf_name = "${service_name}.d/parameters.conf"
+        ::systemd::dropin_file {$parameters_conf_name:
+          ensure   => absent,
+          unit     => $service_name,
+          filename => 'parameters.conf',
+        }
 
-      service {$old_svc_name:
-        ensure  => stopped,
-        enable  => false,
+        service {$service_name:
+          ensure  => stopped,
+          enable  => false,
+        }
       }
     }
   }

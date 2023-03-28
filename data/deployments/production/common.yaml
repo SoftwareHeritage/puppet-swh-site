@@ -30,3 +30,14 @@ memcached::server::max_memory: 1224
 
 cassandra::default_cluster_name: archive_production
 
+swh::deploy::scrubber::checker::storage::config_per_instance:
+  primary:
+    cls: postgresql
+    db: "%{alias('swh::deploy::storage::db::config::read-only')}"
+    objstorage:
+      cls: noop
+  secondary:
+    cls: postgresql
+    db: "%{alias('swh::deploy::storage::db::secondary::config::read-only')}"
+    objstorage:
+      cls: noop
