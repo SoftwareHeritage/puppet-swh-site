@@ -9,7 +9,7 @@ networks:
     netmask: 26
     gateway: 128.93.166.62
 
-swh::deploy::worker::lister::concurrency: 1
+swh::deploy::worker::lister::concurrency: 12
 swh::deploy::worker::lister::config:
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
