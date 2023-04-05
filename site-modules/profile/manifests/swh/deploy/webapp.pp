@@ -100,8 +100,8 @@ class profile::swh::deploy::webapp {
   # $pidfile
   file {'/etc/logrotate.d/swh-webapp':
     ensure  => file,
-    owner   => $user,
-    group   => $group,
+    owner   => 'root',
+    group   => 'root',
     mode    => '0644',
     content => template('profile/swh/logrotate-webapp.conf.erb'),
     require => File[$logfile],
