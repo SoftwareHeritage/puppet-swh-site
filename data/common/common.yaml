@@ -3686,7 +3686,7 @@ weekly_report_bot::user: nobody
 weekly_report_bot::cron:
   minute: 0
   hour: 12
-  weekday: fri
+  weekday: tue
 
 monthly_report_bot::user: nobody
 monthly_report_bot::cron:
