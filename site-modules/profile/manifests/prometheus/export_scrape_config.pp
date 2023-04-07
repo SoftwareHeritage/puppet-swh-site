@@ -14,7 +14,7 @@ define profile::prometheus::export_scrape_config (
 
   $static_labels = lookup('prometheus::static_labels', Hash)
 
-  @@profile::prometheus::scrape_config {"${facts['swh_hostname']['short']}_${name}":
+  @@profile::prometheus::scrape_config {"${facts['swh_hostname']['internal_fqdn']}_${name}":
     prometheus_server      => pick($prometheus_server, lookup('prometheus::server::certname')),
     target                 => $target,
     job                    => $job,
