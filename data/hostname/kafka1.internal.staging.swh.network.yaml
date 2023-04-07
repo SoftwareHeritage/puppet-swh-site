@@ -5,3 +5,5 @@ backups::exclude:
 swh::apt_config::enable_non_free: true
 packages:
   - amd64-microcode
+
+kafka::version: "3.3.2"
