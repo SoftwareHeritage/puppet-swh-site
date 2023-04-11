@@ -809,6 +809,7 @@ swh::deploy::reverse_proxy::services:
   - deposit
   - webapp
   - objstorage
+  - software-stories
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
@@ -856,6 +857,9 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+  software-stories_production:
+    domains:
+      - stories.softwareheritage.org
   software-stories_staging:
     domains:
       - software-stories.staging.swh.network
@@ -1209,6 +1213,10 @@ bind::resource_records:
   reaper/CNAME:
     type: CNAME
     record: reaper.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  software-stories-production/CNAME:
+    type: CNAME
+    record: software-stories.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
   reaper/CNAME:
     type: CNAME
@@ -1825,6 +1833,13 @@ swh::remote_service::counters::config:
 
 swh::remote_service::graph::config:
     url: "http://graph.internal.softwareheritage.org:%{hiera('swh::remote_service::graph::port')}/"
+
+# Software-stories
+swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.softwareheritage.org
+swh::deploy::software-stories::reverse_proxy::backend_http_port: "80"
+swh::deploy::software-stories::base_url: stories.softwareheritage.org
+swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_production
+swh::deploy::software-stories::icinga_check_string: 'SWH Stories'
 
 # End remote service configurations
 #####################################################################################################

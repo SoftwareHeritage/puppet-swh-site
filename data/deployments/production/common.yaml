@@ -41,3 +41,4 @@ swh::deploy::scrubber::checker::storage::config_per_instance:
     db: "%{alias('swh::deploy::storage::db::secondary::config::read-only')}"
     objstorage:
       cls: noop
+
