@@ -1218,10 +1218,6 @@ bind::resource_records:
     type: CNAME
     record: software-stories.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
-  reaper/CNAME:
-    type: CNAME
-    record: reaper.internal.staging.swh.network
-    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-archive-staging-rke2/A: # ingress ip of cluster archive-staging-rke2
     record: k8s-archive-staging-rke2.internal.staging.swh.network
     data: 192.168.130.139
@@ -1232,6 +1228,14 @@ bind::resource_records:
   k8s-archive-staging/A: # main ingress ip of the archive staging cluster
     record: k8s-archive-staging.internal.staging.swh.network
     data: 192.168.130.129
+  reaper-staging/CNAME:
+    type: CNAME
+    record: reaper.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  webapp-cassandra-staging/CNAME:
+    type: CNAME
+    record: webapp-cassandra.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   graphql-staging/CNAME:
     type: CNAME
     record: graphql.internal.staging.swh.network
