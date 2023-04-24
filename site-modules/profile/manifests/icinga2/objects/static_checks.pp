@@ -137,19 +137,21 @@ class profile::icinga2::objects::static_checks {
   }
 
   $prometheus_host = lookup('prometheus::server::fqdn')
-  ::icinga2::object::service {'Postgresql replication lag (belvedere -> somerset)':
-    check_command => 'check_prometheus_metric',
-    target        => $checks_file,
-    host_name     => 'belvedere.internal.softwareheritage.org',
-    vars          => {
-      prometheus_metric_name     => 'pg replication_lag belvedere somerset',
-      prometheus_query           => profile::icinga2::literal_var(
-        'sum(sql_pg_stat_replication{instance="belvedere.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_replica"})'
-      ),
-      prometheus_query_type      => 'vector',
-      prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
-      prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
-    },
+  ['somerset', 'massmoca'].each |$replica| {
+    ::icinga2::object::service {"Postgresql replication lag (belvedere -> ${replica})":
+      check_command => 'check_prometheus_metric',
+      target        => $checks_file,
+      host_name     => 'belvedere.internal.softwareheritage.org',
+      vars          => {
+        prometheus_metric_name     => "pg replication_lag belvedere ${replica}",
+        prometheus_query           => profile::icinga2::literal_var(
+          join(['sum(sql_pg_stat_replication{instance="belvedere.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_replica", slot_name="softwareheritage_', $replica, '"})'], '')
+        ),
+        prometheus_query_type      => 'vector',
+        prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
+        prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
+      },
+    }
   }
 
   ::icinga2::object::service {'Software Heritage Staging Graphql Instance':
