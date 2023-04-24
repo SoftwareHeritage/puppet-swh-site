@@ -1,1 +1,34 @@
 swh::apt_config::enable_non_free: true
+
+backups::exclude:
+  - srv/softwareheritage
+
+icinga2::host::vars:
+  load: high
+
+pgbouncer::auth_hba_file: /etc/postgresql/15/replica/pg_hba.conf
+pgbouncer::listen_addr: 192.168.100.211
+pgbouncer::databases:
+  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+    host: massmoca.internal.softwareheritage.org
+    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{hiera('swh::deploy::db::main::port')}"
+
+mountpoints:
+  /srv/remote-backups:
+    device: saam:/srv/storage/space/postgres-backups/massmoca
+    fstype: nfs
+    options:
+      - rw
+      - soft
+      - intr
+      - rsize=8192
+      - wsize=8192
+      - x-systemd.automount
+      - x-systemd.device-timeout=10
+  /tmp:
+    ensure: absent
+  /srv/storage/space:
+    ensure: absent
+  swap:
+    ensure: absent
