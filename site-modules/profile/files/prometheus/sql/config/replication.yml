@@ -53,6 +53,7 @@
   min_version: 10
   labels:
     - "application_name"
+    - "slot_name"
   values:
     - "send_lag_bytes"
     - "flush_lag_bytes"
@@ -60,7 +61,10 @@
   query: >-
           SELECT
           COALESCE(application_name, '')::text AS application_name,
+          COALESCE(slot_name, '')::text AS slot_name,
           COALESCE(pg_wal_lsn_diff(CASE WHEN pg_is_in_recovery() THEN pg_last_wal_receive_lsn() ELSE pg_current_wal_lsn() END, sent_lsn), 0) AS send_lag_bytes,
           COALESCE(pg_wal_lsn_diff(CASE WHEN pg_is_in_recovery() THEN pg_last_wal_receive_lsn() ELSE pg_current_wal_lsn() END, flush_lsn), 0) AS flush_lag_bytes,
           COALESCE(pg_wal_lsn_diff(CASE WHEN pg_is_in_recovery() THEN pg_last_wal_receive_lsn() ELSE pg_current_wal_lsn() END, replay_lsn), 0) AS replay_lag_bytes
-          FROM pg_stat_replication FULL JOIN (VALUES(0)) filler(i) ON TRUE
+          FROM pg_stat_replication 
+          LEFT JOIN pg_replication_slots ON pg_stat_replication.pid = pg_replication_slots.active_pid
+          FULL JOIN (VALUES(0)) filler(i) ON TRUE

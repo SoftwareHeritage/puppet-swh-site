@@ -9,7 +9,7 @@
   values:
     - "count"
   query: >-
-          SELECT datname::text, usename::text, COUNT(*)::float AS count
+          SELECT datname::text, coalesce(usename::text, 'UNKNOWN') as usename, COUNT(*)::float AS count
           FROM pg_stat_activity
           WHERE NOT datname ~ '^template(0|1)$'
           GROUP BY datname, usename
