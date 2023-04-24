@@ -1,8 +1,3 @@
-mod 'dar',
-    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/puppet-swh-dar',
-    :branch => :control_branch,
-    :default_branch => 'master'
-
 mod 'gunicorn',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/puppet-swh-gunicorn',
     :branch => :control_branch,
