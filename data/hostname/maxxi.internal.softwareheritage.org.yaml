@@ -8,6 +8,6 @@ users:
     full_name: Tommaso Fontana
     shell: /bin/bash
     authorized_keys:
-      tom@swh:
+      zom@swh:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIMG/RXBiwyz3mKwsm9cfGLgDwjkWgMHCRsiLlSrMsnku
