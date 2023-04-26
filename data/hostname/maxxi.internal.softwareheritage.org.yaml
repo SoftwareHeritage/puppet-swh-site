@@ -1,3 +1,13 @@
 ---
 swh::apt_config::enable_non_free: true
 zfs::arc::max_size: 107374182400  # 100 GiB
+
+users:
+  zom:
+    uid: 3002
+    full_name: Tommaso Fontana
+    shell: /bin/bash
+    authorized_keys:
+      tom@swh:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIMG/RXBiwyz3mKwsm9cfGLgDwjkWgMHCRsiLlSrMsnku
