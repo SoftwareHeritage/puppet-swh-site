@@ -137,7 +137,7 @@ class profile::icinga2::objects::static_checks {
   }
 
   $prometheus_host = lookup('prometheus::server::fqdn')
-  ['somerset', 'massmoca'].each |$replica| {
+  ['massmoca'].each |$replica| {
     ::icinga2::object::service {"Postgresql replication lag (belvedere -> ${replica})":
       check_command => 'check_prometheus_metric',
       target        => $checks_file,
