@@ -18,6 +18,11 @@ pgbouncer::databases:
 pgbouncer::config_params:
   auth_query: 'SELECT username, password from pgbouncer.get_auth($1)'
 
+pgbouncer::userlist:
+  - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    password: "%{hiera('swh::deploy::db::pgbouncer::user::password')}"
+    hash_type: plain
+
 mountpoints:
   /srv/remote-backups:
     device: saam:/srv/storage/space/postgres-backups/massmoca

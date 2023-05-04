@@ -145,7 +145,7 @@ mod 'postgresql',
 
 mod 'pgbouncer',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-covermymeds-pgbouncer',
-    :ref => '9ec0d8a1255bbb309c2ff38f229167209cad496b'
+    :ref => 'feature/plaintext-passwords'
 
 mod 'puppet',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-theforeman-puppet',
