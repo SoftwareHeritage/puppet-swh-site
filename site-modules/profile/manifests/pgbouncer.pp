@@ -1,6 +1,6 @@
 # Manage a pgbouncer server
 class profile::pgbouncer {
-  $config_params = lookup('pgbouncer::config_params')
+  $config_params = lookup('pgbouncer::config_params', {merge => 'deep'})
   $userlist = lookup('pgbouncer::userlist')
   $databases = lookup('pgbouncer::databases')
   $pgbouncer_user = lookup('pgbouncer::user')

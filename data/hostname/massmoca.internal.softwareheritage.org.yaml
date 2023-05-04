@@ -8,11 +8,15 @@ icinga2::host::vars:
 
 pgbouncer::auth_hba_file: /etc/postgresql/15/replica/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.211
+swh::deploy::db::pgbouncer::user::login: pgbouncer
 pgbouncer::databases:
   - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
-    host: massmoca.internal.softwareheritage.org
+    host: "127.0.0.1"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{hiera('swh::deploy::db::main::port')}"
+
+pgbouncer::config_params:
+  auth_query: 'SELECT username, password from pgbouncer.get_auth($1)'
 
 mountpoints:
   /srv/remote-backups:
