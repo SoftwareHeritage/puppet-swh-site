@@ -1,8 +1,7 @@
+swh::apt_config::enable_non_free: true
+
 icinga2::host::vars:
   disks:
     disk /srv/storage:
       disk_wfree: '10GB'
       disk_cfree: '0'
-    disk /srv/softwareheritage/scratch:
-      disk_wfree: '10GB'
-      disk_cfree: '1GB'
