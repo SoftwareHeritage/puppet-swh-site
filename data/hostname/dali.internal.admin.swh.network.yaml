@@ -37,3 +37,6 @@ sanoid::configuration:
       hourly: 0
       monthly: 0
       daily: 7
+
+backups::exclude:
+  - srv/postgresql
