@@ -3584,11 +3584,8 @@ thanos::objstore::config:
 
 # Other puppet managed stores will be automatically dealt with
 thanos::query::non_puppet_managed::stores:
-  - mmca-thanos.softwareheritage.org:443
   - k8s-admin-thanos.internal.admin.swh.network:443
-  - k8s-archive-staging-thanos.internal.staging.swh.network:443
   - k8s-archive-staging-rke2-thanos.internal.staging.swh.network:443
-  - k8s-archive-production-thanos.internal.softwareheritage.org:443
   - k8s-archive-production-rke2-thanos.internal.softwareheritage.org:443
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
