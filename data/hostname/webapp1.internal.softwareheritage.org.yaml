@@ -22,3 +22,6 @@ swh::deploy::reverse_proxy::services:
 
 # already running for the main instance so no need here
 swh::deploy::savecodenow::e2e::activate: false
+
+# reduce the number of worker for this small node
+swh::deploy::webapp::backend::workers: 16
