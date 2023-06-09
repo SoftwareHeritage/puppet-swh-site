@@ -99,6 +99,16 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::icinga2::object::host {'swh-journal-client':
+    check_command => 'dummy',
+    address       => '127.0.0.1',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "virtual host for journal client checks",
+    },
+  }
+
   ::icinga2::object::service {'swh-logging-prod cluster':
     host_name     => 'swh-logging-prod',
     check_command => 'check_escluster',
@@ -153,6 +163,22 @@ class profile::icinga2::objects::static_checks {
       },
     }
   }
+
+  ['swh.scheduler.journal_client','swh.search.journal_client-v0.11','swh.counters.journal_client'].each |$consumer_group| {
+    ::icinga2::object::service {"Kafka ${consumer_group} lag":
+      check_command => 'check_prometheus_metric',
+      target        => $checks_file,
+      host_name     => 'swh-journal-client',
+      vars          => {
+        prometheus_metric_name     => "kafka ${consumer_group} lag",
+        prometheus_query           => profile::icinga2::literal_var(
+          join(['sum(kafka_consumer_group_lag{group=~"', $consumer_group ,'",environment="production"})'], '')),
+        prometheus_query_type      => 'vector',
+        prometheus_metric_warning  => '10000',
+        prometheus_metric_critical => '20000',
+      },
+    }
+}
 
   ::icinga2::object::service {'Software Heritage Staging Graphql Instance':
     import        => ['generic-service'],
