@@ -101,4 +101,14 @@ class profile::varnish {
 
   include profile::prometheus::varnish
 
+  include profile::filebeat
+  profile::filebeat::log_input { "varnishncsa.log":
+    paths  => [ "/var/log/varnish/varnishncsa.log" ],
+    fields => {
+      'log_type'        => 'varnish',
+      'environment'     => $environment,
+      'application'     => 'varnishncsa',
+    },
+  }
+
 }
