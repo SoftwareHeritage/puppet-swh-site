@@ -12,6 +12,10 @@ networks:
 backups::exclude:
   - var/lib/rabbitmq
 
+swh::deploy::webapp::config::matomo:
+  url: https://piwik.inria.fr/
+  site_id: 59
+
 swh::deploy::search::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::db::host: db.internal.softwareheritage.org

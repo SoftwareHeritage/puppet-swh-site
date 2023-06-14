@@ -2526,6 +2526,8 @@ swh::deploy::webapp::config::keycloak:
   server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
+swh::deploy::webapp::config::matomo: {}
+
 swh::deploy::webapp::config::swh_extra_django_apps:
   - swh.web.add_forge_now
   - swh.web.archive_coverage
@@ -2582,6 +2584,7 @@ swh::deploy::webapp::config:
   add_forge_now:
     email_address: "%{hiera('swh::deploy::webapp::add_forge_now_email_address')}"
   swh_extra_django_apps: "%{alias('swh::deploy::webapp::config::swh_extra_django_apps')}"
+  matomo: "%{alias('swh::deploy::webapp::config::matomo')}"
 
 swh::deploy::webapp::locked_endpoints:
   - /api/1/content/[^/]+/symbol/
