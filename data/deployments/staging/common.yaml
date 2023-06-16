@@ -368,6 +368,8 @@ cassandra::clusters:
         parameters:
           - seeds: "cassandra1.internal.staging.swh.network:7000"
 
+cassandra::disable_stcs_in_l0: true
+
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.staging.swh.network
 swh::deploy::software-stories::base_url: software-stories.staging.swh.network

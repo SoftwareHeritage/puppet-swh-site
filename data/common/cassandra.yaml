@@ -100,6 +100,10 @@ cassandra::base_instance_configuration:
   repair_session_space_in_mb: 1024
   disk_access_mode: mmap_index_only
 
+# Activate this option when free disk space is limited
+# to avoid to have to compact big sstables
+cassandra::disable_stcs_in_l0: true
+
 cassandra::jvm11_options:
   # activated for G1
   - -XX:+UseG1GC
@@ -126,3 +130,5 @@ cassandra::jvm11_options:
   - --add-opens java.base/jdk.internal.util.jar=ALL-UNNAMED
   - --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
   - -Dio.netty.tryReflectionSetAccessible=true
+# During directory_entry compaction migration
+  - -Dcassandra.disable_stcs_in_l0="%{lookup('cassandra::disable_stcs_in_l0')}"
