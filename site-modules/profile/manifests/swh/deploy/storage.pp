@@ -14,13 +14,18 @@ class profile::swh::deploy::storage {
 
   $storage_config = lookup('swh::deploy::storage::config')['storage']
 
-  if ($storage_config['cls'] == 'local'
-      and $storage_config['journal_writer']
-      and $storage_config['journal_writer']['cls'] == 'kafka') {
+  $main_storage_config = case $storage_config['cls'] {
+    'pipeline': { $storage_config['steps'][-1] }
+    default:    { $storage_config }
+  }
+
+  if ($main_storage_config['cls'] in ['local', 'postgresql', 'cassandra']
+      and $main_storage_config['journal_writer']
+      and $main_storage_config['journal_writer']['cls'] == 'kafka') {
     include ::profile::swh::deploy::journal
   }
 
-  if $storage_config['cls'] == 'cassandra' {
+  if $main_storage_config['cls'] == 'cassandra' {
     include ::profile::swh::deploy::storage_cassandra
   }
 }
