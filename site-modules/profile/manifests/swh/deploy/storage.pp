@@ -28,4 +28,20 @@ class profile::swh::deploy::storage {
   if $main_storage_config['cls'] == 'cassandra' {
     include ::profile::swh::deploy::storage_cassandra
   }
+
+  if ($storage_config['cls'] == 'pipeline'
+      and $storage_config['steps'].filter |$x| {$x['cls'] == 'record_references'}) {
+
+    $conf_file = lookup("swh::deploy::storage::conf_file")
+    ::profile::cron::d {'swh.storage-create-partitions':
+      command  => "SWH_CONFIG_FILENAME=${conf_file} chronic swh storage create-object-references-partitions \$(date +%Y-%m-%d) \$(date -d '+1 month' +%Y-%m-%d)",
+      target   => 'storage',
+      user     => 'swhstorage',
+      minute   => 'fqdn_rand',
+      hour     => 'fqdn_rand',
+      weekday  => 'fqdn_rand',
+      monthday => '*',
+      month    => '*',
+    }
+  }
 }
