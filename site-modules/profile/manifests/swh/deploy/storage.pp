@@ -34,7 +34,7 @@ class profile::swh::deploy::storage {
 
     $conf_file = lookup("swh::deploy::storage::conf_file")
     ::profile::cron::d {'swh.storage-create-partitions':
-      command  => "SWH_CONFIG_FILENAME=${conf_file} chronic swh storage create-object-references-partitions \$(date +%Y-%m-%d) \$(date -d '+1 month' +%Y-%m-%d)",
+      command  => "SWH_CONFIG_FILENAME=${conf_file} chronic swh storage create-object-reference-partitions \$(date +%Y-%m-%d) \$(date -d '+1 month' +%Y-%m-%d)",
       target   => 'storage',
       user     => 'swhstorage',
       minute   => 'fqdn_rand',
