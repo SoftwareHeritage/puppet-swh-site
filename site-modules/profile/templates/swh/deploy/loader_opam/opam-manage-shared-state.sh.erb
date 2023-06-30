@@ -34,13 +34,19 @@ function init_or_update_opam_instance () {
   # Note that This assumes that the function init_or_update_opam_root already got called
   # prior to calling this one.
 
+  # This installs all instances in the main "switch", hence the use of --set-default in
+  # the opam repository add call.
+
   instance_name=$1
   instance_url=$2
 
   if $CMD repo --all --root $ROOT_DIR | grep -q $instance_url; then
     $CMD update --root $ROOT_DIR
   else
-    $CMD repository add --root $ROOT_DIR --all-switches $instance_name $instance_url
+    # Add the new instance repository in the main "switch" (independent installation
+    # "repository" prefix with its own compiler and sets of installed and pinned
+    # packages). The "main" one being the one used at installation time.
+    $CMD repository add --root $ROOT_DIR --set-default $instance_name $instance_url
   fi
 }
 
