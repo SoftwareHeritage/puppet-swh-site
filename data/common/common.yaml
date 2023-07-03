@@ -3299,6 +3299,7 @@ icinga2::disk::excludes:
   - ^/var/lib/kubelet/
   - ^/run/schroot/
   - ^/run/k3s/
+  - ^/run/user/
   # directory traversal not allowed under postgresql directories
   - postgresql/.*/pg_wal
   - postgres/.*/pg_wal
