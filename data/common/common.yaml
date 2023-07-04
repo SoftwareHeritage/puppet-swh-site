@@ -2680,6 +2680,9 @@ swh::deploy::scheduler::config:
         weight: 40
       - policy: origins_without_last_update
         weight: 20
+    opam:
+      - policy: origins_without_last_update
+        weight: 100
 swh::deploy::scheduler::packages:
   - python3-swh.lister
   - python3-swh.loader.bzr
