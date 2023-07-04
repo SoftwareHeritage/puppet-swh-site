@@ -2672,6 +2672,14 @@ swh::deploy::scheduler::config:
   <<: *swh_scheduler_local_config
   celery:
     task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
+  scheduling_policy:
+    default:
+      - policy: already_visited_order_by_lag
+        weight: 40
+      - policy: never_visited_oldest_update_first
+        weight: 40
+      - policy: origins_without_last_update
+        weight: 20
 swh::deploy::scheduler::packages:
   - python3-swh.lister
   - python3-swh.loader.bzr
