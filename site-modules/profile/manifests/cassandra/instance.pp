@@ -45,6 +45,8 @@ define profile::cassandra::instance (
     native_transport_port  => $config['native_transport_port'],
     storage_port           => $config['storage_port'],
     seed_provider          => $config['seed_provider'],
+    authenticator          => pick_default($config['authenticator'], 'AllowAllAuthenticator'),
+    authorizer             => pick_default($config['authorizer'], 'AllowAllAuthorizer'),
   }
 
   $computed_configuration = $base_configuration + $instance_configuration
