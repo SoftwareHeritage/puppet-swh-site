@@ -1,0 +1,3 @@
+---
+icinga2::host::vars:
+  load: high
