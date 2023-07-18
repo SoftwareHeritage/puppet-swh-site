@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
 import datetime
+import re
 
 import click
 import iso8601
 
 import elasticsearch
+
+DATE_RE = re.compile(r'\d{4}[.-]\d{2}[.-]\d{2}$')
 
 
 @click.command()
@@ -32,7 +35,13 @@ def main(hosts, timeout, close_after_days):
         # ignore dot-prefixed indexes (e.g. kibana settings)
         if i.startswith('.'):
             continue
-        date = i.split('-')[-1]
+
+        matches = DATE_RE.search(i)
+        if not matches:
+            continue
+
+        date = matches.group(0)
+
         if not date.startswith('20'):
             continue
         date = date.replace('.', '-')
