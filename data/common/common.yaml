@@ -3734,12 +3734,6 @@ jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agen
 jenkins::agent::name: "%{::swh_hostname.internal_fqdn}"
 # jenkins::agent::jnlp::token in private_data
 
-weekly_report_bot::user: nobody
-weekly_report_bot::cron:
-  minute: 0
-  hour: 12
-  weekday: tue
-
 monthly_report_bot::user: nobody
 monthly_report_bot::cron:
   minute: 0
