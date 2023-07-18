@@ -23,7 +23,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::preseeding_vhost
   include profile::bitbucket_archive_web
 
-  include profile::weekly_report_bot
   include profile::weekly_planning_bot
   include profile::monthly_report_bot
 
