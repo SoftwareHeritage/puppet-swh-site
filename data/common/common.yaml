@@ -2811,7 +2811,7 @@ swh::deploy::worker::loader_high_priority::queues:
   - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
   - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
   # archives
-  - save_code_now:swh.loader.package.archive.tasks.LoadArchive
+  - save_code_now:swh.loader.package.archive.tasks.LoadTarball
 
 swh::deploy::worker::loader_high_priority::concurrency: 1
 swh::deploy::worker::loader_high_priority::max_tasks_per_child: 1
@@ -2866,7 +2866,7 @@ swh::deploy::worker::loader_archive::config:
   celery:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
-      - swh.loader.package.archive.tasks.LoadArchive
+      - swh.loader.package.archive.tasks.LoadTarball
 
 swh::deploy::loader_bzr::sentry_swh_package: swh.loader.bzr
 swh::deploy::loader_bzr::sentry_environment: "%{alias('swh::deploy::environment')}"

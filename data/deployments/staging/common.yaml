@@ -328,7 +328,7 @@ swh::deploy::worker::loader_high_priority::queues:
   - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
   - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
   # archives
-  - save_code_now:swh.loader.package.archive.tasks.LoadArchive
+  - save_code_now:swh.loader.package.archive.tasks.LoadTarball
 
 syncoid::public_keys::storage1:
   type: ssh-ed25519
