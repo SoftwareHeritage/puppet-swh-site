@@ -55,6 +55,7 @@ class profile::swh::deploy::scrubber::checker::postgres {
     $config_dict = $base_config + {
       storage => $storage_cfg
     }
+
     file {$config_file:
       ensure  => present,
       owner   => $user,
@@ -67,10 +68,27 @@ class profile::swh::deploy::scrubber::checker::postgres {
     $range_configs.each | $object_type, $range_config | {
       $num_scrubbers = $range_config['num_scrubbers']
       $num_partitions = $range_config['num_partitions']
+      $config_checker_name = "check-config-${object_type}"
+      $config_checker_db_init = "init-${instance}-${config_checker_name}"
+
+      # Execute the initialization of the scrubber configuration for object_type with
+      # num_partitions and name config_checker_name if it's not already installed
+      exec {$config_checker_db_init:
+        command => [
+          "/usr/bin/swh scrubber --config-file ${config_file}",
+          "check init",
+          "--object-type ${object_type}",
+          "--nb-partitions ${num_partitions}",
+          "--name ${config_checker_name}"
+        ],
+        onlyif  => [
+          "/usr/bin/swh scrubber --config-file ${config_file}",
+          "check list | grep '${config_checker_name}: ${object_type}, ${num_partitions}'",
+        ],
+      }
 
       Integer[0, $num_scrubbers - 1].each |$index| {
         $service_name = "${template_name}@${instance}-${object_type}-${index}.service"
-        $config_checker_name = "check-config-${object_type}"
 
         $parameters_conf_name = "${service_name}.d/parameters.conf"
         # Template uses:
@@ -89,6 +107,7 @@ class profile::swh::deploy::scrubber::checker::postgres {
           require => [
             ::Systemd::Unit_file[$template_unit_name],
             ::Systemd::Dropin_File[$parameters_conf_name],
+            Exec[$config_checker_db_init],
           ],
         }
       }
