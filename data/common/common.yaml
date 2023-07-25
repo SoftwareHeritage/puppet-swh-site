@@ -2125,24 +2125,23 @@ swh::deploy::scrubber::checker::conf_directory: "%{hiera('swh::conf_directory')}
 swh::deploy::scrubber::checker::user: swhworker
 swh::deploy::scrubber::checker::group: swhdev
 
-# The number of checkpointing partitions in the scrubber needs to be a power of
-# 2, so we configure the log2 of the number that we want
-swh::deploy::scrubber::checker::num_partitions_log2::small_table: 16
-swh::deploy::scrubber::checker::num_partitions_log2::large_table: 24
+# The number of partitions depending on the size of the table
+swh::deploy::scrubber::checker::num_partitions::small_table: 4096
+swh::deploy::scrubber::checker::num_partitions::large_table: 16384
 
 swh::deploy::scrubber::checker::range_configs:
   directory:
     num_scrubbers: 4
-    num_partitions_log2: "%{alias('swh::deploy::scrubber::checker::num_partitions_log2::large_table')}"
+    num_partitions: "%{alias('swh::deploy::scrubber::checker::num_partitions::large_table')}"
   revision:
     num_scrubbers: 4
-    num_partitions_log2: "%{alias('swh::deploy::scrubber::checker::num_partitions_log2::large_table')}"
+    num_partitions: "%{alias('swh::deploy::scrubber::checker::num_partitions::large_table')}"
   release:
     num_scrubbers: 4
-    num_partitions_log2: "%{alias('swh::deploy::scrubber::checker::num_partitions_log2::small_table')}"
+    num_partitions: "%{alias('swh::deploy::scrubber::checker::num_partitions::small_table')}"
   snapshot:
     num_scrubbers: 4
-    num_partitions_log2: "%{alias('swh::deploy::scrubber::checker::num_partitions_log2::large_table')}"
+    num_partitions: "%{alias('swh::deploy::scrubber::checker::num_partitions::large_table')}"
 
 swh::deploy::scrubber::checker::base_config:
   scrubber:

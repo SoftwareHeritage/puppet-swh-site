@@ -66,26 +66,16 @@ class profile::swh::deploy::scrubber::checker::postgres {
 
     $range_configs.each | $object_type, $range_config | {
       $num_scrubbers = $range_config['num_scrubbers']
-      $num_partitions = 1 << $range_config['num_partitions_log2']
+      $num_partitions = $range_config['num_partitions']
 
       Integer[0, $num_scrubbers - 1].each |$index| {
-        $start_partition_id = $index * ($num_partitions / $num_scrubbers)
-
-        if ($index != $num_scrubbers - 1) {
-          $end_partition_id = ($index + 1) * ($num_partitions / $num_scrubbers)
-        } else {
-          $end_partition_id = $num_partitions
-        }
-
         $service_name = "${template_name}@${instance}-${object_type}-${index}.service"
+        $config_checker_name = "check-config-${object_type}"
 
         $parameters_conf_name = "${service_name}.d/parameters.conf"
         # Template uses:
-        # - $object_type
-        # - $start_partition_id
-        # - $end_partition_id
-        # - $nb_partitions
         # - $config_file
+        # - $config_checker_name
         ::systemd::dropin_file {$parameters_conf_name:
           ensure   => present,
           unit     => $service_name,
