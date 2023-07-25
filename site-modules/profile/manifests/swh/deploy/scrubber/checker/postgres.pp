@@ -103,7 +103,7 @@ class profile::swh::deploy::scrubber::checker::postgres {
         }
       }
 
-      # Clean up old resources
+      # Clean up leftovers if any (in case we change the numbers of scrubbers).
       Integer[$num_scrubbers, 8].each |$index| {
         $service_name = "${template_name}@${instance}-${object_type}-${index}.service"
 
