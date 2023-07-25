@@ -2145,7 +2145,7 @@ swh::deploy::scrubber::checker::range_configs:
     num_partitions_log2: "%{alias('swh::deploy::scrubber::checker::num_partitions_log2::large_table')}"
 
 swh::deploy::scrubber::checker::base_config:
-  scrubber_db:
+  scrubber:
     cls: postgresql
     db: "%{alias('swh::deploy::scrubber::db::config')}"
 
@@ -2160,7 +2160,7 @@ swh::deploy::scrubber::checker::storage::config_per_instance:
 swh::deploy::scrubber::db::config: "host=%{hiera('swh::deploy::scrubber::db::host')} port=%{hiera('swh::deploy::db::pgbouncer::port')} dbname=%{hiera('swh::deploy::scrubber::db::dbname')} user=%{hiera('swh::deploy::scrubber::db::user')} password=%{hiera('swh::deploy::scrubber::db::password')}"
 
 swh::deploy::scrubber::checker::postgres::config:
-  scrubber_db:
+  scrubber:
     cls: postgresql
     db: "%{alias('swh::deploy::scrubber::db::config')}"
   storage:
