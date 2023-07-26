@@ -74,17 +74,8 @@ class profile::swh::deploy::scrubber::checker::postgres {
       # Execute the initialization of the scrubber configuration for object_type with
       # num_partitions and name config_checker_name if it's not already installed
       exec {$config_checker_db_init:
-        command => [
-          "/usr/bin/swh scrubber --config-file ${config_file}",
-          "check init",
-          "--object-type ${object_type}",
-          "--nb-partitions ${num_partitions}",
-          "--name ${config_checker_name}"
-        ],
-        onlyif  => [
-          "/usr/bin/swh scrubber --config-file ${config_file}",
-          "check list | grep '${config_checker_name}: ${object_type}, ${num_partitions}'",
-        ],
+        command => "/usr/bin/swh scrubber --config-file ${config_file} check init --object-type ${object_type} --nb-partitions ${num_partitions} --name ${config_checker_name}",
+        onlyif  => "/usr/bin/swh scrubber --config-file ${config_file} check list | grep '${config_checker_name}: ${object_type}, ${num_partitions}'",
       }
 
       Integer[0, $num_scrubbers - 1].each |$index| {
