@@ -3013,7 +3013,7 @@ swh::deploy::worker::opam::default_instance::name: opam.ocaml.org
 swh::deploy::worker::opam::default_instance::url: https://opam.ocaml.org
 
 swh::deploy::worker::opam::instances:
-  coq.inria.fr: https://coq.inria.fr/opam/released
+  # coq.inria.fr: https://coq.inria.fr/opam/released
   ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
 
 swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
