@@ -1963,7 +1963,7 @@ swh::deploy::journal::backfill::user: swhstorage
 swh::deploy::journal::backfill::group: swhstorage
 
 swh::deploy::storage::db::config::read-only: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
-swh::deploy::storage::db::secondary::config::read-only: "host=somerset.internal.softwareheritage.org port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
+swh::deploy::storage::db::secondary::config::read-only: "host=massmoca.internal.softwareheritage.org port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::config::local-read-only:
   cls: postgresql
   db: "%{alias('swh::deploy::storage::db::config::read-only')}"
