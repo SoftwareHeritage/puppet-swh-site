@@ -1173,6 +1173,14 @@ bind::resource_records:
     type: CNAME
     record: inventory.internal.admin.swh.network
     data: bojimans.internal.admin.swh.network.
+  k8s-admin-rke2/A: # main ingress ip of the admin k8s cluster
+    record: k8s-admin-rke2.internal.admin.swh.network
+    data: 192.168.50.139
+  k8s-admin-rke2-thanos/CNAME:
+    type: CNAME
+    record: k8s-admin-rke2-thanos.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
+  # to decommission when admin-rke2 will be active
   k8s-admin/A: # main ingress ip of the admin k8s cluster
     record: k8s-admin.internal.admin.swh.network
     data: 192.168.50.44
@@ -1180,6 +1188,7 @@ bind::resource_records:
     type: CNAME
     record: argocd.internal.admin.swh.network
     data: k8s-admin.internal.admin.swh.network.
+  # to decommission when admin-rke2 will be active
   k8s-admin-thanos/CNAME:
     type: CNAME
     record: k8s-admin-thanos.internal.admin.swh.network
@@ -1188,10 +1197,6 @@ bind::resource_records:
     type: CNAME
     record: minio-console.internal.admin.swh.network
     data: k8s-admin.internal.admin.swh.network.
-  # Decommissioning in progress
-  k8s-argocd/A: # main ingress ip of the argocd cluster
-    record: k8s-argocd.internal.admin.swh.network
-    data: 192.168.50.42
   k8s-archive-production/A: # main ingress ip of the archive production cluster
     record: k8s-archive-production.internal.softwareheritage.org
     data: 192.168.100.119
@@ -3602,6 +3607,7 @@ thanos::objstore::config:
 
 # Other puppet managed stores will be automatically dealt with
 thanos::query::non_puppet_managed::stores:
+  - k8s-admin-rke2-thanos.internal.admin.swh.network:443
   - k8s-admin-thanos.internal.admin.swh.network:443
   - k8s-archive-staging-rke2-thanos.internal.staging.swh.network:443
   - k8s-archive-production-rke2-thanos.internal.softwareheritage.org:443
@@ -3680,6 +3686,13 @@ thanos::stores:
       port-grpc: 19102
     compact:
       port-http: 19302
+  k8s-admin-rke2:  # rancher cluster
+    azure-storage-container: metrics-sesi-rocquencourt-rancher-admin-rke2-0
+    store:
+      port-http: 19203
+      port-grpc: 19103
+    compact:
+      port-http: 19303
 
 grafana::db::database: grafana
 grafana::db::username: grafana
