@@ -1180,6 +1180,10 @@ bind::resource_records:
     type: CNAME
     record: k8s-admin-rke2-thanos.internal.admin.swh.network
     data: k8s-admin-rke2.internal.admin.swh.network.
+  minio-console/CNAME:
+    type: CNAME
+    record: minio-console.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   # to decommission when admin-rke2 will be active
   k8s-admin/A: # main ingress ip of the admin k8s cluster
     record: k8s-admin.internal.admin.swh.network
@@ -1192,10 +1196,6 @@ bind::resource_records:
   k8s-admin-thanos/CNAME:
     type: CNAME
     record: k8s-admin-thanos.internal.admin.swh.network
-    data: k8s-admin.internal.admin.swh.network.
-  minio-console/CNAME:
-    type: CNAME
-    record: minio-console.internal.admin.swh.network
     data: k8s-admin.internal.admin.swh.network.
   k8s-archive-production/A: # main ingress ip of the archive production cluster
     record: k8s-archive-production.internal.softwareheritage.org
