@@ -1184,14 +1184,14 @@ bind::resource_records:
     type: CNAME
     record: minio-console.internal.admin.swh.network
     data: k8s-admin-rke2.internal.admin.swh.network.
+  argocd/CNAME:
+    type: CNAME
+    record: argocd.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   # to decommission when admin-rke2 will be active
   k8s-admin/A: # main ingress ip of the admin k8s cluster
     record: k8s-admin.internal.admin.swh.network
     data: 192.168.50.44
-  argocd/CNAME:
-    type: CNAME
-    record: argocd.internal.admin.swh.network
-    data: k8s-admin.internal.admin.swh.network.
   # to decommission when admin-rke2 will be active
   k8s-admin-thanos/CNAME:
     type: CNAME
