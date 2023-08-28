@@ -196,7 +196,7 @@ class profile::icinga2::objects::static_checks {
 
   ::icinga2::object::service {'Software Heritage ArgoCD Instance':
     import        => ['generic-service'],
-    host_name     => 'k8s-admin.internal.admin.swh.network',
+    host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
     check_command => 'http',
     target        => $checks_file,
     vars          => {
