@@ -40,7 +40,7 @@ class profile::icinga2::objects::static_checks {
     import        => ['generic-host'],
     host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
     check_command => 'dummy',
-    address       => 'k8s-admin-rke2.internal.admin.swh.network ',
+    address       => 'k8s-admin-rke2.internal.admin.swh.network',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
