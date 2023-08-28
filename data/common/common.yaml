@@ -831,6 +831,7 @@ letsencrypt::gandi_paas_hook::config:
 
 sentry::vhost::name: sentry.softwareheritage.org
 minio::vhost::name: minio.admin.swh.network
+alertmanager_irc_relay::vhost::name: alertmanager-irc-relay.admin.swh.network
 
 letsencrypt::certificates::exported_directory: "%{::puppet_vardir}/letsencrypt_exports"
 letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
@@ -891,6 +892,9 @@ letsencrypt::certificates:
   "%{lookup('minio::vhost::name')}":
     domains:
       - "%{lookup('minio::vhost::name')}"
+  "%{lookup('alertmanager_irc_relay::vhost::name')}":
+    domains:
+      - "%{lookup('alertmanager_irc_relay::vhost::name')}"
   storage1.internal.staging.swh.network:
     domains:
       - broker1.journal.staging.swh.network

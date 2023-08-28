@@ -24,6 +24,7 @@ swh::deploy::reverse_proxy::services:
   - grafana
   - sentry
   - minio
+  - alertmanager_irc_relay
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
@@ -50,6 +51,13 @@ swh::deploy::minio::reverse_proxy::backend_http_port: "80"
 swh::deploy::minio::base_url: "%{lookup('minio::vhost::name')}"
 swh::deploy::minio::icinga_check_uri: '/minio/health/live'
 swh::deploy::minio::icinga_check_string: '' # empty page returning 200 if everything is ok
+
+swh::deploy::alertmanager_irc_relay::vhost::letsencrypt_cert: "%{lookup('alertmanager_irc_relay::vhost::name')}"
+swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_host: k8s-admin-rke2.internal.admin.swh.network
+swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_port: "80"
+swh::deploy::alertmanager_irc_relay::base_url: "%{lookup('alertmanager_irc_relay::vhost::name')}"
+swh::deploy::alertmanager_irc_relay::icinga_check_uri: '/metrics'
+swh::deploy::alertmanager_irc_relay::icinga_check_string: 'swh-sysadm'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
