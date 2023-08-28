@@ -1180,6 +1180,10 @@ bind::resource_records:
     type: CNAME
     record: k8s-admin-rke2-thanos.internal.admin.swh.network
     data: k8s-admin-rke2.internal.admin.swh.network.
+  k8s-admin-rke2-am-relay/CNAME:
+    type: CNAME
+    record: alertmanager-irc-relay.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   minio-console/CNAME:
     type: CNAME
     record: minio-console.internal.admin.swh.network
