@@ -363,8 +363,6 @@ cassandra::nodes:
 
 cassandra::clusters:
   archive_staging:
-    authenticator: PasswordAuthenticator
-    authorizer: CassandraAuthorizer
     seed_provider:
       - class_name: org.apache.cassandra.locator.SimpleSeedProvider
         parameters:
