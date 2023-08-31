@@ -56,10 +56,8 @@ swh::deploy::alertmanager_irc_relay::vhost::letsencrypt_cert: "%{lookup('alertma
 swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_host: k8s-admin-rke2.internal.admin.swh.network
 swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_port: "80"
 swh::deploy::alertmanager_irc_relay::base_url: "%{lookup('alertmanager_irc_relay::vhost::name')}"
-swh::deploy::alertmanager_irc_relay::icinga_check_uri: '/metrics'
-# alertmanager-irc-relay is behind basic authentication (not installed in the the
-# reverse proxy (so we need the credentials for the icinga check to be configured)
-swh::deploy::alertmanager_irc_relay::reverse_proxy::basic_auth_on_backend: true
+swh::deploy::alertmanager_irc_relay::icinga_check_uri: '/status'
+swh::deploy::alertmanager_irc_relay::icinga_check_string: 'OK'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
