@@ -57,7 +57,9 @@ swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_host: k8s-admin
 swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_port: "80"
 swh::deploy::alertmanager_irc_relay::base_url: "%{lookup('alertmanager_irc_relay::vhost::name')}"
 swh::deploy::alertmanager_irc_relay::icinga_check_uri: '/metrics'
-swh::deploy::alertmanager_irc_relay::icinga_check_string: 'swh-sysadm'
+# alertmanager-irc-relay is behind basic authentication (not installed in the the
+# reverse proxy (so we need the credentials for the icinga check to be configured)
+swh::deploy::alertmanager_irc_relay::reverse_proxy::basic_auth_on_backend: true
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

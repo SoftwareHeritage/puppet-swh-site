@@ -80,9 +80,10 @@ class profile::swh::deploy::reverse_proxy {
 
     $vhost_ssl_port = lookup('apache::https_port')
 
-    $authentication_enabled = lookup(
-        "swh::deploy::${service_name}::reverse_proxy::basic_auth",
-        'default_value' => false,)
+    $authentication_enabled = $basic_auth or lookup(
+      "swh::deploy::${service_name}::reverse_proxy::basic_auth_on_backend",
+      default_value=>false
+    )
     if $authentication_enabled {
       # A real user name can't be specified in http_auth var
       # because the value is exposed in the web ui
