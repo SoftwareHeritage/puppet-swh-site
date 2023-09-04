@@ -2955,7 +2955,6 @@ swh::deploy::lister::queues:
   - swh.lister.bitbucket.tasks.IncrementalBitBucketLister
   - swh.lister.bitbucket.tasks.FullBitBucketRelister
   - swh.lister.cgit.tasks.CGitListerTask
-  - swh.lister.cran.tasks.CRANListerTask
   - swh.lister.debian.tasks.DebianListerTask
   - swh.lister.gitea.tasks.IncrementalGiteaLister
   - swh.lister.gitea.tasks.RangeGiteaLister
