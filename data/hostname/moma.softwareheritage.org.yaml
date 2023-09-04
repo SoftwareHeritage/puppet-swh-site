@@ -18,7 +18,7 @@ swh::deploy::webapp::config::matomo:
 
 swh::deploy::search::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
-swh::deploy::storage::db::host: massmoca.internal.softwareheritage.org
+swh::deploy::storage::db::host: db.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
 swh::deploy::storage::db::user: guest
 swh::deploy::storage::db::password: guest
