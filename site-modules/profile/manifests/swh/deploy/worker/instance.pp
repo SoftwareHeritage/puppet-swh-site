@@ -35,15 +35,6 @@ define profile::swh::deploy::worker::instance (
 
   $service_basename = "swh-worker@${instance_name}"
   $service_name = "${service_basename}.service"
-  $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
-  $max_tasks_per_child = lookup("swh::deploy::worker::${instance_name}::max_tasks_per_child", Integer, first, 5)
-  $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
-  $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
-  # Merge the default $config with $extra_config (if any)
-  $config = deep_merge(
-    lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy),
-    $extra_config
-  )
 
   if $sentry_setup {
     $sentry_dsn = lookup("swh::deploy::${sentry_name}::sentry_dsn", Optional[String], 'first', undef)
@@ -58,8 +49,19 @@ define profile::swh::deploy::worker::instance (
   $celery_hostname = $::profile::swh::deploy::worker::base::celery_hostname
 
   $parameters_conf = "${service_basename}/parameters.conf"
+
+  $config_file = lookup("swh::deploy::worker::${instance_name}::config_file")
+
   case $ensure {
     'present', 'running': {
+      $concurrency = lookup("swh::deploy::worker::${instance_name}::concurrency")
+      $max_tasks_per_child = lookup("swh::deploy::worker::${instance_name}::max_tasks_per_child", Integer, first, 5)
+      $loglevel = lookup("swh::deploy::worker::${instance_name}::loglevel")
+      # Merge the default $config with $extra_config (if any)
+      $config = deep_merge(
+        lookup("swh::deploy::worker::${instance_name}::config", Hash, $merge_policy),
+        $extra_config
+      )
       # Uses variables
       # - $concurrency
       # - $loglevel
