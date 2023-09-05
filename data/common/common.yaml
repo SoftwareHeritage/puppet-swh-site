@@ -517,7 +517,7 @@ users:
   vlorentz:
     uid: 1021
     full_name: Valentin Lorentz
-    shell: /usr/bin/zsh
+    shell: /bin/bash
     groups:
       - swhdev
       - swhteam
