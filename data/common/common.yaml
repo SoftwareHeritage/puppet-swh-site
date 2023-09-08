@@ -4323,3 +4323,6 @@ preseeding::vhost::docroot::mode: "2775"
 preseeding::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
 preseeding::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
 preseeding::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+
+rancher::rke2::agent::config:
+  snapshotter: native
