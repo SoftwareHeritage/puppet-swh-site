@@ -66,9 +66,10 @@ swh::remote_service::indexer::config::storage0:
 swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::storage0')}"
 swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::storage0')}"
 
+swh::remote_service::scheduler::port: 80
 swh::remote_service::scheduler::config::scheduler0:
   cls: remote
-  url: "http://scheduler0.internal.staging.swh.network:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://scheduler.internal.staging.swh.network:%{hiera('swh::remote_service::scheduler::port')}/"
 
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
