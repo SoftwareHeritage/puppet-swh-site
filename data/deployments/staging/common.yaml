@@ -149,7 +149,6 @@ swh::deploy::reverse_proxy::services:
   - objstorage
   - graphql
   - software-stories
-  - scheduler
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
