@@ -149,6 +149,7 @@ swh::deploy::reverse_proxy::services:
   - objstorage
   - graphql
   - software-stories
+  - scheduler
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
@@ -374,3 +375,10 @@ cassandra::disable_stcs_in_l0: true
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.staging.swh.network
 swh::deploy::software-stories::base_url: software-stories.staging.swh.network
 swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_staging
+
+# scheduler within elastic infra
+swh::deploy::scheduler::reverse_proxy::backend_http_host: scheduler.internal.staging.swh.network
+swh::deploy::scheduler::reverse_proxy::backend_http_port: "80"
+swh::deploy::scheduler::base_url: scheduler.staging.swh.network
+swh::deploy::scheduler::vhost::letsencrypt_cert: scheduler_staging
+swh::deploy::scheduler::icinga_check_string: 'scheduler RPC server'
