@@ -1306,6 +1306,10 @@ bind::resource_records:
     type: CNAME
     record: k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org
     data: k8s-rancher.euwest.azure.internal.softwareheritage.org.
+  scheduler/CNAME:
+    type: CNAME
+    record: scheduler.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
     data: "%{alias('opnsense::hosts.glyptotek.ip')}"
