@@ -1663,7 +1663,7 @@ swh::remote_service::webapp::port: 5004
 swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
-swh::remote_service::scheduler::port: 5008
+swh::remote_service::scheduler::port: 80
 swh::remote_service::graph::port: 5009
 swh::remote_service::search::port: 5010
 swh::remote_service::counters::port: 5011
@@ -1857,7 +1857,7 @@ swh::remote_service::indexer::config::azure:
 # Scheduler backend configurations
 swh::remote_service::scheduler::config::saatchi:
   cls: remote
-  url: "http://saatchi.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://scheduler.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
 
 
 # Vault backend configurations
