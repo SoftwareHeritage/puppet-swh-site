@@ -41,7 +41,7 @@ node /^counters\d\.internal\.softwareheritage\.org$/ {
 }
 
 node 'saatchi.internal.softwareheritage.org' {
-  include role::swh_scheduler_with_journal_client
+  include role::swh_scheduler
 }
 
 node /^(belvedere|somerset|massmoca).(internal.)?softwareheritage.org$/ {
@@ -159,7 +159,7 @@ node "bardo.internal.admin.swh.network" {
 }
 
 node 'scheduler0.internal.staging.swh.network' {
-  include role::swh_scheduler_with_journal_client
+  include role::swh_scheduler
   include profile::postgresql::client
 }
 
