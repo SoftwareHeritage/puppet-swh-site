@@ -4,35 +4,18 @@
   interval: '1h'
   help: "Software Heritage Scheduler scrubber coverage"
   query: |
-    WITH CP as (
-      SELECT
-        config_id,
-        count(partition_id) as checked_partitions,
-        MIN(end_date) AS oldest_partition,
-        MAX(end_date) AS newest_partition,
-        MIN(end_date - start_date) AS min_duration,
-        MAX(end_date - start_date) AS max_duration,
-        AVG(end_date - start_date) AS mean_duration
-      FROM checked_partition
-      WHERE end_date IS NOT NULL
-      GROUP BY config_id
-      )
     SELECT
-      D.package AS datastore_package,
-      D.class AS datastore_class,
-      D.instance AS datastore_instance,
-      CC.object_type AS object_type,
-      CC.nb_partitions AS partitions_total,
-      CP.checked_partitions AS partitions_checked_total,
-      EXTRACT (EPOCH FROM CP.oldest_partition) AS oldest_partition_check_timestamp_seconds,
-      EXTRACT (EPOCH FROM CP.newest_partition) AS newest_partition_check_timestamp_seconds,
-      EXTRACT (EPOCH FROM CP.min_duration) AS partition_check_min_duration_seconds,
-      EXTRACT (EPOCH FROM CP.max_duration) AS partition_check_max_duration_seconds,
-      EXTRACT (EPOCH FROM CP.mean_duration) AS partition_check_mean_duration_seconds
-    FROM CP
-    INNER JOIN check_config AS CC ON (CP.config_id=CC.id)
-    INNER JOIN datastore AS D ON (CC.datastore=D.id)
-    ;
+        datastore.package AS datastore_package,
+        datastore.class AS datastore_class,
+        datastore.instance AS datastore_instance,
+        checked_partition.object_type AS object_type,
+        checked_partition.nb_partitions AS partitions_total,
+        COUNT(*) AS partitions_checked_total,
+        EXTRACT (EPOCH FROM MIN(last_date)) AS oldest_partition_check_timestamp_seconds,
+        EXTRACT (EPOCH FROM MAX(last_date)) AS newest_partition_check_timestamp_seconds
+    FROM checked_partition
+    INNER JOIN datastore ON (datastore.id=checked_partition.datastore)
+    GROUP BY 1,2,3,4,5;
   labels:
     - datastore_package
     - datastore_class
@@ -43,47 +26,3 @@
     - partitions_checked_total
     - oldest_partition_check_timestamp_seconds
     - newest_partition_check_timestamp_seconds
-    - partition_check_min_duration_seconds
-    - partition_check_max_duration_seconds
-    - partition_check_mean_duration_seconds
-
-
-- name: swh_scrubber_ongoing_check
-  scope: database
-  database: ^(swh|softwareheritage)-scrubber$
-  interval: '1h'
-  help: "Software Heritage Scheduler scrubber ongoing scrubber checks"
-  query: |
-    WITH CP as (
-      SELECT
-        config_id,
-        count(partition_id) as checking_partitions,
-        MIN(start_date) AS oldest_partition,
-        MAX(start_date) AS newest_partition
-      FROM checked_partition
-      WHERE end_date IS NULL
-      GROUP BY config_id
-      )
-    SELECT
-      D.package AS datastore_package,
-      D.class AS datastore_class,
-      D.instance AS datastore_instance,
-      CC.object_type AS object_type,
-      CC.nb_partitions AS partitions_total,
-      CP.checking_partitions AS partitions_checking_total,
-      EXTRACT (EPOCH FROM CP.oldest_partition) AS oldest_partition_check_start_timestamp_seconds,
-      EXTRACT (EPOCH FROM CP.newest_partition) AS newest_partition_check_start_timestamp_seconds
-    FROM CP
-    INNER JOIN check_config AS CC ON (CP.config_id=CC.id)
-    INNER JOIN datastore AS D ON (CC.datastore=D.id)
-    ;
-  labels:
-    - datastore_package
-    - datastore_class
-    - datastore_instance
-    - object_type
-  values:
-    - partitions_total
-    - partitions_checking_total
-    - oldest_partition_check_start_timestamp_seconds
-    - newest_partition_check_start_timestamp_seconds
