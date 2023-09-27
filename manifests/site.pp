@@ -94,10 +94,6 @@ node /^getty.(internal.)?softwareheritage.org$/ {
   include role::swh_journal_orchestrator_with_backfill_config
 }
 
-node /^worker\d+\.(internal\.)?softwareheritage\.org$/ {
-  include role::swh_worker_inria
-}
-
 node /^(indexer-|vault-)?worker\d+\..*\.azure\.internal\.softwareheritage\.org$/ {
   include role::swh_worker_azure
 }
