@@ -1281,6 +1281,9 @@ bind::resource_records:
     type: CNAME
     record: k8s-archive-staging-thanos.internal.staging.swh.network
     data: k8s-archive-staging.internal.staging.swh.network.
+  k8s-test-staging-rke2/A: # ingress ip of cluster test-staging-rke2
+    record: k8s-test-staging-rke2.internal.staging.swh.network
+    data: 192.168.130.209
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
     record: k8s-gitlab-production.euwest.azure.internal.softwareheritage.org
     data: 192.168.200.5
