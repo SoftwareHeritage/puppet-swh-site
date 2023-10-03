@@ -1286,7 +1286,7 @@ bind::resource_records:
     data: 192.168.130.209
   svix-test-internal-staging/CNAME:
     type: CNAME
-    record: svix.test.internal.staging.swh.network
+    record: svix-test.internal.staging.swh.network
     data: k8s-test-staging-rke2.internal.staging.swh.network.
   k8s-gitlab-production/A: # internal ingress for the gitlab production cluster
     record: k8s-gitlab-production.euwest.azure.internal.softwareheritage.org
