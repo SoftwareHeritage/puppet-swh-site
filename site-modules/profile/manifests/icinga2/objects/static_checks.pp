@@ -99,13 +99,23 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
-  ::icinga2::object::host {'swh-journal-client':
+  ::icinga2::object::host {'swh-journal-client-production':
     check_command => 'dummy',
     address       => '127.0.0.1',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
-      dummy_text  => "virtual host for journal client checks",
+      dummy_text  => "virtual host for journal client checks in production",
+    },
+  }
+
+  ::icinga2::object::host {'swh-journal-client-staging':
+    check_command => 'dummy',
+    address       => '127.0.0.1',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "virtual host for journal client checks in staging",
     },
   }
 
@@ -165,14 +175,30 @@ class profile::icinga2::objects::static_checks {
   }
 
   ['swh.scheduler.journal_client','swh.search.journal_client-v0.11','swh.counters.journal_client'].each |$consumer_group| {
-    ::icinga2::object::service {"Kafka ${consumer_group} lag":
+    ::icinga2::object::service {"Kafka ${consumer_group} lag in production":
       check_command => 'check_prometheus_metric',
       target        => $checks_file,
-      host_name     => 'swh-journal-client',
+      host_name     => 'swh-journal-client-production',
       vars          => {
         prometheus_metric_name     => "kafka ${consumer_group} lag",
         prometheus_query           => profile::icinga2::literal_var(
           join(['sum(kafka_consumer_group_lag{group=~"', $consumer_group ,'",environment="production"})'], '')),
+        prometheus_query_type      => 'vector',
+        prometheus_metric_warning  => '10000',
+        prometheus_metric_critical => '20000',
+      },
+    }
+}
+
+  ['swh.scheduler.journal_client','swh.search.journal_client-v0.11','swh.counters.journal_client'].each |$consumer_group| {
+    ::icinga2::object::service {"Kafka ${consumer_group} lag in staging":
+      check_command => 'check_prometheus_metric',
+      target        => $checks_file,
+      host_name     => 'swh-journal-client-staging',
+      vars          => {
+        prometheus_metric_name     => "kafka ${consumer_group} lag",
+        prometheus_query           => profile::icinga2::literal_var(
+          join(['sum(kafka_consumer_group_lag{group=~"', $consumer_group ,'",environment="staging"})'], '')),
         prometheus_query_type      => 'vector',
         prometheus_metric_warning  => '10000',
         prometheus_metric_critical => '20000',
