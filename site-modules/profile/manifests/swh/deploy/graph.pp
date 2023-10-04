@@ -67,8 +67,11 @@ class profile::swh::deploy::graph {
   $http_config_file = "${config_directory}/http.yml"
   $http_config = {
     graph => {
-      cls => remote,
-      url => "${grpc_local_address}:${grpc_listen_port}"
+      cls         => remote,
+      url         => "${grpc_local_address}:${grpc_listen_port}",
+      grpc_server => {
+        port => $grpc_listen_port,
+      },
     }
   }
 
