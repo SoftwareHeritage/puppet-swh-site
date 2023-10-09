@@ -19,6 +19,8 @@ dns::forward_zones:
   '200.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   'internal.staging.swh.network.': "%{alias('dns::local_nameservers')}"
   'internal.admin.swh.network.': "%{alias('dns::local_nameservers')}"
+  'internal.cea.swh.network.': "%{alias('dns::local_nameservers')}"
+  'admin.cea.swh.network.': "%{alias('dns::local_nameservers')}"
   '130.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
   '50.168.192.in-addr.arpa.': "%{alias('dns::local_nameservers')}"
 
@@ -1072,6 +1074,14 @@ bind::zones:
     domain: internal.staging.swh.network
   internal.admin.swh.network:
     domain: internal.admin.swh.network
+  internal.cea.swh.network:
+    domain: internal.cea.swh.network
+  admin.cea.swh.network:
+    domain: admin.cea.swh.network
+  3.25.10.in-addr.arpa:
+    domain: 3.25.10.in-addr.arpa
+  6.25.10.in-addr.arpa:
+    domain: 6.25.10.in-addr.arpa
   50.168.192.in-addr.arpa:
     domain: 50.168.192.in-addr.arpa
   128.168.192.in-addr.arpa:
@@ -1410,6 +1420,402 @@ bind::resource_records:
   oturtle-desktop/A:
     record: oturtle-desktop.internal.softwareheritage.org
     data: 192.168.101.222
+
+  ## CEA entries
+  ### Access network entries
+  osd-rack1-1/A:
+    record: osd-rack1-1.internal.cea.swh.network
+    data: 10.25.6.21
+  osd-rack1-2/A:
+    record: osd-rack1-2.internal.cea.swh.network
+    data: 10.25.6.22
+  osd-rack1-3/A:
+    record: osd-rack1-3.internal.cea.swh.network
+    data: 10.25.6.23
+  osd-rack1-4/A:
+    record: osd-rack1-4.internal.cea.swh.network
+    data: 10.25.6.24
+  osd-rack1-5/A:
+    record: osd-rack1-5.internal.cea.swh.network
+    data: 10.25.6.25
+  osd-rack1-6/A:
+    record: osd-rack1-6.internal.cea.swh.network
+    data: 10.25.6.26
+  osd-rack1-7/A:
+    record: osd-rack1-7.internal.cea.swh.network
+    data: 10.25.6.27
+  osd-rack1-8/A:
+    record: osd-rack1-8.internal.cea.swh.network
+    data: 10.25.6.28
+  osd-rack1-9/A:
+    record: osd-rack1-9.internal.cea.swh.network
+    data: 10.25.6.29
+  osd-rack1-10/A:
+    record: osd-rack1-10.internal.cea.swh.network
+    data: 10.25.6.30
+  osd-rack2-1/A:
+    record: osd-rack2-1.internal.cea.swh.network
+    data: 10.25.6.31
+  osd-rack2-2/A:
+    record: osd-rack2-2.internal.cea.swh.network
+    data: 10.25.6.32
+  osd-rack2-3/A:
+    record: osd-rack2-3.internal.cea.swh.network
+    data: 10.25.6.33
+  osd-rack2-4/A:
+    record: osd-rack2-4.internal.cea.swh.network
+    data: 10.25.6.34
+  osd-rack2-5/A:
+    record: osd-rack2-5.internal.cea.swh.network
+    data: 10.25.6.35
+  osd-rack2-6/A:
+    record: osd-rack2-6.internal.cea.swh.network
+    data: 10.25.6.36
+  osd-rack2-7/A:
+    record: osd-rack2-7.internal.cea.swh.network
+    data: 10.25.6.37
+  osd-rack2-8/A:
+    record: osd-rack2-8.internal.cea.swh.network
+    data: 10.25.6.38
+  osd-rack2-9/A:
+    record: osd-rack2-9.internal.cea.swh.network
+    data: 10.25.6.39
+  osd-rack2-10/A:
+    record: osd-rack2-10.internal.cea.swh.network
+    data: 10.25.6.40
+  monitor-rack1-1/A:
+    record: monitor-rack1-1.internal.cea.swh.network
+    data: 10.25.6.11
+  monitor-rack2-1/A:
+    record: monitor-rack2-1.internal.cea.swh.network
+    data: 10.25.6.12
+  monitor-rack2-2/A:
+    record: monitor-rack2-2.internal.cea.swh.network
+    data: 10.25.6.13
+  front-rack1/A:
+    record: front-rack1.internal.cea.swh.network
+    data: 10.25.6.1
+  front-rack2/A:
+    record: front-rack2.internal.cea.swh.network
+    data: 10.25.6.2
+  bastion/A:
+    record: bastion.internal.cea.swh.network
+    data: 10.25.6.254
+
+  balin001/CNAME:
+    type: CNAME
+    record: balin001.internal.cea.swh.network
+    data: osd-rack1-1.internal.cea.swh.network.
+  balin002/CNAME:
+    type: CNAME
+    record: balin002.internal.cea.swh.network
+    data: osd-rack1-2.internal.cea.swh.network.
+  balin003/CNAME:
+    type: CNAME
+    record: balin003.internal.cea.swh.network
+    data: osd-rack1-3.internal.cea.swh.network.
+  balin004/CNAME:
+    type: CNAME
+    record: balin004.internal.cea.swh.network
+    data: osd-rack1-4.internal.cea.swh.network.
+  balin005/CNAME:
+    type: CNAME
+    record: balin005.internal.cea.swh.network
+    data: osd-rack1-5.internal.cea.swh.network.
+  balin006/CNAME:
+    type: CNAME
+    record: balin006.internal.cea.swh.network
+    data: osd-rack1-6.internal.cea.swh.network.
+  balin007/CNAME:
+    type: CNAME
+    record: balin007.internal.cea.swh.network
+    data: osd-rack1-7.internal.cea.swh.network.
+  balin008/CNAME:
+    type: CNAME
+    record: balin008.internal.cea.swh.network
+    data: osd-rack1-8.internal.cea.swh.network.
+  balin009/CNAME:
+    type: CNAME
+    record: balin009.internal.cea.swh.network
+    data: osd-rack1-9.internal.cea.swh.network.
+  balin010/CNAME:
+    type: CNAME
+    record: balin010.internal.cea.swh.network
+    data: osd-rack1-10.internal.cea.swh.network.
+  balin011/CNAME:
+    type: CNAME
+    record: balin011.internal.cea.swh.network
+    data: osd-rack2-1.internal.cea.swh.network.
+  balin012/CNAME:
+    type: CNAME
+    record: balin012.internal.cea.swh.network
+    data: osd-rack2-2.internal.cea.swh.network.
+  balin013/CNAME:
+    type: CNAME
+    record: balin013.internal.cea.swh.network
+    data: osd-rack2-3.internal.cea.swh.network.
+  balin014/CNAME:
+    type: CNAME
+    record: balin014.internal.cea.swh.network
+    data: osd-rack2-4.internal.cea.swh.network.
+  balin015/CNAME:
+    type: CNAME
+    record: balin015.internal.cea.swh.network
+    data: osd-rack2-5.internal.cea.swh.network.
+  balin016/CNAME:
+    type: CNAME
+    record: balin016.internal.cea.swh.network
+    data: osd-rack2-6.internal.cea.swh.network.
+  balin017/CNAME:
+    type: CNAME
+    record: balin017.internal.cea.swh.network
+    data: osd-rack2-7.internal.cea.swh.network.
+  balin018/CNAME:
+    type: CNAME
+    record: balin018.internal.cea.swh.network
+    data: osd-rack2-8.internal.cea.swh.network.
+  balin019/CNAME:
+    type: CNAME
+    record: balin019.internal.cea.swh.network
+    data: osd-rack2-9.internal.cea.swh.network.
+  balin020/CNAME:
+    type: CNAME
+    record: balin020.internal.cea.swh.network
+    data: osd-rack2-10.internal.cea.swh.network.
+  dwalin001/CNAME:
+    type: CNAME
+    record: dwalin001.internal.cea.swh.network
+    data: monitor-rack1-1.internal.cea.swh.network.
+  dwalin002/CNAME:
+    type: CNAME
+    record: dwalin002.internal.cea.swh.network
+    data: monitor-rack2-1.internal.cea.swh.network.
+  dwalin003/CNAME:
+    type: CNAME
+    record: dwalin003.internal.cea.swh.network
+    data: monitor-rack2-2.internal.cea.swh.network.
+  gloin001/CNAME:
+    type: CNAME
+    record: gloin001.internal.cea.swh.network
+    data: front-rack1.internal.cea.swh.network.
+  gloin002/CNAME:
+    type: CNAME
+    record: gloin002.internal.cea.swh.network
+    data: front-rack2.internal.cea.swh.network.
+  angrenost/CNAME:
+    type: CNAME
+    record: angrenost.internal.cea.swh.network
+    data: bastion.internal.cea.swh.network.
+
+  ### End of access entries
+  ### Admin network entries
+  osd-rack1-1-adm/a:
+    record: osd-rack1-1.admin.cea.swh.network
+    data: 10.25.3.21
+  osd-rack1-2-adm/a:
+    record: osd-rack1-2.admin.cea.swh.network
+    data: 10.25.3.22
+  osd-rack1-3-adm/a:
+    record: osd-rack1-3.admin.cea.swh.network
+    data: 10.25.3.23
+  osd-rack1-4-adm/a:
+    record: osd-rack1-4.admin.cea.swh.network
+    data: 10.25.3.24
+  osd-rack1-5-adm/a:
+    record: osd-rack1-5.admin.cea.swh.network
+    data: 10.25.3.25
+  osd-rack1-6-adm/a:
+    record: osd-rack1-6.admin.cea.swh.network
+    data: 10.25.3.26
+  osd-rack1-7-adm/a:
+    record: osd-rack1-7.admin.cea.swh.network
+    data: 10.25.3.27
+  osd-rack1-8-adm/a:
+    record: osd-rack1-8.admin.cea.swh.network
+    data: 10.25.3.28
+  osd-rack1-9-adm/a:
+    record: osd-rack1-9.admin.cea.swh.network
+    data: 10.25.3.29
+  osd-rack1-10-adm/a:
+    record: osd-rack1-10.admin.cea.swh.network
+    data: 10.25.3.30
+  osd-rack2-1-adm/a:
+    record: osd-rack2-1.admin.cea.swh.network
+    data: 10.25.3.31
+  osd-rack2-2-adm/a:
+    record: osd-rack2-2.admin.cea.swh.network
+    data: 10.25.3.32
+  osd-rack2-3-adm/a:
+    record: osd-rack2-3.admin.cea.swh.network
+    data: 10.25.3.33
+  osd-rack2-4-adm/a:
+    record: osd-rack2-4.admin.cea.swh.network
+    data: 10.25.3.34
+  osd-rack2-5-adm/a:
+    record: osd-rack2-5.admin.cea.swh.network
+    data: 10.25.3.35
+  osd-rack2-6-adm/a:
+    record: osd-rack2-6.admin.cea.swh.network
+    data: 10.25.3.36
+  osd-rack2-7-adm/a:
+    record: osd-rack2-7.admin.cea.swh.network
+    data: 10.25.3.37
+  osd-rack2-8-adm/a:
+    record: osd-rack2-8.admin.cea.swh.network
+    data: 10.25.3.38
+  osd-rack2-9-adm/a:
+    record: osd-rack2-9.admin.cea.swh.network
+    data: 10.25.3.39
+  osd-rack2-10-adm/a:
+    record: osd-rack2-10.admin.cea.swh.network
+    data: 10.25.3.40
+  monitor-rack1-1-adm/a:
+    record: monitor-rack1-1.admin.cea.swh.network
+    data: 10.25.3.11
+  monitor-rack2-1-adm/a:
+    record: monitor-rack2-1.admin.cea.swh.network
+    data: 10.25.3.12
+  monitor-rack2-2-adm/a:
+    record: monitor-rack2-2.admin.cea.swh.network
+    data: 10.25.3.13
+  front-rack1-adm/a:
+    record: front-rack1.admin.cea.swh.network
+    data: 10.25.3.1
+  front-rack2-adm/a:
+    record: front-rack2.admin.cea.swh.network
+    data: 10.25.3.2
+  bastion-ipmi/a:
+    record: bastion.admin.cea.swh.network
+    data: 10.25.3.254
+  switch-mgmt-rack1-adm/a:
+    record: switch-mgmt-rack1.admin.cea.swh.network
+    data: 10.25.3.241
+  switch-access-rack1-1-adm/a:
+    record: switch-access-rack1-1.admin.cea.swh.network
+    data: 10.25.3.242
+  switch-access-rack2-1-adm/a:
+    record: switch-access-rack2-1.admin.cea.swh.network
+    data: 10.25.3.243
+
+  balin001-adm/CNAME:
+    type: CNAME
+    record: balin001.admin.cea.swh.network
+    data: osd-rack1-1.admin.cea.swh.network.
+  balin002-adm/CNAME:
+    type: CNAME
+    record: balin002.admin.cea.swh.network
+    data: osd-rack1-2.admin.cea.swh.network.
+  balin003-adm/CNAME:
+    type: CNAME
+    record: balin003.admin.cea.swh.network
+    data: osd-rack1-3.admin.cea.swh.network.
+  balin004-adm/CNAME:
+    type: CNAME
+    record: balin004.admin.cea.swh.network
+    data: osd-rack1-4.admin.cea.swh.network.
+  balin005-adm/CNAME:
+    type: CNAME
+    record: balin005.admin.cea.swh.network
+    data: osd-rack1-5.admin.cea.swh.network.
+  balin006-adm/CNAME:
+    type: CNAME
+    record: balin006.admin.cea.swh.network
+    data: osd-rack1-6.admin.cea.swh.network.
+  balin007-adm/CNAME:
+    type: CNAME
+    record: balin007.admin.cea.swh.network
+    data: osd-rack1-7.admin.cea.swh.network.
+  balin008-adm/CNAME:
+    type: CNAME
+    record: balin008.admin.cea.swh.network
+    data: osd-rack1-8.admin.cea.swh.network.
+  balin009-adm/CNAME:
+    type: CNAME
+    record: balin009.admin.cea.swh.network
+    data: osd-rack1-9.admin.cea.swh.network.
+  balin010-adm/CNAME:
+    type: CNAME
+    record: balin010.admin.cea.swh.network
+    data: osd-rack1-10.admin.cea.swh.network.
+  balin011-adm/CNAME:
+    type: CNAME
+    record: balin011.admin.cea.swh.network
+    data: osd-rack2-1.admin.cea.swh.network.
+  balin012-adm/CNAME:
+    type: CNAME
+    record: balin012.admin.cea.swh.network
+    data: osd-rack2-2.admin.cea.swh.network.
+  balin013-adm/CNAME:
+    type: CNAME
+    record: balin013.admin.cea.swh.network
+    data: osd-rack2-3.admin.cea.swh.network.
+  balin014-adm/CNAME:
+    type: CNAME
+    record: balin014.admin.cea.swh.network
+    data: osd-rack2-4.admin.cea.swh.network.
+  balin015-adm/CNAME:
+    type: CNAME
+    record: balin015.admin.cea.swh.network
+    data: osd-rack2-5.admin.cea.swh.network.
+  balin016-adm/CNAME:
+    type: CNAME
+    record: balin016.admin.cea.swh.network
+    data: osd-rack2-6.admin.cea.swh.network.
+  balin017-adm/CNAME:
+    type: CNAME
+    record: balin017.admin.cea.swh.network
+    data: osd-rack2-7.admin.cea.swh.network.
+  balin018-adm/CNAME:
+    type: CNAME
+    record: balin018.admin.cea.swh.network
+    data: osd-rack2-8.admin.cea.swh.network.
+  balin019-adm/CNAME:
+    type: CNAME
+    record: balin019.admin.cea.swh.network
+    data: osd-rack2-9.admin.cea.swh.network.
+  balin020-adm/CNAME:
+    type: CNAME
+    record: balin020.admin.cea.swh.network
+    data: osd-rack2-10.admin.cea.swh.network.
+  dwalin001-adm/CNAME:
+    type: CNAME
+    record: dwalin001.admin.cea.swh.network
+    data: monitor-rack1-1.admin.cea.swh.network.
+  dwalin002-adm/CNAME:
+    type: CNAME
+    record: dwalin002.admin.cea.swh.network
+    data: monitor-rack2-1.admin.cea.swh.network.
+  dwalin003-adm/CNAME:
+    type: CNAME
+    record: dwalin003.admin.cea.swh.network
+    data: monitor-rack2-2.admin.cea.swh.network.
+  gloin001-adm/CNAME:
+    type: CNAME
+    record: gloin001.admin.cea.swh.network
+    data: front-rack1.admin.cea.swh.network.
+  gloin002-adm/CNAME:
+    type: CNAME
+    record: gloin002.admin.cea.swh.network
+    data: front-rack2.admin.cea.swh.network.
+  angrenost-adm/CNAME:
+    type: CNAME
+    record: angrenost.admin.cea.swh.network
+    data: bastion.admin.cea.swh.network.
+  bombur-adm/CNAME:
+    type: CNAME
+    record: bombur.admin.cea.swh.network
+    data: switch-mgmt-rack1.admin.cea.swh.network.
+  bofur-adm/CNAME:
+    type: CNAME
+    record: bofur.admin.cea.swh.network
+    data: switch-access-rack1-1.admin.cea.swh.network.
+  bifur-adm/CNAME:
+    type: CNAME
+    record: bifur.admin.cea.swh.network
+    data: switch-access-rack2-1.admin.cea.swh.network.
+  ### End of admin network entries
+  ## End of CEA entries
+
 
 bind::resource_records::default_data:
   type: A
