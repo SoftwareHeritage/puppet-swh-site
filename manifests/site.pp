@@ -66,6 +66,10 @@ node /^cassandra\d?\d+\./ {
   include role::swh_cassandra_node
 }
 
+node /^runner\d+\./ {
+  include role::gitlab_runner
+}
+
 node 'granet.internal.softwareheritage.org' {
   include role::swh_graph_backend
 }
