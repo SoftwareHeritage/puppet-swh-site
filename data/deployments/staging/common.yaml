@@ -190,6 +190,9 @@ swh::dbs:
   webapp:
     name: swh-web
     user: swh-web
+  webapp-next-version:
+    name: swh-web-next-version
+    user: swh-web
   scrubber:
     name: swh-scrubber
     user: swh-scrubber
@@ -237,6 +240,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-web
+  - source_db: swh-web-next-version
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-web-next-version
   - source_db: swh-mirror
     host: localhost
     auth_user: postgres
