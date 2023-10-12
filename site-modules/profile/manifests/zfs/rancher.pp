@@ -11,6 +11,15 @@ class profile::zfs::rancher {
     mountpoint  => '/var/lib/rancher',
     require     => Zpool['data'],
   }
+  # This pool is used to create volumes that must be kept
+  # if the server restarts. It's used by the local-path-provisioner tool
+  zfs { 'data/volumes':
+    ensure      => present,
+    atime       => 'off',
+    compression => 'zstd',
+    mountpoint  => '/srv/kubernetes/volumes',
+    require     => Zpool['data'],
+  }
 
   # Install the necessary 50-snapshotter.yaml configuration so rke2-agent.service
   # actually starts.
