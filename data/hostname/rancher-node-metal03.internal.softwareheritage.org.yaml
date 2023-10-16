@@ -15,7 +15,7 @@ mountpoints:
 
 swh::apt_config::enable_non_free: true
 
-zfs::docker::zpool_configuration:
+zfs::common::zpool_configuration:
   disk:
     - nvme-eui.000000000000000100a07523415a9753
     - nvme-eui.000000000000000100a07523415a9bd8

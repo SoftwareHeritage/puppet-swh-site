@@ -4707,7 +4707,7 @@ sanoid::templates:
 syncoid::configuration: {}
 syncoid::default_frequency: 5min
 
-zfs::docker::zpool_configuration:
+zfs::common::zpool_configuration:
   disk: vdb
 
 # Must have matching certificate in letsencrypt::certificates

@@ -1,14 +1,7 @@
 # Handle /var/lib/docker partition as zfs mountpoint
 # To reduce the disk usage
 class profile::zfs::docker {
-  $zpool_configuration = lookup('zfs::docker::zpool_configuration')
-
-  # zpool create -f data /dev/vdb
-  zpool {'data':
-    ensure => 'present',
-    *      => $zpool_configuration,
-  }
-
+  include ::profile::zfs::common
   # zfs create -o mountpoint=/var/lib/docker \
   #   -o atime=off \
   #   -o relatime=on \  # not supported by the following

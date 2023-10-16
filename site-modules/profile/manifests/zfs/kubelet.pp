@@ -2,6 +2,7 @@
 # To reduce the disk usage and use local storage when the second hard
 # drive is configured to a local storage in terraform
 class profile::zfs::kubelet {
+  include ::profile::zfs::common
   # as it's for rancher, we consider the zpool['data'] is
   # already installed by profile::zfs::docker
   zfs { 'data/kubelet':
