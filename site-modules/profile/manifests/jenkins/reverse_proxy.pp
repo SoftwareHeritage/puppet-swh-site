@@ -1,4 +1,8 @@
 class profile::jenkins::reverse_proxy {
+  include ::profile::apache::mod_proxy_wstunnel
+
+  $jenkins_ws_url = lookup('jenkins::backend::ws_url')
+
   $jenkins_vhost_name = lookup('jenkins::vhost::name')
   ::profile::reverse_proxy {'jenkins':
     default_proxy_pass_opts => {
@@ -7,6 +11,12 @@ class profile::jenkins::reverse_proxy {
     extra_apache_opts       => {
       allow_encoded_slashes => 'nodecode',
     },
+    extra_proxy_pass        => [
+      { path     => '/wsagents',
+        url      => "${jenkins_ws_url}wsagents",
+        keywords => ['nocanon'],
+      },
+    ],
   }
 
   profile::prometheus::export_scrape_config {"jenkins_${jenkins_vhost_name}":

@@ -4154,6 +4154,8 @@ grafana::objects::datasources:
 
 java::distribution: jre
 
+jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
+jenkins::backend::ws_url: ws://thyssen.internal.softwareheritage.org:8080/
 jenkins::url: "https://%{lookup('jenkins::vhost::name')}"
 
 jenkins::vhost::name: jenkins.softwareheritage.org
