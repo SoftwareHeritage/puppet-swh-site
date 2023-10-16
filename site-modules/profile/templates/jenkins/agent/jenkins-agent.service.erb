@@ -4,8 +4,7 @@ Documentation=https://wiki.jenkins.io/display/JENKINS/Distributed+builds
 After=network.target
 
 [Service]
-EnvironmentFile=/etc/default/jenkins-agent
-ExecStart=/usr/bin/java -cp <%= @jenkins_agent_jar %> hudson.remoting.jnlp.Main -headless -url $JENKINS_URL -workDir $AGENT_WORKDIR $JNLP_SECRET $AGENT_NAME
+ExecStart=/usr/bin/java -jar <%= @jenkins_agent_jar %> -jnlpUrl <%= @jnlp_url %> -secret @<%= @jnlp_secret_file %> -workDir <%= @workdir %>
 
 User=jenkins
 Group=jenkins

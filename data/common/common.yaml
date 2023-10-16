@@ -4154,7 +4154,7 @@ grafana::objects::datasources:
 
 java::distribution: jre
 
-jenkins::backend::url: http://thyssen.internal.softwareheritage.org:8080/
+jenkins::url: "https://%{lookup('jenkins::vhost::name')}"
 
 jenkins::vhost::name: jenkins.softwareheritage.org
 jenkins::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
