@@ -130,6 +130,10 @@ node /^jenkins-debian\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ci_agent_debian
 }
 
+node /^jenkins-docker\d+\.internal\.softwareheritage\.org$/ {
+  include role::swh_ci_agent_docker
+}
+
 node 'logstash0.internal.softwareheritage.org' {
   include role::swh_logstash_instance
 }
