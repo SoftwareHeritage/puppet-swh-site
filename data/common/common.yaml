@@ -1275,6 +1275,10 @@ bind::resource_records:
     type: CNAME
     record: scheduler.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  webapp-postgresql-staging/CNAME:
+    type: CNAME
+    record: webapp-postgresql.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   webapp-next-version-staging/CNAME:
     type: CNAME
     record: webapp-cassandra-next-version.internal.staging.swh.network
@@ -1339,6 +1343,7 @@ bind::resource_records:
   staging-rp0/A:
     record: rp0.internal.staging.swh.network
     data: 192.168.130.20
+  # TODO: To drop when decommissioning webapp.internal.s.s.n
   staging-webapp/A:
     record: webapp.internal.staging.swh.network
     data: 192.168.130.30
@@ -4451,10 +4456,12 @@ keycloak::resources::realms:
           redirect_uris:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://webapp.staging.swh.network/*
+            # TODO: To drop when decommissioning webapp.internal.s.s.n
             - https://webapp.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
           web_origins:
             - https://webapp.staging.swh.network
+            # TODO: To drop when decommissioning webapp.internal.s.s.n
             - https://webapp.internal.staging.swh.network
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
