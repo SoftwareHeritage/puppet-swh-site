@@ -203,10 +203,6 @@ node 'deposit.internal.staging.swh.network' {
   include role::swh_deposit
 }
 
-node 'vault.internal.staging.swh.network' {
-  include role::swh_vault
-}
-
 node /^rp\d\.internal\.(staging|admin)\.swh\.network$/ {
   include role::swh_reverse_proxy
 }
