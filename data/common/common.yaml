@@ -4173,6 +4173,10 @@ jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agen
 jenkins::agent::name: "%{::swh_hostname.internal_fqdn}"
 # jenkins::agent::jnlp::token in private_data
 
+# Needs to be synchronized with values in swh-jenkins-dockerfiles
+jenkins::agent::docker::uid: 15000
+jenkins::agent::docker::gid: 15000
+
 monthly_report_bot::user: nobody
 monthly_report_bot::cron:
   minute: 0
