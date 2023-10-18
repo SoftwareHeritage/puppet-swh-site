@@ -12,6 +12,8 @@ class profile::docker {
   class {'::docker':
     dns            => lookup('dns::local_nameservers'),
     log_driver     => 'journald',
+    socket_bind    => 'fd://',
+    socket_group   => false,
     storage_driver => $storage_driver,
   }
 
