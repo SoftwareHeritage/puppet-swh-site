@@ -1343,10 +1343,6 @@ bind::resource_records:
   staging-rp0/A:
     record: rp0.internal.staging.swh.network
     data: 192.168.130.20
-  # TODO: To drop when decommissioning webapp.internal.s.s.n
-  staging-webapp/A:
-    record: webapp.internal.staging.swh.network
-    data: 192.168.130.30
   staging-webapp-rp/CNAME:
     type: CNAME
     record: webapp-rp.internal.staging.swh.network
@@ -4460,13 +4456,9 @@ keycloak::resources::realms:
           redirect_uris:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://webapp.staging.swh.network/*
-            # TODO: To drop when decommissioning webapp.internal.s.s.n
-            - https://webapp.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
           web_origins:
             - https://webapp.staging.swh.network
-            # TODO: To drop when decommissioning webapp.internal.s.s.n
-            - https://webapp.internal.staging.swh.network
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
