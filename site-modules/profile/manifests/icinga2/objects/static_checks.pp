@@ -206,20 +206,6 @@ class profile::icinga2::objects::static_checks {
     }
 }
 
-  ::icinga2::object::service {'Software Heritage Staging Graphql Instance':
-    import        => ['generic-service'],
-    host_name     => 'graphql.staging.swh.network',
-    check_command => 'http',
-    target        => $checks_file,
-    vars          => {
-      http_vhost  => 'graphql.staging.swh.network',
-      http_uri    => '/',
-      http_ssl    => true,
-      http_sni    => true,
-      http_string => '301 Moved Permanently',
-    },
-  }
-
   ::icinga2::object::service {'Software Heritage ArgoCD Instance':
     import        => ['generic-service'],
     host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
