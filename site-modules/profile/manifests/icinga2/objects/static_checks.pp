@@ -27,10 +27,13 @@ class profile::icinga2::objects::static_checks {
 
   ::profile::swh::deploy::webapp::icinga_checks {'archive.softwareheritage.org':
     environment => "production",
+    host_name   => "moma.softwareheritage.org",
   }
 
   ::profile::swh::deploy::webapp::icinga_checks {'webapp.staging.swh.network':
-    environment => "staging",
+    environment      => "staging",
+    create_host_name => true,
+    host_name        => "webapp.staging.swh.network",
   }
 
   ::icinga2::object::host {'Admin Kubernetes cluster':
