@@ -299,11 +299,6 @@ swh::config::keycloak::realm_name: SoftwareHeritageStaging
 swh::deploy::counters::cache_static_file:
 swh::deploy::counters::live_data_start: 1609462861 # 2021-01-01
 
-swh::deploy::webapp::snapshot_e2e:
-  uri: '/browse/snapshot/48dcf76ec1a3bd57ec117b1dace633691fdfd70d/branches/'
-  regexp:
-    - 'refs/tags/syslinux-3.20-pre2.*refs/tags/syslinux-3.20-pre3.*'
-
 swh::deploy::worker::loader_high_priority::queues:
   # bzr
   - save_code_now:swh.loader.bzr.tasks.LoadBazaar
