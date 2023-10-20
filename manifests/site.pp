@@ -195,10 +195,6 @@ node /^scrubber\d+\.internal\.(staging\.swh\.network|softwareheritage\.org)/ {
   include role::swh_scrubber_checkers
 }
 
-node 'webapp.internal.staging.swh.network' {
-  include role::swh_webapp
-}
-
 node 'deposit.internal.staging.swh.network' {
   include role::swh_deposit
 }
