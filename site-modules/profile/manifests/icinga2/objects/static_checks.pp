@@ -25,17 +25,6 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
-  ::icinga2::object::host {'graphql.staging.swh.network':
-    import        => ['generic-host'],
-    check_command => 'dummy',
-    address       => 'graphql.staging.swh.network',
-    target        => $checks_file,
-    vars          => {
-      dummy_state => 0,  # up
-      dummy_text  => "HTTP-only host",
-    },
-  }
-
   ::profile::swh::deploy::webapp::icinga_checks {'archive.softwareheritage.org':
     environment => "production",
   }
