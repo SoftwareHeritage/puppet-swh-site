@@ -1283,10 +1283,6 @@ bind::resource_records:
     type: CNAME
     record: webapp-cassandra-next-version.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
-  graphql-staging/CNAME:
-    type: CNAME
-    record: graphql.internal.staging.swh.network
-    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   software-stories-staging/CNAME:
     type: CNAME
     record: software-stories.internal.staging.swh.network
