@@ -1,6 +1,9 @@
-class profile::swh::deploy::webapp::icinga_checks {
-  $vhost_name = $::profile::swh::deploy::webapp::vhost_name
-  $vhost_ssl_port = $::profile::swh::deploy::webapp::vhost_ssl_port
+# Install icinga checks for one webapp instance
+define profile::swh::deploy::webapp::icinga_checks (
+  $vhost_name     = $title,
+  $vhost_ssl_port = 443,
+  $environment    = Undef
+) {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks = lookup('swh::deploy::webapp::icinga_checks')
 
@@ -42,7 +45,7 @@ class profile::swh::deploy::webapp::icinga_checks {
   }
 
   each($checks) |$name, $args| {
-    @@::icinga2::object::service {"swh-webapp ${name} ${::fqdn}":
+    ::icinga2::object::service {"swh-webapp ${name} for ${vhost_name}":
       service_name  => "swh webapp ${name}",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -53,23 +56,23 @@ class profile::swh::deploy::webapp::icinga_checks {
         http_port    => $vhost_ssl_port,
         http_ssl     => true,
       } + $args,
-      target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+        target        => $icinga_checks_file,
+        tag           => 'icinga2::exported',
     }
   }
 
   $activate_check = lookup('swh::deploy::savecodenow::e2e::activate')
 
   if $activate_check {
-     $origins = lookup('swh::deploy::savecodenow::e2e::origins')
-     each($origins) | $entry | {
-       @@profile::icinga2::objects::e2e_checks_savecodenow {"End-to-end SaveCodeNow Check - ${entry['name']} with type ${entry['type']} in ${environment}":
-         server_webapp => lookup('swh::deploy::savecodenow::e2e::webapp'),
-         origin_name   => $entry['name'],
-         origin_url    => $entry['origin'],
-         origin_type   => $entry['type'],
-         environment   => $environment,
-       }
-     }
-   }
+    $origins = lookup('swh::deploy::savecodenow::e2e::origins')
+    each($origins) | $entry | {
+      profile::icinga2::objects::e2e_checks_savecodenow {"End-to-end SaveCodeNow Check - ${entry['name']} with type ${entry['type']} in ${environment}":
+        server_webapp => lookup('swh::deploy::savecodenow::e2e::webapp'),
+        origin_name   => $entry['name'],
+        origin_url    => $entry['origin'],
+        origin_type   => $entry['type'],
+        environment   => $environment,
+      }
+    }
+  }
 }

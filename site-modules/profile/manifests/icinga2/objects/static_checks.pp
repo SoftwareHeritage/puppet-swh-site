@@ -36,6 +36,14 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::profile::swh::deploy::webapp::icinga_checks {'archive.softwareheritage.org':
+    environment => "production",
+  }
+
+  ::profile::swh::deploy::webapp::icinga_checks {'webapp.staging.swh.network':
+    environment => "staging",
+  }
+
   ::icinga2::object::host {'Admin Kubernetes cluster':
     import        => ['generic-host'],
     host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
