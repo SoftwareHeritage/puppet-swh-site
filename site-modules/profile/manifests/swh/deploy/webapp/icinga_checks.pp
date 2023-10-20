@@ -46,9 +46,9 @@ define profile::swh::deploy::webapp::icinga_checks (
 
   each($checks) |$name, $args| {
     ::icinga2::object::service {"swh-webapp ${name} for ${vhost_name}":
-      service_name  => "swh webapp ${name}",
+      service_name  => "swh webapp ${name} for ${vhost_name}",
       import        => ['generic-service'],
-      host_name     => $::fqdn,
+      host_name     => $vhost_name,
       check_command => 'http',
       vars          => {
         http_address => $vhost_name,
