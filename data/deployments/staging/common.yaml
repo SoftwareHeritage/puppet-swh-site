@@ -96,15 +96,7 @@ swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
 swh::deploy::webapp::reverse_proxy::backend_http_host: webapp-postgresql.internal.staging.swh.network
 swh::deploy::webapp::reverse_proxy::backend_http_port: "80"
 
-# TODO: Declare a redirect from graphql.staging.swh.network
-# to webapp.staging.swh.network/graphql/ when the migration will be completely performed
 swh::deploy::graphql::vhost::letsencrypt_cert: graphql_staging
-swh::deploy::graphql::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-swh::deploy::graphql::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-swh::deploy::graphql::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-swh::deploy::graphql::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
-swh::deploy::graphql::vhost::access_log_format: combined_with_duration
-swh::deploy::graphql::icinga_check_string: 'GraphQL'
 
 swh::deploy::graphql::reverse_proxy::backend_http_host: k8s-archive-staging-rke2.internal.staging.swh.network
 swh::deploy::graphql::reverse_proxy::backend_http_port: "80"
