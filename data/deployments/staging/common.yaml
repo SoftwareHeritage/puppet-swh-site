@@ -183,6 +183,9 @@ swh::dbs:
     name: swh-mirror
     user: swh-mirror
     password: "%{lookup('swh::deploy::mirror::db::password')}"
+  svix:
+    name: swh-svix
+    user: swh-svix
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
 pgbouncer::common::listen_addresses:
@@ -238,6 +241,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-scrubber
+  - source_db: swh-svix
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-svix
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
