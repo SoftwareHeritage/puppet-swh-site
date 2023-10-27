@@ -51,35 +51,6 @@ define profile::swh::deploy::webapp::icinga_checks (
     merge($acc, $entry)
   }
 
-  # By default, it's created by itself by puppet managed nodes. As we start having
-  # services not running on nodes managed by puppet (think elastic infra), we need to
-  # create fake Host objects (and their deps) to satisfy icinga so we can install checks
-  # without icinga being unhappy.
-  if $create_host_name and $host_name {
-    $icinga2_network = lookup('icinga2::network')
-    $hiera_host_vars = lookup('icinga2::host::vars', Hash, 'deep')
-    $parent_zone = lookup('icinga2::parent_zone')
-    $parent_endpoints = lookup('icinga2::parent_endpoints')
-
-    ::icinga2::object::endpoint {$host_name:
-      host   => ip_for_network($icinga2_network),
-      target => "/etc/icinga2/zones.d/${parent_zone}/${host_name}.conf",
-    }
-
-    ::icinga2::object::zone {$host_name:
-      endpoints => [$host_name],
-      parent    => $parent_zone,
-      target    => "/etc/icinga2/zones.d/${parent_zone}/${host_name}.conf",
-    }
-
-    ::icinga2::object::host {$host_name:
-      display_name  => $host_name,
-      check_command => 'dummy',
-      vars          => deep_merge($local_host_vars, $hiera_host_vars),
-      target        => "/etc/icinga2/zones.d/${parent_zone}/${host_name}.conf",
-    }
-  }
-
   each($checks) |$name, $args| {
     ::icinga2::object::service {"swh-webapp ${name} for ${vhost_name}":
       service_name  => "swh webapp ${name} for ${vhost_name}",

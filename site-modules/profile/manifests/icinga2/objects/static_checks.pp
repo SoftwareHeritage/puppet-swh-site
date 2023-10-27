@@ -30,10 +30,19 @@ class profile::icinga2::objects::static_checks {
     host_name   => "moma.softwareheritage.org",
   }
 
+  ::icinga2::object::host {'virtual-swh-webapp-staging-node':
+    check_command => 'dummy',
+    address       => '127.0.0.1',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "virtual host for webapp icinga checks in staging",
+    },
+  }
+
   ::profile::swh::deploy::webapp::icinga_checks {'webapp.staging.swh.network':
     environment      => "staging",
-    create_host_name => true,
-    host_name        => "webapp.staging.swh.network",
+    host_name        => "virtual-swh-webapp-staging-node",
   }
 
   ::icinga2::object::host {'Admin Kubernetes cluster':
