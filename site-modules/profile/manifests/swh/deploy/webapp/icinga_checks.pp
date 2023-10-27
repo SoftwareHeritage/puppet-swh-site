@@ -6,10 +6,6 @@ define profile::swh::deploy::webapp::icinga_checks (
   $environment      = undef,
   # The hostname where the services runs (icinga needs it)
   $host_name        = undef,
-  # Whether we need to create the grape of icinga objects so the check can install
-  # properly (should be false for puppet managed services). If true, this requires the
-  # $host_name to be provided
-  $create_host_name = false,
 ) {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks = lookup('swh::deploy::webapp::icinga_checks')
