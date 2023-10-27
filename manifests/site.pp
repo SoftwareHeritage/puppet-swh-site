@@ -183,10 +183,6 @@ node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
   include role::swh_elasticsearch
 }
 
-node /^search\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_search_with_journal_client
-}
-
 node /^counters\d\.internal\.staging\.swh\.network$/ {
   include role::swh_counters_with_journal_client
 }
