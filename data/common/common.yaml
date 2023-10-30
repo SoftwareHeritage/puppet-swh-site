@@ -3743,6 +3743,10 @@ icinga2::apiusers:
     permissions:
       - '*'
 
+# replicated from upstream hiera.yaml
+icinga2::globals::user: nagios
+icinga2::globals::group: nagios
+
 icinga2::exported_checks::filename: "/etc/icinga2/zones.d/%{hiera('icinga2::parent_zone')}/exported-checks.conf"
 icinga2::exported_checks::hostname: pergamon.softwareheritage.org
 
