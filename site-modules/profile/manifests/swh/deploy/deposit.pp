@@ -176,8 +176,9 @@ class profile::swh::deploy::deposit {
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"swh-deposit api (localhost on ${::fqdn})":
+  ::icinga2::object::service {"swh-deposit api (localhost on ${::fqdn})":
     service_name     => 'swh-deposit api (localhost)',
     import           => ['generic-service'],
     host_name        => $::fqdn,
@@ -190,11 +191,11 @@ class profile::swh::deploy::deposit {
       http_string  => 'The Software Heritage Deposit',
     },
     target           => $icinga_checks_file,
-    tag              => 'icinga2::exported',
+    export_to        => [$icinga_checks_hostname]
   }
 
   if $backend_listen_host != '127.0.0.1' {
-    @@::icinga2::object::service {"swh-deposit api (remote on ${::fqdn})":
+    ::icinga2::object::service {"swh-deposit api (remote on ${::fqdn})":
       service_name  => 'swh-deposit api (remote)',
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -205,7 +206,7 @@ class profile::swh::deploy::deposit {
         http_string => 'The Software Heritage Deposit',
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
   }
 

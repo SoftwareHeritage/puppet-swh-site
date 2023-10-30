@@ -8,6 +8,7 @@ define profile::swh::deploy::webapp::icinga_checks (
   $host_name        = undef,
 ) {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
   $icinga_checks = lookup('swh::deploy::webapp::icinga_checks')
 
   # so far 3 types of icinga checks (get, post, and regexp). Walk through them and
@@ -60,7 +61,7 @@ define profile::swh::deploy::webapp::icinga_checks (
         http_ssl     => true,
       } + $args,
         target        => $icinga_checks_file,
-        tag           => 'icinga2::exported',
+        export_to     => [$icinga_checks_hostname]
     }
   }
 

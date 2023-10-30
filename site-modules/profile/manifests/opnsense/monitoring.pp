@@ -5,6 +5,7 @@ class profile::opnsense::monitoring {
   $fw_prometheus_metrics_path = lookup('opnsense::prometheus::metrics_path')
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
   $icinga_zonename = lookup('icinga2::master::zonename')
 
   $fw_hosts.each | $host, $config | {
@@ -45,7 +46,7 @@ class profile::opnsense::monitoring {
         http_onredirect => sticky
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

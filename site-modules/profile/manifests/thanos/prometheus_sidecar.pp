@@ -85,7 +85,8 @@ class profile::thanos::prometheus_sidecar {
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
-  @@::icinga2::object::service {"thanos sidecar on ${::fqdn}":
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
+  ::icinga2::object::service {"thanos sidecar on ${::fqdn}":
     service_name  => 'thanos sidecar',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -105,6 +106,6 @@ class profile::thanos::prometheus_sidecar {
       'prometheus_metric_critical' => 24 * 3600,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }

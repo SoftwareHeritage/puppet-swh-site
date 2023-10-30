@@ -27,6 +27,7 @@ class profile::mediawiki {
   $mediawiki_vhost_hsts_header = lookup('mediawiki::vhost::hsts_header')
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
   each ($mediawiki_vhosts) |$name, $data| {
     $secret_key = $data['secret_key']
@@ -59,7 +60,7 @@ class profile::mediawiki {
       site_name                  => $site_name,
     }
 
-    @@::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
+    ::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
       service_name  => "mediawiki ${name} http redirect",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -70,7 +71,7 @@ class profile::mediawiki {
         http_uri     => '/',
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
 
     if $basic_auth_content != '' {
@@ -78,7 +79,7 @@ class profile::mediawiki {
         http_expect => '401 Unauthorized',
       }
 
-      @@::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
+      ::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
         service_name  => "mediawiki ${name} + auth",
         import        => ['generic-service'],
         host_name     => $::fqdn,
@@ -94,7 +95,7 @@ class profile::mediawiki {
           http_string     => "<title>${site_name}</title>",
         },
         target        => $icinga_checks_file,
-        tag           => 'icinga2::exported',
+        export_to     => [$icinga_checks_hostname]
       }
 
     } else {
@@ -103,7 +104,7 @@ class profile::mediawiki {
       }
     }
 
-    @@::icinga2::object::service {"mediawiki ${name} https on ${::fqdn}":
+    ::icinga2::object::service {"mediawiki ${name} https on ${::fqdn}":
       service_name  => "mediawiki ${name}",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -117,10 +118,10 @@ class profile::mediawiki {
         http_onredirect => sticky,
       } + $extra_vars,
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
 
-    @@::icinga2::object::service {"mediawiki ${name} https certificate ${::fqdn}":
+    ::icinga2::object::service {"mediawiki ${name} https certificate ${::fqdn}":
       service_name  => "mediawiki ${name} https certificate",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -133,7 +134,7 @@ class profile::mediawiki {
         http_certificate => 25,
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

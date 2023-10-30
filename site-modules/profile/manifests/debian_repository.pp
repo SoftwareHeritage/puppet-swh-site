@@ -149,8 +149,9 @@ class profile::debian_repository {
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"debian repository http redirect on ${::fqdn}":
+  ::icinga2::object::service {"debian repository http redirect on ${::fqdn}":
     service_name  => 'debian repository http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -161,10 +162,10 @@ class profile::debian_repository {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"debian repository https on ${::fqdn}":
+  ::icinga2::object::service {"debian repository https on ${::fqdn}":
     service_name  => 'debian repository https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -178,10 +179,10 @@ class profile::debian_repository {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"debian repository https certificate ${::fqdn}":
+  ::icinga2::object::service {"debian repository https certificate ${::fqdn}":
     service_name  => 'debian repository https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -194,6 +195,6 @@ class profile::debian_repository {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }

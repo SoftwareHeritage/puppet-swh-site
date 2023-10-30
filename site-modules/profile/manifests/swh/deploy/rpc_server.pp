@@ -122,6 +122,7 @@ define profile::swh::deploy::rpc_server (
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
   if $backend_listen_host == '0.0.0.0' {
     # It's not possible to directly test with the backend_listen_host in this case
@@ -131,7 +132,7 @@ define profile::swh::deploy::rpc_server (
     $local_check_address = $backend_listen_host
   }
 
-  @@::icinga2::object::service {"swh-${instance_name} api (local on ${::fqdn})":
+  ::icinga2::object::service {"swh-${instance_name} api (local on ${::fqdn})":
     service_name     => "swh-${instance_name} api (localhost)",
     import           => ['generic-service'],
     host_name        => $::fqdn,
@@ -146,11 +147,11 @@ define profile::swh::deploy::rpc_server (
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
-    tag              => 'icinga2::exported',
+    export_to        => [$icinga_checks_hostname]
   }
 
   if $backend_listen_host != '127.0.0.1' {
-    @@::icinga2::object::service {"swh-${instance_name} api (remote on ${::fqdn})":
+    ::icinga2::object::service {"swh-${instance_name} api (remote on ${::fqdn})":
       service_name  => "swh-${instance_name} api (remote)",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -163,7 +164,7 @@ define profile::swh::deploy::rpc_server (
         http_string => $http_check_string,
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

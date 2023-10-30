@@ -57,8 +57,9 @@ class profile::preseeding_vhost {
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"preseeding http on ${::fqdn}":
+  ::icinga2::object::service {"preseeding http on ${::fqdn}":
     service_name  => 'preseeding http',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -69,10 +70,10 @@ class profile::preseeding_vhost {
       http_uri        => '/preseed.txt.j2',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"preseeding https on ${::fqdn}":
+  ::icinga2::object::service {"preseeding https on ${::fqdn}":
     service_name  => 'preseeding https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -85,10 +86,10 @@ class profile::preseeding_vhost {
       http_uri        => '/preseed.txt.j2',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"preseeding https certificate ${::fqdn}":
+  ::icinga2::object::service {"preseeding https certificate ${::fqdn}":
     service_name  => 'preseeding https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -101,6 +102,6 @@ class profile::preseeding_vhost {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }

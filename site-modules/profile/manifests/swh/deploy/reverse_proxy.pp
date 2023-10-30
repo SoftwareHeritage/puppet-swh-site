@@ -61,9 +61,10 @@ class profile::swh::deploy::reverse_proxy {
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
     # icinga alerts
-    @@::icinga2::object::service {"${service_name} http redirect on ${::fqdn}":
+    ::icinga2::object::service {"${service_name} http redirect on ${::fqdn}":
       service_name  => "swh ${service_name} http redirect",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -75,7 +76,7 @@ class profile::swh::deploy::reverse_proxy {
         http_uri     => '/',
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
 
     $vhost_ssl_port = lookup('apache::https_port')
@@ -92,7 +93,7 @@ class profile::swh::deploy::reverse_proxy {
       $http_expect_var = {}
     }
 
-    @@::icinga2::object::service {"swh-${service_name} https on ${::fqdn}":
+    ::icinga2::object::service {"swh-${service_name} https on ${::fqdn}":
       service_name  => "swh ${service_name}",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -108,10 +109,10 @@ class profile::swh::deploy::reverse_proxy {
         http_onredirect => sticky,
       } + $http_expect_var,
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
 
-    @@::icinga2::object::service {"swh-${service_name} https certificate ${::fqdn}":
+    ::icinga2::object::service {"swh-${service_name} https certificate ${::fqdn}":
       service_name  => "swh ${service_name} https certificate",
       import        => ['generic-service'],
       host_name     => $::fqdn,
@@ -125,7 +126,7 @@ class profile::swh::deploy::reverse_proxy {
         http_certificate => 15,
       },
       target        => $icinga_checks_file,
-      tag           => 'icinga2::exported',
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

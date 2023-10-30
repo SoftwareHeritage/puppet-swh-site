@@ -48,23 +48,28 @@ class profile::icinga2::agent {
     endpoints => keys($parent_endpoints),
   }
 
-  @@::icinga2::object::endpoint {$::fqdn:
-    host   => ip_for_network($icinga2_network),
-    target => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+  $master_fqdn = lookup('icinga2::exported_checks::hostname')
+
+  ::icinga2::object::endpoint {$::fqdn:
+    host      => ip_for_network($icinga2_network),
+    target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    export_to => [$master_fqdn],
   }
 
-  @@::icinga2::object::zone {$::fqdn:
+  ::icinga2::object::zone {$::fqdn:
     endpoints => [$::fqdn],
     parent    => $parent_zone,
     target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    export_to => [$master_fqdn],
   }
 
-  @@::icinga2::object::host {$::fqdn:
+  ::icinga2::object::host {$::fqdn:
     address       => ip_for_network($icinga2_network),
     display_name  => $::fqdn,
     check_command => 'hostalive',
     vars          => deep_merge($local_host_vars, $hiera_host_vars),
     target        => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    export_to     => [$master_fqdn],
   }
 
   icinga2::object::zone { 'global-templates':

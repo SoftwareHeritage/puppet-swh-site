@@ -11,6 +11,7 @@ class profile::maven_index_exporter {
 
   $publish_path = '/var/www/maven_index_exporter'
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
   $base_dir = '/srv/softwareheritage/maven-index-exporter'
   $docker_image = lookup('maven_index_exporter::image::name')
@@ -136,7 +137,7 @@ class profile::maven_index_exporter {
 
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
-  @@::icinga2::object::service {"Maven Index Exporter report http redirect on ${::fqdn}":
+  ::icinga2::object::service {"Maven Index Exporter report http redirect on ${::fqdn}":
     service_name  => 'maven index exporter report http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -147,10 +148,10 @@ class profile::maven_index_exporter {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"Maven Index Exporter report https on ${::fqdn}":
+  ::icinga2::object::service {"Maven Index Exporter report https on ${::fqdn}":
     service_name  => 'maven index exporter report https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -164,10 +165,10 @@ class profile::maven_index_exporter {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"Maven Index Exporter report https certificate ${::fqdn}":
+  ::icinga2::object::service {"Maven Index Exporter report https certificate ${::fqdn}":
     service_name  => 'maven index exporter report https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -180,7 +181,7 @@ class profile::maven_index_exporter {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
 }

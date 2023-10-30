@@ -318,8 +318,9 @@ class profile::phabricator {
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"phabricator http redirect on ${::fqdn}":
+  ::icinga2::object::service {"phabricator http redirect on ${::fqdn}":
     service_name  => 'phabricator http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -330,10 +331,10 @@ class profile::phabricator {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"phabricator https on ${::fqdn}":
+  ::icinga2::object::service {"phabricator https on ${::fqdn}":
     service_name  => 'phabricator',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -347,10 +348,10 @@ class profile::phabricator {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"phabricator https certificate ${::fqdn}":
+  ::icinga2::object::service {"phabricator https certificate ${::fqdn}":
     service_name  => 'phabricator https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -363,7 +364,7 @@ class profile::phabricator {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
   # Needs refactoring

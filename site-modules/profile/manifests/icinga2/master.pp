@@ -55,7 +55,7 @@ class profile::icinga2::master {
     require       => Postgresql::Server::Db[$icinga2_db_database],
   }
 
-  @@::icinga2::object::host {$::fqdn:
+  ::icinga2::object::host {$::fqdn:
     address       => ip_for_network($icinga2_network),
     display_name  => $::fqdn,
     check_command => 'hostalive',
@@ -66,10 +66,6 @@ class profile::icinga2::master {
   ::Profile::Icinga2::Objects::E2e_checks_deposit <<| |>>
   ::Profile::Icinga2::Objects::E2e_checks_vault <<| |>>
   ::Profile::Icinga2::Objects::E2e_checks_savecodenow <<| |>>
-
-  ::Icinga2::Object::Host <<| |>>
-  ::Icinga2::Object::Endpoint <<| |>>
-  ::Icinga2::Object::Zone <<| |>>
 
   ::icinga2::object::zone { 'global-templates':
     global => true,

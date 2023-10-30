@@ -71,8 +71,9 @@ class profile::icinga2::icingaweb2::vhost {
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"icingaweb2 http redirect on ${::fqdn}":
+  ::icinga2::object::service {"icingaweb2 http redirect on ${::fqdn}":
     service_name  => 'icingaweb2 http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -83,10 +84,10 @@ class profile::icinga2::icingaweb2::vhost {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"icingaweb2 https on ${::fqdn}":
+  ::icinga2::object::service {"icingaweb2 https on ${::fqdn}":
     service_name  => 'icingaweb2 https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -101,10 +102,10 @@ class profile::icinga2::icingaweb2::vhost {
       http_string  => '<title>Icinga Web 2 Login</title>',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"icingaweb2 https certificate ${::fqdn}":
+  ::icinga2::object::service {"icingaweb2 https certificate ${::fqdn}":
     service_name  => 'icingaweb2 https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -117,6 +118,6 @@ class profile::icinga2::icingaweb2::vhost {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }

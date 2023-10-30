@@ -132,8 +132,9 @@ class profile::azure_billing_report {
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"Azure billing report http redirect on ${::fqdn}":
+  ::icinga2::object::service {"Azure billing report http redirect on ${::fqdn}":
     service_name  => 'azure billing report http redirect',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -144,10 +145,10 @@ class profile::azure_billing_report {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"Azure billing report https on ${::fqdn}":
+  ::icinga2::object::service {"Azure billing report https on ${::fqdn}":
     service_name  => 'azure billing report https',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -161,10 +162,10 @@ class profile::azure_billing_report {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 
-  @@::icinga2::object::service {"azure billing report https certificate ${::fqdn}":
+  ::icinga2::object::service {"azure billing report https certificate ${::fqdn}":
     service_name  => 'azure billing report https certificate',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -177,6 +178,6 @@ class profile::azure_billing_report {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }

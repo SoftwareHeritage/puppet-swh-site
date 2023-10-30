@@ -84,8 +84,9 @@ class profile::rabbitmq {
 
   # monitoring user for the icinga check
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  @@::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
+  ::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
     service_name  => 'rabbitmq server',
     import        => ['generic-service'],
     host_name     => $::fqdn,
@@ -98,6 +99,6 @@ class profile::rabbitmq {
       rabbitmq_password => $rabbitmq_password,
     },
     target        => $icinga_checks_file,
-    tag           => 'icinga2::exported',
+    export_to     => [$icinga_checks_hostname]
   }
 }
