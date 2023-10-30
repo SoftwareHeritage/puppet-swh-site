@@ -84,11 +84,11 @@ mod 'hitch',
 
 mod 'icinga2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icinga2',
-    :tag => 'swh/restore-puppet6'
+    :ref => 'swh/restore-puppet6'
 
 mod 'icingaweb2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icingaweb2',
-    :tag => 'v3.9.1'
+    :ref => '6836a365becd93e97fd10abc7f4bbadc87d50f80'
 
 mod 'inifile',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-inifile',

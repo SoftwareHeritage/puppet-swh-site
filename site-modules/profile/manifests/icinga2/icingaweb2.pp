@@ -13,7 +13,6 @@ class profile::icinga2::icingaweb2 {
   include profile::icinga2::icingaweb2::vhost
 
   class {'::icingaweb2':
-    manage_repo    => false,
     manage_package => true,
     import_schema  => true,
     db_type        => 'pgsql',
