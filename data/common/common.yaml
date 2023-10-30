@@ -2055,7 +2055,7 @@ swh::apt_config::unattended_upgrades::origins:
  - "o=Debian,codename=${distro_codename}-updates"                          # stable-updates (ex-volatile)
  - "o=Debian,codename=${distro_codename},l=Debian-Security"                # security updates (buster and below)
  - "o=Debian,codename=${distro_codename}-security,l=Debian-Security"       # security updates (bullseye and later)
- - "o=debian icinga-%{distro_codename},codename=icinga-${distro_codename}" # Icinga2 repository
+ - "o=debian icinga-${distro_codename},codename=icinga-${distro_codename}" # Icinga2 repository
  - "o=Debian Azure,codename=${distro_codename}"                            # Debian Azure
  - "o=Proxmox,codename=${distro_codename}"                                 # Proxmox repository
  - "o=deb.sury.org"                                                        # PHP backports (tate)
