@@ -50,7 +50,6 @@ icinga2::features:
   - checker
   - mainlog
   - notification
-  - statusdata
   - compatlog
   - command
 
