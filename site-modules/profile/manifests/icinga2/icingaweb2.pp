@@ -47,8 +47,6 @@ class profile::icinga2::icingaweb2 {
     }
   }
 
-  include ::icingaweb2::module::doc
-
   # Icingaweb2 permissions
   ::icingaweb2::config::role {'guest':
     users       => 'guest',
