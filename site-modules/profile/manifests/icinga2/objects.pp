@@ -14,7 +14,9 @@ class profile::icinga2::objects {
 
   include profile::icinga2::plugins::rabbitmq
 
-  class {'::icinga2::query_objects':
-    environments => [],
+  if get($facts, 'has_puppetdb', true) {
+    class {'::icinga2::query_objects':
+      environments => [],
+    }
   }
 }
