@@ -12,6 +12,10 @@ class profile::swh::deploy::graph {
   $user = lookup('swh::deploy::graph::user')
   $group = lookup('swh::deploy::graph::group')
 
+  include profile::swh::deploy::graph::shm_mount
+
+  $shm_path = $profile::swh::deploy::graph::shm_mount::shm_path
+
   $sentry_dsn = lookup('swh::deploy::graph::sentry_dsn', Optional[String], 'first', undef)
   $sentry_environment = lookup('swh::deploy::graph::sentry_environment', Optional[String], 'first', undef)
   $sentry_swh_package = lookup('swh::deploy::graph::sentry_swh_package', Optional[String], 'first', undef)
@@ -24,13 +28,6 @@ class profile::swh::deploy::graph {
     group  => $group,
     mode   => '0650',
   }
-
-  $shm_path = '/dev/shm/swh-graph/default'
-  $compressed_graph_path = '/srv/softwareheritage/graph/latest/compressed'
-  $files_to_copy_to_shm = [
-    'graph.graph',
-    'graph-transposed.graph',
-  ]
 
   $grpc_listen_host = lookup('swh::deploy::graph::grpc::listen::host')
   $grpc_listen_port = lookup('swh::deploy::graph::grpc::listen::port')
@@ -86,11 +83,6 @@ class profile::swh::deploy::graph {
 
   # install services from templates
   $services = [
-    {
-      name   => 'swh-graph-shm-mount',
-      status => 'running',
-      enable => false,
-    },
     {
       name   => 'swh-graph-grpc',
       status => 'running',
