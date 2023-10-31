@@ -265,7 +265,6 @@ packages::devel::broker:
 
 packages::devel::postgres:
   - apgdiff
-  - barman
   - check-postgres
   - libpq-dev
   - postgresql
