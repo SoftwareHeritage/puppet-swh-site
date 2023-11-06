@@ -31,4 +31,12 @@ class profile::jenkins::agent::docker {
     unit    => 'docker.socket',
     content => $socket_override,
   }
+
+  file { "/usr/local/bin/clean-docker-images.sh":
+    ensure => present,
+    source => 'puppet:///modules/profile/jenkins/clean-docker-images.sh',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
 }
