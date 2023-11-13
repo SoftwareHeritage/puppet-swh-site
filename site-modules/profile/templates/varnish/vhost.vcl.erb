@@ -30,12 +30,13 @@ sub vcl_recv {
             ) {
                 return(synth(401, "Restricted"));
             }
+
 <%- end -%>
-<% if @websocket_support -%>
+<%- if @websocket_support -%>
             if (req.http.upgrade ~ "(?i)websocket") {
                 return (pipe);
             }
-<% end -%>
+<%- end -%>
             set req.http.X-Forwarded-Proto = "https";
 
 <%- if @vcl_recv_extra -%>
@@ -66,9 +67,11 @@ sub vcl_deliver {
             set resp.http.Strict-Transport-Security = "max-age=<%= @hsts_max_age %>;";
         }
 <% end -%>
-<% if @vcl_deliver_extra -%>
-        <%= @vcl_deliver_extra %>
-<% end -%>
+<%- if @vcl_deliver_extra -%>
+    <%- @vcl_deliver_extra.lines.each do |line| -%>
+            <%= line %>
+    <%- end -%>
+<%- end -%>
     }
 }
 
