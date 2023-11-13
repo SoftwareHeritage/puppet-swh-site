@@ -37,10 +37,13 @@ sub vcl_recv {
             }
 <% end -%>
             set req.http.X-Forwarded-Proto = "https";
+
+<%- if @vcl_recv_extra -%>
+    <%- @vcl_recv_extra.each_line do |line| -%>
+            <%= line.chomp %>
+    <%- end -%>
+<%- end -%>
         }
-<% if @vcl_recv_extra -%>
-        <%= @vcl_recv_extra %>
-<% end -%>
     }
 }
 

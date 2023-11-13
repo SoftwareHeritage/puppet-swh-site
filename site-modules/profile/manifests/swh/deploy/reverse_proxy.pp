@@ -37,6 +37,11 @@ class profile::swh::deploy::reverse_proxy {
       }
     }
 
+    $vcl_recv_extra = lookup(
+      "swh::deploy::${service_name}::reverse_proxy::vcl_recv_extra",
+      { value_type => Optional[String], default_value => undef },
+    )
+
     # Retrieve the list of vhosts
     $vhosts = lookup('letsencrypt::certificates')[$cert_name]['domains']
     if $swh_hostname['fqdn'] in $vhosts {
@@ -58,6 +63,7 @@ class profile::swh::deploy::reverse_proxy {
       websocket_support  => $websocket_support,
       basic_auth         => $basic_auth,
       basic_auth_strings => $basic_auth_strings,
+      vcl_recv_extra     => $vcl_recv_extra,
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')
