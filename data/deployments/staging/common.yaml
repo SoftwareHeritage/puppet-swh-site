@@ -93,7 +93,7 @@ swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging
 swh::deploy::deposit::reverse_proxy::backend_http_host: deposit.internal.staging.swh.network
 
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
-swh::deploy::webapp::reverse_proxy::backend_http_host: webapp-postgresql.internal.staging.swh.network
+swh::deploy::webapp::reverse_proxy::backend_http_host: webapp-cassandra.internal.staging.swh.network
 swh::deploy::webapp::reverse_proxy::backend_http_port: "80"
 
 swh::remote_service::objstorage::config::rw:
