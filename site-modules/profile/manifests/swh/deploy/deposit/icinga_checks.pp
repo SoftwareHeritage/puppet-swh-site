@@ -20,7 +20,9 @@ define profile::swh::deploy::deposit::icinga_checks (
     host_name     => $host_name,
     check_command => 'http',
     vars          => {
-      http_port   => $backend_listen_port,
+      http_address => $vhost_name,
+      http_vhost   => $vhost_name,
+      http_port    => $vhost_ssl_port,
       http_uri    => '/',
       http_string => 'The Software Heritage Deposit',
     },
