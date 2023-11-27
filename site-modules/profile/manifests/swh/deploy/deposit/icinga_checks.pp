@@ -17,7 +17,7 @@ define profile::swh::deploy::deposit::icinga_checks (
   ::icinga2::object::service {"swh-deposit api (remote on ${vhost_name})":
     service_name  => 'swh-deposit api (remote)',
     import        => ['generic-service'],
-    host_name     => $vhost_name,
+    host_name     => $host_name,
     check_command => 'http',
     vars          => {
       http_port   => $backend_listen_port,
