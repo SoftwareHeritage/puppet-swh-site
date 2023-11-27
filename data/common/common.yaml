@@ -4482,7 +4482,7 @@ keycloak::resources::realms:
           redirect_uris:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://deposit.staging.swh.network/*
-            - https://deposit.internal.staging.swh.network/*
+            - https://deposit-dynamic.internal.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
