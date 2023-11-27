@@ -30,19 +30,19 @@ class profile::icinga2::objects::static_checks {
     host_name   => "moma.softwareheritage.org",
   }
 
-  ::icinga2::object::host {'virtual-swh-webapp-staging-node':
+  ::icinga2::object::host {'archive-staging-rke2':
     check_command => 'dummy',
     address       => '127.0.0.1',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
-      dummy_text  => "virtual host for webapp icinga checks in staging",
+      dummy_text  => "Virtual host for icinga checks related to staging services",
     },
   }
 
   ::profile::swh::deploy::webapp::icinga_checks {'webapp.staging.swh.network':
     environment      => "staging",
-    host_name        => "virtual-swh-webapp-staging-node",
+    host_name        => "archive-staging-rke2",
   }
 
   ::profile::swh::deploy::deposit::icinga_checks {'deposit.softwareheritage.org':
@@ -50,19 +50,9 @@ class profile::icinga2::objects::static_checks {
     host_name   => "moma.softwareheritage.org",
   }
 
-  ::icinga2::object::host {'swh-deposit-staging-node':
-    check_command => 'dummy',
-    address       => '127.0.0.1',
-    target        => $checks_file,
-    vars          => {
-      dummy_state => 0,  # up
-      dummy_text  => "Virtual host for deposit icinga checks in staging",
-    },
-  }
-
   ::profile::swh::deploy::deposit::icinga_checks {'deposit.staging.swh.network':
     environment      => "staging",
-    host_name        => "swh-deposit-staging-node",
+    host_name        => "archive-staging-rke2",
   }
 
   ::icinga2::object::host {'Admin Kubernetes cluster':
@@ -135,16 +125,6 @@ class profile::icinga2::objects::static_checks {
     vars          => {
       dummy_state => 0,  # up
       dummy_text  => "virtual host for journal client checks in production",
-    },
-  }
-
-  ::icinga2::object::host {'swh-journal-client-staging':
-    check_command => 'dummy',
-    address       => '127.0.0.1',
-    target        => $checks_file,
-    vars          => {
-      dummy_state => 0,  # up
-      dummy_text  => "virtual host for journal client checks in staging",
     },
   }
 
@@ -226,7 +206,7 @@ class profile::icinga2::objects::static_checks {
     ::icinga2::object::service {"Kafka ${consumer_group} lag in staging":
       check_command => 'check_prometheus_metric',
       target        => $checks_file,
-      host_name     => 'swh-journal-client-staging',
+      host_name     => 'archive-staging-rke2',
       vars          => {
         prometheus_metric_name     => "kafka ${consumer_group} lag",
         prometheus_query           => profile::icinga2::literal_var(
