@@ -194,36 +194,6 @@ class profile::swh::deploy::deposit {
     export_to        => [$icinga_checks_hostname]
   }
 
-  if $backend_listen_host != '127.0.0.1' {
-    ::icinga2::object::service {"swh-deposit api (remote on ${::fqdn})":
-      service_name  => 'swh-deposit api (remote)',
-      import        => ['generic-service'],
-      host_name     => $::fqdn,
-      check_command => 'http',
-      vars          => {
-        http_port   => $backend_listen_port,
-        http_uri    => '/',
-        http_string => 'The Software Heritage Deposit',
-      },
-      target        => $icinga_checks_file,
-      export_to     => [$icinga_checks_hostname]
-    }
-  }
-
-  # Install deposit end-to-end checks
-  @@profile::icinga2::objects::e2e_checks_deposit {"End-to-end Deposit Test(s) in ${environment}":
-    deposit_server        => lookup('swh::deploy::deposit::e2e::server'),
-    deposit_user          => lookup('swh::deploy::deposit::e2e::user'),
-    deposit_pass          => lookup('swh::deploy::deposit::e2e::password'),
-    deposit_collection    => lookup('swh::deploy::deposit::e2e::collection'),
-    deposit_provider_url  => lookup('swh::deploy::deposit::e2e::provider_url'),
-    deposit_swh_web_url   => lookup('swh::deploy::deposit::e2e::swh_web_url'),
-    deposit_poll_interval => lookup('swh::deploy::deposit::e2e::poll_interval'),
-    deposit_archive       => lookup('swh::deploy::deposit::e2e::archive'),
-    deposit_metadata      => lookup('swh::deploy::deposit::e2e::metadata'),
-    environment           => $environment,
-  }
-
   include profile::filebeat
   # To remove when cleanup is done
   file {'/etc/filebeat/inputs.d/deposit-non-ssl-access.yml':
