@@ -64,17 +64,6 @@ swh::deploy::storage::config::local:
       slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
     journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
 
-syncoid::configuration:
-  sources:
-    db1:
-      host: db1.internal.staging.swh.network
-      datasets:
-        postgresql-main-12:
-          dataset: data/postgres-main-12
-          frequency: 5min
-      target_dataset_base: data/sync
-      ssh_key: storage1
-
 swh::deploy::storage::backend::workers: 40
 swh::deploy::storage::backend::max_requests: 5000
 swh::deploy::storage::backend::max_requests_jitter: 500
