@@ -1859,7 +1859,9 @@ backups::exclude:
  - sys
  - tmp
  - var/cache
+ - var/lib/kubelet
  - var/lib/mysql
+ - var/lib/rancher
  - var/log/journal
  - var/run
  - var/tmp
