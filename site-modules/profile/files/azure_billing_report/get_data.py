@@ -88,7 +88,7 @@ if __name__ == '__main__':
     print("Waiting for stay signed page...")
 
     try:
-        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, "form")))
+        wait.until(EC.visibility_of_element_located((By.ID, "KmsiCheckboxField")))
     finally:
         if DEBUG:
             driver.save_screenshot("staysigned.png")
