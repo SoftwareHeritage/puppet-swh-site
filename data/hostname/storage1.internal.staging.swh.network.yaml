@@ -52,20 +52,5 @@ swh::apt_config::backported_packages:
     - zfsutils-linux
     - zfs-zed
 
-swh::deploy::storage::config::local:
-  cls: pipeline
-  steps:
-  - cls: record_references
-  - cls: postgresql
-    db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-    objstorage:
-      cls: pathslicing
-      root: "%{hiera('swh::deploy::storage::directory')}"
-      slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
-    journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
-
-swh::deploy::storage::backend::workers: 40
-swh::deploy::storage::backend::max_requests: 5000
-swh::deploy::storage::backend::max_requests_jitter: 500
-
+# Empty because it got done manually on it so we want it to not be changed
 zfs::common::zpool_configuration: {}
