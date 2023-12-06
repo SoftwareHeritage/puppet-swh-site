@@ -126,6 +126,10 @@ node 'thanos.internal.admin.swh.network' {
   include role::swh_thanos
 }
 
+node 'thanos-compact.euwest.azure.internal.softwareheritage.org' {
+  include role::swh_thanos_compact
+}
+
 node /^jenkins-debian\d+\.internal\.softwareheritage\.org$/ {
   include role::swh_ci_agent_debian
 }
