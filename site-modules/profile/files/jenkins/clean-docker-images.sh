@@ -27,6 +27,12 @@ clean_shared_cachedir () {
   find "$dir/pre-commit" -mindepth 1 -maxdepth 1 -type d -ctime +$threshold -exec rm -r {} \+
 }
 
+# Update tagged docker images
+docker image ls \
+    | tail -n +2 \
+    | awk '{if ($2 != "<none>") { print $1":"$2 }}' \
+    | xargs -r -n1 docker image pull
+
 # To avoid timezone shift shenanigans (when triggered around midnight)
 today=$(date --date '13:00' +%Y%m%d)
 yesterday=$(date --date 'yesterday 13:00' +%Y%m%d)
