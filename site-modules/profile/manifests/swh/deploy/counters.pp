@@ -9,7 +9,7 @@ class profile::swh::deploy::counters {
   $static_history_file = lookup('swh::deploy::counters::cache_static_file')
 
   class { '::redis':
-    bind                     => '127.0.0.1',
+    bind                     => [ '127.0.0.1', ip_for_network(lookup('internal_network')) ],
     save_db_to_disk_interval => { '30' => '1' },
   }
 
