@@ -1,4 +1,5 @@
 class profile::zfs::common {
+  include profile::zfs
   # Allow zpool configuration to be undefined (that allows to bypass the manual
   # configuration on some nodes e.g. storage1.staging)
   $zpool_configuration = lookup('zfs::common::zpool_configuration', {default_value => {}})

@@ -19,3 +19,5 @@ zfs::common::zpool_configuration:
   disk:
     - nvme-eui.000000000000000100a07523415a9753
     - nvme-eui.000000000000000100a07523415a9bd8
+
+zfs::arc::max_size: 34359738368  # 32 GiB
