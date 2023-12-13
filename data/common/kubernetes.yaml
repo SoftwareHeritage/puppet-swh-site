@@ -1,0 +1,2 @@
+kubernetes::max_map_count: 2097152
+kubernetes::inotify_max_user_instances: 8192
