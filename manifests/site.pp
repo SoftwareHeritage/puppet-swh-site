@@ -188,7 +188,7 @@ node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
 }
 
 node /^counters\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_counters
+  include role::swh_counters_redis
 }
 
 node /^scrubber\d+\.internal\.(staging\.swh\.network|softwareheritage\.org)/ {

@@ -1,5 +1,5 @@
-# Deployment of the swh.counters.api server
-class profile::swh::deploy::counters {
+# Deployment of the swh.counters rpc server
+class profile::swh::deploy::counters::rpc {
   include ::profile::swh::deploy::base_counters
 
   $service_port = lookup('swh::remote_service::counters::port')
@@ -7,11 +7,6 @@ class profile::swh::deploy::counters {
   $cron_activate = lookup('swh::deploy::counters::refresh_cache::activate')
   $cron_expression = lookup('swh::deploy::counters::refresh_cache::cron')
   $static_history_file = lookup('swh::deploy::counters::cache_static_file')
-
-  class { '::redis':
-    bind                     => [ '127.0.0.1', ip_for_network(lookup('internal_network')) ],
-    save_db_to_disk_interval => { '30' => '1' },
-  }
 
   file { $cache_directory:
     ensure => directory,
@@ -38,7 +33,6 @@ class profile::swh::deploy::counters {
     mode   => '0755',
     source => 'puppet:///modules/profile/swh/deploy/counters/refresh_counters_cache.sh',
   }
-
 
   if $cron_activate {
     ::profile::cron::d { 'refresh_counters_cache':

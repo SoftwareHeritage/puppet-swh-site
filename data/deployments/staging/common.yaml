@@ -74,8 +74,6 @@ swh::remote_service::scheduler::config::scheduler0:
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 
-swh::remote_service::counters::url: "http://counters0.internal.staging.swh.network:%{hiera('swh::remote_service::counters::port')}/"
-
 swh::deploy::deposit::url: https://deposit.staging.swh.network
 swh::deploy::deposit::internal_url: "https://deposit-rp.internal.staging.swh.network"
 
