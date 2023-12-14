@@ -24,10 +24,6 @@ node 'moma.softwareheritage.org' {
   include role::swh_rp_webapps
 }
 
-node 'webapp1.internal.softwareheritage.org' {
-  include role::swh_rp_webapp
-}
-
 node /^search-esnode\d\.internal\.softwareheritage\.org$/ {
   include role::swh_elasticsearch
 }
