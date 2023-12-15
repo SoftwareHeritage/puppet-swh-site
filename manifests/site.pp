@@ -40,7 +40,7 @@ node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
 
-node /^(belvedere|somerset|massmoca).(internal.)?softwareheritage.org$/ {
+node /^(belvedere|somerset|massmoca|albertina).(internal.)?softwareheritage.org$/ {
   include role::swh_database
   include profile::pgbouncer
 }
