@@ -1,0 +1,17 @@
+---
+
+swh::apt_config::enable_non_free: true
+packages:
+  - amd64-microcode
+
+icinga2::host::vars:
+  load: high
+
+
+mountpoints:
+  /tmp:
+    ensure: absent
+  /srv/storage/space:
+    ensure: absent
+  swap:
+    ensure: absent
