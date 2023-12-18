@@ -12,3 +12,5 @@ mountpoints:
     ensure: absent
   /srv/storage/space:
     ensure: absent
+
+swh::apt_config::enable_non_free: true
