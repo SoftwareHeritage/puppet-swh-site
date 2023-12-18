@@ -26,10 +26,10 @@ swh::deploy::storage::db::password: guest
 # sync_mailmaps needs write access to the main database
 swh::deploy::webapp::sync_mailmaps::db::host: belvedere.internal.softwareheritage.org
 
-swh::deploy::objstorage::backend::listen::host: moma.internal.softwareheritage.org
+swh::deploy::objstorage::backend::listen::host: objstorage.internal.softwareheritage.org
 
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_production
-swh::deploy::objstorage::reverse_proxy::backend_http_host: objstorage.internal.softwareheritage.org
+swh::deploy::objstorage::reverse_proxy::backend_http_host: "%{alias('swh::deploy::objstorage::backend::listen::host')}"
 
 swh::deploy::objstorage::backend::public_server_name:
   objstorage.softwareheritage.org
@@ -49,6 +49,7 @@ swh::deploy::objstorage::config:
     objstorages:
       - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
       - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
+
 
 swh::deploy::objstorage::reverse_proxy::backend_http_port: "80"
 
