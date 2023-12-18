@@ -179,6 +179,7 @@ packages:
   - htop
   - iotop
   - ipython3
+  - jq
   - molly-guard
   - moreutils
   - ncdu
