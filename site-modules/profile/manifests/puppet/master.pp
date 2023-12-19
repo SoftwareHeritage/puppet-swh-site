@@ -2,6 +2,7 @@
 class profile::puppet::master {
   $puppetdb = lookup('puppet::master::puppetdb')
   $codedir = lookup('puppet::master::codedir')
+  $reports_retention = lookup('puppet::master::reports_retention')
 
   $manage_puppetdb = lookup('puppet::master::manage_puppetdb')
 
@@ -99,7 +100,7 @@ class profile::puppet::master {
 
   profile::cron::d {'purge-puppet-reports':
     target  => 'puppet',
-    command => 'find /var/lib/puppet/reports -type f -mtime +30 -delete',
+    command => "find /var/lib/puppet/reports -type f -mtime +${reports_retention} -delete",
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand',
   }
