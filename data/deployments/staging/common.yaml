@@ -82,6 +82,9 @@ swh::deploy::worker::loader_git::save_data_path: ""
 swh::deploy::worker::loader_git::concurrency: 1
 
 kafka::broker::heap_opts: "-Xmx3G -Xms3G"
+kafka::version: "3.4.1"
+kafka::inter_broker_protocol_version: "3.3"
+kafka::log_message_format_version: "3.3"
 
 swh::deploy::journal::brokers:
   - journal1.internal.staging.swh.network
