@@ -83,7 +83,7 @@ swh::deploy::worker::loader_git::concurrency: 1
 
 kafka::broker::heap_opts: "-Xmx3G -Xms3G"
 kafka::version: "3.6.1"
-kafka::inter_broker_protocol_version: "3.4"
+kafka::inter_broker_protocol_version: "3.6"
 kafka::log_message_format_version: "3.4"
 
 swh::deploy::journal::brokers:
