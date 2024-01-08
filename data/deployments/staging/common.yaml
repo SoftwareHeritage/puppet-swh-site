@@ -87,7 +87,6 @@ kafka::inter_broker_protocol_version: "3.6"
 kafka::log_message_format_version: "3.4"
 
 swh::deploy::journal::brokers:
-  - journal1.internal.staging.swh.network
   - journal2.internal.staging.swh.network
 
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_staging

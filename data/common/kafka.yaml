@@ -113,7 +113,7 @@ kafka::clusters:
   rocquencourt_staging:
     zookeeper::chroot: '/kafka/softwareheritage'
     zookeeper::servers:
-      - journal1.internal.staging.swh.network
+      - journal2.internal.staging.swh.network
     brokers:
       kafka1.internal.staging.swh.network:
         id: 1
