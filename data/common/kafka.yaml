@@ -7,7 +7,7 @@ zookeeper::clusters:
     '4': kafka4.internal.softwareheritage.org
   rocquencourt_staging:
     '1': kafka1.internal.staging.swh.network
-    '2': storage1.internal.staging.swh.network
+    # '2': Decommissionned, do not reuse
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
@@ -119,10 +119,6 @@ kafka::clusters:
         id: 1
         public_hostname: broker2.journal.staging.swh.network
         internal_advertised_name: journal2.internal.staging.swh.network
-      storage1.internal.staging.swh.network:
-        id: 2
-        public_hostname: broker1.journal.staging.swh.network
-        internal_advertised_name: journal1.internal.staging.swh.network
     broker::heap_opts: "%{alias('kafka::broker::heap_opts')}"
     superusers:
       - User:swh-admin-olasd

@@ -172,7 +172,7 @@ node 'gateway.internal.staging.swh.network' {
 }
 
 node /^storage\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_rancher_agent_with_journal
+  include role::rancher_node
 }
 
 node /^worker\d\.internal\.staging\.swh\.network$/ {
