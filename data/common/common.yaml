@@ -812,6 +812,7 @@ swh::deploy::reverse_proxy::services:
   - deposit
   - webapp
   - objstorage
+  - storage_cassandra_ro
   - software-stories
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
@@ -886,6 +887,9 @@ letsencrypt::certificates:
     domains:
       - objstorage.staging.swh.network
       - objstorage-rp.internal.staging.swh.network
+  storage_cassandra_ro:
+    domains:
+      - storage-cassandra-ro.softwareheritage.org
   stats_export:
     domains:
       - stats.export.softwareheritage.org
@@ -1143,6 +1147,10 @@ bind::resource_records:
   objstorage-ro/CNAME:
     type: CNAME
     record: objstorage.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  storage-cassandra-ro/CNAME:
+    type: CNAME
+    record: storage-cassandra-ro.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
   db/CNAME:
     type: CNAME
@@ -2446,6 +2454,12 @@ swh::deploy::journal::backfill::config_logging:
     level: INFO
     handlers:
     - console
+
+swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_host: storage-cassandra-ro.internal.softwareheritage.org
+swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_port: "80"
+swh::deploy::storage_cassandra_ro::reverse_proxy::basic_auth_on_backend: true
+swh::deploy::storage_cassandra_ro::base_url: storage-cassandra-ro.softwareheritage.org
+swh::deploy::storage_cassandra_ro::vhost::letsencrypt_cert: storage_cassandra_ro
 
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
