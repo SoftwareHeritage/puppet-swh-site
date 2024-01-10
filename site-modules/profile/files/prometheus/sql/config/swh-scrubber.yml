@@ -23,6 +23,9 @@
       D.instance AS datastore_instance,
       CC.object_type AS object_type,
       CC.nb_partitions AS partitions_total,
+      CC.name AS config_name,
+      CC.check_hashes AS config_check_hashes,
+      CC.check_references AS config_check_references,
       CP.checked_partitions AS partitions_checked_total,
       EXTRACT (EPOCH FROM CP.oldest_partition) AS oldest_partition_check_timestamp_seconds,
       EXTRACT (EPOCH FROM CP.newest_partition) AS newest_partition_check_timestamp_seconds,
@@ -37,6 +40,9 @@
     - datastore_package
     - datastore_class
     - datastore_instance
+    - config_name
+    - config_check_hashes
+    - config_check_references
     - object_type
   values:
     - partitions_total
@@ -70,6 +76,9 @@
       D.instance AS datastore_instance,
       CC.object_type AS object_type,
       CC.nb_partitions AS partitions_total,
+      CC.name AS config_name,
+      CC.check_hashes AS config_check_hashes,
+      CC.check_references AS config_check_references,
       CP.checking_partitions AS partitions_checking_total,
       EXTRACT (EPOCH FROM CP.oldest_partition) AS oldest_partition_check_start_timestamp_seconds,
       EXTRACT (EPOCH FROM CP.newest_partition) AS newest_partition_check_start_timestamp_seconds
@@ -81,6 +90,9 @@
     - datastore_package
     - datastore_class
     - datastore_instance
+    - config_name
+    - config_check_hashes
+    - config_check_references
     - object_type
   values:
     - partitions_total
