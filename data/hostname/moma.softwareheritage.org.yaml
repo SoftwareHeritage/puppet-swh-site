@@ -53,6 +53,9 @@ swh::deploy::objstorage::config:
 
 swh::deploy::objstorage::reverse_proxy::backend_http_port: "80"
 
+swh::deploy::deposit::reverse_proxy::backend_http_host: deposit-dynamic.internal.softwareheritage.org
+swh::deploy::deposit::reverse_proxy::backend_http_port: "80"
+
 swh::deploy::webapp::timers_enabled: true
 
 hitch::frontend: "[*]:443"

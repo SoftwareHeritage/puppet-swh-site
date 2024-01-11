@@ -2695,8 +2695,6 @@ swh::deploy::objstorage::reverse_proxy::basic_auth::users:
   - swh-prod
   - enea-prod
 
-swh::deploy::deposit::reverse_proxy::backend_http_port: "%{alias('varnish::backend_http_port')}"
-
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::url: https://deposit.softwareheritage.org
