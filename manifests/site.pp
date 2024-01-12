@@ -21,7 +21,7 @@ node 'tate.softwareheritage.org' {
 }
 
 node 'moma.softwareheritage.org' {
-  include role::swh_rp_webapps
+  include role::swh_reverse_proxy
 }
 
 node /^search-esnode\d\.internal\.softwareheritage\.org$/ {
