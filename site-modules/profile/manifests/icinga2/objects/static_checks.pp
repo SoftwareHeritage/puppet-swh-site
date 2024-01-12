@@ -290,6 +290,7 @@ class profile::icinga2::objects::static_checks {
       'storage-ro'        => 'storage server',
       'objstorage'        => 'Objstorage API server',
       'counters'          => 'Counters API',
+      'search'            => 'Search API',
     },
     'production' => {
 
