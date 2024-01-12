@@ -195,11 +195,6 @@ node /^rp\d\.internal\.(staging|admin)\.swh\.network$/ {
   include role::swh_reverse_proxy
 }
 
-# Read-only storage for mirrors
-node 'objstorage0.internal.staging.swh.network' {
-  include role::swh_remote_objstorage
-}
-
 node 'bojimans.internal.admin.swh.network' {
   include role::swh_netbox
 }
