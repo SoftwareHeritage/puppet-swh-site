@@ -1300,6 +1300,10 @@ bind::resource_records:
     type: CNAME
     record: counters.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  search-staging/CNAME:
+    type: CNAME
+    record: search.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   storage-ro-staging/CNAME:
     type: CNAME
     record: storage-ro.internal.staging.swh.network
