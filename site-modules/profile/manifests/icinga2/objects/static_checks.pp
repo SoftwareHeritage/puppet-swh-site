@@ -272,5 +272,38 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  $hosts_to_check_per_environment = {
+    # env     => hosts to check as dict
+    'staging' => {
+      # host              => msg to check in body
+      'storage-cassandra' => 'storage server',
+      'storage-ro'        => 'storage server',
+    },
+    'production' => {
+
+    },
+  }
+
+  # Install static checks according to environment
+  $hosts_to_check_per_environment.each | $env, $hosts_to_check | {
+    $hosts_to_check.each | $domain, $msg | {
+      if ( $env == 'staging' ) {
+        $host = "${domain}.internal.staging.swh.network"
+      } else {
+        $host = "${domain}.internal.softwareheritage.org"
+      }
+      ::icinga2::object::service {"${env} - Host ${host} Check":
+        import        => ['generic-service'],
+        host_name     => $host,
+        check_command => 'http',
+        target        => $checks_file,
+        vars          => {
+          http_vhost  => $host,
+          http_uri    => '/',
+          http_string => $msg,
+        },
+      }
+    }
+  }
 
 }
