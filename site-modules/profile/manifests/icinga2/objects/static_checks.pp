@@ -30,6 +30,16 @@ class profile::icinga2::objects::static_checks {
     host_name   => "moma.softwareheritage.org",
   }
 
+  ::icinga2::object::host {'archive-production-rke2':
+    check_command => 'dummy',
+    address       => '127.0.0.1',
+    target        => $checks_file,
+    vars          => {
+      dummy_state => 0,  # up
+      dummy_text  => "Virtual host for icinga checks related to production services",
+    },
+  }
+
   ::icinga2::object::host {'archive-staging-rke2':
     check_command => 'dummy',
     address       => '127.0.0.1',
@@ -292,9 +302,10 @@ class profile::icinga2::objects::static_checks {
       } else {
         $host = "${domain}.internal.softwareheritage.org"
       }
+      $host_name = "archive-${env}-rke2"
       ::icinga2::object::service {"${env} - Host ${host} Check":
         import        => ['generic-service'],
-        host_name     => $host,
+        host_name     => $host_name,
         check_command => 'http',
         target        => $checks_file,
         vars          => {
