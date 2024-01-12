@@ -1296,6 +1296,10 @@ bind::resource_records:
     type: CNAME
     record: scheduler.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  storage-ro-staging/CNAME:
+    type: CNAME
+    record: storage-ro.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   webapp-postgresql-staging/CNAME:
     type: CNAME
     record: webapp-postgresql.internal.staging.swh.network
