@@ -1144,6 +1144,10 @@ bind::resource_records:
     type: CNAME
     record: archive.internal.softwareheritage.org
     data: moma.internal.softwareheritage.org.
+  archive-dynamic/CNAME:
+    type: CNAME
+    record: archive-dynamic.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   objstorage-ro/CNAME:
     type: CNAME
     record: objstorage.internal.softwareheritage.org
