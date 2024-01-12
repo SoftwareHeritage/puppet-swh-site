@@ -289,6 +289,7 @@ class profile::icinga2::objects::static_checks {
       'storage-cassandra' => 'storage server',
       'storage-ro'        => 'storage server',
       'objstorage'        => 'Objstorage API server',
+      'counters'          => 'Counters API',
     },
     'production' => {
 
