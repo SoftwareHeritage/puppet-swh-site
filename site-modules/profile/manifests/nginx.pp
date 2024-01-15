@@ -58,4 +58,12 @@ class profile::nginx {
   }
 
   include profile::prometheus::nginx
+
+  $simple_vhosts = lookup('nginx::simple_vhosts', Hash, undef, {})
+
+  $simple_vhosts.each |$name, $params| {
+    ::profile::nginx::simple_vhost{$name:
+      * => $params,
+    }
+  }
 }
