@@ -3,7 +3,7 @@ define profile::nginx::simple_vhost (
   Array[String] $server_names = [$::swh_hostname['internal_fqdn']],
   String $www_root = '/var/www/html',
   Stdlib::Port $http_port = 80,
-  String $http_host = $::swh_hostname['internal_fqdn'],
+  String $http_host = '0.0.0.0',
   String $http_check_string = 'Welcome to nginx',
   Hash $nginx_params = {},
 ) {
@@ -22,12 +22,12 @@ define profile::nginx::simple_vhost (
 
   # actual server
   ::nginx::resource::server {"nginx-simple_vhost-${name}":
-    ensure         => present,
-    listen_ip      => $http_host,
-    listen_port    => $http_port,
-    server_name    => $server_names,
-    www_root       => $www_root,
-    *              => $nginx_params,
+    ensure      => present,
+    listen_ip   => $http_host,
+    listen_port => $http_port,
+    server_name => $server_names,
+    www_root    => $www_root,
+    *           => $nginx_params,
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
