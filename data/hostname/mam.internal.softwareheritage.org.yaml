@@ -10,3 +10,6 @@ nginx::simple_vhosts:
     www_root: /data/ddouard/upload/provenance-heads
     nginx_params:
       autoindex: 'on'
+      location_custom_cfg:
+        sendfile: 'on'
+        sendfile_max_chunk: '16M'
