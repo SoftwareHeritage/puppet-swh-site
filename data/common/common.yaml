@@ -2347,6 +2347,8 @@ swh::deploy::provenance_export::reverse_proxy::backend_http_port: "80"
 swh::deploy::provenance_export::base_url: provenance-export.softwareheritage.org
 swh::deploy::provenance_export::vhost::letsencrypt_cert: provenance_export
 swh::deploy::provenance_export::icinga_check_string: 'Welcome to NGINX'
+# Fully disable caching
+swh::deploy::provenance_export::reverse_proxy::vcl_recv_extra: "return (pass);"
 
 # End remote service configurations
 #####################################################################################################
