@@ -35,6 +35,13 @@ class profile::nginx {
     }
   }
 
+  # Clear default vhost from debian setup
+  file {'/etc/nginx/sites-enabled/default':
+    ensure  => 'absent',
+    require => Class['nginx::package'],
+    notify  => Class['nginx::service'],
+  }
+
   # metrics vhosts
   ::nginx::resource::server {'nginx-metrics':
     ensure         => present,
