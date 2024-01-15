@@ -34,6 +34,15 @@ prune_docker () {
   docker volume list --filter dangling=true --format json | jq -r 'select(.Labels!="keep=true")|.Name' | xargs -r docker volume rm
 }
 
+stop_dangling_containers () {
+  # To stop integration tests containers from running too long (after they are done)
+  docker ps --all --format='json' \
+      | jq -r 'select(.CreatedAt < "'"$(date -d '3 hours ago' +'%Y-%m-%d %H:%M:%S')"'")|.ID' \
+      | xargs -r docker container stop
+}
+
+stop_dangling_containers
+
 # Prune dangling layers and volumes once
 prune_docker
 
