@@ -6,7 +6,7 @@ nginx::simple_vhosts:
   provenance:
     server_names:
       - mam.internal.softwareheritage.org
-      - provenance-export.softwareheritage.org
+      - "%{lookup('swh::deploy::provenance_export::base_url')}"
     www_root: /data/ddouard/upload/provenance-heads
     nginx_params:
       autoindex: 'on'
