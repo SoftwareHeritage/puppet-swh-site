@@ -40,7 +40,7 @@ prune_docker
 # Update tagged docker images; do not croak if pulling fails
 docker image ls \
     | tail -n +2 \
-    | awk '{if ($1 !~ /^app-manager|swh\/|(swh-jenkins(-test)?\/|softwareheritage\/)/ && $2 != "<none>") { print $1":"$2 }}' \
+    | awk '{if ($1 !~ /^(app-manager|swh\/|(swh-jenkins(-test)?\/|softwareheritage\/))/ && $2 != "<none>") { print $1":"$2 }}' \
     | xargs -r -n1 docker image pull \
   || true
 
