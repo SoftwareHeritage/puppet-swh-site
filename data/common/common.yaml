@@ -1164,6 +1164,38 @@ bind::resource_records:
     type: CNAME
     record: db.internal.softwareheritage.org
     data: belvedere.internal.softwareheritage.org.
+  postgresql-storage-rw/CNAME:
+    type: CNAME
+    record: postgresql-storage-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-storage-replica/CNAME:
+    type: CNAME
+    record: postgresql-storage-replica.internal.softwareheritage.org
+    data: massmoca.internal.softwareheritage.org.
+  postgresql-indexer-rw/CNAME:
+    type: CNAME
+    record: postgresql-indexer-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-scheduler-rw/CNAME:
+    type: CNAME
+    record: postgresql-scheduler-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-vault-rw/CNAME:
+    type: CNAME
+    record: postgresql-vault-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-scrubber-rw/CNAME:
+    type: CNAME
+    record: postgresql-scrubber-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-web-rw/CNAME:
+    type: CNAME
+    record: postgresql-web-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
+  postgresql-deposit-rw/CNAME:
+    type: CNAME
+    record: postgresql-deposit-rw.internal.softwareheritage.org
+    data: belvedere.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
@@ -2413,7 +2445,7 @@ swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
 swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
-swh::deploy::storage::db::host: db.internal.softwareheritage.org
+swh::deploy::storage::db::host: postgresql-storage-rw.internal.softwareheritage.org
 swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
@@ -2556,7 +2588,7 @@ swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
 swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
-swh::deploy::vault::db::host: db.internal.softwareheritage.org
+swh::deploy::vault::db::host: postgresql-vault-rw.internal.softwareheritage.org
 swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
@@ -2618,7 +2650,7 @@ swh::deploy::journal::prefix: swh.journal.objects
 
 swh::deploy::scrubber::db::user: swh-scrubber
 swh::deploy::scrubber::db::dbname: swh-scrubber
-swh::deploy::scrubber::db::host: db.internal.softwareheritage.org
+swh::deploy::scrubber::db::host: postgresql-scrubber-rw.internal.softwareheritage.org
 swh::deploy::scrubber::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 
 swh::deploy::scrubber::sentry_swh_package: swh.scrubber
@@ -2802,7 +2834,7 @@ swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_direct
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-swh::deploy::deposit::db::host: db.internal.softwareheritage.org
+swh::deploy::deposit::db::host: postgresql-deposit-rw.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
@@ -2938,7 +2970,7 @@ swh::deploy::webapp::backend::http_keepalive: 5
 swh::deploy::webapp::backend::http_timeout: 3600
 swh::deploy::webapp::backend::reload_mercy: 3600
 
-swh::deploy::webapp::db::host: db.internal.softwareheritage.org
+swh::deploy::webapp::db::host: postgresql-web-rw.internal.softwareheritage.org
 swh::deploy::webapp::db::user: swh-web
 swh::deploy::webapp::db::name: swh-web
 swh::deploy::webapp::db::port: "%{alias('swh::deploy::db::secondary::port')}"
@@ -3169,7 +3201,7 @@ swh::deploy::scheduler::conf_dir: "%{lookup('swh::conf_directory')}/scheduler"
 swh::deploy::scheduler::conf_file: "%{hiera('swh::deploy::scheduler::conf_dir')}/listener-runner.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
-swh::deploy::scheduler::db::host: db.internal.softwareheritage.org
+swh::deploy::scheduler::db::host: postgresql-scheduler-rw.internal.softwareheritage.org
 swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
