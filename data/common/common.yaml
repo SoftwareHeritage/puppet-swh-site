@@ -2594,7 +2594,7 @@ swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
 swh::deploy::vault::db::host: postgresql-vault-rw.internal.softwareheritage.org
 swh::deploy::vault::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::vault::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::vault::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::vault::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
@@ -2658,7 +2658,7 @@ swh::deploy::scrubber::db::user: swh-scrubber
 swh::deploy::scrubber::db::dbname: swh-scrubber
 swh::deploy::scrubber::db::host: postgresql-scrubber-rw.internal.softwareheritage.org
 swh::deploy::scrubber::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::scrubber::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::scrubber::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::scrubber::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 
 swh::deploy::scrubber::sentry_swh_package: swh.scrubber
@@ -2844,7 +2844,7 @@ swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
 swh::deploy::deposit::db::host: postgresql-deposit-rw.internal.softwareheritage.org
 swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::deposit::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::deposit::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::deposit::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 swh::deploy::deposit::db::dbname: softwareheritage-deposit
 swh::deploy::deposit::db::dbuser: swhstorage
@@ -2982,7 +2982,7 @@ swh::deploy::webapp::backend::reload_mercy: 3600
 
 swh::deploy::webapp::db::host: postgresql-web-rw.internal.softwareheritage.org
 swh::deploy::webapp::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::webapp::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::webapp::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::webapp::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 swh::deploy::webapp::db::user: swh-web
 swh::deploy::webapp::db::name: swh-web
@@ -3215,7 +3215,7 @@ swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
 swh::deploy::scheduler::db::host: postgresql-scheduler-rw.internal.softwareheritage.org
 swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::scheduler::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::scheduler::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::scheduler::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
