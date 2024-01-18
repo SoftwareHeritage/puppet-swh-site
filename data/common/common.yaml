@@ -2446,7 +2446,7 @@ swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory'
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
 swh::deploy::storage::db::host: postgresql-storage-rw.internal.softwareheritage.org
-swh::deploy::storage::db::backend::host: belvedere.internal.softwareheritage.org
+swh::deploy::storage::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::storage::db::backend::port: "%{lookup('swh::deploy::db::main::port')}"
 swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swhstorage
