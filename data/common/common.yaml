@@ -1179,23 +1179,23 @@ bind::resource_records:
   postgresql-scheduler-rw/CNAME:
     type: CNAME
     record: postgresql-scheduler-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-vault-rw/CNAME:
     type: CNAME
     record: postgresql-vault-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-scrubber-rw/CNAME:
     type: CNAME
     record: postgresql-scrubber-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-web-rw/CNAME:
     type: CNAME
     record: postgresql-web-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-deposit-rw/CNAME:
     type: CNAME
     record: postgresql-deposit-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
