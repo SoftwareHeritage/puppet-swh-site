@@ -15,3 +15,8 @@ mountpoints:
     ensure: absent
   swap:
     ensure: absent
+
+prometheus::sql::config_snippets:
+  - swh-scheduler
+  - swh-storage
+  - swh-scrubber
