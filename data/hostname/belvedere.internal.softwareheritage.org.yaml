@@ -8,44 +8,39 @@ pgbouncer::listen_addr: 192.168.100.210
 pgbouncer::databases:
   # swh
   - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
-    host: belvedere.internal.softwareheritage.org
+    host: "%{hiera('swh::deploy::storage::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
+    port: "%{hiera('swh::deploy::storage::db::backend::port')}"
   # swh-deposit
   - source_db: "%{hiera('swh::deploy::deposit::db::dbname')}"
-    host: "%{hiera('swh::deploy::deposit::db::host')}"
+    host: "%{hiera('swh::deploy::deposit::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
+    port: "%{hiera('swh::deploy::deposit::db::backend::port')}"
   # swh-scheduler
   - source_db: "%{hiera('swh::deploy::scheduler::db::dbname')}"
-    host: "%{hiera('swh::deploy::scheduler::db::host')}"
+    host: "%{hiera('swh::deploy::scheduler::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
+    port: "%{hiera('swh::deploy::scheduler::db::backend::port')}"
   # swh-vault
   - source_db: "%{hiera('swh::deploy::vault::db::dbname')}"
-    host: "%{hiera('swh::deploy::vault::db::host')}"
+    host: "%{hiera('swh::deploy::vault::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
-  # swh-lister
-  - source_db: "%{hiera('swh::deploy::worker::lister::db::name')}"
-    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
+    port: "%{hiera('swh::deploy::vault::db::backend::port')}"
   # swh-indexer
   - source_db: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
-    host: belvedere.internal.softwareheritage.org
+    host: "%{hiera('swh::deploy::indexer::storage::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::indexer::port')}"
+    port: "%{hiera('swh::deploy::indexer::storage::db::backend::port')}"
   # swh-web
   - source_db: "%{hiera('swh::deploy::webapp::db::name')}"
-    host: belvedere.internal.softwareheritage.org
+    host: "%{hiera('swh::deploy::webapp::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::webapp::db::port')}"
+    port: "%{hiera('swh::deploy::webapp::db::backend::port')}"
   # swh-scrubber
   - source_db: "%{hiera('swh::deploy::scrubber::db::dbname')}"
-    host: "%{hiera('swh::deploy::scrubber::db::host')}"
+    host: "%{hiera('swh::deploy::scrubber::db::backend::host')}"
     auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::secondary::port')}"
+    port: "%{hiera('swh::deploy::scrubber::db::backend::port')}"
   # catch-all
   - source_db: "*"
     host: 127.0.0.1
