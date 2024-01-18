@@ -1167,7 +1167,7 @@ bind::resource_records:
   postgresql-storage-rw/CNAME:
     type: CNAME
     record: postgresql-storage-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-storage-replica/CNAME:
     type: CNAME
     record: postgresql-storage-replica.internal.softwareheritage.org
@@ -1175,7 +1175,7 @@ bind::resource_records:
   postgresql-indexer-rw/CNAME:
     type: CNAME
     record: postgresql-indexer-rw.internal.softwareheritage.org
-    data: belvedere.internal.softwareheritage.org.
+    data: albertina.internal.softwareheritage.org.
   postgresql-scheduler-rw/CNAME:
     type: CNAME
     record: postgresql-scheduler-rw.internal.softwareheritage.org
