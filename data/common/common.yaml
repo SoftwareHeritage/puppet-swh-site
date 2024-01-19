@@ -1164,6 +1164,10 @@ bind::resource_records:
     type: CNAME
     record: storage-cassandra-ro.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  search/CNAME:
+    type: CNAME
+    record: search.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   db/CNAME:
     type: CNAME
     record: db.internal.softwareheritage.org
