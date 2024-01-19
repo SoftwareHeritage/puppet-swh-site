@@ -1156,6 +1156,10 @@ bind::resource_records:
     type: CNAME
     record: objstorage.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  storage-postgresql-ro/CNAME:
+    type: CNAME
+    record: storage-postgresql-ro.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   storage-cassandra-ro/CNAME:
     type: CNAME
     record: storage-cassandra-ro.internal.softwareheritage.org
