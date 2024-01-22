@@ -65,6 +65,16 @@ class profile::icinga2::objects::static_checks {
     host_name        => "archive-staging-rke2",
   }
 
+  ::profile::swh::deploy::vault::icinga_checks {'production':
+    storage     => "http://storage-postgresql-ro.internal.softwareheritage.org",
+    webapp      => "https://archive.softwareheritage.org",
+  }
+
+  ::profile::swh::deploy::vault::icinga_checks {'staging':
+    storage     => "http://storage-ro.internal.staging.swh.network",
+    webapp      => "https://webapp.staging.swh.network",
+  }
+
   ::icinga2::object::host {'Admin Kubernetes cluster':
     import        => ['generic-host'],
     host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
