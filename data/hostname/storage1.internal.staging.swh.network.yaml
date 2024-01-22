@@ -52,5 +52,5 @@ swh::apt_config::backported_packages:
     - zfsutils-linux
     - zfs-zed
 
-# Empty because it got done manually on it so we want it to not be changed
+# Empty because it got already configured and we want to keep it as-is
 zfs::common::zpool_configuration: {}
