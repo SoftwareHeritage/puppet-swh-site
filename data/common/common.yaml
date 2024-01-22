@@ -2542,7 +2542,7 @@ swh::deploy::indexer::storage::sentry_dsn: "%{alias('swh::deploy::indexer::sentr
 swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
-swh::deploy::indexer::storage::db::host: postgresql-indexer-rw.internal.softwareheritage.network
+swh::deploy::indexer::storage::db::host: postgresql-indexer-rw.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::indexer::storage::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::backend::port: "%{lookup('swh::deploy::db::indexer::port')}"
