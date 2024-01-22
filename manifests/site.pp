@@ -82,10 +82,6 @@ node 'mam.internal.softwareheritage.org' {
   include role::nginx_only
 }
 
-node /^(unibo-prod|vangogh).(euwest.azure.)?(internal.)?softwareheritage.org$/ {
-  include role::swh_vault
-}
-
 node /^saam\.(internal\.)?softwareheritage\.org$/ {
   include role::swh_storage_baremetal
 }

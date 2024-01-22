@@ -2359,10 +2359,10 @@ swh::remote_service::scheduler::config::saatchi:
   url: "http://scheduler.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
 
 
-# Vault backend configurations
+# Vault backend configuration (dynamic infra)
 swh::remote_service::vault::config::azure:
   cls: remote
-  url: "http://vangogh.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::vault::port')}/"
+  url: "http://vault-rpc-ingress"
 
 # Counters backend configurations
 swh::remote_service::counters::url: "http://counters1.internal.softwareheritage.org:%{hiera('swh::remote_service::counters::port')}/"
