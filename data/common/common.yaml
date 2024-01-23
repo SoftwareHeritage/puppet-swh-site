@@ -2533,6 +2533,7 @@ swh::deploy::journal::backfill::config_logging:
 swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_host: storage-cassandra-ro.internal.softwareheritage.org
 swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_port: "80"
 swh::deploy::storage_cassandra_ro::reverse_proxy::basic_auth_on_backend: true
+swh::deploy::storage_cassandra_ro::icinga_check_string: ""
 swh::deploy::storage_cassandra_ro::base_url: storage-cassandra-ro.softwareheritage.org
 swh::deploy::storage_cassandra_ro::vhost::letsencrypt_cert: storage_cassandra_ro
 

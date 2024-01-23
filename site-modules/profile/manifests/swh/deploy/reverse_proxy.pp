@@ -94,7 +94,7 @@ class profile::swh::deploy::reverse_proxy {
     if $authentication_enabled {
       # A real user name can't be specified in http_auth var
       # because the value is exposed in the web ui
-      $http_expect_var = { http_expect => '401 Restricted' }
+      $http_expect_var = { http_expect => '401 Restricted,401 Unauthorized' }
     } else {
       $http_expect_var = {}
     }
