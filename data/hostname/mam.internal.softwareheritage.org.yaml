@@ -8,6 +8,7 @@ nginx::simple_vhosts:
       - mam.internal.softwareheritage.org
       - "%{lookup('swh::deploy::provenance_export::base_url')}"
     www_root: /data/ddouard/upload/provenance-heads
+    http_check_string: 'Index of /'
     nginx_params:
       autoindex: 'on'
       location_custom_cfg:
