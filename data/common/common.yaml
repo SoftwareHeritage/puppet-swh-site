@@ -2386,7 +2386,7 @@ swh::deploy::provenance_export::reverse_proxy::backend_http_host: mam.internal.s
 swh::deploy::provenance_export::reverse_proxy::backend_http_port: "80"
 swh::deploy::provenance_export::base_url: provenance-export.softwareheritage.org
 swh::deploy::provenance_export::vhost::letsencrypt_cert: provenance_export
-swh::deploy::provenance_export::icinga_check_string: 'Welcome to NGINX'
+swh::deploy::provenance_export::icinga_check_string: 'Index of /'
 # Fully disable caching and buffering on the reverse proxy
 swh::deploy::provenance_export::reverse_proxy::vcl_recv_extra: "return (pipe);"
 
