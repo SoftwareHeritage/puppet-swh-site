@@ -300,7 +300,7 @@ class profile::icinga2::objects::static_checks {
       # host              => msg to check in body
       'storage-cassandra' => 'storage server',
       'storage-ro'        => 'storage server',
-      'objstorage'        => 'Objstorage API server',
+      'objstorage-ro'     => 'Objstorage API server',
       'counters'          => 'Counters API',
       'search'            => 'Search API',
     },
