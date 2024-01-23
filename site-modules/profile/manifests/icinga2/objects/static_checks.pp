@@ -32,7 +32,7 @@ class profile::icinga2::objects::static_checks {
 
   ::icinga2::object::host {'archive-production-rke2':
     check_command => 'dummy',
-    address       => '127.0.0.1',
+    address       => 'k8s-archive-production-rke2.internal.softwareheritage.org',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
@@ -42,7 +42,7 @@ class profile::icinga2::objects::static_checks {
 
   ::icinga2::object::host {'archive-staging-rke2':
     check_command => 'dummy',
-    address       => '127.0.0.1',
+    address       => 'k8s-archive-staging-rke2.internal.staging.swh.network',
     target        => $checks_file,
     vars          => {
       dummy_state => 0,  # up
