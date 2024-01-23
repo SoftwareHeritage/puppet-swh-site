@@ -37,6 +37,7 @@ class profile::icinga2::objects::static_checks {
     vars          => {
       dummy_state => 0,  # up
       dummy_text  => "Virtual host for icinga checks related to production services",
+      noping      => true,
     },
   }
 
@@ -47,6 +48,7 @@ class profile::icinga2::objects::static_checks {
     vars          => {
       dummy_state => 0,  # up
       dummy_text  => "Virtual host for icinga checks related to staging services",
+      noping      => true,
     },
   }
 
