@@ -49,7 +49,7 @@ define profile::nginx::simple_vhost (
     command_endpoint => $::fqdn,
     vars             => {
       http_address => $local_check_address,
-      http_vhost   => $local_check_address,
+      http_vhost   => $::fqdn,
       http_port    => $http_port,
       http_uri     => '/',
       http_string  => $http_check_string,
