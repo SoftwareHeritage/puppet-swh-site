@@ -1,0 +1,4 @@
+swh::apt_config::enable_non_free: true
+
+# Empty because already configured and we want to keep it as-is
+zfs::common::zpool_configuration: {}
