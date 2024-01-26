@@ -27,7 +27,6 @@ zfs::common::zpool_configuration:
     - wwn-0x500003972c8a44d1 wwn-0x58ce38ee224a3ce1
   spare:
     - wwn-0x500003965c898904
-  ashift: 12
   autoexpand: on
 
 zfs::arc::max_size: 34359738368  # 32 GiB
