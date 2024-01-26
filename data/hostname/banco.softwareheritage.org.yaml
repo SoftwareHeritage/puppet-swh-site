@@ -5,6 +5,12 @@ smtp::mynetworks:
   - 192.168.128.0/24  # storage array, for notification emails
   - 192.168.129.0/24  # storage array, for notification emails
 
+# local cache is not compatible with rancher
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
 smtp::mail_aliases:
   - user: barman
     aliases:
@@ -86,3 +92,7 @@ icinga2::host::vars:
     disk /srv/storage/f:
       disk_wfree: '6%'
       disk_cfree: '3%'
+
+zfs::common::zpool_configuration:
+  disk:
+    - scsi-SDELL_PERC_H730_Mini_003b2814132815c21d00aa6038708741-part3

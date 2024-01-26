@@ -42,8 +42,7 @@ node /^(belvedere|somerset|massmoca|albertina).(internal.)?softwareheritage.org$
 }
 
 node 'banco.softwareheritage.org' {
-  include role::swh_backup
-  include role::postgresql_backup
+  include role::objstorage_rancher_node
 }
 
 node /^esnode\d+.(internal.)?softwareheritage.org$/ {
