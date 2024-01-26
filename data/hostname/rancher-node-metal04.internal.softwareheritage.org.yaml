@@ -17,30 +17,17 @@ swh::apt_config::enable_non_free: true
 
 zfs::common::zpool_configuration:
   mirror:
-    - wwn-0x50000397bc8969c1
-    - wwn-0x50000396dc8a2191
-  mirror:
-    - wwn-0x50000396dc8a2185
-    - wwn-0x50000397bc8969b1
-  mirror:
-    - wwn-0x5002538c409a8258
-    - wwn-0x5002538c40ba6713
-  mirror:
-    - wwn-0x5002538c409a825a
-    - wwn-0x5002538c40ba66ab
-  mirror:
-    - wwn-0x5002538c409a8252
-    - wwn-0x5002538c409a8256
-  mirror:
-    - wwn-0x5002538c40ba6716
-    - wwn-0x5002538c409a8253
-  mirror:
-    - wwn-0x5002538b00657d80
-    - wwn-0x500003965c89895c
-  mirror:
-    - wwn-0x500003972c8a44d1
-    - wwn-0x58ce38ee224a3ce1
+    - wwn-0x50000397bc8969c1 wwn-0x50000396dc8a2191
+    - wwn-0x50000396dc8a2185 wwn-0x50000397bc8969b1
+    - wwn-0x5002538c409a8258 wwn-0x5002538c40ba6713
+    - wwn-0x5002538c409a825a wwn-0x5002538c40ba66ab
+    - wwn-0x5002538c409a8252 wwn-0x5002538c409a8256
+    - wwn-0x5002538c40ba6716 wwn-0x5002538c409a8253
+    - wwn-0x5002538b00657d80 wwn-0x500003965c89895c
+    - wwn-0x500003972c8a44d1 wwn-0x58ce38ee224a3ce1
   spare:
     - wwn-0x500003965c898904
+  ashift: 12
+  autoexpand: on
 
 zfs::arc::max_size: 34359738368  # 32 GiB
