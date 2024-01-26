@@ -79,7 +79,7 @@ node 'mam.internal.softwareheritage.org' {
 }
 
 node /^saam\.(internal\.)?softwareheritage\.org$/ {
-  include role::swh_storage_baremetal
+  include role::rancher_node_with_multipath
 }
 
 node 'storage01.euwest.azure.internal.softwareheritage.org' {

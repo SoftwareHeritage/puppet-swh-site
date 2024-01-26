@@ -12,46 +12,6 @@ backups::exclude:
   - srv/softwareheritage/annex
   - srv/softwareheritage/objects-xfs
 
-# Deploy the storage server as a public resource
-swh::deploy::storage::backend::listen::host: 0.0.0.0
-swh::deploy::storage::backend::workers: 128
-swh::deploy::storage::backend::max_requests: 5000
-swh::deploy::storage::backend::max_requests_jitter: 500
-
-swh::deploy::storage::legacy_directory: /srv/softwareheritage/objects-xfs
-
-swh::deploy::storage::config::local:
-  cls: pipeline
-  steps:
-  - cls: record_references
-  - cls: postgresql
-    db: "host=%{hiera('swh::deploy::storage::db::host')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
-    journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
-    objstorage:
-      cls: multiplexer
-      objstorages:
-        - cls: pathslicing
-          root: "%{hiera('swh::deploy::storage::directory')}"
-          slicing: "0:2/0:5"
-          compression: none
-        - "%{alias('swh::remote_service::objstorage::config::azure')}"
-
-# Deploy the indexer storage server as a public resource
-swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
-swh::deploy::indexer::storage::backend::workers: 32
-
-# open objstorage api
-swh::deploy::objstorage::backend::listen::host: 0.0.0.0
-swh::deploy::objstorage::backend::workers: 16
-swh::deploy::objstorage::config:
-  objstorage:
-    cls: multiplexer
-    objstorages:
-      - cls: pathslicing
-        root: "%{hiera('swh::deploy::storage::directory')}"
-        slicing: "0:2/0:5"
-        compression: none
-  client_max_size: 1073741824  # 1 GiB
 
 icinga2::host::vars:
   load: high
