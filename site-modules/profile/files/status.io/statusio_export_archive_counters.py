@@ -2,7 +2,7 @@
 # File managed by puppet (class ::profile::status_io_metrics), changes will be lost.
 
 # python3 update_metrics.py -m swh_web_accepted_save_requests --api-id 1234 --api-key 456 --status-page-id 123 \
-#   --metric-id 456 -f environment="production" -f "load_task_status=~scheduled|not_yet_scheduled" -f instance=moma.internal.softwareheritage.org
+#   --metric-id 456 -f environment="production" -f "load_task_status=~scheduled|not_yet_scheduled|pending" -f instance=thanos.internal.softwareheritage.org
 import statusio
 import requests
 from datetime import datetime, timedelta
@@ -22,32 +22,19 @@ def get_average(values: List[int]) -> float:
     return sum(values) / len(values)
 
 
-def escape_filter(filter: str) -> str:
-    if "=~" in filter:
-        separator = "=~"
-    else:
-        separator = "="
-
-    terms = filter.split(separator)
-
-    return f'{terms[0]}{separator}"{terms[1]}"'
-
 
 def get_prometheus_values(
     prometheus_url: str,
-    metric: str,
-    filters: List[str],
+    query: str,
     start: int,
     end: int,
     interval: int,
 ) -> List[List]:
-    escaped_filters = [escape_filter(filter) for filter in filters]
 
-    metric_filters = ",".join(escaped_filters)
-
-    url = f"{prometheus_url}?query=sum({metric}{{{metric_filters}}})&start={start}&end={end}&step={interval}"
+    url = f"{prometheus_url}?query={query}&start={start}&end={end}&step={interval}"
 
     response = requests.get(url)
+
     if response.ok == False:
         raise ValueError(f"Unable to get prometheus metrics: {response.text}")
 
@@ -82,16 +69,10 @@ def extract_status_io_data(prometheus_data: List[List]) -> Tuple[List[str], List
     help="Prometheus instance service port",
 )
 @click.option(
-    "--prometheus-metric",
-    "-m",
+    "--prometheus-query",
+    "-q",
     required=True,
-    help="Prometheus metric to query",
-)
-@click.option(
-    "--prometheus-filter",
-    "-f",
-    multiple=True,
-    help="Prometheus metric to query",
+    help="Prometheus query to select the metrics",
 )
 @click.option(
     "--api-id",
@@ -116,8 +97,7 @@ def extract_status_io_data(prometheus_data: List[List]) -> Tuple[List[str], List
 def main(
     prometheus_server: str,
     prometheus_port: int,
-    prometheus_metric: str,
-    prometheus_filter: List[str],
+    prometheus_query: str,
     api_id: str,
     api_key: str,
     status_page_id: str,
@@ -139,8 +119,7 @@ def main(
 
     raw_values = get_prometheus_values(
         prometheus_url,
-        prometheus_metric,
-        prometheus_filter,
+        prometheus_query,
         day_start.timestamp(),
         current_time.timestamp(),
         hour_interval,
@@ -151,8 +130,7 @@ def main(
 
     raw_values = get_prometheus_values(
         prometheus_url,
-        prometheus_metric,
-        prometheus_filter,
+        prometheus_query,
         week_start.timestamp(),
         current_time.timestamp(),
         day_interval,
@@ -163,8 +141,7 @@ def main(
 
     raw_values = get_prometheus_values(
         prometheus_url,
-        prometheus_metric,
-        prometheus_filter,
+        prometheus_query,
         month_start.timestamp(),
         current_time.timestamp(),
         day_interval,
@@ -190,7 +167,7 @@ def main(
         month_values=month_values,
     )
 
-    # this line will be sent by email via cron 
+    # this line will be sent by email via cron
     # if the return code is not 0
     print(result)
 

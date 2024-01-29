@@ -8,8 +8,8 @@ class profile::status_io_metrics {
   $script_name = 'statusio_export_archive_counters.py'
   $script_path = "/usr/local/bin/${script_name}"
 
-  $prometheus_server = 'pergamon.internal.softwareheritage.org'
-  $prometheus_port = 9090
+  $prometheus_server = 'thanos.internal.admin.swh.network'
+  $prometheus_port = 19191
 
   $statusio_api_id = lookup('status_io::api_id')
   $statusio_api_key = lookup('status_io::api_key')
@@ -26,19 +26,27 @@ class profile::status_io_metrics {
   }
 
   $script_params = [
-    '-m swh_web_accepted_save_requests',
-    "--api-id ${statusio_api_id}",
-    "--api-key ${statusio_api_key}",
+    '--api-id ${API_ID}',
+    '--api-key ${API_KEY}',
     "--status-page-id ${statusio_status_page}",
     "--metric-id ${statusio_scn_metrics}",
-    '-f environment=production',
-    '-f "load_task_status=~scheduled|not_yet_scheduled"',
-    '-f instance=moma.internal.softwareheritage.org',
+    '-q "sum (max by (load_task_status) (swh_web_accepted_save_requests{environment="production", load_task_status=~"pending|scheduled|not_yet_scheduled"}))"',
+    "-s ${prometheus_server}",
+    "-p ${prometheus_port}",
   ]
 
   $parameters = join($script_params, ' ')
 
+  profile::cron::environment { 'status_scn_metrics':
+    target    => 'statusio_scn_metrics',
+    variables => {
+        'API_ID'  => $statusio_api_id,
+        'API_KEY' => $statusio_api_key,
+    }
+  }
+
   profile::cron::d {'statusio_scn_metrics':
+
     target  => 'statusio_scn_metrics',
     command => "chronic sh -c '${script_path} ${parameters}'  ",
     minute  => '*/5',
