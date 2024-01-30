@@ -1,7 +1,5 @@
-class role::objstorage_rancher_node inherits role::swh_server {
+class role::rancher_node_with_backup inherits role::swh_server {
   # role::backup
-  include profile::swh::deploy::objstorage
-  include profile::swh::deploy::objstorage_ceph
   include profile::megacli
   include profile::borg::repository_server
 
