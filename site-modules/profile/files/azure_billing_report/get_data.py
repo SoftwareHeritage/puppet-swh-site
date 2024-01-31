@@ -88,13 +88,13 @@ if __name__ == '__main__':
     print("Waiting for stay signed page...")
 
     try:
-        wait.until(EC.visibility_of_element_located((By.ID, "KmsiDescription")))
+        wait.until(EC.visibility_of_element_located((By.ID, "kmsiDescription")))
     finally:
         if DEBUG:
             driver.save_screenshot("staysigned.png")
 
     print("On stay signed page")
-    button = driver.find_element(by=By.CSS_SELECTOR, value="input[value='No']")
+    button = driver.find_element(By.ID, "declineButton")
     button.send_keys(Keys.ENTER)
 
     print("Waiting for home page")
