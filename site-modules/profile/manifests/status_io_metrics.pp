@@ -30,7 +30,7 @@ class profile::status_io_metrics {
     '--api-key ${API_KEY}',
     '--status-page-id ${STATUS_IO_PAGE_ID}',
     '--metric-id ${STATUS_IO_METRICS_ID}',
-    '-q "sum (max by (load_task_status) (swh_web_accepted_save_requests{environment=\"production\", load_task_status=~\"pending|scheduled|not_yet_scheduled\"}))"',
+    '-q "sum(rabbitmq_queue_messages{environment=\"production\", queue=~"save_code_now.*"})"',
     "-s ${prometheus_server}",
     "-p ${prometheus_port}",
   ]
