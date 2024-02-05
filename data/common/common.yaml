@@ -733,17 +733,17 @@ rabbitmq::monitoring::user: swhdev
 # - swh::deploy::worker::task_broker::password
 # - swh::deploy::scheduler::task_broker::password
 rabbitmq::server::users:
-  - name: "%{hiera('rabbitmq::monitoring::user')}"
+  - name: "%{lookup('rabbitmq::monitoring::user')}"
     is_admin: true
-    password: "%{hiera('rabbitmq::monitoring::password')}"
+    password: "%{lookup('rabbitmq::monitoring::password')}"
     tags: []
   - name: swhconsumer
     is_admin: false
-    password: "%{hiera('swh::deploy::worker::task_broker::password')}"
+    password: "%{lookup('swh::deploy::worker::task_broker::password')}"
     tags: []
   - name: swhproducer
     is_admin: false
-    password: "%{hiera('swh::deploy::scheduler::task_broker::password')}"
+    password: "%{lookup('swh::deploy::scheduler::task_broker::password')}"
     tags:
       - management
 
@@ -777,7 +777,7 @@ apache::mod::passenger::passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passen
 apache::ssl_protocol: all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
 apache::ssl_honorcipherorder: 'On'
 apache::ssl_cipher: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
-apache::hsts_header: "set Strict-Transport-Security \"max-age=%{hiera('strict_transport_security::max_age')}\""
+apache::hsts_header: "set Strict-Transport-Security \"max-age=%{lookup('strict_transport_security::max_age')}\""
 
 # Those variables need to be set manually for all vhosts
 apache::http_port: 80
@@ -796,10 +796,10 @@ varnish::http_port: 10080
 varnish::proxy_port: 6081
 varnish::http2_support: false
 varnish::listen:
-  - ":%{hiera('varnish::http_port')}"
-  - "[::1]:%{hiera('varnish::proxy_port')},PROXY"
+  - ":%{lookup('varnish::http_port')}"
+  - "[::1]:%{lookup('varnish::proxy_port')},PROXY"
 
-varnish::backend_http_port: "%{hiera('apache::http_port')}"
+varnish::backend_http_port: "%{lookup('apache::http_port')}"
 
 varnish::admin_listen: 127.0.0.1
 varnish::admin_port: 6082
@@ -1959,7 +1959,7 @@ phabricator::vcs_user: git
 
 phabricator::notification::client_host: 127.0.0.1
 phabricator::notification::client_port: 22280
-phabricator::notification::listen: "%{hiera('phabricator::notification::client_host')}:%{hiera('phabricator::notification::client_port')}"
+phabricator::notification::listen: "%{lookup('phabricator::notification::client_host')}:%{lookup('phabricator::notification::client_port')}"
 
 phabricator::mysql::database_prefix: phabricator
 phabricator::mysql::username: phabricator
@@ -1968,7 +1968,7 @@ phabricator::mysql::readonly_usernames: []
 
 phabricator::mysql::conf::max_allowed_packet: 33554432
 phabricator::mysql::conf::sql_mode: STRICT_ALL_TABLES
-phabricator::mysql::conf::ft_stopword_file: "%{hiera('phabricator::basepath')}/phabricator/resources/sql/stopwords.txt"
+phabricator::mysql::conf::ft_stopword_file: "%{lookup('phabricator::basepath')}/phabricator/resources/sql/stopwords.txt"
 phabricator::mysql::conf::ft_min_word_len: 3
 phabricator::mysql::conf::ft_boolean_syntax: "' |-><()~*:\"\"&^'"
 phabricator::mysql::conf::innodb_buffer_pool_size: 4G
@@ -1983,11 +1983,11 @@ phabricator::php::opcache_validate_timestamps: 0
 
 # Must have a matching cert in letsencrypt::domains
 phabricator::vhost::name: forge.softwareheritage.org
-phabricator::vhost::docroot: "%{hiera('phabricator::basepath')}/phabricator/webroot"
-phabricator::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-phabricator::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-phabricator::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-phabricator::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+phabricator::vhost::docroot: "%{lookup('phabricator::basepath')}/phabricator/webroot"
+phabricator::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+phabricator::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+phabricator::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+phabricator::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 mediawiki::php::fpm_listen: 127.0.0.1:9002
 
@@ -2009,39 +2009,39 @@ mediawiki::vhosts:
     site_name: Software Heritage Wiki
 
 mediawiki::vhost::docroot: /var/lib/mediawiki
-mediawiki::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-mediawiki::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-mediawiki::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-mediawiki::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+mediawiki::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+mediawiki::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+mediawiki::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+mediawiki::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 annex::basepath: /srv/softwareheritage/annex
 # Must have matching certificate in letsencrypt::certificates
 annex::vhost::name: annex.softwareheritage.org
-annex::vhost::docroot: "%{hiera('annex::basepath')}/webroot"
-annex::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-annex::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-annex::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-annex::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+annex::vhost::docroot: "%{lookup('annex::basepath')}/webroot"
+annex::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+annex::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+annex::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+annex::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 docs::basepath: /srv/softwareheritage/docs
 # Must have matching certificate in letsencrypt::certificates
 docs::vhost::name: docs.softwareheritage.org
-docs::vhost::docroot: "%{hiera('docs::basepath')}/webroot/sphinx"
+docs::vhost::docroot: "%{lookup('docs::basepath')}/webroot/sphinx"
 docs::vhost::docroot_owner: "jenkins-push-docs"
 docs::vhost::docroot_group: "www-data"
 docs::vhost::docroot_mode: "2755"
-docs::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-docs::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-docs::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-docs::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+docs::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+docs::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+docs::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+docs::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 # Must have matching certificate in letsencrypt::certificates
 bitbucket_archive::vhost::name: bitbucket-archive.softwareheritage.org
 bitbucket_archive::vhost::docroot: /srv/softwareheritage/bitbucket-archive/webroot
-bitbucket_archive::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-bitbucket_archive::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-bitbucket_archive::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-bitbucket_archive::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+bitbucket_archive::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+bitbucket_archive::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+bitbucket_archive::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+bitbucket_archive::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 ssh::port: 22
 ssh::permitrootlogin: without-password
@@ -2049,10 +2049,10 @@ ssh::permitrootlogin: without-password
 swh::base_directory: /srv/softwareheritage
 swh::conf_directory: /etc/softwareheritage
 swh::log_directory: /var/log/softwareheritage
-swh::global_conf::file: "%{hiera('swh::conf_directory')}/global.ini"
+swh::global_conf::file: "%{lookup('swh::conf_directory')}/global.ini"
 
 swh::apt_config::swh_repository::hostname: debian.softwareheritage.org
-swh::apt_config::swh_repository: "https://%{hiera('swh::apt_config::swh_repository::hostname')}/"
+swh::apt_config::swh_repository: "https://%{lookup('swh::apt_config::swh_repository::hostname')}/"
 swh::apt_config::enable_non_free: false
 
 swh::apt_config::backported_packages:
@@ -2090,7 +2090,7 @@ swh::apt_config::backported_packages:
     # Needed for some swh packages
     - python3-typing-extensions
 
-debian_repository::basepath: "%{hiera('swh::base_directory')}/repository"
+debian_repository::basepath: "%{lookup('swh::base_directory')}/repository"
 debian_repository::owner: swhdebianrepo
 debian_repository::owner::homedir: /home/swhdebianrepo
 debian_repository::group: swhdev
@@ -2126,23 +2126,23 @@ debian_repository::gpg_keys:
   - 89226003C15CBC8C65C189C33F13C434EADAD17D
 
 # Must have matching certificate in letsencrypt::certificates
-debian_repository::vhost::name: "%{hiera('swh::apt_config::swh_repository::hostname')}"
+debian_repository::vhost::name: "%{lookup('swh::apt_config::swh_repository::hostname')}"
 debian_repository::vhost::aliases:
   - debian.internal.softwareheritage.org
-debian_repository::vhost::docroot: "%{hiera('debian_repository::basepath')}"
-debian_repository::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-debian_repository::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-debian_repository::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-debian_repository::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+debian_repository::vhost::docroot: "%{lookup('debian_repository::basepath')}"
+debian_repository::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+debian_repository::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+debian_repository::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+debian_repository::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 swh::apt_config::debian_mirror::hostname: deb.debian.org
-swh::apt_config::debian_mirror: "http://%{hiera('swh::apt_config::debian_mirror::hostname')}/debian/"
+swh::apt_config::debian_mirror: "http://%{lookup('swh::apt_config::debian_mirror::hostname')}/debian/"
 
-swh::apt_config::debian_security_mirror::hostname: "%{hiera('swh::apt_config::debian_mirror::hostname')}"
-swh::apt_config::debian_security_mirror: "http://%{hiera('swh::apt_config::debian_mirror::hostname')}/debian-security/"
+swh::apt_config::debian_security_mirror::hostname: "%{lookup('swh::apt_config::debian_mirror::hostname')}"
+swh::apt_config::debian_security_mirror: "http://%{lookup('swh::apt_config::debian_mirror::hostname')}/debian-security/"
 
 swh::apt_config::azure_repository::hostname: debian-archive.trafficmanager.net
-swh::apt_config::azure_repository: "http://%{hiera('swh::apt_config::azure_repository::hostname')}/debian-azure/"
+swh::apt_config::azure_repository: "http://%{lookup('swh::apt_config::azure_repository::hostname')}/debian-azure/"
 
 swh::apt_config::unattended_upgrades: true
 swh::apt_config::unattended_upgrades::origins:
@@ -2221,67 +2221,67 @@ swh::remote_service::objstorage::config::azure:
   accounts:
     "0":
       account_name: 0euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::0euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::0euwestswh')}"
       container_name: contents
     "1":
       account_name: 1euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::1euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::1euwestswh')}"
       container_name: contents
     "2":
       account_name: 2euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::2euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::2euwestswh')}"
       container_name: contents
     "3":
       account_name: 3euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::3euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::3euwestswh')}"
       container_name: contents
     "4":
       account_name: 4euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::4euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::4euwestswh')}"
       container_name: contents
     "5":
       account_name: 5euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::5euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::5euwestswh')}"
       container_name: contents
     "6":
       account_name: 6euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::6euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::6euwestswh')}"
       container_name: contents
     "7":
       account_name: 7euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::7euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::7euwestswh')}"
       container_name: contents
     "8":
       account_name: 8euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::8euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::8euwestswh')}"
       container_name: contents
     "9":
       account_name: 9euwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::9euwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::9euwestswh')}"
       container_name: contents
     "a":
       account_name: aeuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::aeuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::aeuwestswh')}"
       container_name: contents
     "b":
       account_name: beuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::beuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::beuwestswh')}"
       container_name: contents
     "c":
       account_name: ceuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::ceuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::ceuwestswh')}"
       container_name: contents
     "d":
       account_name: deuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::deuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::deuwestswh')}"
       container_name: contents
     "e":
       account_name: eeuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::eeuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::eeuwestswh')}"
       container_name: contents
     "f":
       account_name: feuwestswh
-      api_secret_key: "%{hiera('swh::azure::credentials::feuwestswh')}"
+      api_secret_key: "%{lookup('swh::azure::credentials::feuwestswh')}"
       container_name: contents
 
 swh::remote_service::objstorage::config::azure::readonly:
@@ -2292,7 +2292,7 @@ swh::remote_service::objstorage::config::azure::readonly:
 
 swh::remote_service::objstorage::config::saam:
   cls: remote
-  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::objstorage::port')}/"
 
 swh::remote_service::objstorage::config::saam::readonly:
   cls: filtered
@@ -2302,7 +2302,7 @@ swh::remote_service::objstorage::config::saam::readonly:
 
 swh::remote_service::objstorage::config::banco:
   cls: remote
-  url: "http://banco.internal.softwareheritage.org:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://banco.internal.softwareheritage.org:%{lookup('swh::remote_service::objstorage::port')}/"
 
 swh::remote_service::objstorage::config::banco::readonly:
   cls: filtered
@@ -2319,17 +2319,17 @@ swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azur
 
 swh::remote_service::objstorage::config::localhost:
   cls: remote
-  url: "http://127.0.0.1:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://127.0.0.1:%{lookup('swh::remote_service::objstorage::port')}/"
 
 
 # Storage backend configurations
 swh::remote_service::storage::config::saam:
   cls: remote
-  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::azure:
   cls: remote
-  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}/"
+  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{lookup('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::local_internal_network:
   cls: remote
@@ -2339,7 +2339,7 @@ swh::remote_service::search::config::empty: {}
 
 swh::remote_service::search::config::local_internal_network:
   cls: remote
-  url: "http://%{lookup('swh::deploy::search::backend::listen::host')}:%{hiera('swh::remote_service::search::port')}/"
+  url: "http://%{lookup('swh::deploy::search::backend::listen::host')}:%{lookup('swh::remote_service::search::port')}/"
 
 swh::remote_service::search::config::search1:
   cls: remote
@@ -2350,17 +2350,17 @@ swh::remote_service::search::config: "%{alias('swh::remote_service::search::conf
 # Indexer backend configurations
 swh::remote_service::indexer::config::saam:
   cls: remote
-  url: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::indexer::port')}/"
 
 swh::remote_service::indexer::config::azure:
   cls: remote
-  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{lookup('swh::remote_service::indexer::port')}/"
 
 
 # Scheduler backend configurations
 swh::remote_service::scheduler::config::saatchi:
   cls: remote
-  url: "http://scheduler.internal.softwareheritage.org:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://scheduler.internal.softwareheritage.org:%{lookup('swh::remote_service::scheduler::port')}/"
 
 
 # Vault backend configuration (dynamic infra)
@@ -2369,14 +2369,14 @@ swh::remote_service::vault::config::azure:
   url: "http://vault-rpc-ingress"
 
 # Counters backend configurations
-swh::remote_service::counters::url: "http://counters1.internal.softwareheritage.org:%{hiera('swh::remote_service::counters::port')}/"
+swh::remote_service::counters::url: "http://counters1.internal.softwareheritage.org:%{lookup('swh::remote_service::counters::port')}/"
 
 swh::remote_service::counters::config:
   cls: remote
   url: "%{alias('swh::remote_service::counters::url')}"
 
 swh::remote_service::graph::config:
-    url: "http://graph.internal.softwareheritage.org:%{hiera('swh::remote_service::graph::port')}/"
+    url: "http://graph.internal.softwareheritage.org:%{lookup('swh::remote_service::graph::port')}/"
 
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.softwareheritage.org
@@ -2418,13 +2418,13 @@ pgbouncer::config_params:
   client_tls_key_file: /etc/ssl/private/ssl-cert-snakeoil.key
   client_tls_cert_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
   server_tls_sslmode: allow
-  listen_port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+  listen_port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
   listen_addr: "%{alias('pgbouncer::common::listen_addresses')}"
   auth_type: "hba"
   auth_file: /etc/pgbouncer/userlist.txt
-  auth_hba_file: "%{hiera('pgbouncer::auth_hba_file')}"
+  auth_hba_file: "%{lookup('pgbouncer::auth_hba_file')}"
   admin_users:
-    - "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
+    - "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     - olasd
   pool_mode: session
   ignore_startup_parameters: extra_float_digits
@@ -2441,20 +2441,20 @@ pgbouncer::group: postgres
 
 # swh::deploy::db::pgbouncer::user::password in private data
 pgbouncer::userlist:
-  - user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    password: "%{hiera('swh::deploy::db::pgbouncer::user::password')}"
+  - user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    password: "%{lookup('swh::deploy::db::pgbouncer::user::password')}"
 
 pgbouncer::databases: []
 
-swh::deploy::directory: "%{hiera('swh::conf_directory')}/deploy"
+swh::deploy::directory: "%{lookup('swh::conf_directory')}/deploy"
 swh::deploy::group: swhdeploy
 swh::deploy::public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWrJX/uUss/EYZaTp2EIsZgg3ZSH8JcNZV5gBdNZ7EHcQcqxYUCqmwv9Ss3xT8n9kIrH6iz/vquqf84XR+keoZK3bsp50tMOY8LJWpcl/JK2XD6ovoJrHPu+iAroLkE59RdTa1Vz+jF67Q2UuG9f0nKwL4rnkeWTyuK/zAbyHyYKFQntkkwMr5/YTU8sjl/4aNF/2Ww8hitdi2GORlCjav2bB0wyPBA2e8sMt8Hp9O4TIWg/RD6vPX+ZvuFaB/Lw/Hv21622QGTHoZiO92/8/W9/t24il6SU4z96ZGfXqdUZkpPYKBGwyIkZkS4dN6jb4CcRlyXTObphyu3dAlABRt swhworker@worker01'
 
 swh::deploy::storage::sentry_swh_package: swh.storage
 swh::deploy::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::storage::sentry_dsn: "https://%{lookup('swh::deploy::storage::sentry_token')}@sentry.softwareheritage.org/3"
-swh::deploy::storage::conf_directory: "%{hiera('swh::conf_directory')}/storage"
-swh::deploy::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/storage.yml"
+swh::deploy::storage::conf_directory: "%{lookup('swh::conf_directory')}/storage"
+swh::deploy::storage::conf_file: "%{lookup('swh::deploy::storage::conf_directory')}/storage.yml"
 swh::deploy::storage::user: swhstorage
 swh::deploy::storage::group: swhstorage
 swh::deploy::storage::db::host: postgresql-storage-rw.internal.softwareheritage.org
@@ -2463,7 +2463,7 @@ swh::deploy::storage::db::backend::port: "%{lookup('swh::deploy::db::main::port'
 swh::deploy::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::storage::db::user: swhstorage
 swh::deploy::storage::db::dbname: softwareheritage
-swh::deploy::storage::directory: "%{hiera('swh::base_directory')}/objects"
+swh::deploy::storage::directory: "%{lookup('swh::base_directory')}/objects"
 swh::deploy::storage::backend::listen::host: 127.0.0.1
 swh::deploy::storage::backend::listen::port: "%{alias('swh::remote_service::storage::port')}"
 swh::deploy::storage::backend::workers: 4
@@ -2482,7 +2482,7 @@ swh::deploy::storage::backend::server_names:
 # This can be overriden per storage node
 swh::deploy::storage::config::local:
   cls: postgresql
-  db: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+  db: "host=%{lookup('swh::deploy::storage::db::host')} port=%{lookup('swh::deploy::storage::db::port')} user=%{lookup('swh::deploy::storage::db::user')} dbname=%{lookup('swh::deploy::storage::db::dbname')} password=%{lookup('swh::deploy::storage::db::password')}"
   objstorage: "%{alias('swh::remote_service::objstorage::config')}"
 
 swh::deploy::storage::config:
@@ -2497,12 +2497,12 @@ swh::deploy::journal::writer::config:
   producer_config:
       message.max.bytes: 1000000000
 
-swh::deploy::journal::backfill::config_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill.yml"
+swh::deploy::journal::backfill::config_file: "%{lookup('swh::deploy::journal::conf_directory')}/backfill.yml"
 swh::deploy::journal::backfill::user: swhstorage
 swh::deploy::journal::backfill::group: swhstorage
 
-swh::deploy::storage::db::config::read-only: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
-swh::deploy::storage::db::secondary::config::read-only: "host=massmoca.internal.softwareheritage.org port=%{hiera('swh::deploy::storage::db::port')} user=guest dbname=%{hiera('swh::deploy::storage::db::dbname')} password=guest"
+swh::deploy::storage::db::config::read-only: "host=%{lookup('swh::deploy::storage::db::host')} port=%{lookup('swh::deploy::storage::db::port')} user=guest dbname=%{lookup('swh::deploy::storage::db::dbname')} password=guest"
+swh::deploy::storage::db::secondary::config::read-only: "host=massmoca.internal.softwareheritage.org port=%{lookup('swh::deploy::storage::db::port')} user=guest dbname=%{lookup('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::config::local-read-only:
   cls: postgresql
   db: "%{alias('swh::deploy::storage::db::config::read-only')}"
@@ -2514,7 +2514,7 @@ swh::deploy::journal::backfill::config:
   storage: "%{alias('swh::deploy::storage::config::local-read-only')}"
   journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
 
-swh::deploy::journal::backfill::config_logging_file: "%{hiera('swh::deploy::journal::conf_directory')}/backfill_logger.yml"
+swh::deploy::journal::backfill::config_logging_file: "%{lookup('swh::deploy::journal::conf_directory')}/backfill_logger.yml"
 swh::deploy::journal::backfill::config_logging:
   version: 1
   handlers:
@@ -2544,7 +2544,7 @@ swh::deploy::storage_cassandra_ro::vhost::letsencrypt_cert: storage_cassandra_ro
 swh::deploy::indexer::storage::sentry_swh_package: swh.indexer
 swh::deploy::indexer::storage::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::indexer::storage::sentry_dsn: "%{alias('swh::deploy::indexer::sentry_dsn')}"
-swh::deploy::indexer::storage::conf_file: "%{hiera('swh::deploy::storage::conf_directory')}/indexer.yml"
+swh::deploy::indexer::storage::conf_file: "%{lookup('swh::deploy::storage::conf_directory')}/indexer.yml"
 swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
 swh::deploy::indexer::storage::db::host: postgresql-indexer-rw.internal.softwareheritage.org
@@ -2576,7 +2576,7 @@ swh::deploy::provenance::db::host: met.internal.softwareheritage.org
 swh::deploy::indexer::storage::config:
   indexer_storage:
     cls: postgresql
-    db: "host=%{hiera('swh::deploy::indexer::storage::db::host')} port=%{hiera('swh::deploy::indexer::storage::db::port')} user=%{hiera('swh::deploy::indexer::storage::db::user')} dbname=%{hiera('swh::deploy::indexer::storage::db::dbname')} password=%{hiera('swh::deploy::indexer::storage::db::password')}"
+    db: "host=%{lookup('swh::deploy::indexer::storage::db::host')} port=%{lookup('swh::deploy::indexer::storage::db::port')} user=%{lookup('swh::deploy::indexer::storage::db::user')} dbname=%{lookup('swh::deploy::indexer::storage::db::dbname')} password=%{lookup('swh::deploy::indexer::storage::db::password')}"
     journal_writer: "%{alias('swh::deploy::indexer::journal::writer::config')}"
 
 
@@ -2591,18 +2591,18 @@ swh::deploy::indexer::journal::writer::config:
   producer_config:
     message.max.bytes: 1000000000
 
-swh::deploy::vault::cache: "%{hiera('swh::base_directory')}/vault_cache"
+swh::deploy::vault::cache: "%{lookup('swh::base_directory')}/vault_cache"
 # Default cache a pathslicing objstorage
 swh::deploy::vault::config::cache:
   cls: pathslicing
-  root: "%{hiera('swh::deploy::vault::cache')}"
+  root: "%{lookup('swh::deploy::vault::cache')}"
   slicing: "0:1/1:5"
 
 swh::deploy::vault::sentry_swh_package: swh.vault
 swh::deploy::vault::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::vault::sentry_dsn: "https://%{lookup('swh::deploy::vault::sentry_token')}@sentry.softwareheritage.org/11"
-swh::deploy::vault::conf_directory: "%{hiera('swh::conf_directory')}/vault"
-swh::deploy::vault::conf_file: "%{hiera('swh::deploy::vault::conf_directory')}/server.yml"
+swh::deploy::vault::conf_directory: "%{lookup('swh::conf_directory')}/vault"
+swh::deploy::vault::conf_file: "%{lookup('swh::deploy::vault::conf_directory')}/server.yml"
 swh::deploy::vault::user: swhvault
 swh::deploy::vault::group: swhvault
 swh::deploy::vault::db::host: postgresql-vault-rw.internal.softwareheritage.org
@@ -2637,11 +2637,11 @@ swh::deploy::vault::config:
     port: 25
   vault:
     cls: postgresql
-    db: "host=%{hiera('swh::deploy::vault::db::host')} port=%{hiera('swh::deploy::vault::db::port')} user=%{hiera('swh::deploy::vault::db::user')} dbname=%{hiera('swh::deploy::vault::db::dbname')} password=%{hiera('swh::deploy::vault::db::password')}"
+    db: "host=%{lookup('swh::deploy::vault::db::host')} port=%{lookup('swh::deploy::vault::db::port')} user=%{lookup('swh::deploy::vault::db::user')} dbname=%{lookup('swh::deploy::vault::db::dbname')} password=%{lookup('swh::deploy::vault::db::password')}"
 
 swh::deploy::graph::user: swhworker
 swh::deploy::graph::group: swhworker
-swh::deploy::graph::conf_directory: "%{hiera('swh::conf_directory')}/graph"
+swh::deploy::graph::conf_directory: "%{lookup('swh::conf_directory')}/graph"
 swh::deploy::graph::http::listen::host: 0.0.0.0
 swh::deploy::graph::http::listen::port: "%{alias('swh::remote_service::graph::port')}"
 swh::deploy::graph::grpc::listen::host: 0.0.0.0
@@ -2657,7 +2657,7 @@ swh::deploy::graph::sentry_swh_package: swh.graph
 swh::deploy::graph::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::graph::sentry_dsn: "https://%{lookup('swh::deploy::graph::sentry_token')}@sentry.softwareheritage.org/20"
 
-swh::deploy::journal::conf_directory: "%{hiera('swh::conf_directory')}/journal"
+swh::deploy::journal::conf_directory: "%{lookup('swh::conf_directory')}/journal"
 
 swh::deploy::journal::brokers:
   - kafka1.internal.softwareheritage.org
@@ -2678,7 +2678,7 @@ swh::deploy::scrubber::sentry_swh_package: swh.scrubber
 swh::deploy::scrubber::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::scrubber::sentry_dsn: "https://%{lookup('swh::deploy::scrubber::sentry_token')}@sentry.softwareheritage.org/23"
 
-swh::deploy::scrubber::checker::conf_directory: "%{hiera('swh::conf_directory')}/scrubber"
+swh::deploy::scrubber::checker::conf_directory: "%{lookup('swh::conf_directory')}/scrubber"
 swh::deploy::scrubber::checker::user: swhworker
 swh::deploy::scrubber::checker::group: swhdev
 
@@ -2713,7 +2713,7 @@ swh::deploy::scrubber::checker::storage::config_per_instance:
       cls: noop
 
 # password entry in private-data
-swh::deploy::scrubber::db::config: "host=%{hiera('swh::deploy::scrubber::db::host')} port=%{hiera('swh::deploy::db::pgbouncer::port')} dbname=%{hiera('swh::deploy::scrubber::db::dbname')} user=%{hiera('swh::deploy::scrubber::db::user')} password=%{hiera('swh::deploy::scrubber::db::password')}"
+swh::deploy::scrubber::db::config: "host=%{lookup('swh::deploy::scrubber::db::host')} port=%{lookup('swh::deploy::db::pgbouncer::port')} dbname=%{lookup('swh::deploy::scrubber::db::dbname')} user=%{lookup('swh::deploy::scrubber::db::user')} password=%{lookup('swh::deploy::scrubber::db::password')}"
 
 swh::deploy::scrubber::checker::postgres::config:
   scrubber:
@@ -2725,13 +2725,13 @@ swh::deploy::scrubber::checker::postgres::config:
     objstorage:
       cls: noop
 
-swh::deploy::journal_simple_checker_producer::conf_file: "%{hiera('swh::deploy::journal::conf_directory')}/checker.yml"
+swh::deploy::journal_simple_checker_producer::conf_file: "%{lookup('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
 swh::deploy::journal_simple_checker_producer::group: swhstorage
 swh::deploy::journal_simple_checker_producer::config:
   brokers: "%{alias('swh::deploy::journal::brokers')}"
   temporary_prefix: swh.tmp_journal.new
-  storage_dbconn: "host=%{hiera('swh::deploy::storage::db::host')} port=%{hiera('swh::deploy::storage::db::port')} user=%{hiera('swh::deploy::storage::db::user')} dbname=%{hiera('swh::deploy::storage::db::dbname')} password=%{hiera('swh::deploy::storage::db::password')}"
+  storage_dbconn: "host=%{lookup('swh::deploy::storage::db::host')} port=%{lookup('swh::deploy::storage::db::port')} user=%{lookup('swh::deploy::storage::db::user')} dbname=%{lookup('swh::deploy::storage::db::dbname')} password=%{lookup('swh::deploy::storage::db::password')}"
   object_types:
     - content
     - directory
@@ -2743,17 +2743,17 @@ swh::deploy::journal_simple_checker_producer::config:
 swh::deploy::objstorage::sentry_swh_package: swh.objstorage
 swh::deploy::objstorage::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::objstorage::sentry_dsn: "https://%{lookup('swh::deploy::objstorage::sentry_token')}@sentry.softwareheritage.org/4"
-swh::deploy::objstorage::conf_directory: "%{hiera('swh::conf_directory')}/objstorage"
-swh::deploy::objstorage::conf_file: "%{hiera('swh::deploy::objstorage::conf_directory')}/server.yml"
-swh::deploy::objstorage::user: "%{hiera('swh::deploy::storage::user')}"
-swh::deploy::objstorage::group: "%{hiera('swh::deploy::storage::group')}"
-swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::objstorage::conf_directory: "%{lookup('swh::conf_directory')}/objstorage"
+swh::deploy::objstorage::conf_file: "%{lookup('swh::deploy::objstorage::conf_directory')}/server.yml"
+swh::deploy::objstorage::user: "%{lookup('swh::deploy::storage::user')}"
+swh::deploy::objstorage::group: "%{lookup('swh::deploy::storage::group')}"
+swh::deploy::objstorage::directory: "%{lookup('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:2/2:4/4:6
 swh::deploy::objstorage::config:
   objstorage:
     cls: pathslicing
-    root: "%{hiera('swh::deploy::objstorage::directory')}"
-    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{lookup('swh::deploy::objstorage::directory')}"
+    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
   client_max_size: 1073741824  # 1 GiB
 
 swh::deploy::objstorage::backend::listen::host: 127.0.0.1
@@ -2784,10 +2784,10 @@ swh::deploy::objstorage::reverse_proxy::basic_auth::users:
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::url: https://deposit.softwareheritage.org
-swh::deploy::deposit::internal_url: "%{hiera('swh::deploy::deposit::url')}"
-swh::deploy::deposit::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-swh::deploy::deposit::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+swh::deploy::deposit::internal_url: "%{lookup('swh::deploy::deposit::url')}"
+swh::deploy::deposit::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+swh::deploy::deposit::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 swh::deploy::deposit::vhost::access_log_format: combined_with_duration
 swh::deploy::deposit::locked_endpoints:
   - /1/private/[^/]+/[^/]+/[^/]+
@@ -2838,7 +2838,7 @@ swh::deploy::savecodenow::e2e::origins:
 swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 
 # e2e checks on deposit
-swh::deploy::deposit::e2e::server: "%{hiera('swh::deploy::deposit::url')}/1"
+swh::deploy::deposit::e2e::server: "%{lookup('swh::deploy::deposit::url')}/1"
 swh::deploy::deposit::e2e::user: swh
 swh::deploy::deposit::e2e::collection: swh
 swh::deploy::deposit::e2e::provider_url: https://www.softwareheritage.org
@@ -2850,8 +2850,8 @@ swh::deploy::deposit::e2e::metadata: /usr/share/swh/icinga-plugins/data/deposit/
 swh::deploy::deposit::sentry_swh_package: swh.deposit
 swh::deploy::deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::deposit::sentry_dsn: "https://%{lookup('swh::deploy::deposit::sentry_token')}@sentry.softwareheritage.org/12"
-swh::deploy::deposit::config_directory: "%{hiera('swh::conf_directory')}/deposit"
-swh::deploy::deposit::config_file: "%{hiera('swh::deploy::deposit::config_directory')}/server.yml"
+swh::deploy::deposit::config_directory: "%{lookup('swh::conf_directory')}/deposit"
+swh::deploy::deposit::config_file: "%{lookup('swh::deploy::deposit::config_directory')}/server.yml"
 swh::deploy::deposit::user: swhdeposit
 swh::deploy::deposit::group: swhdeposit
 swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
@@ -2864,13 +2864,13 @@ swh::deploy::deposit::db::dbuser: swhstorage
 
 swh::config::keycloak::realm_name: SoftwareHeritage
 swh::deploy::deposit::config::keycloak:
-  server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
+  server_url: "https://%{lookup('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
 swh::deploy::deposit::config::authentication:
   authentication_provider: keycloak
   keycloak: "%{alias('swh::deploy::deposit::config::keycloak')}"
-  cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
+  cache_uri: "%{lookup('memcached::server::bind')}:%{lookup('memcached::server::port')}"
 
 # swh::deploy::deposit::db::password: in private data
 # swh::deploy::deposit::runtime_secret_key in private data
@@ -2882,20 +2882,20 @@ swh::deploy::deposit::config:
   # It only reads some information from this storage, but use the same config for consistency.
   storage: "%{alias('swh::remote_service::storage::config::writable')}"
   private:
-    secret_key: "%{hiera('swh::deploy::deposit::runtime_secret_key')}"
+    secret_key: "%{lookup('swh::deploy::deposit::runtime_secret_key')}"
     db:
-      host: "%{hiera('swh::deploy::deposit::db::host')}"
-      port: "%{hiera('swh::deploy::deposit::db::port')}"
-      name: "%{hiera('swh::deploy::deposit::db::dbname')}"
-      user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
-      password: "%{hiera('swh::deploy::deposit::db::password')}"
-    media_root: "%{hiera('swh::deploy::deposit::media_root_directory')}"
+      host: "%{lookup('swh::deploy::deposit::db::host')}"
+      port: "%{lookup('swh::deploy::deposit::db::port')}"
+      name: "%{lookup('swh::deploy::deposit::db::dbname')}"
+      user: "%{lookup('swh::deploy::deposit::db::dbuser')}"
+      password: "%{lookup('swh::deploy::deposit::db::password')}"
+    media_root: "%{lookup('swh::deploy::deposit::media_root_directory')}"
   extraction_dir: /tmp/swh-deposit/archive/
-  swh_authority_url: "%{hiera('swh::deploy::deposit::url')}/"
+  swh_authority_url: "%{lookup('swh::deploy::deposit::url')}/"
 
 swh::deploy::worker::loader::max_content_size: 104857600
 
-swh::deploy::worker::loader_deposit::config_file: "%{hiera('swh::conf_directory')}/loader_deposit.yml"
+swh::deploy::worker::loader_deposit::config_file: "%{lookup('swh::conf_directory')}/loader_deposit.yml"
 swh::deploy::worker::loader_deposit::concurrency: 1
 swh::deploy::worker::loader_deposit::private_tmp: true
 swh::deploy::worker::loader_deposit::loglevel: info
@@ -2910,13 +2910,13 @@ swh::deploy::worker::loader_deposit::config:
   deposit:
     url: "%{alias('swh::deploy::webapp::deposit::private::url')}"
     auth:
-      username: "%{hiera('deposit_basic_auth_swhworker_username')}"
-      password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+      username: "%{lookup('deposit_basic_auth_swhworker_username')}"
+      password: "%{lookup('deposit_basic_auth_swhworker_password')}"
   default_filename: archive.tar
 
 swh::deploy::checker_deposit::sentry_swh_package: swh.deposit.loader
 swh::deploy::checker_deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::worker::checker_deposit::config_file: "%{hiera('swh::conf_directory')}/checker_deposit.yml"
+swh::deploy::worker::checker_deposit::config_file: "%{lookup('swh::conf_directory')}/checker_deposit.yml"
 swh::deploy::worker::checker_deposit::concurrency: 1
 swh::deploy::worker::checker_deposit::private_tmp: true
 swh::deploy::worker::checker_deposit::loglevel: info
@@ -2931,10 +2931,10 @@ swh::deploy::worker::checker_deposit::config:
     task_queues:
       - swh.deposit.loader.tasks.ChecksDepositTsk
   deposit:
-    url: "%{hiera('swh::deploy::deposit::internal_url')}/1/private/"
+    url: "%{lookup('swh::deploy::deposit::internal_url')}/1/private/"
     auth:
-      username: "%{hiera('deposit_basic_auth_swhworker_username')}"
-      password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+      username: "%{lookup('deposit_basic_auth_swhworker_username')}"
+      password: "%{lookup('deposit_basic_auth_swhworker_password')}"
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
@@ -2943,28 +2943,28 @@ swh::deploy::deposit::backend::reload_mercy: 3600
 swh::deploy::deposit::backend::http_keepalive: 5
 swh::deploy::deposit::backend::http_timeout: 3600
 
-swh::deploy::objstorage_log_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_log_checker::conf_file: "%{hiera('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
-swh::deploy::objstorage_log_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_log_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
+swh::deploy::objstorage_log_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
+swh::deploy::objstorage_log_checker::conf_file: "%{lookup('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
+swh::deploy::objstorage_log_checker::user: "%{lookup('swh::deploy::objstorage::user')}"
+swh::deploy::objstorage_log_checker::group: "%{lookup('swh::deploy::objstorage::group')}"
 swh::deploy::objstorage_log_checker:config:
   storage:
     cls: pathslicing
-    root: "%{hiera('swh::deploy::objstorage::directory')}"
-    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{lookup('swh::deploy::objstorage::directory')}"
+    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
   batch_size: 1000
   log_tag: objstorage.checker.log
 
 
-swh::deploy::objstorage_repair_checker::conf_directory: "%{hiera('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_repair_checker::conf_file: "%{hiera('swh::deploy::objstorage_repair_checker::conf_directory')}/repair_checker.yml"
-swh::deploy::objstorage_repair_checker::user: "%{hiera('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_repair_checker::group: "%{hiera('swh::deploy::objstorage::group')}"
+swh::deploy::objstorage_repair_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
+swh::deploy::objstorage_repair_checker::conf_file: "%{lookup('swh::deploy::objstorage_repair_checker::conf_directory')}/repair_checker.yml"
+swh::deploy::objstorage_repair_checker::user: "%{lookup('swh::deploy::objstorage::user')}"
+swh::deploy::objstorage_repair_checker::group: "%{lookup('swh::deploy::objstorage::group')}"
 swh::deploy::objstorage_repair_checker::config:
   storage:
     cls: pathslicing
-    root: "%{hiera('swh::deploy::objstorage::directory')}"
-    slicing: "%{hiera('swh::deploy::objstorage::slicing')}"
+    root: "%{lookup('swh::deploy::objstorage::directory')}"
+    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
   batch_size: 1000
   log_tag: objstorage.checker.repair
   backup_storages: "%{alias('swh::remote_service::objstorage::config_as_dict')}"
@@ -2981,11 +2981,11 @@ swh::deploy::deposit::backported_packages: "%{alias('swh::deploy::webapp::backpo
 swh::deploy::webapp::sentry_swh_package: swh.web
 swh::deploy::webapp::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::webapp::sentry_dsn: "https://%{lookup('swh::deploy::webapp::sentry_token')}@sentry.softwareheritage.org/13"
-swh::deploy::webapp::conf_directory: "%{hiera('swh::conf_directory')}/web"
-swh::deploy::webapp::conf_file: "%{hiera('swh::deploy::webapp::conf_directory')}/web.yml"
+swh::deploy::webapp::conf_directory: "%{lookup('swh::conf_directory')}/web"
+swh::deploy::webapp::conf_file: "%{lookup('swh::deploy::webapp::conf_directory')}/web.yml"
 swh::deploy::webapp::user: swhwebapp
 swh::deploy::webapp::group: swhwebapp
-swh::deploy::webapp::conf::log_dir: "%{hiera('swh::log_directory')}/webapp"
+swh::deploy::webapp::conf::log_dir: "%{lookup('swh::log_directory')}/webapp"
 swh::deploy::webapp::backend::listen::host: 127.0.0.1
 swh::deploy::webapp::backend::listen::port: "%{alias('swh::remote_service::webapp::port')}"
 swh::deploy::webapp::backend::workers: 32
@@ -3019,19 +3019,19 @@ swh::deploy::webapp::django_settings_module: swh.web.settings.production
 swh::deploy::webapp::timers_enabled: false
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::webapp::vhost::letsencrypt_cert]
 swh::deploy::webapp::vhost::letsencrypt_cert: archive_production
-swh::deploy::webapp::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-swh::deploy::webapp::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-swh::deploy::webapp::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+swh::deploy::webapp::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+swh::deploy::webapp::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+swh::deploy::webapp::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+swh::deploy::webapp::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 swh::deploy::webapp::vhost::access_log_format: combined_with_duration
 
 swh::deploy::webapp::inbound_email::production::domain: archive.softwareheritage.org
 swh::deploy::webapp::inbound_email::staging::domain: webapp.staging.swh.network
 
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
-swh::deploy::webapp::deposit::private::url: "%{hiera('swh::deploy::deposit::internal_url')}/1/private/"
+swh::deploy::webapp::deposit::private::url: "%{lookup('swh::deploy::deposit::internal_url')}/1/private/"
 swh::deploy::webapp::config::throttling:
-  cache_uri: "%{hiera('memcached::server::bind')}:%{hiera('memcached::server::port')}"
+  cache_uri: "%{lookup('memcached::server::bind')}:%{lookup('memcached::server::port')}"
   scopes:
     swh_api:
       limiter_rate:
@@ -3090,7 +3090,7 @@ swh::deploy::webapp::config::throttling:
         default: 120/h
 
 swh::deploy::webapp::config::keycloak:
-  server_url: "https://%{hiera('keycloak::vhost::name')}/auth/"
+  server_url: "https://%{lookup('keycloak::vhost::name')}/auth/"
   realm_name: "%{alias('swh::config::keycloak::realm_name')}"
 
 swh::deploy::webapp::config::matomo: {}
@@ -3130,26 +3130,26 @@ swh::deploy::webapp::config:
   scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
   counters: "%{alias('swh::remote_service::counters::config')}"
   counters_backend: "%{alias('swh::deploy::webapp::counters_backend')}"
-  log_dir: "%{hiera('swh::deploy::webapp::conf::log_dir')}"
-  secret_key: "%{hiera('swh::deploy::webapp::conf::secret_key')}"
+  log_dir: "%{lookup('swh::deploy::webapp::conf::log_dir')}"
+  secret_key: "%{lookup('swh::deploy::webapp::conf::secret_key')}"
   content_display_max_size: 5242880 # 5MB
   throttling: "%{alias('swh::deploy::webapp::config::throttling')}"
   production_db: "%{alias('swh::deploy::webapp::production_db')}"
   es_workers_index_url: "%{alias('swh::deploy::webapp::config::es_workers_index_url')}"
   deposit:
-    private_api_url: "%{hiera('swh::deploy::webapp::deposit::private::url')}"
-    private_api_user: "%{hiera('deposit_basic_auth_swhworker_username')}"
-    private_api_password: "%{hiera('deposit_basic_auth_swhworker_password')}"
+    private_api_url: "%{lookup('swh::deploy::webapp::deposit::private::url')}"
+    private_api_user: "%{lookup('deposit_basic_auth_swhworker_username')}"
+    private_api_password: "%{lookup('deposit_basic_auth_swhworker_password')}"
   client_config:
     sentry_dsn: "%{lookup('swh::deploy::webapp::sentry_dsn')}"
   keycloak: "%{alias('swh::deploy::webapp::config::keycloak')}"
   history_counters_url: "%{alias('swh::deploy::webapp::history_counters_url')}"
   instance_name: "%{alias('swh::deploy::webapp::instance_name')}"
   give:
-    public_key: "%{hiera('webapp_give_public_key')}"
-    token: "%{hiera('webapp_give_token')}"
+    public_key: "%{lookup('webapp_give_public_key')}"
+    token: "%{lookup('webapp_give_token')}"
   add_forge_now:
-    email_address: "%{hiera('swh::deploy::webapp::add_forge_now_email_address')}"
+    email_address: "%{lookup('swh::deploy::webapp::add_forge_now_email_address')}"
   swh_extra_django_apps: "%{alias('swh::deploy::webapp::config::swh_extra_django_apps')}"
   matomo: "%{alias('swh::deploy::webapp::config::matomo')}"
 
@@ -3164,9 +3164,9 @@ swh::deploy::webapp::additional_backends:
     url: "%{lookup('swh::deploy::webapp::graphql_backend')}"
 
 swh::deploy::webapp::sync_mailmaps::db::service_name: "softwareheritage-sync-mailmaps"
-swh::deploy::webapp::sync_mailmaps::db::host: "%{hiera('swh::deploy::storage::db::host')}"
-swh::deploy::webapp::sync_mailmaps::db::port: "%{hiera('swh::deploy::storage::db::port')}"
-swh::deploy::webapp::sync_mailmaps::db::dbname: "%{hiera('swh::deploy::storage::db::dbname')}"
+swh::deploy::webapp::sync_mailmaps::db::host: "%{lookup('swh::deploy::storage::db::host')}"
+swh::deploy::webapp::sync_mailmaps::db::port: "%{lookup('swh::deploy::storage::db::port')}"
+swh::deploy::webapp::sync_mailmaps::db::dbname: "%{lookup('swh::deploy::storage::db::dbname')}"
 swh::deploy::webapp::sync_mailmaps::db::user: swhmailmap
 # swh::deploy::webapp::sync_mailmaps::db::password in private data
 
@@ -3217,13 +3217,13 @@ swh::deploy::webapp::icinga_checks:
 swh::deploy::scheduler::config::local: &swh_scheduler_local_config
   scheduler:
     cls: postgresql
-    db: "host=%{hiera('swh::deploy::scheduler::db::host')} port=%{hiera('swh::deploy::scheduler::db::port')} dbname=%{hiera('swh::deploy::scheduler::db::dbname')} user=%{hiera('swh::deploy::scheduler::db::user')} password=%{hiera('swh::deploy::scheduler::db::password')}"
+    db: "host=%{lookup('swh::deploy::scheduler::db::host')} port=%{lookup('swh::deploy::scheduler::db::port')} dbname=%{lookup('swh::deploy::scheduler::db::dbname')} user=%{lookup('swh::deploy::scheduler::db::user')} password=%{lookup('swh::deploy::scheduler::db::password')}"
 
 swh::deploy::scheduler::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::scheduler::sentry_dsn: "https://%{lookup('swh::deploy::scheduler::sentry_token')}@sentry.softwareheritage.org/7"
 swh::deploy::scheduler::conf_dir: "%{lookup('swh::conf_directory')}/scheduler"
-swh::deploy::scheduler::conf_file: "%{hiera('swh::deploy::scheduler::conf_dir')}/listener-runner.yml"
+swh::deploy::scheduler::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/listener-runner.yml"
 swh::deploy::scheduler::user: swhscheduler
 swh::deploy::scheduler::group: swhscheduler
 swh::deploy::scheduler::db::host: postgresql-scheduler-rw.internal.softwareheritage.org
@@ -3234,7 +3234,7 @@ swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
 swh::deploy::scheduler::db::user: swhscheduler
 # swh::deploy::scheduler::db::password in private data
 # swh::deploy::scheduler::task_broker::password in private data
-swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{hiera('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672/%2f"
+swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{lookup('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::scheduler::services::log_level: INFO
 swh::deploy::scheduler::config:
   <<: *swh_scheduler_local_config
@@ -3273,7 +3273,7 @@ swh::deploy::scheduler::remote::sentry_swh_package: swh.scheduler
 swh::deploy::scheduler::remote::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::scheduler::remote::sentry_dsn: "%{alias('swh::deploy::scheduler::sentry_dsn')}"
 swh::deploy::scheduler::remote::conf_dir: "%{alias('swh::deploy::scheduler::conf_dir')}"
-swh::deploy::scheduler::remote::conf_file: "%{hiera('swh::deploy::scheduler::remote::conf_dir')}/backend.yml"
+swh::deploy::scheduler::remote::conf_file: "%{lookup('swh::deploy::scheduler::remote::conf_dir')}/backend.yml"
 swh::deploy::scheduler::remote::user: swhscheduler
 swh::deploy::scheduler::remote::group: swhscheduler
 swh::deploy::scheduler::remote::backend::listen::host: 127.0.0.1
@@ -3327,13 +3327,13 @@ swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::por
 # swh::deploy::lister::db::password in private data
 
 # swh::deploy::worker::task_broker::password in private data
-swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::worker::instances: []
 
 swh::deploy::loader_git::sentry_swh_package: swh.loader.git
 swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::loader_git::sentry_dsn: "https://%{lookup('swh::deploy::loader_git::sentry_token')}@sentry.softwareheritage.org/8"
-swh::deploy::worker::loader_git::config_file: "%{hiera('swh::conf_directory')}/loader_git.yml"
+swh::deploy::worker::loader_git::config_file: "%{lookup('swh::conf_directory')}/loader_git.yml"
 swh::deploy::worker::loader_git::concurrency: 1
 swh::deploy::worker::loader_git::max_tasks_per_child: 100
 swh::deploy::worker::loader_git::temp_file_cutoff: 536870912  # 512 * 1024 * 1024
@@ -3358,10 +3358,10 @@ swh::deploy::worker::loader_git::config:
 
 # high priority loader (save-code-now, ...)
 swh::deploy::loader_high_priority::sentry_swh_package: swh.loader.highpriority
-swh::deploy::loader_high_priority::sentry_environment: "%{hiera('swh::deploy::environment')}"
+swh::deploy::loader_high_priority::sentry_environment: "%{lookup('swh::deploy::environment')}"
 swh::deploy::loader_high_priority::sentry_dsn: "https://%{lookup('swh::deploy::loader_high_priority::sentry_token')}@sentry.softwareheritage.org/26"
 
-swh::deploy::worker::loader_high_priority::config_file: "%{hiera('swh::conf_directory')}/loader_high_priority.yml"
+swh::deploy::worker::loader_high_priority::config_file: "%{lookup('swh::conf_directory')}/loader_high_priority.yml"
 swh::deploy::worker::loader_high_priority::queues:
   # git
   - save_code_now:swh.loader.git.tasks.UpdateGitRepository
@@ -3391,7 +3391,7 @@ swh::deploy::worker::loader_high_priority::config:
 
 # One shot worker deactivated by default (e.g. first time ingestion on forge with
 # restrictive loading ingestion parallelism policies)
-swh::deploy::worker::loader_oneshot::config_file: "%{hiera('swh::conf_directory')}/loader_oneshot.yml"
+swh::deploy::worker::loader_oneshot::config_file: "%{lookup('swh::conf_directory')}/loader_oneshot.yml"
 swh::deploy::worker::loader_oneshot::concurrency: 1
 swh::deploy::worker::loader_oneshot::max_tasks_per_child: 100
 swh::deploy::worker::loader_oneshot::loglevel: info
@@ -3405,10 +3405,10 @@ swh::deploy::worker::loader_oneshot::config:
 
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core
-swh::deploy::loader_core::sentry_environment: "%{hiera('swh::deploy::environment')}"
+swh::deploy::loader_core::sentry_environment: "%{lookup('swh::deploy::environment')}"
 swh::deploy::loader_core::sentry_dsn: "https://%{lookup('swh::deploy::loader_core::sentry_token')}@sentry.softwareheritage.org/9"
 
-swh::deploy::worker::loader_debian::config_file: "%{hiera('swh::conf_directory')}/loader_debian.yml"
+swh::deploy::worker::loader_debian::config_file: "%{lookup('swh::conf_directory')}/loader_debian.yml"
 swh::deploy::worker::loader_debian::private_tmp: true
 swh::deploy::worker::loader_debian::concurrency: 1
 swh::deploy::worker::loader_debian::loglevel: info
@@ -3420,7 +3420,7 @@ swh::deploy::worker::loader_debian::config:
     task_queues:
       - swh.loader.package.debian.tasks.LoadDebian
 
-swh::deploy::worker::loader_archive::config_file: "%{hiera('swh::conf_directory')}/loader_archive.yml"
+swh::deploy::worker::loader_archive::config_file: "%{lookup('swh::conf_directory')}/loader_archive.yml"
 swh::deploy::worker::loader_archive::private_tmp: true
 swh::deploy::worker::loader_archive::concurrency: 1
 swh::deploy::worker::loader_archive::loglevel: info
@@ -3435,7 +3435,7 @@ swh::deploy::worker::loader_archive::config:
 swh::deploy::loader_bzr::sentry_swh_package: swh.loader.bzr
 swh::deploy::loader_bzr::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::loader_bzr::sentry_dsn: "https://%{lookup('swh::deploy::loader_bzr::sentry_token')}@sentry.softwareheritage.org/22"
-swh::deploy::worker::loader_bzr::config_file: "%{hiera('swh::conf_directory')}/loader_bzr.yml"
+swh::deploy::worker::loader_bzr::config_file: "%{lookup('swh::conf_directory')}/loader_bzr.yml"
 swh::deploy::worker::loader_bzr::concurrency: 1
 swh::deploy::worker::loader_bzr::private_tmp: true
 swh::deploy::worker::loader_bzr::loglevel: info
@@ -3451,7 +3451,7 @@ swh::deploy::worker::loader_bzr::config:
 swh::deploy::loader_cvs::sentry_swh_package: swh.loader.cvs
 swh::deploy::loader_cvs::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::loader_cvs::sentry_dsn: "https://%{lookup('swh::deploy::loader_cvs::sentry_token')}@sentry.softwareheritage.org/21"
-swh::deploy::worker::loader_cvs::config_file: "%{hiera('swh::conf_directory')}/loader_cvs.yml"
+swh::deploy::worker::loader_cvs::config_file: "%{lookup('swh::conf_directory')}/loader_cvs.yml"
 swh::deploy::worker::loader_cvs::concurrency: 1
 swh::deploy::worker::loader_cvs::private_tmp: true
 swh::deploy::worker::loader_cvs::loglevel: info
@@ -3463,7 +3463,7 @@ swh::deploy::worker::loader_cvs::config:
     task_queues:
       - swh.loader.cvs.tasks.LoadCvsRepository
 
-swh::deploy::worker::loader_nixguix::config_file: "%{hiera('swh::conf_directory')}/loader_nixguix.yml"
+swh::deploy::worker::loader_nixguix::config_file: "%{lookup('swh::conf_directory')}/loader_nixguix.yml"
 swh::deploy::worker::loader_nixguix::private_tmp: true
 swh::deploy::worker::loader_nixguix::concurrency: 1
 swh::deploy::worker::loader_nixguix::loglevel: info
@@ -3517,7 +3517,7 @@ swh::deploy::lister::queues:
 swh::deploy::lister::sentry_swh_package: swh.lister
 swh::deploy::lister::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::lister::sentry_dsn: "https://%{lookup('swh::deploy::lister::sentry_token')}@sentry.softwareheritage.org/6"
-swh::deploy::worker::lister::config_file: "%{hiera('swh::conf_directory')}/lister.yml"
+swh::deploy::worker::lister::config_file: "%{lookup('swh::conf_directory')}/lister.yml"
 swh::deploy::worker::lister::concurrency: 5
 swh::deploy::worker::lister::loglevel: warning
 swh::deploy::worker::lister::config:
@@ -3528,7 +3528,7 @@ swh::deploy::worker::lister::config:
     task_queues: "%{alias('swh::deploy::lister::queues')}"
   credentials: "%{alias('swh::deploy::worker::lister::config::credentials')}"
 
-swh::deploy::worker::loader_maven::config_file: "%{hiera('swh::conf_directory')}/loader_maven.yml"
+swh::deploy::worker::loader_maven::config_file: "%{lookup('swh::conf_directory')}/loader_maven.yml"
 swh::deploy::worker::loader_maven::concurrency: 1
 swh::deploy::worker::loader_maven::loglevel: info
 swh::deploy::worker::loader_maven::config:
@@ -3542,7 +3542,7 @@ swh::deploy::worker::loader_maven::config:
 swh::deploy::loader_mercurial::sentry_swh_package: swh.loader.mercurial
 swh::deploy::loader_mercurial::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::loader_mercurial::sentry_dsn: "https://%{lookup('swh::deploy::loader_mercurial::sentry_token')}@sentry.softwareheritage.org/10"
-swh::deploy::worker::loader_mercurial::config_file: "%{hiera('swh::conf_directory')}/loader_mercurial.yml"
+swh::deploy::worker::loader_mercurial::config_file: "%{lookup('swh::conf_directory')}/loader_mercurial.yml"
 swh::deploy::worker::loader_mercurial::concurrency: 1
 swh::deploy::worker::loader_mercurial::private_tmp: true
 swh::deploy::worker::loader_mercurial::loglevel: info
@@ -3568,7 +3568,7 @@ swh::deploy::worker::opam::instances:
   coq.inria.fr: https://coq.inria.fr/opam/released
   ocamlbench-repo: https://github.com/OCamlPro/ocamlbench-repo.git
 
-swh::deploy::worker::loader_opam::config_file: "%{hiera('swh::conf_directory')}/loader_opam.yml"
+swh::deploy::worker::loader_opam::config_file: "%{lookup('swh::conf_directory')}/loader_opam.yml"
 swh::deploy::worker::loader_opam::concurrency: 1
 swh::deploy::worker::loader_opam::private_tmp: false
 swh::deploy::worker::loader_opam::loglevel: info
@@ -3580,7 +3580,7 @@ swh::deploy::worker::loader_opam::config:
     task_queues:
       - swh.loader.package.opam.tasks.LoadOpam
 
-swh::deploy::worker::loader_pypi::config_file: "%{hiera('swh::conf_directory')}/loader_pypi.yml"
+swh::deploy::worker::loader_pypi::config_file: "%{lookup('swh::conf_directory')}/loader_pypi.yml"
 swh::deploy::worker::loader_pypi::concurrency: 1
 swh::deploy::worker::loader_pypi::private_tmp: true
 swh::deploy::worker::loader_pypi::loglevel: info
@@ -3592,7 +3592,7 @@ swh::deploy::worker::loader_pypi::config:
     task_queues:
       - swh.loader.package.pypi.tasks.LoadPyPI
 
-swh::deploy::worker::loader_npm::config_file: "%{hiera('swh::conf_directory')}/loader_npm.yml"
+swh::deploy::worker::loader_npm::config_file: "%{lookup('swh::conf_directory')}/loader_npm.yml"
 swh::deploy::worker::loader_npm::concurrency: 1
 swh::deploy::worker::loader_npm::private_tmp: true
 swh::deploy::worker::loader_npm::loglevel: info
@@ -3607,7 +3607,7 @@ swh::deploy::worker::loader_npm::config:
 swh::deploy::loader_svn::sentry_swh_package: swh.loader.svn
 swh::deploy::loader_svn::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::loader_svn::sentry_dsn: "https://%{lookup('swh::deploy::loader_svn::sentry_token')}@sentry.softwareheritage.org/14"
-swh::deploy::worker::loader_svn::config_file: "%{hiera('swh::conf_directory')}/loader_svn.yml"
+swh::deploy::worker::loader_svn::config_file: "%{lookup('swh::conf_directory')}/loader_svn.yml"
 swh::deploy::worker::loader_svn::concurrency: 1
 # so the fallback clean up becomes more effective
 swh::deploy::worker::loader_svn::max_tasks_per_child: 1
@@ -3625,7 +3625,7 @@ swh::deploy::worker::loader_svn::config:
       - swh.loader.svn.tasks.MountAndLoadSvnRepository
       - swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
 
-swh::deploy::base_indexer::config_directory: "%{hiera('swh::conf_directory')}/indexer"
+swh::deploy::base_indexer::config_directory: "%{lookup('swh::conf_directory')}/indexer"
 
 # for all indexers
 swh::deploy::indexer::sentry_swh_package: swh.indexer
@@ -3635,12 +3635,12 @@ swh::deploy::indexer::user: swhworker
 swh::deploy::indexer::group: swhworker
 
 # To remove once previous implementations services are deployed
-swh::deploy::worker::indexer_content_mimetype::config_file: "%{hiera('swh::conf_directory')}/indexer_content_mimetype.yml"
+swh::deploy::worker::indexer_content_mimetype::config_file: "%{lookup('swh::conf_directory')}/indexer_content_mimetype.yml"
 swh::deploy::worker::indexer_content_mimetype::concurrency: 1
 swh::deploy::worker::indexer_content_mimetype::loglevel: info
 swh::deploy::worker::indexer_content_mimetype::config: {}
 
-swh::deploy::worker::indexer_fossology_license::config_file: "%{hiera('swh::conf_directory')}/indexer_fossology_license.yml"
+swh::deploy::worker::indexer_fossology_license::config_file: "%{lookup('swh::conf_directory')}/indexer_fossology_license.yml"
 swh::deploy::worker::indexer_fossology_license::concurrency: 1
 swh::deploy::worker::indexer_fossology_license::loglevel: info
 swh::deploy::worker::indexer_fossology_license::config: {}
@@ -3738,10 +3738,10 @@ swh::deploy::worker::indexer_rehash::config:
   batch_size_retrieve_content: 10000
   batch_size_update: 5000
 
-swh::deploy::worker::vault_cooker::config_file: "%{hiera('swh::conf_directory')}/vault_cooker.yml"
+swh::deploy::worker::vault_cooker::config_file: "%{lookup('swh::conf_directory')}/vault_cooker.yml"
 swh::deploy::worker::vault_cooker::concurrency: 20
 swh::deploy::worker::vault_cooker::loglevel: info
-swh::deploy::worker::vault_cooker::conf_file: "%{hiera('swh::conf_directory')}/vault/cooker.yml"
+swh::deploy::worker::vault_cooker::conf_file: "%{lookup('swh::conf_directory')}/vault/cooker.yml"
 swh::deploy::worker::vault_cooker::config:
   storage:
     cls: retry
@@ -3761,14 +3761,14 @@ desktop::printers:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
     description: Impression couleur
     location: Partout
-    ppd: "%{hiera('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
+    ppd: "%{lookup('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
     ppd_options:
       ColorType: Color
   MFP:
     uri: lpd://print.paris.inria.fr/MFP-pro
     description: Impression Noir et Blanc
     location: Partout
-    ppd: "%{hiera('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
+    ppd: "%{lookup('desktop::printers::ppd_dir')}/MFP_Paris.ppd"
     ppd_options:
       ColorType: Mono
 
@@ -3802,10 +3802,10 @@ icinga2::icingaweb2::protected_customvars:
 icinga2::icingaweb2::vhost::name: icinga.softwareheritage.org
 icinga2::icingaweb2::vhost::aliases:
   - icinga.internal.softwareheritage.org
-icinga2::icingaweb2::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-icinga2::icingaweb2::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-icinga2::icingaweb2::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-icinga2::icingaweb2::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+icinga2::icingaweb2::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+icinga2::icingaweb2::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+icinga2::icingaweb2::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+icinga2::icingaweb2::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 
 icinga2::parent_zone: master
@@ -3880,7 +3880,7 @@ icinga2::apiusers:
 icinga2::globals::user: nagios
 icinga2::globals::group: nagios
 
-icinga2::exported_checks::filename: "/etc/icinga2/zones.d/%{hiera('icinga2::parent_zone')}/exported-checks.conf"
+icinga2::exported_checks::filename: "/etc/icinga2/zones.d/%{lookup('icinga2::parent_zone')}/exported-checks.conf"
 icinga2::exported_checks::hostname: pergamon.softwareheritage.org
 
 logstash_hosts:
@@ -3913,32 +3913,32 @@ ceph::mon_host:
 
 ceph::keys:
   admin:
-    secret: "%{hiera('ceph::secrets::admin')}"
+    secret: "%{lookup('ceph::secrets::admin')}"
     cap_mds: allow
     cap_mgr: allow *
     cap_mon: allow *
     cap_osd: allow *
   bootstrap-osd:
-    secret: "%{hiera('ceph::secrets::bootstrap_osd')}"
+    secret: "%{lookup('ceph::secrets::bootstrap_osd')}"
     cap_mon: allow profile bootstrap-osd
   proxmox-rbd:
-    secret: "%{hiera('ceph::secrets::proxmox_rbd')}"
+    secret: "%{lookup('ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
   swh-contents:
-    secret: "%{hiera('ceph::secrets::swh_contents')}"
+    secret: "%{lookup('ceph::secrets::swh_contents')}"
     cap_mon: allow r
     cap_osd: allow r pool=swh_contents
   swh-contents-rw:
-    secret: "%{hiera('ceph::secrets::swh_contents_rw')}"
+    secret: "%{lookup('ceph::secrets::swh_contents_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents
   swh-contents-test:
-    secret: "%{hiera('ceph::secrets::swh_contents_test')}"
+    secret: "%{lookup('ceph::secrets::swh_contents_test')}"
     cap_mon: allow r
     cap_osd: allow r pool=swh_contents_test
   swh-contents-test-rw:
-    secret: "%{hiera('ceph::secrets::swh_contents_test_rw')}"
+    secret: "%{lookup('ceph::secrets::swh_contents_test_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents_test
 
@@ -4277,7 +4277,7 @@ grafana::objects::users: []
 
 grafana::objects::datasources:
   - name: Prometheus (Pergamon)
-    url: "http://pergamon.internal.softwareheritage.org:%{hiera('prometheus::server::listen_port')}"
+    url: "http://pergamon.internal.softwareheritage.org:%{lookup('prometheus::server::listen_port')}"
     type: prometheus
     organization: 1
     access_mode: proxy
@@ -4290,12 +4290,12 @@ jenkins::backend::ws_url: ws://thyssen.internal.softwareheritage.org:8080/
 jenkins::url: "https://%{lookup('jenkins::vhost::name')}"
 
 jenkins::vhost::name: jenkins.softwareheritage.org
-jenkins::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-jenkins::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-jenkins::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-jenkins::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+jenkins::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+jenkins::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+jenkins::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+jenkins::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
-jenkins::agent::jar_url: "https://%{hiera('jenkins::vhost::name')}/jnlpJars/agent.jar"
+jenkins::agent::jar_url: "https://%{lookup('jenkins::vhost::name')}/jnlpJars/agent.jar"
 jenkins::agent::name: "%{::swh_hostname.internal_fqdn}"
 # jenkins::agent::jnlp::token in private_data
 
@@ -4322,92 +4322,92 @@ swh::postgres::service::users:
 
 swh::postgres::service::dbs:
   - alias: admin-swh
-    name: "%{hiera('swh::deploy::storage::db::dbname')}"
-    host: "%{hiera('swh::deploy::storage::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::storage::db::user')}"
-    password: "%{hiera('swh::deploy::storage::db::password')}"
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::storage::db::user')}"
+    password: "%{lookup('swh::deploy::storage::db::password')}"
   - alias: admin-swh-deposit
-    name: "%{hiera('swh::deploy::deposit::db::dbname')}"
-    host: "%{hiera('swh::deploy::deposit::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::deposit::db::dbuser')}"
-    password: "%{hiera('swh::deploy::deposit::db::password')}"
+    name: "%{lookup('swh::deploy::deposit::db::dbname')}"
+    host: "%{lookup('swh::deploy::deposit::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::deposit::db::dbuser')}"
+    password: "%{lookup('swh::deploy::deposit::db::password')}"
   - alias: admin-swh-scheduler
-    name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
-    host: "%{hiera('swh::deploy::scheduler::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::scheduler::db::user')}"
-    password: "%{hiera('swh::deploy::scheduler::db::password')}"
+    name: "%{lookup('swh::deploy::scheduler::db::dbname')}"
+    host: "%{lookup('swh::deploy::scheduler::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::scheduler::db::user')}"
+    password: "%{lookup('swh::deploy::scheduler::db::password')}"
   - alias: admin-swh-vault
-    name: "%{hiera('swh::deploy::vault::db::dbname')}"
-    host: "%{hiera('swh::deploy::vault::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::vault::db::user')}"
-    password: "%{hiera('swh::deploy::vault::db::password')}"
+    name: "%{lookup('swh::deploy::vault::db::dbname')}"
+    host: "%{lookup('swh::deploy::vault::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::vault::db::user')}"
+    password: "%{lookup('swh::deploy::vault::db::password')}"
   - alias: admin-swh-lister
-    name: "%{hiera('swh::deploy::worker::lister::db::name')}"
-    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::worker::lister::db::name')}"
-    password: "%{hiera('swh::deploy::lister::db::password')}"
+    name: "%{lookup('swh::deploy::worker::lister::db::name')}"
+    host: "%{lookup('swh::deploy::worker::lister::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::worker::lister::db::name')}"
+    password: "%{lookup('swh::deploy::lister::db::password')}"
   - alias: admin-swh-replica
-    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
     host: somerset.internal.softwareheritage.org
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    password: "%{hiera('swh::deploy::storage::db::password')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    password: "%{lookup('swh::deploy::storage::db::password')}"
   - alias: admin-swh-indexer
-    name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
-    host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::indexer::storage::db::user')}"
-    password: "%{hiera('swh::deploy::indexer::storage::db::password')}"
+    name: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::indexer::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::indexer::storage::db::user')}"
+    password: "%{lookup('swh::deploy::indexer::storage::db::password')}"
   - alias: admin-swh-web
-    name: "%{hiera('swh::deploy::webapp::db::name')}"
-    host: "%{hiera('swh::deploy::webapp::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::webapp::db::user')}"
-    password: "%{hiera('swh::deploy::webapp::db::password')}"
+    name: "%{lookup('swh::deploy::webapp::db::name')}"
+    host: "%{lookup('swh::deploy::webapp::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::webapp::db::user')}"
+    password: "%{lookup('swh::deploy::webapp::db::password')}"
   - alias: swh
-    name: "%{hiera('swh::deploy::storage::db::dbname')}"
-    host: "%{hiera('swh::deploy::storage::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-deposit
-    name: "%{hiera('swh::deploy::deposit::db::dbname')}"
-    host: "%{hiera('swh::deploy::deposit::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::deposit::db::dbname')}"
+    host: "%{lookup('swh::deploy::deposit::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-scheduler
-    name: "%{hiera('swh::deploy::scheduler::db::dbname')}"
-    host: "%{hiera('swh::deploy::scheduler::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::scheduler::db::dbname')}"
+    host: "%{lookup('swh::deploy::scheduler::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-vault
-    name: "%{hiera('swh::deploy::vault::db::dbname')}"
-    host: "%{hiera('swh::deploy::vault::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::vault::db::dbname')}"
+    host: "%{lookup('swh::deploy::vault::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-lister
-    name: "%{hiera('swh::deploy::worker::lister::db::name')}"
-    host: "%{hiera('swh::deploy::worker::lister::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::worker::lister::db::name')}"
+    host: "%{lookup('swh::deploy::worker::lister::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-replica
-    name: "%{hiera('swh::deploy::storage::db::dbname')}"
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
     host: somerset.internal.softwareheritage.org
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-indexer
-    name: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
-    host: "%{hiera('swh::deploy::indexer::storage::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::indexer::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-web
-    name: "%{hiera('swh::deploy::webapp::db::name')}"
-    host: "%{hiera('swh::deploy::webapp::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::webapp::db::name')}"
+    host: "%{lookup('swh::deploy::webapp::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
 
 elastic::elk_version: '7.15.2'
@@ -4456,10 +4456,10 @@ keycloak::swh_theme::repo_url: https://forge.softwareheritage.org/source/swh-key
 keycloak::swh_theme::tag: v0.3.1
 
 keycloak::vhost::name: auth.softwareheritage.org
-keycloak::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-keycloak::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-keycloak::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-keycloak::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+keycloak::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+keycloak::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+keycloak::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+keycloak::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 keycloak::backend::port: 8080
 keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
@@ -4612,10 +4612,10 @@ borg::repository_server: banco.internal.softwareheritage.org
 
 borg::encryption: repokey-blake2
 
-swh::deploy::base_counters::config_directory: "%{hiera('swh::conf_directory')}/counters"
+swh::deploy::base_counters::config_directory: "%{lookup('swh::conf_directory')}/counters"
 swh::deploy::base_counters::user: swhstorage
 swh::deploy::base_counters::group: swhstorage
-swh::deploy::counters::conf_file: "%{hiera('swh::deploy::base_counters::config_directory')}/server.yml"
+swh::deploy::counters::conf_file: "%{lookup('swh::deploy::base_counters::config_directory')}/server.yml"
 swh::deploy::counters::sentry_swh_package: swh.counters
 swh::deploy::counters::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::counters::sentry_dsn: "https://%{lookup('swh::deploy::counters::sentry_token')}@sentry.softwareheritage.org/19"
@@ -4679,14 +4679,14 @@ swh::deploy::counters::journal_client::config:
       - snapshot
     message.max.bytes: 524288000
 
-swh::deploy::base_search::config_directory: "%{hiera('swh::conf_directory')}/search"
+swh::deploy::base_search::config_directory: "%{lookup('swh::conf_directory')}/search"
 swh::deploy::base_search::user: swhstorage
 swh::deploy::base_search::group: swhstorage
 
 swh::deploy::search::sentry_swh_package: swh.search
 swh::deploy::search::sentry_environment: "%{alias('swh::deploy::environment')}"
 swh::deploy::search::sentry_dsn: "https://%{lookup('swh::deploy::search::sentry_token')}@sentry.softwareheritage.org/15"
-swh::deploy::search::conf_file: "%{hiera('swh::deploy::base_search::config_directory')}/server.yml"
+swh::deploy::search::conf_file: "%{lookup('swh::deploy::base_search::config_directory')}/server.yml"
 swh::deploy::search::user: "%{alias('swh::deploy::base_search::user')}"
 swh::deploy::search::group: "%{alias('swh::deploy::base_search::group')}"
 swh::deploy::search::index: origin-v0.11
@@ -4773,11 +4773,11 @@ netbox::allowed_hosts:
   - "localhost"
 netbox::vhost::letsencrypt_cert: inventory.internal.admin.swh.network
 netbox::vhost::name: inventory.internal.admin.swh.network
-netbox::backend::url: "http://localhost:%{hiera('netbox::gunicorn::port')}/"
-netbox::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-netbox::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-netbox::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-netbox::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+netbox::backend::url: "http://localhost:%{lookup('netbox::gunicorn::port')}/"
+netbox::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+netbox::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+netbox::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+netbox::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 opnsense::hosts:
   pushkin:
@@ -4847,17 +4847,17 @@ zfs::common::zpool_configuration:
 
 # Must have matching certificate in letsencrypt::certificates
 azure_billing::vhost::name: azure-billing.internal.admin.swh.network
-azure_billing::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-azure_billing::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-azure_billing::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-azure_billing::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+azure_billing::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+azure_billing::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+azure_billing::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+azure_billing::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 swh::deploy::maven_index_exporter::url: maven-exporter.internal.softwareheritage.org
 maven_index_exporter::vhost::name: "%{lookup('swh::deploy::maven_index_exporter::url')}"
-maven_index_exporter::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-maven_index_exporter::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-maven_index_exporter::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
-maven_index_exporter::vhost::hsts_header: "%{hiera('apache::hsts_header')}"
+maven_index_exporter::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+maven_index_exporter::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+maven_index_exporter::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+maven_index_exporter::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 maven_index_exporter::image::name: softwareheritage/maven-index-exporter
 maven_index_exporter::image::version: v0.3.0
@@ -4876,13 +4876,13 @@ zfs::arc::max_size_memory_percent: 25
 # Must have matching certificate in letsencrypt::certificates
 preseeding::vhost::name: preseed.internal.softwareheritage.org
 preseeding::vhost::aliases: []
-preseeding::vhost::docroot: "%{hiera('swh::base_directory')}/preseeding"
+preseeding::vhost::docroot: "%{lookup('swh::base_directory')}/preseeding"
 preseeding::vhost::docroot::owner: root
 preseeding::vhost::docroot::group: sudo
 preseeding::vhost::docroot::mode: "2775"
-preseeding::vhost::ssl_protocol: "%{hiera('apache::ssl_protocol')}"
-preseeding::vhost::ssl_honorcipherorder: "%{hiera('apache::ssl_honorcipherorder')}"
-preseeding::vhost::ssl_cipher: "%{hiera('apache::ssl_cipher')}"
+preseeding::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+preseeding::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+preseeding::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 
 rancher::rke2::agent::config:
   snapshotter: native

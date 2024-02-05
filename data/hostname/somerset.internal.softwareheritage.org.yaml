@@ -12,14 +12,14 @@ pgbouncer::auth_hba_file: /etc/postgresql/13/replica/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.103
 pgbouncer::databases:
   # swh
-  - source_db: "%{hiera('swh::deploy::storage::db::dbname')}"
+  - source_db: "%{lookup('swh::deploy::storage::db::dbname')}"
     host: somerset.internal.softwareheritage.org
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::main::port')}"
-  - source_db: "%{hiera('swh::deploy::indexer::storage::db::dbname')}"
+    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{lookup('swh::deploy::db::main::port')}"
+  - source_db: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
     host: belvedere.internal.softwareheritage.org
-    auth_user: "%{hiera('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{hiera('swh::deploy::db::indexer::port')}"
+    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{lookup('swh::deploy::db::indexer::port')}"
 
 mountpoints:
   /srv/remote-backups:

@@ -22,7 +22,7 @@ swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbo
 swh::deploy::webapp::graphql_backend: "http://graphql.internal.softwareheritage.org/"
 
 # e2e checks on vault
-swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{hiera('swh::remote_service::storage::port')}"
+swh::deploy::vault::e2e::storage: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::storage::port')}"
 
 swh::deploy::worker::loader_git::concurrency: 4
 

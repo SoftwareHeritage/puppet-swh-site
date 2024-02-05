@@ -41,11 +41,11 @@ swh::deploy::lister::queues: []
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
-swh::deploy::worker::task_broker: "amqp://swhconsumer:%{hiera('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672/%2f"
+swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@scheduler0.internal.staging.swh.network:5672/%2f"
 
 #### Storage/Indexer/Vault/Scheduler services to use in staging area
 
-swh::remote_service::storage0::url: "http://storage1.internal.staging.swh.network:%{hiera('swh::remote_service::storage::port')}/"
+swh::remote_service::storage0::url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::storage::port')}/"
 
 swh::remote_service::storage::config::storage0:
   cls: remote
@@ -56,20 +56,20 @@ swh::remote_service::storage::config::writable: &swh_remote_service_storage_conf
 
 swh::remote_service::vault::config::vault0:
   cls: remote
-  url: "http://vault.internal.staging.swh.network:%{hiera('swh::remote_service::vault::port')}/"
+  url: "http://vault.internal.staging.swh.network:%{lookup('swh::remote_service::vault::port')}/"
 swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
 swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
 swh::remote_service::indexer::config::storage0:
   cls: remote
-  url: "http://storage1.internal.staging.swh.network:%{hiera('swh::remote_service::indexer::port')}/"
+  url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::indexer::port')}/"
 swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::storage0')}"
 swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::storage0')}"
 
 swh::remote_service::scheduler::port: 80
 swh::remote_service::scheduler::config::scheduler0:
   cls: remote
-  url: "http://scheduler.internal.staging.swh.network:%{hiera('swh::remote_service::scheduler::port')}/"
+  url: "http://scheduler.internal.staging.swh.network:%{lookup('swh::remote_service::scheduler::port')}/"
 
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
@@ -99,7 +99,7 @@ swh::deploy::webapp::reverse_proxy::backend_http_port: "80"
 
 swh::remote_service::objstorage::config::rw:
   cls: remote
-  url: "http://storage1.internal.staging.swh.network:%{hiera('swh::remote_service::objstorage::port')}/"
+  url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::objstorage::port')}/"
 
 swh::remote_service::objstorage::config::ro:
   cls: filtered
@@ -251,7 +251,7 @@ pgbouncer::databases:
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
 swh::deploy::objstorage::backend::workers: 16
-swh::deploy::objstorage::directory: "%{hiera('swh::deploy::storage::directory')}"
+swh::deploy::objstorage::directory: "%{lookup('swh::deploy::storage::directory')}"
 swh::deploy::objstorage::slicing: 0:1/1:5
 
 # Deploy the storage server as a public resource

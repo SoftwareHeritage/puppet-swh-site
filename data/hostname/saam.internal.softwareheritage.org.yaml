@@ -12,7 +12,6 @@ backups::exclude:
   - srv/softwareheritage/annex
   - srv/softwareheritage/objects-xfs
 
-
 icinga2::host::vars:
   load: high
 

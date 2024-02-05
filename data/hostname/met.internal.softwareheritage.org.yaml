@@ -21,15 +21,15 @@ packages:
 rabbitmq::server::users:
   - name: "swh-provenance"
     is_admin: true
-    password: "%{hiera('rabbitmq::monitoring::provenance::password')}"
+    password: "%{lookup('rabbitmq::monitoring::provenance::password')}"
     tags: []
   - name: swh-provenance-consumer
     is_admin: false
-    password: "%{hiera('swh::deploy::provenance::consumer::password')}"
+    password: "%{lookup('swh::deploy::provenance::consumer::password')}"
     tags: []
   - name: swh-provenance-producer
     is_admin: false
-    password: "%{hiera('swh::deploy::provenance::producer::password')}"
+    password: "%{lookup('swh::deploy::provenance::producer::password')}"
     tags: []
 
 swh::postgresql::version: 13
@@ -54,172 +54,172 @@ postgresql::server::config_entries:
 
 swh::dbs:
   provenance:
-    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
+    name: "%{lookup('swh::deploy::provenance::db::dbname')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
   test0:
     name: test0
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test1:
     name: test1
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test2:
     name: test2
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test3:
     name: test3
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test4:
     name: test4
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test5:
     name: test5
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test6:
     name: test6
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test7:
     name: test7
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test8:
     name: test8
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   test9:
     name: test9
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
 
 # What aliases to install in .pg_service/.pgpass
 swh::postgres::service::dbs:
   - alias: swh-provenance
-    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    name: "%{lookup('swh::deploy::provenance::db::dbname')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: admin-swh-provenance
-    name: "%{hiera('swh::deploy::provenance::db::dbname')}"
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    name: "%{lookup('swh::deploy::provenance::db::dbname')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test0
     name: test0
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test0-admin
     name: test0
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test1
     name: test1
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test1-admin
     name: test1
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test2
     name: test2
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test2-admin
     name: test2
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test3
     name: test3
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test3-admin
     name: test3
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test4
     name: test4
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test4-admin
     name: test4
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test5
     name: test5
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test5-admin
     name: test5
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test6
     name: test6
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test6-admin
     name: test6
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test7
     name: test7
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test7-admin
     name: test7
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test8
     name: test8
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test8-admin
     name: test8
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
   - alias: test9
     name: test9
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: test9-admin
     name: test9
-    host: "%{hiera('swh::deploy::provenance::db::host')}"
-    port: "%{hiera('swh::deploy::db::pgbouncer::port')}"
-    user: "%{hiera('swh::deploy::provenance::db::user')}"
-    password: "%{hiera('swh::deploy::provenance::db::password')}"
+    host: "%{lookup('swh::deploy::provenance::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::provenance::db::user')}"
+    password: "%{lookup('swh::deploy::provenance::db::password')}"
 
 
 # Install the .pg_service/.pgpass files to those users
