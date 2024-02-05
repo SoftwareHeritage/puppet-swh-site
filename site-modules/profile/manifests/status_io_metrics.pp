@@ -28,8 +28,8 @@ class profile::status_io_metrics {
   $script_params = [
     '--api-id ${API_ID}',
     '--api-key ${API_KEY}',
-    "--status-page-id ${statusio_status_page}",
-    "--metric-id ${statusio_scn_metrics}",
+    '--status-page-id ${STATUS_IO_PAGE_ID}',
+    '--metric-id ${STATUS_IO_METRICS_ID}',
     '-q "sum (max by (load_task_status) (swh_web_accepted_save_requests{environment="production", load_task_status=~"pending|scheduled|not_yet_scheduled"}))"',
     "-s ${prometheus_server}",
     "-p ${prometheus_port}",
@@ -42,6 +42,8 @@ class profile::status_io_metrics {
     variables => {
         'API_ID'  => $statusio_api_id,
         'API_KEY' => $statusio_api_key,
+        'STATUS_IO_PAGE_ID' => $statusio_status_page,
+        'STATUS_IO_METRICS_ID' => $statusio_scn_metrics,
     }
   }
 
