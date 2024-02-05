@@ -30,7 +30,7 @@ class profile::status_io_metrics {
     '--api-key ${API_KEY}',
     '--status-page-id ${STATUS_IO_PAGE_ID}',
     '--metric-id ${STATUS_IO_METRICS_ID}',
-    '-q "sum(rabbitmq_queue_messages{environment=\"production\", queue=~"save_code_now.*"})"',
+    '-q "sum(rabbitmq_queue_messages{environment=\"production\", queue=~\"save_code_now.*\"})"',
     "-s ${prometheus_server}",
     "-p ${prometheus_port}",
   ]
