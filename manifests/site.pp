@@ -29,7 +29,7 @@ node /^search-esnode\d\.internal\.softwareheritage\.org$/ {
 }
 
 node /^counters\d\.internal\.softwareheritage\.org$/ {
-  include role::swh_counters_with_journal_client
+  include role::swh_counters_redis
 }
 
 node 'saatchi.internal.softwareheritage.org' {
