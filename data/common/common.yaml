@@ -1294,6 +1294,10 @@ bind::resource_records:
     type: CNAME
     record: webapp1.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  counters-production/CNAME:
+    type: CNAME
+    record: counters.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   deposit-dynamic/CNAME:
     type: CNAME
     record: deposit-dynamic.internal.softwareheritage.org
