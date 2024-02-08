@@ -54,6 +54,8 @@ class profile::rabbitmq {
   $prometheus_rabbit_timeout = lookup('prometheus::rabbitmq::rabbit_timeout', Integer)
 
   $prometheus_exclude_metrics = lookup('prometheus::rabbitmq::exclude_metrics', Array[String]).join(',')
+  # scrape metrics by default, but be able to deactivate it
+  $prometheus_rabbit_scrape_metrics = lookup('prometheus::rabbitmq::scrape_metrics', { default_value => true })
 
   if versioncmp($::lsbmajdistrelease, '11') >= 0 {
     # Install the official plugin along rabbitmq
@@ -76,10 +78,12 @@ class profile::rabbitmq {
     }
   }
 
-  profile::prometheus::export_scrape_config {'rabbitmq':
-    target          => $prometheus_target,
-    scrape_interval => '15s',
-    scrape_timeout  => '10s',
+  if $prometheus_rabbit_scrape_metrics {
+    profile::prometheus::export_scrape_config {'rabbitmq':
+      target          => $prometheus_target,
+      scrape_interval => '15s',
+      scrape_timeout  => '10s',
+    }
   }
 
   # monitoring user for the icinga check

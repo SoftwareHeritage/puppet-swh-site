@@ -12,3 +12,6 @@ swh::postgres::service::users:
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
 swh::deploy::scheduler::task_broker: "amqp://guest:guest@127.0.0.1:5672/%2f"
+
+# No metrics scraped by pergamon, it's done within the dynamic infra cluster
+prometheus::rabbitmq::scrape_metrics: false

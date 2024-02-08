@@ -2,3 +2,6 @@ backups::exclude:
   - var/lib/rabbitmq
 
 swh::deploy::scheduler::remote::backend::listen::host: 0.0.0.0
+
+# No metrics scraped by pergamon, it's done within the dynamic infra cluster
+prometheus::rabbitmq::scrape_metrics: false
