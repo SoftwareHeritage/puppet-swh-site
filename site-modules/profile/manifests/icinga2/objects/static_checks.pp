@@ -205,6 +205,45 @@ class profile::icinga2::objects::static_checks {
     }
   }
 
+  $days_2 = 172800  # seconds, twice the max period for incremental listing + 1 day
+  $days_3 = 259200  # seconds, twice the max period for incremental listing + 2 days
+  $days_8 = 691200  # seconds, intermediary recurring period for full listing + 1 day
+  $days_9 = 777600  # seconds, intermediary recurring period for full listing + 2 days
+  $days_91 = 7862400  # seconds, max recurring period for full listing + 1 day
+  $days_92 = 7948800  # seconds, max recurring period for full listing + 2 days
+
+  [['staging', 'db1.internal.staging.swh.network'],
+   ['production', 'albertina.internal.softwareheritage.org']
+  ].each |$env_config| {
+    $env = $env_config[0]
+    $db_host = $env_config[1]
+
+    [['1 day', $days_2, $days_3],
+     ['7 days', $days_8, $days_9],
+     ['90 days', $days_91, $days_92]
+    ].each | $periodic_data | {
+       $interval = $periodic_data[0]
+       $threshold_warning = $periodic_data[1]
+       $threshold_critical = $periodic_data[2]
+
+       ::icinga2::object::service {"${env}: Scheduler recurrent lister stale tasks (period: ${interval})":
+         check_command => 'check_prometheus_metric',
+         target        => $checks_file,
+         host_name     => $db_host,
+         vars          => {
+           prometheus_metric_name     => "${env}: Scheduler recurrent lister stale tasks (period: ${interval})",
+           prometheus_query           => profile::icinga2::literal_var(
+             join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $environment, '"',
+                   ', policy="recurring", current_interval=', $interval,
+                   ', status="next_run_scheduled"}) by (le))'], '')),
+          prometheus_query_type      => 'vector',
+          prometheus_metric_warning  => $threshold_warning,
+          prometheus_metric_critical => $threshold_critical,
+        }
+      }
+    }
+  }
+
   ['swh.scheduler.journal_client','swh.search.journal_client-v0.11','swh.counters.journal_client'].each |$consumer_group| {
     ::icinga2::object::service {"Kafka ${consumer_group} lag in production":
       check_command => 'check_prometheus_metric',
