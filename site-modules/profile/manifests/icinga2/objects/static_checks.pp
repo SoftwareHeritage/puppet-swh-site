@@ -231,7 +231,7 @@ class profile::icinga2::objects::static_checks {
          target        => $checks_file,
          host_name     => $db_host,
          vars          => {
-           prometheus_metric_name     => "${env} - Scheduler recurrent lister tasks with period ${interval} are stale",
+           prometheus_metric_name     => "Scheduler recurrent lister tasks with period ${interval} are stale in ${env}",
            prometheus_query           => profile::icinga2::literal_var(
              join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $environment, '"',
                    ', policy="recurring", current_interval=', $interval,
