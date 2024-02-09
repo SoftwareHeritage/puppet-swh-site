@@ -235,7 +235,9 @@ class profile::icinga2::objects::static_checks {
            prometheus_query           => profile::icinga2::literal_var(
              join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $env, '"',
                    ', policy="recurring", current_interval="', $interval, '"',
-                   ', status="next_run_scheduled"}) by (le))'], '')),
+                   ', status="next_run_scheduled"}) by (le)) or vector(1)'], '')),
+               # or vector(1) is a fallback for the case where no data is returned
+               # ('null' value). This is considered a success and we're moving along.
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => $threshold_warning,
           prometheus_metric_critical => $threshold_critical,
