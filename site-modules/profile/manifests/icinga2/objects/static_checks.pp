@@ -226,12 +226,12 @@ class profile::icinga2::objects::static_checks {
        $threshold_warning = $periodic_data[1]
        $threshold_critical = $periodic_data[2]
 
-       ::icinga2::object::service {"${env}: Scheduler recurrent lister stale tasks (period: ${interval})":
+       ::icinga2::object::service {"${env} - Scheduler recurrent lister tasks with period ${interval} check":
          check_command => 'check_prometheus_metric',
          target        => $checks_file,
          host_name     => $db_host,
          vars          => {
-           prometheus_metric_name     => "${env}: Scheduler recurrent lister stale tasks (period: ${interval})",
+           prometheus_metric_name     => "${env} - Scheduler recurrent lister tasks with period ${interval} are stale",
            prometheus_query           => profile::icinga2::literal_var(
              join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $environment, '"',
                    ', policy="recurring", current_interval=', $interval,
