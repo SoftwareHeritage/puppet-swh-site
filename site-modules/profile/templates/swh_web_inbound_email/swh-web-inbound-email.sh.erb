@@ -22,4 +22,4 @@ if [ -z "${ENDPOINT}" ] || [ -z "${SHARED_KEY}" ]; then
     exit 2
 fi
 
-exec curl --fail-with-body --silent --show-error --location -F 'email=@-;type=message/rfc822' -F "shared_key=${SHARED_KEY}" "${ENDPOINT}"
+exec curl --fail --silent --show-error --location -F 'email=@-;type=message/rfc822' -F "shared_key=${SHARED_KEY}" "${ENDPOINT}"
