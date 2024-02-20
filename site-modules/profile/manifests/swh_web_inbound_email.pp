@@ -7,12 +7,16 @@ class profile::swh_web_inbound_email {
   $script = '/usr/local/bin/swh-web-inbound-email.sh'
   $email_dir = '/var/mail/swh-web'
 
+  $file_owner = 'swhwebapp'
+
+  $alias_file = '/etc/postfix/swh-web-inbound-email/aliases'
+
   file {$config_dir:
     ensure  => directory,
     purge   => true,
     recurse => true,
     owner   => 'root',
-    group   => 'mail',
+    group   => $file_owner,
     mode    => '0750',
   }
 
@@ -26,7 +30,7 @@ class profile::swh_web_inbound_email {
 
   file {$email_dir:
     ensure => directory,
-    owner  => 'root',
+    owner  => $file_owner,
     group  => 'mail',
     mode   => '2770',
   }
@@ -35,7 +39,7 @@ class profile::swh_web_inbound_email {
     $profile_email_dir = "${email_dir}/${profile}"
     file {$profile_email_dir:
       ensure => directory,
-      owner  => 'root',
+      owner  => $file_owner,
       group  => 'mail',
       mode   => '2770',
 
@@ -48,7 +52,7 @@ class profile::swh_web_inbound_email {
     file {$config_file:
       ensure  => present,
       owner   => 'root',
-      group   => 'mail',
+      group   => $file_owner,
       mode    => '0640',
       content => template('profile/swh_web_inbound_email/config.sh.erb')
     }
@@ -58,6 +62,8 @@ class profile::swh_web_inbound_email {
         "| ${script} ${profile}",
         "${profile_email_dir}/",
       ],
+      alias_file  => $alias_file,
+      notify      => Exec["postalias ${alias_file}"],
     }
   }
 }

@@ -8,6 +8,11 @@ smtp::relay_destinations:
   - destination: "%{lookup('phabricator::vhost::name')}"
     route: smtp:[tate.internal.softwareheritage.org]
 
+smtp::extra_aliases_files:
+  - base_directory: /etc/postfix/swh-web-inbound-email
+    owner: swhwebapp
+    group: swhwebapp
+    contents: {}
 
 smtp::mynetworks:
   - 127.0.0.0/8
