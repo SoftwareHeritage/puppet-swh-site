@@ -95,17 +95,3 @@ mountpoints:
     ensure: absent
   /srv/storage/space:
     ensure: absent
-
-
-smtp::virtual_aliases:
-  - destination: "@%{lookup('swh::deploy::webapp::inbound_email::domain')}"
-    alias: "%{lookup('swh::deploy::webapp::user')}"
-
-smtp::extra_aliases_files:
-  - owner: "%{lookup('swh::deploy::webapp::user')}"
-    group: "%{lookup('swh::deploy::webapp::group')}"
-    base_directory: "/etc/postfix/swhwebapp"
-    contents:
-      - user: "%{lookup('swh::deploy::webapp::user')}"
-        aliases:
-          - "| django-admin process_inbound_email --settings=%{lookup('swh::deploy::webapp::django_settings_module')}"

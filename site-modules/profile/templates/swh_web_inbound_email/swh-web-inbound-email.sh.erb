@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CONFIG_DIR="<%= @config_dir %>"
+
+if [ $# -lt 1 ]; then
+    echo "usage: $0 PROFILE_NAME" >&2
+    exit 2
+fi
+
+PROFILE="$1"
+CONFIG_FILE="${CONFIG_DIR}/${PROFILE}.sh"
+
+if ! [ -e "$CONFIG_FILE" ]; then
+    echo "configuration file ${CONFIG_FILE} missing" >&2
+    exit 2
+fi
+
+. "$CONFIG_FILE"
+
+if [ -z "${ENDPOINT}" ] || [ -z "${SHARED_KEY}" ]; then
+    echo "variables ENDPOINT and SHARED_KEY are mandatory" >&2
+    exit 2
+fi
+
+exec curl --fail-with-body --silent --show-error --location -F 'email=@-;type=message/rfc822' -F "shared_key=${SHARED_KEY}" "${ENDPOINT}"

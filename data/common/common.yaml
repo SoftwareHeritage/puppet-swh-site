@@ -3025,9 +3025,6 @@ swh::deploy::webapp::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 swh::deploy::webapp::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 swh::deploy::webapp::vhost::access_log_format: combined_with_duration
 
-swh::deploy::webapp::inbound_email::production::domain: archive.softwareheritage.org
-swh::deploy::webapp::inbound_email::staging::domain: webapp.staging.swh.network
-
 swh::deploy::webapp::config::es_workers_index_url: http://esnode1.internal.softwareheritage.org:9200/swh_workers-*
 swh::deploy::webapp::deposit::private::url: "%{lookup('swh::deploy::deposit::internal_url')}/1/private/"
 swh::deploy::webapp::config::throttling:
@@ -4886,3 +4883,13 @@ preseeding::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 
 rancher::rke2::agent::config:
   snapshotter: native
+
+swh_web_inbound_email::profiles:
+  staging:
+    email_domain: webapp.staging.swh.network
+    endpoint: https://webapp.staging.swh.network/inbound-email/
+    shared_key: "%{lookup('swh_web_inbound_email::staging::shared_key')}"
+  production:
+    email_domain: archive.softwareheritage.org
+    endpoint: https://archive.softwareheritage.org/inbound-email/
+    shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
