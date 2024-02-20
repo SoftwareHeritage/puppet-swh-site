@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 CONFIG_DIR="<%= @config_dir %>"
 
 if [ $# -lt 1 ]; then
@@ -22,4 +24,15 @@ if [ -z "${ENDPOINT}" ] || [ -z "${SHARED_KEY}" ]; then
     exit 2
 fi
 
-exec curl --fail --silent --show-error --location -F 'email=@-;type=message/rfc822' -F "shared_key=${SHARED_KEY}" "${ENDPOINT}"
+
+curl_output="$(mktemp)"
+exec 3>"$curl_output"
+exec 4<"$curl_output"
+rm -f "$curl_output"
+
+if ! curl --fail --silent --show-error --location -F 'email=@-;type=message/rfc822' -F "shared_key=${SHARED_KEY}" "${ENDPOINT}" 2>&3 >&3; then
+    # Print a temporary delivery failure status message so that postfix can retry the message later
+    echo 4.3.0 temporary failure:
+    cat <&4
+    exit 1
+fi
