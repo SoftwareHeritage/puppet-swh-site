@@ -4353,7 +4353,7 @@ swh::postgres::service::dbs:
     password: "%{lookup('swh::deploy::lister::db::password')}"
   - alias: admin-swh-replica
     name: "%{lookup('swh::deploy::storage::db::dbname')}"
-    host: somerset.internal.softwareheritage.org
+    host: massmoca.internal.softwareheritage.org
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     password: "%{lookup('swh::deploy::storage::db::password')}"
@@ -4396,7 +4396,7 @@ swh::postgres::service::dbs:
     user: guest
   - alias: swh-replica
     name: "%{lookup('swh::deploy::storage::db::dbname')}"
-    host: somerset.internal.softwareheritage.org
+    host: massmoca.internal.softwareheritage.org
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-indexer
