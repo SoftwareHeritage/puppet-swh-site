@@ -1,1 +1,4 @@
+---
 swh::apt_config::enable_non_free: true
+
+rancher::rke2::agent::snapshotter: zfs

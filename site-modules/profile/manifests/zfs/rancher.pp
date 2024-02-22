@@ -26,35 +26,45 @@ class profile::zfs::rancher {
   # actually starts.
   $config_content = lookup('rancher::rke2::agent::config')
 
-  file {"/etc/rancher":
+  file {['/etc/rancher', '/etc/rancher/rke2', '/etc/rancher/rke2/config.yaml.d']:
     ensure => directory,
-    owner  => "root",
-    group  => "root",
+    owner  => 'root',
+    group  => 'root',
     mode   => '0755',
   }
 
-  file {"/etc/rancher/rke2":
-    ensure => directory,
-    owner  => "root",
-    group  => "root",
-    mode   => '0755',
-    require => File["/etc/rancher"],
-  }
-
-  file {"/etc/rancher/rke2/config.yaml.d":
-    ensure => directory,
-    owner  => "root",
-    group  => "root",
-    mode   => '0755',
-    require => File["/etc/rancher/rke2"],
-  }
-
-  file {"/etc/rancher/rke2/config.yaml.d/50-snapshotter.yaml":
-    owner  => "root",
-    group  => "root",
-    mode   => '0644',
+  file {'/etc/rancher/rke2/config.yaml.d/50-snapshotter.yaml':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
     content => inline_yaml($config_content),
-    # content => "{\n  \"snapshotter\": \"native\"\n}",
-    require => File["/etc/rancher/rke2/config.yaml.d"],
+  }
+
+  file {'/etc/rancher/rke2/config.yaml.d/50-snaphotter.yaml':
+    ensure => 'absent',
+  }
+
+  $snapshotter = $config_content['snapshotter']
+
+  if $snapshotter == 'zfs' {
+    file {['/var/lib/rancher', '/var/lib/rancher/rke2', '/var/lib/rancher/rke2/agent']:
+      ensure  => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      require => Zfs['data/rancher'],
+    }
+    -> file {'/var/lib/rancher/rke2/agent/containerd':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0711',
+    }
+    -> file {'/var/lib/rancher/rke2/agent/containerd/io.containerd.snapshotter.v1.zfs':
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0700',
+    }
   }
 }

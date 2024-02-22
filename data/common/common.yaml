@@ -4881,8 +4881,10 @@ preseeding::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
 preseeding::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
 preseeding::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 
+rancher::rke2::agent::snapshotter: native
+
 rancher::rke2::agent::config:
-  snapshotter: native
+  snapshotter: "%{lookup('rancher::rke2::agent::snapshotter')}"
 
 swh_web_inbound_email::profiles:
   staging:
