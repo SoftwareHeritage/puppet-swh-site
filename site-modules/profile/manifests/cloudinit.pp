@@ -2,7 +2,7 @@
 class profile::cloudinit {
 
   # external fact installed by terraform
-  if $::cloudinit_enabled {
+  if $::facts['cloudinit_enabled'] {
     file { '/etc/cloud/cloud.cfg.d/99_modules.cfg':
       ensure => present,
       source => 'puppet:///modules/profile/cloud-init/modules.cfg',
