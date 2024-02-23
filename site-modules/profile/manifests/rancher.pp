@@ -62,7 +62,7 @@ class profile::rancher {
     $registries_config = {
       mirrors => Hash(
         $registries.map |$registry, $config| {
-          $prefix = get($config, 'prefix', $registry)
+          $prefix = pick($config['prefix'], $registry)
           [$registry, {endpoint => ["${base_url}/${prefix}/v2"]}]
         }),
     }
