@@ -4890,6 +4890,17 @@ rancher::rke2::agent::snapshotter: native
 rancher::rke2::agent::config:
   snapshotter: "%{lookup('rancher::rke2::agent::snapshotter')}"
 
+# Needs to stay in sync with the configuration of the docker cache in swh-charts/cluster-components
+rancher::rke2::registry_cache::enabled: true
+rancher::rke2::registry_cache::url: 'https://docker-cache.internal.admin.swh.network'
+rancher::rke2::registry_cache::registries:
+  docker.io: {}
+  container-registry.softwareheritage.org:
+    prefix: swh
+  quay.io: {}
+  ghcr.io: {}
+  registry.k8s.io: {}
+
 swh_web_inbound_email::profiles:
   staging:
     email_domain: webapp.staging.swh.network
