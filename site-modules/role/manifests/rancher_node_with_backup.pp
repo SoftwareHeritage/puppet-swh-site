@@ -8,7 +8,5 @@ class role::rancher_node_with_backup inherits role::swh_server {
 
   # role::rancher_node
   include profile::zfs::kubelet
-  include profile::zfs::rancher
-  include profile::mountpoints
-  include profile::kubernetes
+  include profile::rancher
 }
