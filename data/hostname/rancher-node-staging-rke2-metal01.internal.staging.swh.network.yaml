@@ -19,8 +19,12 @@ zfs::common::zpool_configuration:
   mirror:
     - wwn-0x50000396ec892211 wwn-0x50000396ec89220d
     - wwn-0x50000396ec892205 wwn-0x50000396ec894e39
-    - wwn-0x50000396ec892251 wwn-0x500003976c880145
     - wwn-0x50000397bc8969ad wwn-0x50000397bc8969b5
+  spare:
+    # Those can't be used as mirror since they don't have the same size. zpool
+    # complains with 'mirror contains devices of different sizes' otherwise
+    - wwn-0x50000396ec892251
+    - wwn-0x500003976c880145
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
