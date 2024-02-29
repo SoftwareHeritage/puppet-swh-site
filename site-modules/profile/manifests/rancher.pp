@@ -70,7 +70,7 @@ class profile::rancher {
     $registries_config = {}
   }
 
-  file {'/etc/rancher/rke2/registries.yaml':
+  file {['/etc/rancher/rke2/registries.yaml', '/etc/rancher/agent/registries.yaml']:
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
