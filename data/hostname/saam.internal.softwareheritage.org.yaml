@@ -13,7 +13,7 @@ backups::exclude:
   - srv/softwareheritage/objects-xfs
 
 icinga2::host::vars:
-  load: high
+  load: main_storage
 
 nginx::worker_processes: 32
 
