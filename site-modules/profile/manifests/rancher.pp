@@ -49,31 +49,4 @@ class profile::rancher {
       mode   => '0700',
     }
   }
-
-  $registry_cache = lookup({
-    name          => 'rancher::rke2::registry_cache::enabled',
-    value_type    => Boolean,
-    default_value => false,
-  })
-
-  if $registry_cache {
-    $base_url = lookup('rancher::rke2::registry_cache::url')
-    $registries = lookup('rancher::rke2::registry_cache::registries')
-    $registries_config = {
-      mirrors => Hash(
-        $registries.map |$registry, $config| {
-          $prefix = pick($config['prefix'], $registry)
-          [$registry, {endpoint => ["${base_url}/${prefix}/v2"]}]
-        }),
-    }
-  } else {
-    $registries_config = {}
-  }
-
-  file {['/etc/rancher/rke2/registries.yaml', '/etc/rancher/agent/registries.yaml']:
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    content => inline_yaml($registries_config),
-  }
 }
