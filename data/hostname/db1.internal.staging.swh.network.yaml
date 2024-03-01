@@ -57,3 +57,8 @@ prometheus::sql::config_snippets:
   - swh-scheduler
   - swh-storage
   - swh-scrubber
+
+rancher::rke2::agent::snapshotter: zfs
+
+# Empty because already configured and we want to keep it as-is
+zfs::common::zpool_configuration: {}
