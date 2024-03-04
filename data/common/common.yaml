@@ -63,6 +63,9 @@ smtp::mail_aliases:
   - user: ddouard
     aliases:
       - david.douard@sdfa3.org
+  - user: hjonin
+    aliases:
+      - hjonin@softwareheritage.org
   - user: olasd
     aliases:
       - nicolas+swhinfra@dandrimont.eu
@@ -670,6 +673,17 @@ users:
        gsamson@gsamson:
          type: ssh-ed25519
          key: AAAAC3NzaC1lZDI1NTE5AAAAIFBFC8GmLbjltvV2t4M3YgdRJE6GVG1Jub0OsF/Bw6//
+  hjonin:
+    uid: 1034
+    full_name: Helene Jonin
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+    authorized_keys:
+       helene.jonin@gmail.com:
+         type: ssh-ed25519
+         key: AAAAC3NzaC1lZDI1NTE5AAAAII04bliD3gFLUKyhCbfflSE1h64cDRcUPMWrkDb3YGUk
 
 groups:
   adm:
@@ -720,6 +734,8 @@ groups:
     gid: 1032
   gsamson:
     gid: 1033
+  hjonin:
+    gid: 1034
   kubenfs:
     gid: 42000
 
