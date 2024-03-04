@@ -56,7 +56,7 @@ smtp::mail_aliases:
       - antoine.lambert33@gmail.com
   - user: ardumont
     aliases:
-      - antoine.romain.dumont@gmail.com
+      - ardumont@softwareheritage.org
   - user: aeviso
     aliases:
       - aeviso@softwareheritage.org
