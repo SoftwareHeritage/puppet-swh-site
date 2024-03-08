@@ -107,3 +107,5 @@ mountpoints:
   swap:
     # Don't mount swap from rocquencourt_sesi.yaml
     ensure: absent
+
+rancher::rke2::agent::snapshotter: zfs

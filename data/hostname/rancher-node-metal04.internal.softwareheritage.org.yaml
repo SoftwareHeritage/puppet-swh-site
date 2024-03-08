@@ -25,3 +25,5 @@ zfs::common::zpool_configuration:
     - wwn-0x5002538c409a8256
 
 zfs::arc::max_size: 34359738368  # 32 GiB
+
+rancher::rke2::agent::snapshotter: zfs

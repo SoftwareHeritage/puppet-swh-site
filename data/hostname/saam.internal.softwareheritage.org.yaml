@@ -103,3 +103,5 @@ swh::apt_config::backported_packages:
 
 # Empty because it got already configured and we want to keep it as-is
 zfs::common::zpool_configuration: {}
+
+rancher::rke2::agent::snapshotter: zfs

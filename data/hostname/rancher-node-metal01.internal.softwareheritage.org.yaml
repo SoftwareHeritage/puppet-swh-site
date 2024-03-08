@@ -21,3 +21,5 @@ zfs::common::zpool_configuration:
     - nvme-eui.36434630546003380025384100000002
 
 zfs::arc::max_size: 34359738368  # 32 GiB
+
+rancher::rke2::agent::snapshotter: zfs
