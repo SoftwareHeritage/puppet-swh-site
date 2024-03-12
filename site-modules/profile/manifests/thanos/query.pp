@@ -51,6 +51,8 @@ class profile::thanos::query {
     "grpc-client-tls-ca"     => '/etc/ssl/certs/ca-certificates.crt',
   }
 
+  $query_replica_labels = lookup('thanos::query::replica_labels')
+
   systemd::unit_file {$unit_name:
     ensure  => present,
     content => template("profile/thanos/${unit_name}.erb"),

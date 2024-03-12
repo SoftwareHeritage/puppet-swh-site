@@ -7,7 +7,13 @@ Description=Thanos query
 [Service]
 Restart=on-failure
 User=prometheus
-ExecStart=/opt/thanos/current/thanos query <%= scope.call_function('flatten_to_argument_list', [@query_arguments]).join(" \\\n    ") %>
+ExecStart=/opt/thanos/current/thanos query \
+<%- if @query_replica_labels -%>
+  <%- @query_replica_labels.each do |label| -%>
+    --query.replica-label <%= label %> \
+  <%- end -%>
+<%- end -%>
+    <%= scope.call_function('flatten_to_argument_list', [@query_arguments]).join(" \\\n    ") %>
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s
 SendSIGKILL=no

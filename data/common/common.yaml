@@ -4190,6 +4190,10 @@ thanos::query::non_puppet_managed::stores:
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
   - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
 
+thanos::query::replica_labels:
+  - replica
+  - prometheus_replica
+
 thanos::stores:
   historical:
     azure-storage-container: metrics-historical-data-0
