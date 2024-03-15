@@ -4189,6 +4189,8 @@ thanos::query::non_puppet_managed::stores:
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
   - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
+  - gloin001.internal.cea.swh.network:19090
+  - gloin002.internal.cea.swh.network:19090
 
 thanos::query::replica_labels:
   - replica
@@ -4272,6 +4274,20 @@ thanos::stores:
       port-grpc: 19103
     compact:
       port-http: 19303
+  cea-gloin001:
+    azure-storage-container: metrics-cea-gloin001
+    store:
+      port-http: 19204
+      port-grpc: 19104
+    compact:
+      port-http: 19304
+  cea-gloin002:
+    azure-storage-container: metrics-cea-gloin002
+    store:
+      port-http: 19205
+      port-grpc: 19105
+    compact:
+      port-http: 19305
 
 grafana::db::database: grafana
 grafana::db::username: grafana
