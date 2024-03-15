@@ -80,6 +80,8 @@ releasefile.cache-path: '/data/releasefile-cache'
 #   secret_key: 'XXXXXXX'
 #   bucket_name: 's3-bucket-name'
 
+# The URL prefix in which Sentry is accessible
+system.url-prefix: 'https://<%= @vhost_name %>'
 system.internal-url-prefix: 'http://web:9000'
 symbolicator.enabled: true
 symbolicator.options:
@@ -124,9 +126,6 @@ transaction-events.force-disable-internal-project: true
 ########################
 # SWH config overrides #
 ########################
-
-# Sentry URL prefix
-system.url-prefix: 'https://<%= @vhost_name %>'
 
 # Sentry admin email address
 system.admin-email: '<%= @admin_email %>'
