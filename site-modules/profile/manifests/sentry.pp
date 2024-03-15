@@ -34,11 +34,7 @@ class profile::sentry {
   $geoip_conf = "${onpremise_dir}/geoip/GeoIP.conf"
 
   file {$requirements_file:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('profile/sentry/requirements.txt.erb'),
+    ensure  => absent,
     require => Vcsrepo[$onpremise_dir],
     notify  => Exec['run sentry-onpremise install.sh'],
   }
