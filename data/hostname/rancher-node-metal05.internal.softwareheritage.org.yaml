@@ -1,0 +1,28 @@
+---
+# local cache is not compatible with rancher
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
+icinga2::host::vars:
+  load: high
+
+# override the default values
+mountpoints:
+  /srv/storage/space:
+    ensure: absent
+
+swh::apt_config::enable_non_free: true
+
+zfs::common::zpool_configuration:
+  mirror:
+    - nvme-eui.36315030525005540025384500000003 nvme-eui.36315030525005620025384500000003
+    - nvme-eui.36315030525005800025384500000003 nvme-eui.36315030525005890025384500000003
+    - wwn-0x55cd2e41535aaef9 wwn-0x55cd2e41536271a7
+    - wwn-0x55cd2e41536271cc wwn-0x55cd2e41535b9062
+    - wwn-0x55cd2e415359fd6c wwn-0x55cd2e415359ff6e
+
+zfs::arc::max_size: 34359738368  # 32 GiB
+
+rancher::rke2::agent::snapshotter: zfs
