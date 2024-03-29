@@ -184,6 +184,9 @@ swh::dbs:
     name: swh-mirror
     user: swh-mirror
     password: "%{lookup('swh::deploy::mirror::db::password')}"
+  masking:
+    name: swh-masking
+    user: swh-masking
   svix:
     name: swh-svix
     user: swh-svix
@@ -242,6 +245,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-scrubber
+  - source_db: swh-masking
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-masking
   - source_db: swh-svix
     host: localhost
     auth_user: postgres
