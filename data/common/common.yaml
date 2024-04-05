@@ -4167,6 +4167,7 @@ thanos::sidecar::port_http: "%{lookup('thanos::port::http')}"
 thanos::sidecar::port_grpc: "%{lookup('thanos::port::grpc')}"
 thanos::query::port_http: "%{lookup('thanos::port::http')}"
 thanos::query::config_filepath: "%{lookup('thanos::base::config_dir')}/query-sd.yaml"
+thanos::query::ca_filepath: "%{lookup('thanos::base::config_dir')}/ca.crt"
 
 thanos::tenant: "%{::subnet}"
 thanos::replica: "0"
@@ -4288,6 +4289,10 @@ thanos::stores:
       port-grpc: 19105
     compact:
       port-http: 19305
+
+thanos::extra_certificates:
+  - "%{alias('thanos::certificate:cea-gloin001')}"
+  - "%{alias('thanos::certificate:cea-gloin002')}"
 
 grafana::db::database: grafana
 grafana::db::username: grafana

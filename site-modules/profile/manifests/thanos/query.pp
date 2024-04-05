@@ -23,7 +23,7 @@ class profile::thanos::query {
     notify         => Service[$service_name],
   }
 
-  concat::fragment { 'header':
+  concat::fragment { "${config_filepath}::header":
     target  => $config_filepath,
     content => "---\n- targets:\n",
     order   => 0,
@@ -32,12 +32,48 @@ class profile::thanos::query {
   }
 
   $non_puppet_managed_stores.map | $store | {
-    concat::fragment { $store:
+    concat::fragment { "${config_filepath}::${store}":
       target  => $config_filepath,
       content => "  - ${store}\n",
       order   => 1,
       tag     => 'thanos',
       require => File[$config_dir],
+    }
+  }
+
+  $ca_filepath = lookup('thanos::query::ca_filepath')
+  concat {$ca_filepath:
+    ensure         => present,
+    path           => $ca_filepath,
+    owner          => $user,
+    group          => 'prometheus',
+    mode           => '0640',
+    ensure_newline => true,
+    order          => 'numeric',
+    tag            => 'thanos',
+    require        => File[$::profile::thanos::base::config_dir],
+    notify         => Service[$service_name],
+  }
+
+  concat::fragment {"${ca_filepath}::default":
+    target => $ca_filepath,
+    source => '/etc/ssl/certs/ca-certificates.crt',
+    order  => 0,
+    tag    => 'thanos',
+  }
+
+  $extra_certificates = lookup({
+    name          => 'thanos::extra_certificates',
+    value_type    => Array[String],
+    default_value => [],
+  })
+
+  $extra_certificates.map | $index, $extra_certificate | {
+    concat::fragment {"${ca_filepath}::extra_${index}":
+      target  => $ca_filepath,
+      content => $extra_certificate,
+      order   => 0,
+      tag     => 'thanos',
     }
   }
 
@@ -48,7 +84,7 @@ class profile::thanos::query {
     "http-address"           => "${internal_ip}:${port_http}",
     "store.sd-files"         => $config_filepath,
     "grpc-client-tls-secure" => true,
-    "grpc-client-tls-ca"     => '/etc/ssl/certs/ca-certificates.crt',
+    "grpc-client-tls-ca"     => $ca_filepath,
   }
 
   $query_replica_labels = lookup('thanos::query::replica_labels')
