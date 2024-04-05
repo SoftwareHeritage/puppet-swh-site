@@ -1220,6 +1220,10 @@ bind::resource_records:
     type: CNAME
     record: postgresql-deposit-rw.internal.softwareheritage.org
     data: albertina.internal.softwareheritage.org.
+  postgresql-masking-rw/CNAME:
+    type: CNAME
+    record: postgresql-masking-rw.internal.softwareheritage.org
+    data: albertina.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
@@ -2744,6 +2748,15 @@ swh::deploy::scrubber::checker::postgres::config:
     db: "%{alias('swh::deploy::storage::db::config::read-only')}"
     objstorage:
       cls: noop
+
+# swh-masking deployment
+swh::deploy::masking::db::user: swh-masking
+swh::deploy::masking::db::dbname: swh-masking
+swh::deploy::masking::db::host: postgresql-masking-rw.internal.softwareheritage.org
+swh::deploy::masking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::masking::db::backend::host: albertina.internal.softwareheritage.org
+swh::deploy::masking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
+
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{lookup('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage

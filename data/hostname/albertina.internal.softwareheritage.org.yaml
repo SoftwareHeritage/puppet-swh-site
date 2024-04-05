@@ -59,6 +59,11 @@ pgbouncer::databases:
     host: "%{lookup('swh::deploy::scrubber::db::backend::host')}"
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{lookup('swh::deploy::scrubber::db::backend::port')}"
+  # swh-masking
+  - source_db: "%{lookup('swh::deploy::masking::db::dbname')}"
+    host: "%{lookup('swh::deploy::masking::db::backend::host')}"
+    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{lookup('swh::deploy::masking::db::backend::port')}"
   # catch-all
   - source_db: "*"
     host: 127.0.0.1
