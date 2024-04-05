@@ -4291,8 +4291,8 @@ thanos::stores:
       port-http: 19305
 
 thanos::extra_certificates:
-  - "%{alias('thanos::certificate:cea-gloin001')}"
-  - "%{alias('thanos::certificate:cea-gloin002')}"
+  - "%{alias('thanos::certificate::cea-gloin001')}"
+  - "%{alias('thanos::certificate::cea-gloin002')}"
 
 grafana::db::database: grafana
 grafana::db::username: grafana
