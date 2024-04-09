@@ -2757,6 +2757,10 @@ swh::deploy::masking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::masking::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::masking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 
+# swh-svix deployemnt
+swh::deploy::svix::db::dbname: swh-svix
+swh::deploy::svix::db::backend::host: albertina.internal.softwareheritage.org
+swh::deploy::svix::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 
 swh::deploy::journal_simple_checker_producer::conf_file: "%{lookup('swh::deploy::journal::conf_directory')}/checker.yml"
 swh::deploy::journal_simple_checker_producer::user: swhstorage
