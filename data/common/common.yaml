@@ -1338,6 +1338,10 @@ bind::resource_records:
     type: CNAME
     record: software-stories.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  svix-production/CNAME:
+    type: CNAME
+    record: svix.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   webapp-cassandra-production/CNAME:
     type: CNAME
     record: webapp-cassandra.internal.softwareheritage.org
