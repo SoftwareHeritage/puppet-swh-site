@@ -22,6 +22,7 @@ privileged_topic_prefixes="swh.journal.objects_privileged."
 privileged="unprivileged"
 cgrp_prefix=""
 OPS="READ DESCRIBE"
+GROUP_OPS="READ DESCRIBE DELETE"
 
 while (( $# )); do
   if [ $1 = "--privileged" ]; then
@@ -86,4 +87,6 @@ for topic_prefix in $topic_prefixes; do
 done
 
 echo "Granting access to consumer group prefix $cgrp_prefix to $username"
-/opt/kafka/bin/kafka-acls.sh --bootstrap-server $brokers --add --resource-pattern-type PREFIXED --group ${cgrp_prefix} --allow-principal User:$username --operation READ
+for op in ${GROUP_OPS}; do
+  /opt/kafka/bin/kafka-acls.sh --bootstrap-server $brokers --add --resource-pattern-type PREFIXED --group ${cgrp_prefix} --allow-principal User:$username --operation $op
+done
