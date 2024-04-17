@@ -19,7 +19,7 @@ class profile::bind_server::primary {
     }
 
     # Generate PTR record from A record
-    if $merged_data['type'] == 'A' {
+    if $merged_data['type'] == 'A' and $merged_data["generate_ptr"] {
       $ptr = reverse_ipv4($merged_data['data'])
       $ptr_domain = join(values_at(split($ptr, '[.]'), '1-5'), '.')
       if member($zone_names, $ptr_domain) {

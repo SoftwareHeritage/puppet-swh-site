@@ -1620,6 +1620,14 @@ bind::resource_records:
     record: bastion.internal.cea.swh.network
     data: 10.25.6.254
 
+  frontend-loadbal/A:
+    record: frontends.internal.cea.swh.network
+    type: A
+    generate_ptr: false
+    data:
+      - 10.25.6.1
+      - 10.25.6.2
+
   balin001/CNAME:
     type: CNAME
     record: balin001.internal.cea.swh.network
@@ -1937,6 +1945,7 @@ bind::resource_records:
 
 bind::resource_records::default_data:
   type: A
+  generate_ptr: true
 
 bind::clients:
   - 192.168.50.0/24
