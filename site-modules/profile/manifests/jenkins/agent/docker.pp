@@ -60,7 +60,7 @@ class profile::jenkins::agent::docker {
     exec {"jenkins-agent-docker add label ${label}":
       path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
       command => "docker node update \$(docker node inspect self | jq -r .[0].ID) --label-add ${label}=true",
-      unless  => "docker node inspect self | jq -r .[0].Spec.Labels.\"${label}\" | grep -qx true",
+      unless  => "docker node inspect self | jq -r '.[0].Spec.Labels.\"${label}\"' | grep -qx true",
       require => Exec['docker swarm init'],
     }
   }
