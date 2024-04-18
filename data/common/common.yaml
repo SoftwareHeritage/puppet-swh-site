@@ -3924,6 +3924,7 @@ icinga2::disk::excludes:
   - ^/run/schroot/
   - ^/run/k3s/
   - ^/run/user/
+  - ^/var/lib/rancher/rke2/agent/containerd/tmpmounts/
   # directory traversal not allowed under postgresql directories
   - postgresql/.*/pg_wal
   - postgres/.*/pg_wal
