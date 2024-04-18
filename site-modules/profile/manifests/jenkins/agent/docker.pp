@@ -39,4 +39,27 @@ class profile::jenkins::agent::docker {
     group  => 'root',
     mode   => '0755',
   }
+
+  exec {'docker swarm init':
+    unless => 'docker node inspect self >/dev/null 2>/dev/null',
+  }
+
+  $node_labels = [
+    'org.softwareheritage.mirror.monitoring',
+    'org.softwareheritage.mirror.volumes.elasticsearch',
+    'org.softwareheritage.mirror.volumes.objstorage',
+    'org.softwareheritage.mirror.volumes.redis',
+    'org.softwareheritage.mirror.volumes.scheduler-db',
+    'org.softwareheritage.mirror.volumes.storage-db',
+    'org.softwareheritage.mirror.volumes.vault-db',
+    'org.softwareheritage.mirror.volumes.web-db',
+  ]
+
+  $node_labels.each |String $label| {
+    exec {"jenkins-agent-docker add label ${label}":
+      command => "docker node update \$(docker node inspect self | jq -r .[0].ID) --label-add ${label}=true",
+      unless  => "docker node inspect self | jq -r .[0].Spec.Labels.\"${label}\" | grep -qx true",
+      require => Exec['docker swarm init'],
+    }
+  }
 }
