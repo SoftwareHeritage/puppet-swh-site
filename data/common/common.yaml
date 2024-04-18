@@ -2829,11 +2829,11 @@ swh::deploy::objstorage::backend::server_names:
 # it returns a 401 Restricted return code without
 # any content
 swh::deploy::objstorage::icinga_check_string: ''
-swh::deploy::objstorage::reverse_proxy::backend_http_port: "%{lookup('swh::remote_service::objstorage::port')}"
-swh::deploy::objstorage::reverse_proxy::basic_auth: true
+swh::deploy::objstorage::reverse_proxy::backend_http_port: "80"
+swh::deploy::objstorage::reverse_proxy::basic_auth: false
+swh::deploy::objstorage::reverse_proxy::basic_auth_on_backend: true
 swh::deploy::objstorage::reverse_proxy::basic_auth::users:
   - swh-prod
-  - enea-prod
 
 # aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production

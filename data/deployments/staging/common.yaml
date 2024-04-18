@@ -109,9 +109,8 @@ swh::remote_service::objstorage::config::ro:
 
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_staging
 swh::deploy::objstorage::reverse_proxy::backend_http_host: objstorage-ro.internal.staging.swh.network
-swh::deploy::objstorage::reverse_proxy::backend_http_port: "80"
-swh::deploy::objstorage::reverse_proxy::basic_auth: false
-
+swh::deploy::objstorage::reverse_proxy::basic_auth::users:
+  - swh-stg
 
 
 swh::deploy::objstorage::backend::public_server_name:
