@@ -266,6 +266,7 @@ class profile::icinga2::objects::static_checks {
    'swh.search.journal_client-v0.11',
    'swh.search.journal_client.indexed-v0.11',
    'swh-archive-stg-webhooks',
+   'swh-archive-prod-webhooks',
    'swh.counters.journal_client'].each |$consumer_group| {
     ::icinga2::object::service {"Kafka ${consumer_group} lag in staging":
       check_command => 'check_prometheus_metric',
