@@ -1842,22 +1842,22 @@ bind::resource_records:
     record: osd-rack2-10.admin.cea.swh.network
     data: 10.25.3.40
   osd-rack3-1-adm/a:
-    record: osd-rack2-1.admin.cea.swh.network
+    record: osd-rack3-1.admin.cea.swh.network
     data: 10.25.3.41
   osd-rack3-2-adm/a:
-    record: osd-rack2-2.admin.cea.swh.network
+    record: osd-rack3-2.admin.cea.swh.network
     data: 10.25.3.42
   osd-rack3-3-adm/a:
-    record: osd-rack2-3.admin.cea.swh.network
+    record: osd-rack3-3.admin.cea.swh.network
     data: 10.25.3.43
   osd-rack3-4-adm/a:
-    record: osd-rack2-4.admin.cea.swh.network
+    record: osd-rack3-4.admin.cea.swh.network
     data: 10.25.3.44
   osd-rack3-5-adm/a:
-    record: osd-rack2-5.admin.cea.swh.network
+    record: osd-rack3-5.admin.cea.swh.network
     data: 10.25.3.45
   osd-rack3-6-adm/a:
-    record: osd-rack2-6.admin.cea.swh.network
+    record: osd-rack3-6.admin.cea.swh.network
     data: 10.25.3.46
   monitor-rack1-1-adm/a:
     record: monitor-rack1-1.admin.cea.swh.network
