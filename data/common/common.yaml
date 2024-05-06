@@ -1650,6 +1650,22 @@ bind::resource_records:
       - 10.25.6.1
       - 10.25.6.2
 
+  winery-read-only/A:
+    record: winery-read-only.internal.cea.swh.network
+    type: A
+    generate_ptr: false
+    data:
+      - 10.25.6.1
+      - 10.25.6.2
+
+  winery-read-write/A:
+    record: winery-read-write.internal.cea.swh.network
+    type: A
+    generate_ptr: false
+    data:
+      - 10.25.6.1
+      - 10.25.6.2
+
   balin001/CNAME:
     type: CNAME
     record: balin001.internal.cea.swh.network
