@@ -27,6 +27,14 @@ swh::deploy::worker::lister::db::host: db1.internal.staging.swh.network
 swh::deploy::worker::lister::db::user: swh-lister
 swh::deploy::worker::lister::db::name: swh-lister
 
+# swh-blocking deployment
+swh::deploy::blocking::db::user: swh-blocking
+swh::deploy::blocking::db::dbname: swh-blocking
+swh::deploy::blocking::db::host: db1.internal.staging.swh.network
+swh::deploy::blocking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::blocking::db::backend::host: db1.internal.staging.swh.network
+swh::deploy::blocking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
+
 swh::deploy::scrubber::db::host: db1.internal.staging.swh.network
 
 swh::deploy::scrubber::checker::num_partitions_log2::small_table: 10
@@ -186,6 +194,9 @@ swh::dbs:
   masking:
     name: swh-masking
     user: swh-masking
+  blocking:
+    name: swh-blocking
+    user: swh-blocking
   svix:
     name: swh-svix
     user: swh-svix
@@ -249,6 +260,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-masking
+  - source_db: swh-blocking
+    host: localhost
+    auth_user: postgres
+    port: 5433
+    alias: staging-swh-blocking
   - source_db: swh-svix
     host: localhost
     auth_user: postgres
