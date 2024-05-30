@@ -56,3 +56,9 @@ rancher::rke2::agent::snapshotter: zfs
 
 # Empty because it got already configured and we want to keep it as-is
 zfs::common::zpool_configuration: {}
+
+icinga2::host::vars:
+  disks:
+    disk /srv/softwareheritage/objects:
+      disk_wfree: '9%'
+      disk_cfree: '5%'
