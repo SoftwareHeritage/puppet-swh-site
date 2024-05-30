@@ -14,6 +14,10 @@ backups::exclude:
 
 icinga2::host::vars:
   load: main_storage
+  disks:
+    disk /srv/softwareheritage/objects:
+      disk_wfree: '1.9%'
+      disk_cfree: '1%'
 
 nginx::worker_processes: 32
 
