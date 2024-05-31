@@ -23,6 +23,12 @@ prometheus::sql::config_snippets:
 
 pgbouncer::auth_hba_file: /etc/pgbouncer/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.212
+pgbouncer::config_params:
+  max_client_conn: 4000
+  default_pool_size: 4000
+  max_db_connections: 4000
+  max_user_connections: 4000
+
 pgbouncer::databases:
   # swh
   - source_db: "%{lookup('swh::deploy::storage::db::dbname')}"
