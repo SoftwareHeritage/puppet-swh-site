@@ -86,8 +86,8 @@ class profile::azure_billing_report {
     timer_content   => template('profile/azure_billing_report/azure-billing-report.timer.erb'),
     service_content => template('profile/azure_billing_report/azure-billing-report.service.erb'),
     service_unit    => "${service_basename}.service",
-    active          => true,
-    enable          => true,
+    active          => false,
+    enable          => false,
   }
 
   # site configuration
