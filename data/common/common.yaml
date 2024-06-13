@@ -688,6 +688,13 @@ users:
        helene.jonin@gmail.com:
          type: ssh-ed25519
          key: AAAAC3NzaC1lZDI1NTE5AAAAII04bliD3gFLUKyhCbfflSE1h64cDRcUPMWrkDb3YGUk
+  rboyer:
+    uid: 1035
+    full_name: Renaud Boyer
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
 
 groups:
   adm:
