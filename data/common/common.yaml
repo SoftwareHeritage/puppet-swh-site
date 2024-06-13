@@ -1361,6 +1361,10 @@ bind::resource_records:
   k8s-archive-staging-rke2/A: # ingress ip of cluster archive-staging-rke2
     record: k8s-archive-staging-rke2.internal.staging.swh.network
     data: 192.168.130.139
+  k8s-archive-staging-rke2-pooler/A: # load-balancer ip for archive-staging-rke2 cluster
+                                     # access to pgbouncer
+    record: k8s-archive-staging-rke2-pooler.internal.staging.swh.network
+    data: 192.168.130.138
   k8s-archive-staging-rke2-thanos/A:
     type: CNAME
     record: k8s-archive-staging-rke2-thanos.internal.staging.swh.network
@@ -1427,6 +1431,10 @@ bind::resource_records:
   k8s-test-staging-rke2/A: # ingress ip of cluster test-staging-rke2
     record: k8s-test-staging-rke2.internal.staging.swh.network
     data: 192.168.130.209
+  k8s-test-staging-rke2-pooler/A: # load-balancer ip for test-staging-rke2 cluster
+                                  # access to pgbouncer
+    record: k8s-test-staging-rke2-pooler.internal.staging.swh.network
+    data: 192.168.130.208
   svix-test-internal-staging/CNAME:
     type: CNAME
     record: svix-test.internal.staging.swh.network
