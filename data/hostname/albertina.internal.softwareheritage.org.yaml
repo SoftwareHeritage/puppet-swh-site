@@ -70,6 +70,11 @@ pgbouncer::databases:
     host: "%{lookup('swh::deploy::masking::db::backend::host')}"
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{lookup('swh::deploy::masking::db::backend::port')}"
+  # swh-blocking
+  - source_db: "%{lookup('swh::deploy::blocking::db::dbname')}"
+    host: "%{lookup('swh::deploy::blocking::db::backend::host')}"
+    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{lookup('swh::deploy::blocking::db::backend::port')}"
   # swh-svix
   - source_db: "%{lookup('swh::deploy::svix::db::dbname')}"
     host: "%{lookup('swh::deploy::svix::db::backend::host')}"

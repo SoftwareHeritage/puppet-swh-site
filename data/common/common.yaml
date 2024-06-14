@@ -1236,6 +1236,10 @@ bind::resource_records:
     type: CNAME
     record: postgresql-masking-rw.internal.softwareheritage.org
     data: albertina.internal.softwareheritage.org.
+  postgresql-blocking-rw/CNAME:
+    type: CNAME
+    record: postgresql-blocking-rw.internal.softwareheritage.org
+    data: albertina.internal.softwareheritage.org.
   debian/CNAME:
     type: CNAME
     record: debian.internal.softwareheritage.org
@@ -2895,6 +2899,14 @@ swh::deploy::masking::db::host: postgresql-masking-rw.internal.softwareheritage.
 swh::deploy::masking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
 swh::deploy::masking::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::masking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
+
+# swh-blocking deployment
+swh::deploy::blocking::db::user: swh-blocking
+swh::deploy::blocking::db::dbname: swh-blocking
+swh::deploy::blocking::db::host: postgresql-blocking-rw.internal.softwareheritage.org
+swh::deploy::blocking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
+swh::deploy::blocking::db::backend::host: albertina.internal.softwareheritage.org
+swh::deploy::blocking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 
 # swh-svix deployemnt
 swh::deploy::svix::db::dbname: swh-svix
