@@ -55,7 +55,10 @@ class profile::rancher {
   $etcd_snapshots_cleaning = '/usr/local/sbin/etcd-snapshots-cleaning.sh'
 
   if $snapshots_cleaning == true {
-    file { $etcd_snapshots_cleaning:
+    file { '/etc/cron.d/etcd-snapshots-cleaning':
+      ensure => absent,
+    }
+    -> file { $etcd_snapshots_cleaning:
       ensure => 'file',
       owner  => 'root',
       group  => 'root',
