@@ -3,3 +3,4 @@ swh::apt_config::enable_non_free: true
 rancher::rke2::agent::snapshotter: zfs
 
 rancher::rke2::master::snapshots_cleaning: true
+rancher::rke2::master::snapshots_cleaning_minutes: 30

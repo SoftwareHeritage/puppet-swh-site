@@ -51,14 +51,22 @@ class profile::rancher {
   }
 
   $snapshots_cleaning = lookup('rancher::rke2::master::snapshots_cleaning', undef, undef, false)
+  $snapshots_cleaning_minutes = lookup('rancher::rke2::master::snapshots_cleaning_minutes', undef, undef, 0)
+  $etcd_snapshots_cleaning = '/usr/local/sbin/etcd-snapshots-cleaning.sh'
 
   if $snapshots_cleaning == true {
-    file { '/usr/local/sbin/etcd-snapshots-cleaning.sh':
+    file { $etcd_snapshots_cleaning:
       ensure => 'file',
       owner  => 'root',
       group  => 'root',
       mode   => '0754',
       source => 'puppet:///modules/profile/rancher/etcd-snapshots-cleaning.sh',
+    }
+    profile::cron::d { 'etcd-snapshots-cleaning':
+      target  => 'etcd-snapshots-cleaning',
+      command => "chronic ${etcd_snapshots_cleaning}",
+      minute  => $snapshots_cleaning_minutes,
+      hour    => '1,6,11,16,21',
     }
   }
 }
