@@ -49,4 +49,16 @@ class profile::rancher {
       mode   => '0700',
     }
   }
+
+  $snapshots_cleaning = lookup('rancher::rke2::master::snapshots_cleaning', undef, undef, false)
+
+  if $snapshots_cleaning == true {
+    file { '/usr/local/sbin/etcd-snapshots-cleaning.sh':
+      ensure => 'file',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0754',
+      source => 'puppet:///modules/profile/rancher/etcd-snapshots-cleaning.sh',
+    }
+  }
 }
