@@ -1420,6 +1420,10 @@ bind::resource_records:
     type: CNAME
     record: deposit-dynamic.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  deposit-next-version-staging/CNAME:
+    type: CNAME
+    record: deposit-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   software-stories-staging/CNAME:
     type: CNAME
     record: software-stories.internal.staging.swh.network
