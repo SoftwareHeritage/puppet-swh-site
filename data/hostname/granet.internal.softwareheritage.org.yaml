@@ -1,3 +1,25 @@
+---
+networks:
+  bond0:
+    type: manual
+    order: 10
+    extras:
+      mtu: "9000"
+      bond-miimon: 100
+      bond-mode: 802.3ad
+      bond-xmit_hash_policy: layer3+4
+      bond-slaves: eno1 eno2
+      bond-lacp-rate: 1
+  vlan440:
+    type: private
+    order: 20
+    address: 192.168.100.51
+    netmask: 24
+    gateway: 192.168.100.1
+    mtu: "9000"
+    extras:
+      vlan-raw-device: bond0
+
 users:
   olasd:
     groups:
