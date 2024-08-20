@@ -14,7 +14,10 @@ class profile::cassandra {
 
   $cassandra_version = lookup('cassandra::version')
   $cassandra_archive_name = "apache-cassandra-${cassandra_version}-bin.tar.gz"
-  $cassandra_bin_url = "https://dlcdn.apache.org/cassandra/${cassandra_version}/${cassandra_archive_name}"
+  # for supported versions, use the main download url
+  #$cassandra_bin_url = "https://dlcdn.apache.org/cassandra/${cassandra_version}/${cassandra_archive_name}"
+  # for unsupported versions, use the archive
+  $cassandra_bin_url = "https://archive.apache.org/dist/cassandra/${cassandra_version}/${cassandra_archive_name}"
   $cassandra_bin_checksum_type = lookup('cassandra::version_checksum_type')
   $cassandra_bin_checksum = lookup('cassandra::version_checksum')
 
