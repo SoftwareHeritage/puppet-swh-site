@@ -6,7 +6,7 @@ backups::exclude:
 icinga2::host::vars:
   load: high
 
-pgbouncer::auth_hba_file: /etc/postgresql/15/replica/pg_hba.conf
+pgbouncer::auth_hba_file: /etc/postgresql/16/replica/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.211
 swh::deploy::db::pgbouncer::user::login: pgbouncer
 pgbouncer::databases:
