@@ -17,6 +17,7 @@ Environment=SWH_SENTRY_ENVIRONMENT=<%= @sentry_environment %>
 <%- if !@sentry_swh_package.nil? and !@sentry_swh_package.empty? -%>
 Environment=SWH_MAIN_PACKAGE=<%= @sentry_swh_package %>
 <%- end -%>
+Environment="PATH=/home/<%= @user %>/.cargo/bin:/usr/local/bin:/usr/bin:/bin"
 Type=simple
 User=<%= @user %>
 Group=<%= @group %>
