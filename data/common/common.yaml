@@ -1284,6 +1284,9 @@ bind::resource_records:
     type: CNAME
     record: inventory.internal.admin.swh.network
     data: bojimans.internal.admin.swh.network.
+  sccache-redis/A:
+    record: sccache-redis.internal.admin.swh.network
+    data: 192.168.50.138
   k8s-admin-rke2/A: # main ingress ip of the admin k8s cluster
     record: k8s-admin-rke2.internal.admin.swh.network
     data: 192.168.50.139
