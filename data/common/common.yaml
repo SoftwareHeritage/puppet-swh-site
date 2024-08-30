@@ -4739,6 +4739,7 @@ keycloak::resources::clients::swh_web::roles:
   - swh.web.add_forge_now.moderator
   - swh.web.admin.mailmap
   - swh.web.api.raw_object
+  - swh.web.api.provenance
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
