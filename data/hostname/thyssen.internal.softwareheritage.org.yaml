@@ -1,5 +1,10 @@
 ---
 
+java::package: openjdk-17-jre-headless
+java::java_alternative: java-1.17.0-openjdk-amd64
+java::java_home: "/usr/lib/jvm/%{lookup('java::java_alternative')}/"
+java::java_alternative_path: "%{lookup('java::java_home')}bin/java"
+
 # Add ddouard as jenkins admin
 users:
   ddouard:

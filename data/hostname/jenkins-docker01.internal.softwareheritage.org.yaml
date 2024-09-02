@@ -1,3 +1,10 @@
+---
+
+java::package: openjdk-17-jre-headless
+java::java_alternative: java-1.17.0-openjdk-amd64
+java::java_home: "/usr/lib/jvm/%{lookup('java::java_alternative')}/"
+java::java_alternative_path: "%{lookup('java::java_home')}bin/java"
+
 swh::apt_config::enable_non_free: true
 
 # Empty because already configured and we want to keep it as-is
