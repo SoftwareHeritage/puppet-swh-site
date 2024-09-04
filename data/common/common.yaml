@@ -2671,10 +2671,6 @@ swh::deploy::journal::writer::config:
   producer_config:
       message.max.bytes: 1000000000
 
-swh::deploy::journal::backfill::config_file: "%{lookup('swh::deploy::journal::conf_directory')}/backfill.yml"
-swh::deploy::journal::backfill::user: swhstorage
-swh::deploy::journal::backfill::group: swhstorage
-
 swh::deploy::storage::db::config::read-only: "host=%{lookup('swh::deploy::storage::db::host')} port=%{lookup('swh::deploy::storage::db::port')} user=guest dbname=%{lookup('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::db::secondary::config::read-only: "host=massmoca.internal.softwareheritage.org port=%{lookup('swh::deploy::storage::db::port')} user=guest dbname=%{lookup('swh::deploy::storage::db::dbname')} password=guest"
 swh::deploy::storage::config::local-read-only:
@@ -2683,30 +2679,6 @@ swh::deploy::storage::config::local-read-only:
   # objstorage is required but it's not used in that context
   objstorage:
     cls: memory
-
-swh::deploy::journal::backfill::config:
-  storage: "%{alias('swh::deploy::storage::config::local-read-only')}"
-  journal_writer: "%{alias('swh::deploy::journal::writer::config')}"
-
-swh::deploy::journal::backfill::config_logging_file: "%{lookup('swh::deploy::journal::conf_directory')}/backfill_logger.yml"
-swh::deploy::journal::backfill::config_logging:
-  version: 1
-  handlers:
-    console:
-      class: logging.StreamHandler
-      formatter: detail
-      level: INFO
-      stream: ext://sys.stdout
-  formatters:
-    detail:
-      format: '%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
-      datefmt: '%Y-%m-%dT%H:%M:%S'
-  loggers:
-    swh: {}
-  root:
-    level: INFO
-    handlers:
-    - console
 
 swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_host: storage-cassandra-ro.internal.softwareheritage.org
 swh::deploy::storage_cassandra_ro::reverse_proxy::backend_http_port: "80"

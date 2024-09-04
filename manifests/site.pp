@@ -86,7 +86,7 @@ node 'storage01.euwest.azure.internal.softwareheritage.org' {
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {
-  include role::swh_journal_orchestrator_with_backfill_config
+  include role::swh_journal_orchestrator
 }
 
 node /^ceph-osd\d+\.internal\.softwareheritage\.org$/ {
