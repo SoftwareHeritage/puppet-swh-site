@@ -4785,9 +4785,13 @@ keycloak::resources::realms:
           redirect_uris:
             # Should match letsencrypt::certificates.archive_staging.domains
             - https://webapp.staging.swh.network/*
+            - https://webapp-postgresql.staging.swh.network/*
+            - https://webapp-cassandra-next-version.staging.swh.network/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
           web_origins:
             - https://webapp.staging.swh.network
+            - https://webapp-postgresql.staging.swh.network
+            - https://webapp-cassandra-next-version.staging.swh.network
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
