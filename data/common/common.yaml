@@ -4034,6 +4034,7 @@ icinga2::disk::excludes:
   - ^/var/lib/docker/buildkit/
   - ^/var/lib/docker/zfs/
   - ^/var/lib/kubelet/
+  - ^/run/credentials/
   - ^/run/schroot/
   - ^/run/k3s/
   - ^/run/user/
