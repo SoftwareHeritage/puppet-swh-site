@@ -1,15 +1,15 @@
 #!/bin/bash -x
 #
-# File managed by puppet (class ::profile::journalbeat::index_template_manager), changes will be lost.
+# File managed by puppet (class ::profile::filebeat::index_template_manager), changes will be lost.
 
-# Generate the journalbeat index template and create it in elasticsearch
-# Save the json in the /var/lib/journalbeat directory 
+# Generate the filebeat index template and create it in elasticsearch
+# Save the json in the /var/lib/filebeat-templates directory
 # Params:
 #  - ES HOST
 #  - template name
 #  - index template
 # Output:
-#  - /var/lib/journalbeat/<template name>.json
+#  - /var/lib/filebeat-templates/<template name>.json
 set -e
 
 if [ $# -ne 3 ]; then
@@ -23,10 +23,10 @@ TEMPLATE_NAME=$2
 INDEX_PATTERN=$3
 
 TEMPLATE_FILE="${TEMPLATE_NAME}.json"
-JOURNAL_BEAT_HOME=/var/lib/journalbeat
+JOURNAL_BEAT_HOME=/var/lib/filebeat-templates
 
 # generating 
-journalbeat export template \
+filebeat export template \
     -E setup.ilm.enabled=false \
     -E setup.template.name="${TEMPLATE_NAME}" \
     -E setup.template.pattern="${INDEX_PATTERN}" > "/tmp/${TEMPLATE_FILE}"
