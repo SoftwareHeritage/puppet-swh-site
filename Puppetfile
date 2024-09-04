@@ -96,7 +96,7 @@ mod 'inifile',
 
 mod 'java',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-java',
-    :tag => 'v7.3.0'
+    :tag => 'v11.0.0'
 
 mod 'java_ks',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-java_ks',
