@@ -8,7 +8,6 @@ elastic::elk_version: '7.15.2'
 elasticsearch::config::extras:
   ingest.geoip.downloader.enabled: false
 
-elastic::beat_version: '7.15.2'
 
 swh::apt_config::enable_non_free: true
 swh::apt_config::backported_packages:

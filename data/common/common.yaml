@@ -4621,6 +4621,7 @@ swh::postgres::service::dbs:
     user: guest
 
 elastic::elk_version: '7.15.2'
+elastic::beat_version: '7.17.23'
 
 elasticsearch::hosts:
     - http://esnode1.internal.softwareheritage.org:9200
