@@ -1353,6 +1353,10 @@ bind::resource_records:
     type: CNAME
     record: reaper.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  provenance/CNAME:
+    type: CNAME
+    record: provenance.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   software-stories-production/CNAME:
     type: CNAME
     record: software-stories.internal.softwareheritage.org
