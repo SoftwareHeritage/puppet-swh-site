@@ -1421,11 +1421,11 @@ bind::resource_records:
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   provenance-staging/CNAME:
     type: CNAME
-    record: provenance-ingress.internal.staging.swh.network
+    record: provenance.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   provenance-next-version-staging/CNAME:
     type: CNAME
-    record: provenance-ingress-next-version.internal.staging.swh.network
+    record: provenance-next-version.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   deposit-dynamic-staging/CNAME:
     type: CNAME
