@@ -4627,6 +4627,7 @@ elasticsearch::hosts:
     - http://esnode1.internal.softwareheritage.org:9200
     - http://esnode2.internal.softwareheritage.org:9200
     - http://esnode3.internal.softwareheritage.org:9200
+    - http://esnode7.internal.softwareheritage.org:9200
 
 elasticsearch::jvm_options:
   - "-Xms%{lookup('elasticsearch::jvm_options::heap_size')}"
