@@ -196,7 +196,7 @@ class profile::icinga2::objects::static_checks {
       vars          => {
         prometheus_metric_name     => "pg replication_lag albertina ${replica}",
         prometheus_query           => profile::icinga2::literal_var(
-          join(['sum(sql_pg_stat_replication{instance="albertina.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_replica", slot_name="softwareheritage_', $replica, '"})'], '')
+          join(['sum(sql_pg_stat_replication{instance="albertina.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_', $replica, '", slot_name="softwareheritage_', $replica, '"})'], '')
         ),
         prometheus_query_type      => 'vector',
         prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
