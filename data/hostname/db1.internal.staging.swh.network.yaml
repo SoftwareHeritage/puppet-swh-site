@@ -31,6 +31,8 @@ icinga2::host::vars:
   load: sql
 
 backups::exclude:
+  - srv/kubernetes/volumes
+  - srv/softwareheritage/objects
   - srv/softwareheritage/postgresql
 
 swh::postgresql::max_connections: 400

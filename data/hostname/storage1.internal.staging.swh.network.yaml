@@ -31,8 +31,10 @@ networks:
       vlan-raw-device: bond0
 
 backups::exclude:
-  - srv/softwareheritage/objects
   - srv/kafka
+  - srv/kubernetes/volumes
+  - srv/softwareheritage/objects
+  - srv/softwareheritage/postgresql
 
 swh::apt_config::enable_non_free: true
 packages:

@@ -21,7 +21,9 @@ smtp::relayhost: '[pergamon.internal.softwareheritage.org]'
 backups::exclude:
   - srv/barman
   - srv/borg
+  - srv/kubernetes/volumes
   - srv/softwareheritage/annex
+  - srv/softwareheritage/objects-xfs
 
 swh::apt_config::enable_non_free: true
 packages:
