@@ -79,3 +79,5 @@ groups:
     gid: 1024
 
 thanos::tenant: historical-data
+
+swh::postgresql::version: "13"
