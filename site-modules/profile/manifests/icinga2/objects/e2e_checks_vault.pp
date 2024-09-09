@@ -26,7 +26,6 @@ define profile::icinga2::objects::e2e_checks_vault (
       'directory'
     ],
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
-    require => Package[$::profile::icinga2::objects::e2e_checks_base::packages],
     timeout => 4800,  # higher than the critical threshold
   }
 

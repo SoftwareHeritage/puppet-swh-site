@@ -43,7 +43,6 @@ define profile::icinga2::objects::e2e_checks_deposit (
     # arguments => ...
     timeout => 4800,  # higher than the critical threshold
     target  => $::profile::icinga2::objects::e2e_checks_base::check_file,
-    require => Package[$::profile::icinga2::objects::e2e_checks_base::packages]
   }
 
   ::icinga2::object::service {"${environment}-check-deposit":
