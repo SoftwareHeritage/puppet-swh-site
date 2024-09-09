@@ -20,7 +20,7 @@ define profile::icinga2::objects::e2e_checks_deposit (
   ::icinga2::object::checkcommand {$check_command:
     import  => ['plugin-check-command'],
     command => [
-      '/usr/bin/swh',
+      '/opt/swh-e2e-checks/bin/swh',
       'icinga_plugins',
       '--prometheus-exporter',
       '--prometheus-exporter-directory', $prometheus_text_file_directory,
