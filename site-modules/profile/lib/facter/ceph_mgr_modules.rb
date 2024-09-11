@@ -3,7 +3,7 @@ require 'json'
 Facter.add('ceph_mgr_modules') do
   setcode do
     if File.exist?('/var/lib/ceph/mgr')
-      data = Facter::Core::Execution.execute('ceph mgr module ls').strip
+      data = Facter::Core::Execution.execute('ceph mgr module ls -f json').strip
       if !data.empty?
         JSON.parse(data)
       else
