@@ -55,7 +55,7 @@ class profile::borg::client {
     $borgmatic_config = {
       location => {
         source_directories => [$backup_base],
-        repositories       => ["${repo_user}@${repo_hostname}:${repo_path}/${fqdn}"],
+        repositories       => ["ssh://${repo_user}@${repo_hostname}/${repo_path}/${fqdn}"],
         exclude_patterns   => $backup_excludes + [$base_dir],
         exclude_caches     => true,
         exclude_if_present => '.nobackup',
