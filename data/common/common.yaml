@@ -1427,9 +1427,17 @@ bind::resource_records:
     type: CNAME
     record: graph.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  graph-grpc-staging/CNAME:
+    type: CNAME
+    record: graph-grpc.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   graph-next-version-staging/CNAME:
     type: CNAME
     record: graph-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  graph-grpc-next-version-staging/CNAME:
+    type: CNAME
+    record: graph-grpc-next-version.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   provenance-staging/CNAME:
     type: CNAME
