@@ -5,7 +5,12 @@ class profile::prometheus::elasticsearch {
 
   $version = lookup('prometheus::elasticsearch::exporter::version')
 
-  $archive_url = "https://github.com/vvanholl/elasticsearch-prometheus-exporter/releases/download/${version}/prometheus-exporter-${version}.zip"
+  $exporter_fork = versioncmp($version, '7.17.7.0') ? {
+    1       => 'mindw',
+    default => 'vvanholl',
+  }
+
+  $archive_url = "https://github.com/${exporter_fork}/elasticsearch-prometheus-exporter/releases/download/${version}/prometheus-exporter-${version}.zip"
   $plugin_path = '/usr/share/elasticsearch/plugins/prometheus-exporter'
 
   exec {'cleanup prometheus exporter plugin':
