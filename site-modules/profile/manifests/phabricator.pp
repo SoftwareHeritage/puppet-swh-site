@@ -294,11 +294,10 @@ class profile::phabricator {
     # $basepath
     # $install_user
   ::systemd::unit_file {'phabricator-phd.service':
-    ensure  => present,
-    content => template('profile/phabricator/phabricator-phd.service.erb'),
+    ensure  => absent,
   } ~> service {'phabricator-phd':
-    ensure => 'running',
-    enable => true,
+    ensure => 'stopped',
+    enable => false,
   }
 
   # Uses:
@@ -306,14 +305,13 @@ class profile::phabricator {
     # $install_user
     # $notification_*
   ::systemd::unit_file {'phabricator-aphlict.service':
-    ensure  => present,
-    content => template('profile/phabricator/phabricator-aphlict.service.erb'),
+    ensure  => absent,
   } ~> service {'phabricator-aphlict':
-      ensure => 'running',
-      enable => true,
+      ensure => 'stopped',
+      enable => false,
   }
 
-  package {'python-pygments':
+  package {'python3-pygments':
     ensure => installed,
   }
 
