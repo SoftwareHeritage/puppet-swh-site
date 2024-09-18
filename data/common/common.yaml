@@ -4743,6 +4743,7 @@ keycloak::resources::clients::swh_web::roles:
   - swh.web.admin.mailmap
   - swh.web.api.raw_object
   - swh.web.api.provenance
+  - swh.web.api.save_bulk
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
