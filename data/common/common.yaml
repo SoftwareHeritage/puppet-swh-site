@@ -4673,8 +4673,10 @@ logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
 kibana::listen_network: "%{lookup('internal_network')}"
 kibana::server_name: "%{::swh_hostname.internal_fqdn}"
 kibana::config:
-  server.name: "%{alias('kibana::server_name')}"
-  elasticsearch.hosts: "%{alias('elasticsearch::hosts')}"
+  server:
+    name: "%{alias('kibana::server_name')}"
+  elasticsearch:
+    hosts: "%{alias('elasticsearch::hosts')}"
 
 # puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
 # until then (https://github.com/treydock/puppet-module-keycloak/pull/154)

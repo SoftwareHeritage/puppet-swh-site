@@ -13,9 +13,11 @@ class profile::kibana {
     priority => 1001,
   }
 
-  $kibana_config = lookup('kibana::config') + {
-    'server.host' => ip_for_network(lookup('kibana::listen_network')),
-  }
+  $kibana_config = deep_merge(lookup('kibana::config'), {
+    server => {
+      host => ip_for_network(lookup('kibana::listen_network')),
+    },
+  })
 
   file { '/etc/kibana/kibana.yml':
     ensure  => 'file',
