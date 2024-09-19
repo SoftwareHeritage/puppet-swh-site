@@ -30,7 +30,7 @@ class profile::elasticsearch {
     ensure  => 'directory',
     owner   => 'elasticsearch',
     group   => 'elasticsearch',
-    mode    => '2755',
+    mode    => '0755',
     require => Package['elasticsearch']
   }
 
