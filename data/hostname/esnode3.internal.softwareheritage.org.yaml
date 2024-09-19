@@ -4,4 +4,4 @@ swh::apt_config::enable_non_free: true
 elasticsearch::config::extras:
   xpack.security.enabled: false
 
-elastic::elk_version: '7.17.24'
+elastic::elk_version: '8.15.1'
