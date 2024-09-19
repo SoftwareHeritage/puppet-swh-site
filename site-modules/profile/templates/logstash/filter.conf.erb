@@ -1,4 +1,7 @@
 filter {
+  mutate {
+    remove_field => ["[journald][custom][syslog_timestamp]"]
+  }
   if [fields][apache_log_type] == "access_log" {
     grok {
       match => { "message" => "%{COMBINEDAPACHELOG}( %{NUMBER:duration_ms})?" }
