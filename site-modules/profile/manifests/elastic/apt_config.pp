@@ -5,22 +5,25 @@ class profile::elastic::apt_config {
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html
   $keyid =   lookup('elastic::apt_config::keyid')
   $key =     lookup('elastic::apt_config::key')
-  $version = lookup('elastic::elk_version')
+  $versions = [lookup('elastic::elk_version'), lookup('elastic::beat_version')]
 
-  $parsed_version = split($version, '[.]')
-  $major_version = $parsed_version[0]
-
-  apt::source { 'elasticsearch':
-    location => "https://artifacts.elastic.co/packages/${major_version}.x/apt",
-    release  => 'stable',
-    repos    => 'main',
-    key      => {
-      id      => $keyid,
-      content => $key,
-    },
+  $major_versions = $versions.map |$version| { $version.split('[.]')[0] }.unique
+  $major_versions.each |$major_version| {
+    apt::source { "elastic-${major_version}.x":
+      location => "https://artifacts.elastic.co/packages/${major_version}.x/apt",
+      release  => 'stable',
+      repos    => 'main',
+      key      => {
+        id      => $keyid,
+        content => $key,
+      },
+    }
   }
 
-  apt::source {'elastic-6.x':
+  $removed_major_versions = ['6', '7', '8', '9'] - $major_versions
+  $removed_sources = ['elasticsearch'] + $removed_major_versions.map |$v| { "elastic-${v}.x" }
+
+  apt::source {$removed_sources:
     ensure => absent,
   }
 }
