@@ -1,3 +1,6 @@
 [Service]
 LimitNOFILE=131072
 TimeoutStartSec=0
+<% if scope.call_function('versioncmp', [@version, '8.0']) >= 0 -%>
+NotifyAccess=all
+<% end -%>
