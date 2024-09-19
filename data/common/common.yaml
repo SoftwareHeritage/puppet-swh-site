@@ -4677,6 +4677,13 @@ kibana::config:
     name: "%{alias('kibana::server_name')}"
   elasticsearch:
     hosts: "%{alias('elasticsearch::hosts')}"
+  xpack:
+    encryptedSavedObjects:
+      encryptionKey: "%{alias('kibana::encrypted_saved_objects::key')}"
+    reporting:
+      encryptionKey: "%{alias('kibana::reporting::key')}"
+    security:
+      encryptionKey: "%{alias('kibana::security::key')}"
 
 # puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
 # until then (https://github.com/treydock/puppet-module-keycloak/pull/154)

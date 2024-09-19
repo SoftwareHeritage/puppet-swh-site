@@ -22,8 +22,8 @@ class profile::kibana {
   file { '/etc/kibana/kibana.yml':
     ensure  => 'file',
     owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    group   => 'kibana',
+    mode    => '0640',
     content => inline_yaml($kibana_config),
   }
 }
