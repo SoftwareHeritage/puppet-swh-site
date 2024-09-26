@@ -16,6 +16,7 @@ class profile::varnish {
   $storage_type = lookup('varnish::storage_type')
   $storage_size = lookup('varnish::storage_size')
   $storage_file = lookup('varnish::storage_file')
+  $useragent_blocklist = lookup('varnish::useragent_blocklist')
 
   if $http2_support {
     $runtime_params = {
@@ -87,6 +88,11 @@ class profile::varnish {
   ::profile::varnish::vcl_include {'early_vcl_recv':
     order   => '00',
     content => file('profile/varnish/early_vcl_recv.vcl'),
+  }
+
+  ::profile::varnish::vcl_include {'useragent_blocklist':
+    order   => '20',
+    content => template('profile/varnish/useragent_blocklist.vcl.erb'),
   }
 
   ::profile::varnish::vcl_include {'synth_redirect':

@@ -1,0 +1,16 @@
+# useragent_blocklist.vcl
+#
+# block a query if it matched a given user-agent
+#
+# File managed by puppet. All modifications will be lost.
+
+sub vcl_recv {
+    if (
+<% @useragent_blocklist.each do |useragent| -%>
+        req.http.User-Agent ~ "(?i)<%= useragent %>" ||
+<% end -%>
+        false
+    ) {
+        return(synth(403, "Forbidden access, please respect https://www.softwareheritage.org/legal/users-ethical-charter/"));
+    }
+}
