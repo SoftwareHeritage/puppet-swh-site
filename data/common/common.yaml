@@ -879,6 +879,8 @@ letsencrypt::certificates:
       - archive.softwareheritage.org
       - base.softwareheritage.org
       - archive.internal.softwareheritage.org
+      - webapp-cassandra.internal.softwareheritage.org
+      - webapp-postgresql.internal.softwareheritage.org
   archive_staging:
     domains:
       # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
@@ -4800,12 +4802,14 @@ keycloak::resources::realms:
             - https://archive.internal.softwareheritage.org/*
             - https://webapp1.internal.softwareheritage.org/*
             - https://webapp-cassandra.internal.softwareheritage.org/*
+            - https://webapp-postgresql.internal.softwareheritage.org/*
           roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
           web_origins:
             - https://archive.softwareheritage.org
             - https://archive.internal.softwareheritage.org
             - https://webapp1.internal.softwareheritage.org
             - https://webapp-cassandra.internal.softwareheritage.org
+            - https://webapp-postgresql.internal.softwareheritage.org
         protocol_mappers:
           - "%{alias('keycloak::resources::protocol_mappers::audience')}"
           - "%{alias('keycloak::resources::protocol_mappers::groups')}"
