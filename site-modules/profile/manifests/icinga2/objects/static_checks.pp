@@ -285,6 +285,34 @@ class profile::icinga2::objects::static_checks {
     }
 }
 
+  ::icinga2::object::service {'Kafka topics underreplicated in production':
+    check_command => 'check_prometheus_metric',
+    target        => $checks_file,
+    host_name     => 'swh-journal-client-production',
+    vars          => {
+      prometheus_metric_name     => 'kafka topics underreplicated',
+      prometheus_query           => profile::icinga2::literal_var(
+        'sum by(topic) (kafka_cluster_partition_underreplicated{cluster="rocquencourt"})'),
+      prometheus_query_type      => 'vector',
+      prometheus_metric_warning  => '1',
+      prometheus_metric_critical => '2',
+    },
+  }
+
+  ::icinga2::object::service {'Kafka topics underreplicated in staging':
+    check_command => 'check_prometheus_metric',
+    target        => $checks_file,
+    host_name     => 'archive-staging-rke2',
+    vars          => {
+      prometheus_metric_name     => 'kafka topics underreplicated',
+      prometheus_query           => profile::icinga2::literal_var(
+        'sum by(topic) (kafka_cluster_partition_underreplicated{cluster="rocquencourt_staging"})'),
+      prometheus_query_type      => 'vector',
+      prometheus_metric_warning  => '1',
+      prometheus_metric_critical => '2',
+    },
+  }
+
   ::icinga2::object::service {'Software Heritage ArgoCD Instance':
     import        => ['generic-service'],
     host_name     => 'k8s-admin-rke2.internal.admin.swh.network',
