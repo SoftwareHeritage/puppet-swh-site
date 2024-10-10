@@ -4555,8 +4555,8 @@ monthly_report_bot::cron:
   hour: 0
   monthday: 1
 
-weekly_planning_bot::user: nobody
-weekly_planning_bot::cron:
+weekly_reminder_bot::user: nobody
+weekly_reminder_bot::cron:
   minute: 42
   hour: 13
   weekday: fri
