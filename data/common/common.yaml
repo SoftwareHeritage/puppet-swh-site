@@ -1361,7 +1361,7 @@ bind::resource_records:
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
   graph-rpc-production/CNAME:
     type: CNAME
-    record: graph.internal.softwareheritage.org
+    record: graph-rpc.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
   reaper/CNAME:
     type: CNAME
