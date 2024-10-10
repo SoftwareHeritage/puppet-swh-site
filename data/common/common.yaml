@@ -837,6 +837,7 @@ varnish::storage_file: /var/lib/varnish/varnish_storage.bin
 # varnish::secret in private-data
 
 varnish::useragent_blocklist:
+  - Bytespider
   - ClaudeBot
   - facebookexternalhit
 
