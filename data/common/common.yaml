@@ -1355,6 +1355,14 @@ bind::resource_records:
     type: CNAME
     record: graphql.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  graph-grpc-production/CNAME:
+    type: CNAME
+    record: graph-grpc.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  graph-rpc-production/CNAME:
+    type: CNAME
+    record: graph.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   reaper/CNAME:
     type: CNAME
     record: reaper.internal.softwareheritage.org
