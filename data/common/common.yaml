@@ -1263,6 +1263,10 @@ bind::resource_records:
     type: CNAME
     record: icinga.internal.softwareheritage.org
     data: pergamon.internal.softwareheritage.org.
+  www-static-backup/CNAME:
+    type: CNAME
+    record: www-static-backup.internal.softwareheritage.org
+    data: pergamon.internal.softwareheritage.org.
   faitout/CNAME:
     type: CNAME
     record: faitout.internal.softwareheritage.org
@@ -2264,6 +2268,9 @@ bitbucket_archive::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
 bitbucket_archive::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
 bitbucket_archive::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 bitbucket_archive::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
+
+www_static_backup_web::vhost::name: www-static-backup.internal.softwareheritage.org
+www_static_backup_web::vhost::docroot: /srv/softwareheritage/www-wordpress-static-backup/www.softwareheritage.org
 
 ssh::port: 22
 ssh::permitrootlogin: without-password

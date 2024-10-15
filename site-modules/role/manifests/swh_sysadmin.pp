@@ -22,6 +22,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::debian_repository
   include profile::preseeding_vhost
   include profile::bitbucket_archive_web
+  include profile::www_static_backup_web
 
   include profile::weekly_reminder_bot
   include profile::monthly_report_bot
