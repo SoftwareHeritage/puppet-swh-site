@@ -3,12 +3,12 @@ class profile::weekly_reminder_bot {
   $command = '/usr/local/bin/weekly-reminder-bot'
 
   $weekly_planning_user = lookup('weekly_reminder_bot::user')
-  $weekly_planning_cron = lookup('weekly_reminder_bot::cron')
 
   ['weekly-planning-bot',
    'weekly-management-bot',
   ].each |$bot| {
     $command = "/usr/local/bin/$bot";
+    $weekly_planning_cron = lookup("weekly_reminder_bot::${bot}::cron")
 
     file {$command:
       ensure => present,

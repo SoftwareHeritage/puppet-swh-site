@@ -4563,10 +4563,16 @@ monthly_report_bot::cron:
   monthday: 1
 
 weekly_reminder_bot::user: nobody
-weekly_reminder_bot::cron:
+
+weekly_reminder_bot::weekly-planning-bot::cron:
   minute: 42
   hour: 13
   weekday: fri
+
+weekly_reminder_bot::weekly-management-bot::cron:
+  minute: 30
+  hour: 13
+  weekday: thu
 
 swh::postgres::service::users:
   - root
