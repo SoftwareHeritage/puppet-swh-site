@@ -18,13 +18,13 @@ class profile::weekly_reminder_bot {
       source => "puppet:///modules/profile/weekly_reminder_bot/${bot}",
     }
 
-    profile::cron::d {$bot:
-      command => "chronic ${command}",
-      user    => $weekly_planning_user,
-      *       => $weekly_planning_cron,
-      require => [
-        File[$command],
-      ],
-    }
+    #profile::cron::d {$bot:
+    #  command => "chronic ${command}",
+    #  user    => $weekly_planning_user,
+    #  *       => $weekly_planning_cron,
+    #  require => [
+    #    File[$command],
+    #  ],
+    #}
   }
 }
