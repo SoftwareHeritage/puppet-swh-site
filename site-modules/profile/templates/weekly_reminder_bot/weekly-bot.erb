@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# vim: ai ts=4 sts=4 sw=4
+# This file is managed by puppet. Local modifications will be overwritten.
+
+set -eo pipefail
+
+# Check script argument
+[[ "$1" =~ ^(management|planning)$ ]] || \
+( echo "🚨 $(basename "$0") requires one argument, \
+'management' or 'planning'." ; exit 1 )
+
+# Declare variables
+source "<%= @weekly_bot_config %>"
+AWK=$(command -v awk)
+COOKIE_FILE=$(mktemp /tmp/weekly-bot-cookie.XXX)
+CURL=$(command -v curl)
+SED=$(command -v sed)
+SENDMAIL=$(command -v sendmail)
+typeset -r AWK
+typeset -r BOT="$1"
+typeset -r COOKIE_FILE
+typeset -r CURL
+typeset -r FOOTER_VARNAME=${BOT^^}_FOOTER
+typeset -r FOOTER=${!FOOTER_VARNAME}
+typeset -r HEADER_VARNAME=${BOT^^}_HEADER
+typeset -r HEADER=${!HEADER_VARNAME}
+typeset -r PASSWORD="<%= @weekly_bot_password %>"
+typeset -r SED
+typeset -r SENDMAIL
+typeset -r TEMPLATE_ID_VARNAME=${BOT^^}_TEMPLATE_ID
+typeset -r TEMPLATE_ID=${!TEMPLATE_ID_VARNAME}
+typeset -r URL="https://hedgedoc.softwareheritage.org"
+typeset -r USERNAME=swh-sysadmin@inria.fr
+trap 'rm -f "$COOKIE_FILE"' EXIT
+
+# Retrieve the template's content
+TEMPLATE=$("$CURL" -s "${URL}/${TEMPLATE_ID}/download" | \
+  "$SED" -e "s/\$DATE/$DATE/g" -e "/^tags:/s/, template//")
+
+# Login
+"$CURL" -X POST -s \
+  -c "$COOKIE_FILE" \
+  -d "email=$USERNAME" \
+  -d "password=$PASSWORD" \
+  "${URL}/login" > /dev/null
+
+# Create a new page initialized with the template content
+LOCATION=$("$CURL" -s -A POST \
+  -H "Content-Type: text/markdown" \
+  -b "$COOKIE_FILE" "${URL}/new" \
+  --data-binary "$TEMPLATE" | \
+  "$AWK" '{print $4}')
+
+# Logout
+"$CURL" -s \
+  -b "$COOKIE_FILE" \
+  -c "$COOKIE_FILE" \
+  "${URL}/logout" > /dev/null
+
+if [ -n "$LOCATION" ] ; then
+"$SENDMAIL" -t <<EOF
+$HEADER
+    $LOCATION
+$FOOTER
+EOF
+fi
+
+exit 0
