@@ -10,28 +10,22 @@ set -eo pipefail
 'management' or 'planning'." ; exit 1 )
 
 # Declare variables
-source "<%= @weekly_bot_config %>"
 AWK=$(command -v awk)
 COOKIE_FILE=$(mktemp /tmp/weekly-bot-cookie.XXX)
 CURL=$(command -v curl)
 SED=$(command -v sed)
 SENDMAIL=$(command -v sendmail)
 typeset -r AWK
-typeset -r BOT="$1"
-typeset -r COOKIE_FILE
 typeset -r CURL
-typeset -r FOOTER_VARNAME=${BOT^^}_FOOTER
-typeset -r FOOTER=${!FOOTER_VARNAME}
-typeset -r HEADER_VARNAME=${BOT^^}_HEADER
-typeset -r HEADER=${!HEADER_VARNAME}
-typeset -r PASSWORD="<%= @weekly_bot_password %>"
 typeset -r SED
 typeset -r SENDMAIL
-typeset -r TEMPLATE_ID_VARNAME=${BOT^^}_TEMPLATE_ID
-typeset -r TEMPLATE_ID=${!TEMPLATE_ID_VARNAME}
-typeset -r URL="https://hedgedoc.softwareheritage.org"
-typeset -r USERNAME=swh-sysadmin@inria.fr
 trap 'rm -f "$COOKIE_FILE"' EXIT
+
+# Get default variables
+CONGIG_DIR="<%= @weekly_bot_config_dir %>"
+source "${CONFIG_DIR}/default"
+CONFIG_FILE="${CONFIG_DIR}/${1}"
+source "$CONFIG_FILE"
 
 # Retrieve the template's content
 TEMPLATE=$("$CURL" -s "${URL}/${TEMPLATE_ID}/download" | \
@@ -56,6 +50,7 @@ LOCATION=$("$CURL" -s -A POST \
   -b "$COOKIE_FILE" \
   -c "$COOKIE_FILE" \
   "${URL}/logout" > /dev/null
+
 
 if [ -n "$LOCATION" ] ; then
 "$SENDMAIL" -t <<EOF

@@ -1,0 +1,23 @@
+# vim: ai ts=4 sts=4 sw=4
+# This file is managed by puppet. Local modifications will be overwritten.
+DATE=$(date +%G-W%V -d 'monday 12:00')
+EMAIL=swh-team@inria.fr
+TEMPLATE_ID="6YKT5osoST-amJQ0MusH2Q"
+HEADER="From: Weekly planning bot <$EMAIL>
+To: $EMAIL
+Subject: [Weekly Planning] Week $DATE
+
+Beep boop, I'm a bot.
+
+Here is the pad for the next weekly planning meeting:
+"
+FOOTER="
+Please take a few minutes to pre-fill your part.
+
+Remote attendees:
+
+    https://rendez-vous.renater.fr/EquivalentCoincidencesVentureOnlySwhTeam
+
+Yours faithfully,
+--
+The Software Heritage weekly 🤖"

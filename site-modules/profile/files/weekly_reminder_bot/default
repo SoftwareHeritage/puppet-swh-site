@@ -1,0 +1,4 @@
+# This file is managed by puppet. Local modifications will be overwritten.
+PASSWORD="<%= @weekly_bot_password %>"
+URL="https://hedgedoc.softwareheritage.org"
+USERNAME=swh-sysadmin@inria.fr

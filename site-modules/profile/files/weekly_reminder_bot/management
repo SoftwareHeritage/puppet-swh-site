@@ -1,0 +1,24 @@
+
+# This file is managed by puppet. Local modifications will be overwritten.
+DATE=$(date +%G-W%V -d 'monday 12:00')
+EMAIL=swh-management@inria.fr
+TEMPLATE_ID="OGAEXlDiShGabI14j_3LeA"
+HEADER="From: Weekly management coordination bot <$EMAIL>
+To: $EMAIL
+Subject: [Weekly management coordination] $DATE pad is open
+
+Dear management team,
+
+Thank you for filling the pad for next management coordination :
+"
+FOOTER="
+Expected contents:
+
+- bullet points ready for an initial roundtable, focusing on the high level issues that are relevant for all of us around the table - 3m per person
+- status of actions identified in the last meetings
+
+Thank you !
+
+Yours faithfully,
+--
+The Software Heritage weekly management coordination 🤖"
