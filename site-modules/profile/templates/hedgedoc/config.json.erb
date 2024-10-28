@@ -21,7 +21,9 @@
             "tokenURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/token",
             "authorizationURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/auth",
             "clientID": "<%= @keycloak_client_id %>",
-            "clientSecret": "<%= @keycloak_client_secret %>"
+            "clientSecret": "<%= @keycloak_client_secret %>",
+            "rolesClaim": "<%= @keycloak_roles_claim %>",
+            "accessRole": "<%= @keycloak_access_role %>"
         },
 <% end -%>
         "uploadsPath": "<%= @uploads_dir %>",

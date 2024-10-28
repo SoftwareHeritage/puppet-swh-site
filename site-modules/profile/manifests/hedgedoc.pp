@@ -97,6 +97,8 @@ class profile::hedgedoc {
   $keycloak_realm = lookup('hedgedoc::keycloak::realm')
   $keycloak_client_id = lookup('hedgedoc::keycloak::client::id')
   $keycloak_client_secret = lookup('hedgedoc::keycloak::client::secret')
+  $keycloak_roles_claim = lookup('hedgedoc::keycloak::roles_claim')
+  $keycloak_access_role = lookup('hedgedoc::keycloak::access_role')
 
   $config_json_path = "${install_dir}/config.json"
 
