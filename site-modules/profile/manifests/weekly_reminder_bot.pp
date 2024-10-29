@@ -13,11 +13,11 @@ class profile::weekly_reminder_bot {
   }
 
   file { "${weekly_bot_config_dir}/default":
-    ensure => present,
-    mode   => '0640',
-    owner  => 'root',
-    group  => 'root',
-    source => 'puppet:///modules/profile/weekly_reminder_bot/default',
+    ensure  => present,
+    mode    => '0640',
+    owner   => 'root',
+    group   => 'root',
+    content => template('profile/weekly_reminder_bot/default.erb'),
     require => [
       File[$weekly_bot_config_dir],
     ],
