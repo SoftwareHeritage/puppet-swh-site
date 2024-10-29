@@ -14,6 +14,10 @@ pgbouncer::databases:
     host: "127.0.0.1"
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{lookup('swh::deploy::db::main::port')}"
+  - source_db: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::indexer::storage::db::backend::host')}"
+    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
+    port: "%{lookup('swh::deploy::indexer::storage::db::backend::port')}"
 
 pgbouncer::config_params:
   auth_query: 'SELECT username, password from pgbouncer.get_auth($1)'

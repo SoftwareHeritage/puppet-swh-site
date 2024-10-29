@@ -2750,7 +2750,7 @@ swh::deploy::indexer::storage::user: swhstorage
 swh::deploy::indexer::storage::group: swhstorage
 swh::deploy::indexer::storage::db::host: postgresql-indexer-rw.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::indexer::storage::db::backend::host: albertina.internal.softwareheritage.org
+swh::deploy::indexer::storage::db::backend::host: massmoca.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::backend::port: "%{lookup('swh::deploy::db::indexer::port')}"
 swh::deploy::indexer::storage::db::user: swhstorage
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
