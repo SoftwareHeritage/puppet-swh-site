@@ -47,7 +47,7 @@ class profile::weekly_reminder_bot {
 
     file { "${weekly_bot_config_dir}/${bot}":
       ensure  => present,
-      mode    => '0750',
+      mode    => '0640',
       owner   => 'root',
       group   => 'root',
       source  => "puppet:///modules/profile/weekly_reminder_bot/${bot}",
