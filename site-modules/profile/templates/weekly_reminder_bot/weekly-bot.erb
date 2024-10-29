@@ -22,7 +22,7 @@ typeset -r SENDMAIL
 trap 'rm -f "$COOKIE_FILE"' EXIT
 
 # Get default variables
-CONGIG_DIR="<%= @weekly_bot_config_dir %>"
+CONFIG_DIR="<%= @weekly_bot_config_dir %>"
 source "${CONFIG_DIR}/default"
 CONFIG_FILE="${CONFIG_DIR}/${1}"
 source "$CONFIG_FILE"
