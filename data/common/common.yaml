@@ -2672,6 +2672,7 @@ pgbouncer::group: postgres
 pgbouncer::userlist:
   - user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     password: "%{lookup('swh::deploy::db::pgbouncer::user::password')}"
+    hash_type: plain
 
 pgbouncer::databases: []
 
