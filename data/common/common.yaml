@@ -774,6 +774,7 @@ rabbitmq::server::users:
     password: "%{lookup('swh::deploy::scheduler::task_broker::password')}"
     tags:
       - management
+rabbitmq::server::http_log_dir: /var/log/rabbitmq/http-access
 
 puppet::master::hostname: pergamon.internal.softwareheritage.org
 puppet::master::puppetdb: pergamon.internal.softwareheritage.org
