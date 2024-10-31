@@ -5,22 +5,18 @@ class profile::rabbitmq {
   $rabbitmq_password = lookup('rabbitmq::monitoring::password')
 
   $users = lookup('rabbitmq::server::users')
-  $http_log_dir = lookup('rabbitmq::server::http_log_dir')
 
   class { 'rabbitmq':
-    service_manage              => true,
-    port                        => 5672,
-    admin_enable                => true,
-    node_ip_address             => '0.0.0.0',
-    interface                   => '0.0.0.0',
-    config_variables            => {
+    service_manage    => true,
+    port              => 5672,
+    admin_enable      => true,
+    node_ip_address   => '0.0.0.0',
+    interface         => '0.0.0.0',
+    config_variables  => {
       vm_memory_high_watermark => 0.6,
     },
-    heartbeat                   => 0,
-    manage_python               => false,
-    config_management_variables => {
-      'http_log_dir' => $http_log_dir,
-    },
+    heartbeat         => 0,
+    manage_python     => false,
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
     provider => 'rabbitmqctl',
