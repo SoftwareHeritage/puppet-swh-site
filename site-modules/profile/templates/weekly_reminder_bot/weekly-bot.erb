@@ -10,11 +10,11 @@ set -eo pipefail
 'management' or 'planning'." ; exit 1 )
 
 # Declare variables
-AWK=$(command -v awk)
+AWK=/usr/bin/awk
 COOKIE_FILE=$(mktemp /tmp/weekly-bot-cookie.XXX)
-CURL=$(command -v curl)
-SED=$(command -v sed)
-SENDMAIL=$(command -v sendmail)
+CURL=/usr/bin/curl
+SED=/bin/sed
+SENDMAIL=/usr/sbin/sendmail
 typeset -r AWK
 typeset -r CURL
 typeset -r SED
