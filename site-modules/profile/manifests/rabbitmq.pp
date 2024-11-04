@@ -19,7 +19,8 @@ class profile::rabbitmq {
     heartbeat                   => 0,
     manage_python               => false,
     config_management_variables => {
-      'http_log_dir' => $http_log_dir,
+    # values aren't quoted in the template, they must be quoted here
+      'http_log_dir' => "\"${http_log_dir}\"",
     },
   }
   -> rabbitmq_vhost { $rabbitmq_vhost:
