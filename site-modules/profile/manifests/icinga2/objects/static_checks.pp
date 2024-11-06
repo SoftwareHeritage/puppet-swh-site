@@ -109,11 +109,11 @@ class profile::icinga2::objects::static_checks {
     check_command => 'http',
     target        => $checks_file,
     vars          => {
-      http_vhost  => 'www.softwareheritage.org',
-      http_uri    => '/',
-      http_ssl    => true,
-      http_sni    => true,
-      http_string => '<title>.*Software Heritage</title>',
+      http_vhost             => 'www.softwareheritage.org',
+      http_uri               => '/',
+      http_ssl               => true,
+      http_sni               => true,
+      http_expect_body_regex => '<title>.*Software Heritage</title>',
     },
   }
 
