@@ -113,7 +113,7 @@ class profile::icinga2::objects::static_checks {
       http_uri    => '/',
       http_ssl    => true,
       http_sni    => true,
-      http_string => '<title>Software Heritage</title>',
+      http_string => '<title>.*Software Heritage</title>',
     },
   }
 
