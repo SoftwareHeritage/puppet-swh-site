@@ -841,6 +841,7 @@ varnish::useragent_blocklist:
   - Bytespider
   - ClaudeBot
   - facebookexternalhit
+  - meta-externalagent
 
 swh::deploy::reverse_proxy::services:
   - deposit
