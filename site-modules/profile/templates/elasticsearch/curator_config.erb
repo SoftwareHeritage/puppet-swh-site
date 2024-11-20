@@ -1,9 +1,9 @@
 elasticsearch:
   client:
     hosts:
-    <% @esnodes.each do |esnode| -%>
+<% @esnodes.each do |esnode| -%>
       - <%= esnode %>
-    <% end -%>
+<% end -%>
     cloud_id:
     ca_certs:
     client_cert:
