@@ -38,12 +38,10 @@ class profile::elasticsearch::indices_curator {
   }
 
   file { $curator_logs:
-    ensure  => 'directory',
-    purge   => true,
-    recurse => true,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
   }
 
   file { '/etc/logrotate.d/curator':
