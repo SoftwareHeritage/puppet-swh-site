@@ -4703,6 +4703,16 @@ elasticsearch::config:
   indices.memory.index_buffer_size: 50%
   index.store.type: hybridfs
 
+elasticsearch::curator::retention: 365
+elasticsearch::curator::indices:
+  - systemlogs
+  - staging-system-logs
+  - staging-swh-logs
+  - production-system-logs
+  - production-swh-logs
+  - swh_workers
+  - apache_logs
+
 logstash::listen_network: "%{lookup('internal_network')}"
 logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
 

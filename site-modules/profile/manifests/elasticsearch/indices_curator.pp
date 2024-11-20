@@ -1,6 +1,8 @@
 class profile::elasticsearch::indices_curator {
   ensure_packages (['python3-venv'])
   $esnodes = lookup('elasticsearch::hosts')
+  $indices = lookup('elasticsearch::curator::indices')
+  $retention = lookup('elasticsearch::curator::retention')
 
   exec { 'create curator venv':
     command => '/usr/bin/python3 -m venv /opt/curatorVenv',
@@ -20,5 +22,13 @@ class profile::elasticsearch::indices_curator {
     group   => 'root',
     mode    => '0640',
     content => template('profile/elasticsearch/curator_config.erb'),
+  }
+
+  file { '/etc/default/curator_action_delete_indices':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('profile/elasticsearch/curator_action_delete_indices.erb'),
   }
 }
