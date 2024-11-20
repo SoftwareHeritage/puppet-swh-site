@@ -32,7 +32,7 @@ class profile::elasticsearch::indices_curator {
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    content => template('profile/elasticsearch/curator_action_delete_indices.erb'),
+    content => template('profile/elasticsearch/curator_delete_indices.erb'),
   }
 
   file { $curator_logs:
@@ -42,6 +42,14 @@ class profile::elasticsearch::indices_curator {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
+  }
+
+  file { '/etc/logrotate.d/curator':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0640',
+    content => template('profile/elasticsearch/curator_logrotate.erb'),
   }
 
   profile::cron::d { 'elasticsearch-delete-indices':
