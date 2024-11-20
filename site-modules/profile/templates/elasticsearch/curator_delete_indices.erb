@@ -44,7 +44,7 @@ actions:
     filters:
     - filtertype: pattern
       kind: regex
-      value: '^(<%= @long_lifecycle_indices.join('|') %>).*$'
+      value: '^(<%= @short_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
       source: name
       direction: older
