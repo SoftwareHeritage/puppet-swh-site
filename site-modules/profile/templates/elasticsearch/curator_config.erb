@@ -1,0 +1,26 @@
+elasticsearch:
+  client:
+    hosts:
+    <% @esnodes.each do |esnode| -%>
+      - <%= esnode %>
+    <% end -%>
+    cloud_id:
+    ca_certs:
+    client_cert:
+    client_key:
+    verify_certs:
+    request_timeout: 30
+  other_settings:
+    master_only: False
+    username:
+    password:
+    api_key:
+      id:
+      api_key:
+      token:
+
+logging:
+  loglevel: INFO
+  logfile:
+  logformat: default
+  blacklist: ['elastic_transport', 'urllib3']
