@@ -4712,6 +4712,9 @@ elasticsearch::curator::indices:
   - production-swh-logs
   - swh_workers
   - apache_logs
+elasticsearch::curator::config: /etc/default/curator_config.yaml
+elasticsearch::curator::delete: /etc/default/curator_action_delete_indices
+elasticsearch::curator::logs: /var/log/curator
 
 logstash::listen_network: "%{lookup('internal_network')}"
 logstash::elasticsearch::hosts: "%{alias('elasticsearch::hosts')}"
