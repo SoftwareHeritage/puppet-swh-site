@@ -4703,15 +4703,17 @@ elasticsearch::config:
   indices.memory.index_buffer_size: 50%
   index.store.type: hybridfs
 
-elasticsearch::curator::retention: 365
-elasticsearch::curator::indices:
+elasticsearch::curator::long_retention: 365
+elasticsearch::curator::short_retention: 182
+elasticsearch::curator::long_lifecycle_indices:
   - systemlogs
-  - staging-system-logs
-  - staging-swh-logs
   - production-system-logs
   - production-swh-logs
   - swh_workers
   - apache_logs
+elasticsearch::curator::short_lifecycle_indices:
+  - staging-system-logs
+  - staging-swh-logs
 elasticsearch::curator::config: /etc/default/curator_config.yaml
 elasticsearch::curator::delete: /etc/default/curator_action_delete_indices
 elasticsearch::curator::logs: /var/log/curator

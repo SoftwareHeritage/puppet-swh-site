@@ -1,8 +1,10 @@
 class profile::elasticsearch::indices_curator {
   ensure_packages (['python3-venv'])
   $esnodes = lookup('elasticsearch::hosts')
-  $indices = lookup('elasticsearch::curator::indices')
-  $retention = lookup('elasticsearch::curator::retention')
+  $long_lifecycle_indices = lookup('elasticsearch::curator::long_lifecycle_indices')
+  $short_lifecycle_indices = lookup('elasticsearch::curator::short_lifecycle_indices')
+  $long_retention = lookup('elasticsearch::curator::long_retention')
+  $short_retention = lookup('elasticsearch::curator::short_retention')
   $curator_config = lookup('elasticsearch::curator::config')
   $curator_delete = lookup('elasticsearch::curator::delete')
   $curator_logs = lookup('elasticsearch::curator::logs')
@@ -48,7 +50,7 @@ class profile::elasticsearch::indices_curator {
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0640',
+    mode    => '0644',
     content => template('profile/elasticsearch/curator_logrotate.erb'),
   }
 
