@@ -86,16 +86,6 @@ class profile::icinga2::objects::common_checks {
     target           => $target_file,
   }
 
-  ::icinga2::object::service {'journalbeat':
-    import           => ['generic-service'],
-    apply            => true,
-    check_command    => 'check_journal',
-    command_endpoint => 'host.name',
-    assign           => ['host.vars.os == Linux'],
-    ignore           => ['-:"check_journal" !in host.vars.plugins', 'host.vars.noagent'],
-    target           => $target_file,
-  }
-
   ::icinga2::object::service {'puppet_agent':
     import           => ['generic-service'],
     apply            => true,
