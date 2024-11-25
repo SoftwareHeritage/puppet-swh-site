@@ -59,4 +59,8 @@ class profile::elasticsearch::indices_curator {
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand',
   }
+
+  file { '/usr/local/bin/elasticsearch_close_index.py':
+    ensure => absent,
+  }
 }
