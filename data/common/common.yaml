@@ -449,16 +449,13 @@ users:
   seirl:
     uid: 1013
     full_name: Antoine Pietri
-    shell: /usr/bin/zsh
-    groups:
-      - swhdev
-      - swhstorage
-      - swhteam
-      - swhdeploy
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       seirl:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAILiua8eEg+nU0XSbYPTgnOMftzvpbN+u7v5jDabeO/0E
+        key: disabled
   ssushant:
     uid: 1014
     full_name: Sushant
@@ -483,8 +480,8 @@ users:
     uid: 1016
     full_name: Guillaume Rousseau
     shell: /bin/false
-    groups:
-      - swhteam
+    password: "!"
+    groups: []
     authorized_keys:
       guillaume.rousseau@univ-paris-diderot.fr:
         type: ssh-rsa
@@ -543,38 +540,36 @@ users:
   haltode:
     uid: 1022
     full_name: Thibault Allancon
-    shell: /usr/bin/zsh
-    groups:
-      - swhdev
-      - swhteam
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       haltode@gmail.com:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIORGwY56PpvgwMWqDei718PPriV6U7LL5JMPJWS7zTcg
+        key: disabled
   danseraf:
     uid: 1023
     full_name: Daniel Serafini
-    groups:
-      - swhdev
-    shell: /usr/bin/fish
+    password: "!"
+    groups: []
+    shell: /bin/false
     authorized_keys:
       me@danieleserafini.eu:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDsQ1QxD/xHOOhCAarH9o3oAfT7YCwxXCAVaazxC1ZMygWZUE95oMu6D2Wib5Q4GBKD35ddclY/l5GsYB5uXbl1UxAFUPe4COqTEt+7deMSWakv46ceb5oHxOkMAF4w400FV1Pi1usk2TpArarOPuxN7yKu54sBACI5HEezn3KOvxPYt/DUAt+XdrfLsiZPyzjOYYezocCV+O1PkivhC99cXHtlwTBRntWTjlyUt9p46U6Uf2G9u88v4v2KopH0sQG7nAYNXN7W14pB925fnDYDHFYUoKDCBbJiQMMKKlQxJZLSfh/KX6kX7OIXOiMclIfmBYAUwDHU3MevdczAIj8JWspUVyRf32B1jnD+H8UnDTCwApCFytcvzDuoYCgiUVk4bDpJOHeb8V4dh6UZt0DFa4iiLsVIX8MjcqaI5TmmvaYgjGPSTLlUsasUJnVqCweQNTiZPhDiqrs258aQvSGf634k10lxmhAAB0xAGVO6Zj1mBjqS+XDJiLzf4mWwm4M=
+        key: disabled
   aeviso:
     uid: 1024
     full_name: Andres Ezequiel Viso
-    groups:
-      - swhdev
-      - swhteam
-    shell: /bin/bash
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       andres@powerage:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDRnVV1UimkTbAAb1FPxDPAqfyCVSrlB7a1Kq83ZKc6e7tTVmOKA55whZa3KwNBwgZGB8389ejCery+WDqSiRZsirup4UN/VZ5X3XJdnRVPPcpzVuWFivPKBMn6D4LMa9D7moMnV9JC5q9zwMNHZQ4qJbGlW44MzWOi0RnPVd28jsRkL0sMRvz+i3KXFGDNeaVPV0YLB4vS1bmEho/8Tu5NlY/Tzkter9qTNN7QNIAbnq8oQF/lLPFAytE0s61ZtoDcXfznJPXWkIljMCTQHlxeDci9DQWUgQc+A+7qWmqkb3lzDYKQrxRfZtl3hbnR3jrtSfTI+q0Nagh0O4FN2QUj
+        key: disabled
       aeviso@powerage:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCX0CtuTAwQpOQl3qBGm7FAuzKlnSmSUOISKPV3F8ohbYbN682VKnruTPFRwkdy5sidg6I8jVrIeJJQ+WZVrTM6mdtpiLANB4r3sgQdml4l3sWAyNm3UD5wwhsNYlnVgVuzUihK7/ykr9vKYxY3rrAYcLVyLzkq9t7BPVAMHJZj6XBsKqzhATcQxVdVVA+7k7aTSnaNR29AiHEVYb8/1J61W59mNqrqrwcWXaGXgjb4rvzprWhooQd21/9v4rlgwZznFlK20GQUoHy+BVCbpQJznQtQeCvXfTpBYGZjo7DrljbDdafkrz9fa7NqJ3UwRzYITadM6NLDPzD7EIR9q2cf
+        key: disabled2
   vsellier:
     uid: 1025
     full_name: Vincent Sellier
@@ -590,22 +585,19 @@ users:
   tenma:
     uid: 1026
     full_name: Nicolas Gattolin
-    groups:
-      - swhdev
-      - swhteam
     shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       tenma@swh-ng1:
         type: ssh-ed25519
         key: disabled
-
   tg1999:
     uid: 1027
     full_name: Tushar Goel
-    groups:
-      - swhdev
-      - swhteam
     shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       tg@tg-Inspiron-15-7000-Gaming:
         type: ssh-ed25519
@@ -614,9 +606,8 @@ users:
     uid: 1028
     full_name: Hakim Baaloudj
     shell: /bin/false
-    groups:
-      - swhdev
-      - swhteam
+    password: "!"
+    groups: []
     authorized_keys:
       hbaaloud@po461-pro.paris.inria.fr:
         type: ssh-ed25519
@@ -624,25 +615,23 @@ users:
   jayesh:
     uid: 1029
     full_name: Jayesh Velayudhan
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhteam
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       jayesh@jayesh:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCyBrP2uhCnQcEbNHpH6tsP/yl80JGcxtgxJ8m3Gts0keA8JTA6J1qnn9HUmzbdLpoJjCyHMxfW/oBR7G3IGEyD93S2SShaGltNMpFOEq+iAbKR2Y3ZBy8Vvq/bwBneq0dBNs/ITawbYQVMahcbOzB2I3aq+rG149t5icZ/1DPswVc9ZBPigtiReywF3EJ7uBd6JQ6OLRDnwpKZf6LNlkHzIWD5yBRLTmMNEExLcFw6zdw86t5GfgFTlGkARhUh+iXEBhPeVZnCboB9GZVcKURfrV788QUbIFzzKFm6VQt/cVAJDMUQmx/kYjFaV1ejU3f0+k3SdtVbANfQCYUsL2f7
+        key: disabled
   zaboukha:
     uid: 1030
     full_name: Zeinab Abou Khalil
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhteam
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       spirals@wifi-pro-83-138.paris.inria.fr:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDocv8kwNgelVAccRs8uDDGPeEalSwH/NhUfbvnum5dlhx7aRUBfswJIRy142TWCskS5h+3EXhwXmsEUfEKSIAkQT9+FlYDxYML7NFy7ONMo0ZUQUWXbMo4PGpQuIPmGFH4AUqL7Y69gdY4p5lUTlV+8wZP6Fi91tsjBwtJqvGyMS7QmeRgY/f7LTEyxzv3jB9XN+DioxAHQDDfodTD1UZlGNSSdIU6yI2oj7pEMGLAw5ghHlI2lIJoGoWY5fR30Yuua714R5DdQZ7yoWUEWAenefmKZmDtaMaUvbDVFvgDZIZSI3Xg+75iogbPhb3tG1psS1geaUo4oPFdYr0xTQ5HySoloFw9segk9j8gUsGqgAHoyEcA3jgoA81iH6l+5tI+qXgj5BMxykAglBDfIbkOoYW39eEJM7Pv5RkXZPdbDVxypTSNGr2uS8xFb3J1ibaHyC8alluZDUkcBjAGOD9XcqYKfuM8zVpL4tOhN5igorebBFJwF03cwU2r1ccIKec=
+        key: disabled
   bchauvet:
     uid: 1031
     full_name: Benoit Chauvet
@@ -657,14 +646,13 @@ users:
   lunar:
     uid: 1032
     full_name: Jeremy Bobbio
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhteam
+    shell: /bin/false
+    password: "!"
+    groups: []
     authorized_keys:
       lunar@seleucus:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQDIGUnG2HseIZJ9deNXvGzfPU8Iey1TS89AGUGadFxnuy2mDjBepWanJUBbRArm8fv5v+LIJ2MUm3dchP1aEaMYfJp7QUeagJTYVHIrbdFYPAdGgwe5kQzOaWEyqsV3W2AyXkvgKq+V0whWeqJuRxWD+3i6rFLZJxYh1Uf+l8I4bPvD7pLqssLXm5qnzOfSJrZaiu9mtHasscTQUZ2/lZ+veF0mBkqAxmor/lWbTcENCjALgZhdJlg7kz+HFiFO+IaNdAvjayQiEmk2r/SutwA9CdHzAcLh6Jr4iiThRy4RcIB/SACcsYJbUIJkxHiqoWV6LNOICV/pncnWNQYMhyUH3pH+3Gxm3feUpHUT8IQhwb4FS4dctp225LyX+s/6rDzMZU3jKkV090BAvFCiY1EUTaiNAvU9SbjgVzFn40X1dydaucdmh9ziGV56mPfokhR+e3D2QxXNpT6A+3ra/OsTrz55SrKhKo5fJgDp/KJlmwF+wp6jjd78fBJCyMuZb3k=
+        key: disabled
   gsamson:
     uid: 1033
     full_name: Guillaume Samson
@@ -680,14 +668,12 @@ users:
   hjonin:
     uid: 1034
     full_name: Helene Jonin
-    groups:
-      - swhdev
-      - swhteam
-    shell: /bin/bash
+    groups: []
+    shell: /bin/false
     authorized_keys:
        helene.jonin@gmail.com:
          type: ssh-ed25519
-         key: AAAAC3NzaC1lZDI1NTE5AAAAII04bliD3gFLUKyhCbfflSE1h64cDRcUPMWrkDb3YGUk
+         key: disabled
   rboyer:
     uid: 1035
     full_name: Renaud Boyer
