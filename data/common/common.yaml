@@ -4691,6 +4691,7 @@ elasticsearch::config:
 
 elasticsearch::curator::long_retention: 365
 elasticsearch::curator::short_retention: 182
+elasticsearch::curator::closing_delay: 30
 elasticsearch::curator::long_lifecycle_indices:
   - systemlogs
   - production-system-logs

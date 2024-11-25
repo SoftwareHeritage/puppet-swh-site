@@ -6,13 +6,12 @@ class profile::elasticsearch::indices_curator {
   $all_indices = $long_lifecycle_indices + $short_lifecycle_indices
   $long_retention = lookup('elasticsearch::curator::long_retention')
   $short_retention = lookup('elasticsearch::curator::short_retention')
+  $closing_delay = lookup('elasticsearch::curator::closing_delay')
   $curator_config = lookup('elasticsearch::curator::config')
   $curator_logs = lookup('elasticsearch::curator::logs')
-  $curator_close = lookup('elasticsearch::curator::close')
-  $curator_delete = lookup('elasticsearch::curator::delete')
   $actions = {
-    'close-indices'  => $curator_close,
-    'delete-indices' => $curator_delete,
+    'close-indices'  => lookup('elasticsearch::curator::close'),
+    'delete-indices' => lookup('elasticsearch::curator::delete'),
   }
 
   exec { 'create curator venv':

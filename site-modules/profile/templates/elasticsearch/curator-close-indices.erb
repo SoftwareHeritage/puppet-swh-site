@@ -4,7 +4,7 @@ actions:
   1:
     action: close
     description: >-
-      Close indices older than 30 days (based on index name), for
+      Close indices older than <%= @closing_delay %> days (based on index name), for
       <% @all_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
@@ -23,4 +23,4 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: 30
+      unit_count: <%= @closing_delay %>
