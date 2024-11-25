@@ -7,9 +7,13 @@ class profile::elasticsearch::indices_curator {
   $long_retention = lookup('elasticsearch::curator::long_retention')
   $short_retention = lookup('elasticsearch::curator::short_retention')
   $curator_config = lookup('elasticsearch::curator::config')
+  $curator_logs = lookup('elasticsearch::curator::logs')
   $curator_close = lookup('elasticsearch::curator::close')
   $curator_delete = lookup('elasticsearch::curator::delete')
-  $curator_logs = lookup('elasticsearch::curator::logs')
+  $actions = {
+    'close-indices'  => $curator_close,
+    'delete-indices' => $curator_delete,
+  }
 
   exec { 'create curator venv':
     command => '/usr/bin/python3 -m venv /opt/curatorVenv',
@@ -31,14 +35,14 @@ class profile::elasticsearch::indices_curator {
     content => template('profile/elasticsearch/curator_config.erb'),
   }
 
-
-  file { [$curator_delete,
-    $curator_close]:
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0640',
-    content => template('profile/elasticsearch/curator_delete_indices.erb'),
+  $actions.each | $name, $script | {
+    file { $script:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => template("profile/elasticsearch/curator-${name}.erb"),
+    }
   }
 
   file { $curator_logs:
@@ -56,12 +60,14 @@ class profile::elasticsearch::indices_curator {
     content => template('profile/elasticsearch/curator_logrotate.erb'),
   }
 
-  profile::cron::d { 'elasticsearch-delete-indices':
-    target  => 'elasticsearch',
-    command => "chronic /opt/curatorVenv/bin/curator --config ${curator_config} ${curator_delete} --logfile ${curator_logs}/delete-indices-week-$(date +%W).log",
-    user    => 'root',
-    minute  => 'fqdn_rand',
-    hour    => 'fqdn_rand',
+  $actions.each | $name, $script | {
+    profile::cron::d { "elasticsearch-${name}":
+      target  => 'elasticsearch',
+      command => "chronic /opt/curatorVenv/bin/curator --config ${curator_config} ${script} --logfile ${curator_logs}/${name}-week-$(date +%W).log",
+      user    => 'root',
+      minute  => 'fqdn_rand',
+      hour    => 'fqdn_rand',
+    }
   }
 
   file { '/usr/local/bin/elasticsearch_close_index.py':
