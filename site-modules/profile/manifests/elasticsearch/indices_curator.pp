@@ -3,9 +3,11 @@ class profile::elasticsearch::indices_curator {
   $esnodes = lookup('elasticsearch::hosts')
   $long_lifecycle_indices = lookup('elasticsearch::curator::long_lifecycle_indices')
   $short_lifecycle_indices = lookup('elasticsearch::curator::short_lifecycle_indices')
+  $all_indices = $long_lifecycle_indices + $short_lifecycle_indices
   $long_retention = lookup('elasticsearch::curator::long_retention')
   $short_retention = lookup('elasticsearch::curator::short_retention')
   $curator_config = lookup('elasticsearch::curator::config')
+  $curator_close = lookup('elasticsearch::curator::close')
   $curator_delete = lookup('elasticsearch::curator::delete')
   $curator_logs = lookup('elasticsearch::curator::logs')
 
@@ -29,7 +31,9 @@ class profile::elasticsearch::indices_curator {
     content => template('profile/elasticsearch/curator_config.erb'),
   }
 
-  file { $curator_delete:
+
+  file { [$curator_delete,
+    $curator_close]:
     ensure  => present,
     owner   => 'root',
     group   => 'root',

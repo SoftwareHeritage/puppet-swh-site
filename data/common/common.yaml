@@ -4701,6 +4701,7 @@ elasticsearch::curator::short_lifecycle_indices:
   - staging-system-logs
   - staging-swh-logs
 elasticsearch::curator::config: /etc/default/curator_config.yaml
+elasticsearch::curator::close: /etc/default/curator_action_close_indices
 elasticsearch::curator::delete: /etc/default/curator_action_delete_indices
 elasticsearch::curator::logs: /var/log/curator
 

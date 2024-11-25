@@ -1,0 +1,25 @@
+---
+# File managed by puppet, changes will be lost.
+actions:
+  1:
+    action: close
+    description: >-
+      Close indices older than 30 days (based on index name), for
+      <% @all_indices.each do |index| -%>
+        - <%= index %>
+      <% end -%>
+      prefixed indices.
+    options:
+      skip_flush: False
+      delete_aliases: False
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: regex
+      value: '^(<%= @all_indices.join('|') %>).*$'
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: 30
