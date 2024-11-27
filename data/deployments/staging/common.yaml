@@ -1,4 +1,5 @@
 ---
+cassandra::version: 4.0.15
 swh::deploy::environment: staging
 dns::search_domains:
   - internal.staging.swh.network
