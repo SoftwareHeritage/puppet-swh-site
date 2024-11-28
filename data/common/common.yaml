@@ -682,6 +682,7 @@ users:
       - swhteam
     shell: /bin/bash
   # Do not allocate uid: 1036, used for Adèle Desmazières on specific hosts
+  # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
   adm:

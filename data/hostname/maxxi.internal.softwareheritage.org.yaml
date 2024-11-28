@@ -10,18 +10,18 @@ users:
   zom:
     uid: 3002
     full_name: Tommaso Fontana
-    shell: /bin/bash
+    shell: /bin/false
     authorized_keys:
       zom@swh:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIMG/RXBiwyz3mKwsm9cfGLgDwjkWgMHCRsiLlSrMsnku
+        key: disabled
   adesmaz:
     uid: 1036
     full_name: Adèle Desmazières
-    shell: /bin/bash
+    shell: /bin/false
     groups:
       - swhdev
     authorized_keys:
       adesmaz:
         type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAACAQDYDNK0dfEOI+/vZbzCjaehZtOPLOnZIS5BPBMvZe43mnV9pdSImIMu6zO3v/CkWINZdSMWgnRL4vpYrSb0rQFA1o5nBGKa90gjr5WYfmUrTt43BSUGUEy9xdj4AC2hk4NUGCnWyyANXcBhtYyL76TBT/LtsS1/pRIa+MGghJ+BmEbf5TxlEmGrHmr3riFY0KtzG6l7NxZps4JdTZSDz0Ft0rNId2+1qe2is/JGZ2OTDGG2uO5dSXOrBlZFKBapHknkmW4E+KUDlVS/9TEhIKV3HaCs52zGkIl5PBnx8fHHBjWm5P6T+OW87CbHVbmF3YZDZpGi8nnU2/GKvmvwmHw9q+7yr86z/9hq8Ithl7gjjH7XCDlWbIHyBYXtZXakFoeAj/5SqQu7Jt3LiBSMjarIFU5meEENbIXyUUEKjIqf/H6Bu7mOG3CHqdSCISfiz2YL1sNaR5zR4PbaZp6/2knm4+WVupaOvLlGf9rFI96P9E0ytZpy70Ioo05cy/CWeL454z2ifpIbnEQZRn7qfvPiG0QeXI9oYJ31hlDBXIY3wjdDF1daZaq74effiVgGgyQoWtJnZ4w/3trIMe4m8Wd2fq6J7Hss6DtSy7u75MP+yErdN3QRKx5TTTcZnZArCH3Jx52mXA4joKWRRaU9ydz29CwiYXRwbRAyXXfOB8b7eQ==
+        key: disabled
