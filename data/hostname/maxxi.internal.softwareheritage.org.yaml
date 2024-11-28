@@ -25,3 +25,14 @@ users:
       adesmaz:
         type: ssh-rsa
         key: disabled
+  rmostovoi:
+    # Can be disabled after 2025-01-31
+    uid: 1037
+    full_name: Rayan Mostovoi
+    shell: /bin/bash
+    groups:
+      - swhdev
+    authorized_keys:
+      rmostovoi:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIEVMbhVbYcYlPRubt8cNteySTsWLW0UeQnz3ufTv1uGy
