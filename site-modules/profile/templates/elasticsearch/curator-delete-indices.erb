@@ -21,11 +21,12 @@ actions:
       kind: regex
       value: '^(<%= @long_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
-      source: name
+      source: field_stats
       direction: older
-      timestring: '%Y.%m.%d'
       unit: days
       unit_count: <%= @long_retention %>
+      field: '@timestamp'
+      stats_result: min_value
   2:
     action: delete_indices
     description: >-
@@ -46,8 +47,9 @@ actions:
       kind: regex
       value: '^(<%= @short_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
-      source: name
+      source: field_stats
       direction: older
-      timestring: '%Y.%m.%d'
       unit: days
       unit_count: <%= @short_retention %>
+      field: '@timestamp'
+      stats_result: min_value

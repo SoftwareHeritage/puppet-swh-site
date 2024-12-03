@@ -19,8 +19,9 @@ actions:
       kind: regex
       value: '^(<%= @all_indices.join('|') %>).*$'
     - filtertype: age
-      source: name
+      source: field_stats
       direction: older
-      timestring: '%Y.%m.%d'
       unit: days
       unit_count: <%= @closing_delay %>
+      field: '@timestamp'
+      stats_result: min_value
