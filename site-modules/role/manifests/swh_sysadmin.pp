@@ -4,6 +4,7 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::prometheus::sql
 
   include profile::puppet::master
+  include profile::cassandra::coordinator
 
   if $::subnet == 'vagrant' {
     notice("Vagrant environment detected, deactivate let's encrypt and bind_server")

@@ -1,0 +1,12 @@
+# File managed by puppet - modifications will be lost
+#
+
+# Nodes to upgrade (without their full domain)
+NODES="$(seq -f 'cassandra%01g' 1 3)"
+# Environment domain
+DOMAIN="internal.staging.swh.network"
+# Host node where the nodetool command will be executed
+REMOTE_HOST="cassandra1" # the host where the nodetool command will be executed
+# Credentials
+CASSANDRA_USER=<%= @jmx_user %>
+CASSANDRA_PASSWORD=<%= @jmx_password %>
