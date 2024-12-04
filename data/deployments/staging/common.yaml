@@ -29,6 +29,8 @@ cassandra::base_instance_configuration:
   slow_query_log_timeout: 1000ms
   repair_session_space: 1024MiB
   disk_access_mode: mmap_index_only
+  paxos_variant: v2  # Activate new paxos lightweight transaction (recommended)
+  paxos_state_purging: repaired
 
 swh::deploy::environment: staging
 dns::search_domains:
