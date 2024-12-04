@@ -7,7 +7,7 @@ actions:
 
       Long Lifecycle Indices.
 
-      Delete indices older than <%= @long_retention %> days (based on index name), for
+      Delete indices older than <%= @long_retention %> days (based on index timestamp), for
       <% @long_lifecycle_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
@@ -33,7 +33,7 @@ actions:
 
       Short Lifecycle Indices.
 
-      Delete indices older than <%= @short_retention %> days (based on index name), for
+      Delete indices older than <%= @short_retention %> days (based on index timestamp), for
       <% @short_lifecycle_indices.each do |index| -%>
         - <%= index %>
       <% end -%>

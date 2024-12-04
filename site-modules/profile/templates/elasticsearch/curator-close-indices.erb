@@ -4,7 +4,7 @@ actions:
   1:
     action: close
     description: >-
-      Close indices older than <%= @closing_delay %> days (based on index name), for
+      Close indices older than <%= @closing_delay %> days (based on index timestamp), for
       <% @all_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
