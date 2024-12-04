@@ -1,7 +1,7 @@
 ---
-cassandra::version: 4.0.15
+cassandra::version: 4.1.7
 cassandra::version_checksum_type: sha512
-cassandra::version_checksum: '9368639fe07613995fec2d50de13ba5b4a2d02e3da628daa1a3165aa009e356295d7f7aefde0dedaab385e9752755af8385679dd5f919902454df29114a3fcc0'
+cassandra::version_checksum: '5c5aeaf5d9ee4aab2a901188cd66a6056e4f06c61a6a7c6645f5994484abf8942f7be9a51f638827649f918980ef510760a5a900fd8bdfe3b72c3e40bac1d3cb'
 swh::deploy::environment: staging
 dns::search_domains:
   - internal.staging.swh.network
