@@ -4,9 +4,10 @@ cassandra::base_log_directory: /var/log/cassandra
 
 cassandra::max_map_count: 1048575
 
-cassandra::version: 4.0.8
+cassandra::version: 4.1.7
 cassandra::version_checksum_type: sha512
-cassandra::version_checksum: '6cb37f7266f446a23f32d73a128f7e96056b8829cbe653b1ecb4683fd4dab8f0d7a13357f7ee4ee2d6cc77dcbd97ca3dcce017334b9d129b01ca2b0660bc7ee6'
+cassandra::version_checksum: '5c5aeaf5d9ee4aab2a901188cd66a6056e4f06c61a6a7c6645f5994484abf8942f7be9a51f638827649f918980ef510760a5a900fd8bdfe3b72c3e40bac1d3cb'
+cassandra::paxos_repair: false
 
 cassandra::listen_network: "%{lookup('internal_network')}"
 
@@ -104,23 +105,25 @@ cassandra::base_instance_configuration:
   concurrent_writes: 128 # 8 x number of cores
   concurrent_counter_writes: 48
   commitlog_sync: periodic # default periodic
-  commitlog_sync_period_in_ms: 10000 # default 10000
-  commitlog_total_space_in_mb: 16384 # default 8192
-  commitlog_segment_size_in_mb: 256 # default 32 (due to oversize mutation on revision table)
+  commitlog_sync_period: 10000ms # default 10000
+  commitlog_total_space: 16384MiB # default 8192
+  commitlog_segment_size: 256MiB # default 32 (due to oversize mutation on revision table)
   partitioner: org.apache.cassandra.dht.Murmur3Partitioner
   endpoint_snitch: GossipingPropertyFileSnitch
-  enable_user_defined_functions: true # needed by swh-storage
-  compaction_throughput_mb_per_sec: 160
-  read_request_timeout_in_ms: 5000
-  range_request_timeout_in_ms: 10000
-  write_request_timeout_in_ms: 2000
-  counter_write_request_timeout_in_ms: 5000
-  cas_contention_timeout_in_ms: 1000
-  truncate_request_timeout_in_ms: 60000
-  request_timeout_in_ms: 10000
-  slow_query_log_timeout_in_ms: 1000
-  repair_session_space_in_mb: 1024
+  user_defined_functions_enabled: true # needed by swh-storage
+  compaction_throughput: 160MiB/s
+  read_request_timeout: 5000ms
+  range_request_timeout: 10000ms
+  write_request_timeout: 2000ms
+  counter_write_request_timeout: 5000ms
+  cas_contention_timeout: 1000ms
+  truncate_request_timeout: 60000ms
+  request_timeout: 10000ms
+  slow_query_log_timeout: 1000ms
+  repair_session_space: 1024MiB
   disk_access_mode: mmap_index_only
+  paxos_variant: v2  # Activate new paxos lightweight transaction (recommended)
+  paxos_state_purging: repaired
 
 # Activate this option when free disk space is limited
 # to avoid to have to compact big sstables

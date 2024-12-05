@@ -1,36 +1,4 @@
 ---
-cassandra::version: 4.1.7
-cassandra::version_checksum_type: sha512
-cassandra::version_checksum: '5c5aeaf5d9ee4aab2a901188cd66a6056e4f06c61a6a7c6645f5994484abf8942f7be9a51f638827649f918980ef510760a5a900fd8bdfe3b72c3e40bac1d3cb'
-cassandra::base_instance_configuration:
-  num_tokens: 16
-  allocate_tokens_for_local_replication_factor: 3
-  disk_optimization_strategy: ssd
-  concurrent_compactors: 4 # should be min(nb core, nb disks)
-  internode_compression: dc # default dc possible all|dc|none
-  concurrent_reads: 64 # 16 x number of drives
-  concurrent_writes: 128 # 8 x number of cores
-  concurrent_counter_writes: 48
-  commitlog_sync: periodic # default periodic
-  commitlog_sync_period: 10000ms # default 10000
-  commitlog_total_space: 16384MiB # default 8192
-  commitlog_segment_size: 256MiB # default 32 (due to oversize mutation on revision table)
-  partitioner: org.apache.cassandra.dht.Murmur3Partitioner
-  endpoint_snitch: GossipingPropertyFileSnitch
-  user_defined_functions_enabled: true # needed by swh-storage
-  compaction_throughput: 160MiB/s
-  read_request_timeout: 5000ms
-  range_request_timeout: 10000ms
-  write_request_timeout: 2000ms
-  counter_write_request_timeout: 5000ms
-  cas_contention_timeout: 1000ms
-  truncate_request_timeout: 60000ms
-  request_timeout: 10000ms
-  slow_query_log_timeout: 1000ms
-  repair_session_space: 1024MiB
-  disk_access_mode: mmap_index_only
-  paxos_variant: v2  # Activate new paxos lightweight transaction (recommended)
-  paxos_state_purging: repaired
 cassandra::paxos_repair: true
 
 swh::deploy::environment: staging
