@@ -3,8 +3,8 @@
 
 [Unit]
 Description=Cassandra paxos table specific repair
-Requires=cassandra<=% @instance_name %>.service
-After=cassandra<=% @instance_name %>.service
+Requires=<%= @service_name %>
+After=<%= @service_name %>
 
 [Service]
 User=<%= @cassandra_user %>
