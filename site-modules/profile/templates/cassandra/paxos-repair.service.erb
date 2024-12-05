@@ -1,0 +1,16 @@
+# Managed by puppet class profile::cassandra::instance
+# Changes will be overwritten
+
+[Unit]
+Description=Cassandra paxos table specific repair
+Requires=cassandra<=% @instance_name %>.service
+After=cassandra<=% @instance_name %>.service
+
+[Service]
+User=<%= @cassandra_user %>
+Group=<%= @cassandra_user %>
+Type=simple
+ExecStart=/opt/cassandra/bin/nodetool -u $(awk '{print $1}' /etc/cassandra/jmxremote.password) -pw $(awk '{print $2}' /etc/cassandra/jmxremote.password) repair --paxos-only
+
+[Install]
+WantedBy=multi-user.target

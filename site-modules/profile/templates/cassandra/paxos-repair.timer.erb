@@ -1,0 +1,11 @@
+[Install]
+WantedBy=timers.target
+
+[Timer]
+OnCalendar=hourly
+RandomizedDelaySec=15m
+FixedRandomDelay=true
+Unit=paxos-repair.service
+
+[Unit]
+Description=Repair system.paxos table every hour

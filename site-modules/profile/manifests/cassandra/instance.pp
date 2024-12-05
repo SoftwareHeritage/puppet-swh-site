@@ -17,6 +17,7 @@ define profile::cassandra::instance (
   $instance_base_data_dir = "${cassandra_base_data_dir}/${instance_name}"
   $cassandra_config_dir = lookup('cassandra::base_config_directory')
   $cassandra_log_dir = lookup('cassandra::base_log_directory')
+  $cassandra_user = lookup('cassandra::jmx::user')
 
   $base_data_dir = "${instance_base_data_dir}/data"
   $commitlog_dir = "${instance_base_data_dir}/commitlog"
@@ -50,6 +51,7 @@ define profile::cassandra::instance (
   }
 
   $computed_configuration = $base_configuration + $instance_configuration
+  $paxos_repair = lookup('cassandra::paxos_repair')
 
   # jmx port is hardcoded in the cassandra-env.sh file so it needs to be overriden in the
   # service configuration
@@ -132,5 +134,13 @@ define profile::cassandra::instance (
     content => template('profile/cassandra/cassandra-rackdc.properties.erb'),
     require => [File[$config_dir]],
   }
-
+  if $paxos_repair {
+    ::systemd::timer { 'paxos-repair.timer':
+      timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
+      service_content => template('profile/cassandra/paxos-repair.service.erb'),
+      service_unit    => 'paxos-repair.service',
+      active          => true,
+      enable          => true,
+    }
+  }
 }

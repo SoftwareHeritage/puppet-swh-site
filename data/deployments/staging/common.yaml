@@ -31,6 +31,7 @@ cassandra::base_instance_configuration:
   disk_access_mode: mmap_index_only
   paxos_variant: v2  # Activate new paxos lightweight transaction (recommended)
   paxos_state_purging: repaired
+cassandra::paxos_repair: true
 
 swh::deploy::environment: staging
 dns::search_domains:
