@@ -143,4 +143,18 @@ define profile::cassandra::instance (
     enable          => true,
     mode            => '0440',
   }
+
+  file { '/root/.cassandra_functions':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0640',
+    source => 'puppet:///modules/profile/cassandra/cassandra_functions',
+  }
+
+  file_line { '/root/.bashrc':
+    ensure => present,
+    path   => '/root/.bashrc',
+    line   => 'source /root/.cassandra_functions',
+  }
 }

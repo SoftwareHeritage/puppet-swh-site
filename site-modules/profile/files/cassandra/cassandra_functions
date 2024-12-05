@@ -1,0 +1,42 @@
+# bold
+BLUEB="\e[1;34m"
+GREEN="\e[32m"
+NORM="\e[0m"
+# bold blinking
+REDBB="\e[1;5;31m"
+PASSWD=$(awk '{print $2}' /etc/cassandra/jmxremote.password)
+USERNAME=$(awk '{print $1}' /etc/cassandra/jmxremote.password)
+alias nd='/opt/cassandra/bin/nodetool -u $USERNAME -pw $PASSWD'
+
+ndst () {
+        nd status -r
+}
+
+nd_compactionstats () {
+for host in $(ndst|awk '$1=="UN"{print $2}');do
+        echo -e "${BLUEB}${host%%.*}${NORM}"
+        nd -h "$host" compactionstats
+done
+}
+
+nd_health () {
+for host in $(ndst|awk '$1~/[DU][NLM]/{print $2}');do
+        echo -e "${BLUEB}${host%%.*}${NORM}"
+        status=$(ndst|awk -v host="$host" '$2~host{print $1}')
+        [[ "$status" == "UN" ]] && \
+            echo -e "Service status: ${GREEN}${status}${NORM} (Up and Normal)"
+        [[ "$status" == "DN" ]] && \
+            echo -e "Service status: ${REDBB}${status}${NORM} (Down and Normal)"
+        [[ "$status" == "UN" ]] && nd -h "$host" version
+done
+}
+
+nd_unrepaired () {
+[[ "$#" != 1 ]] && { echo Please give a valid cassandra table. ; exit 1 ;}
+local table=$1
+for host in $(ndst|awk '$1=="UN"{print $2}');do
+        echo -e "${BLUEB}${host%%.*}${NORM}"
+        nd -h "$host" tablestats -H "$table" | \
+        grep repaired
+done
+}
