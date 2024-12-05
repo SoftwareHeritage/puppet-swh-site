@@ -7,7 +7,6 @@ cassandra::max_map_count: 1048575
 cassandra::version: 4.1.7
 cassandra::version_checksum_type: sha512
 cassandra::version_checksum: '5c5aeaf5d9ee4aab2a901188cd66a6056e4f06c61a6a7c6645f5994484abf8942f7be9a51f638827649f918980ef510760a5a900fd8bdfe3b72c3e40bac1d3cb'
-cassandra::paxos_repair: false
 
 cassandra::listen_network: "%{lookup('internal_network')}"
 

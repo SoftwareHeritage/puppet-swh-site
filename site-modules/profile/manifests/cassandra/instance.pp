@@ -52,7 +52,6 @@ define profile::cassandra::instance (
   }
 
   $computed_configuration = $base_configuration + $instance_configuration
-  $paxos_repair = lookup('cassandra::paxos_repair')
 
   # jmx port is hardcoded in the cassandra-env.sh file so it needs to be overriden in the
   # service configuration
@@ -135,14 +134,13 @@ define profile::cassandra::instance (
     content => template('profile/cassandra/cassandra-rackdc.properties.erb'),
     require => [File[$config_dir]],
   }
-  if $paxos_repair {
-    ::systemd::timer { 'paxos-repair.timer':
-      timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
-      service_content => template('profile/cassandra/paxos-repair.service.erb'),
-      service_unit    => 'paxos-repair.service',
-      active          => true,
-      enable          => true,
-      mode            => '0440',
-    }
+
+  ::systemd::timer { 'paxos-repair.timer':
+    timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
+    service_content => template('profile/cassandra/paxos-repair.service.erb'),
+    service_unit    => 'paxos-repair.service',
+    active          => true,
+    enable          => true,
+    mode            => '0440',
   }
 }
