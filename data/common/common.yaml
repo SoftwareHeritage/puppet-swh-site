@@ -4690,8 +4690,8 @@ elasticsearch::config:
   indices.memory.index_buffer_size: 50%
   index.store.type: hybridfs
 
-elasticsearch::curator::long_retention: 365
-elasticsearch::curator::short_retention: 182
+elasticsearch::curator::long_retention: 367
+elasticsearch::curator::short_retention: 184
 elasticsearch::curator::closing_delay: 30
 elasticsearch::curator::long_lifecycle_indices:
   - systemlogs

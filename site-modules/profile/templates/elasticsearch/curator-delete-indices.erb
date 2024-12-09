@@ -7,7 +7,7 @@ actions:
 
       Long Lifecycle Indices.
 
-      Delete indices older than <%= @long_retention %> days (based on index timestamp), for
+      Delete indices older than <%= @long_retention %> days (based on index creation date), for
       <% @long_lifecycle_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
@@ -21,19 +21,17 @@ actions:
       kind: regex
       value: '^(<%= @long_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
-      source: field_stats
+      source: creation_date
       direction: older
       unit: days
       unit_count: <%= @long_retention %>
-      field: '@timestamp'
-      stats_result: min_value
   2:
     action: delete_indices
     description: >-
 
       Short Lifecycle Indices.
 
-      Delete indices older than <%= @short_retention %> days (based on index timestamp), for
+      Delete indices older than <%= @short_retention %> days (based on index creation date), for
       <% @short_lifecycle_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
@@ -47,9 +45,7 @@ actions:
       kind: regex
       value: '^(<%= @short_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
-      source: field_stats
+      source: creation_date
       direction: older
       unit: days
       unit_count: <%= @short_retention %>
-      field: '@timestamp'
-      stats_result: min_value
