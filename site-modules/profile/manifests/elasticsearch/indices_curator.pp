@@ -62,7 +62,7 @@ class profile::elasticsearch::indices_curator {
   $actions.each | $name, $script | {
     profile::cron::d { "elasticsearch-${name}":
       target  => 'elasticsearch',
-      command => "chronic /opt/curatorVenv/bin/curator --config ${curator_config} ${script} --logfile ${curator_logs}/${name}-week-$(date +%W).log",
+      command => "chronic /opt/curatorVenv/bin/curator --config ${curator_config} ${script} --logfile ${curator_logs}/${name}.log",
       user    => 'root',
       minute  => 'fqdn_rand',
       hour    => 'fqdn_rand',
