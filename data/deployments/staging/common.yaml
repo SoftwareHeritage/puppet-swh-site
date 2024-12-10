@@ -3,6 +3,9 @@ swh::deploy::environment: staging
 dns::search_domains:
   - internal.staging.swh.network
 
+cassandra::version: 5.0.2
+cassandra::version_checksum: '51478b18b8bce82a6b4915f31470d031306724041a4f2b684fd17635f8a5a9802594c0bbc3d0154cfa52d87a253d7868636985787aa1e3e00136259302689363'
+
 swh::deploy::storage::db::host: db1.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
