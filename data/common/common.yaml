@@ -138,6 +138,9 @@ smtp::mail_aliases:
   - user: gsamson
     aliases:
       - gsamson@softwareheritage.org
+  - user: varasterix
+    aliases:
+      - aymeric.varasse@softwareheritage.org
 
 networks::manage_interfaces: true
 
@@ -677,6 +680,13 @@ users:
   rboyer:
     uid: 1035
     full_name: Renaud Boyer
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+  varasterix:
+    uid: 1038
+    full_name: Aymeric Varasse
     groups:
       - swhdev
       - swhteam
