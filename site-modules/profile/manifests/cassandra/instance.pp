@@ -93,7 +93,6 @@ define profile::cassandra::instance (
 
   $config_files_to_copy = [
     'jvm-server.options',
-    'logback.xml',
     'cassandra-env.sh',
   ]
 
@@ -132,6 +131,15 @@ define profile::cassandra::instance (
     group   => 'root',
     mode    => '0644',
     content => template('profile/cassandra/cassandra-rackdc.properties.erb'),
+    require => [File[$config_dir]],
+  }
+
+  file { "${config_dir}/logback.xml":
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/profile/cassandra/logback.xml',
     require => [File[$config_dir]],
   }
 
