@@ -18,7 +18,6 @@ define profile::cassandra::instance (
   $cassandra_config_dir = lookup('cassandra::base_config_directory')
   $cassandra_log_dir = lookup('cassandra::base_log_directory')
   $cassandra_user = lookup('cassandra::jmx::user')
-  $cassandra_password = lookup('cassandra::jmx::password')
 
   $base_data_dir = "${instance_base_data_dir}/data"
   $commitlog_dir = "${instance_base_data_dir}/commitlog"

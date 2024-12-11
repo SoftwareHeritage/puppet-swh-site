@@ -10,7 +10,7 @@ After=<%= @service_name %>
 User=<%= @cassandra_user %>
 Group=<%= @cassandra_user %>
 Type=simple
-ExecStart=/opt/cassandra/bin/nodetool -u <%= @cassandra_user %> -pw <%= @cassandra_password %> repair --paxos-only
+ExecStart=/opt/cassandra/bin/nodetool -u <%= @cassandra_user %> -pwf /etc/cassandra/jmxremote.password repair --paxos-only
 
 [Install]
 WantedBy=multi-user.target
