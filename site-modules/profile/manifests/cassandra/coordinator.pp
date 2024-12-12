@@ -7,11 +7,12 @@ class profile::cassandra::coordinator {
   $jmx_password = $default_instance_config['jmx_password']
 
   file {"/etc/cassandra":
-      ensure => directory,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0775',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0775',
   }
+
   ~> file {"/etc/cassandra/staging-env.sh":
     ensure  => 'file',
     owner   => 'root',
@@ -26,12 +27,16 @@ class profile::cassandra::coordinator {
     mode    => '0700',
     content => template('profile/cassandra/production-env.sh.erb'),
   }
-  ~> file { '/usr/local/bin/restart-cassandra-cluster.sh':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('profile/cassandra/restart-cassandra-cluster.sh.erb'),
-  }
 
+  ['restart-cluster',
+    'upgradesstables',
+  ].each |$script| {
+    file { "/usr/local/bin/cassandra-${script}.sh":
+      ensure => 'file',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0750',
+      source => "puppet:///modules/profile/cassandra/cassandra-${script}.sh",
+    }
+  }
 }
