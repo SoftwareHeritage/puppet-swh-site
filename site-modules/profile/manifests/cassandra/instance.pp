@@ -146,7 +146,7 @@ define profile::cassandra::instance (
     timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
     service_content => template('profile/cassandra/paxos-repair.service.erb'),
     service_unit    => 'paxos-repair.service',
-    active          => true,
+    active          => false,
     enable          => true,
     mode            => '0440',
   }
