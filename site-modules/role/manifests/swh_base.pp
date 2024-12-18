@@ -16,6 +16,7 @@ class role::swh_base {
     include profile::megacli
     include profile::smartmontools
     include profile::nvme
+    include profile::debian_migration
   }
 
   include profile::cloudinit
