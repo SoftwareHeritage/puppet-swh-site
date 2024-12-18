@@ -21,14 +21,14 @@ if [ "${codename}" = "bullseye" ]; then
 
   git status
   git add .
-  git commit -m "migrate from bullseye to bookworm distribution"
+  git commit -m "Migrate from bullseye to bookworm distribution"
+
+  popd
 
   # Avoid interactive questions about configuration file This will keep the modified
   # configuration files we have as-is while installing the default updated configuration
   # files for unmodified ones
   export DEBIAN_FRONTEND=noninteractive
-
-  popd
   apt update
   apt upgrade --without-new-pkgs -y
   apt dist-upgrade --download-only -y
@@ -42,4 +42,13 @@ else
         echo "<$codename> cannot be migrated to bookworm. Do nothing."
         exit 1;
     fi
+fi
+
+codename=$(lsb_release -c 2>/dev/null | awk '{print $2}')
+if [ "${codename}" = "bookworm" ]; then
+    echo "Migration to bookworm finished!"
+    exit 0
+else
+    echo "Something went wrong."
+    exit 1
 fi
