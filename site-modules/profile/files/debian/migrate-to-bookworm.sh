@@ -27,13 +27,13 @@ if [ "${codename}" = "bullseye" ]; then
   # configuration files we have as-is while installing the default updated configuration
   # files for unmodified ones
   export DEBIAN_FRONTEND=noninteractive
-  APT='apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
-  $APT update
-  $APT upgrade --without-new-pkgs -y
-  $APT dist-upgrade --download-only -y
-  $APT dist-upgrade -y
 
   popd
+  apt update
+  apt upgrade --without-new-pkgs -y
+  apt dist-upgrade --download-only -y
+  apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
+      dist-upgrade -y
 else
     if [ "${codename}" = "bookworm" ]; then
         echo "Nothing to do. Stop"
