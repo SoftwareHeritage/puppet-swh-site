@@ -5,7 +5,7 @@
 # This script is in charge of migrating a bullseye machine to bookworm.
 # It won't do anything if the node is not running bullseye.
 #
-# The script must be execute by the root user.
+# The script must be executed by the root user.
 
 set -x
 
@@ -23,10 +23,15 @@ if [ "${codename}" = "bullseye" ]; then
   git add .
   git commit -m "migrate from bullseye to bookworm distribution"
 
-  apt update
-  apt upgrade --without-new-pkgs -y
-  apt full-upgrade --download-only -y
-  apt full-upgrade -y
+  # Avoid interactive questions about configuration file This will keep the modified
+  # configuration files we have as-is while installing the default updated configuration
+  # files for unmodified ones
+  export DEBIAN_FRONTEND=noninteractive
+  APT='apt -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+  $APT update
+  $APT upgrade --without-new-pkgs -y
+  $APT dist-upgrade --download-only -y
+  $APT dist-upgrade -y
 
   popd
 else
