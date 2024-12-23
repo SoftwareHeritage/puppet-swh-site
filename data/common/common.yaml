@@ -691,6 +691,10 @@ users:
       - swhdev
       - swhteam
     shell: /bin/bash
+    authorized_keys:
+      varasterix:
+         type: ssh-ed25519
+         key: AAAAC3NzaC1lZDI1NTE5AAAAIEDIxDM55q3PqmEBEeM1A4VzIEReZFStVKxDE8kE8Vhg
   # Do not allocate uid: 1036, used for Adèle Desmazières on specific hosts
   # Do not allocate uid: 1037, used for Rayan Mostovoi on specific hosts
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
