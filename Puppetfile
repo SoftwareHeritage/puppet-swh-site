@@ -175,6 +175,10 @@ mod 'ssh',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-ssh',
     :ref => 'v8.0.0'
 
+mod 'sshkeys_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-sshkeys_core',
+    :ref => 'v2.5.0'
+
 mod 'stdlib',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-stdlib',
     :ref => 'v8.1.0'
