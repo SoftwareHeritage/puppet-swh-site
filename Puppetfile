@@ -30,6 +30,10 @@ mod 'archive',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-archive',
     :tag => 'v6.0.2'
 
+mod 'augeas_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-augeas_core.git',
+    :tag => 'v1.5.0'
+
 mod 'bind',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-inkblot-bind',
     :ref => '7.4.0'
@@ -45,6 +49,10 @@ mod 'ceph',
 mod 'concat',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-concat',
     :tag => 'v7.1.1'
+
+mod 'cron_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-cron_core.git',
+    :tag => 'v1.3.0'
 
 mod 'cups',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-mosen-cups',
@@ -122,6 +130,14 @@ mod 'letsencrypt',
 mod 'locales',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-locales',
     :ref => 'v3.1.0'
+
+mod 'mailalias_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-mailalias_core.git',
+    :tag => 'v1.2.0'
+
+mod 'mount_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-mount_core.git',
+    :tag => 'v1.3.0'
 
 mod 'mysql',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-mysql',
