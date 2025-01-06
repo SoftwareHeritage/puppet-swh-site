@@ -2,9 +2,7 @@
 WantedBy=timers.target
 
 [Timer]
-OnCalendar=hourly
-RandomizedDelaySec=55m
-FixedRandomDelay=true
+OnCalendar=<%= @cassandra_paxos_timer %>
 Unit=paxos-repair.service
 
 [Unit]

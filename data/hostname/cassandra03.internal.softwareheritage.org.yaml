@@ -7,3 +7,5 @@ icinga2::host::vars:
     disk /srv/cassandra/instance1/data:
       disk_wfree: '10%'
       disk_cfree: '5%'
+
+paxos::repair::timer::calendar: '00/3:20'

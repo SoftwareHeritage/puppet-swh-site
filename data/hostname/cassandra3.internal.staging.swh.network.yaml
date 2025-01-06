@@ -2,3 +2,5 @@ swh::apt_config::enable_non_free: true
 
 icinga2::host::vars:
   load: sql
+
+paxos::repair::timer::calendar: '00/1:40'
