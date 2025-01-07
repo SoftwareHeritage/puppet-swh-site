@@ -1,0 +1,18 @@
+---
+swh::apt_config::enable_non_free: true
+
+elasticsearch::config::extras:
+  xpack.security.enabled: false
+  xpack.security.transport.ssl.enabled: false
+  xpack.security.http.ssl.enabled: false
+
+elastic::elk_version: '8.15.1'
+
+# Not taken into account (kept for informational purposes)
+# role elasticsearch is most likely missing the profile::zfs::common
+zfs::common::zpool_configuration:
+  disk:
+    - nvme-MO003200KYDNC_S70NNT0X604313
+    - nvme-MO003200KYDNC_S70NNT0X604315
+    - nvme-MO003200KYDNC_S70NNT0X604316
+    - nvme-MO003200KYDNC_S70NNT0X604246
