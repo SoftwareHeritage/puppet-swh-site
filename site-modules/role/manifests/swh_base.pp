@@ -16,7 +16,6 @@ class role::swh_base {
     include profile::megacli
     include profile::smartmontools
     include profile::nvme
-    include profile::debian_migration
   }
 
   include profile::cloudinit
@@ -25,4 +24,5 @@ class role::swh_base {
 
   include profile::sanoid::sync_source
   include profile::sanoid::sync_destination
+  include profile::debian_migration
 }
