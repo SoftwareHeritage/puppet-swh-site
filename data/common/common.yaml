@@ -141,6 +141,9 @@ smtp::mail_aliases:
   - user: varasterix
     aliases:
       - aymeric.varasse@softwareheritage.org
+  - user: martin
+    aliases:
+      - martin.kirchgessner@inria.fr
 
 networks::manage_interfaces: true
 
@@ -665,18 +668,18 @@ users:
       - sudo
     shell: /usr/bin/zsh
     authorized_keys:
-       gsamson@gsamson:
-         type: ssh-ed25519
-         key: AAAAC3NzaC1lZDI1NTE5AAAAIFBFC8GmLbjltvV2t4M3YgdRJE6GVG1Jub0OsF/Bw6//
+      gsamson@gsamson:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIFBFC8GmLbjltvV2t4M3YgdRJE6GVG1Jub0OsF/Bw6//
   hjonin:
     uid: 1034
     full_name: Helene Jonin
     groups: []
     shell: /bin/false
     authorized_keys:
-       helene.jonin@gmail.com:
-         type: ssh-ed25519
-         key: disabled
+      helene.jonin@gmail.com:
+        type: ssh-ed25519
+        key: disabled
   rboyer:
     uid: 1035
     full_name: Renaud Boyer
@@ -684,6 +687,8 @@ users:
       - swhdev
       - swhteam
     shell: /bin/bash
+  # Do not allocate uid: 1036, used for Adèle Desmazières on specific hosts
+  # Do not allocate uid: 1037, used for Rayan Mostovoi on specific hosts
   varasterix:
     uid: 1038
     full_name: Aymeric Varasse
@@ -693,10 +698,19 @@ users:
     shell: /bin/bash
     authorized_keys:
       varasterix:
-         type: ssh-ed25519
-         key: AAAAC3NzaC1lZDI1NTE5AAAAIEDIxDM55q3PqmEBEeM1A4VzIEReZFStVKxDE8kE8Vhg
-  # Do not allocate uid: 1036, used for Adèle Desmazières on specific hosts
-  # Do not allocate uid: 1037, used for Rayan Mostovoi on specific hosts
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIEDIxDM55q3PqmEBEeM1A4VzIEReZFStVKxDE8kE8Vhg
+  martin:
+    uid: 1039
+    full_name: Martin Kirchgessner
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+    authorized_keys:
+      martin:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQCrcmQpoU6bErC9uTfryzrfj046MISvzWZHGZCppC5/e9cH15G9s7HAnBQzj7dcheiszeKgCE2T8wppIjbDUIQulBrTBhXfqTFzKtgcOZAATO3hSqHV+zKpdmaxrQE68+pJpf2qRiupW8CgwZY/hIEaz4byJ0v6videVaUkKPcoaZeBteUiFcxVNSuGTCtriJRJgEBS8CoJqvwIaaVvPNz3A88qAegYru0jTgxShsBYLJRC349rMl+6dB/pWTUZTp6bpBzEF8Lx1ZbRnuo4VTO/j0IXAMkA8Zjidx99oJTQDQqfY/n4Z6+QCDmgPuSzQRbUCcHugwU5ksU+skvptyTrEt0PwLoJSvlCl27jC12FWcjG/HmV9CNUL9Kzn4zvFYV5FNPDQPZZsVYnu9slJxWs1q0KnYxnI0u9rQNgiCKl3pIf1V1QR7Mfapx7dsRT3XKeo1CQtuHow4KhSthM6NM2yFoJhN0ZLyDBkQawumZ8+pBgxmgabn5ztB0fCX/uFXk=
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
