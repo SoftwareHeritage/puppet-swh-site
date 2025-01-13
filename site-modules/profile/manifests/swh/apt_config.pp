@@ -22,9 +22,12 @@ class profile::swh::apt_config {
     include profile::swh::apt_config::unattended_upgrades
   }
 
-  $repos = $debian_enable_non_free ? {
-    true    => 'main contrib non-free',
-    default => 'main',
+  if !$debian_enable_non_free {
+    $repos = 'main'
+  } elsif versioncmp($::lsbmajdistrelease, '12') >= 0 {
+    $repos = 'main contrib non-free non-free-firmware'
+  } else {
+    $repos = 'main contrib non-free'
   }
 
   include profile::swh::apt_config::backports
