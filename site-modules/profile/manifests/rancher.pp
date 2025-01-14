@@ -4,6 +4,8 @@ class profile::rancher {
   include profile::mountpoints
   include profile::kubernetes
 
+  ensure_packages('pigz')
+
   # Install the necessary 50-snapshotter.yaml configuration so rke2-agent.service
   # actually starts.
   $config_content = lookup('rancher::rke2::agent::config')
@@ -20,10 +22,6 @@ class profile::rancher {
     group   => 'root',
     mode    => '0644',
     content => inline_yaml($config_content),
-  }
-
-  file {'/etc/rancher/rke2/config.yaml.d/50-snaphotter.yaml':
-    ensure => 'absent',
   }
 
   $snapshotter = $config_content['snapshotter']
