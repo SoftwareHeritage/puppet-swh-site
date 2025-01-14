@@ -3,9 +3,13 @@ class profile::swh::apt_config::unattended_upgrades {
   $origins = lookup('swh::apt_config::unattended_upgrades::origins')
 
   class {'::unattended_upgrades':
-    mail    => {
+    origins                => $origins,
+    remove_new_unused_deps => false,
+    mail                   => {
       to => 'root',
     },
-    origins => $origins,
+    auto                   => {
+      remove => false,
+    },
   }
 }
