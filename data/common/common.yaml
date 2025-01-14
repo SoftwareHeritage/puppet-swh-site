@@ -3084,8 +3084,8 @@ swh::deploy::deposit::e2e::collection: swh
 swh::deploy::deposit::e2e::provider_url: https://www.softwareheritage.org
 swh::deploy::deposit::e2e::swh_web_url: "%{alias('swh::deploy::webapp::url')}"
 swh::deploy::deposit::e2e::poll_interval: 1
-swh::deploy::deposit::e2e::archive: /opt/swh-e2e-checks/lib/python3.9/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz
-swh::deploy::deposit::e2e::metadata: /opt/swh-e2e-checks/lib/python3.9/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz.xml
+swh::deploy::deposit::e2e::archive: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz
+swh::deploy::deposit::e2e::metadata: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz.xml
 
 swh::deploy::deposit::sentry_swh_package: swh.deposit
 swh::deploy::deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
