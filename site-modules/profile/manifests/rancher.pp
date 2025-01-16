@@ -5,6 +5,7 @@ class profile::rancher {
   include profile::kubernetes
 
   ensure_packages('pigz')
+  ensure_packages('iptables')
 
   # Install the necessary 50-snapshotter.yaml configuration so rke2-agent.service
   # actually starts.
