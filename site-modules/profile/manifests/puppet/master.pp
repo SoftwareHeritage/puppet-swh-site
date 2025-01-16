@@ -104,4 +104,18 @@ class profile::puppet::master {
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand',
   }
+
+  profile::cron::d {'gzip-puppetserver-reports':
+    target  => 'puppet',
+    command => 'find /var/lib/puppetserver/reports -type f -not -name \'*.gz\' -exec gzip {} \+',
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand/4',
+  }
+
+  profile::cron::d {'purge-puppetserver-reports':
+    target  => 'puppet',
+    command => "find /var/lib/puppetserver/reports -type f -mtime +${reports_retention} -delete",
+    minute  => 'fqdn_rand',
+    hour    => 'fqdn_rand',
+  }
 }
