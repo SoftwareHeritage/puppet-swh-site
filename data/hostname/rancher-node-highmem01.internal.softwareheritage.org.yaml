@@ -12,6 +12,8 @@ icinga2::host::vars:
 mountpoints:
   /srv/storage/space:
     ensure: absent
+  swap:
+    ensure: absent
 
 swh::apt_config::enable_non_free: true
 
