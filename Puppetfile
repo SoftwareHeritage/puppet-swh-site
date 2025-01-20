@@ -165,7 +165,7 @@ mod 'pgbouncer',
 
 mod 'puppet',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-theforeman-puppet',
-    :ref => 'latest_passenger'
+    :ref => '20.0.0'
 
 mod 'puppetdb',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-puppetdb',

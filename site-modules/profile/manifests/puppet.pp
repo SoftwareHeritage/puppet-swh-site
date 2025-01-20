@@ -2,18 +2,17 @@
 class profile::puppet {
   include ::profile::puppet::apt_config
 
-  $puppetmaster = lookup('puppet::master::hostname')
+  $puppet_server = lookup('puppet::server::hostname')
 
   $agent_config = {
-    runmode             => 'none',
-    pluginsync          => true,
-    puppetmaster        => $puppetmaster,
+    runmode               => 'none',
+    agent_server_hostname => $puppet_server,
   }
 
-  $is_puppetmaster = $puppetmaster in values($::swh_hostname)
+  $is_puppetserver = $puppet_server in values($::swh_hostname)
 
-  if $is_puppetmaster {
-    include ::profile::puppet::master
+  if $is_puppetserver {
+    include ::profile::puppet::server
   } else {
     class {'::puppet':
       * => $agent_config,

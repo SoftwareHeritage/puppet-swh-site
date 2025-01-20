@@ -791,12 +791,12 @@ rabbitmq::server::users:
     tags:
       - management
 
-puppet::master::hostname: pergamon.internal.softwareheritage.org
-puppet::master::puppetdb: pergamon.internal.softwareheritage.org
-puppet::master::codedir: /etc/puppet/code
-puppetdb::master::config::terminus_package: puppet-terminus-puppetdb
-puppet::master::manage_puppetdb: false
-puppet::master::reports_retention: 7
+puppet::server::hostname: pergamon.internal.softwareheritage.org
+puppet::server::puppetdb: pergamon.internal.softwareheritage.org
+puppet::server::codedir: /etc/puppet/code
+puppetdb::server::config::terminus_package: puppet-terminus-puppetdb
+puppet::server::manage_puppetdb: false
+puppet::server::reports_retention: 7
 
 strict_transport_security::max_age: 15768000
 

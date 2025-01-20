@@ -3,7 +3,7 @@ class role::swh_sysadmin inherits role::swh_server {
 
   include profile::prometheus::sql
 
-  include profile::puppet::master
+  include profile::puppet::server
   include profile::cassandra::coordinator
 
   if $::subnet == 'vagrant' {

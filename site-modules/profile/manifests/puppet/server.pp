@@ -1,10 +1,10 @@
-# Puppet master profile
-class profile::puppet::master {
-  $puppetdb = lookup('puppet::master::puppetdb')
-  $codedir = lookup('puppet::master::codedir')
-  $reports_retention = lookup('puppet::master::reports_retention')
+# Puppet server profile
+class profile::puppet::server {
+  $puppetdb = lookup('puppet::server::puppetdb')
+  $codedir = lookup('puppet::server::codedir')
+  $reports_retention = lookup('puppet::server::reports_retention')
 
-  $manage_puppetdb = lookup('puppet::master::manage_puppetdb')
+  $manage_puppetdb = lookup('puppet::server::manage_puppetdb')
 
   # Pergamon installation was done manually, we ensure nothing
   # is touched in production
@@ -49,16 +49,17 @@ class profile::puppet::master {
   class { '::puppet':
     server                      => true,
     server_common_modules_path  => '',
-    server_environments         => [],
     server_external_nodes       => '',
     server_foreman              => false,
-    server_passenger            => true,
-    server_puppetdb_host        => $puppetdb,
     server_reports              => 'store,puppetdb',
-    server_storeconfigs_backend => 'puppetdb',
+    server_storeconfigs         => true,
     codedir                     => $codedir,
 
     *                           => $::profile::puppet::agent_config,
+  }
+
+  class { '::puppet::server::puppetdb':
+    server => $puppetdb,
   }
 
   # Extra configuration for fileserver
