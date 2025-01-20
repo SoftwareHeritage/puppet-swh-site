@@ -157,7 +157,7 @@ mod 'php',
 
 mod 'postgresql',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-postgresql',
-    :ref => 'v7.5.0'
+    :ref => 'v10.5.0'
 
 mod 'pgbouncer',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-covermymeds-pgbouncer',
