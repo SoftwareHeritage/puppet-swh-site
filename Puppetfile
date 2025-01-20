@@ -36,7 +36,7 @@ mod 'augeas_core',
 
 mod 'bind',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-inkblot-bind',
-    :ref => '7.4.0'
+    :ref => 'anarcat'
 
 mod 'cassandra',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-cassandra',
