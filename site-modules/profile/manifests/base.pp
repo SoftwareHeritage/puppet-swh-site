@@ -54,7 +54,7 @@ class profile::base {
       Package['fish'] -> User[$name]
     }
 
-    if (has_key($groups, $name)) {
+    if ($name in $groups) {
       Group[$name] -> User[$name]
     }
 

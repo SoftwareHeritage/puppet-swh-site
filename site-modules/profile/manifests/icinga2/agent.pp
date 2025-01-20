@@ -18,7 +18,7 @@ class profile::icinga2::agent {
   }
 
   $local_host_vars = {
-    disks => hash(flatten(
+    disks => Hash(flatten(
       $check_mounts.map |$mount| {
         ["disk ${mount}", {disk_partitions => $mount}]
       },

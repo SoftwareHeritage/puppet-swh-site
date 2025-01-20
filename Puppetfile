@@ -197,7 +197,7 @@ mod 'sshkeys_core',
 
 mod 'stdlib',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-stdlib',
-    :ref => 'v8.1.0'
+    :ref => 'v9.7.0'
 
 mod 'sudo',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-sudo',

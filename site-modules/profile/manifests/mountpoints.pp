@@ -3,7 +3,7 @@ class profile::mountpoints {
   $mountpoints = lookup('mountpoints', Hash, 'hash')
 
   each($mountpoints) |$mountpoint, $config| {
-    if (has_key($config, 'options') and $config['options'] =~ Array) {
+    if ('options' in $config and $config['options'] =~ Array) {
       $mount_config = $config + {
         options => join($config['options'], ','),
       }

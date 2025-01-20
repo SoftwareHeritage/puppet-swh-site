@@ -61,7 +61,7 @@ define profile::cron::d(
     fail("Parse errors in profile::cron::d: ${_str_parse_errors}")
   }
 
-  $_params_hash = $_parsed_params.map |$value| { $value[0,2] }.hash
+  $_params_hash = Hash($_parsed_params.map |$value| { $value[0,2] })
 
   if !defined(Profile::Cron::File[$target]) {
     profile::cron::file {$target:}
