@@ -24,7 +24,7 @@ class profile::annex_web {
 
   ::apache::vhost {"${annex_vhost_name}_non-ssl":
     servername      => $annex_vhost_name,
-    port            => '80',
+    port            => 80,
     docroot         => $annex_vhost_docroot,
     redirect_status => 'permanent',
     redirect_dest   => "https://${annex_vhost_name}/",
@@ -35,7 +35,7 @@ class profile::annex_web {
 
   ::apache::vhost {"${annex_vhost_name}_ssl":
     servername           => $annex_vhost_name,
-    port                 => '443',
+    port                 => 443,
     ssl                  => true,
     ssl_protocol         => $annex_vhost_ssl_protocol,
     ssl_honorcipherorder => $annex_vhost_ssl_honorcipherorder,

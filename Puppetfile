@@ -20,7 +20,7 @@ mod 'uwsgi',
 
 mod 'apache',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-apache',
-    :tag => 'v7.0.0'
+    :tag => 'v12.2.0'
 
 mod 'apt',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-apt',

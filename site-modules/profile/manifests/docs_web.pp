@@ -23,7 +23,7 @@ class profile::docs_web {
 
   ::apache::vhost {"${docs_vhost_name}_non-ssl":
     servername      => $docs_vhost_name,
-    port            => '80',
+    port            => 80,
     docroot         => $docs_vhost_docroot,
     manage_docroot  => false,  # will be managed by the SSL resource
     redirect_status => 'permanent',
@@ -35,7 +35,7 @@ class profile::docs_web {
 
   ::apache::vhost {"${docs_vhost_name}_ssl":
     servername           => $docs_vhost_name,
-    port                 => '443',
+    port                 => 443,
     ssl                  => true,
     ssl_protocol         => $docs_vhost_ssl_protocol,
     ssl_honorcipherorder => $docs_vhost_ssl_honorcipherorder,

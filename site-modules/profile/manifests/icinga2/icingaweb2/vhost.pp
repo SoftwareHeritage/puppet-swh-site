@@ -15,7 +15,7 @@ class profile::icinga2::icingaweb2::vhost {
   ::apache::vhost {"${icingaweb2_vhost_name}_non-ssl":
     servername      => $icingaweb2_vhost_name,
     serveraliases   => $icingaweb2_vhost_aliases,
-    port            => '80',
+    port            => 80,
     docroot         => $icingaweb2_vhost_docroot,
     manage_docroot  => false,  # will be managed by the SSL resource
     redirect_status => 'permanent',
@@ -28,7 +28,7 @@ class profile::icinga2::icingaweb2::vhost {
   ::apache::vhost {"${icingaweb2_vhost_name}_ssl":
     servername           => $icingaweb2_vhost_name,
     serveraliases        => $icingaweb2_vhost_aliases,
-    port                 => '443',
+    port                 => 443,
     ssl                  => true,
     ssl_protocol         => $icingaweb2_vhost_ssl_protocol,
     ssl_honorcipherorder => $icingaweb2_vhost_ssl_honorcipherorder,

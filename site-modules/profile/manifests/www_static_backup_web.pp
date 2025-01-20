@@ -8,7 +8,7 @@ class profile::www_static_backup_web {
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername           => $vhost_name,
-    port                 => '80',
+    port                 => 80,
     ssl                  => false,
     docroot              => $vhost_docroot,
     manage_docroot       => false,

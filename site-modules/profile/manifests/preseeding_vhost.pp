@@ -22,7 +22,7 @@ class profile::preseeding_vhost {
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
     serveraliases   => $vhost_aliases,
-    port            => '80',
+    port            => 80,
     docroot         => $vhost_docroot,
     docroot_owner   => $vhost_docroot_owner,
     docroot_group   => $vhost_docroot_group,
@@ -36,7 +36,7 @@ class profile::preseeding_vhost {
 
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
-    port                 => '443',
+    port                 => 443,
     ssl                  => true,
     ssl_protocol         => $vhost_ssl_protocol,
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,

@@ -105,7 +105,7 @@ class profile::maven_index_exporter {
 
   ::apache::vhost {"${vhost_name}_non-ssl":
     servername      => $vhost_name,
-    port            => '80',
+    port            => 80,
     docroot         => $publish_path,
     manage_docroot  => false,
     redirect_status => 'permanent',
@@ -117,7 +117,7 @@ class profile::maven_index_exporter {
   $cert_paths = ::profile::letsencrypt::certificate_paths($vhost_name)
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
-    port                 => '443',
+    port                 => 443,
     ssl                  => true,
     ssl_protocol         => $vhost_ssl_protocol,
     ssl_honorcipherorder => $vhost_ssl_honorcipherorder,

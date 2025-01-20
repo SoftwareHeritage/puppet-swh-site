@@ -15,7 +15,7 @@ class profile::apache::rewrite_domains {
 
     ::apache::vhost {"${name}_non-ssl":
       servername      => $name,
-      port            => '80',
+      port            => 80,
       docroot         => '/var/www',
       redirect_status => 'permanent',
       redirect_dest   => "https://${name}/",
@@ -24,7 +24,7 @@ class profile::apache::rewrite_domains {
 
     ::apache::vhost {"${name}_ssl":
       servername           => $name,
-      port                 => '443',
+      port                 => 443,
       ssl                  => true,
       ssl_protocol         => $ssl_protocol,
       ssl_honorcipherorder => $ssl_honorcipherorder,
