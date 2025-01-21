@@ -58,10 +58,6 @@ mod 'cups',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-mosen-cups',
     :ref => 'master'
 
-mod 'datacat',
-    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-richardc-datacat',
-    :ref => '0.6.2'
-
 mod 'debconf',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-stm-debconf',
     :ref => 'v4.1.0'
