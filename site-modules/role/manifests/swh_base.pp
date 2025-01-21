@@ -19,7 +19,6 @@ class role::swh_base {
   }
 
   include profile::cloudinit
-  include profile::network
   include profile::swh
 
   include profile::sanoid::sync_source

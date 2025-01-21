@@ -20,13 +20,9 @@ ntp::servers:
   - sesi-ntp1.inria.fr
   - sesi-ntp2.inria.fr
 
-networks::manage_interfaces: false
-
 internal_network: 10.168.0.0/16
 
 puppet::master::codedir: /tmp/puppet
-
-networks::private_routes: {}
 
 smtp::relay_hostname: 'none'
 

@@ -66,10 +66,6 @@ mod 'debconf',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-stm-debconf',
     :ref => 'v4.1.0'
 
-mod 'debnet',
-    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-trepasi-debnet',
-    :ref => '8d856df078352a8848a43ca0ee9f2ef9086b343a'
-
 mod 'docker',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-docker',
     :ref => 'v4.1.2'

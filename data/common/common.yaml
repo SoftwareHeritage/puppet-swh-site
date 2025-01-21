@@ -145,34 +145,6 @@ smtp::mail_aliases:
     aliases:
       - martin.kirchgessner@inria.fr
 
-networks::manage_interfaces: true
-
-networks::private_routes:
-  vpn:
-    network: 192.168.101.0/24
-    gateway: "%{alias('networks::private_gateway')}"
-    enabled: true
-  azure:
-    network: 192.168.200.0/21
-    gateway: "%{alias('networks::private_gateway')}"
-    enabled: true
-  cea:
-    network: 10.25.6.0/24
-    gateway: "%{alias('networks::private_gateway')}"
-    enabled: true
-  staging:
-    network: 192.168.130.0/24
-    gateway: "%{alias('networks::private_gateway')}"
-    enabled: false
-  admin:
-    network: 192.168.50.0/24
-    gateway: "%{alias('networks::private_gateway')}"
-    enabled: false
-
-networks::private_network: 192.168.100.0/24
-networks::private_gateway: 192.168.100.1
-networks::public_swh_gateway: "%{alias('networks::staging_gateway')}"
-
 locales::default_locale: C.UTF-8
 locales::installed_locales:
   - C.UTF-8 UTF-8

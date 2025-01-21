@@ -1,25 +1,4 @@
 ---
-networks:
-  bond0:
-    type: manual
-    order: 20
-    extras:
-      mtu: "9000"
-      bond-miimon: 100
-      bond-mode: 802.3ad
-      bond-xmit_hash_policy: layer3+4
-      bond-slaves: enp2s0f0 enp2s0f1
-      bond-lacp-rate: 1
-  vlan443:
-    type: static
-    order: 30
-    address: 192.168.130.11
-    netmask: 24
-    gateway: 192.168.130.1
-    mtu: "9000"
-    extras:
-      vlan-raw-device: bond0
-
 mountpoints:
   /tmp:
     ensure: absent

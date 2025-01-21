@@ -1,3 +1,4 @@
+---
 smtp::virtual_aliases:
   - destination: "@%{lookup('phabricator::vhost::name')}"
     alias: "%{lookup('phabricator::user')}"
@@ -7,17 +8,6 @@ smtp::mail_aliases:
       - "| %{lookup('phabricator::basepath')}/phabricator/scripts/mail/mail_handler.php"
 
 ssh::port: 2222
-
-networks:
-  eth0:
-    address: 128.93.166.12
-    netmask: 26
-    gateway: 128.93.166.62
-  eth1:
-    type: private
-    address: 192.168.100.30
-    netmask: 255.255.255.0
-    gateway: 192.168.100.1
 
 apache::rewrite_domains:
   # Must have matching certificates in letsencrypt::certificates

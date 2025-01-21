@@ -1,9 +1,4 @@
-networks:
-  eth0:
-    address: 192.168.130.50
-    netmask: 255.255.255.0
-    gateway: 192.168.130.1
-
+---
 backups::exclude:
   - var/lib/rabbitmq
 

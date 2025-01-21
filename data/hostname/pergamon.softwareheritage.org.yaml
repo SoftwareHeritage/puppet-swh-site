@@ -21,23 +21,6 @@ smtp::mynetworks:
   - 192.168.100.0/23
   - 192.168.200.0/21
 
-networks:
-  eth0:
-    address: 128.93.166.14
-    netmask: 26
-    gateway: 128.93.166.62
-  eth1:
-    type: private
-    address: 192.168.100.29
-    netmask: 255.255.255.0
-    gateway: 192.168.100.1
-
-networks::private_routes:
-  staging:
-    enabled: true
-  admin:
-    enabled: true
-
 # Set apache MPM to prefork
 apache::mpm_module: prefork
 
