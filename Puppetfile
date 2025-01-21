@@ -149,7 +149,7 @@ mod 'ntp',
 
 mod 'php',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-php',
-    :ref => 'v8.0.2'
+    :ref => 'v10.2.0'
 
 mod 'postgresql',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-postgresql',
