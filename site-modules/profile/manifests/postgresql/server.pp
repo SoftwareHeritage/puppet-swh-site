@@ -92,6 +92,7 @@ class profile::postgresql::server {
   $guest = 'guest'
   postgresql::server::role { $guest:
     password_hash => postgresql::postgresql_password($guest, 'guest'),
+    port          => $postgres_port,
     require       => Class['postgresql::server']
   }
 
@@ -109,6 +110,7 @@ class profile::postgresql::server {
       user     => $db_user,
       password => $db_pass,
       owner    => $db_user,
+      port     => $postgres_port,
       encoding => 'UTF8',
       locale   => 'C.UTF-8',
       require  => Class['postgresql::server']
@@ -117,6 +119,7 @@ class profile::postgresql::server {
     # guest user has read access on tables
     postgresql::server::database_grant { $db_name:
       privilege => 'connect',
+      port      => $postgres_port,
       db        => $db_name,
       role      => $guest,
       require   => Postgresql::Server::Db[$db_name]
