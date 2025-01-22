@@ -65,3 +65,4 @@ groups:
 thanos::tenant: historical-data
 
 swh::postgresql::version: "15"
+swh::postgresql::max_connections: 200
