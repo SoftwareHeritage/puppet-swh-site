@@ -181,7 +181,7 @@ mod 'resolv_conf',
 
 mod 'ssh',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-ssh',
-    :ref => 'v8.0.0'
+    :ref => 'v13.0.0'
 
 mod 'sshkeys_core',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-sshkeys_core',
