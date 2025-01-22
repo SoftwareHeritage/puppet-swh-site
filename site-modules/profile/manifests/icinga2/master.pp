@@ -5,21 +5,28 @@ class profile::icinga2::master {
   $icinga2_network = lookup('icinga2::network')
 
   $hiera_host_vars = lookup('icinga2::host::vars', Hash, 'deep')
+  $mount_excludes = lookup('icinga2::disk::excludes', Array[String], 'unique')
 
   $icinga2_db_username = lookup('icinga2::master::db::username')
   $icinga2_db_password = lookup('icinga2::master::db::password')
   $icinga2_db_database = lookup('icinga2::master::db::database')
 
+  $agent_local_plugins = lookup('icinga2::host::local_plugins', default_value => {})
+
   include profile::icinga2::objects
   include profile::icinga2::objects::agent_checks
 
+  $check_mounts = $::mounts.filter |$mount| {
+    $mount_excludes.all |$exclude| { !$mount.match($exclude) }
+  }
+
   $local_host_vars = {
     disks => Hash(flatten(
-      $::mounts.map |$mount| {
+      $check_mounts.map |$mount| {
         ["disk ${mount}", {disk_partitions => $mount}]
       },
-      )),
-    plugins => keys($profile::icinga2::objects::agent_checks::plugins),
+    )),
+    plugins => keys($profile::icinga2::objects::agent_checks::plugins) + $agent_local_plugins,
   }
 
   include ::postgresql::server
