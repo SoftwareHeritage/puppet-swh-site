@@ -78,7 +78,7 @@ class profile::kafka::broker {
       $cert_paths = ::profile::letsencrypt::certificate_paths($trusted['certname'])
       # $cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']
 
-      $ks_password = fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
+      $ks_password = stdlib::fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
 
       $ks_location = '/opt/kafka/config/broker.ks'
 

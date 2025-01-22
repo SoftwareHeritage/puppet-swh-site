@@ -173,7 +173,7 @@ class profile::phabricator {
 
   $db_ro_users.each |$db_ro_user| {
     $full_username = "${db_ro_user}@localhost"
-    $db_ro_password = fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
+    $db_ro_password = stdlib::fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
     mysql_user {$full_username:
       ensure        => present,
       password_hash => mysql::password($db_ro_password),

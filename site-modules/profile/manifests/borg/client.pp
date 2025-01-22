@@ -10,7 +10,7 @@ class profile::borg::client {
     $fqdn = $::swh_hostname['internal_fqdn']
 
     $seed = lookup('borg::passphrase::seed')
-    $passphrase = seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}")
+    $passphrase = stdlib::seeded_rand_string(16, "borg::passphrase::${seed}::${fqdn}")
 
     $encryption = lookup('borg::encryption')
 
