@@ -5,9 +5,10 @@ class profile::prometheus::varnish {
   $defaults_file = '/etc/default/prometheus-varnish-exporter'
   $varnish_user = 'varnish'
   $listen_network = lookup('prometheus::varnish::listen_network')
-  $listen_address = pick($listen_address, ip_for_network($listen_network))
+  $listen_address = lookup('prometheus::varnish::listen_address', Optional[String], 'first', undef)
+  $actual_listen_address = pick($listen_address, ip_for_network($listen_network))
   $listen_port = lookup('prometheus::varnish::listen_port')
-  $exporter_url = "${listen_address}:${listen_port}"
+  $exporter_url = "${actual_listen_address}:${listen_port}"
 
   package {'prometheus-varnish-exporter':
     ensure => present,
