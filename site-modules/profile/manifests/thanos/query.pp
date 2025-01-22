@@ -2,6 +2,8 @@
 class profile::thanos::query {
   include profile::thanos::base
 
+  $user = 'prometheus'
+
   $service_name = 'thanos-query'
   $unit_name = "${service_name}.service"
 
