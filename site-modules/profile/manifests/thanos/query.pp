@@ -28,7 +28,6 @@ class profile::thanos::query {
     content => "---\n- targets:\n",
     order   => 0,
     tag     => 'thanos',
-    require => File[$config_dir],
   }
 
   $non_puppet_managed_stores.map | $store | {
@@ -37,7 +36,6 @@ class profile::thanos::query {
       content => "  - ${store}\n",
       order   => 1,
       tag     => 'thanos',
-      require => File[$config_dir],
     }
   }
 
