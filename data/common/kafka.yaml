@@ -8,6 +8,7 @@ zookeeper::clusters:
   rocquencourt_staging:
     '1': kafka1.internal.staging.swh.network
     # '2': Decommissionned, do not reuse
+    '3': kafka3.internal.staging.swh.network
 
 zookeeper::datastore: /var/lib/zookeeper
 zookeeper::client_port: 2181
