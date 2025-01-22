@@ -56,7 +56,7 @@ mod 'cron_core',
 
 mod 'cups',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-mosen-cups',
-    :ref => 'master'
+    :ref => 'fixup/new-stdlib-compat'
 
 mod 'debconf',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-stm-debconf',
