@@ -193,7 +193,7 @@ mod 'stdlib',
 
 mod 'sudo',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-sudo',
-    :ref => 'v7.0.2'
+    :ref => 'v9.0.0'
 
 mod 'sysctl',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-sysctl',
