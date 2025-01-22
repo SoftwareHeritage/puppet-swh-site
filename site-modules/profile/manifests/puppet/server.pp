@@ -8,6 +8,7 @@ class profile::puppet::server {
 
   $jvm_heap_size = lookup('puppet::server::jvm::heap_size')
   $jvm_extra_args = lookup('puppet::server::jvm::extra_args')
+  $max_active_instances = lookup('puppet::server::max_active_instances')
 
   # Pergamon installation was done manually, we ensure nothing
   # is touched in production
@@ -59,6 +60,7 @@ class profile::puppet::server {
     server_jvm_min_heap_size    => $jvm_heap_size,
     server_jvm_max_heap_size    => $jvm_heap_size,
     server_jvm_extra_args       => $jvm_extra_args,
+    server_max_active_instances => $max_active_instances,
     codedir                     => $codedir,
 
     *                           => $::profile::puppet::agent_config,
