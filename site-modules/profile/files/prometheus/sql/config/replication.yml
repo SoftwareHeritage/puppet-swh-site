@@ -3,6 +3,7 @@
 - name: "archive_ready"
   help: "number of WAL files waiting to be archived"
   scope: cluster
+  interval: '1m'
   max_version: 9.6
   values:
     - "archive_ready"
@@ -11,6 +12,7 @@
 - name: "archive_ready"
   help: "number of WAL files waiting to be archived"
   scope: cluster
+  interval: '1m'
   min_version: 10
   values:
     - "archive_ready"
@@ -19,6 +21,7 @@
 - name: "pg_stat_archiver"
   help: "archiver statistics"
   scope: cluster
+  interval: '1m'
   min_version: 9.4
   values:
     - "archived_count"
@@ -31,6 +34,7 @@
 - name: "pg_stat_replication"
   help: "replication statistics"
   scope: cluster
+  interval: '1m'
   min_version: 9.2
   max_version: 9.6
   labels:
@@ -50,6 +54,7 @@
 - name: "pg_stat_replication"
   help: "replication statistics"
   scope: cluster
+  interval: '1m'
   min_version: 10
   labels:
     - "application_name"

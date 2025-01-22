@@ -2,6 +2,7 @@
   help: Software Heritage Archive object counters
   scope: database
   cluster: main
+  interval: '1m'
   database: softwareheritage
   labels:
     - object_type
