@@ -35,6 +35,8 @@ class profile::swh::deploy::reverse_proxy {
         $password = lookup("swh::deploy::${service_name}::reverse_proxy::basic_auth::${user}")
         base64('encode', "${user}:${password}", 'strict') # strict to avoid CR at the end of the line
       }
+    } else {
+      $basic_auth_strings = undef
     }
 
     $vcl_recv_extra = lookup(
