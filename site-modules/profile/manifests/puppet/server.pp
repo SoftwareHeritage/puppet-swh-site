@@ -6,6 +6,9 @@ class profile::puppet::server {
 
   $manage_puppetdb = lookup('puppet::server::manage_puppetdb')
 
+  $jvm_heap_size = lookup('puppet::server::jvm::heap_size')
+  $jvm_extra_args = lookup('puppet::server::jvm::extra_args')
+
   # Pergamon installation was done manually, we ensure nothing
   # is touched in production
   if $manage_puppetdb {
@@ -53,6 +56,9 @@ class profile::puppet::server {
     server_foreman              => false,
     server_reports              => 'store,puppetdb',
     server_storeconfigs         => true,
+    server_jvm_min_heap_size    => $jvm_heap_size,
+    server_jvm_max_heap_size    => $jvm_heap_size,
+    server_jvm_extra_args       => $jvm_extra_args,
     codedir                     => $codedir,
 
     *                           => $::profile::puppet::agent_config,

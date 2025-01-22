@@ -769,6 +769,9 @@ puppet::server::codedir: /etc/puppet/code
 puppetdb::server::config::terminus_package: puppet-terminus-puppetdb
 puppet::server::manage_puppetdb: false
 puppet::server::reports_retention: 7
+puppet::server::jvm::heap_size: 6g
+puppet::server::jvm::reserved_code_cache_size: 1g
+puppet::server::jvm::extra_args: "-XX:ReservedCodeCacheSize=%{lookup('puppet::server::jvm::reserved_code_cache_size')}"
 
 strict_transport_security::max_age: 15768000
 

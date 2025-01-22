@@ -70,6 +70,10 @@ puppet::autosign_entries:
   - '*.staging.swh.network'
   - '*.admin.swh.network'
 
+puppet::server::jvm::heap_size: 512m
+puppet::server::jvm::reserved_code_cache_size: 128m
+
+
 static_hostnames:
   10.168.50.10:
     host: bardo.internal.admin.swh.network
