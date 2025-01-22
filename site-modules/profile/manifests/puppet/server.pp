@@ -66,8 +66,13 @@ class profile::puppet::server {
     *                           => $::profile::puppet::agent_config,
   }
 
-  class { '::puppet::server::puppetdb':
-    server => $puppetdb,
+  class { '::puppetdb::master::config':
+    puppetdb_server             => $puppetdb,
+    puppetdb_port               => 8081,
+    puppetdb_soft_write_failure => false,
+    manage_storeconfigs         => false,
+    restart_puppet              => false,
+    terminus_package            => 'puppet-terminus-puppetdb',
   }
 
   # Extra configuration for fileserver
