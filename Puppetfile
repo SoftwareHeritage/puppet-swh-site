@@ -161,7 +161,7 @@ mod 'puppet',
 
 mod 'puppetdb',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-puppetdb',
-    :ref => '7.10.0'
+    :ref => 'v8.1.0'
 
 mod 'memcached',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-saz-memcached',
