@@ -64,4 +64,4 @@ groups:
 
 thanos::tenant: historical-data
 
-swh::postgresql::version: "13"
+swh::postgresql::version: "16"
