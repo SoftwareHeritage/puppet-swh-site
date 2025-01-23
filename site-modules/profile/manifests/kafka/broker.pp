@@ -78,19 +78,22 @@ class profile::kafka::broker {
       $cert_paths = ::profile::letsencrypt::certificate_paths($trusted['certname'])
       # $cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']
 
+      $certificate = lookup('letsencrypt::certificates', Hash)[$trusted['certname']]
+
       $ks_password = stdlib::fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
 
       $ks_location = '/opt/kafka/config/broker.ks'
 
       java_ks {'kafka:broker':
-        ensure       => latest,
-        certificate  => $cert_paths['fullchain'],
-        private_key  => $cert_paths['privkey'],
-        name         => $trusted['certname'],
-        target       => $ks_location,
-        password     => $ks_password,
-        trustcacerts => true,
-        require      => Class['Java'],
+        ensure           => latest,
+        certificate      => $cert_paths['fullchain'],
+        private_key      => $cert_paths['privkey'],
+        private_key_type => pick($certificate['private_key_type'], 'rsa'),
+        name             => $trusted['certname'],
+        target           => $ks_location,
+        password         => $ks_password,
+        trustcacerts     => true,
+        require          => Class['Java'],
       }
 
       $plaintext_port = $kafka_cluster_config['plaintext_port']

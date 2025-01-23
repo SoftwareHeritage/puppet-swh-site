@@ -946,6 +946,7 @@ letsencrypt::certificates:
     domains:
       - kafka3.internal.staging.swh.network
       - broker3.journal.staging.swh.network
+    private_key_type: ec
   keycloak:
     domains:
       - auth.softwareheritage.org
