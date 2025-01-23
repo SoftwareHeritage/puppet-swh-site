@@ -21,4 +21,4 @@ zfs::arc::max_size: 34359738368  # 32 GiB
 zfs::common::zpool_configuration: {}
 
 rancher::rke2::agent::snapshotter: zfs
-tmpfs::size: 16g
+tmpfs::size: 512g
