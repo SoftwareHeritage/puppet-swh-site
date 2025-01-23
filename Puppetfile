@@ -100,7 +100,7 @@ mod 'java',
 
 mod 'java_ks',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-java_ks',
-    :tag => 'v4.2.0'
+    :tag => 'v5.1.0'
 
 mod 'kafka',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-kafka',
