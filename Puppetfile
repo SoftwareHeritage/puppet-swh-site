@@ -83,7 +83,7 @@ mod 'hitch',
     :ref => 'feature/additional-config-0.1.5'
 
 mod 'icinga',
-    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-icinga',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga',
     :ref => 'v6.0.0'
 
 mod 'icinga2',
