@@ -20,11 +20,11 @@ class profile::puppet {
   }
 
   file { '/usr/local/sbin/swh-puppet-test':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('profile/puppet/swh-puppet-test.sh.erb'),
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/profile/puppet/swh-puppet-test.sh',
   }
 
   file { '/usr/local/sbin/swh-puppet-apply':
@@ -32,7 +32,7 @@ class profile::puppet {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('profile/puppet/swh-puppet-apply.sh.erb'),
+    source => 'puppet:///modules/profile/puppet/swh-puppet-apply.sh',
   }
 
   profile::cron::d {'puppet-agent':

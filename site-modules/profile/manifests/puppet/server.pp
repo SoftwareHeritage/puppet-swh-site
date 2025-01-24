@@ -86,11 +86,11 @@ class profile::puppet::server {
   }
 
   file { '/usr/local/sbin/swh-puppet-master-deploy':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('profile/puppet/swh-puppet-master-deploy.sh.erb'),
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/profile/puppet/swh-puppet-master-deploy.sh',
   }
 
   file {'/usr/local/sbin/swh-puppet-master-clean-certificate':
@@ -98,11 +98,11 @@ class profile::puppet::server {
   }
 
   file { '/usr/local/sbin/swh-puppet-master-decommission':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template('profile/puppet/swh-puppet-master-decommission.sh.erb'),
+    ensure => 'file',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/profile/puppet/swh-puppet-master-decommission.sh',
   }
 
   profile::cron::d {'gzip-puppet-reports':
