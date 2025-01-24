@@ -8,7 +8,5 @@
 
 set -x
 
-puppet node deactivate $@
-puppet node clean $@
-puppet cert clean $@
-systemctl restart apache2
+puppet node deactivate "$@"
+puppet node clean "$@"
