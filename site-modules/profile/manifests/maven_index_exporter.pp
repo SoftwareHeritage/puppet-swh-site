@@ -148,7 +148,7 @@ class profile::maven_index_exporter {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"Maven Index Exporter report https on ${::fqdn}":
@@ -165,7 +165,7 @@ class profile::maven_index_exporter {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"Maven Index Exporter report https certificate ${::fqdn}":
@@ -181,7 +181,7 @@ class profile::maven_index_exporter {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
 }

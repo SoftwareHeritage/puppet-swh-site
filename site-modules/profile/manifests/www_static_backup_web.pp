@@ -39,7 +39,7 @@ class profile::www_static_backup_web {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
 }

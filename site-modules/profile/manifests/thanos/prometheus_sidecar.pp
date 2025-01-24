@@ -106,6 +106,6 @@ class profile::thanos::prometheus_sidecar {
       'prometheus_metric_critical' => 24 * 3600,
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 }

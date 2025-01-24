@@ -191,7 +191,7 @@ class profile::swh::deploy::deposit {
       http_string  => 'The Software Heritage Deposit',
     },
     target           => $icinga_checks_file,
-    export_to        => [$icinga_checks_hostname]
+    export           => [$icinga_checks_hostname]
   }
 
   include profile::filebeat

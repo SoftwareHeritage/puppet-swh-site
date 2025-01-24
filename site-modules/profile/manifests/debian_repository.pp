@@ -162,7 +162,7 @@ class profile::debian_repository {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"debian repository https on ${::fqdn}":
@@ -179,7 +179,7 @@ class profile::debian_repository {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"debian repository https certificate ${::fqdn}":
@@ -195,6 +195,6 @@ class profile::debian_repository {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 }

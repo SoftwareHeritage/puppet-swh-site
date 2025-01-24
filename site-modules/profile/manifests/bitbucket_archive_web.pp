@@ -65,7 +65,7 @@ class profile::bitbucket_archive_web {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"bitbucket_archive https on ${::fqdn}":
@@ -82,7 +82,7 @@ class profile::bitbucket_archive_web {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"bitbucket_archive https certificate ${::fqdn}":
@@ -98,6 +98,6 @@ class profile::bitbucket_archive_web {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 }

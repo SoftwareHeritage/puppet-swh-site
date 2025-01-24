@@ -10,7 +10,7 @@ class profile::icinga2::objects::notifications {
       import       => ["${means}-${type}-notification"],
       apply        => true,
       apply_target => $apply_target,
-      assign       => [true],
+      assign       => ['true'],
       users        => ['root'],
       target       => $notification_file,
       interval     => '12h',

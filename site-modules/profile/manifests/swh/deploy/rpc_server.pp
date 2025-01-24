@@ -147,7 +147,7 @@ define profile::swh::deploy::rpc_server (
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
-    export_to        => [$icinga_checks_hostname]
+    export           => [$icinga_checks_hostname]
   }
 
   if $backend_listen_host != '127.0.0.1' {
@@ -164,7 +164,7 @@ define profile::swh::deploy::rpc_server (
         http_string => $http_check_string,
       },
       target        => $icinga_checks_file,
-      export_to     => [$icinga_checks_hostname]
+      export        => [$icinga_checks_hostname]
     }
   }
 }

@@ -50,7 +50,7 @@ class profile::swh::deploy::scheduler::journal_client {
       systemd_units => [$unit_name],
     },
     target           => '/etc/icinga2/zones.d/master/exported-checks.conf',
-    export_to        => [$icinga_checks_hostname]
+    export           => [$icinga_checks_hostname]
   }
 
 }

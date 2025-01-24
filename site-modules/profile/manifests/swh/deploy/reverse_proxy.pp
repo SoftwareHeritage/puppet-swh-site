@@ -84,7 +84,7 @@ class profile::swh::deploy::reverse_proxy {
         http_uri     => '/',
       },
       target        => $icinga_checks_file,
-      export_to     => [$icinga_checks_hostname]
+      export        => [$icinga_checks_hostname]
     }
 
     $vhost_ssl_port = lookup('apache::https_port')
@@ -117,7 +117,7 @@ class profile::swh::deploy::reverse_proxy {
         http_onredirect => sticky,
       } + $http_expect_var,
       target        => $icinga_checks_file,
-      export_to     => [$icinga_checks_hostname]
+      export        => [$icinga_checks_hostname]
     }
 
     ::icinga2::object::service {"swh-${service_name} https certificate ${::fqdn}":
@@ -134,7 +134,7 @@ class profile::swh::deploy::reverse_proxy {
         http_certificate => 15,
       },
       target        => $icinga_checks_file,
-      export_to     => [$icinga_checks_hostname]
+      export        => [$icinga_checks_hostname]
     }
   }
 }

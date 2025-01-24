@@ -70,7 +70,7 @@ class profile::preseeding_vhost {
       http_uri        => '/preseed.txt.j2',
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"preseeding https on ${::fqdn}":
@@ -86,7 +86,7 @@ class profile::preseeding_vhost {
       http_uri        => '/preseed.txt.j2',
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"preseeding https certificate ${::fqdn}":
@@ -102,6 +102,6 @@ class profile::preseeding_vhost {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export_to     => [$icinga_checks_hostname]
+    export        => [$icinga_checks_hostname]
   }
 }

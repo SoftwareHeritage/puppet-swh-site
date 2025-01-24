@@ -82,13 +82,17 @@ mod 'hitch',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-ssm-hitch',
     :ref => 'feature/additional-config-0.1.5'
 
+mod 'icinga',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-icinga',
+    :ref => 'v6.0.0'
+
 mod 'icinga2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icinga2',
-    :ref => 'swh/restore-puppet6'
+    :ref => 'v6.0.2'
 
 mod 'icingaweb2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icingaweb2',
-    :ref => '6836a365becd93e97fd10abc7f4bbadc87d50f80'
+    :ref => 'v5.0.1'
 
 mod 'inifile',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-inifile',
