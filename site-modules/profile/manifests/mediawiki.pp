@@ -71,7 +71,7 @@ class profile::mediawiki {
         http_uri     => '/',
       },
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
 
     if $basic_auth_content != '' {
@@ -95,7 +95,7 @@ class profile::mediawiki {
           http_string     => "<title>${site_name}</title>",
         },
         target        => $icinga_checks_file,
-        export        => [$icinga_checks_hostname]
+        export_to     => [$icinga_checks_hostname]
       }
 
     } else {
@@ -118,7 +118,7 @@ class profile::mediawiki {
         http_onredirect => sticky,
       } + $extra_vars,
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
 
     ::icinga2::object::service {"mediawiki ${name} https certificate ${::fqdn}":
@@ -134,7 +134,7 @@ class profile::mediawiki {
         http_certificate => 25,
       },
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

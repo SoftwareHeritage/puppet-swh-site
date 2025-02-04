@@ -84,7 +84,7 @@ class profile::icinga2::icingaweb2::vhost {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"icingaweb2 https on ${::fqdn}":
@@ -102,7 +102,7 @@ class profile::icinga2::icingaweb2::vhost {
       http_string  => '<title>Icinga Web 2 Login</title>',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"icingaweb2 https certificate ${::fqdn}":
@@ -118,6 +118,6 @@ class profile::icinga2::icingaweb2::vhost {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 }

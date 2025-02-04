@@ -145,7 +145,7 @@ class profile::azure_billing_report {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"Azure billing report https on ${::fqdn}":
@@ -162,7 +162,7 @@ class profile::azure_billing_report {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"azure billing report https certificate ${::fqdn}":
@@ -178,6 +178,6 @@ class profile::azure_billing_report {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 }

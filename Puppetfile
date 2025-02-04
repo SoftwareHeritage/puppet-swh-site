@@ -88,7 +88,7 @@ mod 'icinga',
 
 mod 'icinga2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icinga2',
-    :ref => 'v6.0.2'
+    :ref => 'swh/restore-puppet5'
 
 mod 'icingaweb2',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga-icingaweb2',

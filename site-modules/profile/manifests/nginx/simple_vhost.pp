@@ -55,7 +55,7 @@ define profile::nginx::simple_vhost (
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
-    export           => [$icinga_checks_hostname]
+    export_to        => [$icinga_checks_hostname]
   }
 
   if $http_host != '127.0.0.1' {
@@ -73,7 +73,7 @@ define profile::nginx::simple_vhost (
         http_string  => $http_check_string,
       },
       target           => $icinga_checks_file,
-      export           => [$icinga_checks_hostname]
+      export_to        => [$icinga_checks_hostname]
     }
   }
 }

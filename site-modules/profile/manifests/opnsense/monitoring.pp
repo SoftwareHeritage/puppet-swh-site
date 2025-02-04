@@ -46,7 +46,7 @@ class profile::opnsense::monitoring {
         http_onredirect => sticky
       },
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
   }
 }

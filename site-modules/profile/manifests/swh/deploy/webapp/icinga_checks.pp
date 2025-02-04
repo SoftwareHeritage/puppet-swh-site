@@ -61,7 +61,7 @@ define profile::swh::deploy::webapp::icinga_checks (
         http_ssl     => true,
       } + $args,
         target        => $icinga_checks_file,
-        export        => [$icinga_checks_hostname]
+        export_to     => [$icinga_checks_hostname]
     }
   }
 

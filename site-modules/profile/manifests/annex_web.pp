@@ -107,7 +107,7 @@ class profile::annex_web {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"annex https on ${::fqdn}":
@@ -124,7 +124,7 @@ class profile::annex_web {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"annex https certificate ${::fqdn}":
@@ -140,6 +140,6 @@ class profile::annex_web {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 }

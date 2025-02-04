@@ -80,7 +80,7 @@ define profile::reverse_proxy (
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   $_icinga_check_string = pick($icinga_check_string, capitalize($name))
@@ -100,7 +100,7 @@ define profile::reverse_proxy (
       http_string  => $_icinga_check_string,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"${name} https certificate ${::fqdn}":
@@ -116,6 +116,6 @@ define profile::reverse_proxy (
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 }

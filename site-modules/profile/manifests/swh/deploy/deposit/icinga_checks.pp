@@ -28,7 +28,7 @@ define profile::swh::deploy::deposit::icinga_checks (
       http_string => 'The Software Heritage Deposit',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
 

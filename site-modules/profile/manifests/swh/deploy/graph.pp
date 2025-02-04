@@ -141,7 +141,7 @@ class profile::swh::deploy::graph {
       http_string  => $http_check_string,
     },
     target           => $icinga_checks_file,
-    export           => [$icinga_checks_hostname]
+    export_to        => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"swh-graph grpc api (local on ${::fqdn})":
@@ -155,7 +155,7 @@ class profile::swh::deploy::graph {
       tcp_address => $grpc_local_address,
     },
     target           => $icinga_checks_file,
-    export           => [$icinga_checks_hostname]
+    export_to        => [$icinga_checks_hostname]
   }
 
   if $http_listen_host != '127.0.0.1' {
@@ -172,7 +172,7 @@ class profile::swh::deploy::graph {
         http_string => $http_check_string,
       },
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
   }
   if $grpc_listen_host != '127.0.0.1' {
@@ -186,7 +186,7 @@ class profile::swh::deploy::graph {
         tcp_address => $::swh_hostname['internal_fqdn'],
       },
       target        => $icinga_checks_file,
-      export        => [$icinga_checks_hostname]
+      export_to     => [$icinga_checks_hostname]
     }
   }
 

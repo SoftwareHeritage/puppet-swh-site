@@ -329,7 +329,7 @@ class profile::phabricator {
       http_uri     => '/',
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"phabricator https on ${::fqdn}":
@@ -346,7 +346,7 @@ class profile::phabricator {
       http_onredirect => sticky
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   ::icinga2::object::service {"phabricator https certificate ${::fqdn}":
@@ -362,7 +362,7 @@ class profile::phabricator {
       http_certificate => 25,
     },
     target        => $icinga_checks_file,
-    export        => [$icinga_checks_hostname]
+    export_to     => [$icinga_checks_hostname]
   }
 
   # Needs refactoring

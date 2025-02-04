@@ -53,14 +53,14 @@ class profile::icinga2::agent {
   ::icinga2::object::endpoint {$::fqdn:
     host      => ip_for_network($icinga2_network),
     target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
-    export    => [$master_fqdn],
+    export_to => [$master_fqdn],
   }
 
   ::icinga2::object::zone {$::fqdn:
     endpoints => [$::fqdn],
     parent    => $parent_zone,
     target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
-    export    => [$master_fqdn],
+    export_to => [$master_fqdn],
   }
 
   ::icinga2::object::host {$::fqdn:
@@ -69,7 +69,7 @@ class profile::icinga2::agent {
     check_command => 'hostalive',
     vars          => deep_merge($local_host_vars, $hiera_host_vars),
     target        => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
-    export        => [$master_fqdn],
+    export_to     => [$master_fqdn],
   }
 
   icinga2::object::zone { 'global-templates':
