@@ -231,7 +231,6 @@ packages::devel::python:
   - python3-flake8
   - python3-flask
   - python3-flask-api
-  - python3-flask-limiter
   - python3-flask-testing
   - python3-libcloud
   - python3-msgpack
@@ -254,7 +253,6 @@ packages::devel::postgres:
   - check-postgres
   - libpq-dev
   - postgresql
-  - postgresql-autodoc
   - postgresql-client
   - postgresql-contrib
   - postgresql-doc
