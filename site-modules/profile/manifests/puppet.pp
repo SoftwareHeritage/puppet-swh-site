@@ -19,6 +19,14 @@ class profile::puppet {
     }
   }
 
+  file {$::hostcrl:
+    content   => file($settings::cacrl, $settings::hostcrl, '/dev/null'),
+    owner     => 'puppet',
+    group     => 'puppet',
+    mode      => '0644',
+    show_diff => false,
+  }
+
   file { '/usr/local/sbin/swh-puppet-test':
     ensure => 'file',
     owner  => 'root',
