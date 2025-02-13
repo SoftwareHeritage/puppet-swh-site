@@ -20,7 +20,11 @@ zfs::common::zpool_configuration:
     - wwn-0x500080d9111ee825 wwn-0x500080d9111ee979
     - wwn-0x500080d9111ee839 wwn-0x500080d9111ee96e
     - wwn-0x500080d9111ee952 wwn-0x500080d9111ee93b
-    - wwn-0x500080d9111ee92b wwn-0x500080d9111ee829
+  spare:
+    # Those are not used as we may want to unplug them and plug them to other
+    # machines
+    - wwn-0x500080d9111ee92b
+    - wwn-0x500080d9111ee829
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
