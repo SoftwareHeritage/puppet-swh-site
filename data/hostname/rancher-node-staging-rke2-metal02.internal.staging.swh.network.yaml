@@ -15,14 +15,14 @@ mountpoints:
 
 swh::apt_config::enable_non_free: true
 
+# The 'spare' data disks are not used as we may want to unplug them from this
+# node and plug them in other machines (e.g. branly).
 zfs::common::zpool_configuration:
   mirror:
     - wwn-0x500080d9111ee825 wwn-0x500080d9111ee979
     - wwn-0x500080d9111ee839 wwn-0x500080d9111ee96e
     - wwn-0x500080d9111ee952 wwn-0x500080d9111ee93b
   spare:
-    # Those are not used as we may want to unplug them and plug them to other
-    # machines
     - wwn-0x500080d9111ee92b
     - wwn-0x500080d9111ee829
 
