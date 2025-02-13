@@ -1,0 +1,28 @@
+---
+# local cache is not compatible with rancher
+dns::local_cache: false
+dns::nameservers:
+  - 192.168.100.29
+  - 192.168.200.22
+
+icinga2::host::vars:
+  load: high
+
+# override the default values
+mountpoints:
+  /srv/storage/space:
+    ensure: absent
+
+swh::apt_config::enable_non_free: true
+
+zfs::common::zpool_configuration:
+  mirror:
+    - wwn-0x500080d9111ee825 wwn-0x500080d9111ee979
+    - wwn-0x500080d9111ee839 wwn-0x500080d9111ee96e
+    - wwn-0x500080d9111ee952 wwn-0x500080d9111ee93b
+    - wwn-0x500080d9111ee92b wwn-0x500080d9111ee829
+
+zfs::arc::max_size: 34359738368  # 32 GiB
+
+rancher::rke2::agent::snapshotter: zfs
+
