@@ -8,5 +8,6 @@
 
 set -x
 
-puppet node deactivate "$@"
-puppet node clean "$@"
+server_list=$(echo "$@" | tr -s '[:blank:]' ',')
+
+echo puppetserver ca clean --certname "${server_list}"
