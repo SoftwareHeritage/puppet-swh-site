@@ -1483,6 +1483,10 @@ bind::resource_records:
     type: CNAME
     record: svix.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  svix-next-version-internal-staging/CNAME:
+    type: CNAME
+    record: svix-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-test-staging-rke2/A: # ingress ip of cluster test-staging-rke2
     record: k8s-test-staging-rke2.internal.staging.swh.network
     data: 192.168.130.209
