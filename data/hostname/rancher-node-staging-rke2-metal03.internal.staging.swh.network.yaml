@@ -17,7 +17,7 @@ swh::apt_config::enable_non_free: true
 
 zfs::common::zpool_configuration:
   disk:
-    - /dev/disk/by-id/nvme-INTEL-SSDPEDMD800G4_CVFT7301000H800MGN
+    - nvme-INTEL_SSDPEDMD800G4_CVFT7301000H800MGN
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
