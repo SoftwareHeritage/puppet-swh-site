@@ -4563,11 +4563,6 @@ monthly_report_bot::cron:
 weekly_reminder_bot::user: root
 weekly_reminder_bot::config_dir: /etc/default/weekly-bot
 
-weekly_reminder_bot::planning::cron:
-  minute: 42
-  hour: 13
-  weekday: fri
-
 weekly_reminder_bot::management::cron:
   minute: 30
   hour: 13

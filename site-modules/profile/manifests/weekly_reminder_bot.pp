@@ -31,8 +31,7 @@ class profile::weekly_reminder_bot {
     content => template('profile/weekly_reminder_bot/weekly-bot.erb'),
   }
 
-  ['planning',
-    'management',
+  ['management',
   ].each |$bot| {
     $weekly_bot_cron = lookup("weekly_reminder_bot::${bot}::cron")
 
@@ -57,8 +56,7 @@ class profile::weekly_reminder_bot {
     }
   }
 
-  ['weekly-planning-bot',
-    'weekly-management-bot',
+  ['weekly-management-bot',
   ].each |$bot| {
     $deleted = "/usr/local/bin/${bot}"
 
