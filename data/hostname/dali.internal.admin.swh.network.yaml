@@ -1,4 +1,5 @@
 swh::postgresql::shared_buffers: 8GB
+swh::postgresql::max_connections: 400
 
 swh::dbs:
   netbox:
