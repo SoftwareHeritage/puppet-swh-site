@@ -198,10 +198,6 @@ node 'backup01.euwest.azure.internal.softwareheritage.org' {
   include role::zfs_snapshots_storage
 }
 
-node 'money.internal.admin.swh.network' {
-  include role::swh_azure_billing_report
-}
-
 node 'maven-exporter0.internal.staging.swh.network' {
   include role::swh_maven_index_exporter
 }
