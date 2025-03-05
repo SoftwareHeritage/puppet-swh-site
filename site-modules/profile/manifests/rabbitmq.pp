@@ -14,6 +14,7 @@ class profile::rabbitmq {
     interface        => '0.0.0.0',
     config_variables => {
       vm_memory_high_watermark => 0.6,
+      consumer_timeout => "undefined",
     },
     heartbeat        => 0,
     manage_python    => false,
