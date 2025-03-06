@@ -5081,7 +5081,7 @@ opnsense::prometheus::metrics_path: /metrics
 
 prometheus::elasticsearch::exporter::version: "%{lookup('elastic::elk_version')}.0"
 
-nodejs::version: 14.x
+nodejs::version: 16.x
 
 swh::provenance::db::shared_buffers: 32GB
 
