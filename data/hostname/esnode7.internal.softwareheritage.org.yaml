@@ -5,3 +5,9 @@ elasticsearch::config::extras:
   xpack.security.enabled: false
 
 elastic::elk_version: '8.15.1'
+
+icinga2::host::vars:
+  disks:
+    disk /srv/elasticsearch:
+      disk_wfree: '7%'
+      disk_cfree: '5%'

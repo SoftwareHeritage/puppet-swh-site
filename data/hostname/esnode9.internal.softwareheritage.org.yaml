@@ -16,3 +16,9 @@ zfs::common::zpool_configuration:
     - nvme-MO003200KYDNC_S70NNT0X604315
     - nvme-MO003200KYDNC_S70NNT0X604316
     - nvme-MO003200KYDNC_S70NNT0X604246
+
+icinga2::host::vars:
+  disks:
+    disk /srv/elasticsearch:
+      disk_wfree: '7%'
+      disk_cfree: '5%'
