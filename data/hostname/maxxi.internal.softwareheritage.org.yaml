@@ -6,6 +6,9 @@ packages:
   - heaptrack
   - valgrind
 
+icinga2::host::vars:
+  load: graph
+
 users:
   zom:
     uid: 3002
