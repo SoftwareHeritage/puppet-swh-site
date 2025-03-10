@@ -1,7 +1,17 @@
 # Base configuration for Software Heritage servers
 class profile::base {
+  if versioncmp($::lsbmajdistrelease, '12') >= 0 {
+    $ntp_driftfile = '/var/lib/ntpsec/drift'
+    $ntp_config = '/etc/ntpsec/ntp.conf'
+  } else {
+    $ntp_driftfile = '/var/lib/ntp/drift'
+    $ntp_config = '/etcntp.conf'
+  }
+
   class { '::ntp':
-    servers => lookup('ntp::servers'),
+    servers   => lookup('ntp::servers'),
+    driftfile => $ntp_driftfile,
+    config    => $ntp_config,
   }
 
   include profile::smtp

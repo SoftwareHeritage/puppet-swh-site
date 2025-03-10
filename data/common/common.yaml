@@ -33,8 +33,6 @@ ntp::servers:
   - 1.debian.pool.ntp.org
   - 2.debian.pool.ntp.org
   - 3.debian.pool.ntp.org
-ntp::driftfile: '/var/lib/ntpsec/drift'
-ntp::config: '/etc/ntpsec/ntp.conf'
 
 sudo::configs: {}
 
