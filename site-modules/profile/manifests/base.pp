@@ -5,7 +5,7 @@ class profile::base {
     $ntp_config = '/etc/ntpsec/ntp.conf'
   } else {
     $ntp_driftfile = '/var/lib/ntp/drift'
-    $ntp_config = '/etcntp.conf'
+    $ntp_config = '/etc/ntp.conf'
   }
 
   class { '::ntp':
