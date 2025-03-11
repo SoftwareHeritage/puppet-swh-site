@@ -2,12 +2,12 @@
 define profile::swh::deploy::deposit::icinga_checks (
   # vhost name of the service to check
   $vhost_name       = $title,
+  $deposit_server   = $title,
   $vhost_ssl_port   = 443,
   $environment      = undef,
   # The hostname where the services runs (icinga needs it)
   $host_name        = undef,
 ) {
-
   $backend_listen_host = lookup('swh::deploy::deposit::backend::listen::host')
   $backend_listen_port = lookup('swh::deploy::deposit::backend::listen::port')
 
@@ -34,7 +34,7 @@ define profile::swh::deploy::deposit::icinga_checks (
 
   # Install deposit end-to-end checks
   profile::icinga2::objects::e2e_checks_deposit {"End-to-end Deposit Test(s) in ${environment}":
-    deposit_server        => lookup('swh::deploy::deposit::e2e::server'),
+    deposit_server        => "https://${deposit_server}/1",
     deposit_user          => lookup('swh::deploy::deposit::e2e::user'),
     deposit_pass          => lookup('swh::deploy::deposit::e2e::password'),
     deposit_collection    => lookup('swh::deploy::deposit::e2e::collection'),

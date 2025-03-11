@@ -25,11 +25,6 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
-  ::profile::swh::deploy::webapp::icinga_checks {'archive.softwareheritage.org':
-    environment => "production",
-    host_name   => "moma.softwareheritage.org",
-  }
-
   ::icinga2::object::host {'archive-production-rke2':
     check_command => 'dummy',
     address       => 'k8s-archive-production-rke2.internal.softwareheritage.org',
@@ -52,9 +47,14 @@ class profile::icinga2::objects::static_checks {
     },
   }
 
+  ::profile::swh::deploy::webapp::icinga_checks {'archive.softwareheritage.org':
+    environment => "production",
+    host_name   => "moma.softwareheritage.org",
+  }
+
   ::profile::swh::deploy::webapp::icinga_checks {'webapp.staging.swh.network':
-    environment      => "staging",
-    host_name        => "archive-staging-rke2",
+    environment => "staging",
+    host_name   => "archive-staging-rke2",
   }
 
   ::profile::swh::deploy::deposit::icinga_checks {'deposit.softwareheritage.org':
@@ -63,8 +63,8 @@ class profile::icinga2::objects::static_checks {
   }
 
   ::profile::swh::deploy::deposit::icinga_checks {'deposit.staging.swh.network':
-    environment      => "staging",
-    host_name        => "archive-staging-rke2",
+    environment => "staging",
+    host_name   => "archive-staging-rke2",
   }
 
   ::profile::swh::deploy::vault::icinga_checks {'production':

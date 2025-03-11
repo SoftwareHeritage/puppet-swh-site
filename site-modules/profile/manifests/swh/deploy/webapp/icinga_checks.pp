@@ -2,6 +2,7 @@
 define profile::swh::deploy::webapp::icinga_checks (
   # vhost name of the service to check
   $vhost_name       = $title,
+  $server_webapp    = $title,
   $vhost_ssl_port   = 443,
   $environment      = undef,
   # The hostname where the services runs (icinga needs it)
@@ -71,7 +72,7 @@ define profile::swh::deploy::webapp::icinga_checks (
     $origins = lookup('swh::deploy::savecodenow::e2e::origins')
     each($origins) | $entry | {
       profile::icinga2::objects::e2e_checks_savecodenow {"End-to-end SaveCodeNow Check - ${entry['name']} with type ${entry['type']} in ${environment}":
-        server_webapp => lookup('swh::deploy::savecodenow::e2e::webapp'),
+        server_webapp => "https://${server_webapp}",
         origin_name   => $entry['name'],
         origin_url    => $entry['origin'],
         origin_type   => $entry['type'],
