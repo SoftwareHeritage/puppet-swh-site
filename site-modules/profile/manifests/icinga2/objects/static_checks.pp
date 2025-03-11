@@ -67,13 +67,13 @@ class profile::icinga2::objects::static_checks {
     host_name   => "archive-staging-rke2",
   }
 
-  ::profile::swh::deploy::vault::icinga_checks {'production':
-    storage     => "http://storage-postgresql-ro.internal.softwareheritage.org",
+  ::profile::swh::deploy::vault::icinga_checks {'storage-postgresql-ro.internal.softwareheritage.org':
+    environment => "production",
     webapp      => "https://archive.softwareheritage.org",
   }
 
-  ::profile::swh::deploy::vault::icinga_checks {'staging':
-    storage     => "http://storage-ro.internal.staging.swh.network",
+  ::profile::swh::deploy::vault::icinga_checks {'storage-ro.internal.staging.swh.network':
+    environment => "staging",
     webapp      => "https://webapp.staging.swh.network",
   }
 
