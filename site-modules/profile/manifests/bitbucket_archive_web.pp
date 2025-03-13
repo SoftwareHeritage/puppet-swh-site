@@ -28,7 +28,7 @@ class profile::bitbucket_archive_web {
   ::profile::letsencrypt::certificate {$vhost_name:}
   $cert_paths = ::profile::letsencrypt::certificate_paths($vhost_name)
 
-  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~>
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ->
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
     port                 => 443,
@@ -50,6 +50,8 @@ class profile::bitbucket_archive_web {
       },
     ],
   }
+
+  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
