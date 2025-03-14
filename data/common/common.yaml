@@ -1423,6 +1423,10 @@ bind::resource_records:
     type: CNAME
     record: search.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  indexer-staging/CNAME:
+    type: CNAME
+    record: indexer.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   storage-ro-staging/CNAME:
     type: CNAME
     record: storage-ro.internal.staging.swh.network
@@ -1526,6 +1530,10 @@ bind::resource_records:
   scheduler/CNAME:
     type: CNAME
     record: scheduler.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  indexer/CNAME:
+    type: CNAME
+    record: indexer.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
   glyptotek/A: # OPNSense firewall, not managed by puppet
     record: "%{alias('opnsense::hosts.glyptotek.fqdn')}"
