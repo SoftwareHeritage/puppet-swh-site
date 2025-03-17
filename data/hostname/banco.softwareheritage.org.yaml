@@ -97,7 +97,7 @@ icinga2::host::vars:
 
 zfs::common::zpool_configuration:
   disk:
-    - scsi-SDELL_PERC_H730_Mini_003b2814132815c21d00aa6038708741-part3
+    - wwn-0x614187703860aa001dc215281314283b-part3
 
 mountpoints:
   # local mountpoints (already configured, don't touch it)
