@@ -18,8 +18,10 @@ fi
 
 topic_prefixes="swh.journal.objects. swh.journal.indexed."
 privileged_topic_prefixes="swh.journal.objects_privileged."
+mirror_topic_prefixes="swh.journal.mirror-notifications."
 
 privileged="unprivileged"
+mirror=""
 cgrp_prefix=""
 OPS="READ DESCRIBE"
 GROUP_OPS="READ DESCRIBE DELETE"
@@ -27,6 +29,11 @@ GROUP_OPS="READ DESCRIBE DELETE"
 while (( $# )); do
   if [ $1 = "--privileged" ]; then
     privileged="privileged"
+    shift
+  elif [ $1 = "--mirror" ]; then
+    privileged="privileged"
+    mirror="mirror"
+    shift
     shift
   elif [ $1 = "--consumer-group-prefix" ]; then
     cgrp_prefix=$2
@@ -77,6 +84,10 @@ echo "Setting user credentials"
 
 if [ $privileged = "privileged" ]; then
 	topic_prefixes="${topic_prefixes} ${privileged_topic_prefixes}"
+fi
+
+if [ $mirror = "mirror" ]; then
+	topic_prefixes="${topic_prefixes} ${mirror_topic_prefixes}"
 fi
 
 for topic_prefix in $topic_prefixes; do
