@@ -44,7 +44,10 @@ class profile::sentry {
   $vhost_name  = lookup('sentry::vhost::name')
   $mail_host   = lookup('sentry::mail::host')
   $mail_from   = lookup('sentry::mail::from')
-  $mail_list_namespace   = lookup('sentry::mail::list_namespace')
+  $mail_list_namespace = lookup('sentry::mail::list_namespace')
+  $statsd_listen_network = lookup('sentry::statsd::listen_network', {default_value => lookup('internal_network')})
+  $statsd_host = ip_for_network($statsd_listen_network)
+  $statsd_port = lookup('sentry::statsd::port', {default_value => 8125})
 
   file {$config_yml:
     ensure => present,
