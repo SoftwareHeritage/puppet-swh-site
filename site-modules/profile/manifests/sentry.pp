@@ -146,6 +146,16 @@ class profile::sentry {
     notify            => Exec['run sentry-onpremise install.sh'],
   }
 
+  file_line {'sentry_environment_js_sdk_assets':
+    ensure            => present,
+    path              => "${onpremise_dir}/.env",
+    match             => '^(# )?SETUP_JS_SDK_ASSETS=',
+    line              => "SETUP_JS_SDK_ASSETS=1",
+    multiple          => true,
+    require           => Vcsrepo[$onpremise_dir],
+    notify            => Exec['run sentry-onpremise install.sh'],
+  }
+
   $onpremise_flag = "${onpremise_dir}-installed"
   $onpremise_log = "/var/log/sentry-onpremise-install.log"
 
