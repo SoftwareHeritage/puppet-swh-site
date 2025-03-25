@@ -1369,6 +1369,10 @@ bind::resource_records:
     type: CNAME
     record: provenance.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  provenance-rpc/CNAME:
+    type: CNAME
+    record: provenance-rpc.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   software-stories-production/CNAME:
     type: CNAME
     record: software-stories.internal.softwareheritage.org
@@ -1462,6 +1466,10 @@ bind::resource_records:
   provenance-staging/CNAME:
     type: CNAME
     record: provenance.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  provenance-rpc-staging/CNAME:
+    type: CNAME
+    record: provenance-rpc.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   provenance-next-version-staging/CNAME:
     type: CNAME
