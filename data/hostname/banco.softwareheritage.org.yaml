@@ -111,3 +111,7 @@ mountpoints:
     ensure: absent
 
 rancher::rke2::agent::snapshotter: zfs
+
+# needed for borgmatic backups to avoid unexpected closed connection
+ssh::aliveinterval: 10
+ssh::alivemaxcount: 360

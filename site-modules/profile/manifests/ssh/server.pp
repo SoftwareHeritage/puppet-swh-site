@@ -3,13 +3,25 @@
 class profile::ssh::server {
   $sshd_port = lookup('ssh::port')
   $sshd_permitrootlogin = lookup('ssh::permitrootlogin')
+  $sshd_aliveinterval = lookup('ssh::aliveinterval', default_value => false)
+  $sshd_alivemaxcount = lookup('ssh::alivemaxcount', default_value => false)
+  $base_options = {
+    'PermitRootLogin' => $sshd_permitrootlogin,
+    'Port'            => $sshd_port,
+  }
+  $alive_options = {
+    'ClientAliveInterval' => $sshd_aliveinterval ,
+    'ClientAliveCountMax' => $sshd_alivemaxcount,
+  }
+  if $sshd_aliveinterval and $sshd_alivemaxcount {
+    $options = $base_options + $alive_options
+  } else {
+    $options = $base_options
+  }
 
   class { '::ssh::server':
     storeconfigs_enabled => false,
-    options              => {
-      'PermitRootLogin' => $sshd_permitrootlogin,
-      'Port'            => $sshd_port,
-    },
+    options              => $options,
   }
 
   $users = lookup('users', Hash, 'deep')
