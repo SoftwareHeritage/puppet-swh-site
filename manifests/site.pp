@@ -73,11 +73,6 @@ node 'met.internal.softwareheritage.org' {
   include role::swh_provenance
 }
 
-node 'mam.internal.softwareheritage.org' {
-  include role::nginx_only
-  include role::rancher_node
-}
-
 node /^saam\.(internal\.)?softwareheritage\.org$/ {
   include role::rancher_node_with_multipath
 }
