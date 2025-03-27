@@ -19,29 +19,17 @@ swh::apt_config::enable_non_free: true
 
 zfs::common::zpool_configuration:
   mirror:
-    raidz1-0:
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ23
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ24
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ35
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ30
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ33
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ34
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ22
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ25
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2W
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2V
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2E
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2D
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2C
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2B
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2Y
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ32
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2X
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ31
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ29
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ28
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2A
-      - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ27
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ23 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ28
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ24 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ30
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ22 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ33
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ25 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ34
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2V /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2D
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2E /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2X
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2W /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2C
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ2Y /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2B
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ32 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2A
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ31 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ27
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ29 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ35
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
