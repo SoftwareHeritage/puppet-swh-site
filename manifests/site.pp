@@ -75,6 +75,7 @@ node 'met.internal.softwareheritage.org' {
 
 node 'mam.internal.softwareheritage.org' {
   include role::nginx_only
+  include role::rancher_node
 }
 
 node /^saam\.(internal\.)?softwareheritage\.org$/ {
