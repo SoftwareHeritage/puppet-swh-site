@@ -30,6 +30,7 @@ zfs::common::zpool_configuration:
     - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ32 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ2A
     - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ31 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ27
     - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ29 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I070BQ35
+    - /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ21-part3 /dev/disk/by-id/nvme-VO003840KXAVQ_SNABN5890I130BQ26-part3
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
