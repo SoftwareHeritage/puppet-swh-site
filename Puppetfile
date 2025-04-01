@@ -24,7 +24,7 @@ mod 'apache',
 
 mod 'apt',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-apt',
-    :tag => 'v8.3.0'
+    :tag => 'v10.0.1'
 
 mod 'archive',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-archive',
@@ -77,6 +77,10 @@ mod 'extlib',
 mod 'grafana',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-grafana',
     :ref => 'feature/puppet5-compat'
+
+mod 'gitlab_ci_runner',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-gitlab_ci_runner',
+    :ref => 'v6.1.0'
 
 mod 'hitch',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-ssm-hitch',
