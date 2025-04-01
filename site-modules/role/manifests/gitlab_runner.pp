@@ -2,4 +2,6 @@
 class role::gitlab_runner inherits role::swh_base {
   include profile::docker
   include profile::zfs::docker
+
+  include profile::gitlab_runner
 }

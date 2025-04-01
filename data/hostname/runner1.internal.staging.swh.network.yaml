@@ -1,1 +1,5 @@
 swh::apt_config::enable_non_free: true
+
+gitlab_runner::name: cc_wp1_ci
+# gitlab_runner::cc_wp1_ci::registration_token in private_data
+gitlab_runner::concurrent: 4

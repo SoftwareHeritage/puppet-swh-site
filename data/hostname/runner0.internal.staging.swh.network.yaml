@@ -1,1 +1,3 @@
 swh::apt_config::enable_non_free: true
+
+gitlab_runner::managed: false

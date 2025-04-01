@@ -5211,3 +5211,9 @@ swh_web_inbound_email::profiles:
     email_domain: archive.softwareheritage.org
     endpoint: https://archive.softwareheritage.org/inbound-email/
     shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
+
+gitlab_runner::gitlab_url: 'https://gitlab.softwareheritage.org'
+gitlab_runner::concurrent: 10
+gitlab_runner::docker::image: ruby:2.7
+# override per runner
+# gitlab_runner::registration_token: "%{lookup('gitlab_runner::<hostname>::registration_token')}"
