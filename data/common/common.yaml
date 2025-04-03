@@ -1495,6 +1495,14 @@ bind::resource_records:
     type: CNAME
     record: svix.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  inbox-staging/CNAME:
+    type: CNAME
+    record: inbox.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  inbox-internal-staging/CNAME:
+    type: CNAME
+    record: inbox.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   svix-next-version-internal-staging/CNAME:
     type: CNAME
     record: svix-next-version.internal.staging.swh.network
