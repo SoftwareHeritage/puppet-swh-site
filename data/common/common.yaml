@@ -835,7 +835,6 @@ swh::deploy::reverse_proxy::services:
   - objstorage
   - storage_cassandra_ro
   - software-stories
-  - provenance_export
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
@@ -1094,9 +1093,6 @@ letsencrypt::certificates:
   preseed.internal.softwareheritage.org:
     domains:
       - preseed.internal.softwareheritage.org
-  provenance_export:
-    domains:
-      - provenance-export.softwareheritage.org
 
 bind::update_key: local-update
 
@@ -2630,15 +2626,6 @@ swh::deploy::software-stories::reverse_proxy::backend_http_port: "80"
 swh::deploy::software-stories::base_url: stories.softwareheritage.org
 swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_production
 swh::deploy::software-stories::icinga_check_string: 'SWH Stories'
-
-# Provenance exports
-swh::deploy::provenance_export::reverse_proxy::backend_http_host: mam.internal.softwareheritage.org
-swh::deploy::provenance_export::reverse_proxy::backend_http_port: "80"
-swh::deploy::provenance_export::base_url: provenance-export.softwareheritage.org
-swh::deploy::provenance_export::vhost::letsencrypt_cert: provenance_export
-swh::deploy::provenance_export::icinga_check_string: 'Index of /'
-# Fully disable caching and buffering on the reverse proxy
-swh::deploy::provenance_export::reverse_proxy::vcl_recv_extra: "return (pipe);"
 
 # End remote service configurations
 #####################################################################################################
