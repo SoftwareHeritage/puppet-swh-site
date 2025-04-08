@@ -891,6 +891,9 @@ letsencrypt::certificates:
   software-stories_staging:
     domains:
       - software-stories.staging.swh.network
+  coarnotify_staging:
+    domains:
+      - inbox.staging.swh.network
   scheduler_staging:
     domains:
       - scheduler.staging.swh.network

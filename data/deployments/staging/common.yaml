@@ -141,6 +141,7 @@ swh::deploy::reverse_proxy::services:
   - webapp
   - objstorage
   - software-stories
+  - coarnotify
 
 swh::postgresql::version: '12'
 swh::postgresql::port: 5433
@@ -401,3 +402,9 @@ swh::deploy::scheduler::reverse_proxy::backend_http_port: "80"
 swh::deploy::scheduler::base_url: scheduler.staging.swh.network
 swh::deploy::scheduler::vhost::letsencrypt_cert: scheduler_staging
 swh::deploy::scheduler::icinga_check_string: 'scheduler RPC server'
+
+# coarnotify
+swh::deploy::coarnotify::reverse_proxy::backend_http_host: inbox.internal.staging.swh.network
+swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
+swh::deploy::coarnotify::base_url: inbox.staging.swh.network
+swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify_staging
