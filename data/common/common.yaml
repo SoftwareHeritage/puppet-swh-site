@@ -678,8 +678,8 @@ users:
     shell: /bin/bash
     authorized_keys:
       martin:
-        type: ssh-rsa
-        key: AAAAB3NzaC1yc2EAAAADAQABAAABgQCrcmQpoU6bErC9uTfryzrfj046MISvzWZHGZCppC5/e9cH15G9s7HAnBQzj7dcheiszeKgCE2T8wppIjbDUIQulBrTBhXfqTFzKtgcOZAATO3hSqHV+zKpdmaxrQE68+pJpf2qRiupW8CgwZY/hIEaz4byJ0v6videVaUkKPcoaZeBteUiFcxVNSuGTCtriJRJgEBS8CoJqvwIaaVvPNz3A88qAegYru0jTgxShsBYLJRC349rMl+6dB/pWTUZTp6bpBzEF8Lx1ZbRnuo4VTO/j0IXAMkA8Zjidx99oJTQDQqfY/n4Z6+QCDmgPuSzQRbUCcHugwU5ksU+skvptyTrEt0PwLoJSvlCl27jC12FWcjG/HmV9CNUL9Kzn4zvFYV5FNPDQPZZsVYnu9slJxWs1q0KnYxnI0u9rQNgiCKl3pIf1V1QR7Mfapx7dsRT3XKeo1CQtuHow4KhSthM6NM2yFoJhN0ZLyDBkQawumZ8+pBgxmgabn5ztB0fCX/uFXk=
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIKHl05ygCGV2UuQ0yHsBbO+wSGyhRa9ZGMegyfi8v7Uq
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
