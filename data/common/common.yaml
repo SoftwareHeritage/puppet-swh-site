@@ -1210,7 +1210,7 @@ bind::resource_records:
   postgresql-indexer-rw/CNAME:
     type: CNAME
     record: postgresql-indexer-rw.internal.softwareheritage.org
-    data: albertina.internal.softwareheritage.org.
+    data: massmoca.internal.softwareheritage.org.
   postgresql-scheduler-rw/CNAME:
     type: CNAME
     record: postgresql-scheduler-rw.internal.softwareheritage.org
