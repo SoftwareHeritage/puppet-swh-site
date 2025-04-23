@@ -44,6 +44,21 @@ class profile::cassandra {
 
   $max_map_count = lookup("cassandra::max_map_count")
 
+  $debian_mirror = lookup('swh::apt_config::debian_mirror')
+  $debian_security_mirror = lookup('swh::apt_config::debian_security_mirror')
+
+  ::apt::source { 'debian-bullseye':
+    location => $debian_mirror,
+    release  => 'bullseye',
+    repos    => 'main',
+  }
+
+  ::apt::source { 'debian-security-bullseye':
+    location => $debian_security_mirror,
+    release  => 'bullseye-security',
+    repos    => 'main',
+  }
+
   group {$cassandra_group:
     system => true,
   }
