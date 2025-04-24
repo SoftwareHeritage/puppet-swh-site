@@ -56,7 +56,7 @@ define profile::cassandra::instance (
   # jmx port is hardcoded in the cassandra-env.sh file so it needs to be overriden in the
   # service configuration
   if $jmx_remote {
-    $extra_jmx_option = "-Dcassandra.jmx.remote.port=${jmx_port} -Dcom.sun.management.jmxremote.access.file=${cassandra_config_dir}/jmxremote.access"
+    $extra_jmx_option = "-Dcassandra.jmx.remote.port=${jmx_port} -Dcom.sun.management.jmxremote.access.file=${cassandra_config_dir}/jmxremote.access -Djava.rmi.server.hostname=${swh_hostname['internal_fqdn']}"
   } else {
     $extra_jmx_option = "-Dcassandra.jmx.local.port=${jmx_port}"
   }
