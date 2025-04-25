@@ -8,4 +8,4 @@ icinga2::host::vars:
       disk_wfree: '10%'
       disk_cfree: '5%'
 
-#paxos::repair::timer::calendar: '02/3:20'
+paxos::repair::timer::calendar: '02/3:20'
