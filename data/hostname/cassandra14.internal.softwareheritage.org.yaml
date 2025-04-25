@@ -1,0 +1,11 @@
+---
+swh::apt_config::enable_non_free: true
+
+icinga2::host::vars:
+  load: sql
+  disks:
+    disk /srv/cassandra/instance1/data:
+      disk_wfree: '10%'
+      disk_cfree: '5%'
+
+#paxos::repair::timer::calendar: '02/3:20'

@@ -63,6 +63,10 @@ cassandra::nodes:
     instances:
       instance1:
         cluster_name: archive_production
+  cassandra14.internal.softwareheritage.org:
+    instances: {}
+#      instance1:
+#        cluster_name: archive_production
   cassandra15.internal.softwareheritage.org:
     instances:
       instance1:
