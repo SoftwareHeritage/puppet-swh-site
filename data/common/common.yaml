@@ -4821,6 +4821,7 @@ keycloak::resources::clients::swh_web::roles:
   - swh.web.api.raw_object
   - swh.web.api.provenance
   - swh.web.api.save_bulk
+  - swh.web.admin.alter
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
