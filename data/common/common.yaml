@@ -1402,6 +1402,14 @@ bind::resource_records:
   k8s-archive-staging/A: # main ingress ip of the archive staging cluster
     record: k8s-archive-staging.internal.staging.swh.network
     data: 192.168.130.129
+  luigi-scheduler-staging-next-version/CNAME:
+    type: CNAME
+    record: luigi-scheduler-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  luigi-scheduler-staging/CNAME:
+    type: CNAME
+    record: luigi-scheduler.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   reaper-staging/CNAME:
     type: CNAME
     record: reaper.internal.staging.swh.network
