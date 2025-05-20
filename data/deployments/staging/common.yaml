@@ -408,4 +408,4 @@ swh::deploy::coarnotify::reverse_proxy::backend_http_host: inbox.internal.stagin
 swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
 swh::deploy::coarnotify::base_url: inbox.staging.swh.network
 swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify_staging
-swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Server'
+swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
