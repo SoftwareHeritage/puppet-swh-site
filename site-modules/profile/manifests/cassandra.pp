@@ -118,7 +118,7 @@ class profile::cassandra {
   }
 
   $config_files_to_copy = [
-    'jvm11-clients.options',
+    'jvm17-clients.options',
     'jvm-clients.options',
     'logback-tools.xml',
   ]

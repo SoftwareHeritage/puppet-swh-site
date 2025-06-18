@@ -140,31 +140,43 @@ cassandra::base_instance_configuration:
 # to avoid to have to compact big sstables
 cassandra::disable_stcs_in_l0: true
 
-cassandra::jvm11_options:
+cassandra::jvm17_options:
   # activated for G1
-  - -XX:+UseG1GC
   - -XX:+ParallelRefProcEnabled
-  - -XX:MaxGCPauseMillis=500
+  - -XX:+UseG1GC
+  - -XX:G1HeapRegionSize=16m
+  - -XX:G1RSetUpdatingPauseTimePercent=5
   - -XX:InitiatingHeapOccupancyPercent=70
-  - -XX:ParallelGCThreads=16
+  - -XX:MaxGCPauseMillis=300
+  - -XX:MaxTenuringThreshold=1
   - -XX:ConcGCThreads=16
+  - -XX:ParallelGCThreads=16
   # in the file by default
-  - -Djdk.attach.allowAttachSelf=true
+  - --add-exports java.base/java.lang.ref=ALL-UNNAMED
   - --add-exports java.base/jdk.internal.misc=ALL-UNNAMED
-  - --add-exports java.base/jdk.internal.ref=ALL-UNNAMED
-  - --add-exports java.base/sun.nio.ch=ALL-UNNAMED
   - --add-exports java.management.rmi/com.sun.jmx.remote.internal.rmi=ALL-UNNAMED
+  - --add-exports java.management/com.sun.jmx.remote.security=ALL-UNNAMED
   - --add-exports java.rmi/sun.rmi.registry=ALL-UNNAMED
   - --add-exports java.rmi/sun.rmi.server=ALL-UNNAMED
   - --add-exports java.sql/java.sql=ALL-UNNAMED
+  - --add-exports jdk.unsupported/sun.misc=ALL-UNNAMED
+  - --add-opens java.base/java.io=ALL-UNNAMED
   - --add-opens java.base/java.lang.module=ALL-UNNAMED
+  - --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+  - --add-opens java.base/java.lang=ALL-UNNAMED
+  - --add-opens java.base/java.nio=ALL-UNNAMED
+  - --add-opens java.base/java.util=ALL-UNNAMED
   - --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
-  - --add-opens java.base/jdk.internal.ref=ALL-UNNAMED
-  - --add-opens java.base/jdk.internal.reflect=ALL-UNNAMED
   - --add-opens java.base/jdk.internal.math=ALL-UNNAMED
   - --add-opens java.base/jdk.internal.module=ALL-UNNAMED
+  - --add-opens java.base/jdk.internal.ref=ALL-UNNAMED
+  - --add-opens java.base/jdk.internal.reflect=ALL-UNNAMED
   - --add-opens java.base/jdk.internal.util.jar=ALL-UNNAMED
+  - --add-opens java.base/sun.nio.ch=ALL-UNNAMED
   - --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED
+  - -Dio.netty.allocator.maxOrder=11
+  - -Dio.netty.allocator.useCacheForAllThreads=true
   - -Dio.netty.tryReflectionSetAccessible=true
+  - -Djdk.attach.allowAttachSelf=true
 # During directory_entry compaction migration
   - -Dcassandra.disable_stcs_in_l0="%{lookup('cassandra::disable_stcs_in_l0')}"
