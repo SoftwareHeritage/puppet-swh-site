@@ -90,7 +90,7 @@ class profile::cassandra {
     mode   => '0755'
   }
 
-  ensure_packages(['openjdk-11-jdk', 'libnetty-java'])
+  ensure_packages(['openjdk-17-jdk', 'libnetty-java'])
 
   archive { 'cassandra':
     path            => $download_path,
