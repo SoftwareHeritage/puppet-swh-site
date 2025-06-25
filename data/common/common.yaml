@@ -669,6 +669,9 @@ users:
       varasterix:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIEDIxDM55q3PqmEBEeM1A4VzIEReZFStVKxDE8kE8Vhg
+      bumblebee:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIBA72J1iiMTLwYFodqSarqs0KDTRjrGiJLR4adYWJfmi
   martin:
     uid: 1039
     full_name: Martin Kirchgessner
