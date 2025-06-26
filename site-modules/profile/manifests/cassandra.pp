@@ -183,5 +183,7 @@ class profile::cassandra {
     }
   }
 
+  file {"${cassandra_config_directory}/jvm11-clients.options":
+    ensure  => absent,
+  }
 }
-
