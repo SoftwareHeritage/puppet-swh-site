@@ -165,8 +165,4 @@ define profile::cassandra::instance (
     path   => '/root/.bashrc',
     line   => 'source /root/.cassandra_functions',
   }
-
-  file { "${config_dir}/jvm11-server.options":
-    ensure  => absent,
-  }
 }

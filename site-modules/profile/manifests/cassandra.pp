@@ -182,8 +182,4 @@ class profile::cassandra {
       config => $merged_config
     }
   }
-
-  file {"${cassandra_config_directory}/jvm11-clients.options":
-    ensure  => absent,
-  }
 }
