@@ -44,14 +44,6 @@ class profile::cassandra {
 
   $max_map_count = lookup("cassandra::max_map_count")
 
-  ::apt::source { 'debian-bullseye':
-    ensure   => 'absent',
-  }
-
-  ::apt::source { 'debian-security-bullseye':
-    ensure   => 'absent',
-  }
-
   group {$cassandra_group:
     system => true,
   }
@@ -173,19 +165,6 @@ class profile::cassandra {
 
     profile::cassandra::instance{$instance_name:
       config => $merged_config
-    }
-  }
-
-  $openjdk_packages_to_remove = [
-    'openjdk-11-jdk',
-    'openjdk-11-jdk-headless',
-    'openjdk-11-jre',
-    'openjdk-11-jre-headless',
-  ]
-
-  $openjdk_packages_to_remove.each | $pkg | {
-    package { $pkg:
-      ensure => 'purged',
     }
   }
 }
