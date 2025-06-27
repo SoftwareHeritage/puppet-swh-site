@@ -182,4 +182,17 @@ class profile::cassandra {
       config => $merged_config
     }
   }
+
+  $openjdk_packages_to_remove = [
+    'openjdk-11-jdk',
+    'openjdk-11-jdk-headless',
+    'openjdk-11-jre',
+    'openjdk-11-jre-headless',
+  ]
+
+  $openjdk_packages_to_remove.each | $pkg | {
+    package { $pkg:
+      ensure => 'purged',
+    }
+  }
 }
