@@ -4825,6 +4825,8 @@ keycloak::resources::clients::swh_web::roles:
   - swh.web.api.provenance
   - swh.web.api.save_bulk
   - swh.web.admin.alter
+  - swh_web_add_forge_now.change_request
+  - swh_web_add_forge_now.view_request
 
 keycloak::resources::clients::swh_deposit::roles:
   - swh.deposit.api
