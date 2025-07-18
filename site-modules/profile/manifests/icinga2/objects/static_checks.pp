@@ -187,24 +187,6 @@ class profile::icinga2::objects::static_checks {
     target        => $checks_file,
   }
 
-  $prometheus_host = lookup('prometheus::server::fqdn')
-  ['massmoca'].each |$replica| {
-    ::icinga2::object::service {"Postgresql replication lag (belvedere -> ${replica})":
-      check_command => 'check_prometheus_metric',
-      target        => $checks_file,
-      host_name     => 'albertina.internal.softwareheritage.org',
-      vars          => {
-        prometheus_metric_name     => "pg replication_lag albertina ${replica}",
-        prometheus_query           => profile::icinga2::literal_var(
-          join(['sum(sql_pg_stat_replication{instance="albertina.internal.softwareheritage.org", host=":5433", application_name="softwareheritage_', $replica, '", slot_name="softwareheritage_', $replica, '"})'], '')
-        ),
-        prometheus_query_type      => 'vector',
-        prometheus_metric_warning  => '1073741824', # 1GiB 1*1024*1024*1024
-        prometheus_metric_critical => '2147483648', # 2GiB 2*1024*1024*1024
-      },
-    }
-  }
-
   $days_2 = 172800  # seconds, twice the max period for incremental listing + 1 day
   $days_3 = 259200  # seconds, twice the max period for incremental listing + 2 days
   $days_8 = 691200  # seconds, intermediary recurring period for full listing + 1 day
