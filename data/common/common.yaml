@@ -498,7 +498,7 @@ users:
   vlorentz:
     uid: 1021
     full_name: Valentin Lorentz
-    shell: /bin/bash
+    shell: /usr/bin/fish
     groups:
       - swhdev
       - swhteam
