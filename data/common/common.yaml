@@ -4724,8 +4724,9 @@ elasticsearch::config:
   index.store.type: hybridfs
 
 elasticsearch::curator::long_retention: 367
-elasticsearch::curator::short_retention: 184
-elasticsearch::curator::closing_delay: 30
+elasticsearch::curator::short_retention: 61
+elasticsearch::curator::long_closing_delay: 30
+elasticsearch::curator::short_closing_delay: 15
 elasticsearch::curator::long_lifecycle_indices:
   - systemlogs
   - production-system-logs
