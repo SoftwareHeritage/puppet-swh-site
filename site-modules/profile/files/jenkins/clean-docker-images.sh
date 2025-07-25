@@ -69,7 +69,7 @@ docker image ls \
                 }
         }
       }' \
-    | xargs -r docker rmi
+    | xargs -r docker rmi -f
 
 # Prune more dangling layers
 prune_docker
