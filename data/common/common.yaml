@@ -4731,8 +4731,6 @@ elasticsearch::curator::long_lifecycle_indices:
   - systemlogs
   - production-system-logs
   - production-swh-logs
-  - swh_workers
-  - apache_logs
 elasticsearch::curator::short_lifecycle_indices:
   - staging-system-logs
   - staging-swh-logs
