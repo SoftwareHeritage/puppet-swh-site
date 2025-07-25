@@ -5,10 +5,10 @@ actions:
     action: close
     description: >-
 
-      Long Lifecycle Indices.
+      Long and Intermediate Lifecycle Indices.
 
-      Close indices older than <%= @long_closing_delay %> days (based on index timestamp), for
-      <% @long_lifecycle_indices.each do |index| -%>
+      Close indices older than <%= @long_intermediate_closing_delay %> days (based on index timestamp), for
+      <% @long_intermediate_lifecycle_indices.each do |index| -%>
         - <%= index %>
       <% end -%>
       prefixed indices.
@@ -20,12 +20,12 @@ actions:
     filters:
     - filtertype: pattern
       kind: regex
-      value: '^(<%= @long_lifecycle_indices.join('|') %>).*$'
+      value: '^(<%= @long_intermediate_lifecycle_indices.join('|') %>).*$'
     - filtertype: age
       source: field_stats
       direction: older
       unit: days
-      unit_count: <%= @long_closing_delay %>
+      unit_count: <%= @long_intermediate_closing_delay %>
       field: '@timestamp'
       stats_result: min_value
   2:

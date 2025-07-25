@@ -29,6 +29,30 @@ actions:
     action: delete_indices
     description: >-
 
+      Intermediate Lifecycle Indices.
+
+      Delete indices older than <%= @intermediate_retention %> days (based on index creation date), for
+      <% @intermediate_lifecycle_indices.each do |index| -%>
+        - <%= index %>
+      <% end -%>
+      prefixed indices. Ignore the error if the filter does not result in an
+      actionable list of indices (ignore_empty_list) and exit cleanly.
+    options:
+      ignore_empty_list: True
+      disable_action: False
+    filters:
+    - filtertype: pattern
+      kind: regex
+      value: '^(<%= @intermediate_lifecycle_indices.join('|') %>).*$'
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: <%= @intermediate_retention %>
+  3:
+    action: delete_indices
+    description: >-
+
       Short Lifecycle Indices.
 
       Delete indices older than <%= @short_retention %> days (based on index creation date), for
