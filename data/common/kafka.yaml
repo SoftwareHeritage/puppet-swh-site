@@ -99,6 +99,9 @@ kafka::clusters:
       kafka4.internal.softwareheritage.org:
         id: 4
         public_hostname: broker4.journal.softwareheritage.org
+      kafka5.internal.softwareheritage.org:
+        id: 5
+        public_hostname: broker5.journal.softwareheritage.org
     superusers:
       - User:swh-admin-olasd
       # Users connecting in the plaintext endpoint are ANONYMOUS
