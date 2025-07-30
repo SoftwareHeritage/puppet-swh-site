@@ -968,6 +968,14 @@ letsencrypt::certificates:
     domains:
       - broker4.journal.softwareheritage.org
       - kafka4.internal.softwareheritage.org
+  kafka5.internal.softwareheritage.org:
+    domains:
+      - broker5.journal.softwareheritage.org
+      - kafka5.internal.softwareheritage.org
+  kafka6.internal.softwareheritage.org:
+    domains:
+      - broker6.journal.softwareheritage.org
+      - kafka6.internal.softwareheritage.org
   kafka01.euwest.azure.internal.softwareheritage.org:
     domains:
       - kafka01.euwest.azure.internal.softwareheritage.org
