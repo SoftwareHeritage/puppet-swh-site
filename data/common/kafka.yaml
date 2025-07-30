@@ -5,6 +5,7 @@ zookeeper::clusters:
     '2': kafka2.internal.softwareheritage.org
     '3': kafka3.internal.softwareheritage.org
     '4': kafka4.internal.softwareheritage.org
+    '5': kafka5.internal.softwareheritage.org
   rocquencourt_staging:
     '1': kafka1.internal.staging.swh.network
     # '2': Decommissionned, do not reuse
