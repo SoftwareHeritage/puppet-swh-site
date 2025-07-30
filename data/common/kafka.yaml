@@ -17,7 +17,7 @@ zookeeper::leader_port: 3888
 
 kafka::version: "3.6.1"
 kafka::scala_version: '2.13'
-kafka::mirror_url: https://dlcdn.apache.org/
+kafka::mirror_url: https://archive.apache.org/
 kafka::cluster::heap_ops: "-Xmx6G -Xms6G -XX:MaxDirectMemorySize=12G"
 kafka::inter_broker_protocol_version: "3.6"
 kafka::log_message_format_version: "3.6"
