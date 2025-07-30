@@ -996,10 +996,12 @@ letsencrypt::certificates:
     domains:
       - kafka05.euwest.azure.internal.softwareheritage.org
       - kafka05.euwest.azure.softwareheritage.org
+    private_key_type: ec
   kafka06.euwest.azure.internal.softwareheritage.org:
     domains:
       - kafka06.euwest.azure.internal.softwareheritage.org
       - kafka06.euwest.azure.softwareheritage.org
+    private_key_type: ec
   annex.softwareheritage.org:
     domains:
       - annex.softwareheritage.org
