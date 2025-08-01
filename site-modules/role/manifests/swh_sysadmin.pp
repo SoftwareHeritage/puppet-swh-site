@@ -26,7 +26,6 @@ class role::swh_sysadmin inherits role::swh_server {
   include profile::www_static_backup_web
 
   include profile::weekly_reminder_bot
-  include profile::monthly_report_bot
 
   include profile::swh_web_inbound_email
 
