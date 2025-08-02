@@ -18,6 +18,8 @@ apache::rewrite_domains:
     rewrites:
       - "^.*$ https://forge.softwareheritage.org/"
 
+apache::timeout: 120
+
 
 backups::exclude:
   - /var/lib/mysql
