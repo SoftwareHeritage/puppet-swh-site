@@ -808,6 +808,7 @@ apache::log_formats:
 hitch::frontend: "[*]:10443"
 hitch::proxy_support: false
 hitch::http2_support: false
+hitch::workers: auto
 
 # Varnish configuration
 varnish::http_port: 10080
