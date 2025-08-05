@@ -213,31 +213,11 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh-lister
-  - source_db: swh-deposit
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-deposit
   - source_db: swh-indexer
     host: localhost
     auth_user: postgres
     port: 5433
     alias: staging-swh-indexer
-  - source_db: swh-web
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-web
-  - source_db: swh-web-next-version
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-web-next-version
-  - source_db: swh-mirror
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: swh-mirror
   - source_db: swh-scrubber
     host: localhost
     auth_user: postgres
