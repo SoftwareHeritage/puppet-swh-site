@@ -36,8 +36,6 @@ swh::deploy::scrubber::db::host: db1.internal.staging.swh.network
 swh::deploy::scrubber::checker::num_partitions_log2::small_table: 10
 swh::deploy::scrubber::checker::num_partitions_log2::large_table: 20
 
-swh::deploy::webapp::db::host: db1.internal.staging.swh.network
-# swh::deploy::webapp::db::password in private data
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
 swh::deploy::worker::instances: []
@@ -173,9 +171,6 @@ swh::dbs:
   indexer::storage:
     name: swh-indexer
     user: swh-indexer
-  webapp:
-    name: swh-web
-    user: swh-web
   webapp-next-version:
     name: swh-web-next-version
     user: swh-web-next-version
