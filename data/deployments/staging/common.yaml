@@ -171,9 +171,6 @@ swh::dbs:
   indexer::storage:
     name: swh-indexer
     user: swh-indexer
-  webapp-next-version:
-    name: swh-web-next-version
-    user: swh-web-next-version
   scrubber:
     name: swh-scrubber
     user: swh-scrubber
