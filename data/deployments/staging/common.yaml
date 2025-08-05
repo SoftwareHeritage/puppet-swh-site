@@ -15,10 +15,6 @@ swh::deploy::scheduler::db::host: db1.internal.staging.swh.network
 swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scheduler::db::user: swh-scheduler
 
-swh::deploy::deposit::db::host: db1.internal.staging.swh.network
-swh::deploy::deposit::db::dbuser: swh-deposit
-swh::deploy::deposit::db::dbname: swh-deposit
-
 swh::deploy::vault::db::host: db1.internal.staging.swh.network
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
@@ -174,9 +170,6 @@ swh::dbs:
   lister:
     name: swh-lister
     user: swh-lister
-  deposit:
-    name: swh-deposit
-    user: swh-deposit
   indexer::storage:
     name: swh-indexer
     user: swh-indexer
