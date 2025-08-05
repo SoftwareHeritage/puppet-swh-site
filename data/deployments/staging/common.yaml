@@ -174,10 +174,6 @@ swh::dbs:
   scrubber:
     name: swh-scrubber
     user: swh-scrubber
-  mirror:
-    name: swh-mirror
-    user: swh-mirror
-    password: "%{lookup('swh::deploy::mirror::db::password')}"
   masking:
     name: swh-masking
     user: swh-masking
