@@ -33,6 +33,8 @@ kafka::threads::network: 16
 kafka::threads::io: 32
 kafka::threads::background: 16
 
+kafka::max_map_count: 524288
+
 kafka::logdirs:
   - /srv/kafka/logdir
 kafka::broker_config:

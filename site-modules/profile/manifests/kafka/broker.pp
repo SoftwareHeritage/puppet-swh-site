@@ -233,6 +233,9 @@ class profile::kafka::broker {
       content  => "[Service]\nKillMode=mixed\n",
     }
 
+    $max_map_count = lookup("kafka::max_map_count")
+    sysctl { 'vm.max_map_count': value => $max_map_count }
+
     ::profile::prometheus::export_scrape_config {'kafka':
       target => $target,
       labels => {
