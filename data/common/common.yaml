@@ -1385,6 +1385,10 @@ bind::resource_records:
                                      # access to pgbouncer
     record: k8s-archive-staging-rke2-pooler.internal.staging.swh.network
     data: 192.168.130.138
+  staging-db-postgresql/CNAME:
+    type: CNAME
+    record: db.internal.staging.swh.network
+    data: k8s-archive-staging-rke2-pooler.internal.staging.swh.network.
   k8s-archive-staging-rke2-thanos/A:
     type: CNAME
     record: k8s-archive-staging-rke2-thanos.internal.staging.swh.network
