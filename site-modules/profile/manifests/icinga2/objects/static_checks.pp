@@ -194,37 +194,33 @@ class profile::icinga2::objects::static_checks {
   $days_91 = 7862400  # seconds, max recurring period for full listing + 1 day
   $days_92 = 7948800  # seconds, max recurring period for full listing + 2 days
 
-  [['staging', 'db1.internal.staging.swh.network'],
-   ['production', 'albertina.internal.softwareheritage.org']
-  ].each |$env_config| {
-    $env = $env_config[0]
-    $db_host = $env_config[1]
+  $env     = 'production'
+  $db_host = 'albertina.internal.softwareheritage.org'
 
-    [['1 day', $days_2, $days_3],
-     ['7 days', $days_8, $days_9],
-     ['90 days', $days_91, $days_92]
-    ].each | $periodic_data | {
-       $interval = $periodic_data[0]
-       $threshold_warning = $periodic_data[1]
-       $threshold_critical = $periodic_data[2]
+  [['1 day', $days_2, $days_3],
+    ['7 days', $days_8, $days_9],
+    ['90 days', $days_91, $days_92]
+  ].each | $periodic_data | {
+    $interval = $periodic_data[0]
+    $threshold_warning = $periodic_data[1]
+    $threshold_critical = $periodic_data[2]
 
-       ::icinga2::object::service {"${env} - Scheduler recurrent lister tasks with period ${interval} check":
-         check_command => 'check_prometheus_metric',
-         target        => $checks_file,
-         host_name     => $db_host,
-         vars          => {
-           prometheus_metric_name     => "Scheduler recurrent lister tasks with period ${interval} are stale in ${env}",
-           prometheus_query           => profile::icinga2::literal_var(
-             join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $env, '"',
-                   ', policy="recurring", current_interval="', $interval, '"',
-                   ', status="next_run_scheduled"}) by (le)) or vector(1)'], '')),
-               # or vector(1) is a fallback for the case where no data is returned
-               # ('null' value). This is considered a success and we're moving along.
-          prometheus_query_type      => 'vector',
-          prometheus_metric_warning  => $threshold_warning,
-          prometheus_metric_critical => $threshold_critical,
-        }
-      }
+    ::icinga2::object::service { "${env} - Scheduler recurrent lister tasks with period ${interval} check":
+      check_command => 'check_prometheus_metric',
+      target        => $checks_file,
+      host_name     => $db_host,
+      vars          => {
+        prometheus_metric_name     => "Scheduler recurrent lister tasks with period ${interval} are stale in ${env}",
+        prometheus_query           => profile::icinga2::literal_var(
+          join(['histogram_quantile(0.1, sum(sql_swh_scheduler_delay{environment="', $env, '"',
+              ', policy="recurring", current_interval="', $interval, '"',
+        ', status="next_run_scheduled"}) by (le)) or vector(1)'], '')),
+        # or vector(1) is a fallback for the case where no data is returned
+        # ('null' value). This is considered a success and we're moving along.
+        prometheus_query_type      => 'vector',
+        prometheus_metric_warning  => $threshold_warning,
+        prometheus_metric_critical => $threshold_critical,
+      },
     }
   }
 
