@@ -4,11 +4,19 @@ define profile::filebeat::log_input(
   Hash[String,String] $fields = {},
 ) {
 
-  $input_configuration = [{
+  $base_configuration = [{
     'type'   => 'log',
     'paths'  => $paths,
     'fields' => $fields,
   }]
+  $exclude_lines = lookup('filebeat::varnishlog::exclude_lines', Array, 'first', [])
+
+  if $exclude_lines == [] {
+    $input_configuration = $base_configuration
+  } else {
+    $input_configuration = $base_configuration.map |$hash| {
+    deep_merge($hash, { 'exclude_lines' => $exclude_lines }) }
+  }
 
   file { "filebeat_input_${name}" :
     ensure  => present,

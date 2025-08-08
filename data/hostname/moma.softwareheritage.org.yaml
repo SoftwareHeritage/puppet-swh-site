@@ -85,3 +85,10 @@ mountpoints:
     ensure: absent
   /srv/storage/space:
     ensure: absent
+
+filebeat::varnishlog::exclude_lines:
+  - 'Blackbox Exporter'
+  - 'check_http/v2'
+  - 'enea-prod'
+  - 'grnet-prod'
+  - 'Svix-Webhooks/1'

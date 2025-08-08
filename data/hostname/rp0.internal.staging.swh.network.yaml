@@ -1,0 +1,5 @@
+---
+filebeat::varnishlog::exclude_lines:
+  - 'Blackbox Exporter'
+  - 'check_http/v2'
+  - 'Svix-Webhooks/1'
