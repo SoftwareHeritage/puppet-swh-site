@@ -1,2 +1,5 @@
 backups::exclude:
   - srv/kafka
+
+filebeat::journald::drop_event:
+  when.contains.message: "root.INFO"

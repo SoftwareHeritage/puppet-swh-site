@@ -2,3 +2,6 @@
 # Listen on all interfaces. Used for sentry to be able to send metrics
 prometheus::statsd::statsd_listen_tcp: ":8125"
 prometheus::statsd::statsd_listen_udp: ":8125"
+
+filebeat::journald::drop_event:
+  when.equals.systemd.unit: "docker.service"
