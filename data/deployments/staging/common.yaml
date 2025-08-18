@@ -3,31 +3,68 @@ swh::deploy::environment: staging
 dns::search_domains:
   - internal.staging.swh.network
 
+swh::postgres::service::dbs:
+  - alias: admin-swh
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: "%{lookup('swh::deploy::storage::db::user')}"
+    password: "%{lookup('swh::deploy::storage::db::password')}"
+  - alias: swh
+    name: "%{lookup('swh::deploy::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-deposit
+    name: "%{lookup('swh::deploy::deposit::db::dbname')}"
+    host: "%{lookup('swh::deploy::deposit::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-indexer
+    name: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
+    host: "%{lookup('swh::deploy::indexer::storage::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-scheduler
+    name: "%{lookup('swh::deploy::scheduler::db::dbname')}"
+    host: "%{lookup('swh::deploy::scheduler::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-scrubber
+    name: "%{lookup('swh::deploy::scrubber::db::dbname')}"
+    host: "%{lookup('swh::deploy::scrubber::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-vault
+    name: "%{lookup('swh::deploy::vault::db::dbname')}"
+    host: "%{lookup('swh::deploy::vault::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+  - alias: swh-web
+    name: "%{lookup('swh::deploy::webapp::db::name')}"
+    host: "%{lookup('swh::deploy::webapp::db::host')}"
+    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
+    user: guest
+
 swh::deploy::storage::db::host: db1.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
 
-swh::deploy::indexer::storage::db::host: db1.internal.staging.swh.network
-swh::deploy::indexer::storage::db::user: swh-indexer
+swh::deploy::deposit::db::host: db.internal.staging.swh.network
+swh::deploy::deposit::db::dbname: swh-deposit
+
+swh::deploy::indexer::storage::db::host: db.internal.staging.swh.network
 swh::deploy::indexer::storage::db::dbname: swh-indexer
 
-swh::deploy::scheduler::db::host: db1.internal.staging.swh.network
+swh::deploy::scheduler::db::host: db.internal.staging.swh.network
 swh::deploy::scheduler::db::dbname: swh-scheduler
-swh::deploy::scheduler::db::user: swh-scheduler
 
-swh::deploy::vault::db::host: db1.internal.staging.swh.network
+swh::deploy::scrubber::db::host: db.internal.staging.swh.network
+swh::deploy::scrubber::db::dbname: swh-scrubber
+
+swh::deploy::vault::db::host: db.internal.staging.swh.network
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
-
-# swh-blocking deployment
-swh::deploy::blocking::db::user: swh-blocking
-swh::deploy::blocking::db::dbname: swh-blocking
-swh::deploy::blocking::db::host: db1.internal.staging.swh.network
-swh::deploy::blocking::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::blocking::db::backend::host: db1.internal.staging.swh.network
-swh::deploy::blocking::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
-
-swh::deploy::scrubber::db::host: db1.internal.staging.swh.network
 
 swh::deploy::scrubber::checker::num_partitions_log2::small_table: 10
 swh::deploy::scrubber::checker::num_partitions_log2::large_table: 20
@@ -302,3 +339,4 @@ swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
 swh::deploy::coarnotify::base_url: inbox.staging.swh.network
 swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify_staging
 swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
+
