@@ -159,30 +159,6 @@ swh::dbs:
   storage:
     name: swh
     user: swh
-  scheduler:
-    name: swh-scheduler
-    user: swh-scheduler
-  vault:
-    name: swh-vault
-    user: swh-vault
-  lister:
-    name: swh-lister
-    user: swh-lister
-  indexer::storage:
-    name: swh-indexer
-    user: swh-indexer
-  scrubber:
-    name: swh-scrubber
-    user: swh-scrubber
-  masking:
-    name: swh-masking
-    user: swh-masking
-  blocking:
-    name: swh-blocking
-    user: swh-blocking
-  svix:
-    name: swh-svix
-    user: swh-svix
 
 pgbouncer::auth_hba_file: "/etc/postgresql/%{lookup('swh::postgresql::cluster_name')}/pg_hba.conf"
 pgbouncer::common::listen_addresses:
@@ -194,46 +170,6 @@ pgbouncer::databases:
     auth_user: postgres
     port: 5433
     alias: staging-swh
-  - source_db: swh-scheduler
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-scheduler
-  - source_db: swh-vault
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-vault
-  - source_db: swh-lister
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-lister
-  - source_db: swh-indexer
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-indexer
-  - source_db: swh-scrubber
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-scrubber
-  - source_db: swh-masking
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-masking
-  - source_db: swh-blocking
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-blocking
-  - source_db: swh-svix
-    host: localhost
-    auth_user: postgres
-    port: 5433
-    alias: staging-swh-svix
 
 # open objstorage api
 swh::deploy::objstorage::backend::listen::host: 0.0.0.0
