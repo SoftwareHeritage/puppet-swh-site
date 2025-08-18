@@ -19,10 +19,6 @@ swh::deploy::vault::db::host: db1.internal.staging.swh.network
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 
-swh::deploy::worker::lister::db::host: db1.internal.staging.swh.network
-swh::deploy::worker::lister::db::user: swh-lister
-swh::deploy::worker::lister::db::name: swh-lister
-
 # swh-blocking deployment
 swh::deploy::blocking::db::user: swh-blocking
 swh::deploy::blocking::db::dbname: swh-blocking

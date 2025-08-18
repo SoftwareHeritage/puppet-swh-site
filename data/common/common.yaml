@@ -4617,12 +4617,6 @@ swh::postgres::service::dbs:
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: "%{lookup('swh::deploy::vault::db::user')}"
     password: "%{lookup('swh::deploy::vault::db::password')}"
-  - alias: admin-swh-lister
-    name: "%{lookup('swh::deploy::worker::lister::db::name')}"
-    host: "%{lookup('swh::deploy::worker::lister::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::worker::lister::db::name')}"
-    password: "%{lookup('swh::deploy::lister::db::password')}"
   - alias: admin-swh-replica
     name: "%{lookup('swh::deploy::storage::db::dbname')}"
     host: massmoca.internal.softwareheritage.org
@@ -4659,11 +4653,6 @@ swh::postgres::service::dbs:
   - alias: swh-vault
     name: "%{lookup('swh::deploy::vault::db::dbname')}"
     host: "%{lookup('swh::deploy::vault::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
-  - alias: swh-lister
-    name: "%{lookup('swh::deploy::worker::lister::db::name')}"
-    host: "%{lookup('swh::deploy::worker::lister::db::host')}"
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
   - alias: swh-replica
