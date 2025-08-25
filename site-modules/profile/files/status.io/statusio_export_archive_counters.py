@@ -18,11 +18,6 @@ def extract_metrics(raw_data) -> List[List]:
     return raw_data["data"]["result"][0]["values"]
 
 
-def get_average(values: List[int]) -> float:
-    return sum(values) / len(values)
-
-
-
 def get_prometheus_values(
     prometheus_url: str,
     query: str,
@@ -126,7 +121,7 @@ def main(
     )
 
     day_dates, day_values = extract_status_io_data(raw_values)
-    day_avg = get_average(day_values)
+    day_avg = day_values[-1]
 
     raw_values = get_prometheus_values(
         prometheus_url,
@@ -137,7 +132,7 @@ def main(
     )
 
     week_dates, week_values = extract_status_io_data(raw_values)
-    week_avg = get_average(week_values)
+    week_avg = week_values[-1]
 
     raw_values = get_prometheus_values(
         prometheus_url,
@@ -148,7 +143,7 @@ def main(
     )
 
     month_dates, month_values = extract_status_io_data(raw_values)
-    month_avg = get_average(month_values)
+    month_avg = month_values[-1]
 
     result = api.MetricUpdate(
         statuspage_id=status_page_id,
