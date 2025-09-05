@@ -46,7 +46,7 @@ swh::postgres::service::dbs:
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
 
-swh::deploy::storage::db::host: db1.internal.staging.swh.network
+swh::deploy::storage::db::host: db.internal.staging.swh.network
 swh::deploy::storage::db::user: swh
 swh::deploy::storage::db::dbname: swh
 
