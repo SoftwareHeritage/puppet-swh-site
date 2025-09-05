@@ -170,7 +170,7 @@ swh::deploy::reverse_proxy::services:
   - software-stories
   - coarnotify
 
-swh::postgresql::version: '12'
+swh::postgresql::version: '13'
 swh::postgresql::port: 5433
 swh::postgresql::cluster_name: "%{lookup('swh::postgresql::version')}/main"
 swh::postgresql::datadir_base: "%{lookup('swh::base_directory')}/postgres"
