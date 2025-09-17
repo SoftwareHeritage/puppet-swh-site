@@ -664,7 +664,7 @@ users:
     groups:
       - swhdev
       - swhteam
-    shell: /bin/bash
+    shell: /usr/bin/fish
     authorized_keys:
       varasterix:
         type: ssh-ed25519
