@@ -6,8 +6,6 @@ class profile::jenkins::agent {
   $jenkins_agent_name = lookup('jenkins::agent::name')
   $jenkins_jnlp_token = lookup('jenkins::agent::jnlp::token')
 
-  $jnlp_url = "${jenkins_url}/computer/${jenkins_agent_name}/jenkins-agent.jnlp"
-
   $workdir = '/var/lib/jenkins/agent-workdir'
   file {$workdir:
     mode  => '0700',
@@ -37,6 +35,12 @@ class profile::jenkins::agent {
     ensure => absent,
   }
 
+  # Template uses:
+  # - $jenkins_agent_jar
+  # - $jenkins_url
+  # - $jenkins_agent_name
+  # - $jnlp_secret_file
+  # - $workdir
   ::systemd::unit_file {'jenkins-agent.service':
     ensure  => present,
     content => template('profile/jenkins/agent/jenkins-agent.service.erb'),

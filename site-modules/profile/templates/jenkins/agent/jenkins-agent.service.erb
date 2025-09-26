@@ -4,7 +4,7 @@ Documentation=https://wiki.jenkins.io/display/JENKINS/Distributed+builds
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/java -jar <%= @jenkins_agent_jar %> -jnlpUrl <%= @jnlp_url %> -secret @<%= @jnlp_secret_file %> -workDir <%= @workdir %>
+ExecStart=/usr/bin/java -jar <%= @jenkins_agent_jar %> -url <%= @jenkins_url %> -name <%= @jenkins_agent_name %> -secret @<%= @jnlp_secret_file %> -workDir <%= @workdir %>
 
 User=jenkins
 Group=jenkins
