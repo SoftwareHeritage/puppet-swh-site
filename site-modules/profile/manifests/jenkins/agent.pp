@@ -6,6 +6,10 @@ class profile::jenkins::agent {
   $jenkins_agent_name = lookup('jenkins::agent::name')
   $jenkins_jnlp_token = lookup('jenkins::agent::jnlp::token')
 
+  $jenkins_backend_domain = lookup('jenkins::backend::domain')
+  $jenkins_backend_port = lookup('jenkins::backend::domain')
+  $jenkins_backend_tunnel = "${jenkins_backend_domain}:${jenkins_backend_port}"
+
   $workdir = '/var/lib/jenkins/agent-workdir'
   file {$workdir:
     mode  => '0700',
@@ -41,6 +45,7 @@ class profile::jenkins::agent {
   # - $jenkins_agent_name
   # - $jnlp_secret_file
   # - $workdir
+  # - $jenkins_backend_tunnel
   ::systemd::unit_file {'jenkins-agent.service':
     ensure  => present,
     content => template('profile/jenkins/agent/jenkins-agent.service.erb'),
