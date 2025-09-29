@@ -4653,6 +4653,9 @@ grafana::objects::datasources:
 
 java::distribution: jre
 
+jenkins::uid: 115
+jenkins::gid: 120
+
 jenkins::backend::domain: thyssen.internal.softwareheritage.org
 jenkins::backend::port: 50000
 jenkins::backend::url: "http://%{lookup('jenkins::backend::domain')}:8080/"

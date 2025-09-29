@@ -1,13 +1,18 @@
 class profile::jenkins::base {
   include ::java
 
+  $jenkins_uid = lookup('jenkins::uid')
+  $jenkins_gid = lookup('jenkins::gid')
+
   group {'jenkins':
     ensure => present,
     system => true,
+    gid    => $jenkins_gid,
   }
   -> user {'jenkins':
     ensure => present,
     system => true,
+    uid    => $jenkins_uid,
     gid    => 'jenkins',
     home   => '/var/lib/jenkins',
   }
