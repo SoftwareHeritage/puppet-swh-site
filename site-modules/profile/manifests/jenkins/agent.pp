@@ -7,7 +7,7 @@ class profile::jenkins::agent {
   $jenkins_jnlp_token = lookup('jenkins::agent::jnlp::token')
 
   $jenkins_backend_domain = lookup('jenkins::backend::domain')
-  $jenkins_backend_port = lookup('jenkins::backend::domain')
+  $jenkins_backend_port = lookup('jenkins::backend::port')
   $jenkins_backend_tunnel = "${jenkins_backend_domain}:${jenkins_backend_port}"
 
   $workdir = '/var/lib/jenkins/agent-workdir'
