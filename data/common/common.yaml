@@ -739,6 +739,12 @@ groups:
     gid: 1033
   hjonin:
     gid: 1034
+  rboyer:
+    gid: 1035
+  varasterix:
+    gid: 1038
+  martin:
+    gid: 1039
   kubenfs:
     gid: 42000
 
