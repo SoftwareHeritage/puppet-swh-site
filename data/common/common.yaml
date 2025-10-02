@@ -635,11 +635,11 @@ users:
       - swhdev
       - swhteam
       - sudo
-    shell: /usr/bin/zsh
+    shell: /bin/false
     authorized_keys:
       gsamson@gsamson:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIFBFC8GmLbjltvV2t4M3YgdRJE6GVG1Jub0OsF/Bw6//
+        key: disabled
   hjonin:
     uid: 1034
     full_name: Helene Jonin
