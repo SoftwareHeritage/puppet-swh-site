@@ -4,7 +4,7 @@ class profile::sentry {
   include profile::docker_compose
 
   $onpremise_dir = '/var/lib/sentry-onpremise'
-  $onpremise_repo = 'https://forge.softwareheritage.org/source/getsentry-onpremise.git'
+  $onpremise_repo = 'https://gitlab.softwareheritage.org/swh/infra/getsentry-onpremise.git'
   $onpremise_repo_branch = 'softwareheritage'
 
   vcsrepo {$onpremise_dir:
