@@ -683,6 +683,9 @@ users:
       martin:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIKHl05ygCGV2UuQ0yHsBbO+wSGyhRa9ZGMegyfi8v7Uq
+      martin@plume:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIB2i4OD9Gr5jqXlEJzTJ2iUme+Usfv/iSpA0ppDZKfbw
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
