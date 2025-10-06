@@ -138,7 +138,7 @@ node 'giverny.softwareheritage.org' {
 }
 
 node /^db\d\.internal\.staging\.swh\.network$/ {
-  include role::rancher_node_with_database
+  include role::rancher_node
 }
 
 node 'dali.internal.admin.swh.network' {
