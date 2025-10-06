@@ -5,7 +5,6 @@ mountpoints:
   swap:
     ensure: absent
 
-
 icinga2::host::vars:
   load: sql
 
