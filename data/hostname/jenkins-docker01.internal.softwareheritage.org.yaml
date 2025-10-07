@@ -12,3 +12,6 @@ zfs::common::zpool_configuration: {}
 
 filebeat::journald::drop_event:
   when.equals.systemd.unit: "docker.service"
+
+icinga2::host::vars:
+  load: sql
