@@ -4557,28 +4557,28 @@ thanos::stores:
       port-http: 19194
       port-grpc: 19094
     compact:
-      port-http: 19294
+      enabled: false
   archive-staging:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-staging-0
     store:
       port-http: 19195
       port-grpc: 19095
     compact:
-      port-http: 19295
+      enabled: false
   archive-production:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-production-0
     store:
       port-http: 19196
       port-grpc: 19096
     compact:
-      port-http: 19296
+      enabled: false
   k8s-admin:  # rancher cluster
     azure-storage-container: metrics-sesi-rocquencourt-rancher-admin-0
     store:
       port-http: 19197
       port-grpc: 19097
     compact:
-      port-http: 19297
+      enabled: false
   k8s-gitlab-staging:  # AKS cluster
     azure-storage-container: metrics-euwest-gitlab-staging-0
     store:

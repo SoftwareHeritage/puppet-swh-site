@@ -9,37 +9,50 @@ class profile::thanos::compact {
 
   $config_dir = $::profile::thanos::base::config_dir
   $stores.each | $dataset_name, $service | {
-    $port_http = $service['compact']['port-http']
-    $http_address = "${internal_ip}:${port_http}"
-    $http_target  = "${swh_hostname['internal_fqdn']}:${port_http}"
-
     $service_name = "thanos-compact@${dataset_name}"
     $unit_name = "${service_name}.service"
 
-    ::systemd::dropin_file {"${service_name}/parameters.conf":
-      ensure   => present,
-      unit     => $unit_name,
-      filename => 'parameters.conf',
-      content  => template('profile/thanos/compact-parameters.conf.erb'),
-      notify   => Service[$service_name],
-    }
+    if $service['compact'].get('enabled', true) {
+      $port_http = $service['compact']['port-http']
+      $http_address = "${internal_ip}:${port_http}"
+      $http_target  = "${swh_hostname['internal_fqdn']}:${port_http}"
 
-    service {$service_name:
-      ensure  => 'running',
-      enable  => true,
-      tag     => [
-        'thanos',
-        'thanos-compact',
-        "thanos-objstore-${dataset_name}",
-      ],
-    }
+      ::systemd::dropin_file {"${service_name}/parameters.conf":
+        ensure   => present,
+        unit     => $unit_name,
+        filename => 'parameters.conf',
+        content  => template('profile/thanos/compact-parameters.conf.erb'),
+        notify   => Service[$service_name],
+      }
 
-    ::profile::prometheus::export_scrape_config {"thanos-compact-${http_target}":
-      target => $http_target,
-      job    => 'thanos_compact',
-      labels => {
-        dataset_name => $dataset_name,
-      },
+      service {$service_name:
+        ensure  => 'running',
+        enable  => true,
+        tag     => [
+          'thanos',
+          'thanos-compact',
+          "thanos-objstore-${dataset_name}",
+        ],
+      }
+
+      ::profile::prometheus::export_scrape_config {"thanos-compact-${http_target}":
+        target => $http_target,
+        job    => 'thanos_compact',
+        labels => {
+          dataset_name => $dataset_name,
+        },
+      }
+    } else {
+      ::systemd::dropin_file {"${service_name}/parameters.conf":
+        unit     => $unit_name,
+        filename => 'parameters.conf',
+        ensure   => absent,
+      }
+
+      service {$service_name:
+        ensure => 'stopped',
+        enable => false,
+      }
     }
   }
 
