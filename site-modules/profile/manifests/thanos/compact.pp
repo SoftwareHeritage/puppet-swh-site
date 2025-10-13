@@ -63,6 +63,42 @@ class profile::thanos::compact {
         target           => $icinga_checks_file,
         export_to        => [$icinga_checks_hostname]
       }
+
+      ::icinga2::object::service {"thanos compact todo (${dataset_name}/${::fqdn})":
+        service_name     => "thanos compact todo (${dataset_name})",
+        import           => ['generic-service'],
+        host_name        => $::fqdn,
+        check_command    => 'check_prometheus_metric',
+        command_endpoint => $prometheus_server_certname,
+        vars             => {
+          prometheus_metric_name     => "thanos_compact_todo_compactions",
+          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_todo_compactions{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}'])),
+          prometheus_query_type      => 'vector',
+          prometheus_metric_warning  => '4',
+          prometheus_metric_critical => '10',
+          prometheus_metric_nan_ok   => true,
+        },
+        target           => $icinga_checks_file,
+        export_to        => [$icinga_checks_hostname]
+      }
+
+      ::icinga2::object::service {"thanos downsample todo (${dataset_name}/${::fqdn})":
+        service_name     => "thanos downsample todo (${dataset_name})",
+        import           => ['generic-service'],
+        host_name        => $::fqdn,
+        check_command    => 'check_prometheus_metric',
+        command_endpoint => $prometheus_server_certname,
+        vars             => {
+          prometheus_metric_name     => "thanos_compact_todo_downsample_blocks",
+          prometheus_query           => profile::icinga2::literal_var(join(['sum by (job, dataset_name, instance) (thanos_compact_todo_downsample_blocks{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"})'])),
+          prometheus_query_type      => 'vector',
+          prometheus_metric_warning  => '4',
+          prometheus_metric_critical => '10',
+          prometheus_metric_nan_ok   => true,
+        },
+        target           => $icinga_checks_file,
+        export_to        => [$icinga_checks_hostname]
+      }
     } else {
       ::systemd::dropin_file {"${service_name}/parameters.conf":
         unit     => $unit_name,
