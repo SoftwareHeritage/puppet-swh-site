@@ -42,6 +42,27 @@ class profile::thanos::compact {
           dataset_name => $dataset_name,
         },
       }
+
+      $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+      $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
+      $prometheus_server_certname = lookup('prometheus::server::certname')
+
+      ::icinga2::object::service {"thanos compact running (${dataset_name}/${::fqdn})":
+        service_name     => "thanos compact running (${dataset_name})",
+        import           => ['generic-service'],
+        host_name        => $::fqdn,
+        check_command    => 'check_prometheus_metric',
+        command_endpoint => $prometheus_server_certname,
+        vars             => {
+          prometheus_metric_name     => "thanos_compact_halted",
+          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_halted{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}'])),
+          prometheus_query_type      => 'vector',
+          prometheus_metric_warning  => '1',
+          prometheus_metric_critical => '1',
+        },
+        target           => $icinga_checks_file,
+        export_to        => [$icinga_checks_hostname]
+      }
     } else {
       ::systemd::dropin_file {"${service_name}/parameters.conf":
         unit     => $unit_name,
