@@ -72,11 +72,10 @@ class profile::thanos::compact {
         command_endpoint => $prometheus_server_certname,
         vars             => {
           prometheus_metric_name     => "thanos_compact_todo_compactions",
-          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_todo_compactions{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}'])),
+          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_todo_compactions{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"} or vector(0)'])),
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => '4',
           prometheus_metric_critical => '10',
-          prometheus_metric_nan_ok   => true,
         },
         target           => $icinga_checks_file,
         export_to        => [$icinga_checks_hostname]
@@ -90,11 +89,10 @@ class profile::thanos::compact {
         command_endpoint => $prometheus_server_certname,
         vars             => {
           prometheus_metric_name     => "thanos_compact_todo_downsample_blocks",
-          prometheus_query           => profile::icinga2::literal_var(join(['sum by (job, dataset_name, instance) (thanos_compact_todo_downsample_blocks{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"})'])),
+          prometheus_query           => profile::icinga2::literal_var(join(['sum by (job, dataset_name, instance) (thanos_compact_todo_downsample_blocks{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}) or vector(0)'])),
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => '4',
           prometheus_metric_critical => '10',
-          prometheus_metric_nan_ok   => true,
         },
         target           => $icinga_checks_file,
         export_to        => [$icinga_checks_hostname]
