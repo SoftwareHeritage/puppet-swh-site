@@ -148,6 +148,9 @@ smtp::mail_aliases:
   - user: thibaultd
     aliases:
       - thibault.a.deregnaucourt@inria.fr
+  - user: bzg
+    aliases:
+      - bzg@softwareheritage.org
 
 locales::default_locale: C.UTF-8
 locales::installed_locales:
@@ -702,6 +705,18 @@ users:
       thibaultd@thibaultd:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIFMrXseHpGLijL9sCNhj++03r5lDrG6GPdE3v9Qzpmy4
+  bzg:
+    uid: 1041
+    full_name: Bastien Guerry
+    groups:
+      - swhdev
+      - swhteam
+      - sudo
+    shell: /bin/bash
+    authorized_keys:
+      bzg@gnu.org:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAINMDzxhXR+1s6HKkRmrrsA6IMuHkFBLcNUHnKph+KLz5
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
@@ -763,6 +778,8 @@ groups:
     gid: 1039
   thibaultd:
     gid: 1040
+  bzg:
+    gid: 1041
   kubenfs:
     gid: 42000
 
