@@ -9,5 +9,5 @@ define profile::hitch::ssl_cert (
     cert_source   => $cert_paths['cert'],
     cacert_source => $cert_paths['chain'],
     key_source    => $cert_paths['privkey'],
-  }
+  } ~> Class['hitch::service']
 }
