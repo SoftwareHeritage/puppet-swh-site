@@ -716,6 +716,17 @@ users:
       bzg@gnu.org:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAINMDzxhXR+1s6HKkRmrrsA6IMuHkFBLcNUHnKph+KLz5
+  ukuchler:
+    uid: 1042
+    full_name: Ulysse Kuchler
+    groups:
+      - swhdev
+      - swhteam
+    shell: /bin/bash
+    authorized_keys:
+      ulysse.kuchler@inria.fr:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIMDUUyqLij7G/PCv0grYQ/6A5xKy0ZXeeZpraXWXSOqD
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
