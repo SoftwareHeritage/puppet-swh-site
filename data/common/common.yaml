@@ -711,7 +711,6 @@ users:
     groups:
       - swhdev
       - swhteam
-      - sudo
     shell: /bin/bash
     authorized_keys:
       bzg@gnu.org:
