@@ -17,7 +17,7 @@ mountpoints:
 
 swh::apt_config::enable_non_free: true
 
-zfs::common::zpool_configuration: {}
+zfs::common::zpool_configuration:
   disk:
     - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC6C
     - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC7A
