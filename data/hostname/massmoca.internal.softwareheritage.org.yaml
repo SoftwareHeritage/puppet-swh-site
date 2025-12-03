@@ -2,6 +2,7 @@ swh::apt_config::enable_non_free: true
 
 backups::exclude:
   - srv/softwareheritage
+  - srv/kubernetes/volumes
 
 icinga2::host::vars:
   load: high
@@ -36,3 +37,10 @@ mountpoints:
     ensure: absent
   swap:
     ensure: absent
+
+rancher::rke2::agent::snapshotter: zfs
+
+# Empty because already configured and we want to keep it as-is
+zfs::common::zpool_configuration: {}
+
+zfs::arc::max_size: 34359738368  # 32 GiB
