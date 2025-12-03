@@ -36,9 +36,12 @@ node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
 
-node /^(belvedere|massmoca|albertina).(internal.)?softwareheritage.org$/ {
+node /^(belvedere|albertina).(internal.)?softwareheritage.org$/ {
   include role::swh_database_with_pgbouncer
 }
+
+node /^massmoca.(internal.)?softwareheritage.org$/ {
+  include role::rancher_node_with_database
 }
 
 node 'banco.softwareheritage.org' {
