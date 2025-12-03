@@ -17,20 +17,7 @@ mountpoints:
 
 swh::apt_config::enable_non_free: true
 
-zfs::common::zpool_configuration:
-  disk:
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC6C
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC7A
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC8C
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFCB0
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFCDB
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFD26
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC75
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC82
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFC96
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFCD8
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFD23
-    - /dev/disk/by-id/nvme-MO006400KXPAB_240747ABFD3C
+zfs::common::zpool_configuration: {}
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
