@@ -37,8 +37,8 @@ node 'saatchi.internal.softwareheritage.org' {
 }
 
 node /^(belvedere|massmoca|albertina).(internal.)?softwareheritage.org$/ {
-  include role::swh_database
-  include profile::pgbouncer
+  include role::swh_database_with_pgbouncer
+}
 }
 
 node 'banco.softwareheritage.org' {
