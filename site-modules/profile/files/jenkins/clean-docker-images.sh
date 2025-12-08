@@ -47,8 +47,7 @@ stop_dangling_containers
 prune_docker
 
 # Update tagged docker images; do not croak if pulling fails
-docker image ls \
-    | tail -n +2 \
+docker image ls --format '{{ .Repository }}\t{{.Tag}}\t{{ .ID }}' \
     | awk '{if ($1 !~ /^(app-manager|swh\/|swh_test_|(swh-jenkins(-test)?\/|softwareheritage\/))/ && $2 != "<none>") { print $1":"$2 }}' \
     | xargs -r -n1 docker image pull \
   || true
@@ -59,7 +58,7 @@ yesterday=$(date --date 'yesterday 13:00' +%Y%m%d)
 
 # Drop specific softwareheritage docker images (which accumulate over time)
 # except for the last 2 days, and the latest tag
-docker image ls \
+docker image ls --format '{{ .Repository }}\t{{ .Tag }}\t{{ .ID }}' \
     | awk '{
         if ($1 ~ /^(softwareheritage|container-registry.softwareheritage.org|swh-jenkins(-test)?)\// && $2 !~ '"/$today|$yesterday|latest/"') {
                 if ($2 == "<none>") {
