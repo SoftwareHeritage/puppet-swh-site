@@ -26,14 +26,6 @@ class profile::varnish {
     $runtime_params = {}
   }
 
-  if $::lsbdistcodename == 'stretch' {
-    $extra_class_params = {}
-  } else {
-    $extra_class_params = {
-      vcl_reload_cmd => '/usr/share/varnish/varnishreload',
-    }
-  }
-
   $extra_packages = ["varnish-modules"];
   package {$extra_packages:
     ensure => installed,
@@ -49,7 +41,7 @@ class profile::varnish {
     storage_size   => $storage_size,
     storage_file   => $storage_file,
     runtime_params => $runtime_params,
-    *              => $extra_class_params,
+    vcl_reload_cmd => '/usr/share/varnish/varnishreload',
   }
 
   ::varnish::vcl {'/etc/varnish/default.vcl':
