@@ -733,6 +733,7 @@ users:
     groups:
       - swhdev
       - swhteam
+      - sudo
     shell: /bin/bash
     authorized_keys:
       amadou.thiam@inria.fr:
