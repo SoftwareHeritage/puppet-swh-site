@@ -5228,7 +5228,7 @@ swh::deploy::search::backend::server_names:
   - localhost
   - "::1"
 
-netbox::version: "4.2.9"
+netbox::version: "4.3.7"
 netbox::user: netbox
 netbox::db::host: db1.internal.admin.swh.network
 netbox::db::port: 5432
