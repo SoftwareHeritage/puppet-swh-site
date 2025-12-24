@@ -340,3 +340,5 @@ swh::deploy::coarnotify::base_url: inbox.staging.swh.network
 swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify_staging
 swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
 
+
+varnish::enable_anubis: true

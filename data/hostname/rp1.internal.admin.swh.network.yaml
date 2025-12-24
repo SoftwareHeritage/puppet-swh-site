@@ -2,3 +2,4 @@
 filebeat::varnishlog::exclude_lines:
   - 'check_http/v2'
   - 'sentry.python/2'
+  - 'varnish internal probe'

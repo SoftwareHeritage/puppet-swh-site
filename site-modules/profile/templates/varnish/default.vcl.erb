@@ -2,9 +2,13 @@
 # File managed by puppet (module profile::varnish)
 # All modifications will be lost.
 
-vcl 4.0;
+vcl 4.1;
 
 import std;
 import var;
+<%- if @enable_anubis %>
+import directors;
+import cookie;
+<%- end %>
 
 include "<%= @includes_vcl_name %>";

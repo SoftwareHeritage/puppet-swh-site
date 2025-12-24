@@ -885,13 +885,20 @@ hitch::proxy_support: false
 hitch::http2_support: false
 hitch::workers: auto
 
+# Anubis Web AI Firewall Utility configuration
+anubis::listen_host: '[::1]'
+anubis::listen_port: 8923
+
 # Varnish configuration
 varnish::http_port: 10080
 varnish::proxy_port: 6081
 varnish::http2_support: false
+varnish::enable_anubis: false
+varnish::anubis_backend_listen: '[::1]'
+varnish::anubis_backend_port: 10090
 varnish::listen:
-  - ":%{lookup('varnish::http_port')}"
-  - "[::1]:%{lookup('varnish::proxy_port')},PROXY"
+  - "external_http=:%{lookup('varnish::http_port')},HTTP"
+  - "hitch=[::1]:%{lookup('varnish::proxy_port')},PROXY"
 
 varnish::backend_http_port: "%{lookup('apache::http_port')}"
 
