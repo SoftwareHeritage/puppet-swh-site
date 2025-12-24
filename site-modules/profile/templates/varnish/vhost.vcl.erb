@@ -75,6 +75,7 @@ sub vcl_deliver {
     }
 }
 
+<%- if @basic_auth %>
 sub vcl_synth {
     if (var.get("current-vhost") == "<%= @backend_name %>") {
         if (resp.status == 401) {
@@ -83,5 +84,6 @@ sub vcl_synth {
         }
     }
 }
+<%- end %>
 <% end -%>
 
