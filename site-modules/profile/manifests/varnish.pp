@@ -8,7 +8,7 @@ class profile::varnish {
   $http_port = lookup('varnish::http_port')
   $backend_http_port = lookup('varnish::backend_http_port')
 
-  $listen = lookup('varnish::listen')
+  $config_listen = lookup('varnish::listen')
   $admin_listen = lookup('varnish::admin_listen')
   $admin_port = lookup('varnish::admin_port')
   $http2_support = lookup('varnish::http2_support')
@@ -17,6 +17,7 @@ class profile::varnish {
   $storage_size = lookup('varnish::storage_size')
   $storage_file = lookup('varnish::storage_file')
   $useragent_blocklist = lookup('varnish::useragent_blocklist')
+  $enable_anubis = lookup('varnish::enable_anubis')
 
   if $http2_support {
     $runtime_params = {
@@ -24,6 +25,26 @@ class profile::varnish {
     }
   } else {
     $runtime_params = {}
+  }
+
+  $anubis_socket_name = 'behind_anubis'
+
+  if $enable_anubis {
+    $anubis_backend_listen = lookup('varnish::anubis_backend_listen')
+    $anubis_backend_port = lookup('varnish::anubis_backend_port')
+    $anubis_listen_host = lookup('anubis::listen_host')
+    $anubis_listen_port = lookup('anubis::listen_port')
+
+    $listen = $config_listen + [
+      "${anubis_socket_name}=${anubis_backend_listen}:${anubis_backend_port},HTTP"
+    ]
+
+    ::profile::varnish::vcl_include {'anubis':
+      order   => '01',
+      content => template('profile/varnish/anubis.vcl.erb'),
+    }
+  } else {
+    $listen = $config_listen
   }
 
   $extra_packages = ["varnish-modules"];

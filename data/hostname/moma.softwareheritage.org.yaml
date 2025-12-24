@@ -92,3 +92,4 @@ filebeat::varnishlog::exclude_lines:
   - 'enea-prod'
   - 'grnet-prod'
   - 'Svix-Webhooks/1'
+  - 'varnish internal probe'

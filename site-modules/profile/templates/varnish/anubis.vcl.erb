@@ -1,0 +1,56 @@
+# Varnish configuration file
+# File managed by puppet (module profile::varnish)
+# All modifications will be lost.
+
+probe internal_probe {
+    .request = "GET /.well-known/varnish-probe HTTP/1.1"
+    "Host: varnish-probe.internal"
+    "X-Real-Ip: ::1"
+    "User-Agent: varnish internal probe"
+    "Connection: close";
+}
+
+backend self {
+    .host = "<%= @anubis_backend_listen %>";
+    .port = "<%= @anubis_backend_port %>";
+    .probe = internal_probe;
+}
+
+backend anubis {
+    .host = "<%= @anubis_listen_host %>";
+    .port = "<%= @anubis_listen_port %>";
+    .probe = internal_probe;
+}
+
+sub vcl_init {
+    new self_behind_anubis = directors.fallback();
+    self_behind_anubis.add_backend(anubis);
+    self_behind_anubis.add_backend(self);
+}
+
+sub vcl_recv {
+    if (req.url == "/.well-known/varnish-probe") {
+        return (synth(200, "Varnish probed"));
+    }
+}
+
+sub clear_anubis_cookies {
+    if (!req.http.cookie) {
+        return;
+    }
+    cookie.parse(req.http.cookie);
+    cookie.filter_re("^techaro\.lol");
+    set req.http.cookie = cookie.get_string();
+    if (req.http.cookie == "") {
+        unset req.http.cookie;
+    }
+}
+
+sub set_ip_headers {
+    if (req.http.x-forwarded-for) {
+	    set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
+    } else {
+	    set req.http.X-Forwarded-For = client.ip;
+    }
+    set req.http.X-Real-Ip = client.ip;
+}
