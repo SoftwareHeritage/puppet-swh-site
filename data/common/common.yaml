@@ -888,6 +888,11 @@ hitch::workers: auto
 # Anubis Web AI Firewall Utility configuration
 anubis::listen_host: '[::1]'
 anubis::listen_port: 8923
+anubis::version: 1.24.0
+anubis::deb_url: https://github.com/TecharoHQ/anubis/releases/download/v%{lookup('anubis::version')}/anubis_%{lookup('anubis::version')}_%{facts.os.architecture}.deb
+anubis::deb_sha256:
+  1.24.0:
+    amd64: e8a01d294c8ff42595ef0f40e1658aeb1bb61dbfbfd9209abe0b25a0fd526949
 
 # Varnish configuration
 varnish::http_port: 10080
@@ -4566,6 +4571,9 @@ prometheus::nginx::listen_port: 9103
 
 prometheus::varnish::listen_network: "%{lookup('internal_network')}"
 prometheus::varnish::listen_port: 9104
+
+prometheus::anubis_varnish::listen_network: "%{lookup('internal_network')}"
+prometheus::anubis_varnish::listen_port: 9105
 
 thanos::base::config_dir: "/etc/thanos"
 

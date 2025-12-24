@@ -1,0 +1,12 @@
+---
+# File managed by puppet. Changes will be lost.
+#
+# Common Anubis rules for Software Heritage
+
+- name: local-monitoring
+  action: ALLOW
+  user_agent_regex: "(check_http|Blackbox Exporter)"
+  remote_addresses:
+    - 128.93.166.14/32
+    - 192.168.50.0/24
+
