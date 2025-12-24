@@ -30,6 +30,8 @@ class profile::varnish {
   $anubis_socket_name = 'behind_anubis'
 
   if $enable_anubis {
+    include ::profile::anubis
+
     $anubis_backend_listen = lookup('varnish::anubis_backend_listen')
     $anubis_backend_port = lookup('varnish::anubis_backend_port')
     $anubis_listen_host = lookup('anubis::listen_host')
