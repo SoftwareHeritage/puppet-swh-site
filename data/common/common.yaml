@@ -3427,6 +3427,10 @@ swh::deploy::webapp::reverse_proxy::vcl_recv_extra: |
     # Never cache API requests, to ensure that django can set rate limits appropriately
     return (pass);
   }
+  if (req.url ~ "^/static/") {
+    # Remove cookies from backend requests for static resources
+    unset req.http.cookie;
+  }
 
 swh::deploy::webapp::django_settings_module: swh.web.settings.production
 swh::deploy::webapp::timers_enabled: false
