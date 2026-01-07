@@ -20,6 +20,7 @@ smtp::mynetworks:
   - "[::1]/128"
   - 192.168.100.0/23
   - 192.168.200.0/21
+  - 192.168.50.0/24
 
 # Set apache MPM to prefork
 apache::mpm_module: prefork
