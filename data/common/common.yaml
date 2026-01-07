@@ -732,6 +732,18 @@ users:
       amadou.thiam@inria.fr:
         type: ssh-rsa
         key: AAAAB3NzaC1yc2EAAAADAQABAAACAQC90Iaz9rzYZyZs9vCS2RUSxLCl8Y39RQSv3Kr0G9trb/fz2e4HOWJ2SaN5UylKLd8hpV+/UWs+nkCkCMxRfEX1hq7fYp5uF/zlk0ABl5GHLIi3ZQjGbqhnmbYpDsiHBPcBsl7XqxbODvj30ZAWddS5GDCSsLv8IroGN9q/oZqCZ2UZmJEa5lTlxD+BzY+kdKX6jjGRYw0lrEYeaaQf+vUjuhvlV7kS2sYE03/QpmTP0hu0C9N559szXx+6A82E29OEzdZ0WgCdFF4FI9jiVHe78bg8PDGXXp69vdNYO1Ur2o2ZukuUOuq45y1lhVw2uKrCpXv3Ndmk4okcCcrWibS6I3AiR3Gq/l45SqJaOUf1r1ELQMYrC3aTozmoiRsToHLuT4UN8J3ld60SJyEhSW67UOauBk4DG+qoqfIR50q5SmgHC604VfI1FyNUZJS3Ax7xa7NbuFdco540jZgpmCWwAKBQpFBrIlxznejjJkXzPULW4nvK4ABXHQ/cZtGHZySp+pBLzI+BBxIWllyrY5gUI8/yP1bBVk2OErxsaZvok/w0QCClzsRTqMm6zufr/0CBNaUBJJL76tS2QD5WaTkLtZvjJmlHVimxf9MRcGsY3A66kvYv/D2I9wiQ5X2Ni39KyC4xLPjCTz3HrTwxjJxDlwYQp+JfFfykNxQ3jHOBAQ==
+  tbastian:
+    uid: 1044
+    full_name: Théophile Bastian
+    groups:
+      - swhdev
+      - swhteam
+      - sudo
+    shell: /bin/bash
+    authorized_keys:
+      tbastian@swh:
+        type: ssh-ed25519
+        key: AAAAC3NzaC1lZDI1NTE5AAAAIIO5kQJGW+ArqpW5w8sehWDTKaeddsyIOQaXcpk4+az9
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
