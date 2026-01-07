@@ -555,15 +555,13 @@ users:
   vsellier:
     uid: 1025
     full_name: Vincent Sellier
-    groups:
-      - swhdev
-      - swhteam
-      - sudo
-    shell: /usr/bin/zsh
+    groups: []
+    password: "!"
+    shell: /bin/false
     authorized_keys:
        vsellier@swh-vs1:
          type: ssh-ed25519
-         key: AAAAC3NzaC1lZDI1NTE5AAAAII5oO0jj/IeV04osZ/iaKBZdnuqdziJD3x1VOhtK9tZY
+         key: disabled
   tenma:
     uid: 1026
     full_name: Nicolas Gattolin
@@ -638,10 +636,7 @@ users:
   gsamson:
     uid: 1033
     full_name: Guillaume Samson
-    groups:
-      - swhdev
-      - swhteam
-      - sudo
+    groups: []
     shell: /bin/false
     authorized_keys:
       gsamson@gsamson:
