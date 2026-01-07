@@ -615,14 +615,12 @@ users:
   bchauvet:
     uid: 1031
     full_name: Benoit Chauvet
-    shell: /bin/bash
-    groups:
-      - swhdev
-      - swhteam
+    shell: /bin/false
+    groups: []
     authorized_keys:
       ben@ben-deb:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIJKPlIonRqTCL3ptpakag49GrY0Aw7SXpyZG2UjEhW18
+        key: disabled
   lunar:
     uid: 1032
     full_name: Jeremy Bobbio
