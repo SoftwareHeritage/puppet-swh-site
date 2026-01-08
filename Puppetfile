@@ -82,6 +82,10 @@ mod 'hitch',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-ssm-hitch',
     :ref => '0.2.0'
 
+mod 'host_core',
+    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppetlabs-host_core',
+    :tag => 'v2.0.1'
+
 mod 'icinga',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-icinga',
     :ref => 'v6.0.0'
