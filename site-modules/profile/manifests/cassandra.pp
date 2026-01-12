@@ -31,10 +31,6 @@ class profile::cassandra {
   $cassandra_config_directory = lookup('cassandra::base_config_directory')
   $cassandra_log_directory = lookup('cassandra::base_log_directory')
 
-  $cassandra_nodes = lookup('cassandra::nodes')
-  $node_definition = $cassandra_nodes["$::fqdn"]
-  $instances = $node_definition['instances']
-
   $default_instance_config = lookup('cassandra::default_instance_configuration')
   $clusters_config = lookup('cassandra::clusters')
 
@@ -158,13 +154,21 @@ class profile::cassandra {
 
   sysctl { 'vm.max_map_count': value => $max_map_count }
 
-  $instances.each | $instance_name, $instance_config | {
-    $merged_instance_config = $default_instance_config + $instance_config
-    $cluster_config = $clusters_config[$merged_instance_config["cluster_name"]]
-    $merged_config = $cluster_config + $merged_instance_config
+  $cassandra_nodes = lookup('cassandra::nodes')
+  if ($::fqdn in $cassandra_nodes) {
+    $node_definition = $cassandra_nodes["$::fqdn"]
+    $instances = $node_definition['instances']
 
-    profile::cassandra::instance{$instance_name:
-      config => $merged_config
+    $instances.each | $instance_name, $instance_config | {
+      $merged_instance_config = $default_instance_config + $instance_config
+      $cluster_config = $clusters_config[$merged_instance_config["cluster_name"]]
+      $merged_config = $cluster_config + $merged_instance_config
+
+      profile::cassandra::instance{$instance_name:
+        config => $merged_config
+      }
     }
+  } else {
+    notify {"Cassandra misconfigured: ${::fqdn} not in cassandra::nodes hiera variable":}
   }
 }
