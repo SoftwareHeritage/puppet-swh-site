@@ -22,7 +22,7 @@ ntp::servers:
 
 internal_network: 10.168.0.0/16
 
-puppet::master::codedir: /tmp/puppet
+puppet::server::codedir: /tmp/puppet
 
 smtp::relay_hostname: 'none'
 
@@ -54,7 +54,7 @@ kafka::cluster::heap_ops: "-Xmx512m -Xms512m"
 
 swh::deploy::graph::backend::max_heap: 500m
 
-puppet::master::manage_puppetdb: true
+puppet::server::manage_puppetdb: true
 puppetdb::listen_address: 0.0.0.0
 swh::puppetdb::etcdir: /etc/puppetdb
 puppetdb::confdir: "%{lookup('swh::puppetdb::etcdir')}/conf.d"
