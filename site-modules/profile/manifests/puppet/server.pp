@@ -43,7 +43,7 @@ class profile::puppet::server {
       ssl_key             => file($puppetdb_ssl_key),
       ssl_ca_cert         => file($puppetdb_ssl_ca_cert),
       manage_package_repo => false, # already manage by swh::apt_config
-      postgres_version    => '11',
+      postgres_version    => '15',
       ssl_deploy_certs    => true,
       require             => [Class['Profile::Swh::Apt_config'],
           File[$puppetdb_etcdir]],
