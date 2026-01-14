@@ -1358,6 +1358,10 @@ bind::resource_records:
   k8s-admin-rke2/A: # main ingress ip of the admin k8s cluster
     record: k8s-admin-rke2.internal.admin.swh.network
     data: 192.168.50.139
+  k8s-admin-rke2-netbox/CNAME:
+    type: CNAME
+    record: netbox.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   k8s-admin-rke2-thanos/CNAME:
     type: CNAME
     record: k8s-admin-rke2-thanos.internal.admin.swh.network
