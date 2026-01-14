@@ -5,8 +5,8 @@ cassandra::base_log_directory: /var/log/cassandra
 cassandra::max_map_count: 1048575
 
 cassandra::mirror: https://annex.softwareheritage.org/public/isos/apache/cassandra
-cassandra::version: 5.0.2
-cassandra::version_checksum: '51478b18b8bce82a6b4915f31470d031306724041a4f2b684fd17635f8a5a9802594c0bbc3d0154cfa52d87a253d7868636985787aa1e3e00136259302689363'
+cassandra::version: 5.0.6
+cassandra::version_checksum: cab82049269e91ecd13e525254427d9b6139d8982fd1ddb8256ac7ebebc2fae412721750d7b30b1ee4e86f81d1960a87a2220d4a4a34d11f05c5aca0be6cd649 
 cassandra::version_checksum_type: sha512
 
 cassandra::listen_network: "%{lookup('internal_network')}"
