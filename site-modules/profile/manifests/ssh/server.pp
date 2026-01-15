@@ -98,7 +98,7 @@ class profile::ssh::server {
   }
 
   exec {'update ssh_known_hosts':
-    command     => "cat ${ssh_known_hosts_dir}/* > ${ssh_known_hosts}",
+    command     => "[ -z \"$(ls ${ssh_known_hosts_dir})\" ] || cat ${ssh_known_hosts_dir}/* > ${ssh_known_hosts}",
     path        => ['/bin', '/usr/bin'],
     refreshonly => true,
   }
