@@ -5,6 +5,7 @@ class profile::jenkins::reverse_proxy {
 
   $jenkins_vhost_name = lookup('jenkins::vhost::name')
   ::profile::reverse_proxy {'jenkins':
+    enable_anubis           => true,
     default_proxy_pass_opts => {
       keywords => ['nocanon'],
     },
