@@ -886,8 +886,8 @@ hitch::http2_support: false
 hitch::workers: auto
 
 # Anubis Web AI Firewall Utility configuration
-anubis::listen_host: '[::1]'
-anubis::listen_port: 8923
+anubis::varnish::listen_host: '[::1]'
+anubis::varnish::listen_port: 8923
 anubis::version: 1.24.0
 anubis::deb_url: https://github.com/TecharoHQ/anubis/releases/download/v%{lookup('anubis::version')}/anubis_%{lookup('anubis::version')}_%{facts.os.architecture}.deb
 anubis::deb_sha256:
