@@ -10,6 +10,7 @@ define profile::reverse_proxy (
   Hash $extra_apache_opts               = {},
   Optional[String] $icinga_check_string = undef,
   Optional[String] $icinga_check_uri    = undef,
+  Boolean $enable_anubis                = false,
 ){
   $backend_url = lookup("${name}::backend::url")
 
@@ -35,33 +36,97 @@ define profile::reverse_proxy (
   ::profile::letsencrypt::certificate {$ssl_cert_name:}
   $cert_paths = ::profile::letsencrypt::certificate_paths($ssl_cert_name)
 
-  ::apache::vhost {"${vhost_name}_ssl":
-    servername           => $vhost_name,
-    port                 => 443,
-    ssl                  => true,
-    ssl_protocol         => $vhost_ssl_protocol,
-    ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
-    ssl_cipher           => $vhost_ssl_cipher,
-    ssl_cert             => $cert_paths['cert'],
-    ssl_chain            => $cert_paths['chain'],
-    ssl_key              => $cert_paths['privkey'],
-    headers              => [$vhost_hsts_header],
-    docroot              => $vhost_docroot,
-    manage_docroot       => false,
+  if (!$enable_anubis) {
+    ::apache::vhost {"${vhost_name}_ssl":
+      servername           => $vhost_name,
+      port                 => 443,
+      ssl                  => true,
+      ssl_protocol         => $vhost_ssl_protocol,
+      ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+      ssl_cipher           => $vhost_ssl_cipher,
+      ssl_cert             => $cert_paths['cert'],
+      ssl_chain            => $cert_paths['chain'],
+      ssl_key              => $cert_paths['privkey'],
+      headers              => [$vhost_hsts_header],
+      docroot              => $vhost_docroot,
+      manage_docroot       => false,
 
-    proxy_pass           => [
-      { path => '/',
-        url  => $backend_url,
-      } + $default_proxy_pass_opts,
-    ] + $extra_proxy_pass,
+      proxy_pass           => [
+        { path => '/',
+          url  => $backend_url,
+        } + $default_proxy_pass_opts,
+      ] + $extra_proxy_pass,
 
-    request_headers      => $request_headers,
+          request_headers      => $request_headers,
 
-    *                    => $extra_apache_opts,
+          *                    => $extra_apache_opts,
 
-    require              => [
-      Profile::Letsencrypt::Certificate[$ssl_cert_name],
-    ],
+          require              => [
+            Profile::Letsencrypt::Certificate[$ssl_cert_name],
+          ],
+    }
+  } else {
+    include ::profile::anubis::apache
+
+    $anubis_bind_address = lookup('anubis::apache::listen_host')
+    $anubis_bind_port = lookup('anubis::apache::listen_port')
+
+    $apache_bind_address = lookup('apache::anubis_backend_listen')
+    $apache_bind_port = lookup('apache::anubis_backend_port')
+    
+    ::apache::vhost {"${vhost_name}_ssl":
+      servername           => $vhost_name,
+      port                 => 443,
+      ssl                  => true,
+      ssl_protocol         => $vhost_ssl_protocol,
+      ssl_honorcipherorder => $vhost_ssl_honorcipherorder,
+      ssl_cipher           => $vhost_ssl_cipher,
+      ssl_cert             => $cert_paths['cert'],
+      ssl_chain            => $cert_paths['chain'],
+      ssl_key              => $cert_paths['privkey'],
+      headers              => [$vhost_hsts_header],
+      docroot              => $vhost_docroot,
+      manage_docroot       => false,
+
+      proxy_requests      => false,
+      proxy_preserve_host => true,
+      proxy_pass           => [
+        { path => '/',
+          url  => "http://${anubis_bind_address}:${anubis_bind_port}/",
+        },
+      ],
+
+      request_headers      => [
+        'set X-Real-Ip expr=%{REMOTE_ADDR}',
+        'set X-Forwarded-Proto "https"',
+        'set X-Http-Version "%{SERVER_PROTOCOL}s"',
+      ],
+
+      *                    => $extra_apache_opts,
+
+      require              => [
+        Profile::Letsencrypt::Certificate[$ssl_cert_name],
+      ],
+    }
+    ::apache::vhost {"${vhost_name}_anubis":
+      servername           => $vhost_name,
+      ip                   => $apache_bind_address,
+      port                 => $apache_bind_port,
+
+      docroot              => $vhost_docroot,
+      manage_docroot       => false,
+
+      proxy_pass           => [
+        { path => '/',
+          url  => $backend_url,
+        } + $default_proxy_pass_opts,
+      ] + $extra_proxy_pass,
+
+      request_headers      => $request_headers,
+          
+      *                    => $extra_apache_opts,
+    }
+    
   }
 
   File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ~> Class['Apache::Service']

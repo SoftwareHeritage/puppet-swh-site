@@ -879,6 +879,12 @@ apache::https_port: 443
 apache::log_formats:
   combined_with_duration: "%a %l %u %t \\\"%r\\\" %>s %b \\\"%{literal('%')}{Referer}i\\\" \\\"%{literal('%')}{User-Agent}i\\\" %{literal('%')}{ms}T"
 
+apache::anubis_backend_listen: '::1'
+apache::anubis_backend_port: 10091
+apache::mod::remoteip::header: X-Real-Ip
+apache::mod::remoteip::trusted_proxy:
+  - '::1'
+
 # Hitch TLS proxy configuration
 hitch::frontend: "[*]:10443"
 hitch::proxy_support: false
@@ -888,6 +894,8 @@ hitch::workers: auto
 # Anubis Web AI Firewall Utility configuration
 anubis::varnish::listen_host: '[::1]'
 anubis::varnish::listen_port: 8923
+anubis::apache::listen_host: '[::1]'
+anubis::apache::listen_port: 8924
 anubis::version: 1.24.0
 anubis::deb_url: https://github.com/TecharoHQ/anubis/releases/download/v%{lookup('anubis::version')}/anubis_%{lookup('anubis::version')}_%{facts.os.architecture}.deb
 anubis::deb_sha256:
@@ -4574,6 +4582,9 @@ prometheus::varnish::listen_port: 9104
 
 prometheus::anubis_varnish::listen_network: "%{lookup('internal_network')}"
 prometheus::anubis_varnish::listen_port: 9105
+
+prometheus::anubis_apache::listen_network: "%{lookup('internal_network')}"
+prometheus::anubis_apache::listen_port: 9106
 
 thanos::base::config_dir: "/etc/thanos"
 
