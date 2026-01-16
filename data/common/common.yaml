@@ -4579,6 +4579,9 @@ prometheus::rabbitmq::exclude_metrics: []
 prometheus::nginx::listen_network: "%{lookup('internal_network')}"
 prometheus::nginx::listen_port: 9103
 
+prometheus::apache::listen_network: "%{lookup('internal_network')}"
+prometheus::apache::listen_port: 9117
+
 prometheus::varnish::listen_network: "%{lookup('internal_network')}"
 prometheus::varnish::listen_port: 9104
 
