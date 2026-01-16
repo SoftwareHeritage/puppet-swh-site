@@ -24,7 +24,7 @@ class profile::anubis::varnish {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('profile/anubis/varnish.env.erb'),
+    content => template('profile/anubis/anubis.env.erb'),
     require => Package['anubis'],
     notify  => Service['anubis@varnish.service'],
   }
