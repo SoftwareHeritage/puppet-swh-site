@@ -865,6 +865,8 @@ apache::manage_group: false
 # Those variables get picked up by 'include ::apache::mod::passenger'
 apache::mod::passenger::passenger_root: /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
 
+# Those variables get picked up by 'include ::apache::mod::worker' (which is the default mpm currently)
+apache::mod::worker::maxrequestworkers: 400
 
 # Those variables need to be set manually in the SSL vhosts.
 apache::ssl_protocol: all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
