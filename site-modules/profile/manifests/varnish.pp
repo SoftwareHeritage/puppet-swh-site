@@ -127,7 +127,7 @@ class profile::varnish {
     paths  => [ "/var/log/varnish/varnishncsa.log" ],
     fields => {
       'log_type'        => 'varnish',
-      'environment'     => $environment,
+      'environment'     => $facts['deployment'],
       'application'     => 'varnishncsa',
     },
   }

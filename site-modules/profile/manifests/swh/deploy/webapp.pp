@@ -234,7 +234,7 @@ class profile::swh::deploy::webapp {
     paths  => [ "/var/log/apache2/${vhost_name}_non-ssl_access.log" ],
     fields => {
       'apache_log_type' => 'access_log',
-      'environment'     => $environment,
+      'environment'     => $facts['deployment'],
       'vhost'           => $vhost_name,
       'application'     => 'webapp',
     },
