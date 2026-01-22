@@ -27,6 +27,7 @@ sub vcl_recv {
             return (pipe);
         } else {
             set req.backend_hint = <%= @backend_name %>;
+            call clean_ip_headers;
             call clear_anubis_cookies;
         }
 <%- else %>
