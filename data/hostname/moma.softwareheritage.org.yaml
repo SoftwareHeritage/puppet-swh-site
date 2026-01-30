@@ -93,3 +93,5 @@ filebeat::varnishlog::exclude_lines:
   - 'grnet-prod'
   - 'Svix-Webhooks/1'
   - 'varnish internal probe'
+
+varnish::enable_anubis: true
