@@ -34,18 +34,6 @@ sub vcl_recv {
     }
 }
 
-sub clear_anubis_cookies {
-    if (!req.http.cookie) {
-        return;
-    }
-    cookie.parse(req.http.cookie);
-    cookie.filter_re("^techaro\.lol");
-    set req.http.cookie = cookie.get_string();
-    if (req.http.cookie == "") {
-        unset req.http.cookie;
-    }
-}
-
 sub set_ip_headers {
     if (req.http.x-forwarded-for) {
         set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
