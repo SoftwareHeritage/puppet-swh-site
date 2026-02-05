@@ -9,9 +9,10 @@
   remote_addresses:
     - 128.93.166.14/32
     - 192.168.50.0/24
+
 - name: APIs
   action: ALLOW
-  path_regex: ^/api/
+  path_regex: ^/(api|graphql)/
   expression:
     all:
       - '"Sec-Fetch-Mode" in headers'
