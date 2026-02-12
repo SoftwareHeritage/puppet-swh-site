@@ -7,6 +7,7 @@ class profile::puppet {
   $agent_config = {
     runmode               => 'none',
     agent_server_hostname => $puppet_server,
+    environment           => $::environment,
   }
 
   $is_puppetserver = $puppet_server in values($::swh_hostname)
