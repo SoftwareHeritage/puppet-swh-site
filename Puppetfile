@@ -78,6 +78,10 @@ mod 'grafana',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-grafana',
     :ref => 'feature/puppet5-compat'
 
+mod 'hiera_vault',
+    :git => 'https://github.com/petems/petems-hiera_vault',
+    :ref => 'v3.0.0'
+
 mod 'hitch',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-ssm-hitch',
     :ref => '0.2.0'
