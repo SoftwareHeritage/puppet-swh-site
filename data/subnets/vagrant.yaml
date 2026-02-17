@@ -59,11 +59,11 @@ puppetdb::listen_address: 0.0.0.0
 swh::puppetdb::etcdir: /etc/puppetdb
 puppetdb::confdir: "%{lookup('swh::puppetdb::etcdir')}/conf.d"
 puppetdb::ssl_dir: "%{lookup('swh::puppetdb::etcdir')}/ssl"
-swh::puppetdb::ssl_key: "%{settings::ssldir}/private_keys/pergamon.softwareheritage.org.pem"
 swh::puppetdb::ssl_key_path: "%{lookup('puppetdb::ssl_dir')}/key.pem"
-swh::puppetdb::ssl_cert: "%{settings::ssldir}/certs/pergamon.softwareheritage.org.pem"
+swh::puppetdb::ssl_key: "%{::puppet_vardir}/ssl/private_keys/pergamon.softwareheritage.org.pem"
+swh::puppetdb::ssl_cert: "%{::puppet_vardir}/ssl/certs/pergamon.softwareheritage.org.pem"
 swh::puppetdb::ssl_cert_path: "%{lookup('puppetdb::ssl_dir')}/cert.pem"
-swh::puppetdb::ssl_ca_cert: "%{settings::ssldir}/ca/ca_crt.pem"
+swh::puppetdb::ssl_ca_cert: "%{::puppet_vardir}/ssl/ca/ca_crt.pem"
 swh::puppetdb::ssl_ca_cert_path: "%{lookup('puppetdb::ssl_dir')}/ca_crt.pem"
 puppet::autosign_entries:
   - '*.softwareheritage.org'
