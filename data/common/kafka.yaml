@@ -152,4 +152,4 @@ kafka::clusters:
     # to label the prometheus exporter metrics
     environment: staging
 
-
+swh::kafkabackup::ssh_pubkeys: {}
