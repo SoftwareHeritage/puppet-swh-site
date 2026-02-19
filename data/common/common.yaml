@@ -1900,6 +1900,14 @@ bind::resource_records:
       - 10.25.6.1
       - 10.25.6.2
 
+  radosgw/A:
+    record: radosgw.internal.cea.swh.network
+    type: A
+    generate_ptr: false
+    data:
+      - 10.25.6.1
+      - 10.25.6.2
+
   balin001/CNAME:
     type: CNAME
     record: balin001.internal.cea.swh.network
