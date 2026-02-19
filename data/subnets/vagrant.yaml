@@ -306,3 +306,6 @@ thanos::objstore::config:
   type: FILESYSTEM
   config:
     directory: "/var/tmp/thanos-objstore"
+
+zfs::common::zpool_configuration:
+  disk: vdb

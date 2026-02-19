@@ -5379,8 +5379,7 @@ sanoid::templates:
 syncoid::configuration: {}
 syncoid::default_frequency: 5min
 
-zfs::common::zpool_configuration:
-  disk: vdb
+zfs::common::zpool_configuration: {}
 
 # Must have matching certificate in letsencrypt::certificates
 azure_billing::vhost::name: azure-billing.internal.admin.swh.network
