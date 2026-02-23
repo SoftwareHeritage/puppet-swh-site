@@ -12,7 +12,7 @@
 
 - name: APIs
   action: ALLOW
-  path_regex: ^/(api|graphql)/
+  path_regex: ^/(api|graphql|badge)/
   expression:
     all:
       - '"Sec-Fetch-Mode" in headers'
