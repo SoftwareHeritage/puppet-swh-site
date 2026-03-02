@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Copyright (c) 2026 The Software Heritage Developers
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# This program checks that a directory is empty
+
+# Icinga exit codes
+# 0: OK
+# 1: WARNING
+# 2: CRITICAL
+# 3: UNKNOWN
+
+CHECK_DIR=""
+while test -n "$1"; do
+    case "$1" in
+        -d|--directory)
+            CHECK_DIR="$2"
+            shift
+            ;;
+        *)
+            echo "UNKNOWN - Bad check: unknown option: $1"
+            exit 3  # unknown
+    esac
+    shift
+done
+if [ -z "$CHECK_DIR" ]; then
+    echo "UNKNOWN - Bad check: missing argument: -d/--directory"
+    exit 3  # unknown
+fi
+if ! [ -d "$CHECK_DIR" ]; then
+    echo "UNKNOWN - $CHECK_DIR: no such directory"
+    exit 3
+fi
+
+files_found="$(find "$CHECK_DIR" -type f | wc -l)"
+if [ "$files_found" -gt 0 ]; then
+    echo "WARNING - $CHECK_DIR: contains $files_found but should be empty"
+    exit 1
+fi
+
+echo "OK - $CHECK_DIR is empty"
+exit 0

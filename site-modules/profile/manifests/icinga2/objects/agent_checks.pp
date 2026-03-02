@@ -75,6 +75,13 @@ class profile::icinga2::objects::agent_checks {
         'prometheus_perfdata'                 => true,
       }
     },
+    'check_emptydir' => {
+      arguments => {
+        '-d' => '$check_directory$',
+      },
+      sudo => true,
+      sudo_user => 'root',
+    },
   }
 
   $plugin_dir = '/usr/lib/nagios/plugins'

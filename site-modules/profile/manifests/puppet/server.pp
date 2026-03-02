@@ -75,6 +75,22 @@ class profile::puppet::server {
     terminus_package            => 'puppet-terminus-puppetdb',
   }
 
+  # Check that Puppetdb's discard dir remains empty
+  $icinga_checks_file = lookup('icinga2::exported_checks::filename')
+  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
+
+  ::icinga2::object::service {'puppetdb empty discard directory':
+    service_name  =>  "puppetdb empty discard directory",
+    import        => ['generic-service'],
+    host_name     => "${::fqdn}",
+    check_command => 'check_emptydir',
+    vars          => {
+      check_directory => "/var/lib/puppetdb/stockpile/discard/",
+    },
+    target        => $icinga_checks_file,
+    export_to     => $icinga_checks_hostname,
+  }
+
   # Extra configuration for fileserver
   $letsencrypt_export_dir = lookup('letsencrypt::certificates::exported_directory')
   file { '/etc/puppet/fileserver.conf':
