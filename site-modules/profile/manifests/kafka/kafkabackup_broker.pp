@@ -6,8 +6,9 @@ class profile::kafka::kafkabackup_broker {
   $group = 'kafkabackup'
   $home = '/var/lib/kafkabackup'
   $venv_path = "$home/venv"
-  $pip_pkg = "git+https://gitlab.softwareheritage.org/swh/infra/swh-kafkabackup"
   $ssh_authorized_keys = lookup('swh::kafkabackup::ssh_pubkeys')
+  $kafkabackup_frozendeps = "$home/kafkabackups-requirements-frozen.txt"
+  $kafkabackup_frozendeps_url = "https://gitlab.softwareheritage.org/swh/infra/swh-apps/-/raw/master/apps/swh-kafkabackup/requirements-frozen.txt"
 
   group {$group:
     system => true,
@@ -56,10 +57,22 @@ class profile::kafka::kafkabackup_broker {
     user    => "$user",
     require => [User[$user], File[$home], Package['python3-venv']],
   }
-  -> exec { 'kafkabackup_pip_install':
-    command => "'$venv_path/bin/pip' install '$pip_pkg'",
+  -> exec { 'kafkabackup_install_uv':
+    command => "'$venv_path/bin/pip' install 'uv'",
     path    => '/usr/bin',
-    creates => "$venv_path/bin/kafkabackup-broker",
+    creates => "$venv_path/bin/uv",
+    user    => "$user",
+  }
+  -> file { $kafkabackup_frozendeps:
+    ensure =>  present,
+    owner          => "$user",
+    group          => "$group",
+    mode           => '0644',
+    source         => $kafkabackup_frozendeps_url,
+  }
+  -> exec { 'kafkabackup_pip_install':
+    command => "'$venv_path/bin/uv' pip sync '$kafkabackup_frozendeps'",
+    path    => "$venv_path/bin:/usr/bin",
     user    => "$user",
   }
 
