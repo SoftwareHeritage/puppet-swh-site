@@ -4953,6 +4953,7 @@ elasticsearch::curator::long_lifecycle_indices:
   - production-swh-logs
 elasticsearch::curator::intermediate_lifecycle_indices:
   - production-system-logs
+  - admin-system-logs
   - systemlogs
 elasticsearch::curator::short_lifecycle_indices:
   - staging-system-logs
