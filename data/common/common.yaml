@@ -3779,13 +3779,6 @@ swh::deploy::scheduler::journal_client::config:
     brokers: "%{alias('swh::deploy::journal::brokers')}"
     group_id: swh.scheduler.journal_client
 
-# Main lister configuration
-swh::deploy::worker::lister::db::user: swh-lister
-swh::deploy::worker::lister::db::name: swh-lister
-swh::deploy::worker::lister::db::host: db.internal.softwareheritage.org
-swh::deploy::worker::lister::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-# swh::deploy::lister::db::password in private data
-
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::worker::instances: []
