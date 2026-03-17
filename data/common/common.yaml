@@ -1294,10 +1294,6 @@ bind::resource_records:
     type: CNAME
     record: search.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
-  db/CNAME:
-    type: CNAME
-    record: db.internal.softwareheritage.org
-    data: albertina.internal.softwareheritage.org.
   postgresql-storage-rw/CNAME:
     type: CNAME
     record: postgresql-storage-rw.internal.softwareheritage.org
@@ -1439,6 +1435,14 @@ bind::resource_records:
   k8s-archive-production-rke2/A:
     record: k8s-archive-production-rke2.internal.softwareheritage.org
     data: 192.168.100.139
+  k8s-archive-production-rke2-pooler/A: # load-balancer ip for archive-production-rke2
+                                        # cluster access to pgbouncer
+    record: k8s-archive-production-rke2-pooler.internal.softwareheritage.org
+    data: 192.168.100.138
+  db-postgresql-cnpg/CNAME:
+    type: CNAME
+    record: db.internal.softwareheritage.org
+    data: k8s-archive-production-rke2-pooler.internal.softwareheritage.org.
   k8s-archive-production-rke2-thanos/A:
     type: CNAME
     record: k8s-archive-production-rke2-thanos.internal.softwareheritage.org
