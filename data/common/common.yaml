@@ -372,6 +372,7 @@ users:
     shell: /bin/bash
     groups:
       - swhteam
+      - swhdev
     authorized_keys:
       dicosmo@voyager:
         type: ssh-rsa
