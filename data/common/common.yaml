@@ -1375,6 +1375,10 @@ bind::resource_records:
     type: CNAME
     record: rabbitmq.internal.softwareheritage.org
     data: saatchi.internal.softwareheritage.org.
+  openbao/CNAME:
+    type: CNAME
+    record: openbao.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   inventory/CNAME:
     type: CNAME
     record: inventory.internal.softwareheritage.org
