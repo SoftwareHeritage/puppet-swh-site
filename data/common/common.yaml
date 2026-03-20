@@ -681,12 +681,10 @@ users:
       - swhteam
     shell: /bin/bash
     authorized_keys:
-      martin:
-        type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIKHl05ygCGV2UuQ0yHsBbO+wSGyhRa9ZGMegyfi8v7Uq
-      martin@plume:
-        type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIB2i4OD9Gr5jqXlEJzTJ2iUme+Usfv/iSpA0ppDZKfbw
+      martin.kirchgessner@ptb-07008651-tpm:
+        type: ecdsa-sha2-nistp256
+        key: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLglzOOu0M/+Pdc96giioO8nAJfiZX7lSztfLNTPdx8b3pWhJnhikvTykowvAFyf5U6NOeHCm/XrZRWgnkkIRbo=
+
   thibaultd:
     uid: 1040
     full_name: Thibault Deregnaucourt
