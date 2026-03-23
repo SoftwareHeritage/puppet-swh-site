@@ -83,9 +83,6 @@ smtp::mail_aliases:
       - olasd
       - ardumont
       - ddouard
-      - vsellier
-      - gsamson
-      - thibaultd
   - user: seirl
     aliases:
       - antoine.pietri1@gmail.com
@@ -94,11 +91,8 @@ smtp::mail_aliases:
       - root
   - user: swhworker
     aliases:
-      - zack
       - olasd
       - ardumont
-      - vsellier
-      - gsamson
   - user: swhdeposit
     aliases:
       - ardumont
@@ -688,15 +682,13 @@ users:
   thibaultd:
     uid: 1040
     full_name: Thibault Deregnaucourt
-    groups:
-      - swhdev
-      - swhteam
-      - sudo
-    shell: /bin/bash
+    groups: []
+    shell: /bin/false
+    password: "!"
     authorized_keys:
       thibaultd@thibaultd:
         type: ssh-ed25519
-        key: AAAAC3NzaC1lZDI1NTE5AAAAIFMrXseHpGLijL9sCNhj++03r5lDrG6GPdE3v9Qzpmy4
+        key: disabled
   bzg:
     uid: 1041
     full_name: Bastien Guerry
