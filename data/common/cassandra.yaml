@@ -197,3 +197,13 @@ cassandra::jvm17_options:
   - -Djdk.attach.allowAttachSelf=true
 # During directory_entry compaction migration
   - -Dcassandra.disable_stcs_in_l0="%{lookup('cassandra::disable_stcs_in_l0')}"
+
+
+# Medusa -- cassandra backups
+cassandra::medusa::enable: false  # disabled in prod & staging for now
+# UTC: ensure all nodes trigger at the same time, even if there is a TZ
+# discrepancy
+cassandra::medusa::timer::calendar: '01:00 UTC'
+cassandra::medusa::retention::max_age: 60
+cassandra::medusa::retention::max_count: 60
+cassandra::medusa::retention::grace_period: 10

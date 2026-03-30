@@ -309,3 +309,17 @@ thanos::objstore::config:
 
 zfs::common::zpool_configuration:
   disk: vdb
+
+# The mock secrets below must be migrated to secrets storage when deploying to
+# staging/prod
+cassandra::medusa::enable: true
+cassandra::medusa::s3_access_key: GK50379d60fe536c2a301999c3
+cassandra::medusa::s3_secret_key: 3b77e172f9720c905017ac265a4afd99d1f270b042c5ae77b637d3c1a398b9b8
+cassandra::medusa::s3_endpoint: 'http://192.168.121.1:8333'
+cassandra::medusa::s3_bucket: 'cassandra-medusa'
+# rclone obscure 'medusa-encryption-passphrase'
+cassandra::medusa::storage_encryption_passphrase_obfuscated: 'reEPkaBRla42KEwoV93TJUOxE0fXo4LGaQrltq6MZ21NWDnlqZ1Omeqduus'
+
+# Override secrets for Vagrant to use default Cassandra credetials
+cassandra::cql_ro::user: cassandra
+cassandra::cql_ro::password: cassandra

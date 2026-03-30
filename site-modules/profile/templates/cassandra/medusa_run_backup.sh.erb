@@ -1,0 +1,24 @@
+#!/bin/bash
+# Managed by puppet (class profile::cassandra); Changes will be lost.
+#
+# Script triggered by systemd (cassandra-medusa@.service). Actually executes a
+# Medusa backup for a Cassandra instance.
+
+# Warning! When picking backup names, it is important to remember that each
+# node's backup gets triggered independently by a systemd timer, and that it is
+# important that each backup gets the same name to be recognized as a cluster
+# backup.
+# While the date (in UTC, preventing timezone divergences) should be the same
+# between nodes, `date +%F-%T` would be significantly less safe
+cur_backup_name="$(TZ=UTC date "+%F")"
+
+echo "Medusa: starting backup $cur_backup_name"
+"<%= @venv_path %>/bin/medusa" \
+    --config-file "$MEDUSA_CONFIG" \
+    backup \
+    --backup-name "$cur_backup_name"
+
+echo "Medusa: pruning old backups"
+"<%= @venv_path %>/bin/medusa" \
+    --config-file "$MEDUSA_CONFIG" \
+    purge

@@ -1,0 +1,29 @@
+# Managed by puppet (class profile::cassandra); Changes will be lost.
+# Performs a rclone-mount for Medusa for a Cassandra instance
+
+[Unit]
+Description=Cassandra Medusa backup - rclone mount
+
+[Service]
+User=<%= @cassandra_user %>
+Group=<%= @cassandra_user %>
+Type=exec
+RuntimeDirectory=medusa-mount
+ExecStart=/usr/bin/rclone \
+  --config <%= @rclone_config_path %> \
+  mount 'backups:' /run/medusa-mount \
+  --dir-cache-time 15s \
+  --allow-other
+
+# Delay dependent units to allow rclone to start up
+ExecStartPost=sleep 1
+
+# Helps with cleaning up in cases where rclone exits improperly.
+# Should fail in normal cases, as the directory won't exist/be mounted
+ExecStopPost=-/usr/bin/umount /run/medusa-mount
+
+# 143: terminated by SIGTERM
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

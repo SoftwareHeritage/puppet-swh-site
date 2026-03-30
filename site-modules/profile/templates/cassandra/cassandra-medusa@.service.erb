@@ -1,0 +1,15 @@
+# Managed by puppet (class profile::cassandra); Changes will be lost.
+# Medusa backup for a Cassandra instance
+
+[Unit]
+Description=Cassandra Medusa backup
+Requires=cassandra@%i.service
+Upholds=cassandra-medusa-mount.service
+After=cassandra@%i.service cassandra-medusa-mount.service
+
+[Service]
+User=<%= @cassandra_user %>
+Group=<%= @cassandra_user %>
+Type=simple
+Environment=MEDUSA_CONFIG=/etc/cassandra/%i/medusa.ini
+ExecStart=<%= @medusa_run_backup_path %>

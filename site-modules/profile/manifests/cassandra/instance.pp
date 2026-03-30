@@ -20,6 +20,9 @@ define profile::cassandra::instance (
   $cassandra_user = lookup('cassandra::jmx::user')
   $cassandra_paxos_timer = lookup('paxos::repair::timer::calendar')
 
+  $cassandra_cql_ro_user = lookup('cassandra::cql_ro::user')
+  $cassandra_cql_ro_pass = lookup('cassandra::cql_ro::password')
+
   $base_data_dir = "${instance_base_data_dir}/data"
   $commitlog_dir = "${instance_base_data_dir}/commitlog"
 
@@ -164,5 +167,24 @@ define profile::cassandra::instance (
     ensure => present,
     path   => '/root/.bashrc',
     line   => 'source /root/.cassandra_functions',
+  }
+
+  # Configure cassandra medusa for this instance
+  if lookup("cassandra::medusa::enable") == true {
+    $medusa_retention_age = lookup('cassandra::medusa::retention::max_age')
+    $medusa_retention_count = lookup('cassandra::medusa::retention::max_count')
+    $medusa_retention_grace = lookup('cassandra::medusa::retention::grace_period')
+    file { "${config_dir}/medusa.ini":
+      ensure  => present,
+      owner   => 'root',
+      group   => 'cassandra',
+      mode    => '0640',
+      content => template('profile/cassandra/medusa.ini.erb'),
+      require => [File[$config_dir]],
+    }
+    service { "cassandra-medusa@${instance_name}.timer":
+      ensure => true,
+      enable => true,
+    }
   }
 }

@@ -152,6 +152,11 @@ class profile::cassandra {
 
   sysctl { 'vm.max_map_count': value => $max_map_count }
 
+  # Install Medusa
+  if lookup("cassandra::medusa::enable") == true {
+    include profile::cassandra::medusa
+  }
+
   $cassandra_nodes = lookup('cassandra::nodes')
   if ($::fqdn in $cassandra_nodes) {
     $node_definition = $cassandra_nodes["$::fqdn"]

@@ -1,0 +1,10 @@
+# Managed by puppet (class profile::cassandra); Changes will be lost.
+
+[Unit]
+Description=Recurrent Cassandra backup with Medusa
+
+[Timer]
+OnCalendar=<%= @cassandra_medusa_timer %>
+
+[Install]
+WantedBy=timers.target

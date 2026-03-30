@@ -1,0 +1,25 @@
+[s3_root]
+type = s3
+provider = Other
+access_key_id = <%= @s3_access_key %>
+secret_access_key = <%= @s3_secret_key %>
+endpoint = <%= @s3_endpoint %>
+acl = private
+bucket_acl = private
+
+[s3_bucket]
+type = alias
+remote = s3_root:<%= @s3_bucket %>
+
+[cipher]
+type = crypt
+remote = s3_bucket:cipher
+filename_encryption = off
+directory_name_encryption = false
+password = <%= @storage_encryption_passphrase_obfuscated %>
+
+[backups]
+type = compress
+remote = cipher:compress
+mode = zstd
+level = 2
