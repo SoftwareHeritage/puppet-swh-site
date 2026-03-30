@@ -907,6 +907,14 @@ anubis::deb_sha256:
   1.24.0:
     amd64: e8a01d294c8ff42595ef0f40e1658aeb1bb61dbfbfd9209abe0b25a0fd526949
 
+# Rclone configuration
+rclone::version: 1.73.3
+rclone::deb_url: https://github.com/rclone/rclone/releases/download/v%{lookup('rclone::version')}/rclone-v%{lookup('rclone::version')}-linux-%{facts.os.architecture}.deb
+rclone::deb_sha256:
+  1.73.3:
+    amd54: 4a35709c2ae07ae1643df559ad1a4d5e95965be241ce1e780333bf921a38e296
+
+
 # Varnish configuration
 varnish::http_port: 10080
 varnish::proxy_port: 6081
