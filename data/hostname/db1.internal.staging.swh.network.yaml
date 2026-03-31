@@ -43,4 +43,4 @@ rancher::rke2::agent::snapshotter: zfs
 # Empty because already configured and we want to keep it as-is
 zfs::common::zpool_configuration: {}
 
-zfs::arc::max_size: 17179869184 # 16Go
+zfs::arc::max_size: 1073741824  # 1GiB
