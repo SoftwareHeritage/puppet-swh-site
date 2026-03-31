@@ -82,5 +82,7 @@ class profile::kafka::kafkabackup_broker {
     content  => "$user  ALL=(root) NOPASSWD: /sbin/zfs list, /sbin/zfs snapshot data/kafka@*, /sbin/zfs destroy data/kafka@*, /usr/bin/mount -t zfs -o ro data/kafka@*, /usr/bin/umount /tmp/kafkabackup-*, /usr/bin/umount -t zfs data/kafka@*",
     priority => 50,
   }
-}
 
+  # Depend on rclone
+  include ::profile::rclone
+}
