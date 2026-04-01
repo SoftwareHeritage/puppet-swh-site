@@ -9,3 +9,4 @@ swh::kafkabackup::ssh_pubkeys:
   kafkabackup@local-cluster:
     type: ssh-ed25519
     key: 'AAAAC3NzaC1lZDI1NTE5AAAAICLOQRrZh9DRNNbWy34AWij+guGjMv4o299VkIQdp45l'
+swh::kafkabackup::enable: true

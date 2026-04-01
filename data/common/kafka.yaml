@@ -153,3 +153,4 @@ kafka::clusters:
     environment: staging
 
 swh::kafkabackup::ssh_pubkeys: {}
+swh::kafkabackup::enable: false  # while we're testing in staging

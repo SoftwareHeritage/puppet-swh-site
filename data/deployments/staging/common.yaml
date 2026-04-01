@@ -125,6 +125,7 @@ swh::kafkabackup::ssh_pubkeys:
   kafkabackup@swh-k8s-staging:
     type: ssh-ed25519
     key: 'AAAAC3NzaC1lZDI1NTE5AAAAIKPOR9xqQkrLkv87VxTDurD0TvFWOcXPg5Z71wcLKVAF'
+swh::kafkabackup::enable: true
 
 swh::deploy::journal::brokers:
   - journal2.internal.staging.swh.network
