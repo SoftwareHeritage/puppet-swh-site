@@ -39,11 +39,6 @@ class profile::grafana::backend {
     }
   }
 
-  grafana_plugin {'grafana-piechart-panel':
-    ensure => present,
-    notify => Service['grafana-server'],
-  }
-
   # this class depends on the reverse proxy availability
   include ::profile::grafana::objects
 }
