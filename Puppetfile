@@ -79,7 +79,7 @@ mod 'grafana',
     :ref => 'feature/puppet5-compat'
 
 mod 'hiera_vault',
-    :git => 'https://github.com/petems/petems-hiera_vault',
+    :git => 'https://github.com/voxpupuli/puppet-hiera_vault',
     :ref => 'v3.0.0'
 
 mod 'hitch',
