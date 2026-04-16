@@ -24,7 +24,7 @@ mod 'apache',
 
 mod 'apt',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-apt',
-    :tag => 'v10.0.1'
+    :tag => 'v11.2.0'
 
 mod 'archive',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-archive',
