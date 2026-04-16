@@ -4781,6 +4781,7 @@ grafana::config:
 
 grafana::objects::organizations:
   - name: Software Heritage
+    id: 1
 
 grafana::objects::users: []
 
@@ -4788,7 +4789,7 @@ grafana::objects::datasources:
   - name: Prometheus (Pergamon)
     url: "http://pergamon.internal.softwareheritage.org:%{lookup('prometheus::server::listen_port')}"
     type: prometheus
-    organization: Software Heritage
+    organization: 1
     access_mode: proxy
     is_default: true
 

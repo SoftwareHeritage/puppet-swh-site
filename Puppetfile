@@ -76,7 +76,7 @@ mod 'extlib',
 
 mod 'grafana',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-grafana',
-    :ref => 'v14.2.0'
+    :ref => 'feature/puppet5-compat'
 
 mod 'hiera_vault',
     :git => 'https://github.com/voxpupuli/puppet-hiera_vault',
