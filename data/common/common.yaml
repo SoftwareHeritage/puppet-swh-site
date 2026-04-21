@@ -940,6 +940,7 @@ varnish::useragent_blocklist:
   - ClaudeBot
   - facebookexternalhit
   - meta-externalagent
+  - curl/7.58.0
 
 swh::deploy::reverse_proxy::services:
   - deposit
