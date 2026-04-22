@@ -746,6 +746,7 @@ users:
       felixwanders:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIPALXKTD8w3hj3tKJZyrWX7ZiktTRHgIhDYZazrm6bcs
+  # Do not allocate uid: 1046, used for Sebastiano Vigna on specific hosts
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
 groups:
