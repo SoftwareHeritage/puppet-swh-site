@@ -10,10 +10,18 @@
     - 128.93.166.14/32
     - 192.168.50.0/24
 
-- name: APIs
+- name: badges
   action: ALLOW
-  path_regex: ^/(api|graphql|badge)/
   expression:
     all:
+      - 'path.startsWith("/badge/")'
       - '"Sec-Fetch-Mode" in headers'
       - "userAgent.contains('Mozilla')"
+
+- name: APIs
+  action: ALLOW
+  expression:
+    all:
+      - 'path.startsWith("/api/") || path.startsWith("/graphql/")'
+      - '"Accept" in headers'
+      - 'headers["Accept"] == "application/json"'
