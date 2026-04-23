@@ -32,4 +32,4 @@
     all:
       - 'path.startsWith("/api/") || path.startsWith("/graphql/")'
       - '"Accept" in headers'
-      - 'headers["Accept"] == "application/json"'
+      - 'headers["Accept"] == "application/json" || headers["Accept"] == "application/yaml"'
