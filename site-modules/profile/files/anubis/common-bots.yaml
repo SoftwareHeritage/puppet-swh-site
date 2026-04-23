@@ -18,6 +18,14 @@
       - '"Sec-Fetch-Mode" in headers'
       - "userAgent.contains('Mozilla')"
 
+- name: updateSWH
+  action: ALLOW
+  expression:
+    all:
+      - 'path.startsWith("/api/1/origin/")'
+      - '"Sec-Fetch-Mode" in headers'
+      - "userAgent.contains('Mozilla')"
+
 - name: APIs
   action: ALLOW
   expression:
