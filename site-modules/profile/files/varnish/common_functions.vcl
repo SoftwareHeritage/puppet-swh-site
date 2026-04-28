@@ -10,10 +10,3 @@ sub set_ip_headers {
     }
     set req.http.X-Real-Ip = client.ip;
 }
-
-sub clean_ip_headers {
-    if (!req.http.x-forwarded-for) {
-        return;
-    }
-    set req.http.x-forwarded-for = regsuball(req.http.x-forwarded-for, ", ?::1[^,]*", "");
-}

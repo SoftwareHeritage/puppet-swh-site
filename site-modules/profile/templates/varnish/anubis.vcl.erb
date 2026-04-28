@@ -33,3 +33,10 @@ sub vcl_recv {
         return (synth(200, "Varnish probed"));
     }
 }
+
+sub clean_ip_headers {
+    if (!req.http.x-forwarded-for) {
+        return;
+    }
+    set req.http.x-forwarded-for = regsuball(req.http.x-forwarded-for, ", ?::1[^,]*", "");
+}
