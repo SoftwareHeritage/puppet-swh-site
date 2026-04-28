@@ -1196,6 +1196,10 @@ letsencrypt::certificates:
   preseed.internal.softwareheritage.org:
     domains:
       - preseed.internal.softwareheritage.org
+  openbao.admin.swh.network:
+    domains:
+      - openbao.admin.swh.network
+      - openbao.internal.admin.swh.network
 
 bind::update_key: local-update
 
