@@ -115,6 +115,11 @@ class profile::varnish {
     content => file('profile/varnish/synth_redirect.vcl'),
   }
 
+  ::profile::varnish::vcl_include {'common_functions':
+    order   => '10',
+    content => file('profile/varnish/common_functions.vcl'),
+  }
+
   ::profile::varnish::vcl_include {'unknown_vhost_then_forbidden_access':
     order   => '99',
     content => file('profile/varnish/unknown_vhost_then_forbidden_access.vcl'),
