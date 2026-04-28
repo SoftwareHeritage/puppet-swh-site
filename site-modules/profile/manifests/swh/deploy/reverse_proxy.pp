@@ -69,7 +69,7 @@ class profile::swh::deploy::reverse_proxy {
     }
 
     $icinga_checks_file = lookup('icinga2::exported_checks::filename')
-  $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
+    $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
     # icinga alerts
     ::icinga2::object::service {"${service_name} http redirect on ${::fqdn}":

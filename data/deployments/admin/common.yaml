@@ -25,6 +25,7 @@ swh::deploy::reverse_proxy::services:
   - sentry
   - minio
   - alertmanager_irc_relay
+  - openbao
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
@@ -58,6 +59,13 @@ swh::deploy::alertmanager_irc_relay::reverse_proxy::backend_http_port: "80"
 swh::deploy::alertmanager_irc_relay::base_url: "%{lookup('alertmanager_irc_relay::vhost::name')}"
 swh::deploy::alertmanager_irc_relay::icinga_check_uri: '/status'
 swh::deploy::alertmanager_irc_relay::icinga_check_string: 'OK'
+
+swh::deploy::openbao::vhost::letsencrypt_cert: openbao.admin.swh.network
+swh::deploy::openbao::reverse_proxy::backend_http_host: k8s-admin-rke2.internal.admin.swh.network
+swh::deploy::openbao::reverse_proxy::backend_http_port: "80"
+swh::deploy::openbao::base_url: openbao.admin.swh.network
+swh::deploy::openbao::icinga_check_uri: '/ui/'
+swh::deploy::openbao::icinga_check_string: '<title>OpenBao</title>'
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
