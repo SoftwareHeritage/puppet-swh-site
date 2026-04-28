@@ -66,6 +66,20 @@ swh::deploy::openbao::reverse_proxy::backend_http_port: "80"
 swh::deploy::openbao::base_url: openbao.admin.swh.network
 swh::deploy::openbao::icinga_check_uri: '/ui/'
 swh::deploy::openbao::icinga_check_string: '<title>OpenBao</title>'
+swh::deploy::openbao::reverse_proxy::allowed_networks:
+  - 127.0.0.0/8
+  # Production subnet
+  - 192.168.100.0/24
+  # Staging subnet
+  - 192.168.130.0/24
+  # Admin subnet
+  - 192.168.50.0/24
+  # GitLab staging
+  - 20.76.145.50/32
+  # GitLab production
+  - 40.114.170.65/32
+  # VPN subnet
+  - 192.168.101.0/24
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

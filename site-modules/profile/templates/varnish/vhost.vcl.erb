@@ -4,6 +4,14 @@
 #
 # File managed by puppet. All modifications will be lost.
 
+<%- if @allowed_networks -%>
+acl allowed_networks_<%= @backend_name %> {
+    <%- @allowed_networks.each do |network| %>
+    <%= network %>;
+    <% end -%>
+}
+<%- end -%>
+
 sub vcl_recv {
     if (
 <% @aliases.each do |alias_| -%>
@@ -32,6 +40,12 @@ sub vcl_recv {
 <%- else %>
         call set_ip_headers;
         set req.backend_hint = <%= @backend_name %>;
+<%- end -%>
+
+<%- if @allowed_networks -%>
+        if (client.ip !~ allowed_networks_<%= @backend_name %>) {
+            return(synth(403, "Access denied"));
+        }
 <%- end -%>
 
 <%- if @basic_auth %>

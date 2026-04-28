@@ -13,6 +13,7 @@ define profile::varnish::vhost (
   Variant[Undef, String, Integer[1]] $hsts_max_age = undef,
   Boolean $basic_auth = false,
   Optional[Array[String]] $basic_auth_strings = undef,
+  Optional[Array[String]] $allowed_networks = undef,
 ) {
 
   ::profile::varnish::vcl_include {$backend_name:
