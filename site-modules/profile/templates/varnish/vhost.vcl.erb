@@ -6,9 +6,9 @@
 
 <%- if @allowed_networks -%>
 acl allowed_networks_<%= @backend_name %> {
-    <%- @allowed_networks.each do |network| %>
-    <%= network %>;
-    <% end -%>
+    <%- @allowed_networks.each do |network| -%>
+    "<%= network %>";
+    <%- end -%>
 }
 <%- end -%>
 
