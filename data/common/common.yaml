@@ -1200,6 +1200,9 @@ letsencrypt::certificates:
     domains:
       - openbao.admin.swh.network
       - openbao.internal.admin.swh.network
+  victorialogs.internal.admin.swh.network:
+    domains:
+      - victorialogs.internal.admin.swh.network
 
 bind::update_key: local-update
 
