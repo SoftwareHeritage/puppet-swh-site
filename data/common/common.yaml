@@ -1395,6 +1395,10 @@ bind::resource_records:
     type: CNAME
     record: openbao.internal.admin.swh.network
     data: k8s-admin-rke2.internal.admin.swh.network.
+  victorialogs/CNAME:
+    type: CNAME
+    record: victorialogs.internal.admin.swh.network
+    data: k8s-admin-rke2.internal.admin.swh.network.
   sccache-redis/A:
     record: sccache-redis.internal.admin.swh.network
     data: 192.168.50.138
