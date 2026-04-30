@@ -125,4 +125,13 @@ class profile::base {
       }
     }
   }
+
+  # Temporary patch for copyfail
+  file { '/etc/modprobe.d/copyfail-blacklist-algif.conf':
+    ensure  => present,
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
+    content => "install algif_aead /bin/false",
+  }
 }
