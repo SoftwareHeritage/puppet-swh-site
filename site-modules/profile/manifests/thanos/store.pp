@@ -20,6 +20,8 @@ class profile::thanos::store {
     $grpc_address = "${internal_ip}:${port_grpc}"
     $grpc_target  = "${swh_hostname['internal_fqdn']}:${port_grpc}"
 
+    $max_time = $service['store']['max-time']
+
     $service_name = "thanos-store@${dataset_name}"
     $unit_name = "${service_name}.service"
 

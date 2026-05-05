@@ -7,12 +7,14 @@ Description=Thanos store instance %i
 [Service]
 Environment=HTTP_ADDRESS=
 Environment=GRPC_ADDRESS=
+Environment=MAX_TIME=
 Restart=on-failure
 User=prometheus
 
 ExecStart=/opt/thanos/current/thanos store \
   --data-dir $CACHE_DIRECTORY \
   --objstore.config-file <%= @config_dir %>/objstore-%i.yml \
+  --max-time $MAX_TIME \
   --http-address $HTTP_ADDRESS \
   --grpc-server-tls-cert=<%= @cert_paths['fullchain'] %> --grpc-server-tls-key=<%= @cert_paths['privkey'] %> \
   --grpc-address $GRPC_ADDRESS
