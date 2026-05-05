@@ -4677,7 +4677,7 @@ thanos::stores:
     store:
       port-http: 19193
       port-grpc: 19093
-      max-time: -29d  # Prometheus retention is 30d
+      max-time: '-29d'  # Prometheus retention is 30d
     compact:
       port-http: 19293
   mmca:
@@ -4685,7 +4685,7 @@ thanos::stores:
     store:
       port-http: 19194
       port-grpc: 19094
-      max-time: 2022-07-20T00:00:00Z  # cf. swh-site/100c849e0b
+      max-time: '2022-07-20T00:00:00Z'  # cf. swh-site/100c849e0b
     compact:
       enabled: false
   archive-staging:  # rancher cluster
@@ -4693,7 +4693,7 @@ thanos::stores:
     store:
       port-http: 19195
       port-grpc: 19095
-      max-time: 2023-05-17T00:00:00Z  # cf. swh-site/f200be49dfe
+      max-time: '2023-05-17T00:00:00Z'  # cf. swh-site/f200be49dfe
     compact:
       enabled: false
   archive-production:  # rancher cluster
@@ -4701,7 +4701,7 @@ thanos::stores:
     store:
       port-http: 19196
       port-grpc: 19096
-      max-time: 2023-05-17T00:00:00Z  # cf. swh-site/f200be49dfe
+      max-time: '2023-05-17T00:00:00Z'  # cf. swh-site/f200be49dfe
     compact:
       enabled: false
   k8s-admin:  # rancher cluster
@@ -4709,7 +4709,7 @@ thanos::stores:
     store:
       port-http: 19197
       port-grpc: 19097
-      max-time: 2023-12-07T00:00:00Z  # cf. swh-site/39f6f330885e
+      max-time: '2023-12-07T00:00:00Z'  # cf. swh-site/39f6f330885e
     compact:
       enabled: false
   k8s-gitlab-staging:  # AKS cluster
@@ -4717,7 +4717,7 @@ thanos::stores:
     store:
       port-http: 19198
       port-grpc: 19098
-      max-time: -22h
+      max-time: '-22h'
     compact:
       port-http: 19298
   k8s-gitlab-production:  # AKS cluster
@@ -4725,7 +4725,7 @@ thanos::stores:
     store:
       port-http: 19199
       port-grpc: 19099
-      max-time: -22h
+      max-time: '-22h'
     compact:
       port-http: 19299
   k8s-rancher:  # AKS cluster
@@ -4733,7 +4733,7 @@ thanos::stores:
     store:
       port-http: 19200
       port-grpc: 19100
-      max-time: -22h
+      max-time: '-22h'
     compact:
       port-http: 19300
   archive-production-rke2:  # rancher cluster
@@ -4741,7 +4741,7 @@ thanos::stores:
     store:
       port-http: 19201
       port-grpc: 19101
-      max-time: -46h  # Prometheus retention is 2d
+      max-time: '-46h'  # Prometheus retention is 2d
     compact:
       port-http: 19301
   archive-staging-rke2:
@@ -4749,7 +4749,7 @@ thanos::stores:
     store:
       port-http: 19202
       port-grpc: 19102
-      max-time: -22h  # Prometheus retention is 1d
+      max-time: '-22h'  # Prometheus retention is 1d
     compact:
       port-http: 19302
   k8s-admin-rke2:  # rancher cluster
@@ -4757,7 +4757,7 @@ thanos::stores:
     store:
       port-http: 19203
       port-grpc: 19103
-      max-time: -9d  # Prometheus retention is 10d
+      max-time: '-9d'  # Prometheus retention is 10d
     compact:
       port-http: 19303
   cea-gloin001:
@@ -4765,7 +4765,7 @@ thanos::stores:
     store:
       port-http: 19204
       port-grpc: 19104
-      max-time: -29d  # Prometheus retention is 30d
+      max-time: '-29d'  # Prometheus retention is 30d
     compact:
       port-http: 19304
   cea-gloin002:
@@ -4773,7 +4773,7 @@ thanos::stores:
     store:
       port-http: 19205
       port-grpc: 19105
-      max-time: -29d  # Prometheus retention is 30d
+      max-time: '-29d'  # Prometheus retention is 30d
     compact:
       port-http: 19305
 
