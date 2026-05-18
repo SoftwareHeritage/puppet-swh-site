@@ -80,6 +80,8 @@ swh::deploy::openbao::reverse_proxy::allowed_networks:
   - 40.114.170.65/32
   # VPN subnet
   - 192.168.101.0/24
+  # Rancher
+  - 51.138.11.3/32
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
