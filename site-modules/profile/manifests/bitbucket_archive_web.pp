@@ -9,6 +9,7 @@ class profile::bitbucket_archive_web {
   $vhost_hsts_header = lookup('bitbucket_archive::vhost::hsts_header')
 
   include ::profile::apache::common
+  include ::profile::anubis::apache
 
   exec {"create ${vhost_docroot}":
     creates => $vhost_docroot,
@@ -28,7 +29,13 @@ class profile::bitbucket_archive_web {
   ::profile::letsencrypt::certificate {$vhost_name:}
   $cert_paths = ::profile::letsencrypt::certificate_paths($vhost_name)
 
-  File[$cert_paths['cert'], $cert_paths['chain'], $cert_paths['privkey']] ->
+  $anubis_bind_address = lookup('anubis::apache::listen_host')
+  $anubis_bind_port = lookup('anubis::apache::listen_port')
+
+  $apache_bind_address = lookup('apache::anubis_backend_listen')
+  $apache_bind_port = lookup('apache::anubis_backend_port')
+
+
   ::apache::vhost {"${vhost_name}_ssl":
     servername           => $vhost_name,
     port                 => 443,
@@ -40,6 +47,34 @@ class profile::bitbucket_archive_web {
     ssl_chain            => $cert_paths['chain'],
     ssl_key              => $cert_paths['privkey'],
     headers              => [$vhost_hsts_header],
+    docroot              => $vhost_docroot,
+    manage_docroot       => false,
+
+    proxy_requests      => false,
+    proxy_preserve_host => true,
+    proxy_pass           => [
+      { path => '/',
+        url  => "http://${anubis_bind_address}:${anubis_bind_port}/",
+      },
+    ],
+
+    request_headers      => [
+      'set X-Real-Ip expr=%{REMOTE_ADDR}',
+      'set X-Forwarded-Proto "https"',
+      'set X-Http-Version "%{SERVER_PROTOCOL}s"',
+    ],
+
+    require              => [
+      Profile::Letsencrypt::Certificate[$vhost_name],
+    ],
+  }
+
+  include ::profile::anubis::apache
+
+  ::apache::vhost {"${vhost_name}_anubis":
+    servername           => $vhost_name,
+    ip                   => $apache_bind_address,
+    port                 => $apache_bind_port,
     docroot              => $vhost_docroot,
     manage_docroot       => false,
     directories          => [
