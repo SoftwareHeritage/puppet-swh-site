@@ -19,7 +19,7 @@ define profile::cassandra::instance (
   $cassandra_log_dir = lookup('cassandra::base_log_directory')
   $cassandra_user = lookup('cassandra::jmx::user')
   $cassandra_paxos_timer = lookup('paxos::repair::timer::calendar')
-
+  $enable_paxos_repair = lookup('cassandra::paxos::repair::enable')
   $base_data_dir = "${instance_base_data_dir}/data"
   $commitlog_dir = "${instance_base_data_dir}/commitlog"
 
@@ -143,13 +143,22 @@ define profile::cassandra::instance (
     require => [File[$config_dir]],
   }
 
-  ::systemd::timer { 'paxos-repair.timer':
-    timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
-    service_content => template('profile/cassandra/paxos-repair.service.erb'),
-    service_unit    => 'paxos-repair.service',
-    active          => true,
-    enable          => true,
-    mode            => '0440',
+  if $enable_paxos_repair {
+    ::systemd::timer { 'paxos-repair.timer':
+      timer_content   => template('profile/cassandra/paxos-repair.timer.erb'),
+      service_content => template('profile/cassandra/paxos-repair.service.erb'),
+      service_unit    => 'paxos-repair.service',
+      active          => true,
+      enable          => true,
+      mode            => '0440',
+    }
+  } else {
+    ::systemd::timer { 'paxos-repair.timer':
+      ensure       => absent,
+      service_unit => 'paxos-repair.service',
+      active       => false,
+      enable       => false,
+    }
   }
 
   file { '/root/.cassandra_functions':

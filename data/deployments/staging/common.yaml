@@ -326,6 +326,7 @@ cassandra::clusters:
           - seeds: "cassandra1.internal.staging.swh.network:7000"
 
 cassandra::disable_stcs_in_l0: true
+cassandra::paxos::repair::enable: true
 
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.staging.swh.network

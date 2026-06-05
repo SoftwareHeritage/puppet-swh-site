@@ -119,6 +119,8 @@ cassandra::default_instance_configuration:
 cassandra::jmx::user: cassandra
 cassandra::heap: 32G
 
+cassandra::paxos::repair::enable: false
+
 # cassandra::jmx::password in private data
 
 # Reflect the base of the cassandra.yaml content
