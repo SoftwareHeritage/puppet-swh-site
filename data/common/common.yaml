@@ -4800,6 +4800,23 @@ grafana::config:
     enabled: true
     org_name: Software Heritage
     org_role: Viewer
+  auth.generic_oauth:
+    enabled: true
+    name: Keycloak Software Heritage
+    allow_sign_up: true
+    client_id: grafana
+    client_secret: "%{alias('grafana::oauth::client_secret')}"
+    scopes: openid email profile offline_access roles
+    email_attribute_path: email
+    oauth_allow_insecure_email_lookup: true
+    login_attribute_path: username
+    name_attribute_path: full_name
+    auth_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/auth"
+    token_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/token"
+    api_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/userinfo"
+    role_attribute_path: contains(roles[*], 'admin') && 'GrafanaAdmin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
+    allow_assign_grafana_admin: true
+    use_refresh_token: true
   smtp:
     enabled: true
     skip_verify: true
