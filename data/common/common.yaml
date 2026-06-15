@@ -1526,6 +1526,10 @@ bind::resource_records:
     type: CNAME
     record: db.internal.staging.swh.network
     data: k8s-archive-staging-rke2-pooler.internal.staging.swh.network.
+  staging-oporadar/CNAME:
+    type: CNAME
+    record: osporadar.internal.staging.swh.network
+    data: k8s-archive-staging-rke2-pooler.internal.staging.swh.network.
   k8s-archive-staging-rke2-thanos/A:
     type: CNAME
     record: k8s-archive-staging-rke2-thanos.internal.staging.swh.network
