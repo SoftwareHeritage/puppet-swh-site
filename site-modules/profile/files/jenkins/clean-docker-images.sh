@@ -41,6 +41,11 @@ stop_dangling_containers () {
       | xargs -r docker container stop
 }
 
+clean_stale_workspaces () {
+  # Jenkins apparently retains some stale workspaces
+  find /var/lib/jenkins/ -depth -maxdepth 5 -type d -name '*ws-cleanup*' -exec rm -rf '{}' +
+}
+
 stop_dangling_containers
 
 # Prune dangling layers and volumes once
@@ -77,3 +82,5 @@ if [ -d /var/lib/docker/volumes/shared-jenkins-cachedir/_data ]; then
 	# clean up cachedir data older than 30 days
 	clean_shared_cachedir /var/lib/docker/volumes/shared-jenkins-cachedir/_data 30
 fi
+
+clean_stale_workspaces
