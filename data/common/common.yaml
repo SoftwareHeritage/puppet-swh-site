@@ -1522,6 +1522,10 @@ bind::resource_records:
                                      # access to pgbouncer
     record: k8s-archive-staging-rke2-pooler.internal.staging.swh.network
     data: 192.168.130.138
+  dataportal-staging-next-version/CNAME:
+    type: CNAME
+    record: dataportal-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   staging-db-postgresql/CNAME:
     type: CNAME
     record: db.internal.staging.swh.network
@@ -5494,8 +5498,3 @@ swh_web_inbound_email::profiles:
     email_domain: archive.softwareheritage.org
     endpoint: https://archive.softwareheritage.org/inbound-email/
     shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
-
-dataportal-next-version/CNAME:
-  type: CNAME
-  record: dataportal-next-version.internal.staging.swh.network
-  data: k8s-archive-staging-rke2.internal.staging.swh.network.
