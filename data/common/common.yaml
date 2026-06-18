@@ -5494,3 +5494,8 @@ swh_web_inbound_email::profiles:
     email_domain: archive.softwareheritage.org
     endpoint: https://archive.softwareheritage.org/inbound-email/
     shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
+
+dataportal-next-version/CNAME:
+  type: CNAME
+  record: dataportal-next-version.internal.staging.swh.network
+  data: k8s-archive-staging-rke2.internal.staging.swh.network.
