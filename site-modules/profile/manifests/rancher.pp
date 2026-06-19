@@ -9,7 +9,13 @@ class profile::rancher {
 
   # Install the necessary 50-snapshotter.yaml configuration so rke2-agent.service
   # actually starts.
-  $config_content = lookup('rancher::rke2::agent::config')
+  $base_content = lookup('rancher::rke2::agent::config')
+
+  if $::hostname =~ /-mgmt\d+/ {
+    $config_content = $base_content + {'embedded-registry' => true}
+  } else {
+    $config_content = $base_content
+  }
 
   file {['/etc/rancher', '/etc/rancher/rke2', '/etc/rancher/rke2/config.yaml.d']:
     ensure => directory,
