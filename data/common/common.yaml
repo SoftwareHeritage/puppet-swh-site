@@ -1522,6 +1522,10 @@ bind::resource_records:
                                      # access to pgbouncer
     record: k8s-archive-staging-rke2-pooler.internal.staging.swh.network
     data: 192.168.130.138
+  dataportal-staging/CNAME:
+    type: CNAME
+    record: dataportal.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   dataportal-staging-next-version/CNAME:
     type: CNAME
     record: dataportal-next-version.internal.staging.swh.network
