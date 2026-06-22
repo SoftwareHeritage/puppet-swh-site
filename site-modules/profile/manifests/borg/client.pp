@@ -105,7 +105,7 @@ class profile::borg::client {
     # List all other hours in the day
     $cronhours = delete(range(0, 23), $crontime['hour'])
 
-    if $sshkey_installed {
+    if $sshkey_installed and false {
       # Run borgmatic create once every hour
       profile::cron::d {'borgmatic-create':
         target  => 'borgmatic',
