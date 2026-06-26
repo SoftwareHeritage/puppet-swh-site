@@ -1526,6 +1526,14 @@ bind::resource_records:
     type: CNAME
     record: dataportal.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  vulns-staging-next-version/CNAME:
+    type: CNAME
+    record: vulns-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  vulns-staging/CNAME:
+    type: CNAME
+    record: vulns.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   dataportal-staging-next-version/CNAME:
     type: CNAME
     record: dataportal-next-version.internal.staging.swh.network
