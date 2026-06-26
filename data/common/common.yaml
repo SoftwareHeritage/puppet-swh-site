@@ -1565,6 +1565,10 @@ bind::resource_records:
     type: CNAME
     record: luigi-scheduler.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  vulns/CNAME:
+    type: CNAME
+    record: vulns.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   reaper-staging/CNAME:
     type: CNAME
     record: reaper.internal.staging.swh.network
