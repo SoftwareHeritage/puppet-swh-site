@@ -1522,10 +1522,6 @@ bind::resource_records:
                                      # access to pgbouncer
     record: k8s-archive-staging-rke2-pooler.internal.staging.swh.network
     data: 192.168.130.138
-  dataportal-staging/CNAME:
-    type: CNAME
-    record: dataportal.internal.staging.swh.network
-    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   vulns-staging-next-version/CNAME:
     type: CNAME
     record: vulns-next-version.internal.staging.swh.network
@@ -1534,9 +1530,9 @@ bind::resource_records:
     type: CNAME
     record: vulns.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
-  dataportal-staging-next-version/CNAME:
+  datasets-staging-next-version/CNAME:
     type: CNAME
-    record: dataportal-next-version.internal.staging.swh.network
+    record: datasets-next-version.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
   staging-db-postgresql/CNAME:
     type: CNAME
