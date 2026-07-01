@@ -138,6 +138,10 @@ swh::deploy::webapp::vhost::letsencrypt_cert: archive_staging
 swh::deploy::webapp::reverse_proxy::backend_http_host: webapp-cassandra.internal.staging.swh.network
 swh::deploy::webapp::reverse_proxy::backend_http_port: "80"
 
+swh::deploy::datasets::vhost::letsencrypt_cert: datasets_staging
+swh::deploy::datasets::reverse_proxy::backend_http_host: datasets.internal.staging.swh.network
+swh::deploy::datasets::reverse_proxy::backend_http_port: "80"
+
 swh::remote_service::objstorage::config::rw:
   cls: remote
   url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::objstorage::port')}/"
@@ -175,6 +179,7 @@ swh::deploy::reverse_proxy::services:
   - objstorage
   - software-stories
   - coarnotify
+  - datasets
 
 swh::postgresql::version: '13'
 swh::postgresql::port: 5433
