@@ -1549,7 +1549,7 @@ bind::resource_records:
   datasets-production/CNAME:
     type: CNAME
     record: datasets.internal.softwareheritage.org
-    data: k8s-gitlab-production.euwest.azure.internal.softwareheritage.org.
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   staging-db-postgresql/CNAME:
     type: CNAME
     record: db.internal.staging.swh.network
