@@ -1,4 +1,5 @@
 ---
+swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::reverse_proxy::backend_http_host: "::1"
 swh::deploy::webapp::reverse_proxy::backend_http_host: "::1"
 

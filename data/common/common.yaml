@@ -3160,18 +3160,6 @@ swh::deploy::objstorage::reverse_proxy::basic_auth_on_backend: true
 swh::deploy::objstorage::reverse_proxy::basic_auth::users:
   - swh-prod
 
-# aliases are pulled from letsencrypt::certificates[$swh::deploy::deposit::vhost::letsencrypt_cert]
-swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
-swh::deploy::deposit::url: https://deposit.softwareheritage.org
-swh::deploy::deposit::internal_url: "%{lookup('swh::deploy::deposit::url')}"
-swh::deploy::deposit::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-swh::deploy::deposit::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-swh::deploy::deposit::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-swh::deploy::deposit::vhost::access_log_format: combined_with_duration
-swh::deploy::deposit::locked_endpoints:
-  - /1/private/[^/]+/[^/]+/[^/]+
-  - /1/private/deposits/
-
  # e2e vault
 swh::deploy::vault::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 
@@ -3217,6 +3205,7 @@ swh::deploy::savecodenow::e2e::origins:
 swh::deploy::savecodenow::e2e::webapp: "%{alias('swh::deploy::webapp::url')}"
 
 # e2e checks on deposit
+swh::deploy::deposit::url: https://deposit.softwareheritage.org
 swh::deploy::deposit::e2e::server: "%{lookup('swh::deploy::deposit::url')}/1"
 swh::deploy::deposit::e2e::user: swh
 swh::deploy::deposit::e2e::collection: swh
@@ -3226,101 +3215,12 @@ swh::deploy::deposit::e2e::poll_interval: 1
 swh::deploy::deposit::e2e::archive: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz
 swh::deploy::deposit::e2e::metadata: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz.xml
 
-swh::deploy::deposit::sentry_swh_package: swh.deposit
-swh::deploy::deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::deposit::sentry_dsn: "https://%{lookup('swh::deploy::deposit::sentry_token')}@sentry.softwareheritage.org/12"
-swh::deploy::deposit::config_directory: "%{lookup('swh::conf_directory')}/deposit"
-swh::deploy::deposit::config_file: "%{lookup('swh::deploy::deposit::config_directory')}/server.yml"
-swh::deploy::deposit::user: swhdeposit
-swh::deploy::deposit::group: swhdeposit
-swh::deploy::deposit::media_root_directory: /srv/storage/space/swh-deposit/uploads/
-swh::deploy::deposit::db::host: postgresql-deposit-rw.internal.softwareheritage.org
-swh::deploy::deposit::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::deposit::db::backend::host: albertina.internal.softwareheritage.org
-swh::deploy::deposit::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
-swh::deploy::deposit::db::dbname: softwareheritage-deposit
-swh::deploy::deposit::db::dbuser: swhstorage
-
 swh::config::keycloak::realm_name: SoftwareHeritage
-swh::deploy::deposit::config::keycloak:
-  server_url: "https://%{lookup('keycloak::vhost::name')}/auth/"
-  realm_name: "%{alias('swh::config::keycloak::realm_name')}"
-
-swh::deploy::deposit::config::authentication:
-  authentication_provider: keycloak
-  keycloak: "%{alias('swh::deploy::deposit::config::keycloak')}"
-  cache_uri: "%{lookup('memcached::server::bind')}:%{lookup('memcached::server::port')}"
-
-# swh::deploy::deposit::db::password: in private data
-# swh::deploy::deposit::runtime_secret_key in private data
-swh::deploy::deposit::config:
-  max_upload_size: 209715200
-  scheduler: "%{alias('swh::remote_service::scheduler::config::writable')}"
-  # The backend server writes raw_extrinsic_metadata objects
-  storage_metadata: "%{alias('swh::remote_service::storage::config::writable')}"
-  # It only reads some information from this storage, but use the same config for consistency.
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  private:
-    secret_key: "%{lookup('swh::deploy::deposit::runtime_secret_key')}"
-    db:
-      host: "%{lookup('swh::deploy::deposit::db::host')}"
-      port: "%{lookup('swh::deploy::deposit::db::port')}"
-      name: "%{lookup('swh::deploy::deposit::db::dbname')}"
-      user: "%{lookup('swh::deploy::deposit::db::dbuser')}"
-      password: "%{lookup('swh::deploy::deposit::db::password')}"
-    media_root: "%{lookup('swh::deploy::deposit::media_root_directory')}"
-  extraction_dir: /tmp/swh-deposit/archive/
-  swh_authority_url: "%{lookup('swh::deploy::deposit::url')}/"
 
 swh::deploy::worker::loader::max_content_size: 104857600
 
-swh::deploy::worker::loader_deposit::config_file: "%{lookup('swh::conf_directory')}/loader_deposit.yml"
-swh::deploy::worker::loader_deposit::concurrency: 1
-swh::deploy::worker::loader_deposit::private_tmp: true
-swh::deploy::worker::loader_deposit::loglevel: info
-# deposit_basic_auth_swhworker_{username|password} in private_data
-swh::deploy::worker::loader_deposit::config:
-  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_queues:
-      - swh.loader.package.deposit.tasks.LoadDeposit
-  deposit:
-    url: "%{alias('swh::deploy::webapp::deposit::private::url')}"
-    auth:
-      username: "%{lookup('deposit_basic_auth_swhworker_username')}"
-      password: "%{lookup('deposit_basic_auth_swhworker_password')}"
-  default_filename: archive.tar
-
-swh::deploy::checker_deposit::sentry_swh_package: swh.deposit.loader
-swh::deploy::checker_deposit::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::worker::checker_deposit::config_file: "%{lookup('swh::conf_directory')}/checker_deposit.yml"
-swh::deploy::worker::checker_deposit::concurrency: 1
-swh::deploy::worker::checker_deposit::private_tmp: true
-swh::deploy::worker::checker_deposit::loglevel: info
-# deposit_basic_auth_swhworker_{username|password} in private_data
-swh::deploy::worker::checker_deposit::config:
-  storage: "%{alias('swh::remote_service::storage::config::writable')}"
-  extraction_dir: /tmp/swh.checker.deposit/
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_modules:
-      - swh.deposit.loader.tasks
-    task_queues:
-      - swh.deposit.loader.tasks.ChecksDepositTsk
-  deposit:
-    url: "%{lookup('swh::deploy::deposit::internal_url')}/1/private/"
-    auth:
-      username: "%{lookup('deposit_basic_auth_swhworker_username')}"
-      password: "%{lookup('deposit_basic_auth_swhworker_password')}"
-
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
-swh::deploy::deposit::backend::workers: 8
-swh::deploy::deposit::backend::reload_mercy: 3600
-swh::deploy::deposit::backend::http_keepalive: 5
-swh::deploy::deposit::backend::http_timeout: 3600
 
 swh::deploy::objstorage_log_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
 swh::deploy::objstorage_log_checker::conf_file: "%{lookup('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
