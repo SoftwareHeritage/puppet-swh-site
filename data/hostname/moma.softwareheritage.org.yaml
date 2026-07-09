@@ -2,19 +2,12 @@
 backups::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::webapp::config::matomo:
-  url: https://piwik.inria.fr/
-  site_id: 59
-
 swh::deploy::search::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
 swh::deploy::storage::db::host: postgresql-storage-rw.internal.softwareheritage.org
 swh::deploy::storage::backend::workers: 16
 swh::deploy::storage::db::user: guest
 swh::deploy::storage::db::password: guest
-
-# sync_mailmaps needs write access to the main database
-swh::deploy::webapp::sync_mailmaps::db::host: albertina.internal.softwareheritage.org
 
 swh::deploy::objstorage::backend::listen::host: objstorage.internal.softwareheritage.org
 
@@ -48,8 +41,6 @@ swh::deploy::deposit::reverse_proxy::backend_http_port: "80"
 
 swh::deploy::webapp::reverse_proxy::backend_http_host: archive-dynamic.internal.softwareheritage.org
 swh::deploy::webapp::reverse_proxy::backend_http_port: "80"
-
-swh::deploy::webapp::timers_enabled: true
 
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true

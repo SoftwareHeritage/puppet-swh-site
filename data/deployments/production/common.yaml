@@ -1,6 +1,8 @@
 ---
 swh::deploy::deposit::vhost::letsencrypt_cert: deposit_production
 swh::deploy::deposit::reverse_proxy::backend_http_host: "::1"
+
+swh::deploy::webapp::vhost::letsencrypt_cert: archive_production
 swh::deploy::webapp::reverse_proxy::backend_http_host: "::1"
 
 elasticsearch::config::cluster::name: swh-logging-prod
