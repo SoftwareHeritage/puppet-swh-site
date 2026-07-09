@@ -36,8 +36,7 @@ node 'saatchi.internal.softwareheritage.org' {
   include role::swh_scheduler
 }
 
-# FIXME: belvedere is no longer with us, drop it
-node /^(belvedere|albertina).(internal.)?softwareheritage.org$/ {
+node 'albertina.internal.softwareheritage.org' {
   include role::swh_database_with_pgbouncer
 }
 
