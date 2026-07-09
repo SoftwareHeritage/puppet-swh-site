@@ -4674,75 +4674,20 @@ swh::postgres::service::dbs:
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: "%{lookup('swh::deploy::storage::db::user')}"
     password: "%{lookup('swh::deploy::storage::db::password')}"
-  - alias: admin-swh-deposit
-    name: "%{lookup('swh::deploy::deposit::db::dbname')}"
-    host: "%{lookup('swh::deploy::deposit::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::deposit::db::dbuser')}"
-    password: "%{lookup('swh::deploy::deposit::db::password')}"
-  - alias: admin-swh-scheduler
-    name: "%{lookup('swh::deploy::scheduler::db::dbname')}"
-    host: "%{lookup('swh::deploy::scheduler::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::scheduler::db::user')}"
-    password: "%{lookup('swh::deploy::scheduler::db::password')}"
-  - alias: admin-swh-vault
-    name: "%{lookup('swh::deploy::vault::db::dbname')}"
-    host: "%{lookup('swh::deploy::vault::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::vault::db::user')}"
-    password: "%{lookup('swh::deploy::vault::db::password')}"
-  - alias: admin-swh-replica
-    name: "%{lookup('swh::deploy::storage::db::dbname')}"
-    host: massmoca.internal.softwareheritage.org
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    password: "%{lookup('swh::deploy::storage::db::password')}"
   - alias: admin-swh-indexer
     name: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{lookup('swh::deploy::indexer::storage::db::host')}"
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: "%{lookup('swh::deploy::indexer::storage::db::user')}"
     password: "%{lookup('swh::deploy::indexer::storage::db::password')}"
-  - alias: admin-swh-web
-    name: "%{lookup('swh::deploy::webapp::db::name')}"
-    host: "%{lookup('swh::deploy::webapp::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: "%{lookup('swh::deploy::webapp::db::user')}"
-    password: "%{lookup('swh::deploy::webapp::db::password')}"
   - alias: swh
     name: "%{lookup('swh::deploy::storage::db::dbname')}"
     host: "%{lookup('swh::deploy::storage::db::host')}"
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
-  - alias: swh-deposit
-    name: "%{lookup('swh::deploy::deposit::db::dbname')}"
-    host: "%{lookup('swh::deploy::deposit::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
-  - alias: swh-scheduler
-    name: "%{lookup('swh::deploy::scheduler::db::dbname')}"
-    host: "%{lookup('swh::deploy::scheduler::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
-  - alias: swh-vault
-    name: "%{lookup('swh::deploy::vault::db::dbname')}"
-    host: "%{lookup('swh::deploy::vault::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
-  - alias: swh-replica
-    name: "%{lookup('swh::deploy::storage::db::dbname')}"
-    host: massmoca.internal.softwareheritage.org
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
   - alias: swh-indexer
     name: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{lookup('swh::deploy::indexer::storage::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
-  - alias: swh-web
-    name: "%{lookup('swh::deploy::webapp::db::name')}"
-    host: "%{lookup('swh::deploy::webapp::db::host')}"
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
 
