@@ -45,11 +45,6 @@ pgbouncer::databases:
     host: "%{lookup('swh::deploy::scheduler::db::backend::host')}"
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{lookup('swh::deploy::scheduler::db::backend::port')}"
-  # swh-vault
-  - source_db: "%{lookup('swh::deploy::vault::db::dbname')}"
-    host: "%{lookup('swh::deploy::vault::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::vault::db::backend::port')}"
   # swh-indexer
   - source_db: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
     host: "%{lookup('swh::deploy::indexer::storage::db::backend::host')}"

@@ -35,11 +35,6 @@ swh::postgres::service::dbs:
     host: "%{lookup('swh::deploy::scrubber::db::host')}"
     port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
     user: guest
-  - alias: swh-vault
-    name: "%{lookup('swh::deploy::vault::db::dbname')}"
-    host: "%{lookup('swh::deploy::vault::db::host')}"
-    port: "%{lookup('swh::deploy::db::pgbouncer::port')}"
-    user: guest
   - alias: swh-web
     name: "%{lookup('swh::deploy::webapp::db::name')}"
     host: "%{lookup('swh::deploy::webapp::db::host')}"
@@ -62,10 +57,6 @@ swh::deploy::scheduler::db::dbname: swh-scheduler
 swh::deploy::scrubber::db::host: db.internal.staging.swh.network
 swh::deploy::scrubber::db::dbname: swh-scrubber
 
-swh::deploy::vault::db::host: db.internal.staging.swh.network
-swh::deploy::vault::db::user: swh-vault
-swh::deploy::vault::db::dbname: swh-vault
-
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
 swh::deploy::worker::instances: []
@@ -85,12 +76,6 @@ swh::remote_service::storage::config::storage0:
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::storage0')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::storage0')}"
-
-swh::remote_service::vault::config::vault0:
-  cls: remote
-  url: "http://vault.internal.staging.swh.network:%{lookup('swh::remote_service::vault::port')}/"
-swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
-swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
 swh::remote_service::scheduler::port: 80
 swh::remote_service::scheduler::config::scheduler0:
