@@ -151,7 +151,6 @@ node "bardo.internal.admin.swh.network" {
 
 node 'scheduler0.internal.staging.swh.network' {
   include role::swh_scheduler
-  include profile::postgresql::client
 }
 
 node 'gateway.internal.staging.swh.network' {
@@ -180,10 +179,6 @@ node /^rp\d\.internal\.(staging|admin)\.swh\.network$/ {
 
 node 'bojimans.internal.admin.swh.network' {
   include role::swh_netbox
-}
-
-node /^mirror-test\.internal\.staging\.swh\.network$/ {
-  include profile::postgresql::client
 }
 
 node 'backup01.euwest.azure.internal.softwareheritage.org' {
