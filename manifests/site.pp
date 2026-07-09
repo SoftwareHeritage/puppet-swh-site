@@ -65,10 +65,6 @@ node /^runner\d+\./ {
   include role::gitlab_runner
 }
 
-node 'granet.internal.softwareheritage.org' {
-  include role::swh_graph_backend
-}
-
 node 'maxxi.internal.softwareheritage.org' {
   include role::swh_graph_compression
 }
