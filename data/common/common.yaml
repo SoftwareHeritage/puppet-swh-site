@@ -3593,84 +3593,6 @@ swh::deploy::webapp::icinga_checks:
         - '/revision/3e5de27e940d00d8d504dfb96625fb654f641509/'
     'snapshot end to end': "%{alias('swh::deploy::webapp::snapshot_e2e')}"
 
-# local configuration for the scheduler
-swh::deploy::scheduler::config::local: &swh_scheduler_local_config
-  scheduler:
-    cls: postgresql
-    db: "host=%{lookup('swh::deploy::scheduler::db::host')} port=%{lookup('swh::deploy::scheduler::db::port')} dbname=%{lookup('swh::deploy::scheduler::db::dbname')} user=%{lookup('swh::deploy::scheduler::db::user')} password=%{lookup('swh::deploy::scheduler::db::password')}"
-
-swh::deploy::scheduler::sentry_swh_package: swh.scheduler
-swh::deploy::scheduler::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::scheduler::sentry_dsn: "https://%{lookup('swh::deploy::scheduler::sentry_token')}@sentry.softwareheritage.org/7"
-swh::deploy::scheduler::conf_dir: "%{lookup('swh::conf_directory')}/scheduler"
-swh::deploy::scheduler::conf_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/listener-runner.yml"
-swh::deploy::scheduler::user: swhscheduler
-swh::deploy::scheduler::group: swhscheduler
-swh::deploy::scheduler::db::host: postgresql-scheduler-rw.internal.softwareheritage.org
-swh::deploy::scheduler::db::port: "%{alias('swh::deploy::db::pgbouncer::port')}"
-swh::deploy::scheduler::db::backend::host: albertina.internal.softwareheritage.org
-swh::deploy::scheduler::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
-swh::deploy::scheduler::db::dbname: softwareheritage-scheduler
-swh::deploy::scheduler::db::user: swhscheduler
-# swh::deploy::scheduler::db::password in private data
-# swh::deploy::scheduler::task_broker::password in private data
-swh::deploy::scheduler::task_broker: "amqp://swhproducer:%{lookup('swh::deploy::scheduler::task_broker::password')}@rabbitmq:5672/%2f"
-swh::deploy::scheduler::services::log_level: INFO
-swh::deploy::scheduler::config:
-  <<: *swh_scheduler_local_config
-  celery:
-    task_broker: "%{alias('swh::deploy::scheduler::task_broker')}"
-  scheduling_policy:
-    default:
-      - policy: already_visited_order_by_lag
-        weight: 40
-      - policy: never_visited_oldest_update_first
-        weight: 40
-      - policy: origins_without_last_update
-        weight: 20
-    opam:
-      - policy: origins_without_last_update
-        weight: 100
-swh::deploy::scheduler::packages:
-  - python3-swh.lister
-  - python3-swh.loader.bzr
-  - python3-swh.loader.git
-  - python3-swh.loader.mercurial
-  - python3-swh.loader.svn
-  - python3-swh.loader.core
-  - python3-swh.scheduler
-
-# subset limited to the save code now tasks for the runner priority
-swh::deploy::scheduler::swh-scheduler-runner-priority::config::task_types:
-  - load-bzr
-  - load-cvs
-  - load-git
-  - load-svn
-  - load-archive-files
-  - load-hg
-
-swh::deploy::scheduler::remote::sentry_swh_package: swh.scheduler
-swh::deploy::scheduler::remote::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::scheduler::remote::sentry_dsn: "%{alias('swh::deploy::scheduler::sentry_dsn')}"
-swh::deploy::scheduler::remote::conf_dir: "%{alias('swh::deploy::scheduler::conf_dir')}"
-swh::deploy::scheduler::remote::conf_file: "%{lookup('swh::deploy::scheduler::remote::conf_dir')}/backend.yml"
-swh::deploy::scheduler::remote::user: swhscheduler
-swh::deploy::scheduler::remote::group: swhscheduler
-swh::deploy::scheduler::remote::backend::listen::host: 127.0.0.1
-swh::deploy::scheduler::remote::backend::listen::port: "%{alias('swh::remote_service::scheduler::port')}"
-swh::deploy::scheduler::remote::backend::workers: 16
-swh::deploy::scheduler::remote::backend::reload_mercy: 3600
-swh::deploy::scheduler::remote::backend::http_keepalive: 5
-swh::deploy::scheduler::remote::backend::http_timeout: 3600
-swh::deploy::scheduler::remote::backend::max_requests: 10000
-swh::deploy::scheduler::remote::backend::max_requests_jitter: 1000
-swh::deploy::scheduler::remote::backend::server_names:
-  - "%{::swh_hostname.internal_fqdn}"
-  - "%{::hostname}"
-  - 127.0.0.1
-  - localhost
-  - "::1"
-swh::deploy::scheduler::remote::config: "%{alias('swh::deploy::scheduler::config::local')}"
 
 swh::elasticsearch::storage_nodes:
   - host: esnode2.internal.softwareheritage.org
@@ -3689,15 +3611,6 @@ swh::elasticsearch::search_nodes:
     port: 9200
   - host: search-esnode6.internal.softwareheritage.org
     port: 9200
-
-swh::deploy::scheduler::journal_client::config_file: "%{lookup('swh::deploy::scheduler::conf_dir')}/journal-client.yml"
-swh::deploy::scheduler::journal_client::user: "%{alias('swh::deploy::scheduler::user')}"
-swh::deploy::scheduler::journal_client::group: "%{alias('swh::deploy::scheduler::group')}"
-swh::deploy::scheduler::journal_client::config:
-  <<: *swh_scheduler_local_config
-  journal:
-    brokers: "%{alias('swh::deploy::journal::brokers')}"
-    group_id: swh.scheduler.journal_client
 
 # swh::deploy::worker::task_broker::password in private data
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
