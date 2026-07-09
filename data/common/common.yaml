@@ -5224,13 +5224,6 @@ syncoid::default_frequency: 5min
 
 zfs::common::zpool_configuration: {}
 
-# Must have matching certificate in letsencrypt::certificates
-azure_billing::vhost::name: azure-billing.internal.admin.swh.network
-azure_billing::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-azure_billing::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-azure_billing::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-azure_billing::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
-
 swh::deploy::maven_index_exporter::url: maven-exporter.internal.softwareheritage.org
 maven_index_exporter::vhost::name: "%{lookup('swh::deploy::maven_index_exporter::url')}"
 maven_index_exporter::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
