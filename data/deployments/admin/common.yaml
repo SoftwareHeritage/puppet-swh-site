@@ -74,6 +74,8 @@ swh::deploy::openbao::reverse_proxy::allowed_networks:
   - 192.168.130.0/24
   # Admin subnet
   - 192.168.50.0/24
+  # Pergamon public IP address (Icinga traffic)
+  - 128.93.166.14/32
   # GitLab staging
   - 20.76.145.50/32
   # GitLab production
