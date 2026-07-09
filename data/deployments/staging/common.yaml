@@ -92,12 +92,6 @@ swh::remote_service::vault::config::vault0:
 swh::remote_service::vault::config: "%{alias('swh::remote_service::vault::config::vault0')}"
 swh::remote_service::vault::config::writable: "%{alias('swh::remote_service::vault::config::vault0')}"
 
-swh::remote_service::indexer::config::storage0:
-  cls: remote
-  url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::indexer::port')}/"
-swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::storage0')}"
-swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::storage0')}"
-
 swh::remote_service::scheduler::port: 80
 swh::remote_service::scheduler::config::scheduler0:
   cls: remote
@@ -223,10 +217,6 @@ swh::deploy::storage::backend::listen::host: 0.0.0.0
 swh::deploy::storage::backend::workers: 4
 swh::deploy::storage::backend::max_requests: 100
 swh::deploy::storage::backend::max_requests_jitter: 10
-
-# Deploy the indexer storage server as a public resource
-swh::deploy::indexer::storage::backend::listen::host: 0.0.0.0
-swh::deploy::indexer::storage::backend::workers: 4
 
 nginx::worker_processes: 4
 
