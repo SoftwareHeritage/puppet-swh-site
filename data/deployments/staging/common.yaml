@@ -66,9 +66,6 @@ swh::deploy::vault::db::host: db.internal.staging.swh.network
 swh::deploy::vault::db::user: swh-vault
 swh::deploy::vault::db::dbname: swh-vault
 
-swh::deploy::scrubber::checker::num_partitions_log2::small_table: 10
-swh::deploy::scrubber::checker::num_partitions_log2::large_table: 20
-
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
 swh::deploy::worker::instances: []
