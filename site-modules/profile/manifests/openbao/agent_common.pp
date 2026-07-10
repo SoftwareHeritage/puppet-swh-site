@@ -20,9 +20,10 @@ class profile::openbao::agent_common {
       'Description' => 'OpenBAO agent for %i'
     },
     service_entry => {
-      'Type'      => 'simple',
-      'ExecStart' => "${openbao_bin} agent -config-file=/etc/openbao-agent/%i.json",
-      'Restart'   => 'on-failure',
+      'Type'       => 'simple',
+      'ExecStart'  => "${openbao_bin} agent -config=/etc/openbao-agent/%i.json",
+      'Restart'    => 'on-failure',
+      'RestartSec' => '5s',
     },
   }
 }
