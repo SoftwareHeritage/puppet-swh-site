@@ -139,7 +139,6 @@ class profile::netbox {
       require => [
         File['netbox-gunicorn-config'],
         File['netbox-configuration'],
-        Class['systemd::systemctl::daemon_reload'],
       ],
     }
   }

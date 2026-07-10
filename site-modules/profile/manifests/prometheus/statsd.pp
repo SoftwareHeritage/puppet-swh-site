@@ -4,7 +4,6 @@ class profile::prometheus::statsd {
 
   package {'prometheus-statsd-exporter':
     ensure => 'purged',
-    notify => Class['systemd::systemctl::daemon_reload'],
   }
 
   ::systemd::dropin_file {'prometheus-statsd-exporter/restart.conf':
@@ -96,7 +95,6 @@ class profile::prometheus::statsd {
   ~> service {$service_name:
     ensure  => 'running',
     enable  => true,
-    require => Class['systemd::systemctl::daemon_reload'],
   }
 
   profile::prometheus::export_scrape_config {'statsd':

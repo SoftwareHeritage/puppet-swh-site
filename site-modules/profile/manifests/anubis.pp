@@ -20,7 +20,6 @@ class profile::anubis {
   -> package {'anubis':
     ensure => $anubis_version,
     source => $anubis_deb,
-    notify => Class['systemd::systemctl::daemon_reload'],
   }
 
   $anubis_files = ['common-bots.yaml']
