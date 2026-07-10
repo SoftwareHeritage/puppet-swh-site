@@ -1,7 +1,7 @@
 class profile::openbao::install {
   $extract_path = '/usr/local/bin'
   $openbao_bin = "${extract_path}/bao"
-  archive { "/tmp/openbao.zip":
+  archive { "/tmp/openbao.tar.gz":
     ensure       => present,
     extract      => true,
     extract_path => $extract_path,
