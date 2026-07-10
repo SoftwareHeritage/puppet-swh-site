@@ -4778,3 +4778,6 @@ swh_web_inbound_email::profiles:
     shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
 
 openbao::address: https://openbao.internal.admin.swh.network
+openbao::version: 2.5.5
+openbao::tarball_url: "https://github.com/openbao/openbao/releases/download/v%{lookup('openbao::version')}/bao_%{lookup('openbao::version')}_Linux_x86_64.tar.gz"
+openbao::tarball_sha256: "2c5577707e97fc95c2086950f39880ead5e45b356c94388e5cb606f5a5c2b697"
