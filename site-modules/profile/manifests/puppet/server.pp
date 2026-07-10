@@ -148,4 +148,23 @@ class profile::puppet::server {
     minute  => 'fqdn_rand',
     hour    => 'fqdn_rand',
   }
+
+  profile::openbao::agent {'puppetserver':
+    auto_auth_mount_path => 'auth/secrets-puppet',
+    auto_auth_config     => {
+      role_id_file_path                   => "/etc/puppet/openbao/roleid",
+      secret_id_file_path                 => "/etc/puppet/openbao/secretid",
+      remove_secret_id_file_after_reading => false,
+    },
+    owner                => "puppet",
+    group                => "puppet",
+    sinks                => [
+      {
+        "type" => "file",
+        config => {
+          "path" => "/etc/puppet/openbao/token",
+        },
+      }
+    ],
+  }
 }

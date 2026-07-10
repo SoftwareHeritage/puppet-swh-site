@@ -4776,3 +4776,5 @@ swh_web_inbound_email::profiles:
     email_domain: archive.softwareheritage.org
     endpoint: https://archive.softwareheritage.org/inbound-email/
     shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
+
+openbao::address: https://openbao.internal.admin.swh.network
