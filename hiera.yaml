@@ -4,6 +4,21 @@ defaults:
   datadir: data         # datadir by default moved to 'defaults' folder
   data_hash: yaml_data  # Default backend
 hierarchy:
+  - name: "Lookup in hiera vault"
+    lookup_key: hiera_vault
+    options:
+      confine_to_keys:
+        - "^vault::.*"
+        - "^.*password.*"
+      address: https://openbao.internal.admin.swh.network
+      token: /etc/puppet/openbao/token
+      v2_guess_mount: true
+      v1_lookup: false
+      default_field: secret
+      mounts:
+        secrets-puppet:
+          - "%{::trusted.certname}"
+          - common
   - path: "private/hostname/%{trusted.certname}.yaml"
     name: "Per hostname credentials"
   - path: "hostname/%{trusted.certname}.yaml"
