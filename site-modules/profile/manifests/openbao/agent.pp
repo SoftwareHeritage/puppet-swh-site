@@ -32,8 +32,8 @@ define profile::openbao::agent (
     },
     auto_auth => {
       method => [$full_auto_auth_config],
+      sinks => $sinks_config,
     },
-    sinks => $sinks_config,
   }
   
   file {$config_path:
