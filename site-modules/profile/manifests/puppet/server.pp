@@ -149,11 +149,21 @@ class profile::puppet::server {
     hour    => 'fqdn_rand',
   }
 
+  $openbao_configs = '/etc/puppet/openbao'
+
+  file {$openbao_configs:
+    ensure => 'directory',
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0750',
+  }
+
   profile::openbao::agent {'puppetserver':
     auto_auth_mount_path => 'auth/secrets-puppet',
     auto_auth_config     => {
-      role_id_file_path                   => "/etc/puppet/openbao/roleid",
-      secret_id_file_path                 => "/etc/puppet/openbao/secretid",
+      # These two files need to be provisioned manually
+      role_id_file_path                   => "${openbao_configs}/roleid",
+      secret_id_file_path                 => "${openbao_configs}/secretid",
       remove_secret_id_file_after_reading => false,
     },
     owner                => "puppet",
@@ -162,7 +172,7 @@ class profile::puppet::server {
       {
         "type" => "file",
         config => {
-          "path" => "/etc/puppet/openbao/token",
+          "path" => "${openbao_configs}/token",
         },
       }
     ],
