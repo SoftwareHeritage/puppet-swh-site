@@ -15,7 +15,7 @@ class profile::openbao::agent_common {
   systemd::manage_unit { 'openbao-agent@.service':
     enable        => false,
     active        => false,
-    requires      => File[$openbao_bin],
+    require       => File[$openbao_bin],
     unit_entry    => {
       'Description' => 'OpenBAO agent for %i'
     },
