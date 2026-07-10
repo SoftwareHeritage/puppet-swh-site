@@ -43,5 +43,18 @@ define profile::openbao::agent (
     group   => $group,
   }
 
-  # Systemd service instance
+  $unit_name = "openbao-agent@${instance_name}.service"
+  systemd::manage_dropin {"${unit_name}/parameters.conf":
+    ensure        => present,
+    unit          => $unit_name,
+    filename      => "parameters.conf",
+    service_entry => {
+      'User'  => $owner,
+      'Group' => $group,
+    }
+  }
+  -> service {$unit_name:
+    enable => true,
+    ensure => 'started',
+  }
 }
