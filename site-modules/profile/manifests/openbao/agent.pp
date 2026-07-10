@@ -55,6 +55,6 @@ define profile::openbao::agent (
   }
   -> service {$unit_name:
     enable => true,
-    ensure => 'started',
+    ensure => 'running',
   }
 }
