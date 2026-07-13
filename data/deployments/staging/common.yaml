@@ -60,7 +60,6 @@ swh::deploy::scrubber::db::dbname: swh-scrubber
 swh::deploy::webapp::inbound_email::domain: "%{lookup('swh::deploy::webapp::inbound_email::staging::domain')}"
 
 swh::deploy::worker::instances: []
-swh::deploy::lister::queues: []
 
 #### Rabbitmq instance to use
 # swh::deploy::worker::task_broker::password in private data
