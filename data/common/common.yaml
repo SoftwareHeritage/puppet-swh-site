@@ -274,6 +274,7 @@ users:
   zack:
     uid: 1000
     full_name: Stefano Zacchiroli
+    password: "%{alias('users::zack::password')}"
     shell: /usr/bin/zsh
     groups:
       - adm
@@ -295,6 +296,7 @@ users:
   olasd:
     uid: 1001
     full_name: Nicolas Dandrimont
+    password: "%{alias('users::olasd::password')}"
     shell: /bin/bash
     groups:
       - adm
@@ -316,6 +318,7 @@ users:
   ardumont:
     uid: 1003
     full_name: Antoine R. Dumont
+    password: "%{alias('users::ardumont::password')}"
     shell: /usr/bin/zsh
     groups:
       - adm
@@ -442,6 +445,7 @@ users:
   anlambert:
     uid: 1015
     full_name: Antoine Lambert
+    password: "%{alias('users::anlambert::password')}"
     shell: /bin/bash
     groups:
       - swhdev
@@ -486,6 +490,7 @@ users:
   ddouard:
     uid: 1020
     full_name: David Douard
+    password: "%{alias('users::ddouard::password')}"
     shell: /bin/bash
     groups:
       - adm
@@ -500,6 +505,7 @@ users:
   vlorentz:
     uid: 1021
     full_name: Valentin Lorentz
+    password: "%{alias('users::vlorentz::password')}"
     shell: /usr/bin/fish
     groups:
       - swhdev
@@ -656,6 +662,7 @@ users:
   varasterix:
     uid: 1038
     full_name: Aymeric Varasse
+    password: "%{alias('users::varasterix::password')}"
     groups:
       - swhdev
       - swhteam
@@ -670,6 +677,7 @@ users:
   martin:
     uid: 1039
     full_name: Martin Kirchgessner
+    password: "%{alias('users::martin::password')}"
     groups:
       - swhdev
       - swhteam
@@ -692,6 +700,7 @@ users:
   bzg:
     uid: 1041
     full_name: Bastien Guerry
+    password: "%{alias('users::bzg::password')}"
     groups:
       - swhdev
       - swhteam
@@ -713,6 +722,7 @@ users:
         key: AAAAC3NzaC1lZDI1NTE5AAAAIMDUUyqLij7G/PCv0grYQ/6A5xKy0ZXeeZpraXWXSOqD
   athiam:
     uid: 1043
+    password: "%{alias('users::athiam::password')}"
     full_name: Amadou THIAM
     groups:
       - swhdev
@@ -726,6 +736,7 @@ users:
   tbastian:
     uid: 1044
     full_name: Théophile Bastian
+    password: "%{alias('users::tbastian::password')}"
     groups:
       - swhdev
       - swhteam
