@@ -4,8 +4,9 @@ class profile::icinga2::objects::apiusers {
   $apiusers = lookup('icinga2::apiusers', Hash, 'deep')
 
   each($apiusers) |$name, $data| {
+    $password = lookup("icinga2::apiusers::${name}::password")
     ::icinga2::object::apiuser {$name:
-      password    => $data['password'],
+      password    => $password,
       permissions => $data['permissions'],
       target      => $apiuser_file,
     }
