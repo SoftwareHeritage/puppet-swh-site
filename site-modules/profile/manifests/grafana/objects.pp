@@ -4,8 +4,7 @@ class profile::grafana::objects {
   $grafana_vhost = lookup('grafana::vhost::name')
   $grafana_url = "https://${grafana_vhost}"
   $grafana_user = 'admin'
-  $passwords = lookup('grafana::passwords')
-  $grafana_password = $passwords[$grafana_user]
+  $grafana_password = lookup("grafana::user::${grafana_user}::password")
 
   $orgs = lookup('grafana::objects::organizations')
 
@@ -21,12 +20,13 @@ class profile::grafana::objects {
   $users = lookup('grafana::objects::users')
 
   each($users) |$user| {
-    $password = $passwords[$user['username']]
+    $username = $user['username']
+    $user_password = lookup("grafana::user::${username}::password")
     grafana_user {$user['username']:
       grafana_url      => $grafana_url,
       grafana_user     => $grafana_user,
       grafana_password => $grafana_password,
-      password         => $password,
+      password         => $user_password,
       *                => $user - 'username',
     }
   }
