@@ -2,7 +2,8 @@
 class profile::mediawiki {
   $mediawiki_fpm_root = lookup('mediawiki::php::fpm_listen')
 
-  $mediawiki_vhosts = lookup('mediawiki::vhosts', Hash, 'deep')
+  $flatten_mediawiki = lookup('mediawiki::vhosts', Hash, 'deep')
+  $mediawiki_vhosts = unflatten_keys($flattened)
 
   include ::profile::php
 
@@ -29,7 +30,7 @@ class profile::mediawiki {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  each ($mediawiki_vhosts) |$name, $data| {
+  each ($mediawiki_vhosts['vhosts']) |$name, $data| {
     $secret_key = $data['secret_key']
     $upgrade_key = $data['upgrade_key']
     $site_name = $data['site_name']
