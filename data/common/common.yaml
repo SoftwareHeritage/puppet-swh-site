@@ -2531,15 +2531,18 @@ phabricator::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 mediawiki::php::fpm_listen: 127.0.0.1:9002
 
 mediawiki::vhosts:
-  # Must have matching certificates in letsencrypt::certificates
-  intranet.softwareheritage.org:
+  intranet:
+    # Must have matching certificates in letsencrypt::certificates
+    fqdn: intranet.softwareheritage.org
     swh_logo: /images/9/99/Swh-intranet-logo.png
     mysql:
       username: mw_intranet
       dbname: mediawiki_intranet
     aliases: []
     site_name: Software Heritage Intranet
-  wiki.softwareheritage.org:
+  wiki:
+    # Must have matching certificates in letsencrypt::certificates
+    fqdn: wiki.softwareheritage.org
     swh_logo: /images/b/b2/Swh-logo.png
     mysql:
       username: mw_public

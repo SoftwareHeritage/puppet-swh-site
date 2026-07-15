@@ -2,8 +2,7 @@
 class profile::mediawiki {
   $mediawiki_fpm_root = lookup('mediawiki::php::fpm_listen')
 
-  $flatten_mediawiki = lookup('mediawiki::vhosts', Hash, 'deep')
-  $mediawiki_vhosts = unflatten_keys($flattened)
+  $mediawiki_vhosts = lookup('mediawiki::vhosts', Hash, 'deep')
 
   include ::profile::php
 
@@ -12,7 +11,6 @@ class profile::mediawiki {
   ]:
     provider => 'apt',
   }
-
 
   ::php::fpm::pool {'mediawiki':
     listen => $mediawiki_fpm_root,
@@ -30,16 +28,21 @@ class profile::mediawiki {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  each ($mediawiki_vhosts['vhosts']) |$name, $data| {
-    $secret_key = $data['secret_key']
-    $upgrade_key = $data['upgrade_key']
+  each ($mediawiki_vhosts) |$short_name, $data| {
+    $name = $data['fqdn']
+
+    $secret_key = lookup("mediawiki::vhosts::${short_name}::secret_key")
+    $upgrade_key = lookup("mediawiki::vhosts::${short_name}::upgrade_key")
+    $db_password = lookup("mediawiki::vhosts::${short_name}::mysql::password")
+    $basic_auth_content = lookup("mediawiki::vhosts::${short_name}::basic_auth_content")
+
+    $fqdn_name = $data['fqdn']
     $site_name = $data['site_name']
-    $basic_auth_content = $data['basic_auth_content']
 
     ::profile::letsencrypt::certificate {$name:}
     $cert_paths = ::profile::letsencrypt::certificate_paths($name)
 
-    ::mediawiki::instance { $name:
+    ::mediawiki::instance { $fqdn_name:
       vhost_docroot              => $mediawiki_vhost_docroot,
       vhost_aliases              => $data['aliases'],
       vhost_fpm_root             => $mediawiki_fpm_root,
@@ -54,7 +57,7 @@ class profile::mediawiki {
       db_host                    => 'localhost',
       db_basename                => $data['mysql']['dbname'],
       db_user                    => $data['mysql']['username'],
-      db_password                => $data['mysql']['password'],
+      db_password                => $db_password,
       secret_key                 => $secret_key,
       upgrade_key                => $upgrade_key,
       swh_logo                   => $data['swh_logo'],
@@ -80,6 +83,7 @@ class profile::mediawiki {
         http_expect => '401 Unauthorized',
       }
 
+      $icinga_http_auth_pair = lookup("mediawiki::vhosts::${short_name}::icinga_http_auth_pair")
       ::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
         service_name  => "mediawiki ${name} + auth",
         import        => ['generic-service'],
@@ -92,7 +96,7 @@ class profile::mediawiki {
           http_sni        => true,
           http_uri        => '/',
           http_onredirect => sticky,
-          http_auth_pair  => $data['icinga_http_auth_pair'],
+          http_auth_pair  => $icinga_http_auth_pair,
           http_string     => "<title>${site_name}</title>",
         },
         target        => $icinga_checks_file,
