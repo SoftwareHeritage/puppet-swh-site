@@ -23,6 +23,5 @@ smtp::relay_hostname: 'smtp.inria.fr'
 swh::deploy::worker::instances:
   - checker_deposit
   - loader_deposit
-  - loader_npm
   - loader_pypi
 
