@@ -3301,17 +3301,6 @@ swh::deploy::loader_core::sentry_swh_package: swh.loader.core
 swh::deploy::loader_core::sentry_environment: "%{lookup('swh::deploy::environment')}"
 swh::deploy::loader_core::sentry_dsn: "https://%{lookup('swh::deploy::loader_core::sentry_token')}@sentry.softwareheritage.org/9"
 
-swh::deploy::worker::loader_maven::config_file: "%{lookup('swh::conf_directory')}/loader_maven.yml"
-swh::deploy::worker::loader_maven::concurrency: 1
-swh::deploy::worker::loader_maven::loglevel: info
-swh::deploy::worker::loader_maven::config:
-  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_queues:
-      - swh.loader.package.maven.tasks.LoadMaven
-
 swh::deploy::worker::loader_opam::user: swhworker
 swh::deploy::worker::loader_opam::group: swhworker
 swh::deploy::worker::opam::root_directory: /tmp/opam/

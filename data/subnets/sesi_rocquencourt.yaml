@@ -26,5 +26,4 @@ swh::deploy::worker::instances:
   - loader_npm
   - loader_pypi
   - loader_opam
-  - loader_maven
 
