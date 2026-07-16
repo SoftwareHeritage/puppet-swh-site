@@ -25,14 +25,6 @@ swh::deploy::objstorage::backend::server_names:
   - localhost
   - "::1"
 
-swh::deploy::objstorage::config:
-  objstorage:
-    cls: multiplexer
-    objstorages:
-      - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-      - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
-
-
 swh::deploy::objstorage::reverse_proxy::backend_http_port: "80"
 
 swh::deploy::deposit::reverse_proxy::backend_http_host: deposit-dynamic.internal.softwareheritage.org

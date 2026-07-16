@@ -103,16 +103,6 @@ swh::deploy::datasets::vhost::letsencrypt_cert: datasets_staging
 swh::deploy::datasets::reverse_proxy::backend_http_host: datasets.internal.staging.swh.network
 swh::deploy::datasets::reverse_proxy::backend_http_port: "80"
 
-swh::remote_service::objstorage::config::rw:
-  cls: remote
-  url: "http://storage1.internal.staging.swh.network:%{lookup('swh::remote_service::objstorage::port')}/"
-
-swh::remote_service::objstorage::config::ro:
-  cls: filtered
-  storage_conf: "%{alias('swh::remote_service::objstorage::config::rw')}"
-  filters_conf:
-    - type: readonly
-
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_staging
 swh::deploy::objstorage::reverse_proxy::backend_http_host: objstorage-ro.internal.staging.swh.network
 swh::deploy::objstorage::reverse_proxy::basic_auth::users:
@@ -122,9 +112,6 @@ swh::deploy::objstorage::reverse_proxy::basic_auth::users:
 swh::deploy::objstorage::backend::public_server_name:
   objstorage.staging.swh.network
   objstorage.internal.staging.swh.network
-
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::ro')}"
-swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::rw')}"
 
 swh::deploy::objstorage::backend::server_names:
   - "%{alias('swh::deploy::objstorage::backend::public_server_name')}"

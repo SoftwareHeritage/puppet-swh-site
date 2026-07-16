@@ -2706,20 +2706,12 @@ swh::apt_config::unattended_upgrades::origins:
 
 # Default ports
 swh::remote_service::storage::port: 5002
-swh::remote_service::objstorage::port: 5003
 
 swh::remote_service::deposit::port: 5006
 
 # Default backend services. Override in specific sites if needed. Configurations
 # are split between read-only (the default) and writable storages. In most cases
 # overrides should only happen for read-only services.
-
-swh::remote_service::objstorage::config: "%{alias('swh::remote_service::objstorage::config::azure_readonly_with_fallback')}"
-swh::remote_service::objstorage::config::writable: "%{alias('swh::remote_service::objstorage::config::saam')}"
-swh::remote_service::objstorage::config_as_dict:
-  banco: "%{alias('swh::remote_service::objstorage::config::banco')}"
-  saam: "%{alias('swh::remote_service::objstorage::config::saam')}"
-  azure: "%{alias('swh::remote_service::objstorage::config::azure')}"
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
@@ -2744,113 +2736,6 @@ swh::deploy::worker::storage::pipeline:
     - cls: filter
     - cls: retry
     - "%{alias('swh::remote_service::storage::config::writable')}"
-
-# Objstorage backend configurations
-swh::remote_service::objstorage::config::azure:
-  cls: azure-prefixed
-  accounts:
-    "0":
-      account_name: 0euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::0euwestswh')}"
-      container_name: contents
-    "1":
-      account_name: 1euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::1euwestswh')}"
-      container_name: contents
-    "2":
-      account_name: 2euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::2euwestswh')}"
-      container_name: contents
-    "3":
-      account_name: 3euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::3euwestswh')}"
-      container_name: contents
-    "4":
-      account_name: 4euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::4euwestswh')}"
-      container_name: contents
-    "5":
-      account_name: 5euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::5euwestswh')}"
-      container_name: contents
-    "6":
-      account_name: 6euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::6euwestswh')}"
-      container_name: contents
-    "7":
-      account_name: 7euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::7euwestswh')}"
-      container_name: contents
-    "8":
-      account_name: 8euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::8euwestswh')}"
-      container_name: contents
-    "9":
-      account_name: 9euwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::9euwestswh')}"
-      container_name: contents
-    "a":
-      account_name: aeuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::aeuwestswh')}"
-      container_name: contents
-    "b":
-      account_name: beuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::beuwestswh')}"
-      container_name: contents
-    "c":
-      account_name: ceuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::ceuwestswh')}"
-      container_name: contents
-    "d":
-      account_name: deuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::deuwestswh')}"
-      container_name: contents
-    "e":
-      account_name: eeuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::eeuwestswh')}"
-      container_name: contents
-    "f":
-      account_name: feuwestswh
-      api_secret_key: "%{lookup('swh::azure::credentials::feuwestswh')}"
-      container_name: contents
-
-swh::remote_service::objstorage::config::azure::readonly:
-  cls: filtered
-  storage_conf: "%{alias('swh::remote_service::objstorage::config::azure')}"
-  filters_conf:
-    - type: readonly
-
-swh::remote_service::objstorage::config::saam:
-  cls: remote
-  url: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::objstorage::port')}/"
-
-swh::remote_service::objstorage::config::saam::readonly:
-  cls: filtered
-  storage_conf: "%{alias('swh::remote_service::objstorage::config::saam')}"
-  filters_conf:
-    - type: readonly
-
-swh::remote_service::objstorage::config::banco:
-  cls: remote
-  url: "http://banco.internal.softwareheritage.org:%{lookup('swh::remote_service::objstorage::port')}/"
-
-swh::remote_service::objstorage::config::banco::readonly:
-  cls: filtered
-  storage_conf: "%{alias('swh::remote_service::objstorage::config::banco')}"
-  filters_conf:
-    - type: readonly
-
-swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
-  cls: multiplexer
-  objstorages:
-    - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
-    - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-    - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
-
-swh::remote_service::objstorage::config::localhost:
-  cls: remote
-  url: "http://127.0.0.1:%{lookup('swh::remote_service::objstorage::port')}/"
-
 
 # Storage backend configurations
 swh::remote_service::storage::config::saam:
@@ -2962,7 +2847,7 @@ swh::deploy::storage::backend::server_names:
 swh::deploy::storage::config::local:
   cls: postgresql
   db: "host=%{lookup('swh::deploy::storage::db::host')} port=%{lookup('swh::deploy::storage::db::port')} user=%{lookup('swh::deploy::storage::db::user')} dbname=%{lookup('swh::deploy::storage::db::dbname')} password=%{lookup('swh::deploy::storage::db::password')}"
-  objstorage: "%{alias('swh::remote_service::objstorage::config')}"
+  objstorage: noop
 
 swh::deploy::storage::config:
   storage: "%{alias('swh::deploy::storage::config::local')}"
@@ -3027,37 +2912,6 @@ swh::deploy::svix::db::dbname: swh-svix
 swh::deploy::svix::db::backend::host: albertina.internal.softwareheritage.org
 swh::deploy::svix::db::backend::port: "%{lookup('swh::deploy::db::secondary::port')}"
 
-swh::deploy::objstorage::sentry_swh_package: swh.objstorage
-swh::deploy::objstorage::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::objstorage::sentry_dsn: "https://%{lookup('swh::deploy::objstorage::sentry_token')}@sentry.softwareheritage.org/4"
-swh::deploy::objstorage::conf_directory: "%{lookup('swh::conf_directory')}/objstorage"
-swh::deploy::objstorage::conf_file: "%{lookup('swh::deploy::objstorage::conf_directory')}/server.yml"
-swh::deploy::objstorage::user: "%{lookup('swh::deploy::storage::user')}"
-swh::deploy::objstorage::group: "%{lookup('swh::deploy::storage::group')}"
-swh::deploy::objstorage::directory: "%{lookup('swh::deploy::storage::directory')}"
-swh::deploy::objstorage::slicing: 0:2/2:4/4:6
-swh::deploy::objstorage::config:
-  objstorage:
-    cls: pathslicing
-    root: "%{lookup('swh::deploy::objstorage::directory')}"
-    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
-  client_max_size: 1073741824  # 1 GiB
-
-swh::deploy::objstorage::backend::listen::host: 127.0.0.1
-swh::deploy::objstorage::backend::listen::port: "%{alias('swh::remote_service::objstorage::port')}"
-swh::deploy::objstorage::backend::workers: 4
-swh::deploy::objstorage::backend::reload_mercy: 3600
-swh::deploy::objstorage::backend::http_workers: 1
-swh::deploy::objstorage::backend::http_keepalive: 5
-swh::deploy::objstorage::backend::http_timeout: 3600
-swh::deploy::objstorage::backend::max_requests: 0
-swh::deploy::objstorage::backend::max_requests_jitter: 0
-swh::deploy::objstorage::backend::server_names:
-  - "%{::swh_hostname.internal_fqdn}"
-  - "%{::hostname}"
-  - 127.0.0.1
-  - localhost
-  - "::1"
 # read-only storage use basic auth
 # it returns a 401 Restricted return code without
 # any content
@@ -3129,19 +2983,6 @@ swh::deploy::worker::loader::max_content_size: 104857600
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
-
-swh::deploy::objstorage_repair_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_repair_checker::conf_file: "%{lookup('swh::deploy::objstorage_repair_checker::conf_directory')}/repair_checker.yml"
-swh::deploy::objstorage_repair_checker::user: "%{lookup('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_repair_checker::group: "%{lookup('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_repair_checker::config:
-  storage:
-    cls: pathslicing
-    root: "%{lookup('swh::deploy::objstorage::directory')}"
-    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
-  batch_size: 1000
-  log_tag: objstorage.checker.repair
-  backup_storages: "%{alias('swh::remote_service::objstorage::config_as_dict')}"
 
 swh::deploy::webapp::icinga_check_string: 'archive'
 

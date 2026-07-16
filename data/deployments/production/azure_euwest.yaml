@@ -2,13 +2,6 @@
 
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 
-swh::remote_service::objstorage::config::azure_readonly_with_fallback: &swh_azure_readonly_with_fallback
-  cls: multiplexer
-  objstorages:
-    - "%{alias('swh::remote_service::objstorage::config::azure::readonly')}"
-    - "%{alias('swh::remote_service::objstorage::config::banco::readonly')}"
-    - "%{alias('swh::remote_service::objstorage::config::saam::readonly')}"
-
 tmpfs::size: 4096m
 tmpfs::nr_inodes: 200m
 
