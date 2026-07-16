@@ -41,7 +41,6 @@ swh::deploy::worker::instances:
   - loader_opam
   - loader_npm
   - loader_pypi
-  - loader_svn
   - loader_high_priority
 
 dns::forward_zones: { }
