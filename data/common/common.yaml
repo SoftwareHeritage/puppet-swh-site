@@ -3296,11 +3296,6 @@ swh::elasticsearch::search_nodes:
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::worker::instances: []
 
-# for all loader packages
-swh::deploy::loader_core::sentry_swh_package: swh.loader.core
-swh::deploy::loader_core::sentry_environment: "%{lookup('swh::deploy::environment')}"
-swh::deploy::loader_core::sentry_dsn: "https://%{lookup('swh::deploy::loader_core::sentry_token')}@sentry.softwareheritage.org/9"
-
 desktop::printers:
   MFP_C:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
