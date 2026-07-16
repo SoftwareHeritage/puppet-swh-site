@@ -2710,7 +2710,7 @@ swh::remote_service::objstorage::port: 5003
 swh::remote_service::webapp::port: 5004
 swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
-swh::remote_service::indexer::port: 5007
+
 swh::remote_service::scheduler::port: 80
 
 # Default backend services. Override in specific sites if needed. Configurations
@@ -2727,9 +2727,6 @@ swh::remote_service::objstorage::config_as_dict:
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::saam')}"
-
-swh::remote_service::indexer::config: "%{alias('swh::remote_service::indexer::config::saam')}"
-swh::remote_service::indexer::config::writable: "%{alias('swh::remote_service::indexer::config::saam')}"
 
 swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
 swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
@@ -2876,22 +2873,6 @@ swh::remote_service::storage::config::azure:
 swh::remote_service::storage::config::local_internal_network:
   cls: remote
   url: "http://%{lookup('swh::deploy::storage::backend::listen::host')}:%{lookup('swh::remote_service::storage::port')}/"
-
-# Indexer backend configurations
-swh::remote_service::indexer::config::saam:
-  cls: remote
-  url: "http://saam.internal.softwareheritage.org:%{lookup('swh::remote_service::indexer::port')}/"
-
-swh::remote_service::indexer::config::azure:
-  cls: remote
-  url: "http://storage01.euwest.azure.internal.softwareheritage.org:%{lookup('swh::remote_service::indexer::port')}/"
-
-
-# Scheduler backend configurations
-swh::remote_service::scheduler::config::saatchi:
-  cls: remote
-  url: "http://scheduler.internal.softwareheritage.org:%{lookup('swh::remote_service::scheduler::port')}/"
-
 
 # Vault backend configuration (dynamic infra)
 swh::remote_service::vault::config::azure:

@@ -17,7 +17,7 @@ icinga2::host::vars:
 swh::deploy::indexer::storage::db::backend::host: massmoca.internal.softwareheritage.org
 swh::deploy::indexer::storage::db::backend::port: "%{lookup('swh::deploy::db::indexer::port')}"
 swh::deploy::indexer::storage::db::dbname: softwareheritage-indexer
-  
+
 pgbouncer::auth_hba_file: /etc/postgresql/16/replica/pg_hba.conf
 pgbouncer::listen_addr: 192.168.100.211
 swh::deploy::db::pgbouncer::user::login: pgbouncer
