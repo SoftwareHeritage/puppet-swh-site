@@ -74,14 +74,6 @@ swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::co
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::storage0')}"
 
-swh::remote_service::scheduler::port: 80
-swh::remote_service::scheduler::config::scheduler0:
-  cls: remote
-  url: "http://scheduler.internal.staging.swh.network:%{lookup('swh::remote_service::scheduler::port')}/"
-
-swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
-swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::scheduler0')}"
-
 swh::deploy::deposit::url: https://deposit.staging.swh.network
 swh::deploy::deposit::internal_url: "https://deposit-rp.internal.staging.swh.network"
 

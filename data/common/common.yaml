@@ -2710,7 +2710,6 @@ swh::remote_service::objstorage::port: 5003
 swh::remote_service::webapp::port: 5004
 
 swh::remote_service::deposit::port: 5006
-swh::remote_service::scheduler::port: 80
 
 # Default backend services. Override in specific sites if needed. Configurations
 # are split between read-only (the default) and writable storages. In most cases
@@ -2726,10 +2725,6 @@ swh::remote_service::objstorage::config_as_dict:
 swh::remote_service::storage::config: "%{alias('swh::remote_service::storage::config::saam')}"
 swh::remote_service::storage::config::writable: &swh_remote_service_storage_config_writable
   "%{alias('swh::remote_service::storage::config::saam')}"
-
-swh::remote_service::scheduler::config: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service::scheduler::config::saatchi')}"
-
 
 # Pipeline storage with retry, filter, buffer and finally writable storage
 swh::deploy::worker::storage::pipeline:
