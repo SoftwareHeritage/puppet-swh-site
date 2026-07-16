@@ -22,7 +22,6 @@ smtp::relay_hostname: 'smtp.inria.fr'
 
 swh::deploy::worker::instances:
   - checker_deposit
-  - lister
   - loader_archive
   - loader_debian
   - loader_deposit

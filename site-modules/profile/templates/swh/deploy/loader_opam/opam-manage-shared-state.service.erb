@@ -5,7 +5,7 @@
 [Unit]
 Description=Software Heritage Manage OPAM shared state
 Requires=network.target
-Before=swh-worker@lister.service swh-worker@loader_opam.service
+Before=swh-worker@loader_opam.service
 After=network.target
 
 [Service]
@@ -15,5 +15,5 @@ Type=oneshot
 ExecStart=<%= @opam_manage_state_script %>
 
 [Install]
-WantedBy=swh-worker@lister.service swh-worker@loader_opam.service
+WantedBy=swh-worker@loader_opam.service
 
