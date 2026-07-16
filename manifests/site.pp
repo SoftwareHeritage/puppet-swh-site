@@ -156,10 +156,6 @@ node /^storage\d\.internal\.staging\.swh\.network$/ {
   include role::rancher_node
 }
 
-node /^worker\d\.internal\.staging\.swh\.network$/ {
-  include role::swh_worker_inria
-}
-
 node /^search-esnode\d\.internal\.staging\.swh\.network$/ {
   include role::swh_elasticsearch
 }
