@@ -25,5 +25,4 @@ swh::deploy::worker::instances:
   - loader_deposit
   - loader_npm
   - loader_pypi
-  - loader_opam
 
