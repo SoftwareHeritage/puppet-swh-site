@@ -17,7 +17,7 @@ node 'grafana0.internal.admin.swh.network' {
 }
 
 node 'tate.softwareheritage.org' {
-  include role::swh_forge
+  include role::swh_mediawikis_and_rps
 }
 
 node 'moma.softwareheritage.org' {

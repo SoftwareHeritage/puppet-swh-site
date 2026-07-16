@@ -1,4 +1,4 @@
-class role::swh_forge inherits role::swh_server {
+class role::swh_mediawikis_and_rps inherits role::swh_server {
   include profile::apache::rewrite_domains
 
   include profile::phabricator
