@@ -3292,10 +3292,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode6.internal.softwareheritage.org
     port: 9200
 
-# swh::deploy::worker::task_broker::password in private data
-swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
-swh::deploy::worker::instances: []
-
 desktop::printers:
   MFP_C:
     uri: lpd://print.paris.inria.fr/MFP_C-pro
