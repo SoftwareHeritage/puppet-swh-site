@@ -33,8 +33,6 @@ swh::deploy::datasets::vhost::letsencrypt_cert: datasets_production
 swh::deploy::datasets::reverse_proxy::backend_http_host: datasets.internal.softwareheritage.org
 swh::deploy::datasets::reverse_proxy::backend_http_port: "80"
 
-swh::deploy::worker::loader_git::concurrency: 4
-
 memcached::server::max_memory: 1224
 
 cassandra::default_cluster_name: archive_production

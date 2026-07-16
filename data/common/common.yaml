@@ -3296,31 +3296,6 @@ swh::elasticsearch::search_nodes:
 swh::deploy::worker::task_broker: "amqp://swhconsumer:%{lookup('swh::deploy::worker::task_broker::password')}@rabbitmq:5672/%2f"
 swh::deploy::worker::instances: []
 
-swh::deploy::loader_git::sentry_swh_package: swh.loader.git
-swh::deploy::loader_git::sentry_environment: "%{alias('swh::deploy::environment')}"
-swh::deploy::loader_git::sentry_dsn: "https://%{lookup('swh::deploy::loader_git::sentry_token')}@sentry.softwareheritage.org/8"
-swh::deploy::worker::loader_git::config_file: "%{lookup('swh::conf_directory')}/loader_git.yml"
-swh::deploy::worker::loader_git::concurrency: 1
-swh::deploy::worker::loader_git::max_tasks_per_child: 100
-swh::deploy::worker::loader_git::temp_file_cutoff: 536870912  # 512 * 1024 * 1024
-swh::deploy::worker::loader_git::loglevel: info
-swh::deploy::worker::loader_git::load_metadata: true
-swh::deploy::worker::loader_git::extra_config: {}
-
-swh::deploy::loader_git::queues:
-  - swh.loader.git.tasks.UpdateGitRepository
-  # loader-git-disk
-  - swh.loader.git.tasks.LoadDiskGitRepository
-  - swh.loader.git.tasks.UncompressAndLoadDiskGitRepository
-
-swh::deploy::worker::loader_git::config:
-  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
-  temp_file_cutoff: "%{alias('swh::deploy::worker::loader_git::temp_file_cutoff')}"
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_queues: "%{alias('swh::deploy::loader_git::queues')}"
-
 # high priority loader (save-code-now, ...)
 swh::deploy::loader_high_priority::sentry_swh_package: swh.loader.highpriority
 swh::deploy::loader_high_priority::sentry_environment: "%{lookup('swh::deploy::environment')}"
@@ -3353,20 +3328,6 @@ swh::deploy::worker::loader_high_priority::config:
     task_broker: "%{alias('swh::deploy::worker::task_broker')}"
     task_queues:
       "%{alias('swh::deploy::worker::loader_high_priority::queues')}"
-
-# One shot worker deactivated by default (e.g. first time ingestion on forge with
-# restrictive loading ingestion parallelism policies)
-swh::deploy::worker::loader_oneshot::config_file: "%{lookup('swh::conf_directory')}/loader_oneshot.yml"
-swh::deploy::worker::loader_oneshot::concurrency: 1
-swh::deploy::worker::loader_oneshot::max_tasks_per_child: 100
-swh::deploy::worker::loader_oneshot::loglevel: info
-swh::deploy::worker::loader_oneshot::task_queues: []
-swh::deploy::worker::loader_oneshot::config:
-  storage: "%{alias('swh::deploy::worker::storage::pipeline')}"
-  max_content_size: "%{alias('swh::deploy::worker::loader::max_content_size')}"
-  celery:
-    task_broker: "%{alias('swh::deploy::worker::task_broker')}"
-    task_queues: "%{alias('swh::deploy::worker::loader_oneshot::task_queues')}"
 
 # for all loader packages
 swh::deploy::loader_core::sentry_swh_package: swh.loader.core

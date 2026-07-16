@@ -87,10 +87,6 @@ swh::remote_service::scheduler::config::writable: "%{alias('swh::remote_service:
 swh::deploy::deposit::url: https://deposit.staging.swh.network
 swh::deploy::deposit::internal_url: "https://deposit-rp.internal.staging.swh.network"
 
-# do not save pack
-swh::deploy::worker::loader_git::save_data_path: ""
-swh::deploy::worker::loader_git::concurrency: 1
-
 kafka::broker::heap_opts: "-Xmx3G -Xms3G -XX:MaxDirectMemorySize=6G"
 kafka::version: "3.6.1"
 kafka::inter_broker_protocol_version: "3.6"

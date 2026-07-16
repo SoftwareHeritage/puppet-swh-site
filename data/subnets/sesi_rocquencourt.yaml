@@ -26,7 +26,6 @@ swh::deploy::worker::instances:
   - loader_archive
   - loader_debian
   - loader_deposit
-  - loader_git
   - loader_nixguix
   - loader_npm
   - loader_pypi
