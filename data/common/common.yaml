@@ -3147,19 +3147,6 @@ swh::deploy::worker::loader::max_content_size: 104857600
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
 swh::deploy::deposit::backend::listen::port: "%{alias('swh::remote_service::deposit::port')}"
 
-swh::deploy::objstorage_log_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
-swh::deploy::objstorage_log_checker::conf_file: "%{lookup('swh::deploy::objstorage_log_checker::conf_directory')}/log_checker.yml"
-swh::deploy::objstorage_log_checker::user: "%{lookup('swh::deploy::objstorage::user')}"
-swh::deploy::objstorage_log_checker::group: "%{lookup('swh::deploy::objstorage::group')}"
-swh::deploy::objstorage_log_checker:config:
-  storage:
-    cls: pathslicing
-    root: "%{lookup('swh::deploy::objstorage::directory')}"
-    slicing: "%{lookup('swh::deploy::objstorage::slicing')}"
-  batch_size: 1000
-  log_tag: objstorage.checker.log
-
-
 swh::deploy::objstorage_repair_checker::conf_directory: "%{lookup('swh::deploy::objstorage::conf_directory')}"
 swh::deploy::objstorage_repair_checker::conf_file: "%{lookup('swh::deploy::objstorage_repair_checker::conf_directory')}/repair_checker.yml"
 swh::deploy::objstorage_repair_checker::user: "%{lookup('swh::deploy::objstorage::user')}"
