@@ -24,7 +24,6 @@ swh::deploy::worker::instances:
   - checker_deposit
   - lister
   - loader_archive
-  - loader_bzr
   - loader_debian
   - loader_deposit
   - loader_git
