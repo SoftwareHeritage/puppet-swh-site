@@ -20,7 +20,3 @@ internal_network: 192.168.100.0/24
 
 smtp::relay_hostname: 'smtp.inria.fr'
 
-swh::deploy::worker::instances:
-  - checker_deposit
-  - loader_deposit
-
