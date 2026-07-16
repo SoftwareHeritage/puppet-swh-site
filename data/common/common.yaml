@@ -4140,38 +4140,6 @@ borg::repository_server: banco.internal.softwareheritage.org
 
 borg::encryption: repokey-blake2
 
-netbox::version: "4.4.8"
-netbox::user: netbox
-netbox::db::host: db1.internal.admin.swh.network
-netbox::db::port: 5432
-netbox::db::database: netbox
-netbox::db::username: netbox
-# netbox::db::password: in private-data
-netbox::mail::host: "%{lookup('smtp::relay_hostname')}"
-netbox::mail::from: inventory@softwareheritage.org
-netbox::redis::host: localhost
-netbox::redis::port: 6379
-# netbox::redis::password in private-data
-# netbox::redis_cache::password in private-data
-# netbox::secret_key in private-data
-netbox::admin::email: sysop+netbox@softwareheritage.org
-# netbox::admin::password in private-data
-# netbox::admin::api_token in private-data
-netbox::webhook_enabled: true
-netbox::gunicorn::binding: 127.0.0.1
-netbox::gunicorn::port: 8001
-netbox::data_directory: /var/lib/netbox
-netbox::allowed_hosts:
-  - "*"
-  - "localhost"
-netbox::vhost::letsencrypt_cert: inventory.internal.admin.swh.network
-netbox::vhost::name: inventory.internal.admin.swh.network
-netbox::backend::url: "http://localhost:%{lookup('netbox::gunicorn::port')}/"
-netbox::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-netbox::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-netbox::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-netbox::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
-
 opnsense::hosts:
   pushkin:
     fqdn: pushkin.internal.softwareheritage.org

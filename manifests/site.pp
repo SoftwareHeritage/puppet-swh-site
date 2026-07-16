@@ -176,10 +176,6 @@ node /^rp\d\.internal\.(staging|admin)\.swh\.network$/ {
   include role::swh_reverse_proxy
 }
 
-node 'bojimans.internal.admin.swh.network' {
-  include role::swh_netbox
-}
-
 node 'backup01.euwest.azure.internal.softwareheritage.org' {
   include role::zfs_snapshots_storage
 }

@@ -2,10 +2,6 @@ swh::postgresql::shared_buffers: 8GB
 swh::postgresql::max_connections: 400
 
 swh::dbs:
-  netbox:
-    name: "%{alias('netbox::db::database')}"
-    user: "%{alias('netbox::db::username')}"
-    password: "%{alias('netbox::db::password')}"
   hedgedoc:
     name: "%{alias('hedgedoc::db::database')}"
     user: "%{alias('hedgedoc::db::username')}"
