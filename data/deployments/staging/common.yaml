@@ -240,23 +240,6 @@ swh::config::keycloak::realm_name: SoftwareHeritageStaging
 swh::deploy::counters::cache_static_file:
 swh::deploy::counters::live_data_start: 1609462861 # 2021-01-01
 
-swh::deploy::worker::loader_high_priority::queues:
-  # bzr
-  - save_code_now:swh.loader.bzr.tasks.LoadBazaar
-  # cvs
-  - save_code_now:swh.loader.cvs.tasks.LoadCvsRepository
-  # git
-  - save_code_now:swh.loader.git.tasks.UpdateGitRepository
-  # mercurial
-  - save_code_now:swh.loader.mercurial.tasks.LoadMercurial
-  - save_code_now:swh.loader.mercurial.tasks.LoadArchiveMercurial
-  # svn
-  - save_code_now:swh.loader.svn.tasks.LoadSvnRepository
-  - save_code_now:swh.loader.svn.tasks.MountAndLoadSvnRepository
-  - save_code_now:swh.loader.svn.tasks.DumpMountAndLoadSvnRepository
-  # archives
-  - save_code_now:swh.loader.package.archive.tasks.LoadTarball
-
 syncoid::public_keys::storage1:
   type: ssh-ed25519
   key: "AAAAC3NzaC1lZDI1NTE5AAAAIB0y7dvB0cBluC+Dy+w51P6JCbB18whd/IekP5148XsS"

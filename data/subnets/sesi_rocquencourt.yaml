@@ -29,7 +29,6 @@ swh::deploy::worker::instances:
   - loader_nixguix
   - loader_npm
   - loader_pypi
-  - loader_high_priority
   - loader_opam
   - loader_maven
 
