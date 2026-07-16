@@ -33,7 +33,7 @@ node /^counters\d\.internal\.softwareheritage\.org$/ {
 }
 
 node 'saatchi.internal.softwareheritage.org' {
-  include role::swh_scheduler
+  include role::swh_rabbitmq
 }
 
 node 'albertina.internal.softwareheritage.org' {
@@ -149,7 +149,7 @@ node "bardo.internal.admin.swh.network" {
 }
 
 node 'scheduler0.internal.staging.swh.network' {
-  include role::swh_scheduler
+  include role::swh_rabbitmq
 }
 
 node 'gateway.internal.staging.swh.network' {
