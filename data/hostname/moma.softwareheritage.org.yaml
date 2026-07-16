@@ -2,12 +2,6 @@
 backups::exclude:
   - var/lib/rabbitmq
 
-swh::deploy::storage::backend::listen::host: moma.internal.softwareheritage.org
-swh::deploy::storage::db::host: postgresql-storage-rw.internal.softwareheritage.org
-swh::deploy::storage::backend::workers: 16
-swh::deploy::storage::db::user: guest
-swh::deploy::storage::db::password: guest
-
 swh::deploy::objstorage::backend::listen::host: objstorage.internal.softwareheritage.org
 
 swh::deploy::objstorage::vhost::letsencrypt_cert: objstorage_production
