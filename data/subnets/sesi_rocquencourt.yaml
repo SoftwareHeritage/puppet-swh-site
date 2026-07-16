@@ -24,7 +24,6 @@ swh::deploy::worker::instances:
   - checker_deposit
   - loader_debian
   - loader_deposit
-  - loader_nixguix
   - loader_npm
   - loader_pypi
   - loader_opam
