@@ -224,12 +224,6 @@ swh::elasticsearch::search_nodes:
   - host: search-esnode0.internal.staging.swh.network
     port: 9200
 
-swh::deploy::search::journal_client::service_types:
-  - objects
-  - indexed
-swh::deploy::search::journal_client::objects::consumer_group: swh.search.journal_client-v0.11
-swh::deploy::search::journal_client::indexed::consumer_group: swh.search.journal_client.indexed-v0.11
-
 swh::deploy::webapp::url: "https://webapp.staging.swh.network"
 
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
