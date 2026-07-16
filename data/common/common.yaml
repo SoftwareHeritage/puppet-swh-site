@@ -2712,7 +2712,6 @@ swh::remote_service::vault::port: 5005
 swh::remote_service::deposit::port: 5006
 swh::remote_service::indexer::port: 5007
 swh::remote_service::scheduler::port: 80
-swh::remote_service::graph::port: 5009
 
 # Default backend services. Override in specific sites if needed. Configurations
 # are split between read-only (the default) and writable storages. In most cases
@@ -2898,9 +2897,6 @@ swh::remote_service::scheduler::config::saatchi:
 swh::remote_service::vault::config::azure:
   cls: remote
   url: "http://vault-rpc-ingress"
-
-swh::remote_service::graph::config:
-    url: "http://graph.internal.softwareheritage.org:%{lookup('swh::remote_service::graph::port')}/"
 
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.softwareheritage.org
