@@ -2707,7 +2707,6 @@ swh::apt_config::unattended_upgrades::origins:
 # Default ports
 swh::remote_service::storage::port: 5002
 swh::remote_service::objstorage::port: 5003
-swh::remote_service::webapp::port: 5004
 
 swh::remote_service::deposit::port: 5006
 
