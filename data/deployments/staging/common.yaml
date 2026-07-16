@@ -234,10 +234,6 @@ swh::deploy::webapp::url: "https://webapp.staging.swh.network"
 
 swh::config::keycloak::realm_name: SoftwareHeritageStaging
 
-# No historical file on staging
-swh::deploy::counters::cache_static_file:
-swh::deploy::counters::live_data_start: 1609462861 # 2021-01-01
-
 syncoid::public_keys::storage1:
   type: ssh-ed25519
   key: "AAAAC3NzaC1lZDI1NTE5AAAAIB0y7dvB0cBluC+Dy+w51P6JCbB18whd/IekP5148XsS"
