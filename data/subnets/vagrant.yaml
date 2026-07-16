@@ -31,7 +31,6 @@ swh::postgresql::network_accesses:
 
 swh::deploy::worker::instances:
   - checker_deposit
-  - loader_archive
   - loader_debian
   - loader_deposit
   - loader_nixguix
