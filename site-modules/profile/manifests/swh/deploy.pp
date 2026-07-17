@@ -16,7 +16,7 @@ class profile::swh::deploy {
 
   file {"${deploy_directory}/id_rsa":
     ensure  => present,
-    content => lookup('swh::deploy::private_key'),
+    content => lookup('vault::swh::deploy::private_key'),
     owner   => 'root',
     group   => $deploy_group,
     mode    => '0640',
