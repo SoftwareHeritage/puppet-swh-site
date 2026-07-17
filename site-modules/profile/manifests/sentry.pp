@@ -40,7 +40,7 @@ class profile::sentry {
 
   # variables for config.yml
   $admin_email = lookup('sentry::admin_email')
-  $secret_key  = lookup('sentry::secret_key')
+  $secret_key  = lookup('vault::sentry::secret_key')
   $vhost_name  = lookup('sentry::vhost::name')
   $mail_host   = lookup('sentry::mail::host')
   $mail_from   = lookup('sentry::mail::from')
@@ -117,7 +117,7 @@ class profile::sentry {
   }
 
   $geoip_account_id = lookup('sentry::geoip::account_id')
-  $geoip_license_key = lookup('sentry::geoip::license_key')
+  $geoip_license_key = lookup('vault::sentry::geoip::license_key')
 
   file {$geoip_conf:
     ensure  => present,
