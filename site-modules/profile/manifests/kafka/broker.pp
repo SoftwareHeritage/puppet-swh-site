@@ -80,7 +80,7 @@ class profile::kafka::broker {
 
       $certificate = lookup('letsencrypt::certificates', Hash)[$trusted['certname']]
 
-      $ks_password = stdlib::fqdn_rand_string(16, '', lookup('kafka::broker::truststore_seed'))
+      $ks_password = stdlib::fqdn_rand_string(16, '', lookup('vault::kafka::broker::truststore_seed'))
 
       $ks_location = '/opt/kafka/config/broker.ks'
 
