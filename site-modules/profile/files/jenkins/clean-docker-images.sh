@@ -55,12 +55,6 @@ stop_dangling_containers
 # Prune dangling layers and volumes once
 prune_docker
 
-# Update tagged docker images; do not croak if pulling fails
-docker image ls --format '{{ .Repository }}\t{{.Tag}}\t{{ .ID }}' \
-    | awk '{if ($1 !~ /^(app-manager|swh\/|swh_test_|(swh-jenkins(-test)?\/|softwareheritage\/))/ && $2 != "<none>") { print $1":"$2 }}' \
-    | xargs -r -n1 docker image pull \
-  || true
-
 # To avoid timezone shift shenanigans (when triggered around midnight)
 today=$(date --date '13:00' +%Y%m%d)
 yesterday=$(date --date 'yesterday 13:00' +%Y%m%d)
