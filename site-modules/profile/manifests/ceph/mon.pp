@@ -2,8 +2,8 @@
 class profile::ceph::mon {
   include profile::ceph::base
 
-  $mon_secret = lookup('ceph::secrets::mon')
-  $mgr_secret = lookup('ceph::secrets::mgr')
+  $mon_secret = lookup('vault::ceph::secrets::mon')
+  $mgr_secret = lookup('vault::ceph::secrets::mgr')
 
   $client_keys = lookup('ceph::keys')
 

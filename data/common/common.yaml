@@ -3132,32 +3132,32 @@ ceph::mon_host:
 
 ceph::keys:
   admin:
-    secret: "%{lookup('ceph::secrets::admin')}"
+    secret: "%{lookup('vault::ceph::secrets::admin')}"
     cap_mds: allow
     cap_mgr: allow *
     cap_mon: allow *
     cap_osd: allow *
   bootstrap-osd:
-    secret: "%{lookup('ceph::secrets::bootstrap_osd')}"
+    secret: "%{lookup('vault::ceph::secrets::bootstrap_osd')}"
     cap_mon: allow profile bootstrap-osd
   proxmox-rbd:
-    secret: "%{lookup('ceph::secrets::proxmox_rbd')}"
+    secret: "%{lookup('vault::ceph::secrets::proxmox_rbd')}"
     cap_mon: profile rbd
     cap_osd: profile rbd pool=rbd
   swh-contents:
-    secret: "%{lookup('ceph::secrets::swh_contents')}"
+    secret: "%{lookup('vault::ceph::secrets::swh_contents')}"
     cap_mon: allow r
     cap_osd: allow r pool=swh_contents
   swh-contents-rw:
-    secret: "%{lookup('ceph::secrets::swh_contents_rw')}"
+    secret: "%{lookup('vault::ceph::secrets::swh_contents_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents
   swh-contents-test:
-    secret: "%{lookup('ceph::secrets::swh_contents_test')}"
+    secret: "%{lookup('vault::ceph::secrets::swh_contents_test')}"
     cap_mon: allow r
     cap_osd: allow r pool=swh_contents_test
   swh-contents-test-rw:
-    secret: "%{lookup('ceph::secrets::swh_contents_test_rw')}"
+    secret: "%{lookup('vault::ceph::secrets::swh_contents_test_rw')}"
     cap_mon: allow r
     cap_osd: allow rw pool=swh_contents_test
 
