@@ -22,17 +22,17 @@ class profile::swh::deploy::reverse_proxy {
       'default_value' => false,
     })
     $basic_auth = lookup( {
-      'name'          => "swh::deploy::${service_name}::reverse_proxy::basic_auth",
+      'name'          => "vault::swh::deploy::${service_name}::reverse_proxy::basic_auth",
       'default_value' => false,
     })
     if $basic_auth {
       $basic_auth_users = lookup( {
-        'name'          => "swh::deploy::${service_name}::reverse_proxy::basic_auth::users",
+        'name'          => "vault::swh::deploy::${service_name}::reverse_proxy::basic_auth::users",
         'default_value' => [],
       })
 
       $basic_auth_strings = $basic_auth_users.map | $user | {
-        $password = lookup("swh::deploy::${service_name}::reverse_proxy::basic_auth::${user}")
+        $password = lookup("vault::swh::deploy::${service_name}::reverse_proxy::basic_auth::${user}")
         base64('encode', "${user}:${password}", 'strict') # strict to avoid CR at the end of the line
       }
     } else {
