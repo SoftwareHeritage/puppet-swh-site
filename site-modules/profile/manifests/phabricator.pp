@@ -5,13 +5,13 @@ class profile::phabricator {
   $install_group = lookup('phabricator::group')
   $vcs_user = lookup('phabricator::vcs_user')
 
-  $db_root_password = lookup('phabricator::mysql::root_password')
+  $db_root_password = lookup('vault::phabricator::mysql::root_password')
   $db_basename = lookup('phabricator::mysql::database_prefix')
   $db_user = lookup('phabricator::mysql::username')
   $db_password = lookup('phabricator::mysql::password')
 
   $db_ro_users = lookup('phabricator::mysql::readonly_usernames')
-  $db_ro_pass_seed = lookup('phabricator::mysql::readonly_password_seed')
+  $db_ro_pass_seed = lookup('vault::phabricator::mysql::readonly_password_seed')
 
 
   $db_max_allowed_packet = lookup('phabricator::mysql::conf::max_allowed_packet')
@@ -36,7 +36,7 @@ class profile::phabricator {
   $vhost_name = lookup('phabricator::vhost::name')
   $vhost_docroot = lookup('phabricator::vhost::docroot')
   $vhost_basic_auth_file = "${basepath}/http_auth"
-  $vhost_basic_auth_content = lookup('phabricator::vhost::basic_auth_content')
+  $vhost_basic_auth_content = lookup('vault::phabricator::vhost::basic_auth_content')
   $vhost_ssl_protocol = lookup('phabricator::vhost::ssl_protocol')
   $vhost_ssl_honorcipherorder = lookup('phabricator::vhost::ssl_honorcipherorder')
   $vhost_ssl_cipher = lookup('phabricator::vhost::ssl_cipher')
