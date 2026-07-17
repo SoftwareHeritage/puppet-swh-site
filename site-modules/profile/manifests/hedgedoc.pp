@@ -84,7 +84,7 @@ class profile::hedgedoc {
   $runtime_environment = lookup('hedgedoc::runtime_environment')
   $log_level = lookup('hedgedoc::log_level')
 
-  $session_secret = lookup('hedgedoc::session_secret')
+  $session_secret = lookup('vault::hedgedoc::session_secret')
 
   $allow_anonymous = lookup('hedgedoc::allow_anonymous')
   $allow_anonymous_edits = lookup('hedgedoc::allow_anonymous_edits')
@@ -96,7 +96,7 @@ class profile::hedgedoc {
   $keycloak_provider_name = lookup('hedgedoc::keycloak::provider_name')
   $keycloak_realm = lookup('hedgedoc::keycloak::realm')
   $keycloak_client_id = lookup('hedgedoc::keycloak::client::id')
-  $keycloak_client_secret = lookup('hedgedoc::keycloak::client::secret')
+  $keycloak_client_secret = lookup('vault::hedgedoc::keycloak::client::secret')
   $keycloak_roles_claim = lookup('hedgedoc::keycloak::roles_claim')
   $keycloak_access_role = lookup('hedgedoc::keycloak::access_role')
 
