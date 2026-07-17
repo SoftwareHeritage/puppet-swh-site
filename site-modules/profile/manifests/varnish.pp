@@ -12,7 +12,7 @@ class profile::varnish {
   $admin_listen = lookup('varnish::admin_listen')
   $admin_port = lookup('varnish::admin_port')
   $http2_support = lookup('varnish::http2_support')
-  $secret = lookup('varnish::secret')
+  $secret = lookup('vault::varnish::secret')
   $storage_type = lookup('varnish::storage_type')
   $storage_size = lookup('varnish::storage_size')
   $storage_file = lookup('varnish::storage_file')
