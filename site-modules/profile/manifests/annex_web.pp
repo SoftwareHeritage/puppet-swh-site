@@ -7,8 +7,8 @@ class profile::annex_web {
   $annex_vhost_docroot = lookup('annex::vhost::docroot')
   $annex_vhost_basic_auth_file = "${annex_basepath}/http_auth"
   $annex_vhost_provenance_basic_auth_file = "${annex_basepath}/http_auth_provenance"
-  $annex_vhost_basic_auth_content = lookup('annex::vhost::basic_auth_content')
-  $annex_vhost_provenance_basic_auth_content = lookup('annex::vhost::provenance::basic_auth_content')
+  $annex_vhost_basic_auth_content = lookup('vault::annex::vhost::basic_auth_content')
+  $annex_vhost_provenance_basic_auth_content = lookup('vault::annex::vhost::provenance::basic_auth_content')
   $annex_vhost_ssl_protocol = lookup('annex::vhost::ssl_protocol')
   $annex_vhost_ssl_honorcipherorder = lookup('annex::vhost::ssl_honorcipherorder')
   $annex_vhost_ssl_cipher = lookup('annex::vhost::ssl_cipher')
