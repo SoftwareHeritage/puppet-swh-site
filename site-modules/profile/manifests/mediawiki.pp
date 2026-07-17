@@ -31,10 +31,10 @@ class profile::mediawiki {
   each ($mediawiki_vhosts) |$short_name, $data| {
     $name = $data['fqdn']
 
-    $secret_key = lookup("mediawiki::vhosts::${short_name}::secret_key")
-    $upgrade_key = lookup("mediawiki::vhosts::${short_name}::upgrade_key")
+    $secret_key = lookup("vault::mediawiki::vhosts::${short_name}::secret_key")
+    $upgrade_key = lookup("vault::mediawiki::vhosts::${short_name}::upgrade_key")
     $db_password = lookup("mediawiki::vhosts::${short_name}::mysql::password")
-    $basic_auth_content = lookup("mediawiki::vhosts::${short_name}::basic_auth_content")
+    $basic_auth_content = lookup("vault::mediawiki::vhosts::${short_name}::basic_auth_content")
 
     $fqdn_name = $data['fqdn']
     $site_name = $data['site_name']
@@ -83,7 +83,7 @@ class profile::mediawiki {
         http_expect => '401 Unauthorized',
       }
 
-      $icinga_http_auth_pair = lookup("mediawiki::vhosts::${short_name}::icinga_http_auth_pair")
+      $icinga_http_auth_pair = lookup("vault::mediawiki::vhosts::${short_name}::icinga_http_auth_pair")
       ::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
         service_name  => "mediawiki ${name} + auth",
         import        => ['generic-service'],
