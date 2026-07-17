@@ -3383,7 +3383,7 @@ thanos::objstore::config:
   type: AZURE
   config:
     storage_account: "%{lookup('thanos::objstore::azure_account')}"
-    storage_account_key: "%{lookup('thanos::objstore::azure_account_key')}"
+    storage_account_key: "%{lookup('vault::thanos::objstore::azure_account_key')}"
     container: "metrics-%{lookup('thanos::tenant')}-%{lookup('thanos::replica')}"
 
 # Other puppet managed stores will be automatically dealt with

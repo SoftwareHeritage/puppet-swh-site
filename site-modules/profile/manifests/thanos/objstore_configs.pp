@@ -5,7 +5,7 @@ class profile::thanos::objstore_configs {
   $stores = lookup('thanos::stores')
 
   $azure_account = lookup('thanos::objstore::azure_account')
-  $azure_account_key = lookup('thanos::objstore::azure_account_key')
+  $azure_account_key = lookup('vault::thanos::objstore::azure_account_key')
 
   $config_dir = $::profile::thanos::base::config_dir
   $stores.each | $dataset_name, $service | {
