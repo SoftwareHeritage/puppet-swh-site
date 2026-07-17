@@ -28,7 +28,11 @@ clean_shared_cachedir () {
 }
 
 prune_docker () {
+  # Remove stopped containers, dangling images, unused networks, unused anonymous volumes and build cache
   docker system prune --filter 'label!=keep' --volumes --force
+
+  # Remove unused images and build cache older than 30 days
+  docker system prune -a --filter "until=720h" --force
 
   # Somehow docker system prune --volumes is missing some dangling volumes...
   docker volume list --filter dangling=true --format json | jq -r 'select(.Labels!="keep=true")|.Name' | xargs -r docker volume rm
