@@ -3986,11 +3986,11 @@ swh_web_inbound_email::profiles:
   staging:
     email_domain: webapp.staging.swh.network
     endpoint: https://webapp.staging.swh.network/inbound-email/
-    shared_key: "%{lookup('swh_web_inbound_email::staging::shared_key')}"
+    shared_key: "%{lookup('vault::swh_web_inbound_email::staging::shared_key')}"
   production:
     email_domain: archive.softwareheritage.org
     endpoint: https://archive.softwareheritage.org/inbound-email/
-    shared_key: "%{lookup('swh_web_inbound_email::production::shared_key')}"
+    shared_key: "%{lookup('vault::swh_web_inbound_email::production::shared_key')}"
 
 openbao::address: https://openbao.internal.admin.swh.network
 openbao::version: 2.5.5
