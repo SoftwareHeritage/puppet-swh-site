@@ -11,10 +11,10 @@ class profile::status_io_metrics {
   $prometheus_server = 'thanos.internal.admin.swh.network'
   $prometheus_port = 19191
 
-  $statusio_api_id = lookup('status_io::api_id')
-  $statusio_api_key = lookup('status_io::api_key')
-  $statusio_status_page = lookup('status_io::status_page')
-  $statusio_scn_metrics = lookup('status_io::metrics::scn')
+  $statusio_api_id = lookup('vault::status_io::api_id')
+  $statusio_api_key = lookup('vault::status_io::api_key')
+  $statusio_status_page = lookup('vault::status_io::status_page')
+  $statusio_scn_metrics = lookup('vault::status_io::metrics::scn')
 
   file {$script_path:
     ensure  => present,
