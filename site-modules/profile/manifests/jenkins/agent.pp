@@ -4,7 +4,7 @@ class profile::jenkins::agent {
   $jenkins_agent_jar_url = lookup('jenkins::agent::jar_url')
   $jenkins_url = lookup('jenkins::url')
   $jenkins_agent_name = lookup('jenkins::agent::name')
-  $jenkins_jnlp_token = lookup('jenkins::agent::jnlp::token')
+  $jenkins_jnlp_token = lookup('vault::jenkins::agent::jnlp::token')
 
   $jenkins_backend_domain = lookup('jenkins::backend::domain')
   $jenkins_backend_port = lookup('jenkins::backend::port')

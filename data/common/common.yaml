@@ -3585,7 +3585,7 @@ jenkins::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
 jenkins::agent::jar_url: "https://%{lookup('jenkins::vhost::name')}/jnlpJars/agent.jar"
 jenkins::agent::name: "%{::swh_hostname.internal_fqdn}"
-# jenkins::agent::jnlp::token in private_data
+# vault::jenkins::agent::jnlp::token in private_data
 
 # Needs to be synchronized with values in swh-jenkins-dockerfiles
 jenkins::agent::docker::uid: 15000
