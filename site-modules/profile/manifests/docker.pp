@@ -21,7 +21,16 @@ class profile::docker {
     require => Package['docker'],
   }
 
-  file {'/etc/docker/daemon.json':
-    ensure => 'absent',
+  $docker_daemon_config = lookup('docker::daemon::config', { 'default_value' => undef })
+  if $docker_daemon_config {
+    file {'/etc/docker/daemon.json':
+      ensure  => 'present',
+      content => template('profile/docker/daemon.json.erb'),
+      notify  => Service['docker'],
+    }
+  } else {
+    file {'/etc/docker/daemon.json':
+      ensure => 'absent',
+    }
   }
 }

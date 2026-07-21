@@ -15,3 +15,8 @@ filebeat::journald::drop_event:
 
 icinga2::host::vars:
   load: sql
+
+docker::daemon::config:
+  registry-mirrors:
+    - https://docker-cache.internal.admin.swh.network/swh/
+    - https://docker-cache.internal.admin.swh.network/docker.io/
