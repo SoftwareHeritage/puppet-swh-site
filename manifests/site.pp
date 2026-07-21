@@ -172,14 +172,6 @@ node 'backup01.euwest.azure.internal.softwareheritage.org' {
   include role::zfs_snapshots_storage
 }
 
-node 'maven-exporter0.internal.staging.swh.network' {
-  include role::swh_maven_index_exporter
-}
-
-node 'maven-exporter.internal.softwareheritage.org' {
-  include role::swh_maven_index_exporter
-}
-
 node /^argo-worker\d+\.internal\.admin\.swh\.network$/ {
   include role::rancher_node
 }

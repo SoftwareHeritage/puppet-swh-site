@@ -1,0 +1,6 @@
+{
+  "registry-mirrors" : [
+    "https://docker-cache.internal.admin.swh.network/swh/",
+    "https://docker-cache.internal.admin.swh.network/docker.io/"
+  ]
+}

@@ -3952,23 +3952,6 @@ syncoid::default_frequency: 5min
 
 zfs::common::zpool_configuration: {}
 
-swh::deploy::maven_index_exporter::url: maven-exporter.internal.softwareheritage.org
-maven_index_exporter::vhost::name: "%{lookup('swh::deploy::maven_index_exporter::url')}"
-maven_index_exporter::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-maven_index_exporter::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-maven_index_exporter::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-maven_index_exporter::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
-
-maven_index_exporter::image::name: softwareheritage/maven-index-exporter
-maven_index_exporter::image::version: v0.3.0
-
-maven_index_exporter::repositories:
-  maven-central: https://repo1.maven.org/maven2/
-  clojars: http://clojars.org/repo/
-  sonatype: http://oss.sonatype.org/content/repositories/releases/
-  jboss: https://repository.jboss.org/maven2/
-  atlassian-public: https://maven.atlassian.com/public/
-
 zfs::arc::max_size_memory_percent: 25
 
 # Preseeding vhost
