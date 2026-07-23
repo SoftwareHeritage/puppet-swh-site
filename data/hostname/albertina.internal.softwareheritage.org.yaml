@@ -34,7 +34,7 @@ pgbouncer::databases:
   - source_db: softwareheritage
     host: albertina.internal.softwareheritage.org
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::storage::db::backend::port')}"
+    port: "%{lookup('swh::deploy::db::main::port')}"
   # catch-all
   - source_db: "*"
     host: 127.0.0.1
