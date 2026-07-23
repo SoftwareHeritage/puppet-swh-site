@@ -1923,8 +1923,15 @@ bind::resource_records:
   osd-rack3-8/A:
     record: osd-rack3-8.internal.cea.swh.network
     data: 10.25.6.48
-  osd-rack3-9/A:
-    record: osd-rack3-9.internal.cea.swh.network
+  # osd-rack3-9: is now osd-rack4-2; do not reuse
+  osd-rack3-10/A:
+    record: osd-rack3-10.internal.cea.swh.network
+    data: 10.25.6.55
+  osd-rack4-1/A:
+    record: osd-rack4-1.internal.cea.swh.network
+    data: 10.25.6.54
+  osd-rack4-2/A:
+    record: osd-rack4-2.internal.cea.swh.network
     data: 10.25.6.49
   monitor-rack1-1/A:
     record: monitor-rack1-1.internal.cea.swh.network
@@ -2092,7 +2099,7 @@ bind::resource_records:
   balin029/CNAME:
     type: CNAME
     record: balin029.internal.cea.swh.network
-    data: osd-rack3-9.internal.cea.swh.network.
+    data: osd-rack4-2.internal.cea.swh.network.
   balin030/CNAME:
     type: CNAME
     record: balin030.internal.cea.swh.network
@@ -2109,6 +2116,14 @@ bind::resource_records:
     type: CNAME
     record: balin033.internal.cea.swh.network
     data: osd-rack1-13.internal.cea.swh.network.
+  balin034/CNAME:
+    type: CNAME
+    record: balin034.internal.cea.swh.network
+    data: osd-rack4-1.internal.cea.swh.network.
+  balin035/CNAME:
+    type: CNAME
+    record: balin035.internal.cea.swh.network
+    data: osd-rack3-10.internal.cea.swh.network.
   dwalin001/CNAME:
     type: CNAME
     record: dwalin001.internal.cea.swh.network
@@ -2234,6 +2249,16 @@ bind::resource_records:
     data: 10.25.3.48
   osd-rack3-9-adm/a:
     record: osd-rack3-9.admin.cea.swh.network
+    data: 10.25.3.49
+  # osd-rack3-9-adm: is now osd-rack4-2-adm; do not reuse
+  osd-rack3-10-adm/a:
+    record: osd-rack3-10.admin.cea.swh.network
+    data: 10.25.3.55
+  osd-rack4-1-adm/a:
+    record: osd-rack4-1.admin.cea.swh.network
+    data: 10.25.3.54
+  osd-rack4-2-adm/a:
+    record: osd-rack4-2.admin.cea.swh.network
     data: 10.25.3.49
   monitor-rack1-1-adm/a:
     record: monitor-rack1-1.admin.cea.swh.network
@@ -2378,7 +2403,7 @@ bind::resource_records:
   balin029-adm/CNAME:
     type: CNAME
     record: balin029.admin.cea.swh.network
-    data: osd-rack3-9.admin.cea.swh.network.
+    data: osd-rack4-2.admin.cea.swh.network.
   balin030-adm/CNAME:
     type: CNAME
     record: balin030.admin.cea.swh.network
@@ -2395,6 +2420,14 @@ bind::resource_records:
     type: CNAME
     record: balin033.admin.cea.swh.network
     data: osd-rack1-13.admin.cea.swh.network.
+  balin034-adm/CNAME:
+    type: CNAME
+    record: balin034.admin.cea.swh.network
+    data: osd-rack4-1.admin.cea.swh.network.
+  balin035-adm/CNAME:
+    type: CNAME
+    record: balin035.admin.cea.swh.network
+    data: osd-rack3-10.admin.cea.swh.network.
   dwalin001-adm/CNAME:
     type: CNAME
     record: dwalin001.admin.cea.swh.network
