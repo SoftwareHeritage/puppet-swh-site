@@ -31,50 +31,10 @@ pgbouncer::config_params:
 
 pgbouncer::databases:
   # swh
-  - source_db: "%{lookup('swh::deploy::storage::db::dbname')}"
-    host: "%{lookup('swh::deploy::storage::db::backend::host')}"
+  - source_db: softwareheritage
+    host: albertina.internal.softwareheritage.org
     auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
     port: "%{lookup('swh::deploy::storage::db::backend::port')}"
-  # swh-deposit
-  - source_db: "%{lookup('swh::deploy::deposit::db::dbname')}"
-    host: "%{lookup('swh::deploy::deposit::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::deposit::db::backend::port')}"
-  # swh-scheduler
-  - source_db: "%{lookup('swh::deploy::scheduler::db::dbname')}"
-    host: "%{lookup('swh::deploy::scheduler::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::scheduler::db::backend::port')}"
-  # swh-indexer
-  - source_db: "%{lookup('swh::deploy::indexer::storage::db::dbname')}"
-    host: "%{lookup('swh::deploy::indexer::storage::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::indexer::storage::db::backend::port')}"
-  # swh-web
-  - source_db: "%{lookup('swh::deploy::webapp::db::name')}"
-    host: "%{lookup('swh::deploy::webapp::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::webapp::db::backend::port')}"
-  # swh-scrubber
-  - source_db: "%{lookup('swh::deploy::scrubber::db::dbname')}"
-    host: "%{lookup('swh::deploy::scrubber::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::scrubber::db::backend::port')}"
-  # swh-masking
-  - source_db: "%{lookup('swh::deploy::masking::db::dbname')}"
-    host: "%{lookup('swh::deploy::masking::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::masking::db::backend::port')}"
-  # swh-blocking
-  - source_db: "%{lookup('swh::deploy::blocking::db::dbname')}"
-    host: "%{lookup('swh::deploy::blocking::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::blocking::db::backend::port')}"
-  # swh-svix
-  - source_db: "%{lookup('swh::deploy::svix::db::dbname')}"
-    host: "%{lookup('swh::deploy::svix::db::backend::host')}"
-    auth_user: "%{lookup('swh::deploy::db::pgbouncer::user::login')}"
-    port: "%{lookup('swh::deploy::svix::db::backend::port')}"
   # catch-all
   - source_db: "*"
     host: 127.0.0.1
