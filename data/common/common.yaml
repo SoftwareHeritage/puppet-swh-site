@@ -366,6 +366,7 @@ users:
   rdicosmo:
     uid: 1008
     full_name: Roberto Di Cosmo
+    password: "%{alias('users::rdicosmo::password')}"
     shell: /bin/bash
     groups:
       - swhteam
