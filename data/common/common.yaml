@@ -946,7 +946,7 @@ varnish::admin_port: 6082
 varnish::storage_type: malloc
 varnish::storage_size: 256m
 varnish::storage_file: /var/lib/varnish/varnish_storage.bin
-# varnish::secret in private-data
+# vault::varnish::secret in openbao
 
 varnish::useragent_blocklist:
   - Bytespider
@@ -3563,7 +3563,7 @@ thanos::extra_certificates:
 
 grafana::db::database: grafana
 grafana::db::username: grafana
-# grafana::db::password in private-data
+# grafana::db::password in openbao
 grafana::backend::port: 3000
 
 # Must have a matching certificate in letsencrypt::certificates
@@ -3770,13 +3770,13 @@ keycloak::backend::port: 8080
 keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
 
 keycloak::admin::user: keycloak-admin
-# keycloak::admin::password in private-data
+# keycloak::admin::password in openbao
 
 keycloak::postgres::host: db1.internal.admin.swh.network
 keycloak::postgres::port: 5432
 keycloak::postgres::dbname: keycloak
 keycloak::postgres::user: keycloak
-# keycloak::postgres::password in private-data
+# keycloak::postgres::password in openbao
 
 keycloak::resources::realms::common_settings:
   remember_me: true

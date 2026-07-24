@@ -16,7 +16,7 @@ swh::postgresql::datadir: "%{lookup('swh::postgresql::datadir_base')}/%{lookup('
 
 hedgedoc::db::database: hedgedoc
 hedgedoc::db::username: hedgedoc
-# swh::deploy::hedgedoc::db::password: in private-data
+# swh::deploy::hedgedoc::db::password: in openbao
 
 # namespace key `key_name`, lookup will happen on swh::deploy::{key_name}::...
 swh::deploy::reverse_proxy::services:

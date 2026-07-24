@@ -79,7 +79,7 @@ kafka::broker_config:
   num.io.threads: "%{alias('kafka::threads::io')}"
   background.threads: "%{alias('kafka::threads::background')}"
 
-# kafka::broker::password in private-data
+# kafka::broker::password in openbao
 
 kafka::clusters:
   rocquencourt:

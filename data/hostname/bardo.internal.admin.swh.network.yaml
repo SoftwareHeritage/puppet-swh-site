@@ -17,7 +17,7 @@ hedgedoc::keycloak::realm: SoftwareHeritage
 hedgedoc::keycloak::client::id: hedgedoc
 hedgedoc::keycloak::roles_claim: roles
 hedgedoc::keycloak::access_role: hedgedoc-access
-# hedgedoc::keycloak::client::secret in private-data
+# vault::hedgedoc::keycloak::client::secret in openbao
 
 hedgedoc::runtime_environment: production
 hedgedoc::log_level: info
