@@ -108,6 +108,9 @@ swh::deploy::objstorage::reverse_proxy::backend_http_host: objstorage-ro.interna
 swh::deploy::objstorage::reverse_proxy::basic_auth::users:
   - swh-stg
 
+swh::deploy::docs::vhost::letsencrypt_cert: docs_staging
+swh::deploy::docs::reverse_proxy::backend_http_host: docs.internal.staging.swh.network
+swh::deploy::docs::reverse_proxy::backend_http_port: "80"
 
 swh::deploy::objstorage::backend::public_server_name:
   objstorage.staging.swh.network
@@ -128,6 +131,7 @@ swh::deploy::reverse_proxy::services:
   - software-stories
   - coarnotify
   - datasets
+  - docs
 
 swh::postgresql::version: '13'
 swh::postgresql::port: 5433
