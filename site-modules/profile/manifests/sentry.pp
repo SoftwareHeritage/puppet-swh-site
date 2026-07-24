@@ -103,7 +103,7 @@ class profile::sentry {
     notify  => Exec['run sentry-onpremise install.sh'],
   }
 
-  $relay_secret_key = lookup('sentry::relay::secret_key')
+  $relay_secret_key = lookup('vault::sentry::relay::secret_key')
   $relay_id = lookup('sentry::relay::id')
 
   file {$relay_credentials_json:
