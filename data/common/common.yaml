@@ -1020,6 +1020,9 @@ letsencrypt::certificates:
     domains:
       - datasets.softwareheritage.org
       - datasets.internal.softwareheritage.org
+  docs-next-version:
+    domains:
+      - docs-next-version.internal.staging.swh.network
   software-stories_production:
     domains:
       - stories.softwareheritage.org
@@ -1559,6 +1562,10 @@ bind::resource_records:
     type: CNAME
     record: datasets.internal.softwareheritage.org
     data: k8s-archive-production-rke2.internal.softwareheritage.org.
+  docs-staging-next-version/CNAME:
+    type: CNAME
+    record: docs-next-version.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   staging-db-postgresql/CNAME:
     type: CNAME
     record: db.internal.staging.swh.network
