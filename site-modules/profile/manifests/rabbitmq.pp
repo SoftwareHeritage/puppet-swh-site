@@ -58,7 +58,7 @@ class profile::rabbitmq {
   # scrape metrics by default, but be able to deactivate it
   $prometheus_rabbit_scrape_metrics = lookup('prometheus::rabbitmq::scrape_metrics', { default_value => true })
 
-  if versioncmp($::lsbmajdistrelease, '11') >= 0 {
+  if versioncmp($::facts['os']['release']['major'], '11') >= 0 {
     # Install the official plugin along rabbitmq
     rabbitmq_plugin {'rabbitmq_prometheus':
       ensure => present,

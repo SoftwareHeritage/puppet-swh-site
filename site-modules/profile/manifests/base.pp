@@ -1,6 +1,6 @@
 # Base configuration for Software Heritage servers
 class profile::base {
-  if versioncmp($::lsbmajdistrelease, '12') >= 0 {
+  if versioncmp($::facts['os']['release']['major'], '12') >= 0 {
     $ntp_driftfile = '/var/lib/ntpsec/ntp.drift'
     $ntp_config = '/etc/ntpsec/ntp.conf'
   } else {

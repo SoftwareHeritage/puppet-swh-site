@@ -1,6 +1,6 @@
 class profile::sanoid::install {
 
-  if versioncmp($::lsbmajdistrelease, '11') >= 0 {
+  if versioncmp($::facts['os']['release']['major'], '11') >= 0 {
     # Install the official package
     ensure_packages('sanoid')
   } else {

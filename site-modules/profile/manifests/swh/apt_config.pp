@@ -24,7 +24,7 @@ class profile::swh::apt_config {
 
   if !$debian_enable_non_free {
     $repos = 'main'
-  } elsif versioncmp($::lsbmajdistrelease, '12') >= 0 {
+  } elsif versioncmp($::facts['os']['release']['major'], '12') >= 0 {
     $repos = 'main contrib non-free non-free-firmware'
   } else {
     $repos = 'main contrib non-free'
@@ -45,7 +45,7 @@ class profile::swh::apt_config {
       repos    => $repos,
     }
 
-    if versioncmp($::lsbmajdistrelease, '11') >= 0 {
+    if versioncmp($::facts['os']['release']['major'], '11') >= 0 {
         $security_release = "${::lsbdistcodename}-security"
     } else {
         $security_release = "${::lsbdistcodename}/updates"
