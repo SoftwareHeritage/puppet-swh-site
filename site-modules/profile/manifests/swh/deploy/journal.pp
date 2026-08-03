@@ -16,12 +16,12 @@ class profile::swh::deploy::journal {
     'stretch' => ['librdkafka1'],
   }
 
-  $pinned_packages = $backported_packages[$::lsbdistcodename]
+  $pinned_packages = $backported_packages[$::facts['os']['distro']['codename']]
 
   if $pinned_packages {
     ::apt::pin {'swh-journal':
       explanation => 'Pin swh.journal dependencies to backports',
-      codename    => "${::lsbdistcodename}-backports",
+      codename    => "${::facts['os']['distro']['codename']}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }

@@ -21,7 +21,7 @@ class profile::ceph::base {
   ::apt::source {'ceph':
     ensure   => 'present',
     location => "http://download.proxmox.com/debian/ceph-${ceph_release}",
-    release  => $::lsbdistcodename,
+    release  => $::facts['os']['distro']['codename'],
     tag      => ['ceph', 'proxmox'],
   }
 

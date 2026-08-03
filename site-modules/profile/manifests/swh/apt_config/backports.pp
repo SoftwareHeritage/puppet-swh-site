@@ -9,11 +9,11 @@ class profile::swh::apt_config::backports {
     },
   })
 
-  $pinned_packages = $backported_packages[$::lsbdistcodename]
+  $pinned_packages = $backported_packages[$::facts['os']['distro']['codename']]
   if $pinned_packages {
     ::apt::pin {'swh-backported-packages':
       explanation => 'Pin packages backports',
-      codename    => "${::lsbdistcodename}-backports",
+      codename    => "${::facts['os']['distro']['codename']}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }
@@ -23,7 +23,7 @@ class profile::swh::apt_config::backports {
     }
   }
 
-  if $::lsbdistcodename != 'sid' {
+  if $::facts['os']['distro']['codename'] != 'sid' {
     class {'::apt::backports':
       pin      => 100,
       location => $profile::swh::apt_config::debian_mirror,

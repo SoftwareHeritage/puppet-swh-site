@@ -34,21 +34,21 @@ class profile::swh::apt_config {
 
   ::apt::source {'debian':
     location => $debian_mirror,
-    release  => $::lsbdistcodename,
+    release  => $::facts['os']['distro']['codename'],
     repos    => $repos,
   }
 
-  if $::lsbdistcodename != 'sid' {
+  if $::facts['os']['distro']['codename'] != 'sid' {
     ::apt::source {'debian-updates':
       location => $debian_mirror,
-      release  => "${::lsbdistcodename}-updates",
+      release  => "${::facts['os']['distro']['codename']}-updates",
       repos    => $repos,
     }
 
     if versioncmp($::facts['os']['release']['major'], '11') >= 0 {
-        $security_release = "${::lsbdistcodename}-security"
+        $security_release = "${::facts['os']['distro']['codename']}-security"
     } else {
-        $security_release = "${::lsbdistcodename}/updates"
+        $security_release = "${::facts['os']['distro']['codename']}/updates"
     }
 
     ::apt::source {'debian-security':
@@ -64,9 +64,9 @@ class profile::swh::apt_config {
   }
 
   $swh_repository = lookup('swh::apt_config::swh_repository')
-  $swh_release = $::lsbdistcodename ? {
+  $swh_release = $::facts['os']['distro']['codename'] ? {
     'bookworm' => 'sid',
-    default    => "${::lsbdistcodename}-swh",
+    default    => "${::facts['os']['distro']['codename']}-swh",
   }
 
   ::apt::source {'softwareheritage':

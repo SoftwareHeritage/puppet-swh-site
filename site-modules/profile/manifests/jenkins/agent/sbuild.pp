@@ -7,7 +7,7 @@ class profile::jenkins::agent::sbuild {
     ensure => installed,
   }
 
-  if $::lsbdistcodename == 'stretch' {
+  if $::facts['os']['distro']['codename'] == 'stretch' {
     $pinned_packages = [
       'devscripts',
       'git',
@@ -25,7 +25,7 @@ class profile::jenkins::agent::sbuild {
   if $pinned_packages {
     ::apt::pin {'jenkins-sbuild':
       explanation => 'Pin jenkins to backports',
-      codename    => "${::lsbdistcodename}-backports",
+      codename    => "${::facts['os']['distro']['codename']}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }

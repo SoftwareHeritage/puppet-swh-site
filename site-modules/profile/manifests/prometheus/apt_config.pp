@@ -1,6 +1,6 @@
 # APT configuration for prometheus
 class profile::prometheus::apt_config {
-  if $facts['lsbdistcodename'] == 'stretch' {
+  if $facts['os']['distro']['codename'] == 'stretch' {
     $pinned_packages = [
       'prometheus',
       'prometheus-alertmanager',

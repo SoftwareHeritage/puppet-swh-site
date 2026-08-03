@@ -1,7 +1,7 @@
 # Apt configuration for puppet
 class profile::puppet::apt_config {
   # Backported packages
-  if $::lsbdistcodename == 'stretch' {
+  if $::facts['os']['distro']['codename'] == 'stretch' {
     $pinned_packages = [
       'facter',
       'libfacter*',
@@ -17,7 +17,7 @@ class profile::puppet::apt_config {
   if $pinned_packages {
     ::apt::pin {'puppet':
       explanation => 'Pin puppet dependencies to backports',
-      codename    => "${::lsbdistcodename}-backports",
+      codename    => "${::facts['os']['distro']['codename']}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }

@@ -6,7 +6,7 @@ class profile::megacli {
   $keyid =  lookup('hwraid_levert::apt_config::keyid')
   $key =    lookup('hwraid_levert::apt_config::key')
 
-  $levert_distcodename = if versioncmp($::facts['os']['release']['major'], '13') >= 0 { "trixie" } else { $::lsbdistcodename }
+  $levert_distcodename = if versioncmp($::facts['os']['release']['major'], '13') >= 0 { "trixie" } else { $::facts['os']['distro']['codename'] }
 
   apt::source { 'hwraid_levert':
     location => 'http://hwraid.le-vert.net/debian',

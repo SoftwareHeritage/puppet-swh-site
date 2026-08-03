@@ -6,7 +6,7 @@ class profile::icinga2::apt_config {
 
   apt::source { 'icinga-stable-release':
     location => $mirror,
-    release  => "icinga-${::lsbdistcodename}",
+    release  => "icinga-${::facts['os']['distro']['codename']}",
     repos    => 'main',
     key      => {
       id      => $keyid,

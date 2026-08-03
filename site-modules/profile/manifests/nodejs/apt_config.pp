@@ -4,7 +4,7 @@ class profile::nodejs::apt_config {
   $key = lookup('nodejs::apt_config::key')
   $version = lookup('nodejs::version')
 
-  if $facts['lsbdistcodename'] == 'bookworm' {
+  if $facts['os']['distro']['codename'] == 'bookworm' {
     ::apt::pin {'nodejs':
       explanation => 'Pin nodejs to nodejs_16 source',
       priority    => 990,
@@ -15,7 +15,7 @@ class profile::nodejs::apt_config {
 
   ::apt::source {'nodejs':
     location => "https://deb.nodesource.com/node_${version}",
-    release  => "${::lsbdistcodename}",
+    release  => "${::facts['os']['distro']['codename']}",
     repos    => 'main',
     key      => {
       id      => $keyid,

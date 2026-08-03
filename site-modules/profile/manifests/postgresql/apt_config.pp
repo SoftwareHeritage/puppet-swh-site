@@ -6,7 +6,7 @@ class profile::postgresql::apt_config {
 
   ::apt::source {'pgdg':
     location => $pgdg_mirror,
-    release  => "${::lsbdistcodename}-pgdg",
+    release  => "${::facts['os']['distro']['codename']}-pgdg",
     repos    => 'main',
     key      => {
       id      => $pgdg_keyid,

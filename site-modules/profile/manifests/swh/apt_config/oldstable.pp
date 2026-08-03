@@ -3,7 +3,7 @@ class profile::swh::apt_config::oldstable {
   $debian_mirror = lookup('swh::apt_config::debian_mirror')
   $debian_security_mirror = lookup('swh::apt_config::debian_security_mirror')
 
-  $oldstable = $::lsbdistcodename ? {
+  $oldstable = $::facts['os']['distro']['codename'] ? {
     'buttercup' => 'bullseye',
     'bullseye'  => 'buster',
     'buster'    => 'stretch',

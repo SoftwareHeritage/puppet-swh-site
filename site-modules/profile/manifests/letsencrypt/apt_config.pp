@@ -6,10 +6,10 @@ class profile::letsencrypt::apt_config {
       'josepy', 'parsedatetime', 'pbr',
   ], 'python3-')
 
-  if $::lsbdistcodename == 'stretch' {
+  if $::facts['os']['distro']['codename'] == 'stretch' {
     ::apt::pin {'letsencrypt-backports':
       explanation => 'Pin letsencrypt backports',
-      codename    => "${::lsbdistcodename}-backports",
+      codename    => "${::facts['os']['distro']['codename']}-backports",
       packages    => $pinned_packages,
       priority    => 990,
     }
