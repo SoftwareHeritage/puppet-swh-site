@@ -47,15 +47,15 @@ class profile::thanos::compact {
       $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
       $prometheus_server_certname = lookup('prometheus::server::certname')
 
-      ::icinga2::object::service {"thanos compact running (${dataset_name}/${::fqdn})":
+      ::icinga2::object::service {"thanos compact running (${dataset_name}/${::facts['networking']['fqdn']})":
         service_name     => "thanos compact running (${dataset_name})",
         import           => ['generic-service'],
-        host_name        => $::fqdn,
+        host_name        => $::facts['networking']['fqdn'],
         check_command    => 'check_prometheus_metric',
         command_endpoint => $prometheus_server_certname,
         vars             => {
           prometheus_metric_name     => "thanos_compact_halted",
-          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_halted{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}'])),
+          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_halted{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::facts['networking']['fqdn'], '"}'])),
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => '1',
           prometheus_metric_critical => '1',
@@ -64,15 +64,15 @@ class profile::thanos::compact {
         export_to        => [$icinga_checks_hostname]
       }
 
-      ::icinga2::object::service {"thanos compact todo (${dataset_name}/${::fqdn})":
+      ::icinga2::object::service {"thanos compact todo (${dataset_name}/${::facts['networking']['fqdn']})":
         service_name     => "thanos compact todo (${dataset_name})",
         import           => ['generic-service'],
-        host_name        => $::fqdn,
+        host_name        => $::facts['networking']['fqdn'],
         check_command    => 'check_prometheus_metric',
         command_endpoint => $prometheus_server_certname,
         vars             => {
           prometheus_metric_name     => "thanos_compact_todo_compactions",
-          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_todo_compactions{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"} or vector(0)'])),
+          prometheus_query           => profile::icinga2::literal_var(join(['thanos_compact_todo_compactions{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::facts['networking']['fqdn'], '"} or vector(0)'])),
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => '4',
           prometheus_metric_critical => '10',
@@ -81,15 +81,15 @@ class profile::thanos::compact {
         export_to        => [$icinga_checks_hostname]
       }
 
-      ::icinga2::object::service {"thanos downsample todo (${dataset_name}/${::fqdn})":
+      ::icinga2::object::service {"thanos downsample todo (${dataset_name}/${::facts['networking']['fqdn']})":
         service_name     => "thanos downsample todo (${dataset_name})",
         import           => ['generic-service'],
-        host_name        => $::fqdn,
+        host_name        => $::facts['networking']['fqdn'],
         check_command    => 'check_prometheus_metric',
         command_endpoint => $prometheus_server_certname,
         vars             => {
           prometheus_metric_name     => "thanos_compact_todo_downsample_blocks",
-          prometheus_query           => profile::icinga2::literal_var(join(['sum by (job, dataset_name, instance) (thanos_compact_todo_downsample_blocks{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::fqdn, '"}) or vector(0)'])),
+          prometheus_query           => profile::icinga2::literal_var(join(['sum by (job, dataset_name, instance) (thanos_compact_todo_downsample_blocks{job="thanos_compact", dataset_name="', $dataset_name,'", instance="', $::facts['networking']['fqdn'], '"}) or vector(0)'])),
           prometheus_query_type      => 'vector',
           prometheus_metric_warning  => '4',
           prometheus_metric_critical => '10',

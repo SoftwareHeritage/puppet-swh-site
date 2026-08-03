@@ -173,7 +173,7 @@ class profile::phabricator {
 
   $db_ro_users.each |$db_ro_user| {
     $full_username = "${db_ro_user}@localhost"
-    $db_ro_password = stdlib::fqdn_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
+    $db_ro_password = stdlib::facts['networking']['fqdn']_rand_string(16, '', "phabricator::mysql::${db_ro_user}::${db_ro_pass_seed}")
     mysql_user {$full_username:
       ensure        => present,
       password_hash => mysql::password($db_ro_password),
@@ -350,10 +350,10 @@ class profile::phabricator {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::service {"phabricator http redirect on ${::fqdn}":
+  ::icinga2::object::service {"phabricator http redirect on ${::facts['networking']['fqdn']}":
     service_name  => 'phabricator http redirect',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address => $vhost_name,
@@ -364,10 +364,10 @@ class profile::phabricator {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"phabricator https on ${::fqdn}":
+  ::icinga2::object::service {"phabricator https on ${::facts['networking']['fqdn']}":
     service_name  => 'phabricator',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address    => $vhost_name,
@@ -381,10 +381,10 @@ class profile::phabricator {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"phabricator https certificate ${::fqdn}":
+  ::icinga2::object::service {"phabricator https certificate ${::facts['networking']['fqdn']}":
     service_name  => 'phabricator https certificate',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address     => $vhost_name,
@@ -399,14 +399,14 @@ class profile::phabricator {
 
   # Needs refactoring
   $ssh_known_hosts_dir = '/etc/ssh/puppet_known_hosts'
-  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::fqdn}.keys"
+  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::facts['networking']['fqdn']}.keys"
 
   each($::ssh) |$algo, $data| {
     $real_algo = $algo ? {
       'ecdsa' => 'ecdsa-sha2-nistp256',
       default => $algo,
     }
-    @@::concat::fragment {"ssh-phabricator-${::fqdn}-${real_algo}":
+    @@::concat::fragment {"ssh-phabricator-${::facts['networking']['fqdn']}-${real_algo}":
       target  => $ssh_known_hosts_target,
       content => inline_template("<%= @vhost_name %> <%= @real_algo %> <%= @data['key'] %>\n"),
       order   => '20',

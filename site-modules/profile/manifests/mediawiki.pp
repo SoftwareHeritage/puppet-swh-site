@@ -64,10 +64,10 @@ class profile::mediawiki {
       site_name                  => $site_name,
     }
 
-    ::icinga2::object::service {"mediawiki (${name}) http redirect on ${::fqdn}":
+    ::icinga2::object::service {"mediawiki (${name}) http redirect on ${::facts['networking']['fqdn']}":
       service_name  => "mediawiki ${name} http redirect",
       import        => ['generic-service'],
-      host_name     => $::fqdn,
+      host_name     => $::facts['networking']['fqdn'],
       check_command => 'http',
       vars          => {
         http_address => $name,
@@ -84,10 +84,10 @@ class profile::mediawiki {
       }
 
       $icinga_http_auth_pair = lookup("vault::mediawiki::vhosts::${short_name}::icinga_http_auth_pair")
-      ::icinga2::object::service {"mediawiki ${name} https + auth on ${::fqdn}":
+      ::icinga2::object::service {"mediawiki ${name} https + auth on ${::facts['networking']['fqdn']}":
         service_name  => "mediawiki ${name} + auth",
         import        => ['generic-service'],
-        host_name     => $::fqdn,
+        host_name     => $::facts['networking']['fqdn'],
         check_command => 'http',
         vars          => {
           http_address    => $name,
@@ -109,10 +109,10 @@ class profile::mediawiki {
       }
     }
 
-    ::icinga2::object::service {"mediawiki ${name} https on ${::fqdn}":
+    ::icinga2::object::service {"mediawiki ${name} https on ${::facts['networking']['fqdn']}":
       service_name  => "mediawiki ${name}",
       import        => ['generic-service'],
-      host_name     => $::fqdn,
+      host_name     => $::facts['networking']['fqdn'],
       check_command => 'http',
       vars          => {
         http_address    => $name,
@@ -126,10 +126,10 @@ class profile::mediawiki {
       export_to     => [$icinga_checks_hostname]
     }
 
-    ::icinga2::object::service {"mediawiki ${name} https certificate ${::fqdn}":
+    ::icinga2::object::service {"mediawiki ${name} https certificate ${::facts['networking']['fqdn']}":
       service_name  => "mediawiki ${name} https certificate",
       import        => ['generic-service'],
-      host_name     => $::fqdn,
+      host_name     => $::facts['networking']['fqdn'],
       check_command => 'http',
       vars          => {
         http_vhost       => $name,

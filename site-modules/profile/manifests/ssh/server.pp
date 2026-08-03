@@ -60,7 +60,7 @@ class profile::ssh::server {
   # SSH key management
 
   $ssh_known_hosts_dir = '/etc/ssh/puppet_known_hosts'
-  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::fqdn}.keys"
+  $ssh_known_hosts_target = "${ssh_known_hosts_dir}/${::facts['networking']['fqdn']}.keys"
 
   $ssh_known_hosts = '/etc/ssh/ssh_known_hosts'
 
@@ -83,16 +83,16 @@ class profile::ssh::server {
     tag    => 'ssh_known_hosts',
   }
 
-  @@::concat::fragment {"ssh_known_hosts-header-${::fqdn}":
+  @@::concat::fragment {"ssh_known_hosts-header-${::facts['networking']['fqdn']}":
     target  => $ssh_known_hosts_target,
-    content => "# Known hosts for ${::fqdn}\n",
+    content => "# Known hosts for ${::facts['networking']['fqdn']}\n",
     order   => '00',
     tag     => 'ssh_known_hosts',
   }
 
-  @@::concat::fragment {"ssh_known_hosts-footer-${::fqdn}":
+  @@::concat::fragment {"ssh_known_hosts-footer-${::facts['networking']['fqdn']}":
     target  => $ssh_known_hosts_target,
-    content => "# End known hosts for ${::fqdn}\n\n",
+    content => "# End known hosts for ${::facts['networking']['fqdn']}\n\n",
     order   => '99',
     tag     => 'ssh_known_hosts',
   }
@@ -129,7 +129,7 @@ class profile::ssh::server {
       default => "ssh-${algo}",
     }
 
-    @@::concat::fragment {"ssh-${::fqdn}-${real_algo}":
+    @@::concat::fragment {"ssh-${::facts['networking']['fqdn']}-${real_algo}":
       target  => $ssh_known_hosts_target,
       content => inline_template("<%= @ssh_aliases.join(',') %> <%= @real_algo %> <%= @data['key'] %>\n"),
       order   => '10',

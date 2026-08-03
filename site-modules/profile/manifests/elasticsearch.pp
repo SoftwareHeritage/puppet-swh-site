@@ -84,9 +84,9 @@ class profile::elasticsearch {
 
   include profile::prometheus::elasticsearch
 
-  profile::prometheus::export_scrape_config {"elasticsearch_${::fqdn}":
+  profile::prometheus::export_scrape_config {"elasticsearch_${::facts['networking']['fqdn']}":
     job          => 'elasticsearch',
-    target       => "${::fqdn}:${elasticsearch_http_port}",
+    target       => "${::facts['networking']['fqdn']}:${elasticsearch_http_port}",
     scheme       => 'http',
     metrics_path => '/_prometheus/metrics',
   }

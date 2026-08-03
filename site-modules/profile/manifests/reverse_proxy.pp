@@ -134,10 +134,10 @@ define profile::reverse_proxy (
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::service {"${name} http redirect on ${::fqdn}":
+  ::icinga2::object::service {"${name} http redirect on ${::facts['networking']['fqdn']}":
     service_name  => "${name} http redirect",
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address => $vhost_name,
@@ -151,10 +151,10 @@ define profile::reverse_proxy (
   $_icinga_check_string = pick($icinga_check_string, capitalize($name))
   $_icinga_check_uri = pick($icinga_check_uri, '/')
 
-  ::icinga2::object::service {"${name} https on ${::fqdn}":
+  ::icinga2::object::service {"${name} https on ${::facts['networking']['fqdn']}":
     service_name  => "${name} https",
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address => $vhost_name,
@@ -168,10 +168,10 @@ define profile::reverse_proxy (
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"${name} https certificate ${::fqdn}":
+  ::icinga2::object::service {"${name} https certificate ${::facts['networking']['fqdn']}":
     service_name  => "${name} https certificate",
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address     => $vhost_name,

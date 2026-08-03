@@ -62,12 +62,12 @@ class profile::icinga2::master {
     require       => Postgresql::Server::Db[$icinga2_db_database],
   }
 
-  ::icinga2::object::host {$::fqdn:
+  ::icinga2::object::host {$::facts['networking']['fqdn']:
     address       => ip_for_network($icinga2_network),
-    display_name  => $::fqdn,
+    display_name  => $::facts['networking']['fqdn'],
     check_command => 'hostalive',
     vars          => deep_merge($local_host_vars, $hiera_host_vars),
-    target        => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
+    target        => "/etc/icinga2/zones.d/${zonename}/${::facts['networking']['fqdn']}.conf",
   }
 
   ::Profile::Icinga2::Objects::E2e_checks_deposit <<| |>>

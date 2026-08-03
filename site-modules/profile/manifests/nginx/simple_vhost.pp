@@ -41,12 +41,12 @@ define profile::nginx::simple_vhost (
     $local_check_address = $http_host
   }
 
-  ::icinga2::object::service {"Nginx simple vhost ${name} (local on ${::fqdn})":
+  ::icinga2::object::service {"Nginx simple vhost ${name} (local on ${::facts['networking']['fqdn']})":
     service_name     => "nginx ${name} (localhost)",
     import           => ['generic-service'],
-    host_name        => $::fqdn,
+    host_name        => $::facts['networking']['fqdn'],
     check_command    => 'http',
-    command_endpoint => $::fqdn,
+    command_endpoint => $::facts['networking']['fqdn'],
     vars             => {
       http_address => $local_check_address,
       http_vhost   => $server_names[0],
@@ -59,12 +59,12 @@ define profile::nginx::simple_vhost (
   }
 
   if $http_host != '127.0.0.1' {
-    ::icinga2::object::service {"Nginx simple vhost ${name} (remote on ${::fqdn})":
+    ::icinga2::object::service {"Nginx simple vhost ${name} (remote on ${::facts['networking']['fqdn']})":
       service_name     => "nginx ${name} (remote)",
       import           => ['generic-service'],
-      host_name        => $::fqdn,
+      host_name        => $::facts['networking']['fqdn'],
       check_command    => 'http',
-      command_endpoint => $::fqdn,
+      command_endpoint => $::facts['networking']['fqdn'],
       vars             => {
         http_address => $http_host,
         http_vhost   => $server_names[0],

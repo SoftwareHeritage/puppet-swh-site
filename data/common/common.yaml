@@ -41,7 +41,7 @@ smtp::relay_hostname: 'pergamon.internal.softwareheritage.org'
 
 smtp::relayhost: "[%{lookup('smtp::relay_hostname')}]"
 smtp::mydestination:
-  - "%{::fqdn}"
+  - "%{::networking.fqdn}"
 smtp::mynetworks:
   - 127.0.0.0/8
   - "[::ffff:127.0.0.0]/104"

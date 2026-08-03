@@ -74,22 +74,22 @@ class profile::thanos::prometheus_sidecar {
   File[$cert_paths['fullchain']] ~> Service[$service_name]
   File[$cert_paths['privkey']]   ~> Service[$service_name]
 
-  ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::fqdn}":
+  ::profile::thanos::export_query_endpoint {"thanos-sidecar-${::facts['networking']['fqdn']}":
     grpc_address => $grpc_target
   }
 
   $http_target = "${swh_hostname['internal_fqdn']}:${port_http}"
-  ::profile::prometheus::export_scrape_config {"thanos-sidecar-${::fqdn}":
+  ::profile::prometheus::export_scrape_config {"thanos-sidecar-${::facts['networking']['fqdn']}":
     target => $http_target,
     job    => 'thanos_sidecar',
   }
 
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
-  ::icinga2::object::service {"thanos sidecar on ${::fqdn}":
+  ::icinga2::object::service {"thanos sidecar on ${::facts['networking']['fqdn']}":
     service_name  => 'thanos sidecar',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'check_prometheus_metric',
     vars          => {
       'prometheus_query'           => profile::icinga2::literal_var(

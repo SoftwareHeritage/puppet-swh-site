@@ -59,10 +59,10 @@ class profile::preseeding_vhost {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::service {"preseeding http on ${::fqdn}":
+  ::icinga2::object::service {"preseeding http on ${::facts['networking']['fqdn']}":
     service_name  => 'preseeding http',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address    => $vhost_name,
@@ -73,10 +73,10 @@ class profile::preseeding_vhost {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"preseeding https on ${::fqdn}":
+  ::icinga2::object::service {"preseeding https on ${::facts['networking']['fqdn']}":
     service_name  => 'preseeding https',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address    => $vhost_name,
@@ -89,10 +89,10 @@ class profile::preseeding_vhost {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"preseeding https certificate ${::fqdn}":
+  ::icinga2::object::service {"preseeding https certificate ${::facts['networking']['fqdn']}":
     service_name  => 'preseeding https certificate',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address     => $vhost_name,

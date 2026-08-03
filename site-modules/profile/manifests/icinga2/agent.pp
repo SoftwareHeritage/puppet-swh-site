@@ -50,25 +50,25 @@ class profile::icinga2::agent {
 
   $master_fqdn = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::endpoint {$::fqdn:
+  ::icinga2::object::endpoint {$::facts['networking']['fqdn']:
     host      => ip_for_network($icinga2_network),
-    target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    target    => "/etc/icinga2/zones.d/${parent_zone}/${::facts['networking']['fqdn']}.conf",
     export_to => [$master_fqdn],
   }
 
-  ::icinga2::object::zone {$::fqdn:
-    endpoints => [$::fqdn],
+  ::icinga2::object::zone {$::facts['networking']['fqdn']:
+    endpoints => [$::facts['networking']['fqdn']],
     parent    => $parent_zone,
-    target    => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    target    => "/etc/icinga2/zones.d/${parent_zone}/${::facts['networking']['fqdn']}.conf",
     export_to => [$master_fqdn],
   }
 
-  ::icinga2::object::host {$::fqdn:
+  ::icinga2::object::host {$::facts['networking']['fqdn']:
     address       => ip_for_network($icinga2_network),
-    display_name  => $::fqdn,
+    display_name  => $::facts['networking']['fqdn'],
     check_command => 'hostalive',
     vars          => deep_merge($local_host_vars, $hiera_host_vars),
-    target        => "/etc/icinga2/zones.d/${parent_zone}/${::fqdn}.conf",
+    target        => "/etc/icinga2/zones.d/${parent_zone}/${::facts['networking']['fqdn']}.conf",
     export_to     => [$master_fqdn],
   }
 

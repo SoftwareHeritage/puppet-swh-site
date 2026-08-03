@@ -91,10 +91,10 @@ class profile::bitbucket_archive_web {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::service {"bitbucket_archive http redirect on ${::fqdn}":
+  ::icinga2::object::service {"bitbucket_archive http redirect on ${::facts['networking']['fqdn']}":
     service_name  => 'bitbucket_archive http redirect',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address => $vhost_name,
@@ -105,10 +105,10 @@ class profile::bitbucket_archive_web {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"bitbucket_archive https on ${::fqdn}":
+  ::icinga2::object::service {"bitbucket_archive https on ${::facts['networking']['fqdn']}":
     service_name  => 'bitbucket_archive https',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address    => $vhost_name,
@@ -122,10 +122,10 @@ class profile::bitbucket_archive_web {
     export_to     => [$icinga_checks_hostname]
   }
 
-  ::icinga2::object::service {"bitbucket_archive https certificate ${::fqdn}":
+  ::icinga2::object::service {"bitbucket_archive https certificate ${::facts['networking']['fqdn']}":
     service_name  => 'bitbucket_archive https certificate',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'http',
     vars          => {
       http_address     => $vhost_name,

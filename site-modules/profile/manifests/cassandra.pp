@@ -153,8 +153,8 @@ class profile::cassandra {
   sysctl { 'vm.max_map_count': value => $max_map_count }
 
   $cassandra_nodes = lookup('cassandra::nodes')
-  if ($::fqdn in $cassandra_nodes) {
-    $node_definition = $cassandra_nodes["$::fqdn"]
+  if ($::facts['networking']['fqdn'] in $cassandra_nodes) {
+    $node_definition = $cassandra_nodes["$::facts['networking']['fqdn']"]
     $instances = $node_definition['instances']
 
     $instances.each | $instance_name, $instance_config | {
@@ -167,6 +167,6 @@ class profile::cassandra {
       }
     }
   } else {
-    notify {"Cassandra misconfigured: ${::fqdn} not in cassandra::nodes hiera variable":}
+    notify {"Cassandra misconfigured: ${::facts['networking']['fqdn']} not in cassandra::nodes hiera variable":}
   }
 }

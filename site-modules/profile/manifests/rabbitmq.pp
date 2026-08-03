@@ -91,10 +91,10 @@ class profile::rabbitmq {
   $icinga_checks_file = lookup('icinga2::exported_checks::filename')
   $icinga_checks_hostname = lookup('icinga2::exported_checks::hostname')
 
-  ::icinga2::object::service {"rabbitmq-server on ${::fqdn}":
+  ::icinga2::object::service {"rabbitmq-server on ${::facts['networking']['fqdn']}":
     service_name  => 'rabbitmq server',
     import        => ['generic-service'],
-    host_name     => $::fqdn,
+    host_name     => $::facts['networking']['fqdn'],
     check_command => 'rabbitmq_server',
     vars          => {
       rabbitmq_port     => 15672,

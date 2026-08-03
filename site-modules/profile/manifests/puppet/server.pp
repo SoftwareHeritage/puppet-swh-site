@@ -82,7 +82,7 @@ class profile::puppet::server {
   ::icinga2::object::service {'puppetdb empty discard directory':
     service_name  =>  "puppetdb empty discard directory",
     import        => ['generic-service'],
-    host_name     => "${::fqdn}",
+    host_name     => "${::facts['networking']['fqdn']}",
     check_command => 'check_emptydir',
     vars          => {
       check_directory => "/var/lib/puppetdb/stockpile/discard/",

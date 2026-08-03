@@ -1,7 +1,7 @@
 # Checks that need to be supported on icinga2 agents
 class profile::icinga2::objects::agent_checks {
 
-  $prometheus_host = lookup('prometheus::server::fqdn')
+  $prometheus_host = lookup('prometheus::server::facts['networking']['fqdn']')
   $prometheus_port = lookup('prometheus::server::listen_port')
   $prometheus_url = "http://${prometheus_host}:${prometheus_port}"
 

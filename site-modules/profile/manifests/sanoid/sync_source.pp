@@ -5,6 +5,6 @@
 # dataset
 class profile::sanoid::sync_source {
 
-  ::Profile::Sanoid::Configure_sync_source <<| tag == "${::fqdn}" |>>
+  ::Profile::Sanoid::Configure_sync_source <<| tag == "${::facts['networking']['fqdn']}" |>>
 
 }

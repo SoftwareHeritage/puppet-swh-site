@@ -29,7 +29,7 @@ class profile::sanoid::sync_destination {
         content => $ssh_key,
       })
 
-      @@::profile::sanoid::configure_sync_source { $::fqdn:
+      @@::profile::sanoid::configure_sync_source { $::facts['networking']['fqdn']:
         user           => 'root',
         ssh_key_name   => "syncoid_${ssh_key_name}",
         ssh_key_type   => $ssh_key_type,

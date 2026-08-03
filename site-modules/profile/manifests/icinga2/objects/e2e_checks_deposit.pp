@@ -49,8 +49,8 @@ define profile::icinga2::objects::e2e_checks_deposit (
     import           => ['generic-service-check-e2e'],
     service_name     => "${environment} Check deposit end-to-end",
     check_command    => $check_command,
-    target           => "/etc/icinga2/zones.d/${zonename}/${::fqdn}.conf",
-    host_name        => "${::fqdn}",
+    target           => "/etc/icinga2/zones.d/${zonename}/${::facts['networking']['fqdn']}.conf",
+    host_name        => "${::facts['networking']['fqdn']}",
   }
 
 }

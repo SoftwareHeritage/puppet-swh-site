@@ -132,12 +132,12 @@ define profile::swh::deploy::rpc_server (
     $local_check_address = $backend_listen_host
   }
 
-  ::icinga2::object::service {"swh-${instance_name} api (local on ${::fqdn})":
+  ::icinga2::object::service {"swh-${instance_name} api (local on ${::facts['networking']['fqdn']})":
     service_name     => "swh-${instance_name} api (localhost)",
     import           => ['generic-service'],
-    host_name        => $::fqdn,
+    host_name        => $::facts['networking']['fqdn'],
     check_command    => 'http',
-    command_endpoint => $::fqdn,
+    command_endpoint => $::facts['networking']['fqdn'],
     vars             => {
       http_address => $local_check_address,
       http_vhost   => $local_check_address,
@@ -151,10 +151,10 @@ define profile::swh::deploy::rpc_server (
   }
 
   if $backend_listen_host != '127.0.0.1' {
-    ::icinga2::object::service {"swh-${instance_name} api (remote on ${::fqdn})":
+    ::icinga2::object::service {"swh-${instance_name} api (remote on ${::facts['networking']['fqdn']})":
       service_name  => "swh-${instance_name} api (remote)",
       import        => ['generic-service'],
-      host_name     => $::fqdn,
+      host_name     => $::facts['networking']['fqdn'],
       check_command => 'http',
       vars          => {
         http_vhost  => $::swh_hostname['internal_fqdn'],
