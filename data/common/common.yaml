@@ -1576,6 +1576,10 @@ bind::resource_records:
     type: CNAME
     record: docs.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  docs-production/CNAME:
+    type: CNAME
+    record: docs.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   staging-db-postgresql/CNAME:
     type: CNAME
     record: db.internal.staging.swh.network
