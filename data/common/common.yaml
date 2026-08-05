@@ -962,6 +962,7 @@ swh::deploy::reverse_proxy::services:
   - storage_cassandra_ro
   - software-stories
   - datasets
+  - docs
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
