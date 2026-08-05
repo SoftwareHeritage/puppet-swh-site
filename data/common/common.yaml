@@ -1025,6 +1025,10 @@ letsencrypt::certificates:
       - docs-next-version.internal.staging.swh.network
       - docs.internal.staging.swh.network
       - docs.staging.swh.network
+  docs_production:
+  domains:
+    - docs.softwareheritage.org
+    - docs.softwareheritage.org
   software-stories_production:
     domains:
       - stories.softwareheritage.org
