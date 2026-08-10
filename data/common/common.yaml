@@ -1029,7 +1029,7 @@ letsencrypt::certificates:
   docs_production:
   domains:
     - docs.softwareheritage.org
-    - docs.softwareheritage.org
+    - docs.internal.softwareheritage.org
   software-stories_production:
     domains:
       - stories.softwareheritage.org
