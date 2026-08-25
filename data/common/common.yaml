@@ -1038,6 +1038,10 @@ letsencrypt::certificates:
     domains:
       - scheduler.staging.swh.network
       - scheduler.internal.staging.swh.network
+  osporadar_staging:
+    domains:
+      - osporadar.staging.swh.network
+      - osporadar.internal.staging.swh.network
   graphql_staging:
     domains:
       - graphql.staging.swh.network
