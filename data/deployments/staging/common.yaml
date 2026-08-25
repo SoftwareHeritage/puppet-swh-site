@@ -132,6 +132,7 @@ swh::deploy::reverse_proxy::services:
   - coarnotify
   - datasets
   - docs
+  - osporadar
 
 swh::postgresql::version: '13'
 swh::postgresql::port: 5433
@@ -251,6 +252,12 @@ swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
 swh::deploy::coarnotify::base_url: inbox.staging.swh.network
 swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify_staging
 swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
+
+# osporadar
+swh::deploy::osporadar::reverse_proxy::backend_http_host: k8s-archive-staging-rke2.internal.staging.swh.network
+swh::deploy::osporadar::reverse_proxy::backend_http_port: "80"
+swh::deploy::osporadar::vhost::letsencrypt_cert: osporadar_staging
+swh::deploy::osporadar::icinga_check_string: 'OSPO-RADAR'
 
 
 varnish::enable_anubis: true
