@@ -258,6 +258,7 @@ swh::deploy::osporadar::reverse_proxy::backend_http_host: k8s-archive-staging-rk
 swh::deploy::osporadar::reverse_proxy::backend_http_port: "80"
 swh::deploy::osporadar::vhost::letsencrypt_cert: osporadar_staging
 swh::deploy::osporadar::icinga_check_string: 'OSPO-RADAR'
+swh::deploy::osporadar::reverse_proxy::basic_auth_on_backend: true
 
 
 varnish::enable_anubis: true
