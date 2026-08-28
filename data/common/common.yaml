@@ -758,6 +758,17 @@ users:
       felixwanders:
         type: ssh-ed25519
         key: AAAAC3NzaC1lZDI1NTE5AAAAIPALXKTD8w3hj3tKJZyrWX7ZiktTRHgIhDYZazrm6bcs
+  lucas:
+    uid: 1047
+    full_name: Lucas Nussbaum
+    shell: /bin/bash
+    groups:
+      - swhdev
+      - swhteam
+    authorized_keys:
+      lucas.nussbaum@inria.fr:
+        type: ssh-rsa
+        key: AAAAB3NzaC1yc2EAAAABIwAAAQEAzOBlzaFzX4oDrL2TaOAlAr/Q9DE4Q1cbN8UAxAMzgA3CcGAPOrbH+xa6DYuv+xoaFrcUg972mPeoiuEdNGE56yEP1frccSZNQbaxKNNnUWUTMAGvo1vFA590nMATY7bdqrcTdNg1tIBMbBpDGHzx+oVLmumc1WmBSl+uJktWRdIej9e4LcH//gZs42GaPj3LdSctOwt9Dr8G5Gl5zgPLab3ProfTGV/aW/LO6fnXjKx2ivjqDEzw9Q9VuJyGwJGAuXPH2QmdFplFEWoODaYD4KiWmifsjuon5B/IJXkFdco1yCzDu3GhmYEtftbIQb1XC13l711ckU8dqiaI6DMshw==
   # Do not allocate uid: 1046, used for Sebastiano Vigna on specific hosts
   # Do not allocate uid: 3002, used for Tommaso Fontana on specific hosts
 
