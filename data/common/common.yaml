@@ -965,6 +965,7 @@ varnish::useragent_blocklist:
   - facebookexternalhit
   - meta-externalagent
   - curl/7.58.0
+  - OD content deduplication
 
 swh::deploy::reverse_proxy::services:
   - deposit
