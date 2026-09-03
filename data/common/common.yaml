@@ -1054,6 +1054,7 @@ letsencrypt::certificates:
     domains:
       - osporadar.staging.swh.network
       - osporadar.internal.staging.swh.network
+      - osporadar-test.internal.staging.swh.network
   graphql_staging:
     domains:
       - graphql.staging.swh.network
@@ -1596,6 +1597,10 @@ bind::resource_records:
     type: CNAME
     record: osporadar.internal.staging.swh.network
     data: rp0.internal.staging.swh.network.
+  staging-oporadar-test/CNAME:
+    type: CNAME
+    record: osporadar-test.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   k8s-archive-staging-rke2-thanos/A:
     type: CNAME
     record: k8s-archive-staging-rke2-thanos.internal.staging.swh.network
