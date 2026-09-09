@@ -86,6 +86,13 @@ swh::deploy::openbao::reverse_proxy::allowed_networks:
   # Rancher
   - 51.138.11.3/32
 
+swh::deploy::keyclaok::reverse_proxy::backend_http_host: keycloak.internal.admin.swh.network
+swh::deploy::keyclaok::reverse_proxy::backend_http_port: "3000"
+swh::deploy::keyclaok::reverse_proxy::websocket_support: true
+swh::deploy::keyclaok::base_url: keycloak.softwareheritage.org
+swh::deploy::keyclaok::vhost::letsencrypt_cert: keycloak
+swh::deploy::keyclaok::icinga_check_string: 'Keycloak'
+
 hitch::frontend: "[*]:443"
 hitch::proxy_support: true
 varnish::http_port: 80
