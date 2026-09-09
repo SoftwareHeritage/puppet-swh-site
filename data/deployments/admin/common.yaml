@@ -26,6 +26,7 @@ swh::deploy::reverse_proxy::services:
   - minio
   - alertmanager_irc_relay
   - openbao
+  - keycloak
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
