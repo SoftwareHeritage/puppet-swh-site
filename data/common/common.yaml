@@ -1246,6 +1246,9 @@ letsencrypt::certificates:
   victorialogs.internal.admin.swh.network:
     domains:
       - victorialogs.internal.admin.swh.network
+  keycloak-admin:
+    domain:
+      - keycloak.internal.admin.swh.network
 
 bind::update_key: local-update
 
