@@ -4,3 +4,5 @@ backups::exclude:
 
 icinga2::host::vars:
   load: hypervisor
+
+swh::apt_config::enable_non_free: true
