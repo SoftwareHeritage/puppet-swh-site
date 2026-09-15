@@ -61,10 +61,11 @@ class profile::borg::client {
         exclude_if_present => '.nobackup',
       },
       storage => {
-        ssh_command           => "ssh -i ${ssh_key_file}",
-        encryption_passphrase => $passphrase,
-        borg_base_directory   => $base_dir,
-        archive_name_format   => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
+        relocated_repo_access_is_ok => true,
+        ssh_command                 => "ssh -i ${ssh_key_file}",
+        encryption_passphrase       => $passphrase,
+        borg_base_directory         => $base_dir,
+        archive_name_format         => "${fqdn}-{now:%Y-%m-%dT%H:%M:%S.%f}",
       },
       retention => {
         keep_hourly  => 24,
