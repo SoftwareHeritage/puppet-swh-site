@@ -73,7 +73,7 @@ node 'met.internal.softwareheritage.org' {
 }
 
 node /^saam\.(internal\.)?softwareheritage\.org$/ {
-  include role::rancher_node_with_multipath
+  include role::rancher_node_with_multipath_and_backups
 }
 
 node /^getty.(internal.)?softwareheritage.org$/ {

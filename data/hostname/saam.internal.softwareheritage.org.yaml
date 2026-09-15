@@ -72,15 +72,10 @@ mountpoints:
   /srv/softwareheritage/objects-xfs/f:
     ensure: absent
   /srv/storage/content-replayer:
-    device: content-replayer-scratch
-    fstype: tmpfs
-    options:
-      - nodev
-      - nosuid
-      - noexec
-      - size=8G
-      - uid=swhworker
-      - gid=swhdev
+    ensure: absent
+  /srv/borg:
+    device: LABEL="borg-backups"
+    fstype: ext4
 
 swh::apt_config::backported_packages:
   buster:
@@ -109,3 +104,6 @@ swh::apt_config::backported_packages:
 zfs::common::zpool_configuration: {}
 
 rancher::rke2::agent::snapshotter: zfs
+
+ssh::aliveinterval: 10
+ssh::alivemaxcount: 360

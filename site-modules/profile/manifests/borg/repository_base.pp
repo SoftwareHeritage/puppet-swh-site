@@ -22,7 +22,7 @@ class profile::borg::repository_base {
     home   => $base_path,
   }
 
-  file {[$base_path, $repository_path, $ssh_path]:
+  file {[$repository_path, $ssh_path]:
     ensure => 'directory',
     owner  => $user,
     group  => $group,

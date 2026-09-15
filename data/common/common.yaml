@@ -3956,7 +3956,7 @@ borg::repository_group: borg
 
 borg::base_path: /srv/borg
 borg::repository_path: "%{lookup('borg::base_path')}/repositories"
-borg::repository_server: banco.internal.softwareheritage.org
+borg::repository_server: saam.internal.softwareheritage.org
 
 borg::encryption: repokey-blake2
 
