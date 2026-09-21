@@ -1106,6 +1106,9 @@ letsencrypt::certificates:
   keycloak:
     domains:
       - auth.softwareheritage.org
+  keycloak-test:
+    domains:
+      - auth.staging.swh.network
   kafka1.internal.softwareheritage.org:
     domains:
       - broker1.journal.softwareheritage.org
@@ -3783,6 +3786,14 @@ kibana::config:
     security:
       encryptionKey: "%{alias('vault::kibana::security::key')}"
 
+keycloak_test::vhost::name: auth.staging.swh.network
+keycloak_test::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
+keycloak_test::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
+keycloak_test::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
+keycloak_test::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
+keycloak_test::backend::port: 80
+keycloak_test::backend::url: "http://k8s-admin-rke2.internal.admin.swh.network/:%{lookup('keycloak_test::backend::port')}/"
+
 # puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
 # until then (https://github.com/treydock/puppet-module-keycloak/pull/154)
 keycloak::version: 10.0.2
@@ -3795,6 +3806,7 @@ keycloak::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
 keycloak::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
 keycloak::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 keycloak::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
+
 
 keycloak::backend::port: 8080
 keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
