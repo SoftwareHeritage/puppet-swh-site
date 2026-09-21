@@ -1,0 +1,22 @@
+---
+version: 5
+defaults:
+  datadir: data         # datadir by default moved to 'defaults' folder
+  data_hash: yaml_data  # Default backend
+hierarchy:
+  - path: "private/hostname/%{trusted.certname}.yaml"
+    name: "Per hostname credentials"
+  - path: "hostname/%{trusted.certname}.yaml"
+    name: "Per hostname settings"
+  - path: "deployments/%{::deployment}/%{::subnet}.yaml"
+    name: "Per-deployment and subnet settings"
+  - path: "deployments/%{::deployment}/common.yaml"
+    name: "Per-deployment settings"
+  - path: "private/subnets/%{::subnet}.yaml"
+    name: "Per subnet private credentials"
+  - path: "subnets/%{::subnet}.yaml"
+    name: "Per subnet settings"
+  - path: "private/common.yaml"
+    name: "Common private credentials"
+  - glob: "common/*.yaml"
+    name: "Common settings"
