@@ -31,8 +31,7 @@ class profile::weekly_reminder_bot {
     content => template('profile/weekly_reminder_bot/weekly-bot.erb'),
   }
 
-  ['management',
-  ].each |$bot| {
+  [].each |$bot| {
     $weekly_bot_cron = lookup("weekly_reminder_bot::${bot}::cron")
 
     profile::cron::d { "Weekly ${bot} reminder":
@@ -53,6 +52,14 @@ class profile::weekly_reminder_bot {
       require => [
         File[$weekly_bot_config_dir],
       ],
+    }
+  }
+
+  ['management'].each |$bot| {
+    $weekly_bot_cron = lookup("weekly_reminder_bot::${bot}::cron")
+
+    file { "${weekly_bot_config_dir}/${bot}":
+      ensure  => absent,
     }
   }
 
