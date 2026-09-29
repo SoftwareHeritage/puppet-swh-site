@@ -44,4 +44,4 @@
 
 - name: swh-web static resources
   action: ALLOW
-  path_regex: ^/(?:static|jsreverse)/
+  path_regex: ^/(static|jsreverse)/
