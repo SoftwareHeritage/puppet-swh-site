@@ -3,6 +3,10 @@
 #
 # Common Anubis rules for Software Heritage
 
+- name: allow-cors
+  action: ALLOW
+  expression: 'method == "OPTIONS"'
+
 - name: local-monitoring
   action: ALLOW
   user_agent_regex: "(check_http|Blackbox Exporter)"
@@ -33,3 +37,11 @@
       - 'path.startsWith("/api/") || path.startsWith("/graphql/")'
       - '"Accept" in headers'
       - 'headers["Accept"] == "application/json" || headers["Accept"] == "application/yaml"'
+
+- name: API documentations
+  action: ALLOW
+  path_regex: ^/api/(1/|.*/doc/)?$
+
+- name: swh-web static resources
+  action: ALLOW
+  path_regex: ^/(?:static|jsreverse)/
