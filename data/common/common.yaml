@@ -1024,6 +1024,7 @@ letsencrypt::certificates:
     domains:
       - deposit.staging.swh.network
       - deposit-rp.internal.staging.swh.network
+      - deposit-ro.internal.staging.swh.network
   datasets_staging:
     domains:
       - datasets.staging.swh.network
@@ -1804,6 +1805,10 @@ bind::resource_records:
     type: CNAME
     record: deposit-rp.internal.staging.swh.network
     data: rp0.internal.staging.swh.network.
+  staging-deposit-ro/CNAME:
+    type: CNAME
+    record: deposit-ro.internal.staging.swh.network
+    data: k8s-archive-staging-rke2.internal.staging.swh.network.
   journal1/CNAME:
     type: CNAME
     record: journal1.internal.staging.swh.network
