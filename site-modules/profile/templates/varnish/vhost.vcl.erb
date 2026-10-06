@@ -64,6 +64,7 @@ sub vcl_recv {
         }
 <%- end %>
         set req.http.X-Forwarded-Proto = "https";
+        set req.http.X-Forwarded-Port = std.port(server.ip);
 
 <%- if @vcl_recv_extra -%>
     <%- @vcl_recv_extra.each_line do |line| -%>
