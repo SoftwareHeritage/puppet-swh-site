@@ -30,11 +30,9 @@ swh::deploy::reverse_proxy::services:
 
 # For testing purposes (prior to actual auth.s.o migration to kube)
 swh::deploy::keycloak-test::vhost::letsencrypt_cert: keycloak-test
-swh::deploy::keycloak-test::reverse_proxy::backend_http_host: "auth.staging.swh.network"
+swh::deploy::keycloak-test::reverse_proxy::backend_http_host: "k8s-admin-rke2.internal.admin.swh.network"
 swh::deploy::keycloak-test::reverse_proxy::backend_http_port: "80"
 swh::deploy::keycloak-test::base_url: auth.staging.swh.network
-
-swh::deploy::keycloak-test::backend::url: "http://k8s-admin-rke2.internal.admin.swh.network:%{lookup('keycloak-test::backend::port')}/"
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
