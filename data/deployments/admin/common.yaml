@@ -26,6 +26,14 @@ swh::deploy::reverse_proxy::services:
   - minio
   - alertmanager_irc_relay
   - openbao
+  - keycloak
+
+# Test keycloak for helping testing migration on that instance prior to the actual production
+swh::deploy::keycloak::vhost::letsencrypt_cert: keycloak
+swh::deploy::keycloak::reverse_proxy::backend_http_host: "k8s-admin-rke2.internal.admin.swh.network"
+swh::deploy::keycloak::reverse_proxy::backend_http_port: "80"
+swh::deploy::keycloak::base_url: auth.softwareheritage.org
+swh::deploy::keycloak::icinga_check_uri: '/auth/'
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
