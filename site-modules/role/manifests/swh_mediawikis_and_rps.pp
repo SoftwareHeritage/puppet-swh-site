@@ -6,6 +6,4 @@ class role::swh_mediawikis_and_rps inherits role::swh_server {
 
   # Reverse proxies
   include profile::jenkins::reverse_proxy
-  include profile::keycloak::reverse_proxy
-
 }
