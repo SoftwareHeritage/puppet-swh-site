@@ -18,6 +18,7 @@
             "userProfileUsernameAttr": "preferred_username",
             "userProfileDisplayNameAttr": "name",
             "userProfileEmailAttr": "email",
+            "scopes": "openid email profile",
             "tokenURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/token",
             "authorizationURL": "https://<%= @keycloak_domain %>/auth/realms/<%= @keycloak_realm %>/protocol/openid-connect/auth",
             "clientID": "<%= @keycloak_client_id %>",
