@@ -140,6 +140,7 @@ swh::deploy::keycloak-test::vhost::letsencrypt_cert: keycloak-test
 swh::deploy::keycloak-test::reverse_proxy::backend_http_host: "k8s-archive-staging-rke2.internal.staging.swh.network"
 swh::deploy::keycloak-test::reverse_proxy::backend_http_port: "80"
 swh::deploy::keycloak-test::base_url: auth.staging.swh.network
+swh::deploy::keycloak-test::icinga_check_uri: '/auth/'
 
 swh::postgresql::version: '13'
 swh::postgresql::port: 5433
