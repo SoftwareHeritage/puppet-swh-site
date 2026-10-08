@@ -166,6 +166,7 @@ packages:
   - iotop
   - ipython3
   - jq
+  - kitty-terminfo
   - molly-guard
   - moreutils
   - ncdu
