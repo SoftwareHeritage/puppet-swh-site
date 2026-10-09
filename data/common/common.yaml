@@ -975,6 +975,7 @@ swh::deploy::reverse_proxy::services:
   - storage_cassandra_ro
   - software-stories
   - datasets
+  - coarnotify
 
 letsencrypt::account_email: sysop+letsencrypt@softwareheritage.org
 letsencrypt::server: https://acme-v02.api.letsencrypt.org/directory
@@ -1045,6 +1046,10 @@ letsencrypt::certificates:
   software-stories_staging:
     domains:
       - software-stories.staging.swh.network
+  coarnotify:
+    domains:
+      - coarnotify-inbox.softwareheritage.org
+      - coarnotify-inbox.internal.softwareheritage.org
   coarnotify_staging:
     domains:
       - inbox.staging.swh.network
@@ -1731,6 +1736,10 @@ bind::resource_records:
     type: CNAME
     record: svix.internal.staging.swh.network
     data: k8s-archive-staging-rke2.internal.staging.swh.network.
+  coarnotify-inbox/CNAME:
+    type: CNAME
+    record: coarnotify-inbox.internal.softwareheritage.org
+    data: k8s-archive-production-rke2.internal.softwareheritage.org.
   inbox-internal-staging/CNAME:
     type: CNAME
     record: inbox.internal.staging.swh.network
@@ -2795,6 +2804,12 @@ swh::remote_service::deposit::port: 5006
 # Default backend services. Override in specific sites if needed. Configurations
 # are split between read-only (the default) and writable storages. In most cases
 # overrides should only happen for read-only services.
+
+# Software-stories
+swh::deploy::coarnotify::reverse_proxy::backend_http_host: coarnotify-inbox.internal.softwareheritage.org
+swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
+swh::deploy::coarnotify::base_url: coarnotify-inbox.softwareheritage.org
+swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify
 
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.softwareheritage.org
