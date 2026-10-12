@@ -2666,18 +2666,6 @@ annex::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
 annex::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
 annex::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
 
-docs::basepath: /srv/softwareheritage/docs
-# Must have matching certificate in letsencrypt::certificates
-docs::vhost::name: docs.softwareheritage.org
-docs::vhost::docroot: "%{lookup('docs::basepath')}/webroot/sphinx"
-docs::vhost::docroot_owner: "jenkins-push-docs"
-docs::vhost::docroot_group: "www-data"
-docs::vhost::docroot_mode: "2755"
-docs::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-docs::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-docs::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-docs::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
-
 # Must have matching certificate in letsencrypt::certificates
 bitbucket_archive::vhost::name: bitbucket-archive.softwareheritage.org
 bitbucket_archive::vhost::docroot: /srv/softwareheritage/bitbucket-archive/webroot
