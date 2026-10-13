@@ -2807,6 +2807,7 @@ swh::deploy::coarnotify::reverse_proxy::backend_http_host: coarnotify-inbox.inte
 swh::deploy::coarnotify::reverse_proxy::backend_http_port: "80"
 swh::deploy::coarnotify::base_url: coarnotify-inbox.softwareheritage.org
 swh::deploy::coarnotify::vhost::letsencrypt_cert: coarnotify
+swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
 
 # Software-stories
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.softwareheritage.org
