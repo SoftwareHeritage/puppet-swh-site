@@ -34,6 +34,7 @@ swh::deploy::keycloak::reverse_proxy::backend_http_host: "k8s-admin-rke2.interna
 swh::deploy::keycloak::reverse_proxy::backend_http_port: "80"
 swh::deploy::keycloak::base_url: auth.softwareheritage.org
 swh::deploy::keycloak::icinga_check_uri: '/auth/'
+swh::deploy::keycloak-test::icinga_check_string: 'Software Heritage'
 
 swh::deploy::hedgedoc::reverse_proxy::backend_http_host: bardo.internal.admin.swh.network
 swh::deploy::hedgedoc::reverse_proxy::backend_http_port: "3000"
