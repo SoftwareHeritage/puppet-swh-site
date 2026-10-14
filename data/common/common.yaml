@@ -655,6 +655,7 @@ users:
   rboyer:
     uid: 1035
     full_name: Renaud Boyer
+    password: "%{alias('users::rboyer::password')}"
     groups:
       - swhdev
       - swhteam
