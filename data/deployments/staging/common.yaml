@@ -111,6 +111,7 @@ swh::deploy::objstorage::reverse_proxy::basic_auth::users:
 swh::deploy::docs::vhost::letsencrypt_cert: docs_staging
 swh::deploy::docs::reverse_proxy::backend_http_host: docs.internal.staging.swh.network
 swh::deploy::docs::reverse_proxy::backend_http_port: "80"
+swh::deploy::docs::icinga_check_string: 'Welcome to Software Heritage documentation'
 
 swh::deploy::objstorage::backend::public_server_name:
   objstorage.staging.swh.network
@@ -265,7 +266,7 @@ swh::deploy::coarnotify::icinga_check_string: 'COAR Notify Inbox'
 swh::deploy::osporadar::reverse_proxy::backend_http_host: k8s-archive-staging-rke2.internal.staging.swh.network
 swh::deploy::osporadar::reverse_proxy::backend_http_port: "80"
 swh::deploy::osporadar::vhost::letsencrypt_cert: osporadar_staging
-swh::deploy::osporadar::icinga_check_string: 'OSPO-RADAR'
+swh::deploy::osporadar::icinga_check_string: 'OSPO-Radar'
 swh::deploy::osporadar::reverse_proxy::basic_auth_on_backend: true
 
 

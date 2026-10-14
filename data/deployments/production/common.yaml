@@ -36,6 +36,7 @@ swh::deploy::datasets::reverse_proxy::backend_http_port: "80"
 swh::deploy::docs::vhost::letsencrypt_cert: docs_production
 swh::deploy::docs::reverse_proxy::backend_http_host: docs.internal.softwareheritage.org
 swh::deploy::docs::reverse_proxy::backend_http_port: "80"
+swh::deploy::docs::icinga_check_string: 'Welcome to Software Heritage documentation'
 
 memcached::server::max_memory: 1224
 
