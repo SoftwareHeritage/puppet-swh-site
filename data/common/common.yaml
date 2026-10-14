@@ -2816,7 +2816,7 @@ swh::deploy::software-stories::reverse_proxy::backend_http_port: "80"
 swh::deploy::software-stories::reverse_proxy::websocket_support: true
 swh::deploy::software-stories::base_url: stories.softwareheritage.org
 swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_production
-swh::deploy::software-stories::icinga_check_string: 'SWH Stories'
+swh::deploy::software-stories::icinga_check_string: 'SOFTWARE STORIES'
 
 # End remote service configurations
 #####################################################################################################

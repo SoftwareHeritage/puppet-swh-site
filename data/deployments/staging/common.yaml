@@ -254,6 +254,7 @@ cassandra::paxos::repair::enable: true
 swh::deploy::software-stories::reverse_proxy::backend_http_host: software-stories.internal.staging.swh.network
 swh::deploy::software-stories::base_url: software-stories.staging.swh.network
 swh::deploy::software-stories::vhost::letsencrypt_cert: software-stories_staging
+swh::deploy::software-stories::icinga_check_string: 'Software Stories'
 
 # coarnotify
 swh::deploy::coarnotify::reverse_proxy::backend_http_host: inbox.internal.staging.swh.network
