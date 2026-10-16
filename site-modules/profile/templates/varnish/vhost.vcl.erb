@@ -28,7 +28,7 @@ sub vcl_recv {
             set req.http.x-redir = "https://" + req.http.host + req.url;
             return(synth(850, "Moved permanently"));
         }
-<%- if scope['::profile::varnish::enable_anubis'] %>
+<%- if @enable_anubis  %>
         if (local.socket != "<%= scope['::profile::varnish::anubis_socket_name'] %>") {
             call set_ip_headers;
             set req.backend_hint = self_behind_anubis.backend();

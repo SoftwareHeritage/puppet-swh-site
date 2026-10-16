@@ -7,6 +7,7 @@ define profile::varnish::vhost (
   String $backend_name,
   String $backend_http_host,
   String $backend_http_port,
+  Boolean $enable_anubis = false,
   Boolean $websocket_support = false,
   Optional[String] $vcl_recv_extra = undef,
   Optional[String] $vcl_deliver_extra = undef,

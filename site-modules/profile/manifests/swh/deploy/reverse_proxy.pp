@@ -1,4 +1,4 @@
-# Reverse proxy to expose staging/admin services
+# Reverse proxy to expose staging/admin/production services
 # https://forge.softwareheritage.org/T2747
 class profile::swh::deploy::reverse_proxy {
   include ::profile::hitch
@@ -6,6 +6,12 @@ class profile::swh::deploy::reverse_proxy {
 
   $service_names = lookup('swh::deploy::reverse_proxy::services')
   $varnish_http_port = lookup('varnish::http_port')
+
+  # Whether to enable anubis (it can be globally enabled on the overall reverse proxy)
+  $enable_anubis_global = lookup(
+    'varnish::enable_anubis',
+    default_value => false
+  )
 
   each($service_names) |$service_name| {
     # Retrieve certificate name
@@ -16,6 +22,9 @@ class profile::swh::deploy::reverse_proxy {
                                default_value => '/')
     $icinga_check_string = lookup("swh::deploy::${service_name}::icinga_check_string",
                                   default_value => capitalize($service_name))
+    # Whether to enable anubis only on the instance
+    $enable_anubis = lookup("swh::deploy::${service_name}::enable_anubis",
+                            default_value => $enable_anubis_global)
 
     $websocket_support = lookup({
       'name'          => "swh::deploy::${service_name}::reverse_proxy::websocket_support",
@@ -68,6 +77,7 @@ class profile::swh::deploy::reverse_proxy {
       backend_http_port  => $backend_http_port,
       hsts_max_age       => lookup('strict_transport_security::max_age'),
       websocket_support  => $websocket_support,
+      enable_anubis      => $enable_anubis,
       basic_auth         => $basic_auth,
       basic_auth_strings => $basic_auth_strings,
       vcl_recv_extra     => $vcl_recv_extra,
