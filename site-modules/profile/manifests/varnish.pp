@@ -17,7 +17,21 @@ class profile::varnish {
   $storage_size = lookup('varnish::storage_size')
   $storage_file = lookup('varnish::storage_file')
   $useragent_blocklist = lookup('varnish::useragent_blocklist')
-  $enable_anubis = lookup('varnish::enable_anubis')
+
+  # Anubis is off by default
+  $enable_anubis_global = lookup(
+    'varnish::enable_anubis',
+    default_value => false
+  )
+
+  # Check whether any of the instances requires anubis
+  $service_names = lookup('swh::deploy::reverse_proxy::services')
+  $enable_anubis = $service_names.any |$service_name| {
+    lookup(
+      "swh::deploy::${service_name}::enable_anubis",
+       default_value => $enable_anubis_global
+    )
+  }
 
   if $http2_support {
     $runtime_params = {
