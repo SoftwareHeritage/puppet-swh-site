@@ -180,7 +180,7 @@ node /^rancher-node-.*\.internal\.((staging|admin)\.swh\.network|softwareheritag
   include role::rancher_node
 }
 
-node /^rancher-(mgmt|node)\d+\.admin\.swh\.network$/ {
+node /^rancher-(mgmt|node)\d+\.internal\.admin\.swh\.network$/ {
   include role::rancher_node
 }
 
