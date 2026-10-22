@@ -85,7 +85,7 @@ class profile::phabricator {
 
   ::sudo::conf {'phabricator-http':
     ensure  => present,
-    content => "www-data ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-http-backend, /usr/bin/hg",
+    content => "www-data ALL=(${install_user}) SETENV: NOPASSWD: /usr/bin/git-http-backend, /usr/bin/hg, /usr/bin/git",
     require => File['/usr/bin/git-http-backend'],
   }
 
