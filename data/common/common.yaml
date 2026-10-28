@@ -3508,6 +3508,7 @@ thanos::query::non_puppet_managed::stores:
   - k8s-gitlab-staging-thanos.internal.staging.swh.network:443
   - k8s-gitlab-production-thanos.euwest.azure.internal.softwareheritage.org:443
   - k8s-rancher-thanos.euwest.azure.internal.softwareheritage.org:443
+  - k8s-rancher-thanos.internal.admin.swh.network:443
   - gloin001.internal.cea.swh.network:19090
   - gloin002.internal.cea.swh.network:19090
 
@@ -3620,6 +3621,14 @@ thanos::stores:
       max-time: '-29d'  # Prometheus retention is 30d
     compact:
       port-http: 19305
+  k8s-rancher-admin:  # New kube cluster
+    azure-storage-container: metrics-rocquencourt-rancher-0
+    store:
+      port-http: 19206
+      port-grpc: 19106
+      max-time: '-22h'
+    compact:
+      port-http: 19306
 
 thanos::extra_certificates:
   - "%{alias('thanos::certificate::cea-gloin001')}"
