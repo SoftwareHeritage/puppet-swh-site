@@ -1798,9 +1798,11 @@ bind::resource_records:
     record: k8s-rancher-admin.internal.admin.swh.network
     data: 192.168.50.167
   k8s-rancher-admin-traefik/CNAME:
+    type: CNAME
     record: rancher-traefik.internal.admin.swh.network
     data: k8s-rancher-admin.internal.admin.swh.network.
   k8s-rancher-admin-thanos/CNAME:
+    type: CNAME
     record: k8s-rancher-thanos.internal.admin.swh.network
     data: k8s-rancher-admin.internal.admin.swh.network.
   scheduler/CNAME:
