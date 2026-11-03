@@ -226,6 +226,7 @@ class profile::icinga2::objects::static_checks {
 
   ['swh.scheduler.journal_client',
    'swh.search.journal_client-v0.11',
+   'swh.search.journal-client-indexed-v0.26.2',
    'swh.counters.journal_client',
    'swh-archive-prod-webhooks'].each |$consumer_group| {
     ::icinga2::object::service {"Kafka ${consumer_group} lag in production":
