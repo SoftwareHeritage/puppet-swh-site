@@ -22,7 +22,7 @@ class profile::anubis {
     source => $anubis_deb,
   }
 
-  $anubis_files = ['common-bots.yaml']
+  $anubis_files = ['common-bots.yaml', 'huawei-override.yaml']
 
   $anubis_files.each |$file| {
     file {"/etc/anubis/${file}":

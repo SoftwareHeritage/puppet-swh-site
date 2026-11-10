@@ -45,3 +45,5 @@
 - name: swh-web static resources
   action: ALLOW
   path_regex: ^/(static|jsreverse)/
+
+- import: /etc/anubis/huawei-override.yaml
