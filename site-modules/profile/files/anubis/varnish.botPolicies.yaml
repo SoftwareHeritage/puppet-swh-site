@@ -5,11 +5,11 @@
 # Syntax docs: https://anubis.techaro.lol/docs/admin/policies
 
 bots:
-  # Inherit from the default Anubis configuration
-  - import: (data)/meta/default-config.yaml
-
   # Import the common policies for Software Heritage
   - import: /etc/anubis/common-bots.yaml
+
+  # Inherit from the default Anubis configuration
+  - import: (data)/meta/default-config.yaml
 
 dnsbl: false
 
