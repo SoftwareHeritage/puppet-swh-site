@@ -3,20 +3,21 @@
 class profile::elastic::apt_config {
   # Elasticsearch official package installation instructions:
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html
-  $keyid =   lookup('elastic::apt_config::keyid')
-  $key =     lookup('elastic::apt_config::key')
+  $keyring_url = lookup('elastic::apt_config::keyring::url')
+
   $versions = [lookup('elastic::elk_version'), lookup('elastic::beat_version')]
 
   $major_versions = $versions.map |$version| { $version.split('[.]')[0] }.unique
+  apt::keyring { 'elasticsearch-keyring.asc':
+    source => $keyring_url,
+  }
+
   $major_versions.each |$major_version| {
     apt::source { "elastic-${major_version}.x":
       location => "https://artifacts.elastic.co/packages/${major_version}.x/apt",
       release  => 'stable',
       repos    => 'main',
-      key      => {
-        id      => $keyid,
-        content => $key,
-      },
+      keyring  => '/etc/apt/keyrings/elasticsearch-keyring.asc',
     }
   }
 
