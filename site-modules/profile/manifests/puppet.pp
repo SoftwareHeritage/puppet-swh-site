@@ -10,13 +10,21 @@ class profile::puppet {
     environment           => $::environment,
   }
 
+  if versioncmp($facts['os']['distro']['release']['major'], '13') >= 0 {
+    # For trixie, enable legacy facts
+    $extra_agent_config = { 'include_legacy_facts' => true }
+  } else {
+    $extra_agent_config = {}
+  }
+
   $is_puppetserver = $puppet_server in values($::swh_hostname)
 
   if $is_puppetserver {
     include ::profile::puppet::server
   } else {
     class {'::puppet':
-      * => $agent_config,
+      *                         => $agent_config,
+      agent_additional_settings => $extra_agent_config,
     }
   }
 
