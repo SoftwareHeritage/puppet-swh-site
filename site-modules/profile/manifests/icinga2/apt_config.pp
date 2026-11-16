@@ -4,7 +4,7 @@ class profile::icinga2::apt_config {
   $keyid =  lookup('icinga2::apt_config::keyid')
   $key =    lookup('icinga2::apt_config::key')
 
-  $keyring_path = '/etc/apt/keyrings/icinga2.gpg'
+  $keyring_path = '/etc/apt/keyrings/icinga2.asc'
 
   file { $keyring_path:
     ensure  => present,
