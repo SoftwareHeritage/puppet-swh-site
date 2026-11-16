@@ -66,6 +66,7 @@ class profile::swh::apt_config {
   $swh_repository = lookup('swh::apt_config::swh_repository')
   $swh_release = $::lsbdistcodename ? {
     'bookworm' => 'sid',
+    'trixie'   => 'sid',
     default    => "${::lsbdistcodename}-swh",
   }
 
