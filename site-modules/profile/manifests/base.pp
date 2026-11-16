@@ -21,7 +21,14 @@ class profile::base {
     locales        => lookup('locales::installed_locales'),
   }
 
-  $packages = lookup('packages', Array, 'unique')
+  $all_packages = lookup('packages', Array, 'unique')
+
+  if versioncmp($::lsbmajdistrelease, '13') >= 0 {
+    # Drop no longer existing debian 13 packages
+    $packages = $all_packages - ['ruby-filesystem']
+  } else {
+    $packages = $all_packages
+  }
 
   package { $packages:
     ensure => present,
