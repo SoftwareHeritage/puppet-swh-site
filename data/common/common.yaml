@@ -1006,7 +1006,7 @@ letsencrypt::certificates::directory: /etc/ssl/certs/letsencrypt
 letsencrypt::certificates:
   archive_production:
     domains:
-      # Should match with keycloak::resources::realms.SoftwareHeritage.clients.swh-web.redirect_uris
+      # Should match with keycloak's production realm client swh-web's redirect_uris
       - archive.softwareheritage.org
       - base.softwareheritage.org
       - archive.internal.softwareheritage.org
@@ -1014,7 +1014,7 @@ letsencrypt::certificates:
       - webapp-postgresql.internal.softwareheritage.org
   archive_staging:
     domains:
-      # Should match with keycloak::resources::realms.SoftwareHeritageStaging.clients.swh-web.redirect_uris
+      # Should match with staging realm client swh-web's redirect_uris
       - webapp.staging.swh.network
       - webapp-rp.internal.staging.swh.network
   archive_webapp1:
@@ -2993,8 +2993,6 @@ swh::deploy::deposit::e2e::poll_interval: 1
 swh::deploy::deposit::e2e::archive: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz
 swh::deploy::deposit::e2e::metadata: /opt/swh-e2e-checks/lib/python3.11/site-packages/swh/icinga_plugins/data/deposit/jesuisgpl.tgz.xml
 
-swh::config::keycloak::realm_name: SoftwareHeritage
-
 swh::deploy::worker::loader::max_content_size: 104857600
 
 swh::deploy::deposit::backend::listen::host: 127.0.0.1
@@ -3644,6 +3642,9 @@ grafana::backend::port: 3000
 # Must have a matching certificate in letsencrypt::certificates
 grafana::vhost::name: grafana.softwareheritage.org
 
+swh::config::keycloak::realm_name: SoftwareHeritage
+swh::config::keycloak::domain_name: auth.softwareheritage.org
+
 grafana::config:
   app_mode: production
   server:
@@ -3666,9 +3667,9 @@ grafana::config:
     oauth_allow_insecure_email_lookup: true
     login_attribute_path: username
     name_attribute_path: full_name
-    auth_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/auth"
-    token_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/token"
-    api_url: "https://%{lookup('keycloak::vhost::name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/userinfo"
+    auth_url: "https://%{lookup('swh::config::keycloak::domain_name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/auth"
+    token_url: "https://%{lookup('swh::config::keycloak::domain_name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/token"
+    api_url: "https://%{lookup('swh::config::keycloak::domain_name')}/auth/realms/%{lookup('swh::config::keycloak::realm_name')}/protocol/openid-connect/userinfo"
     role_attribute_path: contains(roles[*], 'admin') && 'GrafanaAdmin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'
     allow_assign_grafana_admin: true
     use_refresh_token: true
@@ -3827,175 +3828,6 @@ kibana::config:
       encryptionKey: "%{alias('vault::kibana::reporting::key')}"
     security:
       encryptionKey: "%{alias('vault::kibana::security::key')}"
-
-# puppet-module-keycloak has some issues with Keycloak 11.x so we stick to 10.x
-# until then (https://github.com/treydock/puppet-module-keycloak/pull/154)
-keycloak::version: 10.0.2
-
-keycloak::swh_theme::repo_url: https://forge.softwareheritage.org/source/swh-keycloak-theme.git
-keycloak::swh_theme::tag: v0.3.1
-
-keycloak::vhost::name: auth.softwareheritage.org
-keycloak::vhost::ssl_protocol: "%{lookup('apache::ssl_protocol')}"
-keycloak::vhost::ssl_honorcipherorder: "%{lookup('apache::ssl_honorcipherorder')}"
-keycloak::vhost::ssl_cipher: "%{lookup('apache::ssl_cipher')}"
-keycloak::vhost::hsts_header: "%{lookup('apache::hsts_header')}"
-
-
-keycloak::backend::port: 8080
-keycloak::backend::url: "http://kelvingrove.internal.softwareheritage.org:%{lookup('keycloak::backend::port')}/"
-
-keycloak::admin::user: keycloak-admin
-# keycloak::admin::password in openbao
-
-keycloak::postgres::host: db1.internal.admin.swh.network
-keycloak::postgres::port: 5432
-keycloak::postgres::dbname: keycloak
-keycloak::postgres::user: keycloak
-# keycloak::postgres::password in openbao
-
-keycloak::resources::realms::common_settings:
-  remember_me: true
-  login_with_email_allowed: true
-  internationalization_enabled: true
-  supported_locales:
-    - en
-  account_theme: swh
-  admin_theme: swh
-  login_theme: swh
-  smtp_server_host: localhost
-  smtp_server_from: noreply@softwareheritage.org
-  smtp_server_from_display_name: Software Heritage Authentication Service
-  brute_force_protected: true
-  # set OIDC refresh token expiration to one week (avoid relogin with credentials often)
-  sso_session_idle_timeout: 604800
-  # set OIDC session max duration to one month
-  sso_session_max_lifespan: 2592000
-
-keycloak::resources::clients::common_settings:
-  public_client: true
-  login_theme: swh
-  default_client_scopes:
-    - profile
-    - email
-    - roles
-    - web-origins
-  optional_client_scopes:
-    - microprofile-jwt
-    - offline_access
-
-keycloak::resources::clients::swh_web::roles:
-  - swh.web.api.throttling_exempted
-  - swh.web.api.graph
-  - swh.vault.git_bare.ui
-  - swh.web.api.save_origin
-  - swh.web.admin.list_deposits
-  - swh.web.mailmap
-  - swh.web.search_ql
-  - swh.web.add_forge_now.moderator
-  - swh.web.admin.mailmap
-  - swh.web.api.raw_object
-  - swh.web.api.provenance
-  - swh.web.api.save_bulk
-  - swh.web.admin.alter
-  - swh_web_add_forge_now.change_request
-  - swh_web_add_forge_now.view_request
-
-keycloak::resources::clients::swh_deposit::roles:
-  - swh.deposit.api
-
-keycloak::resources::protocol_mappers::audience:
-    resource_name: audience
-    type: oidc-audience-mapper
-    included_client_audience: __client_id__
-
-keycloak::resources::protocol_mappers::groups:
-    resource_name: groups
-    type: oidc-group-membership-mapper
-    claim_name: groups
-    full_path: true
-
-keycloak::resources::realms:
-  master:
-    settings:
-      display_name: master
-  SoftwareHeritage:
-    settings:
-      display_name: Software Heritage
-      registration_allowed: true
-      reset_password_allowed: true
-      verify_email: true
-      roles:
-        - offline_access
-        - uma_authorization
-        - swh.ambassador
-    clients:
-      swh-web:
-        settings:
-          redirect_uris:
-            # Should match letsencrypt::certificates.archive_production.domains
-            - https://archive.softwareheritage.org/*
-            - https://base.softwareheritage.org/*
-            - https://archive.internal.softwareheritage.org/*
-            - https://webapp1.internal.softwareheritage.org/*
-            - https://webapp-cassandra.internal.softwareheritage.org/*
-            - https://webapp-postgresql.internal.softwareheritage.org/*
-          roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
-          web_origins:
-            - https://archive.softwareheritage.org
-            - https://archive.internal.softwareheritage.org
-            - https://webapp1.internal.softwareheritage.org
-            - https://webapp-cassandra.internal.softwareheritage.org
-            - https://webapp-postgresql.internal.softwareheritage.org
-        protocol_mappers:
-          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
-          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
-      swh-deposit:
-        settings:
-          redirect_uris:
-            # Should match letsencrypt::certificates.archive_staging.domains
-            - https://deposit.softwareheritage.org/*
-            - https://deposit.internal.softwareheritage.org/*
-          roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
-        protocol_mappers:
-          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
-          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
-  SoftwareHeritageStaging:
-    settings:
-      display_name: Software Heritage (Staging)
-      registration_allowed: true
-      reset_password_allowed: true
-      verify_email: true
-      roles:
-        - offline_access
-        - uma_authorization
-        - swh.ambassador
-    clients:
-      swh-web:
-        settings:
-          redirect_uris:
-            # Should match letsencrypt::certificates.archive_staging.domains
-            - https://webapp.staging.swh.network/*
-            - https://webapp-postgresql.internal.staging.swh.network/*
-            - https://webapp-cassandra-next-version.internal.staging.swh.network/*
-          roles: "%{alias('keycloak::resources::clients::swh_web::roles')}"
-          web_origins:
-            - https://webapp.staging.swh.network
-            - https://webapp-postgresql.internal.staging.swh.network
-            - https://webapp-cassandra-next-version.internal.staging.swh.network
-        protocol_mappers:
-          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
-          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
-      swh-deposit:
-        settings:
-          redirect_uris:
-            # Should match letsencrypt::certificates.archive_staging.domains
-            - https://deposit.staging.swh.network/*
-            - https://deposit-dynamic.internal.staging.swh.network/*
-          roles: "%{alias('keycloak::resources::clients::swh_deposit::roles')}"
-        protocol_mappers:
-          - "%{alias('keycloak::resources::protocol_mappers::audience')}"
-          - "%{alias('keycloak::resources::protocol_mappers::groups')}"
 
 borg::repository_user: borg
 borg::repository_group: borg

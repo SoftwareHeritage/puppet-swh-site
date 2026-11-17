@@ -118,11 +118,6 @@ mod 'kafka',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppet-kafka',
     :ref => 'v8.0.0'
 
-mod 'keycloak',
-    :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-treydock-keycloak',
-    # Need to upgrade to keycloak 12 before bumping to 7.x
-    :ref => 'v6.26.0'
-
 mod 'kmod',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-kmod.git',
     :ref => 'v3.2.0'
