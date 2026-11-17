@@ -12,8 +12,8 @@ hedgedoc::allow_email: true
 hedgedoc::allow_email_register: false
 hedgedoc::enable_keycloak: true
 hedgedoc::keycloak::provider_name: Software Heritage
-hedgedoc::keycloak::domain: auth.softwareheritage.org
-hedgedoc::keycloak::realm: SoftwareHeritage
+hedgedoc::keycloak::domain: %{lookup('swh::config::keycloak::domain_name')}
+hedgedoc::keycloak::realm: "%{lookup('swh::config::keycloak::realm_name')}"
 hedgedoc::keycloak::client::id: hedgedoc
 hedgedoc::keycloak::roles_claim: roles
 hedgedoc::keycloak::access_role: hedgedoc-access
