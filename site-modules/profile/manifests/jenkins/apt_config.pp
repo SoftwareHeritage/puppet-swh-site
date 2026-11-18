@@ -6,7 +6,7 @@ class profile::jenkins::apt_config {
   apt::source {'jenkins':
     location => $mirror,
     release  => 'binary/',
-    repos    => '',
+    repos    => undef,
     key      => {
       id      => $keyid,
       content => $key,
