@@ -3,14 +3,16 @@ class profile::jenkins::apt_config {
   $keyid =  lookup('jenkins::apt_config::keyid')
   $key =    lookup('jenkins::apt_config::key')
 
-  apt::source {'jenkins':
+  $keyring_path = '/etc/apt/keyrings/jenkins.asc'
+
+  file { $keyring_path:
+    ensure  => present,
+    content => $key
+  } ~> apt::source {'jenkins':
     location => $mirror,
     release  => 'binary/',
     repos    => undef,
-    key      => {
-      id      => $keyid,
-      content => $key,
-    },
+    keyring  => $keyring_path,
     include  => {
       src => false,
       deb => true,
