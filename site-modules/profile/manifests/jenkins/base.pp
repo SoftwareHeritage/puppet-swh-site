@@ -1,6 +1,4 @@
 class profile::jenkins::base {
-  include ::java
-
   $jenkins_uid = lookup('jenkins::uid')
   $jenkins_gid = lookup('jenkins::gid')
 
