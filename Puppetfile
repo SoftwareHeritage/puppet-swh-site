@@ -108,7 +108,7 @@ mod 'inifile',
 
 mod 'java',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-java',
-    :ref => 'backport/puppet5'
+    :ref => 'v12.2.0'
 
 mod 'java_ks',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-java_ks',
