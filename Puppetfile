@@ -64,7 +64,7 @@ mod 'debconf',
 
 mod 'docker',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-puppetlabs-docker',
-    :ref => 'v4.1.2'
+    :ref => 'v10.4.1'
 
 mod 'elasticsearch',
     :git => 'https://gitlab.softwareheritage.org/swh/infra/puppet/3rdparty/puppet-elastic-elasticsearch',
