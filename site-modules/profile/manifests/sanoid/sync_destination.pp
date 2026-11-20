@@ -15,7 +15,7 @@ class profile::sanoid::sync_destination {
       $source_host = $config['host']
 
       $ssh_key_name = $config['ssh_key']
-      $ssh_key = lookup("syncoid::ssh_key::${ssh_key_name}")
+      $ssh_key = lookup("vault::syncoid::ssh_key::${ssh_key_name}")
       $authorized_key = lookup("syncoid::public_keys::${ssh_key_name}")
       $ssh_key_type = $authorized_key["type"]
       # computing a substring of ssh_key_type to remove 'ssh-' of the name
