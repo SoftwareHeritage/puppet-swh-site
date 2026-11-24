@@ -2334,10 +2334,7 @@ bind::resource_records:
   osd-rack3-8-adm/a:
     record: osd-rack3-8.admin.cea.swh.network
     data: 10.25.3.48
-  osd-rack3-9-adm/a:
-    record: osd-rack3-9.admin.cea.swh.network
-    data: 10.25.3.49
-  # osd-rack3-9-adm: is now osd-rack4-2-adm; do not reuse
+  # osd-rack3-9-adm: ip is now used by osd-rack4-2-adm; do not reuse
   osd-rack3-10-adm/a:
     record: osd-rack3-10.admin.cea.swh.network
     data: 10.25.3.55
