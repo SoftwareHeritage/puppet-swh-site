@@ -6,7 +6,7 @@ class profile::megacli {
   #$keyid =  lookup('hwraid_levert::apt_config::keyid')
   $key =    lookup('hwraid_levert::apt_config::key')
 
-  $keyring_path = '/etc/apt/keyrings/megacli.asc'
+  $keyring_path = '/etc/apt/keyrings/hwraid_levert.asc'
 
   file { $keyring_path:
     ensure  => present,
