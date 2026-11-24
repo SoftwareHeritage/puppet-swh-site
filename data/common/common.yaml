@@ -1807,7 +1807,7 @@ bind::resource_records:
     data: k8s-rancher-admin.internal.admin.swh.network.
   k8s-rancher/CNAME:
     type: CNAME
-    record: rancher.internal.admin.swh.network.
+    record: rancher.internal.admin.swh.network
     data: k8s-rancher-admin.internal.admin.swh.network.
   scheduler/CNAME:
     type: CNAME
