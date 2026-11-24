@@ -12,6 +12,7 @@ class profile::megacli {
     ensure  => present,
     content => $key
   } ~> apt::source { 'hwraid_levert':
+    source_format => 'sources',
     location => 'http://hwraid.le-vert.net/debian',
     release  => $facts['os']['distro']['codename'],
     repos    => 'main',
