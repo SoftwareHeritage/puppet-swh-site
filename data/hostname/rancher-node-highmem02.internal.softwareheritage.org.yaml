@@ -15,13 +15,8 @@ mountpoints:
 
 swh::apt_config::enable_non_free: true
 
-zfs::common::zpool_configuration:
-  mirror:
-    - nvme-eui.36315030525005540025384500000003 nvme-eui.36315030525005620025384500000003
-    - nvme-eui.36315030525005800025384500000003 nvme-eui.36315030525005890025384500000003
-    - wwn-0x55cd2e41535aaef9 wwn-0x55cd2e41536271a7
-    - wwn-0x55cd2e41536271cc wwn-0x55cd2e41535b9062
-    - wwn-0x55cd2e415359fd6c wwn-0x55cd2e415359ff6e
+# Empty because it got already configured and we want to keep it as-is
+zfs::common::zpool_configuration: {}
 
 zfs::arc::max_size: 34359738368  # 32 GiB
 
