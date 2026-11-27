@@ -22,12 +22,12 @@ case "${codename}" in
     "bookworm")
         pushd /etc/apt
 
-        for pattern_file in sources.list sources.list.d/*.list; do
+        for pattern_file in sources.list sources.list.d/*.*; do
             # Update the main sources.list
             sed -i 's/bookworm/trixie/gi' $pattern_file
         done
 
-        (grep bookworm sources.list sources.list.d/*.list && \
+        (grep bookworm sources.list sources.list.d/*.* && \
              echo "Mentions of <bookworm> still present... Stopping migration." && \
              exit 1) || \
            echo "Configurations *.list updated to <trixie>, proceeding with migration."

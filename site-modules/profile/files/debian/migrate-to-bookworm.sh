@@ -14,7 +14,7 @@ codename=$(lsb_release -c 2>/dev/null | awk '{print $2}')
 if [ "${codename}" = "bullseye" ]; then
   pushd /etc/apt
 
-  for pattern_file in sources.list sources.list.d/*.list; do
+  for pattern_file in sources.list sources.list.d/*.*; do
       # Update the main sources.list
       sed -i 's/bullseye/bookworm/gi' $pattern_file
   done
